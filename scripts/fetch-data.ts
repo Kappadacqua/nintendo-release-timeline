@@ -2,7 +2,7 @@
  * npm run data:fetch — builds public/data/games.json from IGDB, OpenCritic,
  * Wikipedia/Wikidata and data/overrides.json (SPEC §3–§5, §9).
  */
-import { mkdirSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname } from "node:path";
 import type { Game, GamesFile } from "../src/types";
 import { env, intEnv, PATHS, requireEnv } from "./lib/env";
@@ -46,7 +46,16 @@ async function main() {
     counts: { candidates: 0, included: 0 },
     exclusivityConflicts: [],
     wikipediaUnmatched: [],
-    opencritic: { enabled: false, searchesUsed: 0, requestsUsed: 0, budgetExhausted: false, unmatched: [], errors: [] },
+    opencritic: {
+      enabled: false,
+      searchesUsed: 0,
+      requestsUsed: 0,
+      budgetExhausted: false,
+      unmatched: [],
+      errors: [],
+      keptPrevious: [],
+      catalogSize: 0,
+    },
     excludedWithoutReviewPage: [],
     unverifiedReviewPage: [],
   };
@@ -179,6 +188,28 @@ async function main() {
   report.opencritic.enabled = !!oc;
   if (!oc) log("RAPIDAPI_KEY not set: skipping OpenCritic (scores N/D, DLC/editions not verified).");
 
+  // Last games.json: a score OpenCritic could not confirm this run is kept, never replaced by null.
+  const previous = new Map<string, Game>();
+  if (existsSync(PATHS.games)) {
+    for (const g of (JSON.parse(readFileSync(PATHS.games, "utf8")) as GamesFile).games) previous.set(g.id, g);
+  }
+  const failOpenCritic = (what: string, err: unknown, during: "search" | "request") => {
+    report.opencritic.errors.push(`${what}: ${(err as Error).message}`);
+    if (!(err instanceof HttpError) || ![401, 403, 429].includes(err.status)) return;
+    // Out of quota or bad key: stop calling, but keep serving what is cached.
+    if (err.status === 429 && during === "search") oc?.stopSearches("daily search quota reached");
+    else oc?.goOffline(err.status === 429 ? "RapidAPI daily request quota reached" : `API key rejected (HTTP ${err.status})`);
+  };
+
+  if (oc) {
+    try {
+      report.opencritic.catalogSize = await oc.loadCatalog(intEnv("OPENCRITIC_CATALOG_DAYS", 3));
+      log(`OpenCritic catalog: ${report.opencritic.catalogSize} Switch 2 games`);
+    } catch (err) {
+      failOpenCritic("Switch 2 catalog", err, "request");
+    }
+  }
+
   // Released games newest first, then upcoming ones soonest first, then TBA.
   const priority = ({ game }: (typeof games)[number]) => {
     const d = game.firstReleaseDate;
@@ -196,31 +227,49 @@ async function main() {
     let opencriticId: number | null = overrides[game.id]?.opencriticId ?? null;
     /** Whether "no OpenCritic page" is a real answer rather than an unchecked game. */
     let checked = opencriticId !== null;
+    /** Whether the OpenCritic score (or its absence) is a real answer from this run. */
+    let scoreKnown = false;
 
     if (oc && game.firstReleaseDate) {
+      const age = released ? daysSince(game.firstReleaseDate) : -1;
       try {
-        const age = released ? daysSince(game.firstReleaseDate) : -1;
         if (opencriticId === null) {
           const resolved = await oc.resolveId(game.id, game.title, age >= 0 && age < 30 ? 3 : 14);
           opencriticId = resolved ?? null;
           checked = resolved !== undefined;
-        }
-        if (opencriticId && released) {
-          const data = await oc.game(opencriticId, age < 45 ? 1 : 14);
-          if (data && data.topCriticScore >= 0) {
-            game.scores.critic.opencritic = score(Math.round(data.topCriticScore), 100, data.numTopCriticReviews);
-          }
-          game.links.opencritic = data?.url ?? `https://opencritic.com/game/${opencriticId}`;
-        }
-        // DLC / editions without a page are reported as excluded below instead.
-        if (!opencriticId && released && checked && !needsReviewPage) {
-          report.opencritic.unmatched.push({ id: game.id, title: game.title });
+          scoreKnown = resolved === null; // definitely no page, so no score
         }
       } catch (err) {
-        report.opencritic.errors.push(`${game.title}: ${(err as Error).message}`);
-        // Out of daily quota or bad key: stop calling, but keep serving what is cached.
-        if (err instanceof HttpError && (err.status === 429 || err.status === 401 || err.status === 403)) oc.goOffline();
+        failOpenCritic(game.title, err, "search");
       }
+
+      if (opencriticId && released) {
+        // Score from the catalog (refreshed for all games at once), top-critic count from the details.
+        const listed = oc.catalogEntry(opencriticId);
+        let details = null;
+        try {
+          details = await oc.game(opencriticId, age < 45 ? 1 : 14);
+        } catch (err) {
+          failOpenCritic(game.title, err, "request");
+        }
+        const value = listed?.topCriticScore ?? details?.topCriticScore;
+        if (value !== undefined) {
+          scoreKnown = true; // -1 = not enough reviews yet: a real "no score"
+          if (value >= 0) game.scores.critic.opencritic = score(Math.round(value), 100, details?.numTopCriticReviews ?? null);
+        }
+        game.links.opencritic = listed?.url ?? details?.url ?? `https://opencritic.com/game/${opencriticId}`;
+      }
+      // DLC / editions without a page are reported as excluded below instead.
+      if (!opencriticId && released && checked && !needsReviewPage) {
+        report.opencritic.unmatched.push({ id: game.id, title: game.title });
+      }
+    }
+
+    const before = previous.get(game.id)?.scores.critic.opencritic;
+    if (released && !scoreKnown && before && !game.scores.critic.opencritic) {
+      game.scores.critic.opencritic = before;
+      game.links.opencritic ??= previous.get(game.id)?.links.opencritic;
+      report.opencritic.keptPrevious.push({ id: game.id, title: game.title });
     }
 
     if (needsReviewPage && !opencriticId) {
@@ -240,7 +289,7 @@ async function main() {
     Object.assign(report.opencritic, {
       searchesUsed: oc.used.searches,
       requestsUsed: oc.used.requests,
-      budgetExhausted: oc.budgetExhausted,
+      budgetExhausted: oc.budgetExhausted || oc.offlineReason !== null,
     });
   }
 
@@ -259,8 +308,29 @@ async function main() {
   writeFileSync(PATHS.report, `${JSON.stringify(report, null, 2)}\n`);
 
   log(`Wrote ${final.length} games to public/data/games.json`);
-  if (oc) log(`OpenCritic: ${oc.used.searches} searches, ${oc.used.requests} requests${report.opencritic.budgetExhausted ? " — budget reached, run again tomorrow" : ""}`);
+  if (oc) {
+    const stop = oc.offlineReason ?? oc.searchesStopped;
+    const note = stop ? ` — stopped: ${stop}` : oc.budgetExhausted ? " — per-run budget reached, run again later" : "";
+    log(`OpenCritic: ${oc.used.searches} searches, ${oc.used.requests} requests${note}`);
+  }
   log("Run `npm run data:validate` for what needs manual data.");
+
+  // Problems must not scroll by unnoticed.
+  const { errors, keptPrevious } = report.opencritic;
+  if (errors.length || keptPrevious.length) {
+    const bar = "!".repeat(72);
+    console.error(`\n${bar}`);
+    if (errors.length) {
+      const stop = oc?.offlineReason ?? oc?.searchesStopped;
+      console.error(`⚠ OpenCritic: ${errors.length} call(s) failed${stop ? ` — ${stop}` : ""}:`);
+      for (const e of errors.slice(0, 5)) console.error(`    ${e}`);
+      if (errors.length > 5) console.error(`    … and ${errors.length - 5} more (data/fetch-report.json)`);
+    }
+    if (keptPrevious.length) {
+      console.error(`⚠ ${keptPrevious.length} game(s) kept their previous OpenCritic score instead of being set to null.`);
+    }
+    console.error(`${bar}\n`);
+  }
 }
 
 main().catch((err) => {

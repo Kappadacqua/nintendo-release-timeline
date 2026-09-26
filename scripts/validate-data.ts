@@ -84,6 +84,11 @@ if (report) {
       : "RAPIDAPI_KEY is not set, so they were kept without the check.",
   );
   section("OpenCritic errors", report.opencritic.errors);
+  section(
+    "OpenCritic scores kept from the previous fetch",
+    (report.opencritic.keptPrevious ?? []).map(label),
+    "OpenCritic could not be checked for these; the next successful fetch refreshes them.",
+  );
   if (report.opencritic.budgetExhausted) {
     console.log(dim("\nOpenCritic daily budget reached during the last fetch: some scores are stale or missing."));
   }

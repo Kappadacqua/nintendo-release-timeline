@@ -12,6 +12,10 @@ export interface FetchReport {
     /** Released games with no OpenCritic match (candidates for `opencriticId`). */
     unmatched: { id: string; title: string }[];
     errors: string[];
+    /** Released games whose score could not be checked this run: previous games.json value kept. */
+    keptPrevious: { id: string; title: string }[];
+    /** Switch 2 games in the cached OpenCritic catalog. */
+    catalogSize: number;
   };
   /** DLC / Switch 2 Editions left out because no OpenCritic page was found (SPEC §3). */
   excludedWithoutReviewPage: { id: string; title: string; kind: string }[];

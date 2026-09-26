@@ -5,7 +5,7 @@
     "igdb:417167": { "_title": "Hyrule Warriors: Age of Calamity - Definitive Edition", "exclusivity": "exclusive" },
     "igdb:405439": { "_title": "DK Challenge", "exclusivity": "exclusive" },
 
-    "igdb:405436": { "_title": "Pokémon Pokopia: Bubbly Basin", "include": true },
+    "igdb:405436": { "_title": "Pokémon Pokopia: Bubbly Basin", "include": true, "opencriticId": 21143 },
     "igdb:402033": { "_title": "Fitness Boxing 3: Your Personal Trainer - Nintendo Switch 2 Edition", "include": true },
 
     "igdb:363807": { "_title": "Hello, Mario!", "include": false },

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-26T16:01:56.317Z",
+  "generatedAt": "2026-09-26T17:04:20.779Z",
   "games": [
     {
       "id": "igdb:338093",
@@ -21,7 +21,12 @@
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
-          "opencritic": null,
+          "opencritic": {
+            "value": 81,
+            "scale": 100,
+            "normalized": 81,
+            "count": 19
+          },
           "metacritic": null
         },
         "user": {
@@ -30,7 +35,8 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/fast-fusion/"
+        "backloggd": "https://backloggd.com/games/fast-fusion/",
+        "opencritic": "https://opencritic.com/game/18663/fast-fusion"
       }
     },
     {
@@ -53,7 +59,12 @@
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
-          "opencritic": null,
+          "opencritic": {
+            "value": 87,
+            "scale": 100,
+            "normalized": 87,
+            "count": 77
+          },
           "metacritic": null
         },
         "user": {
@@ -62,7 +73,8 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/mario-kart-world/"
+        "backloggd": "https://backloggd.com/games/mario-kart-world/",
+        "opencritic": "https://opencritic.com/game/18333/mario-kart-world"
       }
     },
     {
@@ -84,7 +96,12 @@
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
-          "opencritic": null,
+          "opencritic": {
+            "value": 61,
+            "scale": 100,
+            "normalized": 61,
+            "count": 28
+          },
           "metacritic": null
         },
         "user": {
@@ -93,7 +110,8 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/nintendo-switch-2-welcome-tour/"
+        "backloggd": "https://backloggd.com/games/nintendo-switch-2-welcome-tour/",
+        "opencritic": "https://opencritic.com/game/18335/nintendo-switch-2-welcome-tour"
       }
     },
     {
@@ -115,7 +133,12 @@
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
-          "opencritic": null,
+          "opencritic": {
+            "value": 73,
+            "scale": 100,
+            "normalized": 73,
+            "count": 15
+          },
           "metacritic": null
         },
         "user": {
@@ -124,7 +147,8 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/puyo-puyo-tetris-2s/"
+        "backloggd": "https://backloggd.com/games/puyo-puyo-tetris-2s/",
+        "opencritic": "https://opencritic.com/game/18667/puyo-puyo-tetris-2s"
       }
     },
     {
@@ -179,7 +203,12 @@
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
-          "opencritic": null,
+          "opencritic": {
+            "value": 62,
+            "scale": 100,
+            "normalized": 62,
+            "count": 20
+          },
           "metacritic": null
         },
         "user": {
@@ -188,7 +217,8 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/survival-kids--1/"
+        "backloggd": "https://backloggd.com/games/survival-kids--1/",
+        "opencritic": "https://opencritic.com/game/18654/survival-kids"
       }
     },
     {
@@ -211,7 +241,12 @@
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
-          "opencritic": null,
+          "opencritic": {
+            "value": 88,
+            "scale": 100,
+            "normalized": 88,
+            "count": 9
+          },
           "metacritic": null
         },
         "user": {
@@ -220,7 +255,8 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/the-legend-of-zelda-breath-of-the-wild-nintendo-switch-2-edition/"
+        "backloggd": "https://backloggd.com/games/the-legend-of-zelda-breath-of-the-wild-nintendo-switch-2-edition/",
+        "opencritic": "https://opencritic.com/game/19281/the-legend-of-zelda-breath-of-the-wild-nintendo-switch-2-edition"
       }
     },
     {
@@ -243,7 +279,12 @@
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
-          "opencritic": null,
+          "opencritic": {
+            "value": 94,
+            "scale": 100,
+            "normalized": 94,
+            "count": 7
+          },
           "metacritic": null
         },
         "user": {
@@ -252,7 +293,8 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/the-legend-of-zelda-tears-of-the-kingdom-nintendo-switch-2-edition/"
+        "backloggd": "https://backloggd.com/games/the-legend-of-zelda-tears-of-the-kingdom-nintendo-switch-2-edition/",
+        "opencritic": "https://opencritic.com/game/19282/the-legend-of-zelda-tears-of-the-kingdom-nintendo-switch-2-edition"
       }
     },
     {
@@ -275,7 +317,12 @@
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
-          "opencritic": null,
+          "opencritic": {
+            "value": 91,
+            "scale": 100,
+            "normalized": 91,
+            "count": 85
+          },
           "metacritic": null
         },
         "user": {
@@ -284,7 +331,8 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/donkey-kong-bananza/"
+        "backloggd": "https://backloggd.com/games/donkey-kong-bananza/",
+        "opencritic": "https://opencritic.com/game/18340/donkey-kong-bananza"
       }
     },
     {
@@ -433,7 +481,12 @@
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
-          "opencritic": null,
+          "opencritic": {
+            "value": 84,
+            "scale": 100,
+            "normalized": 84,
+            "count": 35
+          },
           "metacritic": null
         },
         "user": {
@@ -442,7 +495,8 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/kirby-and-the-forgotten-land-nintendo-switch-2-edition-plus-star-crossed-world/"
+        "backloggd": "https://backloggd.com/games/kirby-and-the-forgotten-land-nintendo-switch-2-edition-plus-star-crossed-world/",
+        "opencritic": "https://opencritic.com/game/19162/kirby-and-the-forgotten-land-nintendo-switch-2-edition-star-crossed-world"
       }
     },
     {
@@ -466,7 +520,12 @@
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
-          "opencritic": null,
+          "opencritic": {
+            "value": 73,
+            "scale": 100,
+            "normalized": 73,
+            "count": 11
+          },
           "metacritic": null
         },
         "user": {
@@ -475,7 +534,8 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/donkey-kong-bananza-dk-island-and-emerald-rush/"
+        "backloggd": "https://backloggd.com/games/donkey-kong-bananza-dk-island-and-emerald-rush/",
+        "opencritic": "https://opencritic.com/game/19306/donkey-kong-bananza-dk-island-emerald-rush"
       }
     },
     {
@@ -594,7 +654,12 @@
       "alsoOnSwitch1": true,
       "scores": {
         "critic": {
-          "opencritic": null,
+          "opencritic": {
+            "value": 79,
+            "scale": 100,
+            "normalized": 79,
+            "count": 58
+          },
           "metacritic": null
         },
         "user": {
@@ -603,7 +668,8 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/pokemon-legends-z-a/"
+        "backloggd": "https://backloggd.com/games/pokemon-legends-z-a/",
+        "opencritic": "https://opencritic.com/game/18645/pokemon-legends-z-a"
       }
     },
     {
@@ -626,7 +692,12 @@
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
-          "opencritic": null,
+          "opencritic": {
+            "value": 79,
+            "scale": 100,
+            "normalized": 79,
+            "count": 56
+          },
           "metacritic": null
         },
         "user": {
@@ -635,7 +706,8 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/hyrule-warriors-age-of-imprisonment/"
+        "backloggd": "https://backloggd.com/games/hyrule-warriors-age-of-imprisonment/",
+        "opencritic": "https://opencritic.com/game/19291/hyrule-warriors-age-of-imprisonment"
       }
     },
     {
@@ -658,7 +730,12 @@
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
-          "opencritic": null,
+          "opencritic": {
+            "value": 82,
+            "scale": 100,
+            "normalized": 82,
+            "count": 58
+          },
           "metacritic": null
         },
         "user": {
@@ -667,7 +744,8 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/kirby-air-riders/"
+        "backloggd": "https://backloggd.com/games/kirby-air-riders/",
+        "opencritic": "https://opencritic.com/game/19310/kirby-air-riders"
       }
     },
     {
@@ -690,7 +768,12 @@
       "alsoOnSwitch1": true,
       "scores": {
         "critic": {
-          "opencritic": null,
+          "opencritic": {
+            "value": 80,
+            "scale": 100,
+            "normalized": 80,
+            "count": 68
+          },
           "metacritic": null
         },
         "user": {
@@ -699,7 +782,8 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/metroid-prime-4-beyond/"
+        "backloggd": "https://backloggd.com/games/metroid-prime-4-beyond/",
+        "opencritic": "https://opencritic.com/game/16868/metroid-prime-4-beyond"
       }
     },
     {
@@ -1469,7 +1553,12 @@
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
-          "opencritic": null,
+          "opencritic": {
+            "value": 88,
+            "scale": 100,
+            "normalized": 88,
+            "count": 17
+          },
           "metacritic": null
         },
         "user": {
@@ -1478,7 +1567,8 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/pokemon-pokopia-bubbly-basin/"
+        "backloggd": "https://backloggd.com/games/pokemon-pokopia-bubbly-basin/",
+        "opencritic": "https://opencritic.com/game/21143/pok-mon-pokopia-expansion-pass-part-1-bubbly-basin"
       }
     },
     {
