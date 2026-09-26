@@ -8,6 +8,7 @@ import { dayToDate, MONTHS, parseDay, todayEpochDay, WEEKDAYS } from "./dates";
 import { TimelineHeader } from "./header";
 import { Minimap } from "./minimap";
 import { bindScrollInput, Scroller } from "./scroller";
+import { Backdrop } from "./backdrop";
 import { SiteTitle } from "./site-title";
 import { createTbaBlockNode, layoutTba, TBA_LAYOUT, type TbaBlock } from "./tba";
 
@@ -101,6 +102,7 @@ export class Timeline {
   /** Index in `stops` of the selected card, or -1. */
   private selected = -1;
   private readonly siteTitle: SiteTitle | null;
+  private readonly backdrop = new Backdrop();
 
   constructor(root: HTMLElement, games: Game[], headerSlot?: HTMLElement, titleEl?: HTMLElement) {
     const lastRelease = games
@@ -221,6 +223,9 @@ export class Timeline {
     this.el.classList.add("has-selection");
     expandCard(card, stop.game, this.todayDay, stop.anchor, () => this.visibleBand());
     this.siteTitle?.show(stop.game);
+    this.backdrop.show(stop.game);
+    // Neighbours' images ready before PagSu / PagGiù.
+    for (const n of [index - 1, index + 1]) this.backdrop.preload(this.stops[n]?.game.backgroundUrl);
     this.scroller.scrollTo(stop.x);
   }
 
@@ -231,6 +236,7 @@ export class Timeline {
     this.selected = -1;
     this.el.classList.remove("has-selection");
     this.siteTitle?.clear();
+    this.backdrop.hide();
   }
 
   private unmark(index: number) {

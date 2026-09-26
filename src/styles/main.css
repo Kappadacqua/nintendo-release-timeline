@@ -1096,3 +1096,62 @@ kbd {
 .card.is-selected .card__upcoming-when {
   display: none;
 }
+
+/* ---------- Background of the selected game (ITERATION-2 §4) ---------- */
+
+.backdrop {
+  position: fixed;
+  z-index: -1; /* behind everything, above the page background */
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.backdrop__layer {
+  position: absolute;
+  inset: -80px; /* the blur would otherwise fade at the edges */
+  background: center / cover no-repeat;
+  filter: blur(var(--backdrop-blur)) saturate(1.25);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.backdrop__layer.is-cover {
+  filter: blur(var(--backdrop-blur-cover)) saturate(1.4);
+}
+
+.backdrop__layer.is-visible {
+  opacity: var(--backdrop-opacity);
+}
+
+/* Veil in the theme background colour keeps text and cards readable. */
+.backdrop::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--bg);
+  opacity: var(--backdrop-veil);
+}
+
+:root {
+  --backdrop-blur: 28px;
+  --backdrop-blur-cover: 70px;
+  --backdrop-opacity: 1;
+  --backdrop-veil: 0.72;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --backdrop-veil: 0.66;
+  }
+}
+
+:root[data-theme="dark"] {
+  --backdrop-veil: 0.66;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backdrop__layer {
+    transition: none;
+  }
+}
