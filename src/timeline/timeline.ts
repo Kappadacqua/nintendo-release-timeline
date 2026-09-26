@@ -1,4 +1,5 @@
 import { hideCard, revealCard } from "../cards/appear";
+import { type Anchor, collapseCard, expandCard } from "../cards/expand";
 import { type Card, cardWidth, createCard } from "../cards/card";
 import { assignLanes, type Lane } from "../cards/layout";
 import type { Game } from "../types";
@@ -7,6 +8,7 @@ import { dayToDate, MONTHS, parseDay, todayEpochDay, WEEKDAYS } from "./dates";
 import { TimelineHeader } from "./header";
 import { Minimap } from "./minimap";
 import { bindScrollInput, Scroller } from "./scroller";
+import { SiteTitle } from "./site-title";
 import { createTbaBlockNode, layoutTba, TBA_LAYOUT, type TbaBlock } from "./tba";
 
 interface Item {
@@ -40,8 +42,15 @@ function svgPath(className: string) {
 /** A game the keyboard can land on: dated card or TBA card, in timeline order. */
 interface Stop {
   x: number;
+  game: Game;
+  /** Which way the card grows when selected (toward the line for dated cards). */
+  anchor: Anchor;
   /** Creates the card on demand and returns it. */
   card: () => HTMLElement;
+  /** Makes sure the entrance animation has run (a selected card must be visible). */
+  reveal: () => void;
+  /** Element to lift above the others while selected. */
+  layer: () => HTMLElement;
 }
 
 interface Palette {
@@ -89,7 +98,11 @@ export class Timeline {
   private movingFocus = false;
   private cardScale = 1;
 
-  constructor(root: HTMLElement, games: Game[], headerSlot?: HTMLElement) {
+  /** Index in `stops` of the selected card, or -1. */
+  private selected = -1;
+  private readonly siteTitle: SiteTitle | null;
+
+  constructor(root: HTMLElement, games: Game[], headerSlot?: HTMLElement, titleEl?: HTMLElement) {
     const lastRelease = games
       .flatMap((g) => Object.values(g.releaseDates))
       .filter((d): d is string => !!d)
@@ -131,16 +144,32 @@ export class Timeline {
     (headerSlot ?? this.el).append(this.header.el);
     root.append(this.el);
     this.el.addEventListener("focusin", (e) => this.onFocusIn(e));
+    this.el.addEventListener("click", (e) => this.onClick(e));
+    this.el.addEventListener("keydown", (e) => this.onCardKey(e));
+    this.siteTitle = titleEl ? new SiteTitle(titleEl) : null;
 
     this.scroller = new Scroller((x) => this.render(x));
     this.scroller.snap = (x) => this.snapToDay(x);
     bindScrollInput(this.el, this.scroller, {
       dayPx: TIMELINE.dayPx,
-      onDayStep: (days) => this.scroller.scrollTo(this.snapToDay(this.scroller.target) + days * TIMELINE.dayPx),
-      onToday: () => this.scroller.scrollTo(this.dayX(this.todayDay)),
-      onHome: () => this.scroller.scrollTo(0),
-      onEnd: () => this.scroller.scrollTo(this.worldEnd),
-      onEscape: () => {},
+      onDayStep: (days) => {
+        this.deselect();
+        this.scroller.scrollTo(this.snapToDay(this.scroller.target) + days * TIMELINE.dayPx);
+      },
+      onToday: () => {
+        this.deselect();
+        this.scroller.scrollTo(this.dayX(this.todayDay));
+      },
+      onHome: () => {
+        this.deselect();
+        this.scroller.scrollTo(0);
+      },
+      onEnd: () => {
+        this.deselect();
+        this.scroller.scrollTo(this.worldEnd);
+      },
+      onEscape: () => this.deselect(),
+      onDragStart: () => this.deselect(),
       onGameStep: (direction) => this.stepGame(direction),
       onKeyNavigate: () => this.followWithFocus(),
     });
@@ -157,31 +186,134 @@ export class Timeline {
   }
 
   /** Center the next / previous game (dated or TBA) relative to where the scroll is heading. */
+  /**
+   * PagGiù / PagSu: the game after / before the selected one or, with nothing
+   * selected, the first game strictly after (before) the playhead.
+   */
   private stepGame(direction: 1 | -1) {
-    const xs = [...this.items.map((i) => i.x), ...this.tbaBlocks.flatMap((b) => b.slots.map((s) => s.x))].sort(
-      (a, b) => a - b,
-    );
-    const from = this.scroller.target;
-    const next = direction > 0 ? xs.find((x) => x > from + 1) : [...xs].reverse().find((x) => x < from - 1);
-    if (next !== undefined) this.scroller.scrollTo(next);
+    let next: number;
+    if (this.selected >= 0) {
+      next = this.selected + direction;
+    } else {
+      const at = this.scroller.target;
+      next = direction > 0 ? this.stops.findIndex((s) => s.x > at + 0.5) : this.stops.findLastIndex((s) => s.x < at - 0.5);
+    }
+    if (next >= 0 && next < this.stops.length) this.select(next);
   }
 
-  private buildStops(): Stop[] {
-    const dated: Stop[] = this.items.map((item) => ({
-      x: item.x,
-      card: () => (item.node ??= this.createNode(item)).card.el,
-    }));
-    const tba: Stop[] = this.tbaBlocks.flatMap((block) =>
-      block.slots.map((slot) => ({
-        x: slot.x,
-        card: () => {
-          if (!block.node) this.createTbaNode(block);
-          return slot.card!.el;
-        },
-      })),
-    );
-    return [...dated, ...tba].sort((a, b) => a.x - b.x);
+  /** Selects a game by id, e.g. from search (ITERATION-3); returns false if it isn't on the timeline. */
+  selectById(gameId: string) {
+    const index = this.stops.findIndex((s) => s.game.id === gameId);
+    if (index >= 0) this.select(index);
+    return index >= 0;
   }
+
+  private select(index: number) {
+    if (index === this.selected) return;
+    const stop = this.stops[index];
+    if (this.selected >= 0) this.unmark(this.selected);
+    this.selected = index;
+    this.setCurrent(index);
+    stop.reveal();
+    const card = stop.card();
+    card.closest<HTMLElement>("[hidden]")?.removeAttribute("hidden");
+    stop.layer().classList.add("is-selected-layer");
+    this.el.classList.add("has-selection");
+    expandCard(card, stop.game, this.todayDay, stop.anchor, () => this.visibleBand());
+    this.siteTitle?.show(stop.game);
+    this.scroller.scrollTo(stop.x);
+  }
+
+  /** Esc, scrolling, clicks on empty space…: back to plain browsing. */
+  private deselect() {
+    if (this.selected < 0) return;
+    this.unmark(this.selected);
+    this.selected = -1;
+    this.el.classList.remove("has-selection");
+    this.siteTitle?.clear();
+  }
+
+  private unmark(index: number) {
+    const stop = this.stops[index];
+    collapseCard(stop.card());
+    stop.layer().classList.remove("is-selected-layer");
+  }
+
+  /** Where a selected card must fit: between the top of the timeline and the minimap. */
+  private visibleBand() {
+    const r = this.el.getBoundingClientRect();
+    return new DOMRect(r.left, r.top + 8, r.width, r.height - TIMELINE.minimapBandPx - 16);
+  }
+
+  private stopOfCard(card: Element) {
+    const id = (card as HTMLElement).dataset.gameId;
+    return this.stops.findIndex((s) => s.game.id === id);
+  }
+
+  /** Click on a card selects it (never follows a link until it is selected); elsewhere deselects. */
+  private onClick(e: MouseEvent) {
+    const target = e.target as HTMLElement;
+    if (target.closest(".minimap")) return;
+    const card = target.closest(".card");
+    if (!card) return this.deselect();
+    const index = this.stopOfCard(card);
+    if (index < 0 || index === this.selected) return;
+    e.preventDefault();
+    this.select(index);
+  }
+
+  /** Enter / Space on a focused card selects it. */
+  private onCardKey(e: KeyboardEvent) {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    const target = e.target as HTMLElement;
+    if (!target.classList.contains("card")) return;
+    const index = this.stopOfCard(target);
+    if (index < 0) return;
+    e.preventDefault();
+    this.select(index);
+  }
+
+
+  private buildStops(): Stop[] {
+    const dated: Stop[] = this.items.map((item) => {
+      const node = () => (item.node ??= this.createNode(item));
+      return {
+        x: item.x,
+        game: item.game,
+        anchor: item.lane.side,
+        card: () => node().card.el,
+        layer: () => node().root,
+        reveal: () => {
+          if (item.revealed) return;
+          item.revealed = true;
+          revealCard(node().connectors, node().card, item.lane.side);
+        },
+      };
+    });
+    const tba: Stop[] = this.tbaBlocks.flatMap((block) =>
+      block.slots.map((slot) => {
+        const card = () => {
+          if (!block.node) this.createTbaNode(block);
+          return slot.card!;
+        };
+        return {
+          x: slot.x,
+          game: slot.game,
+          anchor: "center" as const,
+          card: () => card().el,
+          layer: () => card().el,
+          reveal: () => {
+            if (slot.revealed) return;
+            slot.revealed = true;
+            revealCard(null, card(), "above");
+          },
+        };
+      }),
+    );
+    // By first release date, then title; the TBA zone comes last, by year (its x order).
+    return [...dated, ...tba].sort((a, b) => a.x - b.x || a.game.title.localeCompare(b.game.title));
+  }
+
 
   private nearestStop(x: number) {
     let best = -1;
@@ -214,7 +346,7 @@ export class Timeline {
     if (this.movingFocus) return;
     const card = (e.target as HTMLElement).closest<HTMLElement>(".card");
     if (!card || !card.matches(":focus-visible, :has(:focus-visible)")) return;
-    const index = this.stops.findIndex((s) => s.card() === card);
+    const index = this.stopOfCard(card);
     if (index < 0) return;
     this.setCurrent(index);
     if (Math.abs(this.scroller.target - this.stops[index].x) > 1) this.scroller.scrollTo(this.stops[index].x);
@@ -223,7 +355,7 @@ export class Timeline {
   /** After keyboard navigation, focus follows the game nearest to where the view is heading. */
   private followWithFocus() {
     if (!this.el.contains(document.activeElement)) return;
-    const index = this.nearestStop(this.scroller.target);
+    const index = this.selected >= 0 ? this.selected : this.nearestStop(this.scroller.target);
     if (index < 0) return;
     this.setCurrent(index);
     const card = this.stops[index].card();
@@ -353,7 +485,11 @@ export class Timeline {
       dots,
       todayX: this.dayX(this.todayDay),
       tba: this.tbaBlocks.length ? { startX: this.tbaStartX, endX: this.worldEnd } : null,
-      onSeek: (x, smooth) => (smooth ? this.scroller.scrollTo(x) : this.scroller.jumpTo(x)),
+      onSeek: (x, smooth) => {
+        this.deselect();
+        if (smooth) this.scroller.scrollTo(x);
+        else this.scroller.jumpTo(x);
+      },
       onSeekEnd: () => this.scroller.settle(),
     });
   }
@@ -483,7 +619,7 @@ export class Timeline {
     this.drawCanvas(left);
     // Before the initial jump to today, don't create or reveal any cards.
     if (this.ready) {
-      this.setCurrent(this.nearestStop(center));
+      this.setCurrent(this.selected >= 0 ? this.selected : this.nearestStop(center));
       // During a long glide (e.g. a minimap jump) cards flying past keep their one-shot entrance.
       const settling = Math.abs(this.scroller.target - center) < this.width;
       this.updateItems(left, settling);

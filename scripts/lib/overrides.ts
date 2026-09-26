@@ -25,6 +25,8 @@ export interface ManualGame {
   title: string;
   baseGameTitle?: string;
   coverUrl?: string;
+  summary?: string;
+  backgroundUrl?: string;
   developer?: string | null;
   genres?: string[];
   /** Precise dates ("YYYY-MM-DD"); leave out or null for TBA. */
@@ -63,6 +65,8 @@ export function manualToGame(m: ManualGame): Game {
     kind: m.kind ?? "game",
     title: m.title,
     coverUrl: m.coverUrl ?? "/covers/placeholder.svg",
+    summary: m.summary ?? null,
+    backgroundUrl: m.backgroundUrl ?? m.coverUrl ?? null,
     developer: m.developer ?? null,
     genres: m.genres ?? [],
     releaseDates,

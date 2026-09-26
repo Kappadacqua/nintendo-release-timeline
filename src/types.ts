@@ -15,6 +15,8 @@ export interface Game {
   title: string;
   baseGameTitle?: string; // DLC only
   coverUrl: string;
+  summary: string | null; // IGDB summary
+  backgroundUrl: string | null; // IGDB artwork → screenshot → cover
   developer: string | null;
   genres: string[];
   releaseDates: Partial<Record<Region, string | null>>; // "YYYY-MM-DD" or null = TBA
@@ -32,7 +34,13 @@ export interface Game {
       backloggd: Score | null; // original 0–5
     };
   };
-  links: { opencritic?: string; metacritic?: string; backloggd?: string };
+  links: {
+    opencritic?: string;
+    metacritic?: string;
+    backloggd?: string;
+    wikipedia?: string;
+    nintendoWiki?: string;
+  };
 }
 
 export interface GamesFile {

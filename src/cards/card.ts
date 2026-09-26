@@ -100,6 +100,7 @@ export function createCard(game: Game, todayDay: number): Card {
 
   const card = el("article", `card card--${game.kind}${isUpcoming ? " card--upcoming" : ""}`);
   card.style.width = `${cardWidth(game)}px`;
+  card.dataset.gameId = game.id;
   card.setAttribute("aria-label", describe(game, isUpcoming));
   // Roving focus: the timeline makes the centered card (and its links) tabbable.
   card.tabIndex = -1;

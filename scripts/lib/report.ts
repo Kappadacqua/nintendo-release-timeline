@@ -17,6 +17,8 @@ export interface FetchReport {
     /** Switch 2 games in the cached OpenCritic catalog. */
     catalogSize: number;
   };
+  /** Wikipedia / Nintendo Wiki lookups that failed (previous links kept). */
+  linkErrors: string[];
   /** DLC / Switch 2 Editions left out because no OpenCritic page was found (SPEC §3). */
   excludedWithoutReviewPage: { id: string; title: string; kind: string }[];
   /** DLC / Switch 2 Editions kept without that check (OpenCritic off or out of budget). */

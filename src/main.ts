@@ -31,7 +31,7 @@ const status = app.querySelector<HTMLElement>(".app-status")!;
 loadGames()
   .then((games) => {
     status.remove();
-    new Timeline(app, games, document.querySelector<HTMLElement>("#timeline-date")!);
+    new Timeline(app, games, document.querySelector<HTMLElement>("#timeline-date")!, document.querySelector<HTMLElement>(".app-title")!);
   })
   .catch((err: unknown) => {
     status.textContent = `Couldn't load the games (${err instanceof Error ? err.message : String(err)}).`;

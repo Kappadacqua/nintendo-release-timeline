@@ -3,7 +3,8 @@ import { fetchJson, Throttle } from "./http";
 // Verified: https://www.igdb.com/platforms/switch-2 → 508, Switch → 130.
 export const PLATFORM = { SWITCH: 130, SWITCH_2: 508 } as const;
 
-export const IMAGE_URL = (imageId: string) => `https://images.igdb.com/igdb/image/upload/t_cover_big/${imageId}.jpg`;
+export const IMAGE_URL = (imageId: string, size = "cover_big") =>
+  `https://images.igdb.com/igdb/image/upload/t_${size}/${imageId}.jpg`;
 
 /**
  * Fields requested for every game. Uses the post-2025 table fields
@@ -19,6 +20,9 @@ export const GAME_FIELDS = [
   "parent_game.name",
   "version_parent",
   "cover.image_id",
+  "summary",
+  "artworks.image_id",
+  "screenshots.image_id",
   "genres.name",
   "involved_companies.company.name",
   "involved_companies.developer",
@@ -48,6 +52,9 @@ export interface IgdbGame {
   parent_game?: { id: number; name?: string };
   version_parent?: number;
   cover?: { image_id?: string };
+  summary?: string;
+  artworks?: { image_id?: string }[];
+  screenshots?: { image_id?: string }[];
   genres?: { name: string }[];
   involved_companies?: { company?: { name?: string }; developer?: boolean; publisher?: boolean }[];
   release_dates?: IgdbReleaseDate[];

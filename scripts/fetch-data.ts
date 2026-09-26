@@ -8,6 +8,7 @@ import type { Game, GamesFile } from "../src/types";
 import { env, intEnv, PATHS, requireEnv } from "./lib/env";
 import { ExclusivityHistory } from "./lib/exclusivity";
 import { HttpError } from "./lib/http";
+import { nintendoWikiByTitle, wikipediaBySlug, wikipediaUrl } from "./lib/links";
 import { Igdb, type IgdbGame, PLATFORM } from "./lib/igdb";
 import { OpenCritic } from "./lib/opencritic";
 import { applyOverride, loadOverrides, manualToGame, score } from "./lib/overrides";
@@ -56,6 +57,7 @@ async function main() {
       keptPrevious: [],
       catalogSize: 0,
     },
+    linkErrors: [],
     excludedWithoutReviewPage: [],
     unverifiedReviewPage: [],
   };
@@ -90,6 +92,8 @@ async function main() {
   const userAgent = `NintendoReleaseTimeline/0.1 (personal project; ${env("WIKI_CONTACT") ?? "no contact set"})`;
   const wikiGames = await fetchSwitch2OnlyGames(userAgent);
   const wikiIds = new Set<number>();
+  /** Wikipedia page title per game id ("igdb:…" / "manual:…"), from the category match. */
+  const wikiPageById = new Map<string, string>();
   /** "manual:…" ids named by a Wikipedia page through overrides.wikipedia. */
   const wikiManualIds = new Set<string>();
   const bySlug = new Map((await igdb.gamesBySlugs(wikiGames.flatMap((w) => w.igdbSlug ?? []))).map((g) => [g.slug, g]));
@@ -103,11 +107,13 @@ async function main() {
       for (const id of forcedMatch) {
         if (id.startsWith("manual:")) {
           wikiManualIds.add(id);
+          wikiPageById.set(id, w.title);
           continue;
         }
         const g = forcedWikiGames.get(Number(id.slice(5)));
         if (g) {
           wikiIds.add(g.id);
+          wikiPageById.set(`igdb:${g.id}`, w.title);
           candidates.set(g.id, g);
         }
       }
@@ -124,6 +130,7 @@ async function main() {
       continue;
     }
     wikiIds.add(hit.id);
+    wikiPageById.set(`igdb:${hit.id}`, w.title);
     candidates.set(hit.id, hit);
   }
   log(`Wikipedia "Switch 2-only" category: ${wikiGames.length} pages, ${wikiIds.size} matched on IGDB`);
@@ -139,6 +146,7 @@ async function main() {
   const history = new ExclusivityHistory(PATHS.history);
   const firstParty = new Set(firstPartyIds);
   let games: { game: Game; forced: boolean }[] = [];
+  const slugById = new Map<string, string>();
 
   for (const g of candidates.values()) {
     const override = overrides[`igdb:${g.id}`];
@@ -166,6 +174,7 @@ async function main() {
     }
     game.exclusivity = history.resolve(game.id, game.title, exIgdb || exWiki);
     games.push({ game, forced });
+    slugById.set(game.id, g.slug);
   }
 
   // Hand-written games missing from IGDB: always shown unless "include": false.
@@ -293,6 +302,38 @@ async function main() {
     });
   }
 
+  // --- Wikipedia and Nintendo Wiki links (ITERATION-2 §7). On failure the previous links stay.
+  const keepPreviousLinks = (key: "wikipedia" | "nintendoWiki") => {
+    for (const { game } of games) {
+      const before = previous.get(game.id)?.links[key];
+      if (before) game.links[key] ??= before;
+    }
+  };
+  try {
+    const bySlug = await wikipediaBySlug([...new Set(slugById.values())], userAgent);
+    for (const { game } of games) {
+      const slug = slugById.get(game.id);
+      const page = wikiPageById.get(game.id);
+      const url = (slug && bySlug.get(slug)) || (page && wikipediaUrl(page));
+      if (url) game.links.wikipedia = url;
+    }
+  } catch (err) {
+    report.linkErrors.push(`Wikipedia (Wikidata): ${(err as Error).message}`);
+    keepPreviousLinks("wikipedia");
+  }
+  try {
+    const byTitle = await nintendoWikiByTitle(games.map(({ game }) => game.title), userAgent);
+    for (const { game } of games) {
+      const url = byTitle.get(game.title);
+      if (url) game.links.nintendoWiki = url;
+    }
+  } catch (err) {
+    report.linkErrors.push(`Nintendo Wiki: ${(err as Error).message}`);
+    keepPreviousLinks("nintendoWiki");
+  }
+  const withLink = (key: "wikipedia" | "nintendoWiki") => games.filter(({ game }) => game.links[key]).length;
+  log(`Links: Wikipedia ${withLink("wikipedia")}/${games.length}, Nintendo Wiki ${withLink("nintendoWiki")}/${games.length}`);
+
   // --- Overrides and output.
   // Dated games by date, then TBA by expected year (unknown year last), then title.
   const sortKey = (g: Game) => g.firstReleaseDate ?? `9999-${g.vagueRelease?.year ?? 9999}`;
@@ -317,7 +358,7 @@ async function main() {
 
   // Problems must not scroll by unnoticed.
   const { errors, keptPrevious } = report.opencritic;
-  if (errors.length || keptPrevious.length) {
+  if (errors.length || keptPrevious.length || report.linkErrors.length) {
     const bar = "!".repeat(72);
     console.error(`\n${bar}`);
     if (errors.length) {
@@ -326,6 +367,7 @@ async function main() {
       for (const e of errors.slice(0, 5)) console.error(`    ${e}`);
       if (errors.length > 5) console.error(`    … and ${errors.length - 5} more (data/fetch-report.json)`);
     }
+    for (const e of report.linkErrors) console.error(`⚠ ${e.slice(0, 200)} — previous links kept`);
     if (keptPrevious.length) {
       console.error(`⚠ ${keptPrevious.length} game(s) kept their previous OpenCritic score instead of being set to null.`);
     }

@@ -128,13 +128,60 @@ a {
 }
 
 .app-title {
-  display: flex;
+  display: grid;
   align-items: center;
-  gap: 12px;
+  justify-items: start;
+  min-width: 0;
   margin: 0;
   font-size: 22px;
   font-weight: 900;
   letter-spacing: -0.01em;
+}
+
+/* Site name and selected game share one cell and cross-fade. */
+.app-title__site,
+.app-title__game {
+  grid-area: 1 / 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.app-title__game {
+  opacity: 0;
+  transform: translateY(6px);
+  pointer-events: none;
+}
+
+.app-title.is-game .app-title__site {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+
+.app-title.is-game .app-title__game {
+  opacity: 1;
+  transform: none;
+}
+
+.app-title__game img {
+  flex: none;
+  width: 34px;
+  height: 46px;
+  border-radius: 6px;
+  object-fit: cover;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.2);
+}
+
+.app-title__game-name {
+  overflow: hidden;
+  font-size: 18px;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .app-title__dot {
@@ -961,4 +1008,91 @@ kbd {
   color: #fff;
   font: 800 14px var(--font);
   cursor: pointer;
+}
+
+/* ---------- Selection (ITERATION-2 §3) ---------- */
+
+.card {
+  transition:
+    box-shadow 0.2s ease,
+    border-color 0.2s ease,
+    filter 0.3s ease;
+}
+
+.timeline.has-selection .card:not(.is-selected) {
+  filter: opacity(0.5);
+}
+
+.card.is-selected {
+  border-color: var(--accent);
+  box-shadow:
+    0 0 0 2px var(--accent),
+    0 0 32px color-mix(in srgb, var(--accent) 45%, transparent),
+    var(--card-shadow-hover);
+}
+
+.tl-item.is-selected-layer {
+  z-index: 40 !important;
+}
+
+.tba-block .card.is-selected {
+  z-index: 2;
+}
+
+.card__more {
+  overflow: hidden;
+}
+
+.card__when {
+  margin: 10px 0 0;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+}
+
+.card__summary {
+  display: -webkit-box;
+  margin: 6px 0 0;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--text-muted);
+}
+
+.card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.card-button {
+  padding: 6px 12px;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.card-button:hover {
+  filter: brightness(1.1);
+}
+
+.card-button.is-disabled {
+  border-color: var(--border);
+  background: var(--surface-2);
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+/* The expanded card shows the relative time once, in .card__when. */
+.card.is-selected .card__upcoming-when {
+  display: none;
 }

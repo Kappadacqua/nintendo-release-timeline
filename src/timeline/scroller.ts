@@ -99,6 +99,8 @@ export function bindScrollInput(
     onEnd: () => void;
     /** Esc. */
     onEscape: () => void;
+    /** A press turned into a drag. */
+    onDragStart: () => void;
     /** Page Down / Page Up: jump to the next / previous game. */
     onGameStep: (direction: 1 | -1) => void;
     /** After any keyboard navigation (lets focus follow the centered game). */
@@ -154,6 +156,7 @@ export function bindScrollInput(
     if (!dragging) {
       if (Math.abs(e.clientX - startX) < DRAG_THRESHOLD) return;
       dragging = true;
+      opts.onDragStart();
       el.setPointerCapture(e.pointerId);
       el.classList.add("is-dragging");
     }

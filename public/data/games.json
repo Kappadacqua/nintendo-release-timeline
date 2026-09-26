@@ -1,11 +1,13 @@
 {
-  "generatedAt": "2026-09-26T17:04:20.779Z",
+  "generatedAt": "2026-09-26T17:23:34.616Z",
   "games": [
     {
       "id": "igdb:338093",
       "kind": "game",
       "title": "Fast Fusion",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobaub.jpg",
+      "summary": "The fastest racing game you may have ever experienced! Non stop adrenaline pumping action at 60 fps in up to 4K HDR.\n\nFAST Fusion vehicles are equipped with antigravity hyper jump technology. Cut corners and get ahead of your oppenents by jumping and boosting over them.\n\nCreate hundreds of new Racing machines by fusing your favorite vehicles.\n\nZoom through Redwood Forest, Alpine peaks, futuristic cities and many more breathtaking landscapes.\n\nPlay with smooth motion controls, enjoy immersive HD Rumble and customize the buttons.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar3k7k.jpg",
       "developer": "Shin'en Multimedia",
       "genres": [
         "Racing",
@@ -36,7 +38,9 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/fast-fusion/",
-        "opencritic": "https://opencritic.com/game/18663/fast-fusion"
+        "opencritic": "https://opencritic.com/game/18663/fast-fusion",
+        "wikipedia": "https://en.wikipedia.org/wiki/Fast_Fusion",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/FAST_Fusion"
       }
     },
     {
@@ -44,6 +48,8 @@
       "kind": "game",
       "title": "Mario Kart World",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cob9s9.jpg",
+      "summary": "Mario Kart World is a kart racing game for the Nintendo Switch 2, featuring characters from the Mario franchise. It introduces an open-world design to the series, allowing players to drive freely between courses rather than selecting them from a menu. Races support up to 24 players and include new mechanics such as off-roading, boat racing, rail grinding, and wall riding. The game features a Knockout Tour elimination mode where racers compete across connected courses with periodic eliminations at checkpoints, as well as a Free Roam mode for open exploration and collectible-finding.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar4973.jpg",
       "developer": "Nintendo EPD Production Group No. 9",
       "genres": [
         "Racing",
@@ -74,7 +80,9 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/mario-kart-world/",
-        "opencritic": "https://opencritic.com/game/18333/mario-kart-world"
+        "opencritic": "https://opencritic.com/game/18333/mario-kart-world",
+        "wikipedia": "https://en.wikipedia.org/wiki/Mario_Kart_World",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Mario_Kart_World"
       }
     },
     {
@@ -82,6 +90,8 @@
       "kind": "game",
       "title": "Nintendo Switch 2 Welcome Tour",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobcnv.jpg",
+      "summary": "Enter a virtual exhibition and gain insights into what makes Nintendo Switch 2 such a unique gaming experience. Through tech demos, minigames and other interactions, players will get to know the new system inside and out in ways they may never have known about otherwise.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar3wbw.jpg",
       "developer": "Nintendo Cube",
       "genres": [
         "Arcade"
@@ -111,7 +121,9 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/nintendo-switch-2-welcome-tour/",
-        "opencritic": "https://opencritic.com/game/18335/nintendo-switch-2-welcome-tour"
+        "opencritic": "https://opencritic.com/game/18335/nintendo-switch-2-welcome-tour",
+        "wikipedia": "https://en.wikipedia.org/wiki/Nintendo_Switch_2_Welcome_Tour",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Nintendo_Switch_2_Welcome_Tour"
       }
     },
     {
@@ -119,6 +131,8 @@
       "kind": "game",
       "title": "Puyo Puyo Tetris 2S",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co9mvr.jpg",
+      "summary": "The Ultimate Puzzle Match, now Enhanced",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar3k7j.jpg",
       "developer": "Sega",
       "genres": [
         "Puzzle"
@@ -148,7 +162,9 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/puyo-puyo-tetris-2s/",
-        "opencritic": "https://opencritic.com/game/18667/puyo-puyo-tetris-2s"
+        "opencritic": "https://opencritic.com/game/18667/puyo-puyo-tetris-2s",
+        "wikipedia": "https://en.wikipedia.org/wiki/Puyo_Puyo_Tetris_2S",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Puyo_Puyo_Tetris_2S"
       }
     },
     {
@@ -156,6 +172,8 @@
       "kind": "game",
       "title": "Shine Post: Be Your Idol!",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co9m6w.jpg",
+      "summary": "Shine Post: Be Your Idol! is a Japanese idol-raising game and part of the Shine Post multimedia franchise. The game features an original story and also includes scenarios based on the anime and novels stories.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar1vfs.jpg",
       "developer": "Konami",
       "genres": [
         "Music",
@@ -180,7 +198,8 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/shine-post-be-your-idol/"
+        "backloggd": "https://backloggd.com/games/shine-post-be-your-idol/",
+        "wikipedia": "https://en.wikipedia.org/wiki/Shine_Post:_Be_Your_Idol!"
       }
     },
     {
@@ -188,6 +207,8 @@
       "kind": "game",
       "title": "Survival Kids",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co9p8y.jpg",
+      "summary": "Welcome to Survival Kids, a survival adventure game available exclusively on Nintendo Switch 2!\n\nPicture this: A dusty old attic, cobwebs, forgotten boxes and the faint smell of neglect. Four curious kids stumble upon an ancient, tattered map, sparking an unexpected adventure…\n\nSetting out to sea upon their ramshackle boat, a sudden, ferocious storm hurls them into a hidden world brimming with danger and mystery. Now it’s down to you to help them work together and find their way home in Survival Kids - a fast-paced, co-op survival game for absolutely everyone!\n\nStranded on a series of unique islands, set upon the back of giant Whurtles, work together with up to 4 players in local or online co-op to explore, chop, craft, fish, cook and solve your way to safety - all whilst surviving everything the islands throw at you!\n\nMaster the island's challenges, use the Harmony Stones to tame the storm and make it back home with an epic story to tell!",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar3ke5.jpg",
       "developer": null,
       "genres": [
         "Puzzle",
@@ -218,7 +239,9 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/survival-kids--1/",
-        "opencritic": "https://opencritic.com/game/18654/survival-kids"
+        "opencritic": "https://opencritic.com/game/18654/survival-kids",
+        "wikipedia": "https://en.wikipedia.org/wiki/Survival_Kids_(2025_video_game)",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Survival_Kids"
       }
     },
     {
@@ -226,6 +249,8 @@
       "kind": "switch2-edition",
       "title": "The Legend of Zelda: Breath of the Wild - Nintendo Switch 2 Edition",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cob9oy.jpg",
+      "summary": "Travel across vast fields, through forests, and to mountain peaks as you discover what has become of the kingdom of Hyrule-and step into a world of discovery, exploration, and adventure that's been upgraded with performance enhancements in The Legend of Zelda: Breath of the Wild - Nintendo Switch 2 Edition! With improved framerates, faster load times, and enhanced resolution and textures, this thrilling open-air adventure has never looked better!\n\nThe wilds of Hyrule make for a puzzling game of survival. Climb cliffs to scope out a destination; then cross great distances with the Paraglider or the horses you've tamed. You'll discover items for crafting, beasts to hunt, and plants to forage. Scavenge weapons and armor...or claim them from enemies! From hammers to helmets, items have specific stats, resistances, effects, and levels of durability. Use everything at your disposal to find and conquer more than 100 shrines. Luckily, the in-game Sheikah Slate can project Runes that manipulate objects and enemies in clever ways.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar3k7l.jpg",
       "developer": "Nintendo EPD Production Group No. 3",
       "genres": [
         "Puzzle",
@@ -264,6 +289,8 @@
       "kind": "switch2-edition",
       "title": "The Legend of Zelda: Tears of the Kingdom - Nintendo Switch 2 Edition",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coav5n.jpg",
+      "summary": "In this sequel to The Legend of Zelda: Breath of the Wild, you’ll decide your own path through the sprawling landscapes of Hyrule and the mysterious islands floating in the vast skies above. Can you harness the power of Link’s new abilities to fight back against the malevolent forces that threaten the kingdom?\n\nNow with 240 additional voice memories in the Zelda Notes mobile app, you can experience the game with additional lore!",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar5u9t.jpg",
       "developer": "Nintendo EPD Production Group No. 3",
       "genres": [
         "Puzzle",
@@ -302,6 +329,8 @@
       "kind": "game",
       "title": "Donkey Kong Bananza",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobd1q.jpg",
+      "summary": "Donkey Kong Bananza is exclusively on Nintendo Switch 2! Explore a vast underground world—by smashing your way through it! Bash, throw, and climb through just about anything in DK’s brand-new 3D platforming action-adventure game!",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar3eyk.jpg",
       "developer": "Nintendo EPD Production Group No. 8",
       "genres": [
         "Platform",
@@ -332,7 +361,9 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/donkey-kong-bananza/",
-        "opencritic": "https://opencritic.com/game/18340/donkey-kong-bananza"
+        "opencritic": "https://opencritic.com/game/18340/donkey-kong-bananza",
+        "wikipedia": "https://en.wikipedia.org/wiki/Donkey_Kong_Bananza",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Donkey_Kong_Bananza"
       }
     },
     {
@@ -340,6 +371,8 @@
       "kind": "game",
       "title": "Pokémon Friends",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coa5oc.jpg",
+      "summary": "Solve brainteasing puzzles and make in-game Pokémon plush with Pokémon Friends, available on Nintendo Switch, Nintendo Switch 2, and iOS and Android devices.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar3vl2.jpg",
       "developer": "Wonderfy",
       "genres": [
         "Puzzle",
@@ -364,7 +397,9 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/pokemon-friends/"
+        "backloggd": "https://backloggd.com/games/pokemon-friends/",
+        "wikipedia": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Friends",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Pok%C3%A9mon_Friends"
       }
     },
     {
@@ -372,6 +407,8 @@
       "kind": "switch2-edition",
       "title": "Super Mario Party Jamboree: Nintendo Switch 2 Edition + Jamboree TV",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co9m77.jpg",
+      "summary": "Super Mario Party Jamboree is getting even more minigames and an upgrade on Nintendo Switch 2! The upgrade expands on the base game and adds Nintendo Switch 2 gameplay features, such as mouse controls, enhanced rumble, sound recognition, and modes that use a camera accessory (sold separately).",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar3k7n.jpg",
       "developer": "Nintendo Cube",
       "genres": [
         "Platform",
@@ -396,7 +433,8 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/super-mario-party-jamboree-nintendo-switch-2-edition-plus-jamboree-tv/"
+        "backloggd": "https://backloggd.com/games/super-mario-party-jamboree-nintendo-switch-2-edition-plus-jamboree-tv/",
+        "wikipedia": "https://en.wikipedia.org/wiki/Super_Mario_Party_Jamboree_%E2%80%93_Nintendo_Switch_2_Edition_%2B_Jamboree_TV"
       }
     },
     {
@@ -404,6 +442,8 @@
       "kind": "game",
       "title": "Chillin' by the Fire",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coa7ig.jpg",
+      "summary": "Campfires. Humanity's oldest social network.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar3xpi.jpg",
       "developer": null,
       "genres": [
         "Simulator"
@@ -427,7 +467,8 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/chillin-by-the-fire/"
+        "backloggd": "https://backloggd.com/games/chillin-by-the-fire/",
+        "wikipedia": "https://en.wikipedia.org/wiki/Chillin'_by_the_Fire"
       }
     },
     {
@@ -435,6 +476,8 @@
       "kind": "game",
       "title": "Drag x Drive",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coa9c7.jpg",
+      "summary": "Drag x Drive (pronounced “Drag and Drive”) challenges players to use the mouse controls with both Joy-Con 2 at the same time to intuitively steer, speed up, perform tricks and make plays such as dunks.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar3sb5.jpg",
       "developer": "Nintendo EPD Production Group No. 5",
       "genres": [
         "Sport"
@@ -458,7 +501,9 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/drag-x-drive/"
+        "backloggd": "https://backloggd.com/games/drag-x-drive/",
+        "wikipedia": "https://en.wikipedia.org/wiki/Drag_x_Drive",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Drag_x_Drive"
       }
     },
     {
@@ -466,6 +511,8 @@
       "kind": "switch2-edition",
       "title": "Kirby and the Forgotten Land: Nintendo Switch 2 Edition + Star-Crossed World",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co9m76.jpg",
+      "summary": "In Star-Crossed World, a new story included in the upgrade pack, Kirby must use his abilities, including the all-new Mouthful Modes, to clear a trail through uncharted territory. The upgrade pack will include this new content which can be played in single-player and local co-op, as well as improved performance for the entire game.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar3k7q.jpg",
       "developer": "HAL Laboratory",
       "genres": [
         "Platform",
@@ -496,7 +543,8 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/kirby-and-the-forgotten-land-nintendo-switch-2-edition-plus-star-crossed-world/",
-        "opencritic": "https://opencritic.com/game/19162/kirby-and-the-forgotten-land-nintendo-switch-2-edition-star-crossed-world"
+        "opencritic": "https://opencritic.com/game/19162/kirby-and-the-forgotten-land-nintendo-switch-2-edition-star-crossed-world",
+        "wikipedia": "https://en.wikipedia.org/wiki/Kirby_and_the_Forgotten_Land_%E2%80%93_Nintendo_Switch_2_Edition_%2B_Star-Crossed_World"
       }
     },
     {
@@ -505,6 +553,8 @@
       "title": "Donkey Kong Bananza: DK Island & Emerald Rush",
       "baseGameTitle": "Donkey Kong Bananza",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coag7c.jpg",
+      "summary": "Sightsee across this modern take on Donkey Kong’s home, packed with nostalgic views like DK’s Treehouse, Gangplank Galleon, and other iconic locations. Take in-game photos with familiar friends Diddy Kong, Dixie Kong, Cranky Kong, and Rambi, and Squawks, and decorate DK Island with DLC-exclusive character statues that you can obtain with Banandium Chips. You might even find some hidden bonus stages among the mine cart tracks and jungle ruins!",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/sc11k26.jpg",
       "developer": "Nintendo EPD Production Group No. 8",
       "genres": [
         "Platform",
@@ -535,7 +585,8 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/donkey-kong-bananza-dk-island-and-emerald-rush/",
-        "opencritic": "https://opencritic.com/game/19306/donkey-kong-bananza-dk-island-emerald-rush"
+        "opencritic": "https://opencritic.com/game/19306/donkey-kong-bananza-dk-island-emerald-rush",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Donkey_Kong_Bananza%3A_DK_Island_%26_Emerald_Rush"
       }
     },
     {
@@ -543,6 +594,8 @@
       "kind": "game",
       "title": "The Touryst: Deluxe",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coajqx.jpg",
+      "summary": "Enjoy your vacation!",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar4913.jpg",
       "developer": null,
       "genres": [
         "Platform",
@@ -567,7 +620,8 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/the-touryst-deluxe/"
+        "backloggd": "https://backloggd.com/games/the-touryst-deluxe/",
+        "wikipedia": "https://en.wikipedia.org/wiki/The_Touryst%3A_Deluxe"
       }
     },
     {
@@ -575,6 +629,8 @@
       "kind": "game",
       "title": "Super Mario Galaxy",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coag5y.jpg",
+      "summary": "This second Nintendo Switch port of Super Mario Galaxy was released standalone and contains differences from the Super Mario 3D All-Stars version, such as an Assist Mode and extra pages in Rosalina's Storybook.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar47uf.jpg",
       "developer": "Nintendo Software Technology",
       "genres": [
         "Platform",
@@ -599,7 +655,8 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/super-mario-galaxy--3/"
+        "backloggd": "https://backloggd.com/games/super-mario-galaxy--3/",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Super_Mario_Galaxy"
       }
     },
     {
@@ -607,6 +664,8 @@
       "kind": "game",
       "title": "Super Mario Galaxy 2",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coag5x.jpg",
+      "summary": "The version of Super Mario Galaxy 2 released as part of the Super Mario Bros. 40th Anniversary contains added features like an Assist Mode and the addition of Rosalina's Storybook.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar47ug.jpg",
       "developer": "Nintendo Software Technology",
       "genres": [
         "Platform",
@@ -631,7 +690,8 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/super-mario-galaxy-2--1/"
+        "backloggd": "https://backloggd.com/games/super-mario-galaxy-2--1/",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Super_Mario_Galaxy_2"
       }
     },
     {
@@ -639,6 +699,8 @@
       "kind": "game",
       "title": "Pokémon Legends: Z-A",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co9wzc.jpg",
+      "summary": "A new adventure awaits within Lumiose City, where an urban redevelopment plan is underway to shape the city into a place that belongs to both people and Pokémon. Please look forward to seeing it for yourself.​​",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar3m7o.jpg",
       "developer": "Game Freak",
       "genres": [
         "RPG",
@@ -669,7 +731,9 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/pokemon-legends-z-a/",
-        "opencritic": "https://opencritic.com/game/18645/pokemon-legends-z-a"
+        "opencritic": "https://opencritic.com/game/18645/pokemon-legends-z-a",
+        "wikipedia": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Legends:_Z-A",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Pok%C3%A9mon_Legends%3A_Z-A"
       }
     },
     {
@@ -677,6 +741,8 @@
       "kind": "game",
       "title": "Hyrule Warriors: Age of Imprisonment",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cob9n1.jpg",
+      "summary": "Fight the war for ancient Hyrule! Step on to the battlefield as Princess Zelda, King Rauru, and other legendary heroes as you fight to reclaim your homeland— and live the story of Demon King Ganondorf's invasion that was only briefly alluded to in The Legend of Zelda: Tears of the Kingdom game.\n\nPrincess Zelda is not alone in this war! Join Mineru, the Sages, and even some brand-new heroes in battles against Ganondorf's forces. Combine powerful Zonai Devices with your heroes' signature abilities to take down powerful bosses and their legions of minions.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar6jxx.jpg",
       "developer": "AAA Games Studio",
       "genres": [
         "Hack and slash",
@@ -707,7 +773,9 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/hyrule-warriors-age-of-imprisonment/",
-        "opencritic": "https://opencritic.com/game/19291/hyrule-warriors-age-of-imprisonment"
+        "opencritic": "https://opencritic.com/game/19291/hyrule-warriors-age-of-imprisonment",
+        "wikipedia": "https://en.wikipedia.org/wiki/Hyrule_Warriors:_Age_of_Imprisonment",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Hyrule_Warriors%3A_Age_of_Imprisonment"
       }
     },
     {
@@ -715,6 +783,8 @@
       "kind": "game",
       "title": "Kirby Air Riders",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coaauz.jpg",
+      "summary": "Kirby Air Riders is the long-awaited sequel to Kirby Air Ride on the Gamecube.\n\nPick your rider, pick your machine, and mount up for competition! Take on your rivals in frantic arena battles or fast-paced races on the ground and in the air. Use the Boost Charge button to brake and control your turns as your machine automatically fights for top speed. Fill your Boost Charge Gauge as you drift around the bend and release it to trigger an explosive dash!",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar3eyu.jpg",
       "developer": "Sora",
       "genres": [
         "Racing",
@@ -745,7 +815,9 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/kirby-air-riders/",
-        "opencritic": "https://opencritic.com/game/19310/kirby-air-riders"
+        "opencritic": "https://opencritic.com/game/19310/kirby-air-riders",
+        "wikipedia": "https://en.wikipedia.org/wiki/Kirby_Air_Riders",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Kirby_Air_Riders"
       }
     },
     {
@@ -753,6 +825,8 @@
       "kind": "game",
       "title": "Metroid Prime 4: Beyond",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cob9xh.jpg",
+      "summary": "Deadly sharpshooter Sylux has finally caught up with renowned bounty hunter Samus Aran! After an unexpected accident in the wake of their clash, Samus finds herself transported to Viewros— a mysterious planet once inhabited by an ancient race. Now she must explore this planet, all while battling the strange creatures that inhabit it, to find her way home.\n\nScan your surroundings for clues, make the most of your equipment and weapons, and use Samus's newfound psychic abilities— and her technologically advanced bike, the Vi-O-La— to traverse and explore the environment. Operate mechanisms, control your charge beam, and more— you'll need every tool at your disposal to survive and escape Viewros!",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar30l9.jpg",
       "developer": "Nintendo EPD Production Group No. 6",
       "genres": [
         "Shooter",
@@ -783,7 +857,9 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/metroid-prime-4-beyond/",
-        "opencritic": "https://opencritic.com/game/16868/metroid-prime-4-beyond"
+        "opencritic": "https://opencritic.com/game/16868/metroid-prime-4-beyond",
+        "wikipedia": "https://en.wikipedia.org/wiki/Metroid_Prime_4:_Beyond",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Metroid_Prime_4%3A_Beyond"
       }
     },
     {
@@ -792,6 +868,8 @@
       "title": "Pokémon Legends: Z-A - Mega Dimension",
       "baseGameTitle": "Pokémon Legends: Z-A",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coag59.jpg",
+      "summary": "Mysterious distortions have appeared without warning in Lumiose City. They seem to connect to a space known as Hyperspace Lumiose...and the mythical Pokémon Hoopa might have some part to play.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar490n.jpg",
       "developer": "Game Freak",
       "genres": [],
       "releaseDates": {
@@ -827,6 +905,8 @@
       "kind": "game",
       "title": "Riichi Mahjong",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc59j.jpg",
+      "summary": "GameShare Matches! Whether you bring your own consoles to play together in person or play online, this is all you need!",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar5yoj.jpg",
       "developer": null,
       "genres": [
         "Card & board"
@@ -850,7 +930,8 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/riichi-mahjong/"
+        "backloggd": "https://backloggd.com/games/riichi-mahjong/",
+        "wikipedia": "https://en.wikipedia.org/wiki/SIMPLE_Series_for_Nintendo_Switch_2_Vol.1_THE_Mahjong"
       }
     },
     {
@@ -858,6 +939,8 @@
       "kind": "switch2-edition",
       "title": "Animal Crossing: New Horizons - Nintendo Switch 2 Edition",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocx69.jpg",
+      "summary": "A carefree new life is just beyond the horizon! Step off the plane and onto your very own deserted island where new friends, discoveries and opportunities are waiting for you.\n\nEscape to a deserted island and create your own paradise as you explore, create, and customize in Animal Crossing: New Horizons. Your island getaway has a wealth of natural resources that can be used to craft everything from tools to creature comforts. You can hunt down insects at the crack of dawn, decorate your paradise throughout the day, or enjoy the sunset on the beach while fishing in the ocean. The time of day and season match real life, so each day on your island is a chance to check in and find new surprises all year round.\n\nThe Nintendo Switch 2 Edition of Animal Crossing: New Horizons uses the unique features of the console to offer even more ways to enjoy your island paradise!",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar4l16.jpg",
       "developer": "Nintendo EPD Production Group No. 5",
       "genres": [
         "Simulator"
@@ -895,6 +978,8 @@
       "kind": "game",
       "title": "Pool Room Billiard",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobc9j.jpg",
+      "summary": "Enjoy moody gameplay with motion controls using two Joy-Con 2 controllers.A full-fledged 3D billiards game where you can battle players worldwide online!",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar55c1.jpg",
       "developer": null,
       "genres": [
         "Simulator",
@@ -919,7 +1004,8 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/pool-room-billiard/"
+        "backloggd": "https://backloggd.com/games/pool-room-billiard/",
+        "wikipedia": "https://en.wikipedia.org/wiki/Pool_Room_Billiard"
       }
     },
     {
@@ -927,6 +1013,8 @@
       "kind": "game",
       "title": "Tokyo Scramble",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobfsd.jpg",
+      "summary": "In this survival puzzle action set deep below Tokyo, clear thinking and split-second decisions could mean the difference between life and death.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar5css.jpg",
       "developer": "adglobe",
       "genres": [
         "Puzzle",
@@ -957,7 +1045,8 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/tokyo-scramble/",
-        "opencritic": "https://opencritic.com/game/20062/tokyo-scramble"
+        "opencritic": "https://opencritic.com/game/20062/tokyo-scramble",
+        "wikipedia": "https://en.wikipedia.org/wiki/Tokyo_Scramble"
       }
     },
     {
@@ -965,6 +1054,8 @@
       "kind": "game",
       "title": "Mario Tennis Fever",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coag5n.jpg",
+      "summary": "Hit the court for explosive action in the latest Mario Tennis game!\n\nJoin Mario and friends for over-the-top tennis mayhem! Use topspins, slices, lobs, and other familiar shots—along with other fancy footwork and new defensive maneuvers—to outpace your opponents on the court. Keep a rally going, build up your Fever Gauge, and unleash powerful Fever Shots that can be augmented with special effects by equipping Fever Rackets!",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar47nf.jpg",
       "developer": "Camelot Software Planning",
       "genres": [
         "Sport"
@@ -994,7 +1085,9 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/mario-tennis-fever/",
-        "opencritic": "https://opencritic.com/game/19292/mario-tennis-fever"
+        "opencritic": "https://opencritic.com/game/19292/mario-tennis-fever",
+        "wikipedia": "https://en.wikipedia.org/wiki/Mario_Tennis_Fever",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Mario_Tennis_Fever"
       }
     },
     {
@@ -1002,6 +1095,8 @@
       "kind": "game",
       "title": "Pokémon Pokopia",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobbur.jpg",
+      "summary": "Pokémon and people once lived happily together, but the world has withered and the humans are gone. The only remaining resident appears to be a lone Tangrowth. After waking from a long slumber, a peculiar Ditto decides to restore the desolate land using its transformation skills and its surprising new crafting abilities. Play as a Ditto and build a charming world alongside your Pokémon friends. After a satisfying day of crafting, building, and gardening, relax in your very own paradise or invite Pokémon and your friends to visit. As you restore your world and cultivate its natural beauty, you'll encounter more Pokémon who will teach you useful moves! Your Pokémon neighbors are excited to play together, as well as help you build houses to welcome even more friends! Pokémon might even ask for your help – work with them to build a cozy utopia.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar5ijo.jpg",
       "developer": "Omega Force",
       "genres": [
         "Simulator",
@@ -1032,7 +1127,9 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/pokemon-pokopia/",
-        "opencritic": "https://opencritic.com/game/19667/pok-mon-pokopia"
+        "opencritic": "https://opencritic.com/game/19667/pok-mon-pokopia",
+        "wikipedia": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Pokopia",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Pok%C3%A9mon_Pokopia"
       }
     },
     {
@@ -1040,6 +1137,8 @@
       "kind": "switch2-edition",
       "title": "Super Mario Bros. Wonder: Nintendo Switch 2 Edition + Meetup in Bellabel Park",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobchm.jpg",
+      "summary": "More experiences are coming to the Flower Kingdom! Enjoy a variety of attractions in the Bellabel Park plaza that lets you team up with (or work against) friends and family. Collect the most coins, run and hide in Phanto Tag, work together to pass a Bob-omb to the goal and more! This Nintendo Switch 2 Edition adds even more content and enhancements as well.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar488x.jpg",
       "developer": "Nintendo EPD Production Group No. 10",
       "genres": [
         "Platform"
@@ -1069,7 +1168,8 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/super-mario-bros-wonder-nintendo-switch-2-edition-plus-meetup-in-bellabel-park/",
-        "opencritic": "https://opencritic.com/game/20256/super-mario-bros-wonder-nintendo-switch-2-edition-meetup-in-bellabel-park"
+        "opencritic": "https://opencritic.com/game/20256/super-mario-bros-wonder-nintendo-switch-2-edition-meetup-in-bellabel-park",
+        "wikipedia": "https://en.wikipedia.org/wiki/Super_Mario_Bros._Wonder_%E2%80%93_Nintendo_Switch_2_Edition_%2B_Meetup_in_Bellabel_Park"
       }
     },
     {
@@ -1077,6 +1177,8 @@
       "kind": "game",
       "title": "Pokémon Champions",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co9gu3.jpg",
+      "summary": "Get ready to experience everything you love about Pokémon battles all in one place—in Pokémon Champions. This new, battle-focused game will feature familiar mechanics such as Pokémon types, Abilities, and moves, creating an environment conducive to rich and varied strategies for new and experienced Trainers alike. It’s not just familiar mechanics—you’ll be able to bring in classic Pokémon from Pokémon HOME, too! Look forward to cross-platform battles alongside your favorite Pokémon on Nintendo Switch and mobile, with a variety of different modes available for your desired experience.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar3c2a.jpg",
       "developer": "The Pokémon Works",
       "genres": [
         "Fighting",
@@ -1107,7 +1209,9 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/pokemon-champions/",
-        "opencritic": "https://opencritic.com/game/20303/pokemon-champions"
+        "opencritic": "https://opencritic.com/game/20303/pokemon-champions",
+        "wikipedia": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Champions",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Pok%C3%A9mon_Champions"
       }
     },
     {
@@ -1115,6 +1219,8 @@
       "kind": "game",
       "title": "Tomodachi Life: Living the Dream",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobdqd.jpg",
+      "summary": "Create Mii characters based on family and friends, someone you admire, or something completely original—there are plenty of personality traits, little quirks, and physical traits to choose from—including some face customization options you haven’t seen before! Go deep into getting every detail just right, or create Miis quickly and easily by answering some simple questions, and then help them explore their likes and dislikes, find relationships, and get up to all sorts of fun. Your Miis are bound to surprise you as they take on a life of their own!",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar5sci.jpg",
       "developer": "Nintendo EPD Production Group No. 4",
       "genres": [
         "Simulator"
@@ -1144,7 +1250,9 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/tomodachi-life-living-the-dream/",
-        "opencritic": "https://opencritic.com/game/20304/tomodachi-life-living-the-dream"
+        "opencritic": "https://opencritic.com/game/20304/tomodachi-life-living-the-dream",
+        "wikipedia": "https://en.wikipedia.org/wiki/Tomodachi_Life:_Living_the_Dream",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Tomodachi_Life%3A_Living_the_Dream"
       }
     },
     {
@@ -1152,6 +1260,8 @@
       "kind": "game",
       "title": "Card&Casino",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobzgy.jpg",
+      "summary": "Texas Hold'em, Blackjack, Roulette, and more\nShare the excitement of casino favorites!\nExperience the thrill of a virtual casino together!",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar5s6v.jpg",
       "developer": null,
       "genres": [
         "Card & board"
@@ -1175,7 +1285,8 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/card-and-casino/"
+        "backloggd": "https://backloggd.com/games/card-and-casino/",
+        "wikipedia": "https://en.wikipedia.org/wiki/Card_%26_Casino"
       }
     },
     {
@@ -1183,6 +1294,8 @@
       "kind": "game",
       "title": "Yoshi and the Mysterious Book",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobr0r.jpg",
+      "summary": "Join Yoshi for a new adventure in Yoshi and the Mysterious Book, launching on Nintendo Switch 2 in spring 2026.\n\nOne day, on the island where Yoshi and his friends live, a peculiar talking book named Mr. E suddenly falls from the sky. This peculiar book’s pages contain information about unusual creatures, so Yoshi decides to jump in and help investigate!\n\nAs Yoshi wanders through the book, you'll make all sorts of discoveries about the creatures you find and those discoveries will be written down. You'll find lots of unusual creatures residing within the book – a page-turning adventure awaits!",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar5j8c.jpg",
       "developer": "Good-Feel",
       "genres": [
         "Platform",
@@ -1213,7 +1326,9 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/yoshi-and-the-mysterious-book/",
-        "opencritic": "https://opencritic.com/game/20221/yoshi-and-the-mysterious-book"
+        "opencritic": "https://opencritic.com/game/20221/yoshi-and-the-mysterious-book",
+        "wikipedia": "https://en.wikipedia.org/wiki/Yoshi_and_the_Mysterious_Book",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Yoshi_and_the_Mysterious_Book"
       }
     },
     {
@@ -1221,6 +1336,8 @@
       "kind": "game",
       "title": "eFootball Kick-Off!",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coctkp.jpg",
+      "summary": "Experience the excitement of every goal – solo or with everyone! Begin your football journey with eFootball Kick-Off!",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar5lsu.jpg",
       "developer": "Konami Digital Entertainment",
       "genres": [
         "Sport"
@@ -1250,7 +1367,8 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/efootball-kick-off/",
-        "opencritic": "https://opencritic.com/game/20767/efootball-kick-off-"
+        "opencritic": "https://opencritic.com/game/20767/efootball-kick-off-",
+        "wikipedia": "https://en.wikipedia.org/wiki/EFootball_Kick-Off!"
       }
     },
     {
@@ -1258,6 +1376,8 @@
       "kind": "game",
       "title": "A-Train 9 Evolution",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc178.jpg",
+      "summary": "The evolved scenery depicts a new city.\n\nThe railroad connects cities and transports people. In connected cities, people gather, and the cities grow even larger… In A-Train 9, you can realistically experience the joy of urban development.\n\nA-Train 9 Evolution is not a mere port of A-Train 9—the user interface and graphics have been completely revamped. Furthermore, the addition of new buildings, including greenery-covered buildings, allows for modern urban vistas.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar5u21.jpg",
       "developer": "Artdink",
       "genres": [
         "Simulator"
@@ -1281,7 +1401,8 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/a-train-9-evolution/"
+        "backloggd": "https://backloggd.com/games/a-train-9-evolution/",
+        "wikipedia": "https://en.wikipedia.org/wiki/A-Train_9_Evolution"
       }
     },
     {
@@ -1289,6 +1410,8 @@
       "kind": "game",
       "title": "DK Challenge",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc7n6.jpg",
+      "summary": "A limited-time event available through the Nintendo Switch Online service where you have to complete challenge related to Donkey Kong in the games available on Nintendo Classics and Donkey Kong Bananza.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar6d9u.jpg",
       "developer": "Nintendo",
       "genres": [
         "Platform"
@@ -1320,6 +1443,8 @@
       "kind": "switch2-edition",
       "title": "Xenoblade Chronicles: Definitive Edition - Nintendo Switch 2 Edition",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc7me.jpg",
+      "summary": "Xenoblade Chronicles: Definitive Edition - Nintendo Switch 2 Edition includes the additions and enhancements from the Definitive Edition, along with even more made possible by the power of the Nintendo Switch 2 system - including added features, a smoother frame rate, 4K resolution in TV mode, and full HD in handheld mode.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/sc13r3a.jpg",
       "developer": "Monolith Soft",
       "genres": [
         "RPG"
@@ -1357,6 +1482,8 @@
       "kind": "game",
       "title": "Star Fox",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc11a.jpg",
+      "summary": "Star Fox is an action-packed adventure based on Star Fox 64, featuring newly overhauled character designs, freshly revamped looks for each stage, plus detailed cutscenes, fully voiced dialogue and a sweeping orchestral soundtrack. The game also includes Joy-Con 2 mouse controls and a brand-new GameChat feature that puts you in the cockpit as your favorite characters from the Star Fox universe.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar5ttl.jpg",
       "developer": "Velan Studios",
       "genres": [
         "Shooter",
@@ -1387,7 +1514,9 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/star-fox--5/",
-        "opencritic": "https://opencritic.com/game/20560/star-fox"
+        "opencritic": "https://opencritic.com/game/20560/star-fox",
+        "wikipedia": "https://en.wikipedia.org/wiki/Star_Fox_(2026_video_game)",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Star_Fox"
       }
     },
     {
@@ -1395,6 +1524,8 @@
       "kind": "game",
       "title": "Rhythm Heaven Groove",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobwkn.jpg",
+      "summary": "The rhythm is starting up again! Rhythm Heaven Groove comes to Nintendo Switch!",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar5ooc.jpg",
       "developer": "TNX",
       "genres": [
         "Music"
@@ -1424,7 +1555,9 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/rhythm-heaven-groove/",
-        "opencritic": "https://opencritic.com/game/20399/rhythm-heaven-groove"
+        "opencritic": "https://opencritic.com/game/20399/rhythm-heaven-groove",
+        "wikipedia": "https://en.wikipedia.org/wiki/Rhythm_Heaven_Groove",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Rhythm_Heaven_Groove"
       }
     },
     {
@@ -1432,6 +1565,8 @@
       "kind": "switch2-edition",
       "title": "Fitness Boxing 3: Your Personal Trainer - Nintendo Switch 2 Edition",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc7od.jpg",
+      "summary": "A workout that works for you – now enhanced for Nintendo Switch 2!",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar5wvl.jpg",
       "developer": "Imageneer",
       "genres": [
         "Music",
@@ -1464,6 +1599,8 @@
       "kind": "game",
       "title": "Splatoon Raiders",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobyho.jpg",
+      "summary": "Splat scores of enemies and hunt for treasure in this single-player focused action shooter.\n\nPlay as a mechanic working with Deep Cut – a trio of swashbuckling musicians – and venture out into the mysterious Spirhalite Islands! Customize your character, kit yourself out with mechanical gadgets and ink-splattering weapons, and take on waves of foes called Salmonids as you raid the islands for salvage.\n\nThis is mainly a single-player adventure, but you won’t be alone: one member of Deep Cut will raid alongside you in a powerful bot. You can also join with up to three other players online or via local wireless.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar5r7q.jpg",
       "developer": "Nintendo EPD Production Group No. 5",
       "genres": [
         "Shooter",
@@ -1494,7 +1631,9 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/splatoon-raiders/",
-        "opencritic": "https://opencritic.com/game/20454/splatoon-raiders"
+        "opencritic": "https://opencritic.com/game/20454/splatoon-raiders",
+        "wikipedia": "https://en.wikipedia.org/wiki/Splatoon_Raiders",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Splatoon_Raiders"
       }
     },
     {
@@ -1502,6 +1641,8 @@
       "kind": "switch2-edition",
       "title": "Xenoblade Chronicles 2: Nintendo Switch 2 Edition",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc7mr.jpg",
+      "summary": "Command a group of Blades and lead them to countless strategic victories as you search for the fabled paradise Pyra calls home. This journey has been enhanced with 4K* resolution in TV mode, and full HD in handheld mode, at 60 frames per second—and with smoother and sharper cutscenes.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar6b81.jpg",
       "developer": "Monolith Soft",
       "genres": [
         "RPG",
@@ -1541,6 +1682,8 @@
       "title": "Pokémon Pokopia: Bubbly Basin",
       "baseGameTitle": "Pokémon Pokopia",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc7my.jpg",
+      "summary": "Use the move Dive - an underwater exploration ability added in a free software update - to visit the aquatic area of Bubbly Basin in Part 1 of the three-part Pokémon Pokopia Expansion Pass DLC! You’ll find additional furniture items, new outfits for Ditto, and - of course - more Pokémon to meet!",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar6bk7.jpg",
       "developer": "Game Freak",
       "genres": [],
       "releaseDates": {
@@ -1576,6 +1719,8 @@
       "kind": "game",
       "title": "Orbitals",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc9r6.jpg",
+      "summary": "Team up as Maki and Omura, two inseparable explorers with a whole lot more determination than experience. You’ll brave the perils of space in search of help for their crumbling station home, now trapped within a supernatural cosmic storm.\n\nOrbitals captures the warmth and style of classic Japanese anime, brought to life with hand-crafted cinematic cutscenes from Studio Massket, full Japanese and English voice acting, and an original soundtrack that channels the magic of the era.\n\nBuilt from the ground up for asymmetric 2-player co-op, either in local split-screen or online, Orbitals rewards smart teamwork and clear communication. Use each character’s unique tools to open the path forward, overcome danger, and meet out-of-this-world creatures and characters on a bombastic adventure.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar6mkg.jpg",
       "developer": "Shapefarm",
       "genres": [
         "Platform",
@@ -1606,7 +1751,9 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/orbitals--1/",
-        "opencritic": "https://opencritic.com/game/21141/orbitals"
+        "opencritic": "https://opencritic.com/game/21141/orbitals",
+        "wikipedia": "https://en.wikipedia.org/wiki/Orbitals_(video_game)",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Orbitals"
       }
     },
     {
@@ -1614,6 +1761,8 @@
       "kind": "game",
       "title": "Fire Emblem: Fortune's Weave",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc7ma.jpg",
+      "summary": "Fire Emblem: Fortune's Weave is a turn-based strategy RPG centered around the Heroic Games, a tournament where warriors with different motivations compete for a chance to have their greatest wish granted by the Divine Sovereign. The game builds on the tactical foundation of previous Fire Emblem titles, featuring turn-based combat with combat arts, gambits, and crests. A new mechanic called Blaze Arts lets units spend health to perform powerful special abilities on the battlefield.\nThe game appears to be set in the same world as Fire Emblem: Three Houses, though in a different era, and follows characters like Cai, who enters the tournament to save his father's life.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar6dhj.jpg",
       "developer": "Intelligent Systems",
       "genres": [
         "RPG",
@@ -1644,7 +1793,9 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/fire-emblem-fortunes-weave/",
-        "opencritic": "https://opencritic.com/game/20819/fire-emblem-fortunes-weave"
+        "opencritic": "https://opencritic.com/game/20819/fire-emblem-fortunes-weave",
+        "wikipedia": "https://en.wikipedia.org/wiki/Fire_Emblem:_Fortune%27s_Weave",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Fire_Emblem%3A_Fortune's_Weave"
       }
     },
     {
@@ -1652,6 +1803,8 @@
       "kind": "game",
       "title": "Derby Stallion 2",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc7oo.jpg",
+      "summary": null,
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc7oo.jpg",
       "developer": null,
       "genres": [],
       "releaseDates": {
@@ -1673,7 +1826,8 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/derby-stallion-2/"
+        "backloggd": "https://backloggd.com/games/derby-stallion-2/",
+        "wikipedia": "https://en.wikipedia.org/wiki/Derby_Stallion_2"
       }
     },
     {
@@ -1681,6 +1835,8 @@
       "kind": "game",
       "title": "Nintendo Switch Sports Resort",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc7mb.jpg",
+      "summary": "Get up and move in 12 motion-control sports! Gently swing your racket, pull back and aim like an archer, and more in 12 sports with intuitive motion controls. Move together in sports like Bowling and Basketball, duke it out in Boxing, and even battle with one thumb in Thumb Wrestling - there are lots of ways to compete and have fun together!",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar6kgm.jpg",
       "developer": null,
       "genres": [
         "Sport"
@@ -1704,7 +1860,9 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/nintendo-switch-sports-resort/"
+        "backloggd": "https://backloggd.com/games/nintendo-switch-sports-resort/",
+        "wikipedia": "https://en.wikipedia.org/wiki/Nintendo_Switch_Sports_Resort",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Nintendo_Switch_Sports_Resort"
       }
     },
     {
@@ -1712,6 +1870,8 @@
       "kind": "game",
       "title": "The Legend of Zelda: Ocarina of Time",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocv5r.jpg",
+      "summary": "The evil Ganondorf is scheming to steal the mythical Triforce from the Sacred Realm and take over the world. Now Link must become the hero of time and save the kingdom in this classic tale, built from the ground up for the Nintendo Switch 2 system.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar6knj.jpg",
       "developer": "Nintendo",
       "genres": [
         "Adventure"
@@ -1735,7 +1895,9 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/the-legend-of-zelda-ocarina-of-time--1/"
+        "backloggd": "https://backloggd.com/games/the-legend-of-zelda-ocarina-of-time--1/",
+        "wikipedia": "https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Ocarina_of_Time_(2026_video_game)",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/The_Legend_of_Zelda%3A_Ocarina_of_Time"
       }
     },
     {
@@ -1743,6 +1905,8 @@
       "kind": "switch2-edition",
       "title": "Pikmin 4: Nintendo Switch 2 Edition + Dandori Academy",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocv9m.jpg",
+      "summary": "Give Oatchi commands using your voice and put your Dandori skills to the test in Pikmin 4 – Nintendo Switch 2 Edition + Dandori Academy.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar6kui.jpg",
       "developer": null,
       "genres": [
         "Adventure"
@@ -1774,6 +1938,8 @@
       "kind": "switch2-edition",
       "title": "Xenoblade Chronicles 3: Nintendo Switch 2 Edition",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc7ms.jpg",
+      "summary": "Traverse massive, fantastical landscapes and master seamless real-time RPG combat that has all been enhanced to run at 4K* resolution in TV mode, and full HD in handheld mode, at 60 frames per second with smoother and sharper cutscenes.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar6b87.jpg",
       "developer": "Monolith Soft",
       "genres": [
         "RPG",
@@ -1806,6 +1972,8 @@
       "kind": "game",
       "title": "Metroid Ravenous",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocvge.jpg",
+      "summary": "It’s eat or be eaten! Take control of Samus Aran, a renowned bounty hunter ambushed by unknown attackers and marooned on an unfamiliar moon. Gather your arsenal, navigate a maze of corridors, hunt down powerful bosses, and use your newly awakened Metroid instincts to devour your foes. You’ll need to strike quickly and aggressively with beams, missiles, and more—lest you become the enemy’s next meal.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar6kg9.jpg",
       "developer": "MercurySteam",
       "genres": [
         "Shooter",
@@ -1830,7 +1998,9 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/metroid-ravenous/"
+        "backloggd": "https://backloggd.com/games/metroid-ravenous/",
+        "wikipedia": "https://en.wikipedia.org/wiki/Metroid_Ravenous",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Metroid_Ravenous"
       }
     },
     {
@@ -1838,6 +2008,8 @@
       "kind": "game",
       "title": "Hyrule Warriors: Age of Calamity - Definitive Edition",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocw1y.jpg",
+      "summary": "Experience the events of the Great Calamity with higher resolution visuals and smoother performance on Nintendo Switch 2!",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar6kj5.jpg",
       "developer": null,
       "genres": [
         "Strategy",
@@ -1870,6 +2042,8 @@
       "kind": "game",
       "title": "Beyond the Dark Nightwatch",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc5fe.jpg",
+      "summary": null,
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc5fe.jpg",
       "developer": null,
       "genres": [],
       "releaseDates": {
@@ -1895,7 +2069,8 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/beyond-the-dark-nightwatch/"
+        "backloggd": "https://backloggd.com/games/beyond-the-dark-nightwatch/",
+        "wikipedia": "https://en.wikipedia.org/wiki/Beyond_the_Dark%3A_Nightwatch"
       }
     },
     {
@@ -1904,6 +2079,8 @@
       "title": "Pokémon Pokopia: Part 2",
       "baseGameTitle": "Pokémon Pokopia",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocva6.jpg",
+      "summary": null,
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar6c2q.jpg",
       "developer": "Omega Force",
       "genres": [],
       "releaseDates": {
@@ -1937,6 +2114,8 @@
       "kind": "game",
       "title": "The Duskbloods",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocqn8.jpg",
+      "summary": "An online multiplayer PvPvE game where players vie for supremacy among themselves and against challenging foes. Play as the \"Bloodsworn\"; a group that has transcended human strength thanks to their special blood, and throw yourself into a violent fray for \"First Blood\" as the twilight of humanity approaches. The moontears will flow for one and one alone.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar5gan.jpg",
       "developer": "FromSoftware",
       "genres": [],
       "releaseDates": {
@@ -1962,7 +2141,9 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/the-duskbloods/"
+        "backloggd": "https://backloggd.com/games/the-duskbloods/",
+        "wikipedia": "https://en.wikipedia.org/wiki/The_Duskbloods",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/The_Duskbloods"
       }
     },
     {
@@ -1970,6 +2151,8 @@
       "kind": "game",
       "title": "Kirby and the World Beyond",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocvba.jpg",
+      "summary": "Get ready to freely explore the World Beyond using Copy Abilities in Kirby and the World Beyond, the latest 3D Kirby adventure, coming to Nintendo Switch 2 in spring 2027!",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar6kw3.jpg",
       "developer": "HAL Laboratory",
       "genres": [
         "Platform",
@@ -1998,7 +2181,9 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/kirby-and-the-world-beyond/"
+        "backloggd": "https://backloggd.com/games/kirby-and-the-world-beyond/",
+        "wikipedia": "https://en.wikipedia.org/wiki/Kirby_and_the_World_Beyond",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Kirby_and_the_World_Beyond"
       }
     },
     {
@@ -2006,6 +2191,8 @@
       "kind": "game",
       "title": "Ninjala 2: The Uncharted Planet",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc7n3.jpg",
+      "summary": null,
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc7n3.jpg",
       "developer": "GungHo Online Entertainment",
       "genres": [],
       "releaseDates": {
@@ -2031,7 +2218,8 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/ninjala-2-the-uncharted-planet/"
+        "backloggd": "https://backloggd.com/games/ninjala-2-the-uncharted-planet/",
+        "wikipedia": "https://en.wikipedia.org/wiki/Ninjala_2%3A_The_Uncharted_Planet"
       }
     },
     {
@@ -2039,6 +2227,8 @@
       "kind": "game",
       "title": "Onyx: The Dark Grip",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocvcg.jpg",
+      "summary": "Set in an isolated town trapped in an endless winter, ONYX: The Dark Grip challenges players to survive through two deeply intertwined roles. As The Vessel, players explore a bleak, frozen world, fight for survival, manage scarce resources and confront the dangers hiding within the town and beneath its snow. But human strength can only go so far. When The Vessel cannot survive alone, players become The God, reaching directly into his world to manipulate reality, protect their host and change what happens beyond the limits of an ordinary human being. Survival depends on knowing when to act as The Vessel and when to intervene as The God.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/sc1549r.jpg",
       "developer": "Bloober Team",
       "genres": [
         "Adventure"
@@ -2066,7 +2256,8 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/onyx-the-dark-grip/"
+        "backloggd": "https://backloggd.com/games/onyx-the-dark-grip/",
+        "wikipedia": "https://en.wikipedia.org/wiki/Onyx%3A_The_Dark_Grip"
       }
     },
     {
@@ -2075,6 +2266,8 @@
       "title": "Pokémon Pokopia: Part 3",
       "baseGameTitle": "Pokémon Pokopia",
       "coverUrl": "covers/placeholder.svg",
+      "summary": null,
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar6c2r.jpg",
       "developer": "Omega Force",
       "genres": [],
       "releaseDates": {
@@ -2108,6 +2301,8 @@
       "kind": "game",
       "title": "Pokémon Waves",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobo9j.jpg",
+      "summary": "Pokémon Winds and Pokémon Waves are upcoming role-playing video games developed by Game Freak and published by Nintendo and The Pokémon Company for the Nintendo Switch 2. Announced on 27 February 2026, on the franchise's 30th anniversary, they are the first installments in the tenth generation of the Pokémon video game series and the first to be exclusively available on the Switch 2. They are set to release in 2027.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar5h59.jpg",
       "developer": "Game Freak",
       "genres": [
         "RPG"
@@ -2135,7 +2330,9 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/pokemon-waves/"
+        "backloggd": "https://backloggd.com/games/pokemon-waves/",
+        "wikipedia": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Winds_and_Waves",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Pok%C3%A9mon_Winds_and_Waves"
       }
     },
     {
@@ -2143,6 +2340,8 @@
       "kind": "game",
       "title": "Pokémon Winds",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobo9k.jpg",
+      "summary": "Pokémon Winds and Pokémon Waves are upcoming role-playing video games developed by Game Freak and published by Nintendo and The Pokémon Company for the Nintendo Switch 2. Announced on 27 February 2026, on the franchise's 30th anniversary, they are the first installments in the tenth generation of the Pokémon video game series and the first to be exclusively available on the Switch 2. They are set to release in 2027.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar5h58.jpg",
       "developer": "Game Freak",
       "genres": [
         "RPG"
@@ -2170,7 +2369,9 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/pokemon-winds/"
+        "backloggd": "https://backloggd.com/games/pokemon-winds/",
+        "wikipedia": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Winds_and_Waves",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Pok%C3%A9mon_Winds_and_Waves"
       }
     },
     {
@@ -2178,6 +2379,8 @@
       "kind": "game",
       "title": "Putty World",
       "coverUrl": "/covers/placeholder.svg",
+      "summary": null,
+      "backgroundUrl": null,
       "developer": null,
       "genres": [],
       "releaseDates": {
@@ -2198,7 +2401,9 @@
           "backloggd": null
         }
       },
-      "links": {},
+      "links": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Putty_World"
+      },
       "vagueRelease": {
         "year": 2027,
         "label": "2027"
@@ -2209,6 +2414,8 @@
       "kind": "game",
       "title": "Xenoblade Genesis",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc8ai.jpg",
+      "summary": "A new beginning for the Xenoblade series is coming to Nintendo Switch 2 in 2027.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar6b88.jpg",
       "developer": "Monolith Soft",
       "genres": [
         "RPG"
@@ -2236,7 +2443,9 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/xenoblade-genesis/"
+        "backloggd": "https://backloggd.com/games/xenoblade-genesis/",
+        "wikipedia": "https://en.wikipedia.org/wiki/Xenoblade_Genesis",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Xenoblade_Genesis"
       }
     },
     {
@@ -2244,6 +2453,8 @@
       "kind": "game",
       "title": "Bit Boy!! Arcade 2",
       "coverUrl": "/covers/placeholder.svg",
+      "summary": null,
+      "backgroundUrl": null,
       "developer": "Bplus",
       "genres": [
         "Action"
@@ -2266,13 +2477,17 @@
           "backloggd": null
         }
       },
-      "links": {}
+      "links": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Bit_Boy!!_Arcade_2"
+      }
     },
     {
       "id": "manual:chit-chat-party",
       "kind": "game",
       "title": "Chit Chat Party!",
       "coverUrl": "/covers/placeholder.svg",
+      "summary": null,
+      "backgroundUrl": null,
       "developer": "GungHo Online Entertainment",
       "genres": [],
       "releaseDates": {
@@ -2293,13 +2508,17 @@
           "backloggd": null
         }
       },
-      "links": {}
+      "links": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Chit_Chat_Party!"
+      }
     },
     {
       "id": "igdb:339137",
       "kind": "game",
       "title": "Mouse Work",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co9n48.jpg",
+      "summary": "Quit mousin' around and get yourselves down to the job centre! Team up with friends or go it alone, facing a range of mini game challenges using the Switch 2 mouse controls. Each job features unique mechanics making full use of the Joy-Con 2’s cursor functionality.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/scxrn1.jpg",
       "developer": "Nitrome",
       "genres": [
         "Point & click",
@@ -2324,7 +2543,8 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/mouse-work/"
+        "backloggd": "https://backloggd.com/games/mouse-work/",
+        "wikipedia": "https://en.wikipedia.org/wiki/Mouse_Work"
       }
     }
   ]

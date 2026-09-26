@@ -52,6 +52,16 @@ section(
   "Add them under games.<id>.metacritic / .backloggd in data/overrides.json.",
 );
 
+// --- Reference links (ITERATION-2 §7): overridable with links.wikipedia / links.nintendoWiki.
+const noLinks = games
+  .map((g) => ({ g, gaps: [!g.links.wikipedia && "Wikipedia", !g.links.nintendoWiki && "Nintendo Wiki"].filter(Boolean) as string[] }))
+  .filter((m) => m.gaps.length);
+section(
+  "Games without a Wikipedia or Nintendo Wiki link",
+  noLinks.map(({ g, gaps }) => `${label(g)} — ${gaps.join(", ")}`),
+  "Add them under games.<id>.links.wikipedia / links.nintendoWiki in data/overrides.json.",
+);
+
 // --- From the last fetch.
 if (report) {
   section(
@@ -84,6 +94,7 @@ if (report) {
       : "RAPIDAPI_KEY is not set, so they were kept without the check.",
   );
   section("OpenCritic errors", report.opencritic.errors);
+  section("Wikipedia / Nintendo Wiki errors", report.linkErrors ?? []);
   section(
     "OpenCritic scores kept from the previous fetch",
     (report.opencritic.keptPrevious ?? []).map(label),

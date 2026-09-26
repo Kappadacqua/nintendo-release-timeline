@@ -32,7 +32,6 @@ export function revealCard(connector: SVGSVGElement[] | null, card: Card, side: 
       duration: 0.55,
       ease: "back.out(1.4)",
       transformOrigin: side === "above" ? "50% 100%" : "50% 0%",
-      clearProps: "transform",
     },
     0.1,
   );

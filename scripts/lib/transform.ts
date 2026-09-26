@@ -135,6 +135,15 @@ export function publishers(g: IgdbGame) {
 }
 
 /** Game record before scores, overrides and exclusivity history. */
+/** Full-screen background (ITERATION-2 §4): artwork → screenshot → cover (the site blurs it heavily). */
+function backgroundOf(g: IgdbGame): string | null {
+  const art = g.artworks?.find((a) => a.image_id)?.image_id;
+  if (art) return IMAGE_URL(art, "1080p");
+  const shot = g.screenshots?.find((s) => s.image_id)?.image_id;
+  if (shot) return IMAGE_URL(shot, "1080p");
+  return g.cover?.image_id ? IMAGE_URL(g.cover.image_id) : null;
+}
+
 export function toGame(g: IgdbGame, info: Dates): Game {
   const developer = (g.involved_companies ?? []).find((c) => c.developer)?.company?.name ?? null;
   const genres = (g.genres ?? []).map((x) => GENRE_NAMES[x.name] ?? x.name).slice(0, 2);
@@ -147,6 +156,8 @@ export function toGame(g: IgdbGame, info: Dates): Game {
     title: g.name,
     ...(kind === "dlc" && g.parent_game?.name ? { baseGameTitle: g.parent_game.name } : {}),
     coverUrl: g.cover?.image_id ? IMAGE_URL(g.cover.image_id) : PLACEHOLDER_COVER,
+    summary: g.summary?.trim() || null,
+    backgroundUrl: backgroundOf(g),
     developer,
     genres,
     releaseDates: info.releaseDates,
