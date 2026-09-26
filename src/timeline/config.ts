@@ -8,7 +8,7 @@ export const TIMELINE = {
   /** Shift+arrow moves by this many days (plain arrows: one day). */
   keyStepDaysLarge: 7,
   /** A wheel event at least this big (px) is one mouse-wheel notch = one day. */
-  wheelNotchPx: 50,
+  wheelNotchPx: 40,
   /** Pixels per notch when the browser merges several notches into one event. */
   wheelNotchUnitPx: 100,
   /** Trackpad: small deltas add up to this many px before moving one day. */

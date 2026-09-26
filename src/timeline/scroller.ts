@@ -33,6 +33,7 @@ export class Scroller {
 
   /** Glide to `x`, snapped. */
   scrollTo(x: number) {
+    if (!Number.isFinite(x)) return;
     const to = this.clamp(this.snap(this.clamp(x)));
     // Reduced motion: no glide, just go there.
     if (reducedMotion.matches) return this.jumpTo(to);
@@ -87,19 +88,20 @@ export class Scroller {
 }
 
 /**
- * Mouse-wheel notches in a wheel event, or 0 for trackpad-like input.
- * - line mode (Firefox): 3 lines per notch;
- * - pixel mode: an event of at least `wheelNotchPx` is a notch, and a merged event
- *   is worth one notch per `wheelNotchUnitPx` (100px per notch in Chrome / Edge).
- * `wheelDelta` is not used: it reads ±120 for any delta in some browsers.
+ * Mouse-wheel notches in a wheel event, or 0 for trackpad-like input (accumulated).
+ * - line / page mode: one notch per event (lines per notch depend on OS and settings);
+ * - pixel mode: an event of at least `wheelNotchPx` is a notch; one the browser merged
+ *   from several notches (while the page was busy) is worth one per `wheelNotchUnitPx`.
  */
 function wheelNotches(e: WheelEvent, delta: number) {
+  if (e.deltaMode !== WheelEvent.DOM_DELTA_PIXEL) return 1;
   const size = Math.abs(delta);
-  if (e.deltaMode === WheelEvent.DOM_DELTA_LINE) return Math.max(1, Math.round(size / 3));
-  if (e.deltaMode === WheelEvent.DOM_DELTA_PAGE) return Math.max(1, Math.round(size));
-  if (size >= TIMELINE.wheelNotchPx) return Math.max(1, Math.round(size / TIMELINE.wheelNotchUnitPx));
-  return 0;
+  if (size < TIMELINE.wheelNotchPx) return 0;
+  return Math.max(1, Math.floor(size / TIMELINE.wheelNotchUnitPx));
 }
+
+/** `?debug=wheel`: log every wheel event and what it did, to diagnose a specific mouse. */
+const debugWheel = new URLSearchParams(location.search).get("debug") === "wheel";
 
 /** Wires mouse wheel / trackpad, drag and keyboard input to a Scroller. */
 export function bindScrollInput(
@@ -134,6 +136,9 @@ export function bindScrollInput(
       const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
       if (!delta) return;
       const notches = wheelNotches(e, delta);
+      if (debugWheel) {
+        console.log("[wheel]", { deltaX: e.deltaX, deltaY: e.deltaY, deltaMode: e.deltaMode, notches, accumulated: wheelAcc });
+      }
       if (notches) {
         wheelAcc = 0;
         opts.onDayStep(Math.sign(delta) * notches);

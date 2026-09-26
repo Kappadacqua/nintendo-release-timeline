@@ -244,8 +244,8 @@ Tipo: "Nintendo Switch 2 Edition" nel nome → `switch2-edition`; tipo IGDB DLC 
 
 | Input | Azione |
 |---|---|
-| Rotella del mouse | 1 scatto = 1 giorno, sommato alla destinazione (l'animazione la insegue). Un evento in cui il browser ha unito più scatti vale uno scatto ogni `wheelNotchUnitPx` (100px); in modalità righe, 3 righe per scatto |
-| Trackpad | I delta piccoli si sommano fino a `trackpadDayPx` (40px) per giorno |
+| Rotella del mouse | 1 scatto = 1 giorno, sommato alla destinazione (l'animazione la insegue). Modalità righe/pagine (`deltaMode` 1/2): 1 giorno per evento. Modalità pixel: un evento ≥ `wheelNotchPx` (40px) è uno scatto; se il browser ha unito più scatti vale `floor(delta / wheelNotchUnitPx)` giorni (100px). `?debug=wheel` stampa ogni evento in console |
+| Trackpad | Solo i delta sotto `wheelNotchPx` si sommano, `trackpadDayPx` (40px) per giorno |
 | Trascinamento | Scorrimento libero con slancio; al rilascio aggancio al giorno più vicino (parte dopo 5px, così i clic sulle card restano clic) |
 | ← / → | Un giorno (Shift: una settimana) |
 | PagSu / PagGiù | Seleziona il gioco precedente / successivo (§7) |

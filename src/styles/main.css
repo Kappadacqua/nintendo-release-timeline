@@ -1033,8 +1033,9 @@ kbd {
 .card.is-selected {
   border-color: var(--accent);
   box-shadow:
-    0 0 0 2px var(--accent),
-    0 0 32px color-mix(in srgb, var(--accent) 45%, transparent),
+    0 0 0 3px var(--accent),
+    0 0 18px 4px color-mix(in srgb, var(--accent) 65%, transparent),
+    0 0 60px 14px color-mix(in srgb, var(--accent) 38%, transparent),
     var(--card-shadow-hover);
 }
 
@@ -1257,9 +1258,10 @@ kbd {
 /* Selected Switch 2 Edition: no solid ring over the Joy-Con border, an outer glow in its two colours. */
 .card--switch2-edition.is-selected {
   box-shadow:
-    -14px 0 36px -8px color-mix(in srgb, var(--joycon-left) 70%, transparent),
-    14px 0 36px -8px color-mix(in srgb, var(--joycon-right) 70%, transparent),
-    0 0 26px color-mix(in srgb, var(--accent) 25%, transparent),
+    -16px 0 30px 2px color-mix(in srgb, var(--joycon-left) 80%, transparent),
+    16px 0 30px 2px color-mix(in srgb, var(--joycon-right) 80%, transparent),
+    -30px 0 70px 10px color-mix(in srgb, var(--joycon-left) 40%, transparent),
+    30px 0 70px 10px color-mix(in srgb, var(--joycon-right) 40%, transparent),
     var(--card-shadow-hover);
 }
 
