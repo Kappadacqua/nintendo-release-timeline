@@ -1,7 +1,7 @@
 {
   "nintendoStore": {
     "region": "EU",
-    "euSite": "www.nintendo.co.uk",
+    "euSite": "www.nintendo.it",
     "fallbackRegions": ["US"]
   }
 }

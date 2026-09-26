@@ -33,6 +33,8 @@ export interface LinksCache {
   /** Wikidata eShop ids per IGDB slug: P12418 (Europe) and P8084 (US store slug). */
   eshopEuBySlug: Record<string, string>;
   eshopUsBySlug: Record<string, string>;
+  /** Wikidata OpenCritic id per IGDB slug (P2864). */
+  opencriticBySlug: Record<string, string>;
 }
 
 /** What data:fetch could not do (errors, quotas), merged into data/fetch-report.json by data:build. */
@@ -66,4 +68,5 @@ export const emptyLinks = (): LinksCache => ({
   nintendoWikiByTitle: {},
   eshopEuBySlug: {},
   eshopUsBySlug: {},
+  opencriticBySlug: {},
 });

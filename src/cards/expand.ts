@@ -4,11 +4,14 @@ import type { Game, ScoreSource } from "../types";
 
 const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
 
-/** Reference links shown as buttons in the selected card; more can be appended (e.g. Nintendo Store). */
-const LINK_BUTTONS: { key: keyof Game["links"]; label: string }[] = [
+/**
+ * Reference links shown as buttons in the selected card, on one row: `short` is the
+ * visible text where the full name doesn't fit (the full one stays in tooltip and aria-label).
+ */
+const LINK_BUTTONS: { key: keyof Game["links"]; label: string; short?: string }[] = [
   { key: "wikipedia", label: "Wikipedia" },
   { key: "nintendoWiki", label: "Nintendo Wiki" },
-  { key: "nintendoStore", label: "Nintendo Store" },
+  { key: "nintendoStore", label: "Nintendo Store", short: "Store" },
 ];
 
 function plural(n: number, unit: string) {
@@ -31,13 +34,14 @@ export function relativeRelease(game: Game, todayDay: number) {
   return days > 0 ? `Out in ${span(days)}` : `Released ${span(-days)} ago`;
 }
 
-function linkButton(label: string, href: string | undefined) {
+function linkButton(label: string, href: string | undefined, short = label) {
   if (!href) {
     const off = document.createElement("span");
     off.className = "card-button is-disabled";
     off.setAttribute("aria-disabled", "true");
     off.title = `No ${label} page`;
-    off.textContent = label;
+    off.setAttribute("aria-label", `${label}: no page`);
+    off.textContent = short;
     return off;
   }
   const a = document.createElement("a");
@@ -45,7 +49,8 @@ function linkButton(label: string, href: string | undefined) {
   a.href = href;
   a.target = "_blank";
   a.rel = "noopener noreferrer";
-  a.textContent = label;
+  a.textContent = short;
+  a.title = label;
   a.setAttribute("aria-label", `${label} (opens in a new tab)`);
   return a;
 }
@@ -74,7 +79,7 @@ function buildMore(card: HTMLElement, game: Game, todayDay: number) {
 
   const actions = document.createElement("div");
   actions.className = "card__actions";
-  for (const { key, label } of LINK_BUTTONS) actions.append(linkButton(label, game.links[key]));
+  for (const { key, label, short } of LINK_BUTTONS) actions.append(linkButton(label, game.links[key], short));
   more.append(actions);
   return more;
 }

@@ -63,6 +63,18 @@ function normalize(title: string) {
     .trim();
 }
 
+const FILLER = new Set(["the", "a", "an", "of", "and"]);
+
+/**
+ * A close title may differ only in filler words: "Xenoblade Chronicles 2 … Switch 2 Edition"
+ * is not "Xenoblade Chronicles … Switch 2 Edition", nor "Xenoblade Chronicles X …", however
+ * small the text distance. Anything else is forced with opencriticId in the overrides.
+ */
+function sameWords(a: string, b: string) {
+  const words = (t: string) => normalize(t).split(" ").filter((w) => !FILLER.has(w)).sort().join(" ");
+  return words(a) === words(b);
+}
+
 /**
  * OpenCritic via RapidAPI. The free plan allows ~25 searches and ~200 requests
  * per day, so ID matches and scores are cached on disk and every run has a budget.
@@ -136,6 +148,11 @@ export class OpenCritic {
     return this.catalogById.size;
   }
 
+  /** Looked up before (found or not). */
+  hasMatch(igdbId: string) {
+    return igdbId in this.cache.matches;
+  }
+
   catalogEntry(id: number) {
     return this.catalogById.get(id);
   }
@@ -162,7 +179,12 @@ export class OpenCritic {
    * OpenCritic id for an IGDB game from the cache or a new search (misses are
    * retried after `retryMissAfterDays`). null = no page; undefined = unknown (budget spent).
    */
-  async resolveId(igdbId: string, title: string, retryMissAfterDays: number): Promise<number | null | undefined> {
+  async resolveId(igdbId: string, title: string, retryMissAfterDays: number, knownId?: number): Promise<number | null | undefined> {
+    // Forced in overrides.json or from Wikidata: wins over any title match.
+    if (knownId) {
+      this.cache.matches[igdbId] = { opencriticId: knownId, searchedAt: new Date().toISOString() };
+      return knownId;
+    }
     const cached = this.cache.matches[igdbId];
     if (cached?.opencriticId) return cached.opencriticId;
     // Exact (normalized) title in the Switch 2 catalog: free, and fixes old failed searches.
@@ -182,7 +204,7 @@ export class OpenCritic {
     const wanted = normalize(title);
     const best =
       hits.find((h) => normalize(h.name) === wanted) ??
-      hits.filter((h) => h.dist <= 0.25).sort((a, b) => a.dist - b.dist)[0];
+      hits.filter((h) => h.dist <= 0.25 && sameWords(h.name, title)).sort((a, b) => a.dist - b.dist)[0];
     this.cache.matches[igdbId] = { opencriticId: best?.id ?? null, searchedAt: new Date().toISOString() };
     return best?.id ?? null;
   }

@@ -23,6 +23,7 @@ interface Report {
 const today = new Date().toISOString().slice(0, 10);
 const released = (g: Game) => !!g.firstReleaseDate && g.firstReleaseDate <= today;
 const GAPS: { key: string; label: string; missing: (g: Game, conflicts: Set<string>) => boolean }[] = [
+  { key: "opencritic", label: "OpenCritic", missing: (g) => released(g) && !g.scores.critic.opencritic },
   { key: "metacritic", label: "Metacritic", missing: (g) => released(g) && (!g.scores.critic.metacritic || !g.scores.user.metacritic) },
   { key: "backloggd", label: "Backloggd", missing: (g) => released(g) && !g.scores.user.backloggd },
   { key: "wikipedia", label: "Wikipedia", missing: (g) => !g.links.wikipedia },
@@ -125,7 +126,17 @@ function renderList() {
 const searchUrl = {
   metacritic: (t: string) => `https://www.metacritic.com/search/${encodeURIComponent(t)}/`,
   backloggd: (t: string) => `https://backloggd.com/search/games/${encodeURIComponent(t)}/`,
+  // OpenCritic's own search needs JavaScript and has no query URL.
+  opencritic: (t: string) => `https://duckduckgo.com/?q=${encodeURIComponent(`site:opencritic.com/game ${t}`)}`,
 };
+
+/** "82 · 46 top critics · id 18663", or why there is no score. */
+function openCriticNow(g: Game) {
+  const s = g.scores.critic.opencritic;
+  const id = /\/game\/(\d+)/.exec(g.links.opencritic ?? "")?.[1];
+  if (!s) return id ? `No score yet (id ${id})` : released(g) ? "No OpenCritic page matched" : "Not released yet";
+  return `${s.value}${s.count !== null ? ` · ${s.count} top critics` : ""}${id ? ` · id ${id}` : ""}`;
+}
 
 function field(label: string, name: string, value: unknown, attrs: Record<string, string>, placeholder = "") {
   const id = `f-${name.replace(/\./g, "-")}`;
@@ -166,6 +177,14 @@ function renderEditor(id: string) {
           ${conflict ? `<p class="admin-warning">Exclusivity conflict: ${escapeHtml(conflict)}</p>` : ""}
         </div>
       </header>
+
+      <fieldset>
+        <legend>OpenCritic <a href="${searchUrl.opencritic(g.title)}" target="_blank" rel="noopener">Find on OpenCritic ↗</a>${g.links.opencritic ? ` <a href="${escapeHtml(g.links.opencritic)}" target="_blank" rel="noopener">Open page ↗</a>` : ""}</legend>
+        <div class="admin-grid">
+          <label><span>Current score (automatic)</span><output class="admin-readonly">${escapeHtml(openCriticNow(g))}</output></label>
+          ${field("Force OpenCritic id", "opencriticId", o.opencriticId, { type: "number", min: "1", step: "1" }, "the number in opencritic.com/game/<id>/…")}
+        </div>
+      </fieldset>
 
       <fieldset>
         <legend>Metacritic <a href="${searchUrl.metacritic(g.title)}" target="_blank" rel="noopener">Search on Metacritic ↗</a>${g.links.metacritic ? ` <a href="${escapeHtml(g.links.metacritic)}" target="_blank" rel="noopener">Open page ↗</a>` : ""}</legend>
@@ -247,6 +266,7 @@ function fromForm(form: HTMLFormElement, previous: Override, title: string): Ove
   };
 
   const o: Override = { ...previous };
+  o.opencriticId = num("opencriticId");
   o.metacritic = clean({ critic: num("metacritic.critic"), criticCount: num("metacritic.criticCount"), user: num("metacritic.user"), userCount: num("metacritic.userCount") });
   o.backloggd = clean({ rating: num("backloggd.rating"), count: num("backloggd.count") });
   const managedLinks = {
@@ -286,6 +306,11 @@ async function save(id: string, override: Override | null) {
   const after = $<HTMLElement>(".admin-status");
   after.className = "admin-status is-ok";
   after.textContent = result.removed ? "Override removed, games.json rebuilt." : "Saved, games.json rebuilt.";
+  // The build has no network: a forced id outside the cached OpenCritic data gets its score from data:fetch.
+  const game = state.games.find((x) => x.id === id);
+  if (override?.opencriticId && game && released(game) && !game.scores.critic.opencritic) {
+    after.textContent += " The OpenCritic score arrives with the next `npm run data:fetch`.";
+  }
 }
 
 $<HTMLInputElement>("#search").addEventListener("input", (e) => {

@@ -9,9 +9,9 @@ import { env, intEnv, PATHS, requireEnv } from "./lib/env";
 import { ExclusivityHistory } from "./lib/exclusivity";
 import { HttpError } from "./lib/http";
 import { Igdb, type IgdbGame, PLATFORM } from "./lib/igdb";
-import { nintendoWikiByTitle, wikidataBySlug, wikipediaByTitle } from "./lib/links";
+import { nintendoWikiByTitle, type WikidataLinks, wikidataBySlug, wikipediaByTitle } from "./lib/links";
 import { OpenCritic } from "./lib/opencritic";
-import { loadOverrides } from "./lib/overrides";
+import { loadOverrides, type OverridesFile } from "./lib/overrides";
 import { snapshotOf, writeSnapshot } from "./lib/snapshots";
 import { sameTitle } from "./lib/transform";
 import { cleanWikiTitle, fetchSwitch2OnlyGames } from "./lib/wikipedia";
@@ -122,11 +122,9 @@ async function main() {
   }
   history.save();
 
-  await fetchOpenCritic(
-    selected.map((s) => s.game),
-    status,
-  );
-  await fetchLinks(selected, candidates, userAgent, status);
+  // Links first: Wikidata also knows OpenCritic ids, which saves searches.
+  const links = await fetchLinks(selected, candidates, userAgent, status);
+  await fetchOpenCritic(selected, knownOpenCriticIds(selected, links, overridesFile), status);
   writeJson(PATHS.fetchStatus, status);
 
   // --- Build games.json from what is now in the cache.
@@ -163,8 +161,24 @@ async function main() {
   }
 }
 
+/**
+ * OpenCritic ids known without a search: forced in overrides.json, else Wikidata (own
+ * IGDB slug only — a DLC or Switch 2 Edition must not take its base game's page).
+ */
+function knownOpenCriticIds(selected: Selected[], links: LinksCache, overridesFile: OverridesFile) {
+  const out = new Map<string, number>();
+  for (const s of selected) {
+    const forced = overridesFile.games[s.game.id]?.opencriticId;
+    const wikidata = s.slug ? Number(links.opencriticBySlug[s.slug]) : NaN;
+    const id = forced ?? (Number.isInteger(wikidata) && wikidata > 0 ? wikidata : undefined);
+    if (id) out.set(s.game.id, id);
+  }
+  return out;
+}
+
 /** OpenCritic: matches and details into data/cache/opencritic.json, freshest games first. */
-async function fetchOpenCritic(games: Game[], status: FetchStatus) {
+async function fetchOpenCritic(selected: Selected[], known: Map<string, number>, status: FetchStatus) {
+  const games = selected.map((s) => s.game);
   const apiKey = env("RAPIDAPI_KEY");
   if (!apiKey) {
     log("RAPIDAPI_KEY not set: skipping OpenCritic (the cache, if any, is still used by the build).");
@@ -195,13 +209,17 @@ async function fetchOpenCritic(games: Game[], status: FetchStatus) {
     const days = daysSince(g.firstReleaseDate!);
     return days >= 0 ? days : 1_000_000 - days;
   };
-  const dated = games.filter((g) => g.firstReleaseDate).sort((a, b) => priority(a) - priority(b));
+  // Games never looked up go first: otherwise the daily search quota is spent every day
+  // on retries of recent games and older ones never get their turn.
+  const dated = games
+    .filter((g) => g.firstReleaseDate)
+    .sort((a, b) => Number(oc.hasMatch(a.id)) - Number(oc.hasMatch(b.id)) || priority(a) - priority(b));
   for (const game of dated) {
     const released = game.firstReleaseDate! <= today;
     const age = released ? daysSince(game.firstReleaseDate!) : -1;
     let id: number | null | undefined;
     try {
-      id = await oc.resolveId(game.id, game.title, age >= 0 && age < 30 ? 3 : 14);
+      id = await oc.resolveId(game.id, game.title, age >= 0 && age < 30 ? 3 : 14, known.get(game.id));
     } catch (err) {
       fail(game.title, err, "search");
     }
@@ -233,7 +251,7 @@ async function fetchLinks(selected: Selected[], candidates: Map<number, IgdbGame
   const baseTitles = [...new Set(bases.map((b) => b.title))];
 
   const refresh = async (
-    key: "wikipediaBySlug" | "wikipediaByTitle" | "nintendoWikiByTitle" | "eshopEuBySlug" | "eshopUsBySlug",
+    key: "wikipediaBySlug" | "wikipediaByTitle" | "nintendoWikiByTitle" | "eshopEuBySlug" | "eshopUsBySlug" | "opencriticBySlug",
     keys: string[],
     lookup: () => Promise<Map<string, string>>,
     label: string,
@@ -250,8 +268,8 @@ async function fetchLinks(selected: Selected[], candidates: Map<number, IgdbGame
     }
   };
   // One Wikidata query gives the Wikipedia article and both eShop ids.
-  let wikidata: Map<string, { wikipedia?: string; eshopEu?: string; eshopUs?: string }> | null = null;
-  const fromWikidata = async (field: "wikipedia" | "eshopEu" | "eshopUs") => {
+  let wikidata: Map<string, WikidataLinks> | null = null;
+  const fromWikidata = async (field: keyof WikidataLinks) => {
     wikidata ??= await wikidataBySlug(slugs, userAgent);
     return new Map([...wikidata].flatMap(([slug, v]) => (v[field] ? [[slug, v[field]!] as [string, string]] : [])));
   };
@@ -260,8 +278,10 @@ async function fetchLinks(selected: Selected[], candidates: Map<number, IgdbGame
   await refresh("eshopUsBySlug", slugs, () => fromWikidata("eshopUs"), "eShop US (Wikidata)");
   await refresh("wikipediaByTitle", baseTitles, () => wikipediaByTitle(baseTitles, userAgent), "Wikipedia (titles)");
   await refresh("nintendoWikiByTitle", titles, () => nintendoWikiByTitle(titles, userAgent), "Nintendo Wiki");
+  await refresh("opencriticBySlug", slugs, () => fromWikidata("opencritic"), "OpenCritic ids (Wikidata)");
   links.fetchedAt = new Date().toISOString();
   writeJson(PATHS.linksCache, links);
+  return links;
 }
 
 main().catch((err) => {

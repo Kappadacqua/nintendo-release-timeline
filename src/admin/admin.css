@@ -65,6 +65,17 @@ body.admin {
   font: 600 14px var(--font);
 }
 
+/* Automatic values shown next to the fields that override them. */
+.admin-readonly {
+  display: block;
+  padding: 8px 10px;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text);
+  font: 700 14px var(--font);
+}
+
 .admin-filters {
   display: flex;
   flex-wrap: wrap;

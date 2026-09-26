@@ -1,47 +1,98 @@
 {
   "games": {
-    "igdb:393105": { "_title": "Pokémon Winds", "exclusivity": "exclusive" },
-    "igdb:393104": { "_title": "Pokémon Waves", "exclusivity": "exclusive" },
-    "igdb:417167": { "_title": "Hyrule Warriors: Age of Calamity - Definitive Edition", "exclusivity": "exclusive" },
-    "igdb:405439": { "_title": "DK Challenge", "exclusivity": "exclusive" },
-
-    "igdb:405436": { "_title": "Pokémon Pokopia: Bubbly Basin", "include": true, "opencriticId": 21143 },
-    "igdb:402033": { "_title": "Fitness Boxing 3: Your Personal Trainer - Nintendo Switch 2 Edition", "include": true },
-
-    "igdb:363807": { "_title": "Hello, Mario!", "include": false },
-    "igdb:378319": { "_title": "Hello, Yoshi!", "include": false },
-
-    "igdb:339137": { "_title": "Mouse Work", "include": true },
-
-    "igdb:403729": { "_title": "Riichi Mahjong (JP: SIMPLE Series for Nintendo Switch 2 Vol.1 THE Mahjong)", "releaseDates": { "JP": "2025-12-25" } }
+    "igdb:393105": {
+      "_title": "Pokémon Winds",
+      "exclusivity": "exclusive"
+    },
+    "igdb:393104": {
+      "_title": "Pokémon Waves",
+      "exclusivity": "exclusive"
+    },
+    "igdb:417167": {
+      "_title": "Hyrule Warriors: Age of Calamity - Definitive Edition",
+      "exclusivity": "exclusive"
+    },
+    "igdb:405439": {
+      "_title": "DK Challenge",
+      "exclusivity": "exclusive"
+    },
+    "igdb:405436": {
+      "_title": "Pokémon Pokopia: Bubbly Basin",
+      "include": true,
+      "opencriticId": 21143
+    },
+    "igdb:402033": {
+      "_title": "Fitness Boxing 3: Your Personal Trainer - Nintendo Switch 2 Edition",
+      "include": true
+    },
+    "igdb:363807": {
+      "_title": "Hello, Mario!",
+      "include": false
+    },
+    "igdb:378319": {
+      "_title": "Hello, Yoshi!",
+      "include": false
+    },
+    "igdb:339137": {
+      "_title": "Mouse Work",
+      "include": true
+    },
+    "igdb:403729": {
+      "_title": "Riichi Mahjong (JP: SIMPLE Series for Nintendo Switch 2 Vol.1 THE Mahjong)",
+      "releaseDates": {
+        "JP": "2025-12-25"
+      }
+    },
+    "igdb:338071": {
+      "opencriticId": 18963,
+      "_title": "Super Mario Party Jamboree: Nintendo Switch 2 Edition + Jamboree TV"
+    }
   },
-
   "wikipedia": {
-    "Pokémon Winds and Waves": ["igdb:393105", "igdb:393104"],
-    "SIMPLE Series for Nintendo Switch 2 Vol.1 THE Mahjong": ["igdb:403729"],
-    "Bit Boy!! Arcade 2": ["manual:bit-boy-arcade-2"],
-    "Chit Chat Party!": ["manual:chit-chat-party"],
-    "Putty World": ["manual:putty-world"]
+    "Pokémon Winds and Waves": [
+      "igdb:393105",
+      "igdb:393104"
+    ],
+    "SIMPLE Series for Nintendo Switch 2 Vol.1 THE Mahjong": [
+      "igdb:403729"
+    ],
+    "Bit Boy!! Arcade 2": [
+      "manual:bit-boy-arcade-2"
+    ],
+    "Chit Chat Party!": [
+      "manual:chit-chat-party"
+    ],
+    "Putty World": [
+      "manual:putty-world"
+    ]
   },
-
   "manualGames": [
     {
       "id": "manual:bit-boy-arcade-2",
       "title": "Bit Boy!! Arcade 2",
       "developer": "Bplus",
-      "genres": ["Action"],
-      "vagueRelease": { "label": "TBA" }
+      "genres": [
+        "Action"
+      ],
+      "vagueRelease": {
+        "label": "TBA"
+      }
     },
     {
       "id": "manual:chit-chat-party",
       "title": "Chit Chat Party!",
       "developer": "GungHo Online Entertainment",
-      "vagueRelease": { "label": "TBA" }
+      "vagueRelease": {
+        "label": "TBA"
+      }
     },
     {
       "id": "manual:putty-world",
       "title": "Putty World",
-      "vagueRelease": { "year": 2027, "label": "2027" }
+      "vagueRelease": {
+        "year": 2027,
+        "label": "2027"
+      }
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-26T21:25:34.182Z",
+  "generatedAt": "2026-09-26T21:50:52.428Z",
   "games": [
     {
       "id": "igdb:338093",
@@ -129,7 +129,7 @@
         "opencritic": "https://opencritic.com/game/18335/nintendo-switch-2-welcome-tour",
         "wikipedia": "https://en.wikipedia.org/wiki/Nintendo_Switch_2_Welcome_Tour",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Nintendo_Switch_2_Welcome_Tour",
-        "nintendoStore": "https://www.nintendo.co.uk/-/-2789271.html"
+        "nintendoStore": "https://www.nintendo.it/-/-2789271.html"
       }
     },
     {
@@ -252,7 +252,7 @@
         "opencritic": "https://opencritic.com/game/18654/survival-kids",
         "wikipedia": "https://en.wikipedia.org/wiki/Survival_Kids_(2025_video_game)",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Survival_Kids",
-        "nintendoStore": "https://www.nintendo.co.uk/-/-2807680.html"
+        "nintendoStore": "https://www.nintendo.it/-/-2807680.html"
       }
     },
     {
@@ -296,7 +296,7 @@
         "opencritic": "https://opencritic.com/game/19281/the-legend-of-zelda-breath-of-the-wild-nintendo-switch-2-edition",
         "wikipedia": "https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Breath_of_the_Wild",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/The_Legend_of_Zelda%3A_Breath_of_the_Wild",
-        "nintendoStore": "https://www.nintendo.co.uk/-/-2787250.html"
+        "nintendoStore": "https://www.nintendo.it/-/-2787250.html"
       }
     },
     {
@@ -340,7 +340,7 @@
         "opencritic": "https://opencritic.com/game/19282/the-legend-of-zelda-tears-of-the-kingdom-nintendo-switch-2-edition",
         "wikipedia": "https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Tears_of_the_Kingdom",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/The_Legend_of_Zelda%3A_Tears_of_the_Kingdom",
-        "nintendoStore": "https://www.nintendo.co.uk/-/-2787249.html"
+        "nintendoStore": "https://www.nintendo.it/-/-2787249.html"
       }
     },
     {
@@ -410,7 +410,12 @@
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
-          "opencritic": null,
+          "opencritic": {
+            "value": 62,
+            "scale": 100,
+            "normalized": 62,
+            "count": 8
+          },
           "metacritic": null
         },
         "user": {
@@ -420,6 +425,7 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/pokemon-friends/",
+        "opencritic": "https://opencritic.com/game/18962/pokemon-friends",
         "wikipedia": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Friends",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Pok%C3%A9mon_Friends",
         "nintendoStore": "https://www.nintendo.com/us/store/products/pokemon-friends-switch/"
@@ -448,7 +454,12 @@
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
-          "opencritic": null,
+          "opencritic": {
+            "value": 78,
+            "scale": 100,
+            "normalized": 78,
+            "count": 31
+          },
           "metacritic": null
         },
         "user": {
@@ -458,9 +469,10 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/super-mario-party-jamboree-nintendo-switch-2-edition-plus-jamboree-tv/",
+        "opencritic": "https://opencritic.com/game/18963/super-mario-party-jamboree-nintendo-switch-2-edition-jamboree-tv",
         "wikipedia": "https://en.wikipedia.org/wiki/Super_Mario_Party_Jamboree_%E2%80%93_Nintendo_Switch_2_Edition_%2B_Jamboree_TV",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Super_Mario_Party_Jamboree",
-        "nintendoStore": "https://www.nintendo.co.uk/-/-2785806.html"
+        "nintendoStore": "https://www.nintendo.it/-/-2785806.html"
       }
     },
     {
@@ -521,7 +533,12 @@
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
-          "opencritic": null,
+          "opencritic": {
+            "value": 63,
+            "scale": 100,
+            "normalized": 63,
+            "count": 37
+          },
           "metacritic": null
         },
         "user": {
@@ -531,6 +548,7 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/drag-x-drive/",
+        "opencritic": "https://opencritic.com/game/18802/drag-x-drive",
         "wikipedia": "https://en.wikipedia.org/wiki/Drag_x_Drive",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Drag_x_Drive",
         "nintendoStore": "https://www.nintendo.com/us/store/products/drag-x-drive-switch-2/"
@@ -577,7 +595,7 @@
         "opencritic": "https://opencritic.com/game/19162/kirby-and-the-forgotten-land-nintendo-switch-2-edition-star-crossed-world",
         "wikipedia": "https://en.wikipedia.org/wiki/Kirby_and_the_Forgotten_Land_%E2%80%93_Nintendo_Switch_2_Edition_%2B_Star-Crossed_World",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Kirby_and_the_Forgotten_Land",
-        "nintendoStore": "https://www.nintendo.co.uk/-/-2787773.html"
+        "nintendoStore": "https://www.nintendo.it/-/-2787773.html"
       }
     },
     {
@@ -777,7 +795,7 @@
         "opencritic": "https://opencritic.com/game/18645/pokemon-legends-z-a",
         "wikipedia": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Legends:_Z-A",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Pok%C3%A9mon_Legends%3A_Z-A",
-        "nintendoStore": "https://www.nintendo.co.uk/-/-2533423.html"
+        "nintendoStore": "https://www.nintendo.it/-/-2533423.html"
       }
     },
     {
@@ -1153,7 +1171,7 @@
         "opencritic": "https://opencritic.com/game/19292/mario-tennis-fever",
         "wikipedia": "https://en.wikipedia.org/wiki/Mario_Tennis_Fever",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Mario_Tennis_Fever",
-        "nintendoStore": "https://www.nintendo.co.uk/-/-2915160.html"
+        "nintendoStore": "https://www.nintendo.it/-/-2915160.html"
       }
     },
     {
@@ -1197,7 +1215,7 @@
         "opencritic": "https://opencritic.com/game/19667/pok-mon-pokopia",
         "wikipedia": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Pokopia",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Pok%C3%A9mon_Pokopia",
-        "nintendoStore": "https://www.nintendo.co.uk/-/-2915161.html"
+        "nintendoStore": "https://www.nintendo.it/-/-2915161.html"
       }
     },
     {
@@ -1543,12 +1561,7 @@
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
-          "opencritic": {
-            "value": 80,
-            "scale": 100,
-            "normalized": 80,
-            "count": 4
-          },
+          "opencritic": null,
           "metacritic": null
         },
         "user": {
@@ -1558,7 +1571,6 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/xenoblade-chronicles-definitive-edition-nintendo-switch-2-edition/",
-        "opencritic": "https://opencritic.com/game/20139/xenoblade-chronicles-x-definitive-edition-nintendo-switch-2-edition",
         "wikipedia": "https://en.wikipedia.org/wiki/Xenoblade_Chronicles:_Definitive_Edition",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Xenoblade_Chronicles%3A_Definitive_Edition",
         "nintendoStore": "https://www.nintendo.com/us/store/products/xenoblade-chronicles-definitive-edition-nintendo-switch-2-edition-switch-2/"
@@ -1730,7 +1742,7 @@
         "opencritic": "https://opencritic.com/game/20454/splatoon-raiders",
         "wikipedia": "https://en.wikipedia.org/wiki/Splatoon_Raiders",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Splatoon_Raiders",
-        "nintendoStore": "https://www.nintendo.co.uk/-/-2846969.html"
+        "nintendoStore": "https://www.nintendo.it/-/-2846969.html"
       }
     },
     {
@@ -1756,12 +1768,7 @@
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
-          "opencritic": {
-            "value": 80,
-            "scale": 100,
-            "normalized": 80,
-            "count": 4
-          },
+          "opencritic": null,
           "metacritic": null
         },
         "user": {
@@ -1771,7 +1778,6 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/xenoblade-chronicles-2-nintendo-switch-2-edition/",
-        "opencritic": "https://opencritic.com/game/20139/xenoblade-chronicles-x-definitive-edition-nintendo-switch-2-edition",
         "wikipedia": "https://en.wikipedia.org/wiki/Xenoblade_Chronicles_2",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Xenoblade_Chronicles_2",
         "nintendoStore": "https://www.nintendo.com/us/store/products/xenoblade-chronicles-2-nintendo-switch-2-edition-switch-2/"
@@ -2276,7 +2282,7 @@
         "backloggd": "https://backloggd.com/games/the-duskbloods/",
         "wikipedia": "https://en.wikipedia.org/wiki/The_Duskbloods",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/The_Duskbloods",
-        "nintendoStore": "https://www.nintendo.co.uk/-/-2789410.html"
+        "nintendoStore": "https://www.nintendo.it/-/-2789410.html"
       }
     },
     {

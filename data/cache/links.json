@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-09-26T21:05:17.669Z",
+  "fetchedAt": "2026-09-26T21:48:21.805Z",
   "wikipediaBySlug": {
     "pokemon-champions": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Champions",
     "mario-kart-world": "https://en.wikipedia.org/wiki/Mario_Kart_World",
@@ -146,5 +146,39 @@
     "xenoblade-chronicles-2": "xenoblade-chronicles-2-switch",
     "xenoblade-chronicles-3": "xenoblade-chronicles-3-switch",
     "pikmin-4": "pikmin-4-switch"
+  },
+  "opencriticBySlug": {
+    "pokemon-champions": "20303",
+    "mario-kart-world": "18333",
+    "nintendo-switch-2-welcome-tour": "18335",
+    "drag-x-drive": "18802",
+    "hyrule-warriors-age-of-imprisonment": "19291",
+    "kirby-air-riders": "19310",
+    "donkey-kong-bananza": "18340",
+    "pokemon-legends-z-a": "18645",
+    "metroid-prime-4-beyond": "16868",
+    "splatoon-raiders": "20454",
+    "pokemon-friends": "18962",
+    "mario-tennis-fever": "19292",
+    "pokemon-pokopia": "19667",
+    "fire-emblem-fortunes-weave": "20819",
+    "rhythm-heaven-groove": "20399",
+    "tomodachi-life-living-the-dream": "20304",
+    "yoshi-and-the-mysterious-book": "20221",
+    "star-fox--5": "20560",
+    "nintendo-switch-sports-resort": "20827",
+    "fast-fusion": "18663",
+    "survival-kids--1": "18654",
+    "super-mario-party-jamboree": "16873",
+    "the-legend-of-zelda-breath-of-the-wild": "1548",
+    "the-legend-of-zelda-tears-of-the-kingdom": "14343",
+    "kirby-and-the-forgotten-land": "12682",
+    "super-mario-bros-wonder": "15123",
+    "animal-crossing-new-horizons": "7409",
+    "fitness-boxing-3-your-personal-trainer": "17736",
+    "xenoblade-chronicles-definitive-edition": "9261",
+    "xenoblade-chronicles-2": "4952",
+    "xenoblade-chronicles-3": "13148",
+    "pikmin-4": "14514"
   }
 }

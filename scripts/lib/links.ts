@@ -10,6 +10,8 @@ export interface WikidataLinks {
   eshopEu?: string;
   /** Nintendo eShop id, P8084: https://www.nintendo.com/us/store/products/<id>/ */
   eshopUs?: string;
+  /** OpenCritic game id, P2864: found without spending OpenCritic's search quota. */
+  opencritic?: string;
 }
 
 /** Wikidata per IGDB slug: English Wikipedia article and eShop ids (one SPARQL query per 100 slugs). */
@@ -21,14 +23,15 @@ export async function wikidataBySlug(slugs: string[], userAgent: string): Promis
       .slice(i, i + 100)
       .map((s) => JSON.stringify(s))
       .join(" ");
-    const query = `SELECT ?slug ?article ?eu ?us WHERE {
+    const query = `SELECT ?slug ?article ?eu ?us ?oc WHERE {
       VALUES ?slug { ${values} }
       ?item wdt:${IGDB_GAME_ID} ?slug .
       OPTIONAL { ?article schema:about ?item ; schema:isPartOf <https://en.wikipedia.org/> . }
       OPTIONAL { ?item wdt:P12418 ?eu . }
       OPTIONAL { ?item wdt:P8084 ?us . }
+      OPTIONAL { ?item wdt:P2864 ?oc . }
     }`;
-    type Binding = Record<"slug" | "article" | "eu" | "us", { value: string } | undefined>;
+    type Binding = Record<"slug" | "article" | "eu" | "us" | "oc", { value: string } | undefined>;
     const res = await fetchJson<{ results: { bindings: Binding[] } }>("https://query.wikidata.org/sparql", {
       method: "POST",
       headers: {
@@ -46,6 +49,8 @@ export async function wikidataBySlug(slugs: string[], userAgent: string): Promis
       cur.wikipedia ??= b.article?.value;
       cur.eshopEu ??= b.eu?.value;
       cur.eshopUs ??= b.us?.value;
+      // Usually the bare id; older values may be "12345/slug".
+      cur.opencritic ??= /^\d+/.exec(b.oc?.value ?? "")?.[0];
       out.set(slug, cur);
     }
   }

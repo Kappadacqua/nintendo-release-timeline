@@ -106,7 +106,7 @@ Regole di dettaglio:
 | Link Nintendo Wiki (`nintendo.fandom.com`) | API MediaWiki di Fandom | automatica, sovrascrivibile |
 | Link Nintendo Store | Wikidata (P12418 eShop EU, P8084 eShop US) e link `websites` di IGDB | automatica, sovrascrivibile |
 | Date di uscita JP / EU / NA | IGDB (`release_dates` con `release_region` e `date_format`) | automatica, correggibile a mano |
-| Voto OpenCritic (Top Critic Average) + n° top critic | OpenCritic API (RapidAPI) | automatica |
+| Voto OpenCritic (Top Critic Average) + n° top critic | OpenCritic API (RapidAPI); ID anche da Wikidata (P2864) | automatica, ID forzabile |
 | Metacritic Metascore + n° recensioni | — (nessuna API) | **manuale** |
 | Metacritic User Score + n° voti | — | **manuale** |
 | Backloggd rating + n° voti | — | **manuale** |
@@ -122,7 +122,7 @@ Note:
 - **Link Wikipedia**: una query SPARQL su Wikidata per tutti i giochi (slug IGDB → articolo della Wikipedia inglese); per i giochi della categoria Switch 2-only vale anche la pagina della categoria.
 - **DLC e Switch 2 Edition** senza pagina propria usano le pagine del **gioco base** (`parent_game` / `version_parent` di IGDB, altrimenti il titolo senza "Nintendo Switch 2 Edition…").
 - **Link Nintendo Wiki**: titolo esatto (o redirect definito dalla wiki) con l'API di Fandom; altrimenti una ricerca, accettata solo se il titolo normalizzato coincide. In caso di dubbio nessun link (DLC e titoli minori spesso non hanno pagina).
-- **Link Nintendo Store**: regione in `data/settings.json` (`nintendoStore.region`, default `"EU"`; `euSite` sceglie il sito europeo, default `www.nintendo.co.uk`; `fallbackRegions`, default `["US"]`, si provano in ordine se la regione scelta non ha la pagina). Pagina EU: `https://<euSite>/-/-<id>.html` con l'id eShop europeo (Wikidata o link IGDB a un sito Nintendo europeo); pagina US: link IGDB a `nintendo.com/us/store/products/` o id Wikidata. DLC e Switch 2 Edition senza pagina propria usano quella del gioco base.
+- **Link Nintendo Store**: regione in `data/settings.json` (`nintendoStore.region`, default `"EU"`; `euSite` sceglie il sito europeo, impostato su `www.nintendo.it` (default del codice `www.nintendo.co.uk`); `fallbackRegions`, default `["US"]`, si provano in ordine se la regione scelta non ha la pagina). Pagina EU: `https://<euSite>/-/-<id>.html` con l'id eShop europeo (Wikidata o link IGDB a un sito Nintendo europeo); pagina US: link IGDB a `nintendo.com/us/store/products/` o id Wikidata. DLC e Switch 2 Edition senza pagina propria usano quella del gioco base.
 - Se Wikidata o Fandom non rispondono, restano i link del `games.json` precedente.
 - **Immagine di sfondo**: IGDB `artworks` → `screenshots` (taglia `1080p`) → copertina.
 
@@ -145,8 +145,9 @@ Regole:
 
 Piano gratuito RapidAPI: **25 ricerche e 200 richieste al giorno** (visibili negli header `x-ratelimit-*`). Per questo:
 
+- **ID noti senza ricerca**, con precedenza su ogni abbinamento per titolo: `opencriticId` in `overrides.json`, poi l'ID OpenCritic di Wikidata (P2864, letto con la stessa query dei link, solo per lo slug IGDB del gioco stesso). Serve per i giochi che OpenCritic non elenca come Switch 2 (es. Drag x Drive, segnato solo "Switch").
 - **Catalogo Switch 2**: lo script scarica l'elenco completo dei giochi Switch 2 (`GET /game?platforms=Switch 2&sort=name`, ~38 pagine da 20) e lo tiene in cache per `OPENCRITIC_CATALOG_DAYS` giorni (default 3). Gli abbinamenti per titolo normalizzato si fanno sul catalogo, **senza ricerche**; il voto viene dal catalogo.
-- **Ricerche** (`/game/search`) solo come ripiego per i giochi che non sono nel catalogo; i mancati abbinamenti si ritentano dopo 3 giorni (giochi usciti da poco) o 14.
+- **Ricerche** (`/game/search`) solo come ripiego per i giochi che non sono nel catalogo; i giochi **mai cercati passano per primi**, poi gli altri dal più recente. I mancati abbinamenti si ritentano dopo 3 giorni (giochi usciti da poco) o 14. Oltre al titolo identico (normalizzato) si accetta un risultato vicino solo se ha **le stesse parole** a meno di articoli e congiunzioni (evita "Xenoblade Chronicles X" al posto di "Xenoblade Chronicles", o un "2" perso).
 - **Dettagli** (`/game/{id}`) per il numero di top critic, in cache 1 giorno per i giochi usciti da meno di 45 giorni, 14 per gli altri.
 - Ogni esecuzione ha un tetto (`OPENCRITIC_MAX_SEARCHES`, `OPENCRITIC_MAX_REQUESTS`). Esaurire le ricerche non blocca le richieste; un 429 sulle richieste o una chiave rifiutata fermano le chiamate ma **la cache continua a essere usata**.
 - **Mai sovrascrivere con `null`**: se per un gioco uscito OpenCritic non dà una risposta certa in questo run (errore, quota, chiave assente), il voto e il link del `games.json` precedente restano. Una risposta certa è: voto trovato, gioco senza pagina, o pagina con voto `-1` (troppe poche recensioni).
@@ -347,7 +348,7 @@ Le card già visibili all'apertura del sito compaiono subito, senza animazione. 
 - **Come si seleziona**: PagGiù / PagSu scelgono il gioco successivo / precedente rispetto a quello selezionato o, se nessuno è selezionato, il primo gioco strettamente dopo / prima dell'indicatore. Ordine: prima data di uscita, a parità di data titolo; la zona TBA in fondo, per anno. Clic su una card (o Invio/Spazio con il focus) la seleziona. La timeline scorre fluida fino a portare la card sotto l'indicatore.
 - **Link**: in una card non selezionata il clic seleziona e non apre mai link; nella card selezionata link e pulsanti funzionano (nuova scheda).
 - **Aspetto**: la card selezionata è ingrandita (×1.05) verso la linea, ha un bordo luminoso ed è sopra le altre; le altre si attenuano (opacità 0.5). In alto a sinistra il titolo del sito lascia il posto, con dissolvenza, a miniatura della copertina + titolo del gioco.
-- **Card espansa**: si apre con un'animazione e mostra il **tempo relativo** (nelle card in uscita dentro la fascia "UPCOMING", al posto del conto alla rovescia breve) ("Out in 12 days", "Out today", "Out tomorrow", "Released 3 days ago"; oltre 60 giorni in mesi, oltre 24 mesi in anni; per i TBA "Expected 2027"), il **riassunto** IGDB troncato a 3 righe (testo intero nel tooltip) e i pulsanti **Wikipedia**, **Nintendo Wiki** e **Nintendo Store**, grigi e disattivati se il link manca. Sotto ogni cerchietto una **sparkline** con l'andamento del voto (`scoreHistory`), solo se ci sono almeno 2 valori diversi. Se la card espansa esce dall'area visibile viene spostata dentro.
+- **Card espansa**: si apre con un'animazione e mostra il **tempo relativo** (nelle card in uscita dentro la fascia "UPCOMING", al posto del conto alla rovescia breve) ("Out in 12 days", "Out today", "Out tomorrow", "Released 3 days ago"; oltre 60 giorni in mesi, oltre 24 mesi in anni; per i TBA "Expected 2027"), il **riassunto** IGDB troncato a 3 righe (testo intero nel tooltip) e i pulsanti **Wikipedia**, **Nintendo Wiki** e **Store** (Nintendo Store: nome completo in tooltip e `aria-label`), sempre **su una riga** anche nella card DLC, grigi e disattivati se il link manca. Sotto ogni cerchietto una **sparkline** con l'andamento del voto (`scoreHistory`), solo se ci sono almeno 2 valori diversi. Se la card espansa esce dall'area visibile viene spostata dentro.
 - Selezionare una card segna come viste le sue novità (§8).
 - `selectById(gameId)` della timeline è pubblico: lo usano ricerca e novità.
 
@@ -424,6 +425,7 @@ Variabili in `.env` (vedi `.env.example`): `TWITCH_CLIENT_ID`, `TWITCH_CLIENT_SE
 - **Pannello admin** (`/admin`, solo con `npm run dev`; non finisce nella build di produzione):
   - elenco dei giochi con dati mancanti, filtrabile: Metacritic, Backloggd, link Wikipedia / Nintendo Wiki / Nintendo Store, conflitti di esclusività; ricerca per titolo;
   - per ogni gioco un modulo con i campi di `overrides.json` (voti e numero di recensioni, esclusività, "Also on Switch 1", link), con link rapidi alla ricerca del gioco su Metacritic e Backloggd;
+  - sezione **OpenCritic**: voto attuale in sola lettura (voto, top critic, ID abbinato) e campo per forzare l'ID. La build non va in rete: se l'ID forzato non è già in cache, il voto arriva con il `data:fetch` successivo (l'admin lo dice). Filtro "OpenCritic" per i giochi usciti senza voto;
   - **Save**: il plugin Vite (`scripts/vite-admin.ts`) valida lo schema, copia il file precedente in `data/backups/` (ultime 30 copie), scrive `overrides.json` formattato, lancia `data:build` e il sito aperto si ricarica da solo mantenendo posizione e selezione.
 - Più avanti: GitHub Action settimanale che esegue il fetch, fa il commit di `games.json` e `changes.json` (e di cache, snapshot e storico) e ripubblica su GitHub Pages.
 
