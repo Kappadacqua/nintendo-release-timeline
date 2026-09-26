@@ -101,6 +101,7 @@ Note:
 - **Copertine**: CDN IGDB (`images.igdb.com`, taglia `cover_big`); se l'immagine non si carica, il sito mostra `placeholder.svg`.
 - **Link Backloggd**: automatico (Backloggd usa gli slug IGDB). **Metacritic**: da inserire in `links` negli override.
 - **Link Wikipedia**: una query SPARQL su Wikidata per tutti i giochi (slug IGDB → articolo della Wikipedia inglese); per i giochi della categoria Switch 2-only vale anche la pagina della categoria.
+- **DLC e Switch 2 Edition** senza pagina propria usano le pagine del **gioco base** (`parent_game` / `version_parent` di IGDB, altrimenti il titolo senza "Nintendo Switch 2 Edition…").
 - **Link Nintendo Wiki**: titolo esatto (o redirect definito dalla wiki) con l'API di Fandom; altrimenti una ricerca, accettata solo se il titolo normalizzato coincide. In caso di dubbio nessun link (DLC e titoli minori spesso non hanno pagina).
 - Se Wikidata o Fandom non rispondono, restano i link del `games.json` precedente.
 - **Immagine di sfondo**: IGDB `artworks` → `screenshots` (taglia `1080p`) → copertina.
@@ -230,7 +231,7 @@ Tipo: "Nintendo Switch 2 Edition" nel nome → `switch2-edition`; tipo IGDB DLC 
 - **Passato vs futuro**: linea piena nel passato, tratteggiata e più chiara nel futuro.
 - **Indicatore centrale** (playhead): linea verticale sottile fissa al centro; la timeline scorre sotto di essa, le card le passano sopra. Il giorno sotto l'indicatore ha la tacca in evidenza e il numero in una pillola rossa.
 - **Tacche** (32px per giorno, `dayPx` in `src/timeline/config.ts`): giorno corta, lunedì media, inizio mese alta. Numero del giorno sotto i giorni 1, 5, 10, 15, 20, 25 (`labeledDays`), etichetta del mese sotto i numeri (con l'anno a gennaio). Linea e tacche sono disegnate su canvas, solo per la parte visibile.
-- **Header** al centro della barra in alto: la data sotto l'indicatore, `2026 · September · Sat 26`; anno, mese e giorno si animano ognuno per conto suo nella direzione dello scroll. Nella zona TBA: anno del blocco · "Date TBA".
+- **Header** al centro della barra in alto: la data sotto l'indicatore, `2026 · September · Sat 26`; anno, mese e giorno si animano ognuno per conto suo nella direzione dello scroll. Nella zona TBA: "2027 · Date TBA" per i blocchi con anno, solo "Date TBA" per quello senza; l'indicatore centrale lì è nascosto.
 - **Aggancio al giorno**: ogni movimento (rotella, frecce, fine del trascinamento, minimappa) si ferma esattamente su un giorno; la zona TBA è libera.
 - **All'apertura** la timeline è centrata su **oggi** (fuso orario locale), con l'indicatore **"Today"** pulsante.
 - **Zona TBA**: blocchi per anno ("2026", "2027"…, poi "TBA"), tratteggiati, con le card dei giochi senza data precisa, collegati da una linea puntinata.
@@ -243,7 +244,7 @@ Tipo: "Nintendo Switch 2 Edition" nel nome → `switch2-edition`; tipo IGDB DLC 
 
 | Input | Azione |
 |---|---|
-| Rotella del mouse | 1 scatto = 1 giorno (evento ≥ `wheelNotchPx` o in righe/pagine) |
+| Rotella del mouse | 1 scatto = 1 giorno, sommato alla destinazione (l'animazione la insegue). Un evento in cui il browser ha unito più scatti vale uno scatto ogni `wheelNotchUnitPx` (100px); in modalità righe, 3 righe per scatto |
 | Trackpad | I delta piccoli si sommano fino a `trackpadDayPx` (40px) per giorno |
 | Trascinamento | Scorrimento libero con slancio; al rilascio aggancio al giorno più vicino (parte dopo 5px, così i clic sulle card restano clic) |
 | ← / → | Un giorno (Shift: una settimana) |
@@ -288,20 +289,22 @@ Bordo sfumato a due colori, ispirato ai due Joy-Con: blu a sinistra, rosso a des
 
 ### Animazione di comparsa
 
-Quando la data entra nel viewport: il connettore cresce, la card sale dalla linea con fade e scale, poi i cerchietti si riempiono con il numero che sale. Una volta sola per card; durante un salto lungo (es. dalla minimappa) le card che scorrono via non consumano l'animazione.
+Le card già visibili all'apertura del sito compaiono subito, senza animazione. Le altre, quando la data entra nel viewport: il connettore cresce, la card sale dalla linea con fade e scale, poi i cerchietti si riempiono con il numero che sale. Una volta sola per card; durante un salto lungo (es. dalla minimappa) le card che scorrono via non consumano l'animazione.
 
 ### Selezione
 
 - **Come si seleziona**: PagGiù / PagSu scelgono il gioco successivo / precedente rispetto a quello selezionato o, se nessuno è selezionato, il primo gioco strettamente dopo / prima dell'indicatore. Ordine: prima data di uscita, a parità di data titolo; la zona TBA in fondo, per anno. Clic su una card (o Invio/Spazio con il focus) la seleziona. La timeline scorre fluida fino a portare la card sotto l'indicatore.
 - **Link**: in una card non selezionata il clic seleziona e non apre mai link; nella card selezionata link e pulsanti funzionano (nuova scheda).
 - **Aspetto**: la card selezionata è ingrandita (×1.05) verso la linea, ha un bordo luminoso ed è sopra le altre; le altre si attenuano (opacità 0.5). In alto a sinistra il titolo del sito lascia il posto, con dissolvenza, a miniatura della copertina + titolo del gioco.
-- **Card espansa**: si apre con un'animazione e mostra il **tempo relativo** ("Out in 12 days", "Out today", "Out tomorrow", "Released 3 days ago"; oltre 60 giorni in mesi, oltre 24 mesi in anni; per i TBA "Expected 2027"), il **riassunto** IGDB troncato a 3 righe (testo intero nel tooltip) e i pulsanti **Wikipedia** e **Nintendo Wiki**, grigi e disattivati se il link manca. La lista dei pulsanti è pensata per crescere (Nintendo Store, `ITERATION-3.md`). Se la card espansa esce dall'area visibile viene spostata dentro.
+- **Card espansa**: si apre con un'animazione e mostra il **tempo relativo** (nelle card in uscita dentro la fascia "UPCOMING", al posto del conto alla rovescia breve) ("Out in 12 days", "Out today", "Out tomorrow", "Released 3 days ago"; oltre 60 giorni in mesi, oltre 24 mesi in anni; per i TBA "Expected 2027"), il **riassunto** IGDB troncato a 3 righe (testo intero nel tooltip) e i pulsanti **Wikipedia** e **Nintendo Wiki**, grigi e disattivati se il link manca. La lista dei pulsanti è pensata per crescere (Nintendo Store, `ITERATION-3.md`). Se la card espansa esce dall'area visibile viene spostata dentro.
 - `selectById(gameId)` della timeline è pubblico, per ricerca e novità (`ITERATION-3.md`).
 
 ### Sfondo del gioco selezionato
 
 - Dietro tutto il sito, a tutto schermo, l'immagine del gioco selezionato (`backgroundUrl`): sfocatura marcata (molto più forte se è la copertina), sotto un velo del colore di sfondo del tema (token `--backdrop-blur`, `--backdrop-blur-cover`, `--backdrop-veil`).
 - Dissolvenza incrociata fra due livelli (400ms); un'immagine appare solo quando è caricata e se è ancora quella richiesta. Scompare alla deselezione.
+- Con lo sfondo attivo, una fascia semitrasparente (colore di sfondo del tema) sta dietro la linea, i numeri dei giorni e i mesi, e dietro il footer. Velo: 0.45 nel tema chiaro, 0.06 nel tema scuro.
+- Selezionata, una Switch 2 Edition non ha l'anello rosso (coprirebbe il bordo sfumato) ma un bagliore esterno blu/rosso.
 - Alla selezione si precaricano le immagini del gioco precedente e successivo.
 
 ### Uscito oggi

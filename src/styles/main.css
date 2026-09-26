@@ -1099,11 +1099,6 @@ kbd {
   cursor: not-allowed;
 }
 
-/* The expanded card shows the relative time once, in .card__when. */
-.card.is-selected .card__upcoming-when {
-  display: none;
-}
-
 /* ---------- Background of the selected game (ITERATION-2 §4) ---------- */
 
 .backdrop {
@@ -1144,7 +1139,8 @@ kbd {
   --backdrop-blur: 28px;
   --backdrop-blur-cover: 70px;
   --backdrop-opacity: 1;
-  --backdrop-veil: 0.12;
+  /* Light theme: bright artworks need more cover; the band behind the line keeps labels readable. */
+  --backdrop-veil: 0.45;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -1154,7 +1150,7 @@ kbd {
 }
 
 :root[data-theme="dark"] {
-  --backdrop-veil: 0.66;
+  --backdrop-veil: 0.06; /* same as the system dark theme above */
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1231,4 +1227,53 @@ kbd {
 .tl-item:hover .card--switch2-edition,
 .card--switch2-edition.is-selected {
   border-color: transparent;
+}
+
+/* Over a game background: a translucent band behind the line and its labels, and behind the footer. */
+.timeline__band {
+  position: absolute;
+  right: 0;
+  left: 0;
+  background: color-mix(in srgb, var(--bg) 80%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 82%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 82%, transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.has-backdrop .timeline__band {
+  opacity: 1;
+}
+
+.app-footer {
+  transition: background-color 0.4s ease;
+}
+
+.has-backdrop .app-footer {
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
+}
+
+/* Selected Switch 2 Edition: no solid ring over the Joy-Con border, an outer glow in its two colours. */
+.card--switch2-edition.is-selected {
+  box-shadow:
+    -14px 0 36px -8px color-mix(in srgb, var(--joycon-left) 70%, transparent),
+    14px 0 36px -8px color-mix(in srgb, var(--joycon-right) 70%, transparent),
+    0 0 26px color-mix(in srgb, var(--accent) 25%, transparent),
+    var(--card-shadow-hover);
+}
+
+/* The upcoming band doubles as the relative time when the card is selected. */
+.card.is-selected .card__upcoming-when {
+  color: var(--accent);
+  font-weight: 900;
+}
+
+/* The TBA zone has no days: the playhead fades out there. */
+.timeline__playhead {
+  transition: opacity 0.3s ease;
+}
+
+.timeline.in-tba .timeline__playhead {
+  opacity: 0;
 }

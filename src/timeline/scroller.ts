@@ -86,6 +86,21 @@ export class Scroller {
   };
 }
 
+/**
+ * Mouse-wheel notches in a wheel event, or 0 for trackpad-like input.
+ * - line mode (Firefox): 3 lines per notch;
+ * - pixel mode: an event of at least `wheelNotchPx` is a notch, and a merged event
+ *   is worth one notch per `wheelNotchUnitPx` (100px per notch in Chrome / Edge).
+ * `wheelDelta` is not used: it reads ±120 for any delta in some browsers.
+ */
+function wheelNotches(e: WheelEvent, delta: number) {
+  const size = Math.abs(delta);
+  if (e.deltaMode === WheelEvent.DOM_DELTA_LINE) return Math.max(1, Math.round(size / 3));
+  if (e.deltaMode === WheelEvent.DOM_DELTA_PAGE) return Math.max(1, Math.round(size));
+  if (size >= TIMELINE.wheelNotchPx) return Math.max(1, Math.round(size / TIMELINE.wheelNotchUnitPx));
+  return 0;
+}
+
 /** Wires mouse wheel / trackpad, drag and keyboard input to a Scroller. */
 export function bindScrollInput(
   el: HTMLElement,
@@ -107,8 +122,10 @@ export function bindScrollInput(
     onKeyNavigate: () => void;
   },
 ) {
-  // Wheel: one mouse notch = one day. Trackpads send many small deltas, which add up
-  // to `trackpadDayPx` per day (the remainder is dropped when the direction flips).
+  // Wheel: one mouse notch = one day, added to the destination (the glide chases it).
+  // When the page is busy, browsers merge several notches into one event with the
+  // deltas summed, so an event is worth as many days as notches it contains.
+  // Trackpads send many small deltas, which add up to `trackpadDayPx` per day.
   let wheelAcc = 0;
   el.addEventListener(
     "wheel",
@@ -116,9 +133,10 @@ export function bindScrollInput(
       e.preventDefault();
       const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
       if (!delta) return;
-      if (e.deltaMode !== WheelEvent.DOM_DELTA_PIXEL || Math.abs(delta) >= TIMELINE.wheelNotchPx) {
+      const notches = wheelNotches(e, delta);
+      if (notches) {
         wheelAcc = 0;
-        opts.onDayStep(Math.sign(delta));
+        opts.onDayStep(Math.sign(delta) * notches);
         return;
       }
       if (Math.sign(delta) !== Math.sign(wheelAcc)) wheelAcc = 0;

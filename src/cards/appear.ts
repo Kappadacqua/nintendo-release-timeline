@@ -11,12 +11,16 @@ export function hideCard(connector: SVGSVGElement[] | null, card: Card) {
   if (connector) gsap.set(connector, { scaleY: 0, transformOrigin: "0 0" });
 }
 
-/** One-shot entrance: connector grows, card rises from the line, then rings fill. */
-export function revealCard(connector: SVGSVGElement[] | null, card: Card, side: Side) {
-  if (reducedMotion.matches) {
+/**
+ * One-shot entrance: connector grows, card rises from the line, then rings fill.
+ * `instant`: cards already on screen when the page opens are simply there.
+ */
+export function revealCard(connector: SVGSVGElement[] | null, card: Card, side: Side, instant = false) {
+  if (reducedMotion.matches || instant) {
     if (connector) gsap.set(connector, { scaleY: 1 });
     gsap.set(card.el, { opacity: 1 });
     card.rings.forEach((r) => r.finish());
+    if (instant && !reducedMotion.matches && card.el.classList.contains("card--out-today")) confettiBurst(card.el);
     return;
   }
 

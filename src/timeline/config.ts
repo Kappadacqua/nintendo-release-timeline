@@ -9,6 +9,8 @@ export const TIMELINE = {
   keyStepDaysLarge: 7,
   /** A wheel event at least this big (px) is one mouse-wheel notch = one day. */
   wheelNotchPx: 50,
+  /** Pixels per notch when the browser merges several notches into one event. */
+  wheelNotchUnitPx: 100,
   /** Trackpad: small deltas add up to this many px before moving one day. */
   trackpadDayPx: 40,
   /** Day numbers are printed under the ticks of these days of the month. */

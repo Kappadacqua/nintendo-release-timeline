@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-26T17:23:34.616Z",
+  "generatedAt": "2026-09-26T17:58:40.926Z",
   "games": [
     {
       "id": "igdb:338093",
@@ -281,7 +281,9 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/the-legend-of-zelda-breath-of-the-wild-nintendo-switch-2-edition/",
-        "opencritic": "https://opencritic.com/game/19281/the-legend-of-zelda-breath-of-the-wild-nintendo-switch-2-edition"
+        "opencritic": "https://opencritic.com/game/19281/the-legend-of-zelda-breath-of-the-wild-nintendo-switch-2-edition",
+        "wikipedia": "https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Breath_of_the_Wild",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/The_Legend_of_Zelda%3A_Breath_of_the_Wild"
       }
     },
     {
@@ -321,7 +323,9 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/the-legend-of-zelda-tears-of-the-kingdom-nintendo-switch-2-edition/",
-        "opencritic": "https://opencritic.com/game/19282/the-legend-of-zelda-tears-of-the-kingdom-nintendo-switch-2-edition"
+        "opencritic": "https://opencritic.com/game/19282/the-legend-of-zelda-tears-of-the-kingdom-nintendo-switch-2-edition",
+        "wikipedia": "https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Tears_of_the_Kingdom",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/The_Legend_of_Zelda%3A_Tears_of_the_Kingdom"
       }
     },
     {
@@ -434,7 +438,8 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/super-mario-party-jamboree-nintendo-switch-2-edition-plus-jamboree-tv/",
-        "wikipedia": "https://en.wikipedia.org/wiki/Super_Mario_Party_Jamboree_%E2%80%93_Nintendo_Switch_2_Edition_%2B_Jamboree_TV"
+        "wikipedia": "https://en.wikipedia.org/wiki/Super_Mario_Party_Jamboree_%E2%80%93_Nintendo_Switch_2_Edition_%2B_Jamboree_TV",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Super_Mario_Party_Jamboree"
       }
     },
     {
@@ -544,7 +549,8 @@
       "links": {
         "backloggd": "https://backloggd.com/games/kirby-and-the-forgotten-land-nintendo-switch-2-edition-plus-star-crossed-world/",
         "opencritic": "https://opencritic.com/game/19162/kirby-and-the-forgotten-land-nintendo-switch-2-edition-star-crossed-world",
-        "wikipedia": "https://en.wikipedia.org/wiki/Kirby_and_the_Forgotten_Land_%E2%80%93_Nintendo_Switch_2_Edition_%2B_Star-Crossed_World"
+        "wikipedia": "https://en.wikipedia.org/wiki/Kirby_and_the_Forgotten_Land_%E2%80%93_Nintendo_Switch_2_Edition_%2B_Star-Crossed_World",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Kirby_and_the_Forgotten_Land"
       }
     },
     {
@@ -586,7 +592,8 @@
       "links": {
         "backloggd": "https://backloggd.com/games/donkey-kong-bananza-dk-island-and-emerald-rush/",
         "opencritic": "https://opencritic.com/game/19306/donkey-kong-bananza-dk-island-emerald-rush",
-        "nintendoWiki": "https://nintendo.fandom.com/wiki/Donkey_Kong_Bananza%3A_DK_Island_%26_Emerald_Rush"
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Donkey_Kong_Bananza%3A_DK_Island_%26_Emerald_Rush",
+        "wikipedia": "https://en.wikipedia.org/wiki/Donkey_Kong_Bananza"
       }
     },
     {
@@ -897,7 +904,9 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/pokemon-legends-z-a-mega-dimension/",
-        "opencritic": "https://opencritic.com/game/19873/pok-mon-legends-z-a-mega-dimension"
+        "opencritic": "https://opencritic.com/game/19873/pok-mon-legends-z-a-mega-dimension",
+        "wikipedia": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Legends:_Z-A",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Pok%C3%A9mon_Legends%3A_Z-A"
       }
     },
     {
@@ -970,7 +979,9 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/animal-crossing-new-horizons-nintendo-switch-2-edition/",
-        "opencritic": "https://opencritic.com/game/19943/animal-crossing-new-horizons-nintendo-switch-2-edition"
+        "opencritic": "https://opencritic.com/game/19943/animal-crossing-new-horizons-nintendo-switch-2-edition",
+        "wikipedia": "https://en.wikipedia.org/wiki/Animal_Crossing:_New_Horizons",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Animal_Crossing%3A_New_Horizons"
       }
     },
     {
@@ -1169,7 +1180,8 @@
       "links": {
         "backloggd": "https://backloggd.com/games/super-mario-bros-wonder-nintendo-switch-2-edition-plus-meetup-in-bellabel-park/",
         "opencritic": "https://opencritic.com/game/20256/super-mario-bros-wonder-nintendo-switch-2-edition-meetup-in-bellabel-park",
-        "wikipedia": "https://en.wikipedia.org/wiki/Super_Mario_Bros._Wonder_%E2%80%93_Nintendo_Switch_2_Edition_%2B_Meetup_in_Bellabel_Park"
+        "wikipedia": "https://en.wikipedia.org/wiki/Super_Mario_Bros._Wonder_%E2%80%93_Nintendo_Switch_2_Edition_%2B_Meetup_in_Bellabel_Park",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Super_Mario_Bros._Wonder"
       }
     },
     {
@@ -1474,7 +1486,9 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/xenoblade-chronicles-definitive-edition-nintendo-switch-2-edition/",
-        "opencritic": "https://opencritic.com/game/20139/xenoblade-chronicles-x-definitive-edition-nintendo-switch-2-edition"
+        "opencritic": "https://opencritic.com/game/20139/xenoblade-chronicles-x-definitive-edition-nintendo-switch-2-edition",
+        "wikipedia": "https://en.wikipedia.org/wiki/Xenoblade_Chronicles:_Definitive_Edition",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Xenoblade_Chronicles%3A_Definitive_Edition"
       }
     },
     {
@@ -1591,7 +1605,9 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/fitness-boxing-3-your-personal-trainer-nintendo-switch-2-edition/"
+        "backloggd": "https://backloggd.com/games/fitness-boxing-3-your-personal-trainer-nintendo-switch-2-edition/",
+        "wikipedia": "https://en.wikipedia.org/wiki/Fitness_Boxing",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Fitness_Boxing_3%3A_Your_Personal_Trainer"
       }
     },
     {
@@ -1673,7 +1689,9 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/xenoblade-chronicles-2-nintendo-switch-2-edition/",
-        "opencritic": "https://opencritic.com/game/20139/xenoblade-chronicles-x-definitive-edition-nintendo-switch-2-edition"
+        "opencritic": "https://opencritic.com/game/20139/xenoblade-chronicles-x-definitive-edition-nintendo-switch-2-edition",
+        "wikipedia": "https://en.wikipedia.org/wiki/Xenoblade_Chronicles_2",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Xenoblade_Chronicles_2"
       }
     },
     {
@@ -1711,7 +1729,9 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/pokemon-pokopia-bubbly-basin/",
-        "opencritic": "https://opencritic.com/game/21143/pok-mon-pokopia-expansion-pass-part-1-bubbly-basin"
+        "opencritic": "https://opencritic.com/game/21143/pok-mon-pokopia-expansion-pass-part-1-bubbly-basin",
+        "wikipedia": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Pokopia",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Pok%C3%A9mon_Pokopia"
       }
     },
     {
@@ -1930,7 +1950,9 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/pikmin-4-nintendo-switch-2-edition-plus-dandori-academy/"
+        "backloggd": "https://backloggd.com/games/pikmin-4-nintendo-switch-2-edition-plus-dandori-academy/",
+        "wikipedia": "https://en.wikipedia.org/wiki/Pikmin_4",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Pikmin_4"
       }
     },
     {
@@ -1964,7 +1986,9 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/xenoblade-chronicles-3-nintendo-switch-2-edition/"
+        "backloggd": "https://backloggd.com/games/xenoblade-chronicles-3-nintendo-switch-2-edition/",
+        "wikipedia": "https://en.wikipedia.org/wiki/Xenoblade_Chronicles_3",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Xenoblade_Chronicles_3"
       }
     },
     {
@@ -2106,7 +2130,9 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/pokemon-pokopia-part-2/"
+        "backloggd": "https://backloggd.com/games/pokemon-pokopia-part-2/",
+        "wikipedia": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Pokopia",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Pok%C3%A9mon_Pokopia"
       }
     },
     {
@@ -2293,7 +2319,9 @@
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/pokemon-pokopia-part-3/"
+        "backloggd": "https://backloggd.com/games/pokemon-pokopia-part-3/",
+        "wikipedia": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Pokopia",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Pok%C3%A9mon_Pokopia"
       }
     },
     {

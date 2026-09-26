@@ -37,12 +37,56 @@ export async function wikipediaBySlug(slugs: string[], userAgent: string): Promi
   return out;
 }
 
+/** English Wikipedia article for exact titles (redirects followed, disambiguation pages skipped). */
+export async function wikipediaByTitle(titles: string[], userAgent: string): Promise<Map<string, string>> {
+  const out = new Map<string, string>();
+  const throttle = new Throttle(200);
+  for (let i = 0; i < titles.length; i += 50) {
+    const batch = titles.slice(i, i + 50);
+    const params = new URLSearchParams({
+      action: "query",
+      format: "json",
+      formatversion: "2",
+      redirects: "1",
+      prop: "pageprops",
+      ppprop: "disambiguation",
+      titles: batch.join("|"),
+    });
+    const res = await fetchJson<WikiQuery>(
+      `https://en.wikipedia.org/w/api.php?${params}`,
+      { headers: { "User-Agent": userAgent, "Api-User-Agent": userAgent }, throttle, label: "Wikipedia titles" },
+    );
+    const q = res.query ?? {};
+    const follow = (t: string, list?: { from: string; to: string }[]) => list?.find((x) => x.from === t)?.to ?? t;
+    const ok = new Set((q.pages ?? []).filter((p) => !p.missing && !p.pageprops).map((p) => p.title));
+    for (const title of batch) {
+      const page = follow(follow(title, q.normalized), q.redirects);
+      if (ok.has(page)) out.set(title, wikipediaUrl(page));
+    }
+  }
+  return out;
+}
+
+/** "Kirby and the Forgotten Land – Nintendo Switch 2 Edition + Star-Crossed World" → "Kirby and the Forgotten Land". */
+export function baseTitleOfEdition(title: string) {
+  const base = title.replace(/\s*[:\-–—]?\s*Nintendo Switch 2 Edition.*$/i, "").trim();
+  return base && base !== title ? base : null;
+}
+
 export function wikipediaUrl(pageTitle: string) {
   return `https://en.wikipedia.org/wiki/${encodeURIComponent(pageTitle.replace(/ /g, "_")).replace(/%2F/g, "/")}`;
 }
 
 const fandomUrl = (pageTitle: string) =>
   `https://nintendo.fandom.com/wiki/${encodeURIComponent(pageTitle.replace(/ /g, "_")).replace(/%2F/g, "/")}`;
+
+type WikiQuery = {
+  query?: {
+    normalized?: { from: string; to: string }[];
+    redirects?: { from: string; to: string }[];
+    pages?: { title: string; missing?: boolean; pageprops?: object }[];
+  };
+};
 
 interface FandomQuery {
   query?: {

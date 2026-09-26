@@ -98,6 +98,9 @@ export class Timeline {
   /** True while focus is moved by the timeline itself, which must not re-center the view. */
   private movingFocus = false;
   private cardScale = 1;
+  /** True only for the first render: cards on screen at page open appear without an entrance. */
+  private opening = false;
+  private readonly band: HTMLElement;
 
   /** Index in `stops` of the selected card, or -1. */
   private selected = -1;
@@ -142,7 +145,11 @@ export class Timeline {
     playhead.className = "timeline__playhead";
     playhead.setAttribute("aria-hidden", "true");
     playhead.style.bottom = `${TIMELINE.minimapBandPx}px`;
-    this.el.append(this.canvas, playhead, this.world, this.minimap.el);
+    // Translucent band behind the line and its labels, shown over a game background.
+    this.band = document.createElement("div");
+    this.band.className = "timeline__band";
+    this.band.setAttribute("aria-hidden", "true");
+    this.el.append(this.band, this.canvas, playhead, this.world, this.minimap.el);
     (headerSlot ?? this.el).append(this.header.el);
     root.append(this.el);
     this.el.addEventListener("focusin", (e) => this.onFocusIn(e));
@@ -182,7 +189,9 @@ export class Timeline {
     this.resize();
     this.scroller.jumpTo(this.dayX(this.todayDay));
     this.ready = true;
+    this.opening = true;
     this.render(this.scroller.current);
+    this.opening = false;
     // Month labels use the web font; redraw once it has loaded.
     document.fonts.ready.then(() => this.render(this.scroller.current));
   }
@@ -517,7 +526,7 @@ export class Timeline {
       for (const slot of block.slots) {
         if (canReveal && !slot.revealed && slot.x >= left && slot.x <= right) {
           slot.revealed = true;
-          revealCard(null, slot.card!, "above");
+          revealCard(null, slot.card!, "above", this.opening);
         }
       }
     }
@@ -539,7 +548,8 @@ export class Timeline {
     if (this.tbaBlocks.length && center >= tbaThreshold) {
       const half = TBA_LAYOUT.blockGap / 2;
       const block = [...this.tbaBlocks].reverse().find((b) => center >= b.x - half) ?? this.tbaBlocks[0];
-      return [block.label, "Date TBA", ""];
+      // The no-year block is labelled "TBA" itself: say it once.
+      return block.label === "TBA" ? ["Date TBA", "", ""] : [block.label, "Date TBA", ""];
     }
     const date = dayToDate(this.dayAt(center));
     return [
@@ -576,7 +586,7 @@ export class Timeline {
 
       if (canReveal && item.node && !item.revealed && item.x >= left && item.x <= right) {
         item.revealed = true;
-        revealCard(item.node.connectors, item.node.card, item.lane.side);
+        revealCard(item.node.connectors, item.node.card, item.lane.side, this.opening);
       }
     }
   }
@@ -615,6 +625,9 @@ export class Timeline {
     this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     this.lineY = Math.round((this.height - TIMELINE.minimapBandPx) / 2);
     this.world.style.top = `${this.lineY}px`;
+    // From above the tallest tick to below the month labels.
+    this.band.style.top = `${this.lineY - 34}px`;
+    this.band.style.height = `${34 + TIMELINE.cardOffset + 2}px`;
     this.fitCards();
     this.scroller.setBounds(0, this.worldEnd);
   }
@@ -634,6 +647,8 @@ export class Timeline {
     this.minimap.update(left, this.width);
 
     this.header.update(this.headerText(center), Math.sign(center - this.lastCenter), this.ready);
+    // No days in the TBA zone, so no playhead there.
+    this.el.classList.toggle("in-tba", this.tbaBlocks.length > 0 && center >= this.tbaStartX - TIMELINE.tbaGapPx / 2);
     this.lastCenter = center;
   }
 

@@ -8,7 +8,7 @@ import type { Game, GamesFile } from "../src/types";
 import { env, intEnv, PATHS, requireEnv } from "./lib/env";
 import { ExclusivityHistory } from "./lib/exclusivity";
 import { HttpError } from "./lib/http";
-import { nintendoWikiByTitle, wikipediaBySlug, wikipediaUrl } from "./lib/links";
+import { baseTitleOfEdition, nintendoWikiByTitle, wikipediaBySlug, wikipediaByTitle, wikipediaUrl } from "./lib/links";
 import { Igdb, type IgdbGame, PLATFORM } from "./lib/igdb";
 import { OpenCritic } from "./lib/opencritic";
 import { applyOverride, loadOverrides, manualToGame, score } from "./lib/overrides";
@@ -147,6 +147,8 @@ async function main() {
   const firstParty = new Set(firstPartyIds);
   let games: { game: Game; forced: boolean }[] = [];
   const slugById = new Map<string, string>();
+  /** DLC / Switch 2 Edition → IGDB id of the base game (for fallback links). */
+  const baseIdById = new Map<string, number>();
 
   for (const g of candidates.values()) {
     const override = overrides[`igdb:${g.id}`];
@@ -175,6 +177,8 @@ async function main() {
     game.exclusivity = history.resolve(game.id, game.title, exIgdb || exWiki);
     games.push({ game, forced });
     slugById.set(game.id, g.slug);
+    const baseId = g.parent_game?.id ?? g.version_parent;
+    if (game.kind !== "game" && baseId) baseIdById.set(game.id, baseId);
   }
 
   // Hand-written games missing from IGDB: always shown unless "include": false.
@@ -330,6 +334,33 @@ async function main() {
   } catch (err) {
     report.linkErrors.push(`Nintendo Wiki: ${(err as Error).message}`);
     keepPreviousLinks("nintendoWiki");
+  }
+  // DLC and Switch 2 Editions without a page of their own: the base game's pages.
+  try {
+    const lacking = games.filter(({ game }) => game.kind !== "game" && (!game.links.wikipedia || !game.links.nintendoWiki));
+    const missingBaseIds = [...new Set(lacking.flatMap(({ game }) => baseIdById.get(game.id) ?? []))].filter((id) => !candidates.has(id));
+    const bases = new Map([...candidates.values()].map((g) => [g.id, g]));
+    if (missingBaseIds.length) for (const g of await igdb.gamesWhereIds(missingBaseIds, "id")) bases.set(g.id, g);
+    const baseOf = (game: Game) => {
+      const g = bases.get(baseIdById.get(game.id) ?? -1);
+      return g ? { title: g.name, slug: g.slug as string | undefined } : { title: baseTitleOfEdition(game.title), slug: undefined };
+    };
+    const info = lacking.map(({ game }) => ({ game, base: baseOf(game) })).filter((x) => x.base.title);
+    const baseSlugs = [...new Set(info.flatMap((x) => x.base.slug ?? []))];
+    const baseTitles = [...new Set(info.map((x) => x.base.title!))];
+    const [wikiBySlug, wikiByTitle, nwikiByTitle] = await Promise.all([
+      wikipediaBySlug(baseSlugs, userAgent),
+      wikipediaByTitle(baseTitles, userAgent),
+      nintendoWikiByTitle(baseTitles, userAgent),
+    ]);
+    for (const { game, base } of info) {
+      game.links.wikipedia ??= (base.slug && wikiBySlug.get(base.slug)) || wikiByTitle.get(base.title!);
+      game.links.nintendoWiki ??= nwikiByTitle.get(base.title!);
+      if (!game.links.wikipedia) delete game.links.wikipedia;
+      if (!game.links.nintendoWiki) delete game.links.nintendoWiki;
+    }
+  } catch (err) {
+    report.linkErrors.push(`Base-game links: ${(err as Error).message}`);
   }
   const withLink = (key: "wikipedia" | "nintendoWiki") => games.filter(({ game }) => game.links[key]).length;
   log(`Links: Wikipedia ${withLink("wikipedia")}/${games.length}, Nintendo Wiki ${withLink("nintendoWiki")}/${games.length}`);

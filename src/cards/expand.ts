@@ -50,14 +50,18 @@ function linkButton(label: string, href: string | undefined) {
 }
 
 /** Extra content of the selected card: relative time, summary, reference buttons. */
-function buildMore(game: Game, todayDay: number) {
+function buildMore(card: HTMLElement, game: Game, todayDay: number) {
   const more = document.createElement("div");
   more.className = "card__more";
 
-  const when = document.createElement("p");
-  when.className = "card__when";
-  when.textContent = relativeRelease(game, todayDay);
-  more.append(when);
+  // Upcoming cards already have a band ("UPCOMING … In 26 days"): the relative time goes
+  // there (see expandCard); released games get their own line.
+  if (!card.querySelector(".card__upcoming")) {
+    const when = document.createElement("p");
+    when.className = "card__when";
+    when.textContent = relativeRelease(game, todayDay);
+    more.append(when);
+  }
 
   if (game.summary) {
     const summary = document.createElement("p");
@@ -84,8 +88,14 @@ const ORIGIN: Record<Anchor, string> = { above: "50% 100%", below: "50% 0%", cen
  */
 export function expandCard(card: HTMLElement, game: Game, todayDay: number, anchor: Anchor, bounds: () => DOMRect) {
   collapseCard(card, true);
-  const more = buildMore(game, todayDay);
+  const more = buildMore(card, game, todayDay);
   card.append(more);
+  // One band for upcoming games: "UPCOMING · Out in 26 days".
+  const upcomingWhen = card.querySelector<HTMLElement>(".card__upcoming-when");
+  if (upcomingWhen) {
+    upcomingWhen.dataset.short ??= upcomingWhen.textContent ?? "";
+    upcomingWhen.textContent = relativeRelease(game, todayDay);
+  }
   card.classList.add("is-selected");
   const fit = () => {
     const r = card.getBoundingClientRect();
@@ -109,6 +119,8 @@ export function expandCard(card: HTMLElement, game: Game, todayDay: number, anch
 /** Back to the normal card; `instant` when switching straight to another state. */
 export function collapseCard(card: HTMLElement, instant = false) {
   card.classList.remove("is-selected");
+  const upcomingWhen = card.querySelector<HTMLElement>(".card__upcoming-when");
+  if (upcomingWhen?.dataset.short !== undefined) upcomingWhen.textContent = upcomingWhen.dataset.short;
   const more = card.querySelector<HTMLElement>(".card__more");
   const duration = instant || reducedMotion.matches ? 0 : 0.25;
   gsap.to(card, { scale: 1, y: 0, duration, ease: "power2.out", overwrite: "auto" });

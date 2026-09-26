@@ -55,11 +55,13 @@ export class Backdrop {
       layer.classList.add("is-visible");
       this.layers[this.front].classList.remove("is-visible");
       this.front = next;
+      document.body.classList.add("has-backdrop");
     });
   }
 
   hide() {
     this.wanted = null;
     for (const layer of this.layers) layer.classList.remove("is-visible");
+    document.body.classList.remove("has-backdrop");
   }
 }
