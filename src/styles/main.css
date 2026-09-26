@@ -1534,3 +1534,77 @@ kbd {
   font-size: 14px;
   color: var(--text-muted);
 }
+
+/* ---------- Delays (ITERATION-3 §3) ---------- */
+
+.badge--delayed {
+  background: color-mix(in srgb, #f5a623 22%, transparent);
+  color: #b36b00;
+}
+
+:root[data-theme="dark"] .badge--delayed {
+  color: #ffc15e;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .badge--delayed {
+    color: #ffc15e;
+  }
+}
+
+.card__delay {
+  margin: 6px 0 0;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.card__delay s {
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+/* Ghost of the original date: dashed ring on the line, dashed arc to the new date. */
+.tl-ghost {
+  position: absolute;
+  top: -7px;
+  width: 14px;
+  height: 14px;
+  margin-left: -7px;
+  border: 2px dashed var(--text-muted);
+  border-radius: 50%;
+  background: var(--bg);
+  opacity: 0.85;
+}
+
+.tl-ghost__arc {
+  position: absolute;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.tl-ghost__arc path {
+  fill: none;
+  stroke: var(--text-muted);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 4;
+  opacity: 0.7;
+}
+
+/* Score trend under a ring in the selected card. */
+.ring__spark {
+  display: block;
+  margin-top: 3px;
+  overflow: visible;
+}
+
+.ring__spark polyline {
+  fill: none;
+  stroke: var(--ring);
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.ring__spark circle {
+  fill: var(--ring);
+}

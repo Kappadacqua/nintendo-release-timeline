@@ -7,6 +7,7 @@ import { baseTitleOfEdition, wikipediaUrl } from "./links";
 import { loadOpenCriticCache } from "./opencritic";
 import { applyOverride, loadOverrides, manualToGame, type OverridesFile, score } from "./overrides";
 import type { FetchReport } from "./report";
+import { addHistory, readSnapshots } from "./snapshots";
 import { igdbExclusive, inDateRange, isExcludedType, isOnSwitch, kindOf, releaseInfo, toGame } from "./transform";
 
 /** A game inside the perimeter, before scores, links and overrides. */
@@ -262,6 +263,8 @@ export function buildGames(): BuildResult {
     .map(({ game }) => applyOverride(game, overrides[game.id]))
     .sort((a, b) => (sortKey(a) < sortKey(b) ? -1 : sortKey(a) > sortKey(b) ? 1 : a.title.localeCompare(b.title)));
   report.counts.included = games.length;
+  // Date and score histories from data/snapshots/ (ITERATION-3 §3).
+  addHistory(games, readSnapshots(PATHS.snapshots), today);
 
   const file: GamesFile = { generatedAt: report.generatedAt, games };
   writeJson(PATHS.games, file);

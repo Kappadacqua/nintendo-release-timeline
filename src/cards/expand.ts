@@ -1,6 +1,6 @@
 import { gsap } from "gsap";
 import { parseDay } from "../timeline/dates";
-import type { Game } from "../types";
+import type { Game, ScoreSource } from "../types";
 
 const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
 
@@ -79,6 +79,47 @@ function buildMore(card: HTMLElement, game: Game, todayDay: number) {
   return more;
 }
 
+const SOURCE_LABEL: Record<ScoreSource, string> = {
+  opencritic: "OpenCritic",
+  metacritic: "Metacritic",
+  metacriticUser: "Metacritic users",
+  backloggd: "Backloggd",
+};
+
+/** Tiny trend line under a ring (normalized 0–100 values), only with at least two different values. */
+function sparkline(source: ScoreSource, series: { date: string; normalized: number }[]) {
+  const W = 46;
+  const H = 14;
+  const values = series.map((p) => p.normalized);
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+  const span = Math.max(max - min, 1);
+  const pts = series.map((p, i) => [
+    2 + (i / (series.length - 1)) * (W - 4),
+    H - 2 - ((p.normalized - min) / span) * (H - 4),
+  ]);
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.setAttribute("class", "ring__spark");
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  svg.setAttribute("width", String(W));
+  svg.setAttribute("height", String(H));
+  svg.setAttribute("role", "img");
+  const first = series[0];
+  const last = series.at(-1)!;
+  const label = `${SOURCE_LABEL[source]} trend: ${first.normalized} on ${first.date}, ${last.normalized} on ${last.date}`;
+  svg.setAttribute("aria-label", label);
+  svg.innerHTML = `<title>${label}</title><polyline points="${pts.map((p) => p.map((n) => n.toFixed(1)).join(",")).join(" ")}"/><circle cx="${pts.at(-1)![0].toFixed(1)}" cy="${pts.at(-1)![1].toFixed(1)}" r="1.8"/>`;
+  return svg;
+}
+
+function addSparklines(card: HTMLElement, game: Game) {
+  for (const ring of card.querySelectorAll<HTMLElement>(".ring[data-source]")) {
+    const source = ring.dataset.source as ScoreSource;
+    const series = game.scoreHistory?.[source];
+    if (series && new Set(series.map((p) => p.normalized)).size > 1) ring.append(sparkline(source, series));
+  }
+}
+
 export type Anchor = "above" | "below" | "center";
 
 const ORIGIN: Record<Anchor, string> = { above: "50% 100%", below: "50% 0%", center: "50% 50%" };
@@ -91,6 +132,7 @@ export function expandCard(card: HTMLElement, game: Game, todayDay: number, anch
   collapseCard(card, true);
   const more = buildMore(card, game, todayDay);
   card.append(more);
+  addSparklines(card, game);
   // One band for upcoming games: "UPCOMING · Out in 26 days".
   const upcomingWhen = card.querySelector<HTMLElement>(".card__upcoming-when");
   if (upcomingWhen) {
@@ -120,6 +162,7 @@ export function expandCard(card: HTMLElement, game: Game, todayDay: number, anch
 /** Back to the normal card; `instant` when switching straight to another state. */
 export function collapseCard(card: HTMLElement, instant = false) {
   card.classList.remove("is-selected");
+  card.querySelectorAll(".ring__spark").forEach((s) => s.remove());
   const upcomingWhen = card.querySelector<HTMLElement>(".card__upcoming-when");
   if (upcomingWhen?.dataset.short !== undefined) upcomingWhen.textContent = upcomingWhen.dataset.short;
   const more = card.querySelector<HTMLElement>(".card__more");

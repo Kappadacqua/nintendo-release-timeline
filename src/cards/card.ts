@@ -1,3 +1,4 @@
+import { currentDelay, type Delay } from "../history";
 import type { Game, Region } from "../types";
 import { dayToDate, MONTHS, parseDay } from "../timeline/dates";
 import { shortDeveloper } from "./developer";
@@ -39,6 +40,20 @@ export function regionsOutToday(game: Game, todayDay: number): Region[] {
   return REGIONS.filter((r) => game.releaseDates[r] === today);
 }
 
+/** "~~Nov 5, 2026~~ → Dec 3, 2026" (or "→ TBA") under the badges of a delayed game. */
+function delayLine(game: Game, delay: Delay) {
+  const p = el("p", "card__delay");
+  const long = (iso: string) => {
+    const [y, m, d] = iso.split("-").map(Number);
+    return `${MONTHS[m - 1].slice(0, 3)} ${d}, ${y}`;
+  };
+  const was = el("s", undefined, long(delay.from));
+  was.setAttribute("aria-label", `originally ${long(delay.from)}`);
+  const now = game.firstReleaseDate ? long(game.firstReleaseDate) : (game.vagueRelease?.label ?? "TBA");
+  p.append(was, ` → ${now}`);
+  return p;
+}
+
 /** "Out today" when every region launches today, else "Out today in Europe & North America". */
 function outTodayLabel(regions: Region[]) {
   if (regions.length === REGIONS.length) return "Out today";
@@ -46,9 +61,10 @@ function outTodayLabel(regions: Region[]) {
   return `Out today in ${names.length > 1 ? `${names.slice(0, -1).join(", ")} & ${names.at(-1)}` : names[0]}`;
 }
 
-function badges(game: Game, outToday: Region[]) {
+function badges(game: Game, outToday: Region[], delay: Delay | null) {
   const list: [string, string][] = [];
   if (outToday.length) list.push([outTodayLabel(outToday), "badge--out-today"]);
+  if (delay) list.push(["Delayed", "badge--delayed"]);
   if (game.kind === "switch2-edition") list.push(["Switch 2 Edition", "badge--s2"]);
   // Exclusivity describes the base game, so DLC cards don't repeat it.
   if (game.kind !== "dlc") {
@@ -142,7 +158,9 @@ export function createCard(game: Game, todayDay: number): Card {
     info.append(base);
   }
   if (game.developer || game.genres.length) info.append(metaLine(game));
-  info.append(badges(game, outToday));
+  const delay = currentDelay(game, dayToDate(todayDay).toISOString().slice(0, 10));
+  info.append(badges(game, outToday, delay));
+  if (delay) info.append(delayLine(game, delay));
   top.append(cover, info);
   card.append(top, regionalDates(game));
 
@@ -160,6 +178,10 @@ export function createCard(game: Game, todayDay: number): Card {
       createScoreRing(user.metacritic, "Metacritic", links.metacritic, "ratings"),
       createScoreRing(user.backloggd, "Backloggd", links.backloggd, "ratings"),
     ];
+    // Which score history each ring shows as a sparkline when the card is selected.
+    (["opencritic", "metacritic", "metacriticUser", "backloggd"] as const).forEach(
+      (source, i) => ([...critics, ...users][i].el.dataset.source = source),
+    );
     rings.push(...critics, ...users);
     const scores = el("div", "card__scores");
     scores.append(scoreGroup("Critics", critics), scoreGroup("Users", users));

@@ -12,6 +12,7 @@ import { Igdb, type IgdbGame, PLATFORM } from "./lib/igdb";
 import { nintendoWikiByTitle, wikidataBySlug, wikipediaByTitle } from "./lib/links";
 import { OpenCritic } from "./lib/opencritic";
 import { loadOverrides } from "./lib/overrides";
+import { snapshotOf, writeSnapshot } from "./lib/snapshots";
 import { sameTitle } from "./lib/transform";
 import { cleanWikiTitle, fetchSwitch2OnlyGames } from "./lib/wikipedia";
 
@@ -131,6 +132,9 @@ async function main() {
   // --- Build games.json from what is now in the cache.
   const { games, report } = buildGames();
   log(`Wrote ${games.length} games to public/data/games.json`);
+  // Today's picture of every game, for delays and score trends (ITERATION-3 §3).
+  writeSnapshot(PATHS.snapshots, snapshotOf(games, today));
+  log(`Snapshot saved: data/snapshots/${today}.json`);
   const withLink = (key: "wikipedia" | "nintendoWiki") => games.filter((g) => g.links[key]).length;
   log(`Links: Wikipedia ${withLink("wikipedia")}/${games.length}, Nintendo Wiki ${withLink("nintendoWiki")}/${games.length}`);
   if (status.opencritic.enabled) {

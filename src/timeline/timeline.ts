@@ -2,6 +2,7 @@ import { hideCard, revealCard } from "../cards/appear";
 import { type Anchor, collapseCard, expandCard } from "../cards/expand";
 import { type Card, cardWidth, createCard } from "../cards/card";
 import { assignLanes, type Lane } from "../cards/layout";
+import { currentDelay } from "../history";
 import type { Game } from "../types";
 import { TIMELINE } from "./config";
 import { dayToDate, MONTHS, parseDay, todayEpochDay, WEEKDAYS } from "./dates";
@@ -131,6 +132,7 @@ export class Timeline {
     this.world.className = "timeline__world";
     this.world.append(this.todayMarker());
     this.items = this.layoutItems(games);
+    this.world.append(...this.delayGhosts(games));
 
     const tba = layoutTba(
       games.filter((g) => !g.firstReleaseDate),
@@ -427,6 +429,41 @@ export class Timeline {
 
   private dayX(day: number) {
     return (day - this.startDay) * TIMELINE.dayPx;
+  }
+
+  /**
+   * Delayed games (ITERATION-3 §3): a dashed "ghost" on the original date, joined
+   * to the new date by a dashed arc (just the ghost if the game went back to TBA).
+   */
+  private delayGhosts(games: Game[]) {
+    const today = dayToDate(this.todayDay).toISOString().slice(0, 10);
+    const long = (iso: string) => {
+      const d = dayToDate(parseDay(iso));
+      return `${MONTHS[d.getUTCMonth()].slice(0, 3)} ${d.getUTCDate()}, ${d.getUTCFullYear()}`;
+    };
+    return games.flatMap((game) => {
+      const delay = currentDelay(game, today);
+      if (!delay) return [];
+      const from = this.dayX(parseDay(delay.from));
+      const ghost = document.createElement("div");
+      ghost.className = "tl-ghost";
+      ghost.style.left = `${from}px`;
+      ghost.title = `${game.title}: originally ${long(delay.from)}, now ${game.firstReleaseDate ? long(game.firstReleaseDate) : (game.vagueRelease?.label ?? "TBA")}`;
+      if (!game.firstReleaseDate) return [ghost];
+      const to = this.dayX(parseDay(game.firstReleaseDate));
+      const width = Math.max(1, to - from);
+      const rise = Math.min(46, 14 + width / 40);
+      const arc = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      arc.setAttribute("class", "tl-ghost__arc");
+      arc.setAttribute("aria-hidden", "true");
+      arc.style.left = `${from}px`;
+      arc.style.top = `${-rise}px`;
+      arc.setAttribute("width", String(width));
+      arc.setAttribute("height", String(rise));
+      arc.setAttribute("viewBox", `0 0 ${width} ${rise}`);
+      arc.innerHTML = `<path d="M0 ${rise} Q ${width / 2} ${-rise * 0.9} ${width} ${rise}"/>`;
+      return [arc, ghost];
+    });
   }
 
   private todayMarker() {

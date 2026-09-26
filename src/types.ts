@@ -2,6 +2,9 @@
 
 export type Region = "JP" | "EU" | "NA";
 
+/** Score sources tracked over time (ITERATION-3 §3). */
+export type ScoreSource = "opencritic" | "metacritic" | "metacriticUser" | "backloggd";
+
 export interface Score {
   value: number; // original value
   scale: 5 | 10 | 100;
@@ -21,6 +24,10 @@ export interface Game {
   genres: string[];
   releaseDates: Partial<Record<Region, string | null>>; // "YYYY-MM-DD" or null = TBA
   firstReleaseDate: string | null;
+  /** First release date as observed by each data:fetch, changes only (oldest first). */
+  dateHistory?: { date: string; firstReleaseDate: string | null }[];
+  /** Normalized score per source over time, changes only (oldest first). */
+  scoreHistory?: Partial<Record<ScoreSource, { date: string; normalized: number }[]>>;
   vagueRelease?: { year: number; label: string };
   exclusivity: "exclusive" | "timed" | null;
   /** Published by Nintendo / The Pokémon Company (or a DLC / edition of such a game). */
