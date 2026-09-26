@@ -4,7 +4,7 @@ Sito desktop che mostra, su una timeline orizzontale scorrevole, i giochi Ninten
 
 Per ora il sito è solo per uso personale in locale; la pubblicazione su GitHub Pages arriverà più avanti. Il codice è su GitHub nel repository privato `Kappadacqua/nintendo-release-timeline`.
 
-> **Stato:** milestone 1–6 completate, più le correzioni del §1 di `ITERATION-2.md`. I punti §2–§7 di `ITERATION-2.md` (indicatore centrale, selezione delle card, sfondo, animazione "uscito oggi", bordo Switch 2 Edition, nuovi campi dati) sono **in corso** e non sono ancora descritti qui: questo documento verrà aggiornato alla fine dell'iterazione. Dove `ITERATION-2.md` e questo documento sono in contrasto, vale `ITERATION-2.md`.
+> **Stato:** milestone 1–6 e `ITERATION-2.md` completate. Prossimo lavoro: `ITERATION-3.md` (dati separati in fetch/build, pannello admin, ricerca, filtri, storico, novità). Dove un documento di iterazione è in contrasto con questo, vale l'iterazione.
 
 ---
 
@@ -28,6 +28,7 @@ Per ora il sito è solo per uso personale in locale; la pubblicazione su GitHub 
   lib/igdb.ts            # client IGDB (auth Twitch, paginazione stabile)
   lib/opencritic.ts      # client OpenCritic (catalogo Switch 2, ricerche, cache, budget)
   lib/wikipedia.ts       # categoria Wikipedia + slug IGDB da Wikidata
+  lib/links.ts           # link Wikipedia (Wikidata SPARQL) e Nintendo Wiki (API Fandom)
   lib/transform.ts       # IGDB → Game: tipo, date regionali, perimetro, esclusività IGDB
   lib/exclusivity.ts     # storico esclusività (→ "timed")
   lib/overrides.ts       # overrides.json: override per gioco, abbinamenti Wikipedia, giochi manuali
@@ -44,8 +45,10 @@ Per ora il sito è solo per uso personale in locale; la pubblicazione su GitHub 
 /src
   main.ts                # tema, dialogo scorciatoie, caricamento dati
   types.ts               # schema di games.json
-  timeline/              # timeline, scroll, header, minimappa, zona TBA, date, config
-  cards/                 # card, cerchietti, layout collisioni, animazioni, bandiere, nomi sviluppatori
+  timeline/              # timeline (selezione compresa), scroll, header data, minimappa, zona TBA,
+                         # sfondo del gioco selezionato (backdrop.ts), titolo del sito (site-title.ts), config
+  cards/                 # card, card espansa (expand.ts), cerchietti, layout collisioni, animazioni,
+                         # coriandoli (confetti.ts), bandiere, nomi sviluppatori
   theme/                 # tema giorno/notte
   styles/main.css        # tutti i token e gli stili
 .env.example
@@ -80,6 +83,9 @@ Regole di dettaglio:
 | Dato | Fonte | Modalità |
 |---|---|---|
 | Titolo (inglese), copertina, sviluppatore, generi, piattaforme, tipo | IGDB API | automatica |
+| Riassunto, immagine di sfondo (artwork → screenshot → copertina) | IGDB API | automatica |
+| Link Wikipedia | Wikidata (P5794 → sitelink enwiki) o pagina della categoria | automatica, sovrascrivibile |
+| Link Nintendo Wiki (`nintendo.fandom.com`) | API MediaWiki di Fandom | automatica, sovrascrivibile |
 | Date di uscita JP / EU / NA | IGDB (`release_dates` con `release_region` e `date_format`) | automatica, correggibile a mano |
 | Voto OpenCritic (Top Critic Average) + n° top critic | OpenCritic API (RapidAPI) | automatica |
 | Metacritic Metascore + n° recensioni | — (nessuna API) | **manuale** |
@@ -94,6 +100,10 @@ Note:
 - **Date regionali**: per ogni regione vince la data specifica della regione sulla "worldwide"; senza voci per Switch si usa `first_release_date`. `firstReleaseDate` è la più vicina fra JP/EU/NA.
 - **Copertine**: CDN IGDB (`images.igdb.com`, taglia `cover_big`); se l'immagine non si carica, il sito mostra `placeholder.svg`.
 - **Link Backloggd**: automatico (Backloggd usa gli slug IGDB). **Metacritic**: da inserire in `links` negli override.
+- **Link Wikipedia**: una query SPARQL su Wikidata per tutti i giochi (slug IGDB → articolo della Wikipedia inglese); per i giochi della categoria Switch 2-only vale anche la pagina della categoria.
+- **Link Nintendo Wiki**: titolo esatto (o redirect definito dalla wiki) con l'API di Fandom; altrimenti una ricerca, accettata solo se il titolo normalizzato coincide. In caso di dubbio nessun link (DLC e titoli minori spesso non hanno pagina).
+- Se Wikidata o Fandom non rispondono, restano i link del `games.json` precedente.
+- **Immagine di sfondo**: IGDB `artworks` → `screenshots` (taglia `1080p`) → copertina.
 
 ### 4.1 Esclusività
 
@@ -176,6 +186,8 @@ interface Game {
   title: string;                 // titolo inglese
   baseGameTitle?: string;        // solo per DLC
   coverUrl: string;
+  summary: string | null;        // riassunto IGDB
+  backgroundUrl: string | null;  // artwork → screenshot → copertina
   developer: string | null;
   genres: string[];
   releaseDates: Partial<Record<Region, string | null>>; // "YYYY-MM-DD" o null = TBA
@@ -193,7 +205,13 @@ interface Game {
       backloggd: Score | null;   // originale 0–5
     };
   };
-  links: { opencritic?: string; metacritic?: string; backloggd?: string };
+  links: {
+    opencritic?: string;
+    metacritic?: string;
+    backloggd?: string;
+    wikipedia?: string;
+    nintendoWiki?: string;
+  };
 }
 
 interface Score {
@@ -210,28 +228,34 @@ Tipo: "Nintendo Switch 2 Edition" nel nome → `switch2-edition`; tipo IGDB DLC 
 
 - **Linea orizzontale rossa** dal 5/6/2025 all'ultima data precisa (o a oggi) + 60 giorni, con un pallino e l'etichetta della data iniziale; poi, dopo uno stacco con segno di interruzione (//), la **zona TBA**. La linea è centrata verticalmente nello spazio sopra la minimappa.
 - **Passato vs futuro**: linea piena nel passato, tratteggiata e più chiara nel futuro.
-- **Tacche** (24px per giorno, `dayPx` in `src/timeline/config.ts`): giorno corta, lunedì media, inizio mese alta con etichetta del mese (con l'anno a gennaio). Linea e tacche sono disegnate su canvas, solo per la parte visibile.
-- **Header anno / mese** al centro della barra in alto (fra titolo e pulsanti), aggiornato in base al centro del viewport con transizione animata nella direzione dello scroll; nella zona TBA mostra l'anno del blocco e "Date TBA".
+- **Indicatore centrale** (playhead): linea verticale sottile fissa al centro; la timeline scorre sotto di essa, le card le passano sopra. Il giorno sotto l'indicatore ha la tacca in evidenza e il numero in una pillola rossa.
+- **Tacche** (32px per giorno, `dayPx` in `src/timeline/config.ts`): giorno corta, lunedì media, inizio mese alta. Numero del giorno sotto i giorni 1, 5, 10, 15, 20, 25 (`labeledDays`), etichetta del mese sotto i numeri (con l'anno a gennaio). Linea e tacche sono disegnate su canvas, solo per la parte visibile.
+- **Header** al centro della barra in alto: la data sotto l'indicatore, `2026 · September · Sat 26`; anno, mese e giorno si animano ognuno per conto suo nella direzione dello scroll. Nella zona TBA: anno del blocco · "Date TBA".
+- **Aggancio al giorno**: ogni movimento (rotella, frecce, fine del trascinamento, minimappa) si ferma esattamente su un giorno; la zona TBA è libera.
 - **All'apertura** la timeline è centrata su **oggi** (fuso orario locale), con l'indicatore **"Today"** pulsante.
 - **Zona TBA**: blocchi per anno ("2026", "2027"…, poi "TBA"), tratteggiati, con le card dei giochi senza data precisa, collegati da una linea puntinata.
 - **Minimappa** in basso: mesi (anno a gennaio), un puntino per gioco (pieno se uscito, vuoto se futuro, quadrato se DLC, titolo al passaggio del mouse), lineetta su oggi, zona TBA a righe, riquadro della porzione visibile. Clic = salto con scorrimento; trascinamento = segue in diretta.
 - **Collisioni**: assegnazione a corsie sopra/sotto la linea; una card può scivolare di lato fino al 60% della larghezza (connettore a gomito) prima di impilarsi a mazzo; la card sotto il mouse o con il focus va in primo piano.
-- **Finestre basse**: le card si rimpiccioliscono verso la loro data (fino a 0.6) per stare fra la barra in alto e la minimappa.
+- **Finestre basse**: le card si rimpiccioliscono (fino a 0.55) per stare fra la barra in alto e la minimappa. La fascia sotto la linea con numeri e mesi (`cardOffset`, 64px) non si restringe mai: il primo tratto del connettore resta fisso, si scala solo il gruppo con la card.
 - **Performance**: card create solo quando si avvicinano al viewport e nascoste quando sono lontane; 60fps misurati durante lo scorrimento.
 
 ### Controlli
 
 | Input | Azione |
 |---|---|
-| Rotella / trackpad | Scorrimento orizzontale fluido con inerzia leggera |
-| Trascinamento | Scorrimento, con slancio al rilascio (parte dopo 5px, così i link restano cliccabili) |
-| ← / → | Una settimana (Shift: un mese) |
-| PagSu / PagGiù | Gioco precedente / successivo (TBA compresi) |
-| Home | Oggi; premuto di nuovo, inizio della timeline |
-| Fine | Zona TBA |
+| Rotella del mouse | 1 scatto = 1 giorno (evento ≥ `wheelNotchPx` o in righe/pagine) |
+| Trackpad | I delta piccoli si sommano fino a `trackpadDayPx` (40px) per giorno |
+| Trascinamento | Scorrimento libero con slancio; al rilascio aggancio al giorno più vicino (parte dopo 5px, così i clic sulle card restano clic) |
+| ← / → | Un giorno (Shift: una settimana) |
+| PagSu / PagGiù | Seleziona il gioco precedente / successivo (§7) |
+| Home / Fine | Inizio della timeline / zona TBA |
 | T | Oggi |
-| Tab | Card al centro, poi i suoi link |
+| Esc | Deseleziona |
+| Clic sulla minimappa | Salto al punto scelto (trascinando: segue in diretta) |
+| Tab | Card al centro (o selezionata), poi i suoi link; Invio o Spazio la seleziona |
 | ? | Dialogo con le scorciatoie (anche dal pulsante "?" nell'header) |
+
+Rotella, trascinamento, frecce, minimappa, T, Home/Fine, Esc e clic su un'area vuota **deselezionano**.
 
 Con `prefers-reduced-motion` lo scorrimento salta direttamente, header e card non si animano, "Today" non pulsa.
 
@@ -243,7 +267,7 @@ Con `prefers-reduced-motion` lo scorrimento salta direttamente, header e card no
 - Titolo (massimo 3 righe)
 - Sviluppatore · generi. I nomi di sviluppatore oltre 20 caratteri sono **abbreviati** ("Nintendo EPD Production Group No. 5" → "Nintendo EPD", "Konami Digital Entertainment" → "Konami", alias "Nintendo Software Technology" → "NST"), con il nome completo nel tooltip.
 - **Date regionali**: in tutte le card, DLC comprese, **bandiera + sigla (JP / EU / NA) + data** o "TBA". Bandiere SVG con bordo sottile a colore di tema (visibile anche la giapponese sul bianco).
-- **Badge**: `Switch 2 Edition`, `Exclusive`, `Timed exclusive`, `Also on Switch 1`
+- **Badge**: `Out today…` (§7, "Uscito oggi"), `Switch 2 Edition`, `Exclusive`, `Timed exclusive`, `Also on Switch 1`
 - **Blocco Critics**: OpenCritic + Metacritic; **Blocco Users**: Metacritic User + Backloggd
 - Sotto ogni cerchietto: nome della fonte (link, se c'è) e numero di recensioni o voti in forma compatta ("3.1K ratings")
 - **Upcoming** per i giochi futuri al posto dei voti ("In 12 days", "Tomorrow"); per i TBA "Expected 2027" o "Date TBA"; bordo tratteggiato
@@ -251,6 +275,10 @@ Con `prefers-reduced-motion` lo scorrimento salta direttamente, header e card no
 ### Card DLC
 
 Più compatta, nastro diagonale "DLC", bordo rosso, sfondo leggermente rosato, riga "Expansion for *<gioco base>*", stessi blocchi voti. **Niente badge di esclusività** (riguarda il gioco base).
+
+### Card Switch 2 Edition
+
+Bordo sfumato a due colori, ispirato ai due Joy-Con: blu a sinistra, rosso a destra (token `--joycon-left` / `--joycon-right`, più chiari nel tema scuro). Il bordo resta sfumato anche al passaggio del mouse e da selezionata.
 
 ### Cerchietti dei voti
 
@@ -262,13 +290,31 @@ Più compatta, nastro diagonale "DLC", bordo rosso, sfondo leggermente rosato, r
 
 Quando la data entra nel viewport: il connettore cresce, la card sale dalla linea con fade e scale, poi i cerchietti si riempiono con il numero che sale. Una volta sola per card; durante un salto lungo (es. dalla minimappa) le card che scorrono via non consumano l'animazione.
 
+### Selezione
+
+- **Come si seleziona**: PagGiù / PagSu scelgono il gioco successivo / precedente rispetto a quello selezionato o, se nessuno è selezionato, il primo gioco strettamente dopo / prima dell'indicatore. Ordine: prima data di uscita, a parità di data titolo; la zona TBA in fondo, per anno. Clic su una card (o Invio/Spazio con il focus) la seleziona. La timeline scorre fluida fino a portare la card sotto l'indicatore.
+- **Link**: in una card non selezionata il clic seleziona e non apre mai link; nella card selezionata link e pulsanti funzionano (nuova scheda).
+- **Aspetto**: la card selezionata è ingrandita (×1.05) verso la linea, ha un bordo luminoso ed è sopra le altre; le altre si attenuano (opacità 0.5). In alto a sinistra il titolo del sito lascia il posto, con dissolvenza, a miniatura della copertina + titolo del gioco.
+- **Card espansa**: si apre con un'animazione e mostra il **tempo relativo** ("Out in 12 days", "Out today", "Out tomorrow", "Released 3 days ago"; oltre 60 giorni in mesi, oltre 24 mesi in anni; per i TBA "Expected 2027"), il **riassunto** IGDB troncato a 3 righe (testo intero nel tooltip) e i pulsanti **Wikipedia** e **Nintendo Wiki**, grigi e disattivati se il link manca. La lista dei pulsanti è pensata per crescere (Nintendo Store, `ITERATION-3.md`). Se la card espansa esce dall'area visibile viene spostata dentro.
+- `selectById(gameId)` della timeline è pubblico, per ricerca e novità (`ITERATION-3.md`).
+
+### Sfondo del gioco selezionato
+
+- Dietro tutto il sito, a tutto schermo, l'immagine del gioco selezionato (`backgroundUrl`): sfocatura marcata (molto più forte se è la copertina), sotto un velo del colore di sfondo del tema (token `--backdrop-blur`, `--backdrop-blur-cover`, `--backdrop-veil`).
+- Dissolvenza incrociata fra due livelli (400ms); un'immagine appare solo quando è caricata e se è ancora quella richiesta. Scompare alla deselezione.
+- Alla selezione si precaricano le immagini del gioco precedente e successivo.
+
+### Uscito oggi
+
+- Se la data di **almeno una regione** coincide con oggi (fuso orario locale): badge **"Out today"** se escono tutte e tre le regioni, altrimenti "Out today in Japan", "Out today in Europe & North America"…
+- Quando la card entra in vista: uno scoppio di coriandoli rossi (una volta sola, insieme all'animazione di comparsa), poi un bagliore pulsante continuo (sospeso mentre la card è selezionata).
+- Con `prefers-reduced-motion`: solo il badge.
+
 ### Accessibilità
 
-- Solo la card al centro (e i suoi link) è nel tab order; con PagSu/PagGiù, Home, Fine, T e frecce il focus segue il gioco al centro.
+- Solo la card al centro o selezionata (e i suoi link) è nel tab order; con PagSu/PagGiù, Home, Fine, T e frecce il focus segue il gioco.
 - Ogni card ha un riassunto per i lettori di schermo (titolo, tipo, data, esclusività, voto OpenCritic).
 - Contorno di focus rosso uniforme per tutti gli elementi raggiungibili da tastiera.
-
-Al clic sulla card per ora non succede nulla (cambia con `ITERATION-2.md` §3).
 
 ## 8. Grafica
 
@@ -290,7 +336,8 @@ Variabili in `.env` (vedi `.env.example`): `TWITCH_CLIENT_ID`, `TWITCH_CLIENT_SE
   - pagine Wikipedia senza gioco IGDB;
   - giochi usciti senza abbinamento OpenCritic;
   - DLC / Switch 2 Edition esclusi (senza pagina OpenCritic) o non verificati;
-  - errori OpenCritic e voti mantenuti dal fetch precedente;
+  - giochi senza link **Wikipedia** o **Nintendo Wiki**;
+  - errori OpenCritic, Wikipedia e Nintendo Wiki, e voti mantenuti dal fetch precedente;
   - override che puntano a giochi assenti;
   - il contenuto della zona TBA.
 
@@ -307,6 +354,8 @@ Variabili in `.env` (vedi `.env.example`): `TWITCH_CLIENT_ID`, `TWITCH_CLIENT_SE
 6. ~~**Rifinitura**: performance, accessibilità da tastiera, dettagli visivi.~~ ✔
 7. *(Più avanti)* GitHub Action e pubblicazione su GitHub Pages.
 
-**Iterazione 2** (`ITERATION-2.md`): §1 correzioni ✔; in corso §2 navigazione con indicatore centrale, §3 selezione e card espansa con i dati del §7, §4 sfondo, §5 animazione "uscito oggi", §6 bordo Switch 2 Edition.
+**Iterazione 2** (`ITERATION-2.md`) ✔: correzioni, indicatore centrale e controlli per giorno, selezione e card espansa, nuovi campi dati, sfondo, "uscito oggi", bordo Switch 2 Edition.
+
+**Iterazione 3** (`ITERATION-3.md`): da fare.
 
 Lavorare un punto alla volta, verificando nel browser prima di passare al successivo.

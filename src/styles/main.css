@@ -29,6 +29,9 @@
   --tick: #b4b4be;
   --connector: #c9c9d1;
   --flag-border: rgb(0 0 0 / 0.28);
+  /* Switch 2 Edition border: the two Joy-Con colours */
+  --joycon-left: #00b8e6;
+  --joycon-right: #ff3b4e;
   --card: #ffffff;
   --card-dlc: #fff7f7;
   --card-shadow: 0 4px 16px rgb(0 0 0 / 0.07);
@@ -50,6 +53,8 @@
     --tick: #4a4a55;
     --connector: #3a3a43;
   --flag-border: rgb(255 255 255 / 0.4);
+  --joycon-left: #2ccfff;
+  --joycon-right: #ff5a69;
     --card: #141417;
     --card-dlc: #1b1315;
     --card-shadow: 0 4px 16px rgb(0 0 0 / 0.5);
@@ -70,6 +75,8 @@
   --tick: #4a4a55;
   --connector: #3a3a43;
   --flag-border: rgb(255 255 255 / 0.4);
+  --joycon-left: #2ccfff;
+  --joycon-right: #ff5a69;
   --card: #141417;
   --card-dlc: #1b1315;
   --card-shadow: 0 4px 16px rgb(0 0 0 / 0.5);
@@ -1137,12 +1144,12 @@ kbd {
   --backdrop-blur: 28px;
   --backdrop-blur-cover: 70px;
   --backdrop-opacity: 1;
-  --backdrop-veil: 0.72;
+  --backdrop-veil: 0.12;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --backdrop-veil: 0.66;
+    --backdrop-veil: 0.06;
   }
 }
 
@@ -1154,4 +1161,74 @@ kbd {
   .backdrop__layer {
     transition: none;
   }
+}
+
+/* ---------- Switch 2 Edition: two-colour Joy-Con border (ITERATION-2 §6) ---------- */
+
+.card--switch2-edition {
+  border: 2px solid transparent;
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    linear-gradient(90deg, var(--joycon-left) 0%, var(--joycon-left) 35%, var(--joycon-right) 65%, var(--joycon-right) 100%) border-box;
+}
+
+/* ---------- Out today (ITERATION-2 §5) ---------- */
+
+.badge--out-today {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 30%, transparent);
+}
+
+.badge--out-today::before {
+  content: "★ ";
+}
+
+.card--out-today:not(.is-selected) {
+  animation: out-today-glow 1.8s ease-in-out infinite;
+}
+
+@keyframes out-today-glow {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent),
+      0 0 10px color-mix(in srgb, var(--accent) 20%, transparent),
+      var(--card-shadow);
+  }
+  50% {
+    box-shadow:
+      0 0 0 2px color-mix(in srgb, var(--accent) 75%, transparent),
+      0 0 30px color-mix(in srgb, var(--accent) 55%, transparent),
+      var(--card-shadow);
+  }
+}
+
+.confetti {
+  position: absolute;
+  z-index: 50;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.confetti i {
+  position: absolute;
+  left: -4px;
+  top: -3px;
+  width: 8px;
+  height: 6px;
+  border-radius: 1px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card--out-today:not(.is-selected) {
+    animation: none;
+  }
+}
+
+/* Hover / selection must not paint over the Joy-Con gradient. */
+.tl-item:hover .card--switch2-edition,
+.card--switch2-edition.is-selected {
+  border-color: transparent;
 }

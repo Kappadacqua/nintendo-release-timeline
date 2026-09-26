@@ -1,5 +1,5 @@
 import type { Game, Region } from "../types";
-import { MONTHS, parseDay } from "../timeline/dates";
+import { dayToDate, MONTHS, parseDay } from "../timeline/dates";
 import { shortDeveloper } from "./developer";
 import { FLAGS } from "./flags";
 import { createScoreRing, type ScoreRing } from "./score-ring";
@@ -31,8 +31,24 @@ function shortDate(iso: string, refYear: number) {
   return y === refYear ? base : `${base}, ${y}`;
 }
 
-function badges(game: Game) {
+const REGION_NAMES: Record<Region, string> = { JP: "Japan", EU: "Europe", NA: "North America" };
+
+/** Regions whose release date is today (user's local calendar day). */
+export function regionsOutToday(game: Game, todayDay: number): Region[] {
+  const today = dayToDate(todayDay).toISOString().slice(0, 10);
+  return REGIONS.filter((r) => game.releaseDates[r] === today);
+}
+
+/** "Out today" when every region launches today, else "Out today in Europe & North America". */
+function outTodayLabel(regions: Region[]) {
+  if (regions.length === REGIONS.length) return "Out today";
+  const names = regions.map((r) => REGION_NAMES[r]);
+  return `Out today in ${names.length > 1 ? `${names.slice(0, -1).join(", ")} & ${names.at(-1)}` : names[0]}`;
+}
+
+function badges(game: Game, outToday: Region[]) {
   const list: [string, string][] = [];
+  if (outToday.length) list.push([outTodayLabel(outToday), "badge--out-today"]);
   if (game.kind === "switch2-edition") list.push(["Switch 2 Edition", "badge--s2"]);
   // Exclusivity describes the base game, so DLC cards don't repeat it.
   if (game.kind !== "dlc") {
@@ -98,7 +114,11 @@ export function createCard(game: Game, todayDay: number): Card {
   // TBA games (no precise date) are upcoming too.
   const isUpcoming = game.firstReleaseDate === null || parseDay(game.firstReleaseDate) > todayDay;
 
-  const card = el("article", `card card--${game.kind}${isUpcoming ? " card--upcoming" : ""}`);
+  const outToday = regionsOutToday(game, todayDay);
+  const card = el(
+    "article",
+    `card card--${game.kind}${isUpcoming ? " card--upcoming" : ""}${outToday.length ? " card--out-today" : ""}`,
+  );
   card.style.width = `${cardWidth(game)}px`;
   card.dataset.gameId = game.id;
   card.setAttribute("aria-label", describe(game, isUpcoming));
@@ -122,7 +142,7 @@ export function createCard(game: Game, todayDay: number): Card {
     info.append(base);
   }
   if (game.developer || game.genres.length) info.append(metaLine(game));
-  info.append(badges(game));
+  info.append(badges(game, outToday));
   top.append(cover, info);
   card.append(top, regionalDates(game));
 

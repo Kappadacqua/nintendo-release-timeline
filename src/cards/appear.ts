@@ -1,5 +1,6 @@
 import { gsap } from "gsap";
 import type { Card } from "./card";
+import { confettiBurst } from "./confetti";
 import type { Side } from "./layout";
 
 const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
@@ -36,4 +37,6 @@ export function revealCard(connector: SVGSVGElement[] | null, card: Card, side: 
     0.1,
   );
   card.rings.forEach((ring, i) => tl.add(ring.fill(), 0.45 + i * 0.08));
+  // Released today somewhere: a one-off burst once the card has landed (the glow is CSS).
+  if (card.el.classList.contains("card--out-today")) tl.call(() => confettiBurst(card.el), undefined, 0.5);
 }
