@@ -57,3 +57,15 @@ export interface GamesFile {
   generatedAt: string;
   games: Game[];
 }
+
+/** One entry of public/data/changes.json (ITERATION-3 §4), found by comparing snapshots. */
+export type Change = { date: string; id: string } & (
+  | { type: "new" }
+  | { type: "delayed"; from: string; to: string | null }
+  | { type: "reviews-in"; source: "opencritic" | "metacritic"; normalized: number }
+);
+
+export interface ChangesFile {
+  generatedAt: string;
+  changes: Change[];
+}

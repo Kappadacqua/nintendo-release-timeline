@@ -3,6 +3,7 @@ import { type Anchor, collapseCard, expandCard } from "../cards/expand";
 import { type Card, cardWidth, createCard } from "../cards/card";
 import { assignLanes, type Lane } from "../cards/layout";
 import { currentDelay } from "../history";
+import { news } from "../news";
 import type { Game } from "../types";
 import { TIMELINE } from "./config";
 import { dayToDate, MONTHS, parseDay, todayEpochDay, WEEKDAYS } from "./dates";
@@ -266,6 +267,7 @@ export class Timeline {
     expandCard(card, stop.game, this.todayDay, stop.anchor, () => this.visibleBand());
     this.siteTitle?.show(stop.game);
     this.backdrop.show(stop.game);
+    news.markSeen(stop.game.id);
     // Neighbours' images ready before PagSu / PagGiù.
     for (const n of [index - 1, index + 1]) this.backdrop.preload(this.stops[n]?.game.backgroundUrl);
     this.scroller.scrollTo(stop.x);
@@ -558,7 +560,9 @@ export class Timeline {
       ...this.tbaBlocks.flatMap((b) => b.slots.map((s) => ({ x: s.x, game: s.game }))),
     ].map(({ x, game }) => ({
       x,
+      id: game.id,
       kind: game.kind,
+      fresh: !!news.unseenFor(game.id),
       upcoming: !game.firstReleaseDate || parseDay(game.firstReleaseDate) > this.todayDay,
       title: game.title,
     }));

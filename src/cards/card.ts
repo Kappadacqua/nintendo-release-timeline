@@ -1,4 +1,5 @@
 import { currentDelay, type Delay } from "../history";
+import { NEWS_LABEL, news } from "../news";
 import type { Game, Region } from "../types";
 import { dayToDate, MONTHS, parseDay } from "../timeline/dates";
 import { shortDeveloper } from "./developer";
@@ -63,8 +64,12 @@ function outTodayLabel(regions: Region[]) {
 
 function badges(game: Game, outToday: Region[], delay: Delay | null) {
   const list: [string, string][] = [];
+  // What's new (ITERATION-3 §4): an unseen change gets a "!" badge, removed by the header
+  // panel once seen; an unseen delay takes the place of the Delayed badge until then.
+  const fresh = news.unseenFor(game.id);
+  const freshDelay = fresh?.type === "delayed" && !!delay;
   if (outToday.length) list.push([outTodayLabel(outToday), "badge--out-today"]);
-  if (delay) list.push(["Delayed", "badge--delayed"]);
+  if (delay && !freshDelay) list.push(["Delayed", "badge--delayed"]);
   if (game.kind === "switch2-edition") list.push(["Switch 2 Edition", "badge--s2"]);
   // Exclusivity describes the base game, so DLC cards don't repeat it.
   if (game.kind !== "dlc") {
@@ -73,6 +78,13 @@ function badges(game: Game, outToday: Region[], delay: Delay | null) {
   }
   if (game.alsoOnSwitch1) list.push(["Also on Switch 1", ""]);
   const wrap = el("div", "card__badges");
+  if (fresh) {
+    const badge = el("span", "badge badge--news", NEWS_LABEL[fresh.type]);
+    badge.prepend(el("span", "badge__bang", "!"));
+    badge.title = "Not seen yet";
+    if (freshDelay) badge.dataset.seenAs = "badge--delayed";
+    wrap.append(badge);
+  }
   for (const [label, mod] of list) wrap.append(el("span", `badge ${mod}`.trim(), label));
   return wrap;
 }

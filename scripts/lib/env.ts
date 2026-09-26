@@ -5,6 +5,7 @@ export const ROOT = fileURLToPath(new URL("../../", import.meta.url));
 
 export const PATHS = {
   games: `${ROOT}public/data/games.json`,
+  changes: `${ROOT}public/data/changes.json`,
   overrides: `${ROOT}data/overrides.json`,
   history: `${ROOT}data/exclusivity-history.json`,
   report: `${ROOT}data/fetch-report.json`,

@@ -2,7 +2,7 @@ export interface MinimapOptions {
   /** World x range shown by the bar: [0, worldEnd]. */
   worldEnd: number;
   months: { x: number; label: string; major: boolean }[];
-  dots: { x: number; kind: string; upcoming: boolean; title: string }[];
+  dots: { x: number; id: string; kind: string; upcoming: boolean; title: string; fresh: boolean }[];
   todayX: number;
   tba: { startX: number; endX: number } | null;
   /** Called with a world x (as the new viewport center). `smooth` is false while scrubbing. */
@@ -45,8 +45,9 @@ export class Minimap {
 
     add("minimap__today", opts.todayX);
     for (const d of opts.dots) {
-      const dot = add(`minimap__dot minimap__dot--${d.kind}${d.upcoming ? " is-upcoming" : ""}`, d.x);
+      const dot = add(`minimap__dot minimap__dot--${d.kind}${d.upcoming ? " is-upcoming" : ""}${d.fresh ? " has-news" : ""}`, d.x);
       dot.title = d.title;
+      dot.dataset.gameId = d.id;
     }
 
     this.window = document.createElement("div");

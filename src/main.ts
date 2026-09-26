@@ -1,9 +1,11 @@
 import "./styles/main.css";
 import { applyFilters, FiltersControl, loadFilters } from "./filters";
+import { news } from "./news";
 import { Search } from "./search";
 import { initTheme } from "./theme/theme";
 import { Timeline } from "./timeline/timeline";
-import type { Game, GamesFile } from "./types";
+import type { ChangesFile, Game, GamesFile } from "./types";
+import { WhatsNew } from "./whats-new";
 
 initTheme(document.querySelector<HTMLButtonElement>(".theme-toggle")!);
 
@@ -67,11 +69,25 @@ async function loadGames(): Promise<Game[]> {
   return data.games;
 }
 
+/** What's new is optional: without changes.json the site works as before. */
+async function loadChanges(): Promise<ChangesFile> {
+  try {
+    const res = await fetch(`${import.meta.env.BASE_URL}data/changes.json`);
+    if (res.ok) return (await res.json()) as ChangesFile;
+  } catch {
+    // Network error: no changes.
+  }
+  return { generatedAt: "", changes: [] };
+}
+
 const app = document.querySelector<HTMLElement>("#app")!;
 const status = app.querySelector<HTMLElement>(".app-status")!;
-loadGames()
-  .then((allGames) => {
+Promise.all([loadGames(), loadChanges()])
+  .then(([allGames, changes]) => {
     status.remove();
+    const today = new Date().toISOString().slice(0, 10);
+    // Before the timeline: cards and minimap dots read it when they are created.
+    news.load(changes, today);
     let filters = loadFilters();
     const create = (games: Game[]) =>
       new Timeline(app, games, document.querySelector<HTMLElement>("#timeline-date")!, document.querySelector<HTMLElement>(".app-title")!);
@@ -89,6 +105,14 @@ loadGames()
       control.setCount(visible.length, allGames.length);
     });
     control.setCount(applyFilters(allGames, filters).length, allGames.length);
+
+    new WhatsNew(
+      document.querySelector<HTMLElement>(".app-header__actions")!,
+      allGames,
+      today,
+      (game) => applyFilters([game], filters).length > 0,
+      (game) => timeline.selectById(game.id),
+    );
 
     const search = new Search(
       () => applyFilters(allGames, filters),
