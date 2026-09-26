@@ -73,6 +73,7 @@ export function selectGames(igdb: IgdbCache, wiki: WikipediaCache, overridesFile
     if (!forced && g.version_parent && kind !== "switch2-edition") continue;
 
     const game = toGame(g, info);
+    game.firstParty = firstParty.has(g.id) || isChild;
     const exIgdb = igdbExclusive(g);
     const exWiki = wikiIds.has(g.id);
     let conflict: string | undefined;

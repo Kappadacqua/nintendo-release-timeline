@@ -66,6 +66,11 @@ export class Scroller {
     this.frame = requestAnimationFrame(this.tick);
   }
 
+  /** Stops any glide in progress (timeline being destroyed). */
+  dispose() {
+    this.stop();
+  }
+
   private stop() {
     cancelAnimationFrame(this.frame);
     this.frame = 0;
@@ -217,7 +222,7 @@ export function bindScrollInput(
   // Links and images would otherwise start a native drag-and-drop.
   el.addEventListener("dragstart", (e) => e.preventDefault());
 
-  window.addEventListener("keydown", (e) => {
+  const onKey = (e: KeyboardEvent) => {
     if (e.ctrlKey || e.metaKey || e.altKey) return;
     const t = e.target instanceof HTMLElement ? e.target : null;
     if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName) || t.closest("dialog"))) return;
@@ -234,5 +239,7 @@ export function bindScrollInput(
     else return;
     e.preventDefault();
     opts.onKeyNavigate();
-  });
+  };
+  window.addEventListener("keydown", onKey);
+  return () => window.removeEventListener("keydown", onKey);
 }

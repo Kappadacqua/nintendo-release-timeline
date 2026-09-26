@@ -10,12 +10,13 @@ const isCover = (url: string) => url.includes("/t_cover_");
  */
 export class Backdrop {
   private readonly layers: HTMLElement[];
+  private readonly root: HTMLElement;
   private front = 0;
   private wanted: string | null = null;
   private readonly preloaded = new Map<string, Promise<void>>();
 
   constructor() {
-    const root = document.createElement("div");
+    const root = (this.root = document.createElement("div"));
     root.className = "backdrop";
     root.setAttribute("aria-hidden", "true");
     this.layers = [0, 1].map(() => {
@@ -57,6 +58,11 @@ export class Backdrop {
       this.front = next;
       document.body.classList.add("has-backdrop");
     });
+  }
+
+  destroy() {
+    this.hide();
+    this.root.remove();
   }
 
   hide() {

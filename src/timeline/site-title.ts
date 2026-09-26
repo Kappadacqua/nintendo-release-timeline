@@ -8,6 +8,7 @@ import type { Game } from "../types";
 export class SiteTitle {
   private readonly cover: HTMLImageElement;
   private readonly name: HTMLElement;
+  private readonly layer: HTMLElement;
 
   constructor(private readonly h1: HTMLElement) {
     const game = document.createElement("span");
@@ -19,6 +20,7 @@ export class SiteTitle {
     this.name.className = "app-title__game-name";
     game.append(this.cover, this.name);
     h1.append(game);
+    this.layer = game;
   }
 
   show(game: Game) {
@@ -29,5 +31,10 @@ export class SiteTitle {
 
   clear() {
     this.h1.classList.remove("is-game");
+  }
+
+  destroy() {
+    this.clear();
+    this.layer.remove();
   }
 }

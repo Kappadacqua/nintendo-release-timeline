@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-26T21:05:34.491Z",
+  "generatedAt": "2026-09-26T21:10:01.034Z",
   "games": [
     {
       "id": "igdb:338093",
@@ -20,6 +20,7 @@
       },
       "firstReleaseDate": "2025-06-05",
       "exclusivity": "exclusive",
+      "firstParty": false,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -63,6 +64,7 @@
       },
       "firstReleaseDate": "2025-06-05",
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -105,6 +107,7 @@
       },
       "firstReleaseDate": "2025-06-05",
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -147,6 +150,7 @@
       },
       "firstReleaseDate": "2025-06-05",
       "exclusivity": "exclusive",
+      "firstParty": false,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -190,6 +194,7 @@
       },
       "firstReleaseDate": "2025-06-05",
       "exclusivity": "exclusive",
+      "firstParty": false,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -225,6 +230,7 @@
       },
       "firstReleaseDate": "2025-06-05",
       "exclusivity": "exclusive",
+      "firstParty": false,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -268,6 +274,7 @@
       },
       "firstReleaseDate": "2025-06-05",
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -311,6 +318,7 @@
       },
       "firstReleaseDate": "2025-06-05",
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -354,6 +362,7 @@
       },
       "firstReleaseDate": "2025-07-17",
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -397,6 +406,7 @@
       },
       "firstReleaseDate": "2025-07-22",
       "exclusivity": null,
+      "firstParty": true,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -434,6 +444,7 @@
       },
       "firstReleaseDate": "2025-07-24",
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -470,6 +481,7 @@
       },
       "firstReleaseDate": "2025-07-31",
       "exclusivity": "exclusive",
+      "firstParty": false,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -505,6 +517,7 @@
       },
       "firstReleaseDate": "2025-08-14",
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -542,6 +555,7 @@
       },
       "firstReleaseDate": "2025-08-28",
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -586,6 +600,7 @@
       },
       "firstReleaseDate": "2025-09-12",
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -629,6 +644,7 @@
       },
       "firstReleaseDate": "2025-09-25",
       "exclusivity": "exclusive",
+      "firstParty": false,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -665,6 +681,7 @@
       },
       "firstReleaseDate": "2025-10-02",
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": true,
       "scores": {
         "critic": {
@@ -701,6 +718,7 @@
       },
       "firstReleaseDate": "2025-10-02",
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": true,
       "scores": {
         "critic": {
@@ -737,6 +755,7 @@
       },
       "firstReleaseDate": "2025-10-16",
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": true,
       "scores": {
         "critic": {
@@ -780,6 +799,7 @@
       },
       "firstReleaseDate": "2025-11-06",
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -823,6 +843,7 @@
       },
       "firstReleaseDate": "2025-11-20",
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -866,6 +887,7 @@
       },
       "firstReleaseDate": "2025-12-04",
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": true,
       "scores": {
         "critic": {
@@ -907,6 +929,7 @@
       },
       "firstReleaseDate": "2025-12-10",
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": true,
       "scores": {
         "critic": {
@@ -949,6 +972,7 @@
       },
       "firstReleaseDate": "2025-12-25",
       "exclusivity": "exclusive",
+      "firstParty": false,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -984,6 +1008,7 @@
       },
       "firstReleaseDate": "2026-01-15",
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -1027,6 +1052,7 @@
       },
       "firstReleaseDate": "2026-01-22",
       "exclusivity": "exclusive",
+      "firstParty": false,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -1063,6 +1089,7 @@
       },
       "firstReleaseDate": "2026-02-11",
       "exclusivity": "exclusive",
+      "firstParty": false,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -1104,6 +1131,7 @@
       },
       "firstReleaseDate": "2026-02-12",
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -1147,6 +1175,7 @@
       },
       "firstReleaseDate": "2026-03-05",
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -1189,6 +1218,7 @@
       },
       "firstReleaseDate": "2026-03-26",
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -1232,6 +1262,7 @@
       },
       "firstReleaseDate": "2026-04-08",
       "exclusivity": null,
+      "firstParty": true,
       "alsoOnSwitch1": true,
       "scores": {
         "critic": {
@@ -1274,6 +1305,7 @@
       },
       "firstReleaseDate": "2026-04-16",
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -1316,6 +1348,7 @@
       },
       "firstReleaseDate": "2026-04-23",
       "exclusivity": "exclusive",
+      "firstParty": false,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -1352,6 +1385,7 @@
       },
       "firstReleaseDate": "2026-05-21",
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -1394,6 +1428,7 @@
       },
       "firstReleaseDate": "2026-06-03",
       "exclusivity": "exclusive",
+      "firstParty": false,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -1435,6 +1470,7 @@
       },
       "firstReleaseDate": "2026-06-04",
       "exclusivity": "exclusive",
+      "firstParty": false,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -1469,6 +1505,7 @@
       },
       "firstReleaseDate": "2026-06-09",
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -1502,6 +1539,7 @@
       },
       "firstReleaseDate": "2026-06-09",
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -1545,6 +1583,7 @@
       },
       "firstReleaseDate": "2026-06-25",
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -1587,6 +1626,7 @@
       },
       "firstReleaseDate": "2026-07-02",
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -1630,6 +1670,7 @@
       },
       "firstReleaseDate": "2026-07-16",
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -1667,6 +1708,7 @@
       },
       "firstReleaseDate": "2026-07-23",
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -1710,6 +1752,7 @@
       },
       "firstReleaseDate": "2026-07-30",
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -1751,6 +1794,7 @@
       },
       "firstReleaseDate": "2026-08-05",
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -1794,6 +1838,7 @@
       },
       "firstReleaseDate": "2026-09-03",
       "exclusivity": "exclusive",
+      "firstParty": false,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -1837,6 +1882,7 @@
       },
       "firstReleaseDate": "2026-09-17",
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -1877,6 +1923,7 @@
       },
       "firstReleaseDate": "2026-09-24",
       "exclusivity": "exclusive",
+      "firstParty": false,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -1911,6 +1958,7 @@
       },
       "firstReleaseDate": "2026-10-22",
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -1947,6 +1995,7 @@
       },
       "firstReleaseDate": "2026-11-05",
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -1983,6 +2032,7 @@
       },
       "firstReleaseDate": "2026-11-12",
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -2020,6 +2070,7 @@
       },
       "firstReleaseDate": "2026-12-03",
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -2057,6 +2108,7 @@
       },
       "firstReleaseDate": "2027-01-28",
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -2094,6 +2146,7 @@
       },
       "firstReleaseDate": "2027-02-25",
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -2130,6 +2183,7 @@
         "label": "2026"
       },
       "exclusivity": "exclusive",
+      "firstParty": false,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -2167,6 +2221,7 @@
         "label": "Q4 2026"
       },
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -2205,6 +2260,7 @@
         "label": "2026"
       },
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -2246,6 +2302,7 @@
         "label": "Q2 2027"
       },
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -2284,6 +2341,7 @@
         "label": "Q2 2027"
       },
       "exclusivity": "exclusive",
+      "firstParty": false,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -2322,6 +2380,7 @@
         "label": "2027"
       },
       "exclusivity": "exclusive",
+      "firstParty": false,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -2359,6 +2418,7 @@
         "label": "2027"
       },
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -2399,6 +2459,7 @@
         "label": "2027"
       },
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -2439,6 +2500,7 @@
         "label": "2027"
       },
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -2473,6 +2535,7 @@
       },
       "firstReleaseDate": null,
       "exclusivity": "exclusive",
+      "firstParty": false,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -2514,6 +2577,7 @@
         "label": "2027"
       },
       "exclusivity": "exclusive",
+      "firstParty": true,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -2550,6 +2614,7 @@
       },
       "firstReleaseDate": null,
       "exclusivity": "exclusive",
+      "firstParty": false,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -2581,6 +2646,7 @@
       },
       "firstReleaseDate": null,
       "exclusivity": "exclusive",
+      "firstParty": false,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {
@@ -2615,6 +2681,7 @@
       },
       "firstReleaseDate": null,
       "exclusivity": "exclusive",
+      "firstParty": false,
       "alsoOnSwitch1": false,
       "scores": {
         "critic": {

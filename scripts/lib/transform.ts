@@ -164,6 +164,7 @@ export function toGame(g: IgdbGame, info: Dates): Game {
     firstReleaseDate: info.firstReleaseDate,
     ...(info.vagueRelease ? { vagueRelease: info.vagueRelease } : {}),
     exclusivity: null,
+    firstParty: false,
     alsoOnSwitch1: platforms.includes(PLATFORM.SWITCH) && platforms.includes(PLATFORM.SWITCH_2),
     scores: { critic: { opencritic: null, metacritic: null }, user: { metacritic: null, backloggd: null } },
     // Backloggd is built on IGDB, so its URLs use the IGDB slug.

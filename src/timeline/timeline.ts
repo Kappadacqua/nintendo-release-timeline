@@ -106,6 +106,9 @@ export class Timeline {
   private selected = -1;
   private readonly siteTitle: SiteTitle | null;
   private readonly backdrop = new Backdrop();
+  /** Cleanups for everything registered outside this.el (window, document, observers). */
+  private readonly disposers: (() => void)[] = [];
+  private destroyed = false;
 
   constructor(root: HTMLElement, games: Game[], headerSlot?: HTMLElement, titleEl?: HTMLElement) {
     const lastRelease = games
@@ -159,7 +162,7 @@ export class Timeline {
 
     this.scroller = new Scroller((x) => this.render(x));
     this.scroller.snap = (x) => this.snapToDay(x);
-    bindScrollInput(this.el, this.scroller, {
+    const unbindKeys = bindScrollInput(this.el, this.scroller, {
       dayPx: TIMELINE.dayPx,
       onDayStep: (days) => {
         this.deselect();
@@ -185,7 +188,10 @@ export class Timeline {
 
     this.readPalette();
     this.watchTheme();
-    new ResizeObserver(() => this.resize()).observe(this.el);
+    this.disposers.push(unbindKeys, () => this.scroller.dispose());
+    const resizeObserver = new ResizeObserver(() => this.resize());
+    resizeObserver.observe(this.el);
+    this.disposers.push(() => resizeObserver.disconnect());
     this.resize();
     this.scroller.jumpTo(this.dayX(this.todayDay));
     this.ready = true;
@@ -210,6 +216,17 @@ export class Timeline {
       next = direction > 0 ? this.stops.findIndex((s) => s.x > at + 0.5) : this.stops.findLastIndex((s) => s.x < at - 0.5);
     }
     if (next >= 0 && next < this.stops.length) this.select(next);
+  }
+
+  /** Removes the timeline and every listener it registered (it is rebuilt when filters change). */
+  destroy() {
+    if (this.destroyed) return;
+    this.destroyed = true;
+    for (const dispose of this.disposers) dispose();
+    this.backdrop.destroy();
+    this.siteTitle?.destroy();
+    this.header.el.remove();
+    this.el.remove();
   }
 
   /** Where the view is and what is selected, to come back to it after a reload. */
@@ -623,11 +640,14 @@ export class Timeline {
       this.readPalette();
       this.render(this.scroller.current);
     };
-    new MutationObserver(refresh).observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["data-theme"],
-    });
-    matchMedia("(prefers-color-scheme: dark)").addEventListener("change", refresh);
+    const themeObserver = new MutationObserver(refresh);
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+    const scheme = matchMedia("(prefers-color-scheme: dark)");
+    scheme.addEventListener("change", refresh);
+    this.disposers.push(
+      () => themeObserver.disconnect(),
+      () => scheme.removeEventListener("change", refresh),
+    );
   }
 
   private resize() {
@@ -647,6 +667,7 @@ export class Timeline {
   }
 
   private render(center: number) {
+    if (this.destroyed) return;
     const left = center - this.width / 2;
     this.world.style.transform = `translate3d(${-left}px, 0, 0)`;
     this.drawCanvas(left);

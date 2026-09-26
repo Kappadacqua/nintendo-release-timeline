@@ -13,6 +13,7 @@
     "data:build": "tsx scripts/build-data.ts"
   },
   "dependencies": {
+    "fuse.js": "^7.5.0",
     "gsap": "^3.13.0"
   },
   "devDependencies": {

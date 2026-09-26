@@ -23,6 +23,8 @@ export interface Game {
   firstReleaseDate: string | null;
   vagueRelease?: { year: number; label: string };
   exclusivity: "exclusive" | "timed" | null;
+  /** Published by Nintendo / The Pokémon Company (or a DLC / edition of such a game). */
+  firstParty: boolean;
   alsoOnSwitch1: boolean;
   scores: {
     critic: {

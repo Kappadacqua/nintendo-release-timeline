@@ -72,6 +72,7 @@ export function manualToGame(m: ManualGame): Game {
     releaseDates,
     firstReleaseDate: known[0] ?? null,
     exclusivity: m.exclusivity ?? null,
+    firstParty: false,
     alsoOnSwitch1: m.alsoOnSwitch1 ?? false,
     scores: emptyScores(),
     links: m.links ?? {},
