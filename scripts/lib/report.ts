@@ -1,6 +1,8 @@
 /** data/fetch-report.json: what the last fetch could not decide on its own, read by data:validate. */
 export interface FetchReport {
   generatedAt: string;
+  /** When data:fetch last ran (the build itself uses only the cache). */
+  fetchedAt?: string | null;
   counts: { candidates: number; included: number };
   exclusivityConflicts: { id: string; title: string; issue: string }[];
   wikipediaUnmatched: { title: string; wikidataId: string | null }[];

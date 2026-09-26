@@ -9,6 +9,10 @@ export const PATHS = {
   history: `${ROOT}data/exclusivity-history.json`,
   report: `${ROOT}data/fetch-report.json`,
   opencriticCache: `${ROOT}data/cache/opencritic.json`,
+  igdbCache: `${ROOT}data/cache/igdb.json`,
+  wikipediaCache: `${ROOT}data/cache/wikipedia.json`,
+  linksCache: `${ROOT}data/cache/links.json`,
+  fetchStatus: `${ROOT}data/cache/fetch-status.json`,
 };
 
 // Node ≥ 20.12 reads .env natively; values already in the environment win.

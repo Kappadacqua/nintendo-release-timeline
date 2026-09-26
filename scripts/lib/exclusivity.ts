@@ -41,6 +41,12 @@ export class ExclusivityHistory {
     return "timed";
   }
 
+  /** Same answer as `resolve`, without recording anything (for data:build). */
+  peek(id: string, exclusiveNow: boolean): Game["exclusivity"] {
+    if (exclusiveNow) return "exclusive";
+    return this.data.games[id] ? "timed" : null;
+  }
+
   save() {
     writeFileSync(this.path, `${JSON.stringify(this.data, null, 2)}\n`);
   }

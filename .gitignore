@@ -4,3 +4,4 @@ dist
 
 # Regenerated on every data:fetch
 data/fetch-report.json
+data/cache/fetch-status.json

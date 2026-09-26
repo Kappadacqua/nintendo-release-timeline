@@ -30,7 +30,7 @@ export interface CatalogEntry {
   numReviews: number;
 }
 
-interface Cache {
+export interface OpenCriticCache {
   /** IGDB id → OpenCritic id (null = searched, nothing close enough). */
   matches: Record<string, { opencriticId: number | null; searchedAt: string }>;
   games: Record<string, { data: OpenCriticGame; fetchedAt: string }>;
@@ -41,6 +41,11 @@ interface Cache {
 /** OpenCritic's filter takes the platform's shortName, space included. */
 const CATALOG_PLATFORM = "Switch 2";
 const PAGE_SIZE = 20;
+
+/** The cache on disk, for data:build (no client, no network). */
+export function loadOpenCriticCache(path: string): OpenCriticCache {
+  return existsSync(path) ? (JSON.parse(readFileSync(path, "utf8")) as OpenCriticCache) : { matches: {}, games: {} };
+}
 
 export interface OpenCriticBudget {
   searches: number;
@@ -64,7 +69,7 @@ function normalize(title: string) {
  */
 export class OpenCritic {
   private readonly throttle = new Throttle(300);
-  private readonly cache: Cache;
+  private readonly cache: OpenCriticCache;
   readonly used = { searches: 0, requests: 0 };
   budgetExhausted = false;
   private catalogByTitle = new Map<string, CatalogEntry>();
@@ -76,7 +81,7 @@ export class OpenCritic {
     private readonly budget: OpenCriticBudget,
   ) {
     this.cache = existsSync(cachePath)
-      ? (JSON.parse(readFileSync(cachePath, "utf8")) as Cache)
+      ? loadOpenCriticCache(cachePath)
       : { matches: {}, games: {} };
   }
 

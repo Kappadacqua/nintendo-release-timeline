@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "data:fetch": "tsx scripts/fetch-data.ts",
-    "data:validate": "tsx scripts/validate-data.ts"
+    "data:validate": "tsx scripts/validate-data.ts",
+    "data:build": "tsx scripts/build-data.ts"
   },
   "dependencies": {
     "gsap": "^3.13.0"
