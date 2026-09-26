@@ -1,0 +1,661 @@
+{
+  "generatedAt": "2026-09-26T00:00:00Z",
+  "games": [
+    {
+      "id": "igdb:900001",
+      "kind": "game",
+      "title": "Mario Kart World",
+      "coverUrl": "/covers/placeholder.svg",
+      "developer": "Nintendo EPD",
+      "genres": [
+        "Racing"
+      ],
+      "releaseDates": {
+        "JP": "2025-06-05",
+        "EU": "2025-06-05",
+        "NA": "2025-06-05"
+      },
+      "firstReleaseDate": "2025-06-05",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": {
+            "value": 86,
+            "scale": 100,
+            "normalized": 86,
+            "count": 156
+          },
+          "metacritic": {
+            "value": 86,
+            "scale": 100,
+            "normalized": 86,
+            "count": 120
+          }
+        },
+        "user": {
+          "metacritic": {
+            "value": 7.9,
+            "scale": 10,
+            "normalized": 79,
+            "count": 3100
+          },
+          "backloggd": {
+            "value": 3.9,
+            "scale": 5,
+            "normalized": 78,
+            "count": 6200
+          }
+        }
+      },
+      "links": {
+        "metacritic": "https://www.metacritic.com/game/mario-kart-world/",
+        "backloggd": "https://backloggd.com/games/mario-kart-world/"
+      }
+    },
+    {
+      "id": "igdb:900002",
+      "kind": "game",
+      "title": "Donkey Kong Bananza",
+      "coverUrl": "/covers/placeholder.svg",
+      "developer": "Nintendo EPD",
+      "genres": [
+        "Platform",
+        "Adventure"
+      ],
+      "releaseDates": {
+        "JP": "2025-07-17",
+        "EU": "2025-07-17",
+        "NA": "2025-07-17"
+      },
+      "firstReleaseDate": "2025-07-17",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": {
+            "value": 91,
+            "scale": 100,
+            "normalized": 91,
+            "count": 142
+          },
+          "metacritic": {
+            "value": 91,
+            "scale": 100,
+            "normalized": 91,
+            "count": 118
+          }
+        },
+        "user": {
+          "metacritic": {
+            "value": 8.9,
+            "scale": 10,
+            "normalized": 89,
+            "count": 2400
+          },
+          "backloggd": {
+            "value": 4.2,
+            "scale": 5,
+            "normalized": 84,
+            "count": 5100
+          }
+        }
+      },
+      "links": {
+        "metacritic": "https://www.metacritic.com/game/donkey-kong-bananza/",
+        "backloggd": "https://backloggd.com/games/donkey-kong-bananza/"
+      }
+    },
+    {
+      "id": "igdb:900003",
+      "kind": "switch2-edition",
+      "title": "Kirby and the Forgotten Land – Nintendo Switch 2 Edition + Star-Crossed World",
+      "coverUrl": "/covers/placeholder.svg",
+      "developer": "HAL Laboratory",
+      "genres": [
+        "Platform"
+      ],
+      "releaseDates": {
+        "JP": "2025-08-28",
+        "EU": "2025-08-28",
+        "NA": "2025-08-28"
+      },
+      "firstReleaseDate": "2025-08-28",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": {
+            "value": 83,
+            "scale": 100,
+            "normalized": 83,
+            "count": 74
+          },
+          "metacritic": {
+            "value": 82,
+            "scale": 100,
+            "normalized": 82,
+            "count": 60
+          }
+        },
+        "user": {
+          "metacritic": {
+            "value": 8.4,
+            "scale": 10,
+            "normalized": 84,
+            "count": 410
+          },
+          "backloggd": null
+        }
+      },
+      "links": {
+        "metacritic": "https://www.metacritic.com/game/kirby-and-the-forgotten-land-nintendo-switch-2-edition-star-crossed-world/",
+        "backloggd": "https://backloggd.com/games/kirby-and-the-forgotten-land-nintendo-switch-2-edition-star-crossed-world/"
+      }
+    },
+    {
+      "id": "igdb:900004",
+      "kind": "dlc",
+      "title": "Donkey Kong Bananza: DK Island & Emerald Rush",
+      "baseGameTitle": "Donkey Kong Bananza",
+      "coverUrl": "/covers/placeholder.svg",
+      "developer": "Nintendo EPD",
+      "genres": [
+        "Platform"
+      ],
+      "releaseDates": {
+        "JP": "2025-09-12",
+        "EU": "2025-09-12",
+        "NA": "2025-09-12"
+      },
+      "firstReleaseDate": "2025-09-12",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": {
+            "value": 72,
+            "scale": 100,
+            "normalized": 72,
+            "count": 38
+          },
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": {
+            "value": 3.4,
+            "scale": 5,
+            "normalized": 68,
+            "count": 620
+          }
+        }
+      },
+      "links": {
+        "metacritic": "https://www.metacritic.com/game/donkey-kong-bananza-dk-island-emerald-rush/",
+        "backloggd": "https://backloggd.com/games/donkey-kong-bananza-dk-island-emerald-rush/"
+      }
+    },
+    {
+      "id": "igdb:900005",
+      "kind": "game",
+      "title": "Pokémon Legends: Z-A",
+      "coverUrl": "/covers/placeholder.svg",
+      "developer": "Game Freak",
+      "genres": [
+        "RPG",
+        "Adventure"
+      ],
+      "releaseDates": {
+        "JP": "2025-10-16",
+        "EU": "2025-10-16",
+        "NA": "2025-10-16"
+      },
+      "firstReleaseDate": "2025-10-16",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": true,
+      "scores": {
+        "critic": {
+          "opencritic": {
+            "value": 80,
+            "scale": 100,
+            "normalized": 80,
+            "count": 151
+          },
+          "metacritic": {
+            "value": 79,
+            "scale": 100,
+            "normalized": 79,
+            "count": 115
+          }
+        },
+        "user": {
+          "metacritic": {
+            "value": 7.1,
+            "scale": 10,
+            "normalized": 71,
+            "count": 3900
+          },
+          "backloggd": {
+            "value": 3.6,
+            "scale": 5,
+            "normalized": 72,
+            "count": 4800
+          }
+        }
+      },
+      "links": {
+        "metacritic": "https://www.metacritic.com/game/pokemon-legends-z-a/",
+        "backloggd": "https://backloggd.com/games/pokemon-legends-z-a/"
+      }
+    },
+    {
+      "id": "igdb:900006",
+      "kind": "game",
+      "title": "Hyrule Warriors: Age of Imprisonment",
+      "coverUrl": "/covers/placeholder.svg",
+      "developer": "Koei Tecmo",
+      "genres": [
+        "Hack and slash",
+        "Action"
+      ],
+      "releaseDates": {
+        "JP": "2025-11-06",
+        "EU": "2025-11-06",
+        "NA": "2025-11-06"
+      },
+      "firstReleaseDate": "2025-11-06",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": {
+            "value": 83,
+            "scale": 100,
+            "normalized": 83,
+            "count": 97
+          },
+          "metacritic": {
+            "value": 84,
+            "scale": 100,
+            "normalized": 84,
+            "count": 81
+          }
+        },
+        "user": {
+          "metacritic": {
+            "value": 8.2,
+            "scale": 10,
+            "normalized": 82,
+            "count": 700
+          },
+          "backloggd": {
+            "value": 3.8,
+            "scale": 5,
+            "normalized": 76,
+            "count": 1500
+          }
+        }
+      },
+      "links": {
+        "metacritic": "https://www.metacritic.com/game/hyrule-warriors-age-of-imprisonment/",
+        "backloggd": "https://backloggd.com/games/hyrule-warriors-age-of-imprisonment/"
+      }
+    },
+    {
+      "id": "igdb:900007",
+      "kind": "game",
+      "title": "Kirby Air Riders",
+      "coverUrl": "/covers/placeholder.svg",
+      "developer": "Bandai Namco Studios",
+      "genres": [
+        "Racing"
+      ],
+      "releaseDates": {
+        "JP": "2025-11-20",
+        "EU": "2025-11-20",
+        "NA": "2025-11-20"
+      },
+      "firstReleaseDate": "2025-11-20",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": {
+            "value": 77,
+            "scale": 100,
+            "normalized": 77,
+            "count": 88
+          },
+          "metacritic": {
+            "value": 76,
+            "scale": 100,
+            "normalized": 76,
+            "count": 70
+          }
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": {
+            "value": 3.5,
+            "scale": 5,
+            "normalized": 70,
+            "count": 900
+          }
+        }
+      },
+      "links": {
+        "metacritic": "https://www.metacritic.com/game/kirby-air-riders/",
+        "backloggd": "https://backloggd.com/games/kirby-air-riders/"
+      }
+    },
+    {
+      "id": "igdb:900008",
+      "kind": "game",
+      "title": "Metroid Prime 4: Beyond",
+      "coverUrl": "/covers/placeholder.svg",
+      "developer": "Retro Studios",
+      "genres": [
+        "Shooter",
+        "Adventure"
+      ],
+      "releaseDates": {
+        "JP": "2025-12-04",
+        "EU": "2025-12-04",
+        "NA": "2025-12-04"
+      },
+      "firstReleaseDate": "2025-12-04",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": true,
+      "scores": {
+        "critic": {
+          "opencritic": {
+            "value": 84,
+            "scale": 100,
+            "normalized": 84,
+            "count": 130
+          },
+          "metacritic": {
+            "value": 83,
+            "scale": 100,
+            "normalized": 83,
+            "count": 110
+          }
+        },
+        "user": {
+          "metacritic": {
+            "value": 7.6,
+            "scale": 10,
+            "normalized": 76,
+            "count": 2600
+          },
+          "backloggd": {
+            "value": 3.9,
+            "scale": 5,
+            "normalized": 78,
+            "count": 3300
+          }
+        }
+      },
+      "links": {
+        "metacritic": "https://www.metacritic.com/game/metroid-prime-4-beyond/",
+        "backloggd": "https://backloggd.com/games/metroid-prime-4-beyond/"
+      }
+    },
+    {
+      "id": "igdb:900011",
+      "kind": "game",
+      "title": "Mario Tennis Fever",
+      "coverUrl": "/covers/placeholder.svg",
+      "developer": "Camelot Software Planning",
+      "genres": [
+        "Sport"
+      ],
+      "releaseDates": {
+        "JP": "2026-09-22",
+        "EU": "2026-09-22",
+        "NA": "2026-09-22"
+      },
+      "firstReleaseDate": "2026-09-22",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": {
+            "value": 74,
+            "scale": 100,
+            "normalized": 74,
+            "count": 41
+          },
+          "metacritic": {
+            "value": 73,
+            "scale": 100,
+            "normalized": 73,
+            "count": 33
+          }
+        },
+        "user": {
+          "metacritic": {
+            "value": 6.4,
+            "scale": 10,
+            "normalized": 64,
+            "count": 120
+          },
+          "backloggd": null
+        }
+      },
+      "links": {
+        "metacritic": "https://www.metacritic.com/game/mario-tennis-fever/",
+        "backloggd": "https://backloggd.com/games/mario-tennis-fever/"
+      }
+    },
+    {
+      "id": "igdb:900012",
+      "kind": "game",
+      "title": "Fire Emblem: Fortune's Weave",
+      "coverUrl": "/covers/placeholder.svg",
+      "developer": "Intelligent Systems",
+      "genres": [
+        "Strategy",
+        "RPG"
+      ],
+      "releaseDates": {
+        "JP": "2026-09-24",
+        "EU": "2026-09-24",
+        "NA": "2026-09-24"
+      },
+      "firstReleaseDate": "2026-09-24",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "metacritic": "https://www.metacritic.com/game/fire-emblem-fortunes-weave/",
+        "backloggd": "https://backloggd.com/games/fire-emblem-fortunes-weave/"
+      }
+    },
+    {
+      "id": "igdb:900013",
+      "kind": "game",
+      "title": "Yoshi and the Mysterious Book",
+      "coverUrl": "/covers/placeholder.svg",
+      "developer": "Good-Feel",
+      "genres": [
+        "Platform"
+      ],
+      "releaseDates": {
+        "JP": "2026-09-29",
+        "EU": "2026-09-29",
+        "NA": "2026-09-29"
+      },
+      "firstReleaseDate": "2026-09-29",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "metacritic": "https://www.metacritic.com/game/yoshi-and-the-mysterious-book/",
+        "backloggd": "https://backloggd.com/games/yoshi-and-the-mysterious-book/"
+      }
+    },
+    {
+      "id": "igdb:900009",
+      "kind": "game",
+      "title": "Splatoon Raiders",
+      "coverUrl": "/covers/placeholder.svg",
+      "developer": "Nintendo EPD",
+      "genres": [
+        "Shooter",
+        "Action"
+      ],
+      "releaseDates": {
+        "JP": "2026-11-12",
+        "EU": "2026-11-13",
+        "NA": "2026-11-13"
+      },
+      "firstReleaseDate": "2026-11-12",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "metacritic": "https://www.metacritic.com/game/splatoon-raiders/",
+        "backloggd": "https://backloggd.com/games/splatoon-raiders/"
+      }
+    },
+    {
+      "id": "igdb:900010",
+      "kind": "game",
+      "title": "The Duskbloods",
+      "coverUrl": "/covers/placeholder.svg",
+      "developer": "FromSoftware",
+      "genres": [
+        "Action",
+        "RPG"
+      ],
+      "releaseDates": {
+        "JP": null,
+        "EU": null,
+        "NA": null
+      },
+      "firstReleaseDate": null,
+      "vagueRelease": {
+        "year": 2026,
+        "label": "2026"
+      },
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "metacritic": "https://www.metacritic.com/game/the-duskbloods/",
+        "backloggd": "https://backloggd.com/games/the-duskbloods/"
+      }
+    },
+    {
+      "id": "igdb:900014",
+      "kind": "game",
+      "title": "Tomodachi Life: Living the Dream",
+      "coverUrl": "/covers/placeholder.svg",
+      "developer": "Nintendo EPD",
+      "genres": [
+        "Simulator"
+      ],
+      "releaseDates": {
+        "JP": null,
+        "EU": null,
+        "NA": null
+      },
+      "firstReleaseDate": null,
+      "vagueRelease": {
+        "year": 2026,
+        "label": "2026"
+      },
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": true,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "metacritic": "https://www.metacritic.com/game/tomodachi-life-living-the-dream/",
+        "backloggd": "https://backloggd.com/games/tomodachi-life-living-the-dream/"
+      }
+    },
+    {
+      "id": "igdb:900015",
+      "kind": "dlc",
+      "title": "Mario Kart World – Booster Course Pass",
+      "baseGameTitle": "Mario Kart World",
+      "coverUrl": "/covers/placeholder.svg",
+      "developer": "Nintendo EPD",
+      "genres": [
+        "Racing"
+      ],
+      "releaseDates": {
+        "JP": null,
+        "EU": null,
+        "NA": null
+      },
+      "firstReleaseDate": null,
+      "vagueRelease": {
+        "year": 2027,
+        "label": "Q1 2027"
+      },
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "metacritic": "https://www.metacritic.com/game/mario-kart-world-booster-course-pass/",
+        "backloggd": "https://backloggd.com/games/mario-kart-world-booster-course-pass/"
+      }
+    }
+  ]
+}

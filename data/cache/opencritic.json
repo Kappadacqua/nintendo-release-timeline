@@ -1,0 +1,282 @@
+{
+  "matches": {
+    "igdb:405468": {
+      "opencriticId": null,
+      "searchedAt": "2026-09-26T15:38:57.269Z"
+    },
+    "igdb:366896": {
+      "opencriticId": 20819,
+      "searchedAt": "2026-09-26T15:38:57.656Z"
+    },
+    "igdb:407117": {
+      "opencriticId": null,
+      "searchedAt": "2026-09-26T15:38:58.383Z"
+    },
+    "igdb:381237": {
+      "opencriticId": 21141,
+      "searchedAt": "2026-09-26T15:38:58.739Z"
+    },
+    "igdb:405436": {
+      "opencriticId": null,
+      "searchedAt": "2026-09-26T15:38:59.455Z"
+    },
+    "igdb:405447": {
+      "opencriticId": 20139,
+      "searchedAt": "2026-09-26T15:38:59.842Z"
+    },
+    "igdb:348977": {
+      "opencriticId": 20454,
+      "searchedAt": "2026-09-26T15:39:00.594Z"
+    },
+    "igdb:402033": {
+      "opencriticId": null,
+      "searchedAt": "2026-09-26T15:39:01.370Z"
+    },
+    "igdb:337031": {
+      "opencriticId": 20399,
+      "searchedAt": "2026-09-26T15:39:01.728Z"
+    },
+    "igdb:400709": {
+      "opencriticId": 20560,
+      "searchedAt": "2026-09-26T15:39:02.424Z"
+    },
+    "igdb:405446": {
+      "opencriticId": 20139,
+      "searchedAt": "2026-09-26T15:39:03.247Z"
+    },
+    "igdb:405439": {
+      "opencriticId": null,
+      "searchedAt": "2026-09-26T15:39:03.612Z"
+    },
+    "igdb:388239": {
+      "opencriticId": null,
+      "searchedAt": "2026-09-26T15:39:03.973Z"
+    },
+    "igdb:388431": {
+      "opencriticId": 20767,
+      "searchedAt": "2026-09-26T15:39:04.363Z"
+    },
+    "igdb:366883": {
+      "opencriticId": 20221,
+      "searchedAt": "2026-09-26T15:39:05.067Z"
+    },
+    "igdb:399617": {
+      "opencriticId": null,
+      "searchedAt": "2026-09-26T15:39:05.870Z"
+    },
+    "igdb:337036": {
+      "opencriticId": 20304,
+      "searchedAt": "2026-09-26T15:39:06.257Z"
+    },
+    "igdb:333568": {
+      "opencriticId": 20303,
+      "searchedAt": "2026-09-26T15:39:06.947Z"
+    },
+    "igdb:366881": {
+      "opencriticId": 20256,
+      "searchedAt": "2026-09-26T15:39:07.690Z"
+    },
+    "igdb:366893": {
+      "opencriticId": 19667,
+      "searchedAt": "2026-09-26T15:39:08.384Z"
+    },
+    "igdb:366880": {
+      "opencriticId": 19292,
+      "searchedAt": "2026-09-26T15:41:02.114Z"
+    },
+    "igdb:388428": {
+      "opencriticId": 20062,
+      "searchedAt": "2026-09-26T15:41:02.836Z"
+    },
+    "igdb:386785": {
+      "opencriticId": null,
+      "searchedAt": "2026-09-26T15:41:03.609Z"
+    },
+    "igdb:375733": {
+      "opencriticId": 19943,
+      "searchedAt": "2026-09-26T15:41:04.019Z"
+    },
+    "igdb:366894": {
+      "opencriticId": 19873,
+      "searchedAt": "2026-09-26T15:41:04.736Z"
+    }
+  },
+  "games": {
+    "19292": {
+      "data": {
+        "id": 19292,
+        "name": "Mario Tennis Fever",
+        "url": "https://opencritic.com/game/19292/mario-tennis-fever",
+        "topCriticScore": 77.05555555555556,
+        "numTopCriticReviews": 54,
+        "numReviews": 113
+      },
+      "fetchedAt": "2026-09-26T15:41:02.459Z"
+    },
+    "19667": {
+      "data": {
+        "id": 19667,
+        "name": "Pokémon Pokopia",
+        "url": "https://opencritic.com/game/19667/pok-mon-pokopia",
+        "topCriticScore": 89.37735849056604,
+        "numTopCriticReviews": 53,
+        "numReviews": 124
+      },
+      "fetchedAt": "2026-09-26T15:39:08.708Z"
+    },
+    "19873": {
+      "data": {
+        "id": 19873,
+        "name": "Pokémon Legends: Z-A Mega Dimension",
+        "url": "https://opencritic.com/game/19873/pok-mon-legends-z-a-mega-dimension",
+        "topCriticScore": 66.66666666666667,
+        "numTopCriticReviews": 6,
+        "numReviews": 18
+      },
+      "fetchedAt": "2026-09-26T15:41:05.057Z"
+    },
+    "19943": {
+      "data": {
+        "id": 19943,
+        "name": "Animal Crossing: New Horizons - Nintendo Switch 2 Edition",
+        "url": "https://opencritic.com/game/19943/animal-crossing-new-horizons-nintendo-switch-2-edition",
+        "topCriticScore": 78.18181818181819,
+        "numTopCriticReviews": 12,
+        "numReviews": 26
+      },
+      "fetchedAt": "2026-09-26T15:41:04.342Z"
+    },
+    "20062": {
+      "data": {
+        "id": 20062,
+        "name": "Tokyo Scramble",
+        "url": "https://opencritic.com/game/20062/tokyo-scramble",
+        "topCriticScore": 52.142857142857146,
+        "numTopCriticReviews": 7,
+        "numReviews": 22
+      },
+      "fetchedAt": "2026-09-26T15:41:03.167Z"
+    },
+    "20139": {
+      "data": {
+        "id": 20139,
+        "name": "Xenoblade Chronicles X: Definitive Edition - Nintendo Switch 2 Edition",
+        "url": "https://opencritic.com/game/20139/xenoblade-chronicles-x-definitive-edition-nintendo-switch-2-edition",
+        "topCriticScore": 80,
+        "numTopCriticReviews": 4,
+        "numReviews": 14
+      },
+      "fetchedAt": "2026-09-26T15:39:00.237Z"
+    },
+    "20221": {
+      "data": {
+        "id": 20221,
+        "name": "Yoshi and the Mysterious Book",
+        "url": "https://opencritic.com/game/20221/yoshi-and-the-mysterious-book",
+        "topCriticScore": 79.66071428571429,
+        "numTopCriticReviews": 56,
+        "numReviews": 122
+      },
+      "fetchedAt": "2026-09-26T15:39:05.394Z"
+    },
+    "20256": {
+      "data": {
+        "id": 20256,
+        "name": "Super Mario Bros. Wonder - Nintendo Switch 2 Edition + Meetup in Bellabel Park",
+        "url": "https://opencritic.com/game/20256/super-mario-bros-wonder-nintendo-switch-2-edition-meetup-in-bellabel-park",
+        "topCriticScore": 86.46774193548387,
+        "numTopCriticReviews": 33,
+        "numReviews": 60
+      },
+      "fetchedAt": "2026-09-26T15:39:08.020Z"
+    },
+    "20303": {
+      "data": {
+        "id": 20303,
+        "name": "Pokemon Champions",
+        "url": "https://opencritic.com/game/20303/pokemon-champions",
+        "topCriticScore": 64.72727272727273,
+        "numTopCriticReviews": 11,
+        "numReviews": 23
+      },
+      "fetchedAt": "2026-09-26T15:39:07.268Z"
+    },
+    "20304": {
+      "data": {
+        "id": 20304,
+        "name": "Tomodachi Life: Living the Dream",
+        "url": "https://opencritic.com/game/20304/tomodachi-life-living-the-dream",
+        "topCriticScore": 78.88235294117646,
+        "numTopCriticReviews": 51,
+        "numReviews": 99
+      },
+      "fetchedAt": "2026-09-26T15:39:06.577Z"
+    },
+    "20399": {
+      "data": {
+        "id": 20399,
+        "name": "Rhythm Heaven Groove",
+        "url": "https://opencritic.com/game/20399/rhythm-heaven-groove",
+        "topCriticScore": 83.69298245614036,
+        "numTopCriticReviews": 57,
+        "numReviews": 107
+      },
+      "fetchedAt": "2026-09-26T15:39:02.066Z"
+    },
+    "20454": {
+      "data": {
+        "id": 20454,
+        "name": "Splatoon Raiders",
+        "url": "https://opencritic.com/game/20454/splatoon-raiders",
+        "topCriticScore": 81.47857142857143,
+        "numTopCriticReviews": 70,
+        "numReviews": 140
+      },
+      "fetchedAt": "2026-09-26T15:39:00.958Z"
+    },
+    "20560": {
+      "data": {
+        "id": 20560,
+        "name": "Star Fox",
+        "url": "https://opencritic.com/game/20560/star-fox",
+        "topCriticScore": 81.65671641791045,
+        "numTopCriticReviews": 67,
+        "numReviews": 149
+      },
+      "fetchedAt": "2026-09-26T15:39:02.832Z"
+    },
+    "20767": {
+      "data": {
+        "id": 20767,
+        "name": "eFootball Kick-Off!",
+        "url": "https://opencritic.com/game/20767/efootball-kick-off-",
+        "topCriticScore": 76.38461538461539,
+        "numTopCriticReviews": 13,
+        "numReviews": 33
+      },
+      "fetchedAt": "2026-09-26T15:39:04.684Z"
+    },
+    "20819": {
+      "data": {
+        "id": 20819,
+        "name": "Fire Emblem: Fortune's Weave",
+        "url": "https://opencritic.com/game/20819/fire-emblem-fortunes-weave",
+        "topCriticScore": 88.51388888888889,
+        "numTopCriticReviews": 36,
+        "numReviews": 61
+      },
+      "fetchedAt": "2026-09-26T15:38:57.981Z"
+    },
+    "21141": {
+      "data": {
+        "id": 21141,
+        "name": "Orbitals",
+        "url": "https://opencritic.com/game/21141/orbitals",
+        "topCriticScore": 82.19565217391305,
+        "numTopCriticReviews": 46,
+        "numReviews": 78
+      },
+      "fetchedAt": "2026-09-26T15:38:59.082Z"
+    }
+  }
+}

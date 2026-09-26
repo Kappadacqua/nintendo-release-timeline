@@ -1,0 +1,6 @@
+node_modules
+dist
+.env
+
+# Regenerated on every data:fetch
+data/fetch-report.json

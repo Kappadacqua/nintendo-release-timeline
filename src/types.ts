@@ -1,0 +1,41 @@
+// Schema of public/data/games.json (SPEC §5).
+
+export type Region = "JP" | "EU" | "NA";
+
+export interface Score {
+  value: number; // original value
+  scale: 5 | 10 | 100;
+  normalized: number; // 0–100
+  count: number | null;
+}
+
+export interface Game {
+  id: string; // "igdb:<id>"
+  kind: "game" | "switch2-edition" | "dlc";
+  title: string;
+  baseGameTitle?: string; // DLC only
+  coverUrl: string;
+  developer: string | null;
+  genres: string[];
+  releaseDates: Partial<Record<Region, string | null>>; // "YYYY-MM-DD" or null = TBA
+  firstReleaseDate: string | null;
+  vagueRelease?: { year: number; label: string };
+  exclusivity: "exclusive" | "timed" | null;
+  alsoOnSwitch1: boolean;
+  scores: {
+    critic: {
+      opencritic: Score | null;
+      metacritic: Score | null;
+    };
+    user: {
+      metacritic: Score | null; // original 0–10
+      backloggd: Score | null; // original 0–5
+    };
+  };
+  links: { opencritic?: string; metacritic?: string; backloggd?: string };
+}
+
+export interface GamesFile {
+  generatedAt: string;
+  games: Game[];
+}

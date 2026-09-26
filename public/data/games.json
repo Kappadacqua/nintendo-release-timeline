@@ -1,0 +1,2241 @@
+{
+  "generatedAt": "2026-09-26T16:01:56.317Z",
+  "games": [
+    {
+      "id": "igdb:338093",
+      "kind": "game",
+      "title": "Fast Fusion",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobaub.jpg",
+      "developer": "Shin'en Multimedia",
+      "genres": [
+        "Racing",
+        "Arcade"
+      ],
+      "releaseDates": {
+        "JP": "2025-06-05",
+        "EU": "2025-06-05",
+        "NA": "2025-06-05"
+      },
+      "firstReleaseDate": "2025-06-05",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/fast-fusion/"
+      }
+    },
+    {
+      "id": "igdb:338067",
+      "kind": "game",
+      "title": "Mario Kart World",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cob9s9.jpg",
+      "developer": "Nintendo EPD Production Group No. 9",
+      "genres": [
+        "Racing",
+        "Adventure"
+      ],
+      "releaseDates": {
+        "JP": "2025-06-05",
+        "EU": "2025-06-05",
+        "NA": "2025-06-05"
+      },
+      "firstReleaseDate": "2025-06-05",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/mario-kart-world/"
+      }
+    },
+    {
+      "id": "igdb:338069",
+      "kind": "game",
+      "title": "Nintendo Switch 2 Welcome Tour",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobcnv.jpg",
+      "developer": "Nintendo Cube",
+      "genres": [
+        "Arcade"
+      ],
+      "releaseDates": {
+        "JP": "2025-06-05",
+        "EU": "2025-06-05",
+        "NA": "2025-06-05"
+      },
+      "firstReleaseDate": "2025-06-05",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/nintendo-switch-2-welcome-tour/"
+      }
+    },
+    {
+      "id": "igdb:338091",
+      "kind": "game",
+      "title": "Puyo Puyo Tetris 2S",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co9mvr.jpg",
+      "developer": "Sega",
+      "genres": [
+        "Puzzle"
+      ],
+      "releaseDates": {
+        "JP": "2025-06-05",
+        "EU": "2025-06-05",
+        "NA": "2025-06-05"
+      },
+      "firstReleaseDate": "2025-06-05",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/puyo-puyo-tetris-2s/"
+      }
+    },
+    {
+      "id": "igdb:217964",
+      "kind": "game",
+      "title": "Shine Post: Be Your Idol!",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co9m6w.jpg",
+      "developer": "Konami",
+      "genres": [
+        "Music",
+        "Simulator"
+      ],
+      "releaseDates": {
+        "JP": "2025-06-05",
+        "EU": null,
+        "NA": null
+      },
+      "firstReleaseDate": "2025-06-05",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/shine-post-be-your-idol/"
+      }
+    },
+    {
+      "id": "igdb:338087",
+      "kind": "game",
+      "title": "Survival Kids",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co9p8y.jpg",
+      "developer": null,
+      "genres": [
+        "Puzzle",
+        "Adventure"
+      ],
+      "releaseDates": {
+        "JP": "2025-06-05",
+        "EU": "2025-06-05",
+        "NA": "2025-06-05"
+      },
+      "firstReleaseDate": "2025-06-05",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/survival-kids--1/"
+      }
+    },
+    {
+      "id": "igdb:338072",
+      "kind": "switch2-edition",
+      "title": "The Legend of Zelda: Breath of the Wild - Nintendo Switch 2 Edition",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cob9oy.jpg",
+      "developer": "Nintendo EPD Production Group No. 3",
+      "genres": [
+        "Puzzle",
+        "Adventure"
+      ],
+      "releaseDates": {
+        "JP": "2025-06-05",
+        "EU": "2025-06-05",
+        "NA": "2025-06-05"
+      },
+      "firstReleaseDate": "2025-06-05",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/the-legend-of-zelda-breath-of-the-wild-nintendo-switch-2-edition/"
+      }
+    },
+    {
+      "id": "igdb:338073",
+      "kind": "switch2-edition",
+      "title": "The Legend of Zelda: Tears of the Kingdom - Nintendo Switch 2 Edition",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coav5n.jpg",
+      "developer": "Nintendo EPD Production Group No. 3",
+      "genres": [
+        "Puzzle",
+        "Adventure"
+      ],
+      "releaseDates": {
+        "JP": "2025-06-05",
+        "EU": "2025-06-05",
+        "NA": "2025-06-05"
+      },
+      "firstReleaseDate": "2025-06-05",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/the-legend-of-zelda-tears-of-the-kingdom-nintendo-switch-2-edition/"
+      }
+    },
+    {
+      "id": "igdb:338106",
+      "kind": "game",
+      "title": "Donkey Kong Bananza",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobd1q.jpg",
+      "developer": "Nintendo EPD Production Group No. 8",
+      "genres": [
+        "Platform",
+        "Adventure"
+      ],
+      "releaseDates": {
+        "JP": "2025-07-17",
+        "EU": "2025-07-17",
+        "NA": "2025-07-17"
+      },
+      "firstReleaseDate": "2025-07-17",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/donkey-kong-bananza/"
+      }
+    },
+    {
+      "id": "igdb:356551",
+      "kind": "game",
+      "title": "Pokémon Friends",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coa5oc.jpg",
+      "developer": "Wonderfy",
+      "genres": [
+        "Puzzle",
+        "Arcade"
+      ],
+      "releaseDates": {
+        "JP": "2025-07-22",
+        "EU": "2025-07-22",
+        "NA": "2025-07-22"
+      },
+      "firstReleaseDate": "2025-07-22",
+      "exclusivity": null,
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/pokemon-friends/"
+      }
+    },
+    {
+      "id": "igdb:338071",
+      "kind": "switch2-edition",
+      "title": "Super Mario Party Jamboree: Nintendo Switch 2 Edition + Jamboree TV",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co9m77.jpg",
+      "developer": "Nintendo Cube",
+      "genres": [
+        "Platform",
+        "Adventure"
+      ],
+      "releaseDates": {
+        "JP": "2025-07-24",
+        "EU": "2025-07-24",
+        "NA": "2025-07-24"
+      },
+      "firstReleaseDate": "2025-07-24",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/super-mario-party-jamboree-nintendo-switch-2-edition-plus-jamboree-tv/"
+      }
+    },
+    {
+      "id": "igdb:358531",
+      "kind": "game",
+      "title": "Chillin' by the Fire",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coa7ig.jpg",
+      "developer": null,
+      "genres": [
+        "Simulator"
+      ],
+      "releaseDates": {
+        "JP": "2025-07-31",
+        "EU": "2025-07-31",
+        "NA": "2025-07-31"
+      },
+      "firstReleaseDate": "2025-07-31",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/chillin-by-the-fire/"
+      }
+    },
+    {
+      "id": "igdb:338077",
+      "kind": "game",
+      "title": "Drag x Drive",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coa9c7.jpg",
+      "developer": "Nintendo EPD Production Group No. 5",
+      "genres": [
+        "Sport"
+      ],
+      "releaseDates": {
+        "JP": "2025-08-14",
+        "EU": "2025-08-14",
+        "NA": "2025-08-14"
+      },
+      "firstReleaseDate": "2025-08-14",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/drag-x-drive/"
+      }
+    },
+    {
+      "id": "igdb:338074",
+      "kind": "switch2-edition",
+      "title": "Kirby and the Forgotten Land: Nintendo Switch 2 Edition + Star-Crossed World",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co9m76.jpg",
+      "developer": "HAL Laboratory",
+      "genres": [
+        "Platform",
+        "Adventure"
+      ],
+      "releaseDates": {
+        "JP": "2025-08-28",
+        "EU": "2025-08-28",
+        "NA": "2025-08-28"
+      },
+      "firstReleaseDate": "2025-08-28",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/kirby-and-the-forgotten-land-nintendo-switch-2-edition-plus-star-crossed-world/"
+      }
+    },
+    {
+      "id": "igdb:366892",
+      "kind": "dlc",
+      "title": "Donkey Kong Bananza: DK Island & Emerald Rush",
+      "baseGameTitle": "Donkey Kong Bananza",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coag7c.jpg",
+      "developer": "Nintendo EPD Production Group No. 8",
+      "genres": [
+        "Platform",
+        "Adventure"
+      ],
+      "releaseDates": {
+        "JP": "2025-09-12",
+        "EU": "2025-09-12",
+        "NA": "2025-09-12"
+      },
+      "firstReleaseDate": "2025-09-12",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/donkey-kong-bananza-dk-island-and-emerald-rush/"
+      }
+    },
+    {
+      "id": "igdb:368773",
+      "kind": "game",
+      "title": "The Touryst: Deluxe",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coajqx.jpg",
+      "developer": null,
+      "genres": [
+        "Platform",
+        "Adventure"
+      ],
+      "releaseDates": {
+        "JP": "2025-09-25",
+        "EU": "2025-09-25",
+        "NA": "2025-09-25"
+      },
+      "firstReleaseDate": "2025-09-25",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/the-touryst-deluxe/"
+      }
+    },
+    {
+      "id": "igdb:366899",
+      "kind": "game",
+      "title": "Super Mario Galaxy",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coag5y.jpg",
+      "developer": "Nintendo Software Technology",
+      "genres": [
+        "Platform",
+        "Adventure"
+      ],
+      "releaseDates": {
+        "JP": "2025-10-02",
+        "EU": "2025-10-02",
+        "NA": "2025-10-02"
+      },
+      "firstReleaseDate": "2025-10-02",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": true,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/super-mario-galaxy--3/"
+      }
+    },
+    {
+      "id": "igdb:366900",
+      "kind": "game",
+      "title": "Super Mario Galaxy 2",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coag5x.jpg",
+      "developer": "Nintendo Software Technology",
+      "genres": [
+        "Platform",
+        "Adventure"
+      ],
+      "releaseDates": {
+        "JP": "2025-10-02",
+        "EU": "2025-10-02",
+        "NA": "2025-10-02"
+      },
+      "firstReleaseDate": "2025-10-02",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": true,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/super-mario-galaxy-2--1/"
+      }
+    },
+    {
+      "id": "igdb:288327",
+      "kind": "game",
+      "title": "Pokémon Legends: Z-A",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co9wzc.jpg",
+      "developer": "Game Freak",
+      "genres": [
+        "RPG",
+        "Adventure"
+      ],
+      "releaseDates": {
+        "JP": "2025-10-16",
+        "EU": "2025-10-16",
+        "NA": "2025-10-16"
+      },
+      "firstReleaseDate": "2025-10-16",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": true,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/pokemon-legends-z-a/"
+      }
+    },
+    {
+      "id": "igdb:338085",
+      "kind": "game",
+      "title": "Hyrule Warriors: Age of Imprisonment",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cob9n1.jpg",
+      "developer": "AAA Games Studio",
+      "genres": [
+        "Hack and slash",
+        "Adventure"
+      ],
+      "releaseDates": {
+        "JP": "2025-11-06",
+        "EU": "2025-11-06",
+        "NA": "2025-11-06"
+      },
+      "firstReleaseDate": "2025-11-06",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/hyrule-warriors-age-of-imprisonment/"
+      }
+    },
+    {
+      "id": "igdb:338105",
+      "kind": "game",
+      "title": "Kirby Air Riders",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coaauz.jpg",
+      "developer": "Sora",
+      "genres": [
+        "Racing",
+        "Adventure"
+      ],
+      "releaseDates": {
+        "JP": "2025-11-20",
+        "EU": "2025-11-20",
+        "NA": "2025-11-20"
+      },
+      "firstReleaseDate": "2025-11-20",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/kirby-air-riders/"
+      }
+    },
+    {
+      "id": "igdb:37136",
+      "kind": "game",
+      "title": "Metroid Prime 4: Beyond",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cob9xh.jpg",
+      "developer": "Nintendo EPD Production Group No. 6",
+      "genres": [
+        "Shooter",
+        "Platform"
+      ],
+      "releaseDates": {
+        "JP": "2025-12-04",
+        "EU": "2025-12-04",
+        "NA": "2025-12-04"
+      },
+      "firstReleaseDate": "2025-12-04",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": true,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/metroid-prime-4-beyond/"
+      }
+    },
+    {
+      "id": "igdb:366894",
+      "kind": "dlc",
+      "title": "Pokémon Legends: Z-A - Mega Dimension",
+      "baseGameTitle": "Pokémon Legends: Z-A",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coag59.jpg",
+      "developer": "Game Freak",
+      "genres": [],
+      "releaseDates": {
+        "JP": "2025-12-10",
+        "EU": "2025-12-10",
+        "NA": "2025-12-10"
+      },
+      "firstReleaseDate": "2025-12-10",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": true,
+      "scores": {
+        "critic": {
+          "opencritic": {
+            "value": 67,
+            "scale": 100,
+            "normalized": 67,
+            "count": 6
+          },
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/pokemon-legends-z-a-mega-dimension/",
+        "opencritic": "https://opencritic.com/game/19873/pok-mon-legends-z-a-mega-dimension"
+      }
+    },
+    {
+      "id": "igdb:403729",
+      "kind": "game",
+      "title": "Riichi Mahjong",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc59j.jpg",
+      "developer": null,
+      "genres": [
+        "Card & board"
+      ],
+      "releaseDates": {
+        "JP": "2025-12-25",
+        "EU": "2026-05-28",
+        "NA": "2026-05-28"
+      },
+      "firstReleaseDate": "2025-12-25",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/riichi-mahjong/"
+      }
+    },
+    {
+      "id": "igdb:375733",
+      "kind": "switch2-edition",
+      "title": "Animal Crossing: New Horizons - Nintendo Switch 2 Edition",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocx69.jpg",
+      "developer": "Nintendo EPD Production Group No. 5",
+      "genres": [
+        "Simulator"
+      ],
+      "releaseDates": {
+        "JP": "2026-01-15",
+        "EU": "2026-01-15",
+        "NA": "2026-01-15"
+      },
+      "firstReleaseDate": "2026-01-15",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": {
+            "value": 78,
+            "scale": 100,
+            "normalized": 78,
+            "count": 12
+          },
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/animal-crossing-new-horizons-nintendo-switch-2-edition/",
+        "opencritic": "https://opencritic.com/game/19943/animal-crossing-new-horizons-nintendo-switch-2-edition"
+      }
+    },
+    {
+      "id": "igdb:386785",
+      "kind": "game",
+      "title": "Pool Room Billiard",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobc9j.jpg",
+      "developer": null,
+      "genres": [
+        "Simulator",
+        "Sport"
+      ],
+      "releaseDates": {
+        "JP": "2026-01-22",
+        "EU": "2026-01-22",
+        "NA": "2026-01-22"
+      },
+      "firstReleaseDate": "2026-01-22",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/pool-room-billiard/"
+      }
+    },
+    {
+      "id": "igdb:388428",
+      "kind": "game",
+      "title": "Tokyo Scramble",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobfsd.jpg",
+      "developer": "adglobe",
+      "genres": [
+        "Puzzle",
+        "Adventure"
+      ],
+      "releaseDates": {
+        "JP": "2026-02-11",
+        "EU": "2026-02-11",
+        "NA": "2026-02-11"
+      },
+      "firstReleaseDate": "2026-02-11",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": {
+            "value": 52,
+            "scale": 100,
+            "normalized": 52,
+            "count": 7
+          },
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/tokyo-scramble/",
+        "opencritic": "https://opencritic.com/game/20062/tokyo-scramble"
+      }
+    },
+    {
+      "id": "igdb:366880",
+      "kind": "game",
+      "title": "Mario Tennis Fever",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coag5n.jpg",
+      "developer": "Camelot Software Planning",
+      "genres": [
+        "Sport"
+      ],
+      "releaseDates": {
+        "JP": "2026-02-12",
+        "EU": "2026-02-12",
+        "NA": "2026-02-12"
+      },
+      "firstReleaseDate": "2026-02-12",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": {
+            "value": 77,
+            "scale": 100,
+            "normalized": 77,
+            "count": 54
+          },
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/mario-tennis-fever/",
+        "opencritic": "https://opencritic.com/game/19292/mario-tennis-fever"
+      }
+    },
+    {
+      "id": "igdb:366893",
+      "kind": "game",
+      "title": "Pokémon Pokopia",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobbur.jpg",
+      "developer": "Omega Force",
+      "genres": [
+        "Simulator",
+        "Adventure"
+      ],
+      "releaseDates": {
+        "JP": "2026-03-05",
+        "EU": "2026-03-05",
+        "NA": "2026-03-05"
+      },
+      "firstReleaseDate": "2026-03-05",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": {
+            "value": 89,
+            "scale": 100,
+            "normalized": 89,
+            "count": 53
+          },
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/pokemon-pokopia/",
+        "opencritic": "https://opencritic.com/game/19667/pok-mon-pokopia"
+      }
+    },
+    {
+      "id": "igdb:366881",
+      "kind": "switch2-edition",
+      "title": "Super Mario Bros. Wonder: Nintendo Switch 2 Edition + Meetup in Bellabel Park",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobchm.jpg",
+      "developer": "Nintendo EPD Production Group No. 10",
+      "genres": [
+        "Platform"
+      ],
+      "releaseDates": {
+        "JP": "2026-03-26",
+        "EU": "2026-03-26",
+        "NA": "2026-03-26"
+      },
+      "firstReleaseDate": "2026-03-26",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": {
+            "value": 86,
+            "scale": 100,
+            "normalized": 86,
+            "count": 33
+          },
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/super-mario-bros-wonder-nintendo-switch-2-edition-plus-meetup-in-bellabel-park/",
+        "opencritic": "https://opencritic.com/game/20256/super-mario-bros-wonder-nintendo-switch-2-edition-meetup-in-bellabel-park"
+      }
+    },
+    {
+      "id": "igdb:333568",
+      "kind": "game",
+      "title": "Pokémon Champions",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co9gu3.jpg",
+      "developer": "The Pokémon Works",
+      "genres": [
+        "Fighting",
+        "RPG"
+      ],
+      "releaseDates": {
+        "JP": "2026-04-08",
+        "EU": "2026-04-08",
+        "NA": "2026-04-08"
+      },
+      "firstReleaseDate": "2026-04-08",
+      "exclusivity": null,
+      "alsoOnSwitch1": true,
+      "scores": {
+        "critic": {
+          "opencritic": {
+            "value": 65,
+            "scale": 100,
+            "normalized": 65,
+            "count": 11
+          },
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/pokemon-champions/",
+        "opencritic": "https://opencritic.com/game/20303/pokemon-champions"
+      }
+    },
+    {
+      "id": "igdb:337036",
+      "kind": "game",
+      "title": "Tomodachi Life: Living the Dream",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobdqd.jpg",
+      "developer": "Nintendo EPD Production Group No. 4",
+      "genres": [
+        "Simulator"
+      ],
+      "releaseDates": {
+        "JP": "2026-04-16",
+        "EU": "2026-04-16",
+        "NA": "2026-04-16"
+      },
+      "firstReleaseDate": "2026-04-16",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": {
+            "value": 79,
+            "scale": 100,
+            "normalized": 79,
+            "count": 51
+          },
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/tomodachi-life-living-the-dream/",
+        "opencritic": "https://opencritic.com/game/20304/tomodachi-life-living-the-dream"
+      }
+    },
+    {
+      "id": "igdb:399617",
+      "kind": "game",
+      "title": "Card&Casino",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobzgy.jpg",
+      "developer": null,
+      "genres": [
+        "Card & board"
+      ],
+      "releaseDates": {
+        "JP": "2026-04-23",
+        "EU": "2026-04-23",
+        "NA": "2026-04-23"
+      },
+      "firstReleaseDate": "2026-04-23",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/card-and-casino/"
+      }
+    },
+    {
+      "id": "igdb:366883",
+      "kind": "game",
+      "title": "Yoshi and the Mysterious Book",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobr0r.jpg",
+      "developer": "Good-Feel",
+      "genres": [
+        "Platform",
+        "Adventure"
+      ],
+      "releaseDates": {
+        "JP": "2026-05-21",
+        "EU": "2026-05-21",
+        "NA": "2026-05-21"
+      },
+      "firstReleaseDate": "2026-05-21",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": {
+            "value": 80,
+            "scale": 100,
+            "normalized": 80,
+            "count": 56
+          },
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/yoshi-and-the-mysterious-book/",
+        "opencritic": "https://opencritic.com/game/20221/yoshi-and-the-mysterious-book"
+      }
+    },
+    {
+      "id": "igdb:388431",
+      "kind": "game",
+      "title": "eFootball Kick-Off!",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coctkp.jpg",
+      "developer": "Konami Digital Entertainment",
+      "genres": [
+        "Sport"
+      ],
+      "releaseDates": {
+        "JP": "2026-06-03",
+        "EU": "2026-06-03",
+        "NA": "2026-06-03"
+      },
+      "firstReleaseDate": "2026-06-03",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": {
+            "value": 76,
+            "scale": 100,
+            "normalized": 76,
+            "count": 13
+          },
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/efootball-kick-off/",
+        "opencritic": "https://opencritic.com/game/20767/efootball-kick-off-"
+      }
+    },
+    {
+      "id": "igdb:388239",
+      "kind": "game",
+      "title": "A-Train 9 Evolution",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc178.jpg",
+      "developer": "Artdink",
+      "genres": [
+        "Simulator"
+      ],
+      "releaseDates": {
+        "JP": "2026-06-04",
+        "EU": null,
+        "NA": null
+      },
+      "firstReleaseDate": "2026-06-04",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/a-train-9-evolution/"
+      }
+    },
+    {
+      "id": "igdb:405439",
+      "kind": "game",
+      "title": "DK Challenge",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc7n6.jpg",
+      "developer": "Nintendo",
+      "genres": [
+        "Platform"
+      ],
+      "releaseDates": {
+        "JP": "2026-06-09",
+        "EU": "2026-06-09",
+        "NA": "2026-06-09"
+      },
+      "firstReleaseDate": "2026-06-09",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/dk-challenge/"
+      }
+    },
+    {
+      "id": "igdb:405446",
+      "kind": "switch2-edition",
+      "title": "Xenoblade Chronicles: Definitive Edition - Nintendo Switch 2 Edition",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc7me.jpg",
+      "developer": "Monolith Soft",
+      "genres": [
+        "RPG"
+      ],
+      "releaseDates": {
+        "JP": "2026-06-09",
+        "EU": "2026-06-09",
+        "NA": "2026-06-09"
+      },
+      "firstReleaseDate": "2026-06-09",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": {
+            "value": 80,
+            "scale": 100,
+            "normalized": 80,
+            "count": 4
+          },
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/xenoblade-chronicles-definitive-edition-nintendo-switch-2-edition/",
+        "opencritic": "https://opencritic.com/game/20139/xenoblade-chronicles-x-definitive-edition-nintendo-switch-2-edition"
+      }
+    },
+    {
+      "id": "igdb:400709",
+      "kind": "game",
+      "title": "Star Fox",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc11a.jpg",
+      "developer": "Velan Studios",
+      "genres": [
+        "Shooter",
+        "Adventure"
+      ],
+      "releaseDates": {
+        "JP": "2026-06-25",
+        "EU": "2026-06-25",
+        "NA": "2026-06-25"
+      },
+      "firstReleaseDate": "2026-06-25",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": {
+            "value": 82,
+            "scale": 100,
+            "normalized": 82,
+            "count": 67
+          },
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/star-fox--5/",
+        "opencritic": "https://opencritic.com/game/20560/star-fox"
+      }
+    },
+    {
+      "id": "igdb:337031",
+      "kind": "game",
+      "title": "Rhythm Heaven Groove",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobwkn.jpg",
+      "developer": "TNX",
+      "genres": [
+        "Music"
+      ],
+      "releaseDates": {
+        "JP": "2026-07-02",
+        "EU": "2026-07-02",
+        "NA": "2026-07-02"
+      },
+      "firstReleaseDate": "2026-07-02",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": {
+            "value": 84,
+            "scale": 100,
+            "normalized": 84,
+            "count": 57
+          },
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/rhythm-heaven-groove/",
+        "opencritic": "https://opencritic.com/game/20399/rhythm-heaven-groove"
+      }
+    },
+    {
+      "id": "igdb:402033",
+      "kind": "switch2-edition",
+      "title": "Fitness Boxing 3: Your Personal Trainer - Nintendo Switch 2 Edition",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc7od.jpg",
+      "developer": "Imageneer",
+      "genres": [
+        "Music",
+        "Sport"
+      ],
+      "releaseDates": {
+        "JP": "2026-07-16",
+        "EU": "2026-07-16",
+        "NA": "2026-07-16"
+      },
+      "firstReleaseDate": "2026-07-16",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/fitness-boxing-3-your-personal-trainer-nintendo-switch-2-edition/"
+      }
+    },
+    {
+      "id": "igdb:348977",
+      "kind": "game",
+      "title": "Splatoon Raiders",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobyho.jpg",
+      "developer": "Nintendo EPD Production Group No. 5",
+      "genres": [
+        "Shooter",
+        "Adventure"
+      ],
+      "releaseDates": {
+        "JP": "2026-07-23",
+        "EU": "2026-07-23",
+        "NA": "2026-07-23"
+      },
+      "firstReleaseDate": "2026-07-23",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": {
+            "value": 81,
+            "scale": 100,
+            "normalized": 81,
+            "count": 70
+          },
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/splatoon-raiders/",
+        "opencritic": "https://opencritic.com/game/20454/splatoon-raiders"
+      }
+    },
+    {
+      "id": "igdb:405447",
+      "kind": "switch2-edition",
+      "title": "Xenoblade Chronicles 2: Nintendo Switch 2 Edition",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc7mr.jpg",
+      "developer": "Monolith Soft",
+      "genres": [
+        "RPG",
+        "Adventure"
+      ],
+      "releaseDates": {
+        "JP": "2026-07-30",
+        "EU": "2026-07-30",
+        "NA": "2026-07-30"
+      },
+      "firstReleaseDate": "2026-07-30",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": {
+            "value": 80,
+            "scale": 100,
+            "normalized": 80,
+            "count": 4
+          },
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/xenoblade-chronicles-2-nintendo-switch-2-edition/",
+        "opencritic": "https://opencritic.com/game/20139/xenoblade-chronicles-x-definitive-edition-nintendo-switch-2-edition"
+      }
+    },
+    {
+      "id": "igdb:405436",
+      "kind": "dlc",
+      "title": "Pokémon Pokopia: Bubbly Basin",
+      "baseGameTitle": "Pokémon Pokopia",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc7my.jpg",
+      "developer": "Game Freak",
+      "genres": [],
+      "releaseDates": {
+        "JP": "2026-08-05",
+        "EU": "2026-08-05",
+        "NA": "2026-08-05"
+      },
+      "firstReleaseDate": "2026-08-05",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/pokemon-pokopia-bubbly-basin/"
+      }
+    },
+    {
+      "id": "igdb:381237",
+      "kind": "game",
+      "title": "Orbitals",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc9r6.jpg",
+      "developer": "Shapefarm",
+      "genres": [
+        "Platform",
+        "Puzzle"
+      ],
+      "releaseDates": {
+        "JP": "2026-09-03",
+        "EU": "2026-09-03",
+        "NA": "2026-09-03"
+      },
+      "firstReleaseDate": "2026-09-03",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": {
+            "value": 82,
+            "scale": 100,
+            "normalized": 82,
+            "count": 46
+          },
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/orbitals--1/",
+        "opencritic": "https://opencritic.com/game/21141/orbitals"
+      }
+    },
+    {
+      "id": "igdb:366896",
+      "kind": "game",
+      "title": "Fire Emblem: Fortune's Weave",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc7ma.jpg",
+      "developer": "Intelligent Systems",
+      "genres": [
+        "RPG",
+        "Simulator"
+      ],
+      "releaseDates": {
+        "JP": "2026-09-17",
+        "EU": "2026-09-17",
+        "NA": "2026-09-17"
+      },
+      "firstReleaseDate": "2026-09-17",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": {
+            "value": 89,
+            "scale": 100,
+            "normalized": 89,
+            "count": 36
+          },
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/fire-emblem-fortunes-weave/",
+        "opencritic": "https://opencritic.com/game/20819/fire-emblem-fortunes-weave"
+      }
+    },
+    {
+      "id": "igdb:405468",
+      "kind": "game",
+      "title": "Derby Stallion 2",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc7oo.jpg",
+      "developer": null,
+      "genres": [],
+      "releaseDates": {
+        "JP": "2026-09-24",
+        "EU": null,
+        "NA": null
+      },
+      "firstReleaseDate": "2026-09-24",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/derby-stallion-2/"
+      }
+    },
+    {
+      "id": "igdb:405451",
+      "kind": "game",
+      "title": "Nintendo Switch Sports Resort",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc7mb.jpg",
+      "developer": null,
+      "genres": [
+        "Sport"
+      ],
+      "releaseDates": {
+        "JP": "2026-10-22",
+        "EU": "2026-10-22",
+        "NA": "2026-10-22"
+      },
+      "firstReleaseDate": "2026-10-22",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/nintendo-switch-sports-resort/"
+      }
+    },
+    {
+      "id": "igdb:405460",
+      "kind": "game",
+      "title": "The Legend of Zelda: Ocarina of Time",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocv5r.jpg",
+      "developer": "Nintendo",
+      "genres": [
+        "Adventure"
+      ],
+      "releaseDates": {
+        "JP": "2026-11-05",
+        "EU": "2026-11-05",
+        "NA": "2026-11-05"
+      },
+      "firstReleaseDate": "2026-11-05",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/the-legend-of-zelda-ocarina-of-time--1/"
+      }
+    },
+    {
+      "id": "igdb:417169",
+      "kind": "switch2-edition",
+      "title": "Pikmin 4: Nintendo Switch 2 Edition + Dandori Academy",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocv9m.jpg",
+      "developer": null,
+      "genres": [
+        "Adventure"
+      ],
+      "releaseDates": {
+        "JP": "2026-11-12",
+        "EU": "2026-11-12",
+        "NA": "2026-11-12"
+      },
+      "firstReleaseDate": "2026-11-12",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/pikmin-4-nintendo-switch-2-edition-plus-dandori-academy/"
+      }
+    },
+    {
+      "id": "igdb:405448",
+      "kind": "switch2-edition",
+      "title": "Xenoblade Chronicles 3: Nintendo Switch 2 Edition",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc7ms.jpg",
+      "developer": "Monolith Soft",
+      "genres": [
+        "RPG",
+        "Adventure"
+      ],
+      "releaseDates": {
+        "JP": "2026-12-03",
+        "EU": "2026-12-03",
+        "NA": "2026-12-03"
+      },
+      "firstReleaseDate": "2026-12-03",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/xenoblade-chronicles-3-nintendo-switch-2-edition/"
+      }
+    },
+    {
+      "id": "igdb:408719",
+      "kind": "game",
+      "title": "Metroid Ravenous",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocvge.jpg",
+      "developer": "MercurySteam",
+      "genres": [
+        "Shooter",
+        "Platform"
+      ],
+      "releaseDates": {
+        "JP": "2027-01-28",
+        "EU": "2027-01-28",
+        "NA": "2027-01-28"
+      },
+      "firstReleaseDate": "2027-01-28",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/metroid-ravenous/"
+      }
+    },
+    {
+      "id": "igdb:417167",
+      "kind": "game",
+      "title": "Hyrule Warriors: Age of Calamity - Definitive Edition",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocw1y.jpg",
+      "developer": null,
+      "genres": [
+        "Strategy",
+        "Hack and slash"
+      ],
+      "releaseDates": {
+        "JP": "2027-02-25",
+        "EU": "2027-02-25",
+        "NA": "2027-02-25"
+      },
+      "firstReleaseDate": "2027-02-25",
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/hyrule-warriors-age-of-calamity-definitive-edition/"
+      }
+    },
+    {
+      "id": "igdb:403828",
+      "kind": "game",
+      "title": "Beyond the Dark Nightwatch",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc5fe.jpg",
+      "developer": null,
+      "genres": [],
+      "releaseDates": {
+        "JP": null,
+        "EU": null,
+        "NA": null
+      },
+      "firstReleaseDate": null,
+      "vagueRelease": {
+        "year": 2026,
+        "label": "2026"
+      },
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/beyond-the-dark-nightwatch/"
+      }
+    },
+    {
+      "id": "igdb:407137",
+      "kind": "dlc",
+      "title": "Pokémon Pokopia: Part 2",
+      "baseGameTitle": "Pokémon Pokopia",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocva6.jpg",
+      "developer": "Omega Force",
+      "genres": [],
+      "releaseDates": {
+        "JP": null,
+        "EU": null,
+        "NA": null
+      },
+      "firstReleaseDate": null,
+      "vagueRelease": {
+        "year": 2026,
+        "label": "Q4 2026"
+      },
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/pokemon-pokopia-part-2/"
+      }
+    },
+    {
+      "id": "igdb:338104",
+      "kind": "game",
+      "title": "The Duskbloods",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocqn8.jpg",
+      "developer": "FromSoftware",
+      "genres": [],
+      "releaseDates": {
+        "JP": null,
+        "EU": null,
+        "NA": null
+      },
+      "firstReleaseDate": null,
+      "vagueRelease": {
+        "year": 2026,
+        "label": "2026"
+      },
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/the-duskbloods/"
+      }
+    },
+    {
+      "id": "igdb:417186",
+      "kind": "game",
+      "title": "Kirby and the World Beyond",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocvba.jpg",
+      "developer": "HAL Laboratory",
+      "genres": [
+        "Platform",
+        "Adventure"
+      ],
+      "releaseDates": {
+        "JP": null,
+        "EU": null,
+        "NA": null
+      },
+      "firstReleaseDate": null,
+      "vagueRelease": {
+        "year": 2027,
+        "label": "Q2 2027"
+      },
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/kirby-and-the-world-beyond/"
+      }
+    },
+    {
+      "id": "igdb:405438",
+      "kind": "game",
+      "title": "Ninjala 2: The Uncharted Planet",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc7n3.jpg",
+      "developer": "GungHo Online Entertainment",
+      "genres": [],
+      "releaseDates": {
+        "JP": null,
+        "EU": null,
+        "NA": null
+      },
+      "firstReleaseDate": null,
+      "vagueRelease": {
+        "year": 2027,
+        "label": "Q2 2027"
+      },
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/ninjala-2-the-uncharted-planet/"
+      }
+    },
+    {
+      "id": "igdb:417170",
+      "kind": "game",
+      "title": "Onyx: The Dark Grip",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocvcg.jpg",
+      "developer": "Bloober Team",
+      "genres": [
+        "Adventure"
+      ],
+      "releaseDates": {
+        "JP": null,
+        "EU": null,
+        "NA": null
+      },
+      "firstReleaseDate": null,
+      "vagueRelease": {
+        "year": 2027,
+        "label": "2027"
+      },
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/onyx-the-dark-grip/"
+      }
+    },
+    {
+      "id": "igdb:407138",
+      "kind": "dlc",
+      "title": "Pokémon Pokopia: Part 3",
+      "baseGameTitle": "Pokémon Pokopia",
+      "coverUrl": "covers/placeholder.svg",
+      "developer": "Omega Force",
+      "genres": [],
+      "releaseDates": {
+        "JP": null,
+        "EU": null,
+        "NA": null
+      },
+      "firstReleaseDate": null,
+      "vagueRelease": {
+        "year": 2027,
+        "label": "2027"
+      },
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/pokemon-pokopia-part-3/"
+      }
+    },
+    {
+      "id": "igdb:393104",
+      "kind": "game",
+      "title": "Pokémon Waves",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobo9j.jpg",
+      "developer": "Game Freak",
+      "genres": [
+        "RPG"
+      ],
+      "releaseDates": {
+        "JP": null,
+        "EU": null,
+        "NA": null
+      },
+      "firstReleaseDate": null,
+      "vagueRelease": {
+        "year": 2027,
+        "label": "2027"
+      },
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/pokemon-waves/"
+      }
+    },
+    {
+      "id": "igdb:393105",
+      "kind": "game",
+      "title": "Pokémon Winds",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobo9k.jpg",
+      "developer": "Game Freak",
+      "genres": [
+        "RPG"
+      ],
+      "releaseDates": {
+        "JP": null,
+        "EU": null,
+        "NA": null
+      },
+      "firstReleaseDate": null,
+      "vagueRelease": {
+        "year": 2027,
+        "label": "2027"
+      },
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/pokemon-winds/"
+      }
+    },
+    {
+      "id": "manual:putty-world",
+      "kind": "game",
+      "title": "Putty World",
+      "coverUrl": "/covers/placeholder.svg",
+      "developer": null,
+      "genres": [],
+      "releaseDates": {
+        "JP": null,
+        "EU": null,
+        "NA": null
+      },
+      "firstReleaseDate": null,
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {},
+      "vagueRelease": {
+        "year": 2027,
+        "label": "2027"
+      }
+    },
+    {
+      "id": "igdb:405450",
+      "kind": "game",
+      "title": "Xenoblade Genesis",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc8ai.jpg",
+      "developer": "Monolith Soft",
+      "genres": [
+        "RPG"
+      ],
+      "releaseDates": {
+        "JP": null,
+        "EU": null,
+        "NA": null
+      },
+      "firstReleaseDate": null,
+      "vagueRelease": {
+        "year": 2027,
+        "label": "2027"
+      },
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/xenoblade-genesis/"
+      }
+    },
+    {
+      "id": "manual:bit-boy-arcade-2",
+      "kind": "game",
+      "title": "Bit Boy!! Arcade 2",
+      "coverUrl": "/covers/placeholder.svg",
+      "developer": "Bplus",
+      "genres": [
+        "Action"
+      ],
+      "releaseDates": {
+        "JP": null,
+        "EU": null,
+        "NA": null
+      },
+      "firstReleaseDate": null,
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {}
+    },
+    {
+      "id": "manual:chit-chat-party",
+      "kind": "game",
+      "title": "Chit Chat Party!",
+      "coverUrl": "/covers/placeholder.svg",
+      "developer": "GungHo Online Entertainment",
+      "genres": [],
+      "releaseDates": {
+        "JP": null,
+        "EU": null,
+        "NA": null
+      },
+      "firstReleaseDate": null,
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {}
+    },
+    {
+      "id": "igdb:339137",
+      "kind": "game",
+      "title": "Mouse Work",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co9n48.jpg",
+      "developer": "Nitrome",
+      "genres": [
+        "Point & click",
+        "Indie"
+      ],
+      "releaseDates": {
+        "JP": null,
+        "EU": null,
+        "NA": null
+      },
+      "firstReleaseDate": null,
+      "exclusivity": "exclusive",
+      "alsoOnSwitch1": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/mouse-work/"
+      }
+    }
+  ]
+}
