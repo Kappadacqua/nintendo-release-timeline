@@ -4,7 +4,7 @@ Sito desktop che mostra, su una timeline orizzontale scorrevole, i giochi Ninten
 
 Per ora il sito è solo per uso personale in locale; la pubblicazione su GitHub Pages arriverà più avanti. Il codice è su GitHub nel repository privato `Kappadacqua/nintendo-release-timeline`.
 
-> **Stato:** milestone 1–6 e `ITERATION-2.md` completate. Prossimo lavoro: `ITERATION-3.md` (dati separati in fetch/build, pannello admin, ricerca, filtri, storico, novità). Dove un documento di iterazione è in contrasto con questo, vale l'iterazione.
+> **Stato:** milestone 1–6, `ITERATION-2.md` e `ITERATION-3.md` completate. Dove un documento di iterazione è in contrasto con questo, vale l'iterazione.
 
 ---
 
@@ -12,17 +12,24 @@ Per ora il sito è solo per uso personale in locale; la pubblicazione su GitHub 
 
 - **Vite 7 + TypeScript** (vanilla, niente framework UI)
 - **GSAP** per animazioni
+- **Fuse.js** per la ricerca tollerante agli errori
 - Script di raccolta dati in **Node + TypeScript** (`tsx` per eseguirli)
 - Node **≥ 20.19** (`.nvmrc`: 24). Le variabili di `.env` sono lette con `process.loadEnvFile`, senza dipendenze.
-- Nessun backend: il sito legge il file statico `public/data/games.json`
+- Nessun backend: il sito legge i file statici `public/data/games.json` e `public/data/changes.json`. Solo in sviluppo un plugin Vite serve il pannello admin (§10)
 - Chiavi API in `.env` (escluso da git), in futuro nei GitHub Secrets
 
 ## 2. Struttura cartelle
 
 ```
 /scripts
-  fetch-data.ts          # IGDB + Wikipedia/Wikidata + OpenCritic + overrides → games.json
+  fetch-data.ts          # solo rete: IGDB, Wikipedia/Wikidata, OpenCritic, Fandom → data/cache/, poi build e snapshot
+  build-data.ts          # senza rete: cache + overrides + storico → games.json e changes.json
   validate-data.ts       # cosa va completato o deciso a mano
+  vite-admin.ts          # plugin Vite del pannello admin (solo `vite dev`)
+  lib/build.ts           # perimetro, merge, link Nintendo Store, storico → games.json
+  lib/cache.ts           # formato dei file in data/cache/
+  lib/snapshots.ts       # snapshot giornalieri, dateHistory / scoreHistory, changes.json
+  lib/overrides-schema.ts  # validazione di overrides.json (usata dal pannello admin)
   lib/env.ts             # percorsi, lettura .env
   lib/http.ts            # fetch JSON con throttle, retry e HttpError
   lib/igdb.ts            # client IGDB (auth Twitch, paginazione stabile)
@@ -35,16 +42,27 @@ Per ora il sito è solo per uso personale in locale; la pubblicazione su GitHub 
   lib/report.ts          # tipo di data/fetch-report.json
 /data
   overrides.json         # dati inseriti a mano (vedi §4.2)
+  settings.json          # impostazioni (regione del Nintendo Store)
   exclusivity-history.json   # storico esclusività, da versionare
-  cache/opencritic.json  # abbinamenti, dettagli e catalogo OpenCritic, da versionare
-  fetch-report.json      # esito dell'ultimo fetch, letto da validate (ignorato da git)
+  cache/                 # risposte grezze delle API, da versionare: igdb, wikipedia, links, opencritic
+                         # (fetch-status.json, esito delle chiamate, è ignorato da git)
+  snapshots/YYYY-MM-DD.json  # uno per giorno di data:fetch, da versionare (§5)
+  backups/               # copie di overrides.json prima di ogni salvataggio dall'admin (ignorato da git)
+  fetch-report.json      # esito dell'ultima build, letto da validate (ignorato da git)
   sample-games.json      # dati finti delle prime milestone
 /public
   data/games.json        # output finale letto dal sito
+  data/changes.json      # novità (§8)
   covers/placeholder.svg # copertina di ripiego
 /src
-  main.ts                # tema, dialogo scorciatoie, caricamento dati
-  types.ts               # schema di games.json
+  main.ts                # tema, dialogo scorciatoie, caricamento dati, collegamento dei pezzi
+  types.ts               # schema di games.json e changes.json
+  history.ts             # regole dei rinvii (condivise da build e sito)
+  news.ts                # novità viste / non viste (localStorage)
+  whats-new.ts           # pulsante e pannello "What's new"
+  search.ts              # ricerca rapida
+  filters.ts             # filtri dell'header
+  admin/                 # pannello admin (admin.html, solo in sviluppo)
   timeline/              # timeline (selezione compresa), scroll, header data, minimappa, zona TBA,
                          # sfondo del gioco selezionato (backdrop.ts), titolo del sito (site-title.ts), config
   cards/                 # card, card espansa (expand.ts), cerchietti, layout collisioni, animazioni,
@@ -86,6 +104,7 @@ Regole di dettaglio:
 | Riassunto, immagine di sfondo (artwork → screenshot → copertina) | IGDB API | automatica |
 | Link Wikipedia | Wikidata (P5794 → sitelink enwiki) o pagina della categoria | automatica, sovrascrivibile |
 | Link Nintendo Wiki (`nintendo.fandom.com`) | API MediaWiki di Fandom | automatica, sovrascrivibile |
+| Link Nintendo Store | Wikidata (P12418 eShop EU, P8084 eShop US) e link `websites` di IGDB | automatica, sovrascrivibile |
 | Date di uscita JP / EU / NA | IGDB (`release_dates` con `release_region` e `date_format`) | automatica, correggibile a mano |
 | Voto OpenCritic (Top Critic Average) + n° top critic | OpenCritic API (RapidAPI) | automatica |
 | Metacritic Metascore + n° recensioni | — (nessuna API) | **manuale** |
@@ -103,6 +122,7 @@ Note:
 - **Link Wikipedia**: una query SPARQL su Wikidata per tutti i giochi (slug IGDB → articolo della Wikipedia inglese); per i giochi della categoria Switch 2-only vale anche la pagina della categoria.
 - **DLC e Switch 2 Edition** senza pagina propria usano le pagine del **gioco base** (`parent_game` / `version_parent` di IGDB, altrimenti il titolo senza "Nintendo Switch 2 Edition…").
 - **Link Nintendo Wiki**: titolo esatto (o redirect definito dalla wiki) con l'API di Fandom; altrimenti una ricerca, accettata solo se il titolo normalizzato coincide. In caso di dubbio nessun link (DLC e titoli minori spesso non hanno pagina).
+- **Link Nintendo Store**: regione in `data/settings.json` (`nintendoStore.region`, default `"EU"`; `euSite` sceglie il sito europeo, default `www.nintendo.co.uk`; `fallbackRegions`, default `["US"]`, si provano in ordine se la regione scelta non ha la pagina). Pagina EU: `https://<euSite>/-/-<id>.html` con l'id eShop europeo (Wikidata o link IGDB a un sito Nintendo europeo); pagina US: link IGDB a `nintendo.com/us/store/products/` o id Wikidata. DLC e Switch 2 Edition senza pagina propria usano quella del gioco base.
 - Se Wikidata o Fandom non rispondono, restano i link del `games.json` precedente.
 - **Immagine di sfondo**: IGDB `artworks` → `screenshots` (taglia `1080p`) → copertina.
 
@@ -177,7 +197,7 @@ Piano gratuito RapidAPI: **25 ricerche e 200 richieste al giorno** (visibili neg
 type Region = "JP" | "EU" | "NA";
 
 interface GamesFile {
-  generatedAt: string;           // ISO timestamp del fetch
+  generatedAt: string;           // ISO timestamp della build
   games: Game[];                 // ordinati per data, poi TBA per anno, poi titolo
 }
 
@@ -194,8 +214,12 @@ interface Game {
   releaseDates: Partial<Record<Region, string | null>>; // "YYYY-MM-DD" o null = TBA
   firstReleaseDate: string | null;  // la più vicina tra JP/EU/NA
   vagueRelease?: { year: number; label: string }; // per la zona TBA ("2026", "Q2 2027"…)
+  dateHistory?: { date: string; firstReleaseDate: string | null }[];  // solo i cambi, se più di uno
+  scoreHistory?: Partial<Record<"opencritic" | "metacritic" | "metacriticUser" | "backloggd",
+    { date: string; normalized: number }[]>>;  // solo i cambi, fonti con almeno 2 punti
   exclusivity: "exclusive" | "timed" | null;
   alsoOnSwitch1: boolean;
+  firstParty: boolean;           // Nintendo / The Pokémon Company, o DLC / edizione di un loro gioco
   scores: {
     critic: {
       opencritic: Score | null;
@@ -212,6 +236,7 @@ interface Game {
     backloggd?: string;
     wikipedia?: string;
     nintendoWiki?: string;
+    nintendoStore?: string;
   };
 }
 
@@ -225,6 +250,29 @@ interface Score {
 
 Tipo: "Nintendo Switch 2 Edition" nel nome → `switch2-edition`; tipo IGDB DLC / espansione → `dlc`; altrimenti `game`. Normalizzazione: Metacritic user ×10, Backloggd ×20. Nel cerchietto si mostra il **valore originale**, il riempimento usa il valore normalizzato.
 
+### Snapshot e storico
+
+Ogni `data:fetch` salva `data/snapshots/YYYY-MM-DD.json` (uno per giorno, un secondo fetch lo stesso giorno lo sostituisce) con, per ogni gioco: titolo, date regionali, prima data, etichetta vaga e voti normalizzati. `data:build` mette in fila gli snapshot precedenti a oggi più i valori attuali e ne ricava `dateHistory`, `scoreHistory` e `changes.json`. La cartella si può spostare con la variabile `SNAPSHOTS_DIR` (utile per i test).
+
+- **Rinvio** (regole in `src/history.ts`): fra due punti consecutivi, una data precisa che diventa più tardi o che torna vaga / TBA. Vaga → precisa **non** è un rinvio. Il rinvio si mostra finché il gioco non è uscito e la data non è tornata alla precedente (o prima).
+
+### `changes.json`
+
+```ts
+interface ChangesFile {
+  generatedAt: string;
+  changes: Change[];             // dalla più recente, ultimi 60 giorni, solo giochi ancora presenti
+}
+
+type Change = { date: string; id: string } & (   // date = giorno della rilevazione
+  | { type: "new" }                                // assente da tutti i punti precedenti
+  | { type: "delayed"; from: string; to: string | null }
+  | { type: "reviews-in"; source: "opencritic" | "metacritic"; normalized: number }  // primo voto della critica
+);
+```
+
+Il primo snapshot fa da base: nessun gioco è "new" rispetto a esso.
+
 ## 6. Timeline
 
 - **Linea orizzontale rossa** dal 5/6/2025 all'ultima data precisa (o a oggi) + 60 giorni, con un pallino e l'etichetta della data iniziale; poi, dopo uno stacco con segno di interruzione (//), la **zona TBA**. La linea è centrata verticalmente nello spazio sopra la minimappa.
@@ -235,7 +283,8 @@ Tipo: "Nintendo Switch 2 Edition" nel nome → `switch2-edition`; tipo IGDB DLC 
 - **Aggancio al giorno**: ogni movimento (rotella, frecce, fine del trascinamento, minimappa) si ferma esattamente su un giorno; la zona TBA è libera.
 - **All'apertura** la timeline è centrata su **oggi** (fuso orario locale), con l'indicatore **"Today"** pulsante.
 - **Zona TBA**: blocchi per anno ("2026", "2027"…, poi "TBA"), tratteggiati, con le card dei giochi senza data precisa, collegati da una linea puntinata.
-- **Minimappa** in basso: mesi (anno a gennaio), un puntino per gioco (pieno se uscito, vuoto se futuro, quadrato se DLC, titolo al passaggio del mouse), lineetta su oggi, zona TBA a righe, riquadro della porzione visibile. Clic = salto con scorrimento; trascinamento = segue in diretta.
+- **Minimappa** in basso: mesi (anno a gennaio), un puntino per gioco (pieno se uscito, vuoto se futuro, quadrato se DLC, titolo al passaggio del mouse; **blu, più grande e con alone** se il gioco ha novità non viste, §8), lineetta su oggi, zona TBA a righe, riquadro della porzione visibile. Clic = salto con scorrimento; trascinamento = segue in diretta.
+- **Rinvii**: nella posizione della data originale un cerchietto tratteggiato ("fantasma"), collegato da un arco tratteggiato al pallino della nuova data (solo il fantasma se il gioco è tornato TBA).
 - **Collisioni**: assegnazione a corsie sopra/sotto la linea; una card può scivolare di lato fino al 60% della larghezza (connettore a gomito) prima di impilarsi a mazzo; la card sotto il mouse o con il focus va in primo piano.
 - **Finestre basse**: le card si rimpiccioliscono (fino a 0.55) per stare fra la barra in alto e la minimappa. La fascia sotto la linea con numeri e mesi (`cardOffset`, 64px) non si restringe mai: il primo tratto del connettore resta fisso, si scala solo il gruppo con la card.
 - **Performance**: card create solo quando si avvicinano al viewport e nascoste quando sono lontane; 60fps misurati durante lo scorrimento.
@@ -255,6 +304,7 @@ Tipo: "Nintendo Switch 2 Edition" nel nome → `switch2-edition`; tipo IGDB DLC 
 | Clic sulla minimappa | Salto al punto scelto (trascinando: segue in diretta) |
 | Tab | Card al centro (o selezionata), poi i suoi link; Invio o Spazio la seleziona |
 | ? | Dialogo con le scorciatoie (anche dal pulsante "?" nell'header) |
+| / | Ricerca rapida (§8) |
 
 Rotella, trascinamento, frecce, minimappa, T, Home/Fine, Esc e clic su un'area vuota **deselezionano**.
 
@@ -268,7 +318,8 @@ Con `prefers-reduced-motion` lo scorrimento salta direttamente, header e card no
 - Titolo (massimo 3 righe)
 - Sviluppatore · generi. I nomi di sviluppatore oltre 20 caratteri sono **abbreviati** ("Nintendo EPD Production Group No. 5" → "Nintendo EPD", "Konami Digital Entertainment" → "Konami", alias "Nintendo Software Technology" → "NST"), con il nome completo nel tooltip.
 - **Date regionali**: in tutte le card, DLC comprese, **bandiera + sigla (JP / EU / NA) + data** o "TBA". Bandiere SVG con bordo sottile a colore di tema (visibile anche la giapponese sul bianco).
-- **Badge**: `Out today…` (§7, "Uscito oggi"), `Switch 2 Edition`, `Exclusive`, `Timed exclusive`, `Also on Switch 1`
+- **Badge**: `! New` / `! Delayed` / `! Reviews in` (novità non vista, blu, §8), `Out today…` (§7, "Uscito oggi"), `Delayed`, `Switch 2 Edition`, `Exclusive`, `Timed exclusive`, `Also on Switch 1`. Un rinvio non ancora visto mostra solo `! Delayed`, che dopo la visione torna il normale `Delayed` ambra.
+- **Rinvio**: sotto i badge la data precedente barrata → la nuova (o la data vaga / "TBA").
 - **Blocco Critics**: OpenCritic + Metacritic; **Blocco Users**: Metacritic User + Backloggd
 - Sotto ogni cerchietto: nome della fonte (link, se c'è) e numero di recensioni o voti in forma compatta ("3.1K ratings")
 - **Upcoming** per i giochi futuri al posto dei voti ("In 12 days", "Tomorrow"); per i TBA "Expected 2027" o "Date TBA"; bordo tratteggiato
@@ -296,8 +347,9 @@ Le card già visibili all'apertura del sito compaiono subito, senza animazione. 
 - **Come si seleziona**: PagGiù / PagSu scelgono il gioco successivo / precedente rispetto a quello selezionato o, se nessuno è selezionato, il primo gioco strettamente dopo / prima dell'indicatore. Ordine: prima data di uscita, a parità di data titolo; la zona TBA in fondo, per anno. Clic su una card (o Invio/Spazio con il focus) la seleziona. La timeline scorre fluida fino a portare la card sotto l'indicatore.
 - **Link**: in una card non selezionata il clic seleziona e non apre mai link; nella card selezionata link e pulsanti funzionano (nuova scheda).
 - **Aspetto**: la card selezionata è ingrandita (×1.05) verso la linea, ha un bordo luminoso ed è sopra le altre; le altre si attenuano (opacità 0.5). In alto a sinistra il titolo del sito lascia il posto, con dissolvenza, a miniatura della copertina + titolo del gioco.
-- **Card espansa**: si apre con un'animazione e mostra il **tempo relativo** (nelle card in uscita dentro la fascia "UPCOMING", al posto del conto alla rovescia breve) ("Out in 12 days", "Out today", "Out tomorrow", "Released 3 days ago"; oltre 60 giorni in mesi, oltre 24 mesi in anni; per i TBA "Expected 2027"), il **riassunto** IGDB troncato a 3 righe (testo intero nel tooltip) e i pulsanti **Wikipedia** e **Nintendo Wiki**, grigi e disattivati se il link manca. La lista dei pulsanti è pensata per crescere (Nintendo Store, `ITERATION-3.md`). Se la card espansa esce dall'area visibile viene spostata dentro.
-- `selectById(gameId)` della timeline è pubblico, per ricerca e novità (`ITERATION-3.md`).
+- **Card espansa**: si apre con un'animazione e mostra il **tempo relativo** (nelle card in uscita dentro la fascia "UPCOMING", al posto del conto alla rovescia breve) ("Out in 12 days", "Out today", "Out tomorrow", "Released 3 days ago"; oltre 60 giorni in mesi, oltre 24 mesi in anni; per i TBA "Expected 2027"), il **riassunto** IGDB troncato a 3 righe (testo intero nel tooltip) e i pulsanti **Wikipedia**, **Nintendo Wiki** e **Nintendo Store**, grigi e disattivati se il link manca. Sotto ogni cerchietto una **sparkline** con l'andamento del voto (`scoreHistory`), solo se ci sono almeno 2 valori diversi. Se la card espansa esce dall'area visibile viene spostata dentro.
+- Selezionare una card segna come viste le sue novità (§8).
+- `selectById(gameId)` della timeline è pubblico: lo usano ricerca e novità.
 
 ### Sfondo del gioco selezionato
 
@@ -319,20 +371,44 @@ Le card già visibili all'apertura del sito compaiono subito, senza animazione. 
 - Ogni card ha un riassunto per i lettori di schermo (titolo, tipo, data, esclusività, voto OpenCritic).
 - Contorno di focus rosso uniforme per tutti gli elementi raggiungibili da tastiera.
 
-## 8. Grafica
+## 8. Novità, ricerca e filtri
+
+Nell'header, a destra: **What's new**, **filtri**, **ricerca**, **?**, **tema** (in sviluppo anche il link ✎ al pannello admin).
+
+### Novità ("What's new")
+
+- Il sito ricorda in `localStorage` (`whats-new`) le novità già viste. Alla **prima visita** conta come non viste solo quelle degli ultimi 7 giorni.
+- **Pulsante** "What's new" con il numero di novità non viste (sotto i 1500px di larghezza solo "!" e il numero). Apre un pannello con le novità degli ultimi 60 giorni **raggruppate per settimana** ("This week", "Last week", "Week of Sep 7"): tipo, copertina, titolo, dettaglio ("Added · out Oct 22, 2026", "Oct 15, 2026 → Oct 22, 2026", "First reviews · OpenCritic 80"), data; un pallino blu segna quelle non viste. Clic su una voce: la timeline salta al gioco e lo seleziona. Le voci di giochi nascosti dai filtri sono disattivate ("Hidden by the current filters").
+- Una novità diventa vista quando si **seleziona la card**, oppure con **"Mark all as seen"** nel pannello; badge sulle card, puntini della minimappa e contatore si aggiornano subito.
+- Senza `changes.json` (o senza novità) il pannello lo dice e il sito funziona come prima.
+
+### Ricerca
+
+- Tasto **`/`** o lente nell'header: finestra modale con un campo di ricerca (Fuse.js su titolo e titolo del gioco base, tollerante agli errori di battitura), fino a 8 risultati con copertina, tipo (Game / DLC / Switch 2 Edition) e data.
+- ↑/↓ scelgono, **Invio** (o clic) salta al gioco e lo seleziona, **Esc** o clic fuori chiude. Mentre è aperta le scorciatoie della timeline sono disattivate.
+- Cerca solo fra i giochi visibili con i filtri attuali.
+
+### Filtri
+
+- Pulsante "67 games ▾" (o "42 of 67 games", con un pallino se i filtri non sono quelli di default) che apre gli interruttori **DLC**, **Switch 2 Edition**, **Third-party**, **Exclusives only**.
+- Si applicano a timeline, minimappa, PagSu/PagGiù e ricerca; cambiarli ricostruisce la timeline mantenendo la posizione e, se ancora visibile, il gioco selezionato.
+- Le scelte restano salvate nel browser (`localStorage`, `filters`).
+
+## 9. Grafica
 
 - Richiamo Nintendo: **rosso** primario, angoli arrotondati, look pulito.
 - **Tema giorno/notte**: segue la preferenza di sistema, con interruttore manuale ricordato nel browser (applicato prima del primo paint). Tutti i colori sono variabili CSS.
 - Font **Nunito** (Google Fonts) con fallback arrotondati di sistema.
 - Niente loghi o font ufficiali Nintendo. Footer: "Not affiliated with Nintendo. Scores from OpenCritic, Metacritic and Backloggd."
-- Interfaccia in **inglese**. Solo **desktop** (larghezza minima 1280px).
+- Interfaccia in **inglese**. Solo **desktop** (larghezza minima 1280px). Un titolo di gioco lungo nell'header finisce con i puntini.
 - Favicon SVG inline, stato "Loading games…" e messaggio d'errore se `games.json` non si carica.
 
-## 9. Aggiornamento dati
+## 10. Aggiornamento dati
 
 Variabili in `.env` (vedi `.env.example`): `TWITCH_CLIENT_ID`, `TWITCH_CLIENT_SECRET`, `RAPIDAPI_KEY` (facoltativa), `OPENCRITIC_MAX_SEARCHES`, `OPENCRITIC_MAX_REQUESTS`, `OPENCRITIC_CATALOG_DAYS`, `WIKI_CONTACT`.
 
-- `npm run data:fetch` → rigenera `public/data/games.json`. Se un passo essenziale fallisce (es. credenziali IGDB mancanti) si ferma senza toccare il file.
+- `npm run data:fetch` → interroga le API e salva le risposte grezze in `data/cache/`, poi esegue la build e scrive lo snapshot del giorno. Se un passo essenziale fallisce (es. credenziali IGDB mancanti) si ferma senza toccare `games.json`.
+- `npm run data:build` → **senza rete** (~50ms): cache + `overrides.json` + `settings.json` + storico esclusività + snapshot → `public/data/games.json`, `public/data/changes.json` e `data/fetch-report.json`. Si usa dopo aver modificato a mano overrides o impostazioni.
 - `npm run data:validate` → elenca:
   - giochi **usciti senza Metacritic o Backloggd** (con quali mancano);
   - conflitti di esclusività non ancora decisi;
@@ -345,9 +421,13 @@ Variabili in `.env` (vedi `.env.example`): `TWITCH_CLIENT_ID`, `TWITCH_CLIENT_SE
   - il contenuto della zona TBA.
 
   Con `--stubs` stampa il blocco JSON da completare per i voti manuali mancanti.
-- Più avanti: GitHub Action settimanale che esegue il fetch, fa il commit di `games.json` (e di cache e storico) e ripubblica su GitHub Pages.
+- **Pannello admin** (`/admin`, solo con `npm run dev`; non finisce nella build di produzione):
+  - elenco dei giochi con dati mancanti, filtrabile: Metacritic, Backloggd, link Wikipedia / Nintendo Wiki / Nintendo Store, conflitti di esclusività; ricerca per titolo;
+  - per ogni gioco un modulo con i campi di `overrides.json` (voti e numero di recensioni, esclusività, "Also on Switch 1", link), con link rapidi alla ricerca del gioco su Metacritic e Backloggd;
+  - **Save**: il plugin Vite (`scripts/vite-admin.ts`) valida lo schema, copia il file precedente in `data/backups/` (ultime 30 copie), scrive `overrides.json` formattato, lancia `data:build` e il sito aperto si ricarica da solo mantenendo posizione e selezione.
+- Più avanti: GitHub Action settimanale che esegue il fetch, fa il commit di `games.json` e `changes.json` (e di cache, snapshot e storico) e ripubblica su GitHub Pages.
 
-## 10. Milestone di sviluppo
+## 11. Milestone di sviluppo
 
 1. ~~**Scaffold**: Vite + TS + GSAP, tema giorno/notte, `games.json` finto.~~ ✔
 2. ~~**Timeline**: linea, tacche, scroll, header, "Today", apertura su oggi.~~ ✔
@@ -359,6 +439,6 @@ Variabili in `.env` (vedi `.env.example`): `TWITCH_CLIENT_ID`, `TWITCH_CLIENT_SE
 
 **Iterazione 2** (`ITERATION-2.md`) ✔: correzioni, indicatore centrale e controlli per giorno, selezione e card espansa, nuovi campi dati, sfondo, "uscito oggi", bordo Switch 2 Edition.
 
-**Iterazione 3** (`ITERATION-3.md`): da fare.
+**Iterazione 3** (`ITERATION-3.md`) ✔: fetch e build separati, pannello admin, pulsante Nintendo Store, ricerca e filtri, snapshot con rinvii e andamento dei voti, novità.
 
 Lavorare un punto alla volta, verificando nel browser prima di passare al successivo.
