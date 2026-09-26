@@ -1279,3 +1279,9 @@ kbd {
 .timeline.in-tba .timeline__playhead {
   opacity: 0;
 }
+
+/* Dev-only link to the admin panel */
+.admin-link {
+  font-size: 18px;
+  text-decoration: none;
+}

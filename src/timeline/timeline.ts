@@ -212,6 +212,20 @@ export class Timeline {
     if (next >= 0 && next < this.stops.length) this.select(next);
   }
 
+  /** Where the view is and what is selected, to come back to it after a reload. */
+  getState() {
+    return { x: this.scroller.target, selectedId: this.selected >= 0 ? this.stops[this.selected].game.id : null };
+  }
+
+  restoreState(state: { x: number; selectedId: string | null }) {
+    // Like the first paint: header and cards are simply there (no animation to wait for,
+    // which also holds in a background tab, where animations are paused).
+    this.opening = true;
+    this.scroller.jumpTo(state.x);
+    this.opening = false;
+    if (state.selectedId) this.selectById(state.selectedId);
+  }
+
   /** Selects a game by id, e.g. from search (ITERATION-3); returns false if it isn't on the timeline. */
   selectById(gameId: string) {
     const index = this.stops.findIndex((s) => s.game.id === gameId);
@@ -646,7 +660,7 @@ export class Timeline {
     }
     this.minimap.update(left, this.width);
 
-    this.header.update(this.headerText(center), Math.sign(center - this.lastCenter), this.ready);
+    this.header.update(this.headerText(center), Math.sign(center - this.lastCenter), this.ready && !this.opening);
     // No days in the TBA zone, so no playhead there.
     this.el.classList.toggle("in-tba", this.tbaBlocks.length > 0 && center >= this.tbaStartX - TIMELINE.tbaGapPx / 2);
     this.lastCenter = center;

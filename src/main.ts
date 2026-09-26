@@ -19,6 +19,39 @@ shortcuts.addEventListener("click", (e) => {
   if (e.target === shortcuts) shortcuts.close();
 });
 
+/**
+ * Development only: a link to the admin panel, and a reload that keeps the view
+ * whenever the admin saves (the build rewrites games.json).
+ */
+function devTools(timeline: Timeline) {
+  const RESTORE_KEY = "timeline-restore";
+  try {
+    const saved = sessionStorage.getItem(RESTORE_KEY);
+    if (saved) {
+      sessionStorage.removeItem(RESTORE_KEY);
+      timeline.restoreState(JSON.parse(saved));
+    }
+  } catch {
+    // Storage unavailable: just start from today.
+  }
+  const link = document.createElement("a");
+  link.className = "icon-button admin-link";
+  link.href = "/admin";
+  link.title = "Admin (development only)";
+  link.setAttribute("aria-label", "Admin panel (development only)");
+  link.textContent = "✎";
+  document.querySelector(".app-header__actions")!.prepend(link);
+
+  import.meta.hot?.on("games-updated", () => {
+    try {
+      sessionStorage.setItem(RESTORE_KEY, JSON.stringify(timeline.getState()));
+    } catch {
+      // Storage unavailable: the reload starts from today.
+    }
+    location.reload();
+  });
+}
+
 async function loadGames(): Promise<Game[]> {
   const res = await fetch(`${import.meta.env.BASE_URL}data/games.json`);
   if (!res.ok) throw new Error(`games.json: HTTP ${res.status}`);
@@ -31,7 +64,8 @@ const status = app.querySelector<HTMLElement>(".app-status")!;
 loadGames()
   .then((games) => {
     status.remove();
-    new Timeline(app, games, document.querySelector<HTMLElement>("#timeline-date")!, document.querySelector<HTMLElement>(".app-title")!);
+    const timeline = new Timeline(app, games, document.querySelector<HTMLElement>("#timeline-date")!, document.querySelector<HTMLElement>(".app-title")!);
+    if (import.meta.env.DEV) devTools(timeline);
   })
   .catch((err: unknown) => {
     status.textContent = `Couldn't load the games (${err instanceof Error ? err.message : String(err)}).`;
