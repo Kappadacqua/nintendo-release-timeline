@@ -23,6 +23,8 @@ export const GAME_FIELDS = [
   "summary",
   "artworks.image_id",
   "screenshots.image_id",
+  "websites.url",
+  "websites.type.type",
   "genres.name",
   "involved_companies.company.name",
   "involved_companies.developer",
@@ -55,6 +57,7 @@ export interface IgdbGame {
   summary?: string;
   artworks?: { image_id?: string }[];
   screenshots?: { image_id?: string }[];
+  websites?: { url?: string; type?: { type?: string } }[];
   genres?: { name: string }[];
   involved_companies?: { company?: { name?: string }; developer?: boolean; publisher?: boolean }[];
   release_dates?: IgdbReleaseDate[];

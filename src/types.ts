@@ -40,6 +40,7 @@ export interface Game {
     backloggd?: string;
     wikipedia?: string;
     nintendoWiki?: string;
+    nintendoStore?: string;
   };
 }
 

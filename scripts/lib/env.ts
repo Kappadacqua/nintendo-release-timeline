@@ -13,6 +13,7 @@ export const PATHS = {
   wikipediaCache: `${ROOT}data/cache/wikipedia.json`,
   linksCache: `${ROOT}data/cache/links.json`,
   fetchStatus: `${ROOT}data/cache/fetch-status.json`,
+  settings: `${ROOT}data/settings.json`,
 };
 
 // Node ≥ 20.12 reads .env natively; values already in the environment win.

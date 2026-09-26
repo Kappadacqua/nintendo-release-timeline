@@ -111,6 +111,37 @@ export function loadSelectionInputs() {
   };
 }
 
+type StoreRegion = "EU" | "US";
+
+/** data/settings.json: which Nintendo Store the button opens (ITERATION-3 §7). */
+export interface Settings {
+  nintendoStore: {
+    region: StoreRegion;
+    /** European country site the EU store links open, e.g. "www.nintendo.co.uk" or "www.nintendo.it". */
+    euSite: string;
+    /** Tried in order when the chosen region has no page for a game. Empty = that region only. */
+    fallbackRegions: StoreRegion[];
+  };
+}
+
+const DEFAULT_SETTINGS: Settings = { nintendoStore: { region: "EU", euSite: "www.nintendo.co.uk", fallbackRegions: ["US"] } };
+
+/** European eShop id from an IGDB link to a European nintendo.com / nintendo.xx game page. */
+const EU_PAGE = /nintendo\.(?:com\/(?!us\/)[a-z]{2}-[a-z]{2}|co\.uk|de|fr|it|es|nl|pt|at|be|ch)\/.*-(\d{6,})\.html/i;
+const US_STORE = /^https:\/\/www\.nintendo\.com\/us\/store\/products\//;
+
+/** Store page per region for one IGDB game, from Wikidata ids and IGDB links. */
+function storePages(g: IgdbGame | undefined, links: LinksCache, settings: Settings): Partial<Record<StoreRegion, string>> {
+  if (!g) return {};
+  const urls = (g.websites ?? []).map((w) => w.url ?? "");
+  const euId = links.eshopEuBySlug[g.slug] ?? urls.map((u) => EU_PAGE.exec(u)?.[1]).find(Boolean);
+  const usId = links.eshopUsBySlug[g.slug];
+  return {
+    EU: euId ? `https://${settings.nintendoStore.euSite}/-/-${euId}.html` : undefined,
+    US: urls.find((u) => US_STORE.test(u)) ?? (usId ? `https://www.nintendo.com/us/store/products/${usId}/` : undefined),
+  };
+}
+
 export interface BuildResult {
   games: Game[];
   report: FetchReport;
@@ -125,7 +156,9 @@ export function buildGames(): BuildResult {
   if (!igdb.games.length) throw new Error("No IGDB data in data/cache/igdb.json: run `npm run data:fetch` first.");
   const overrides = overridesFile.games;
   const oc = loadOpenCriticCache(PATHS.opencriticCache);
-  const links = readJson<LinksCache>(PATHS.linksCache, emptyLinks());
+  const links = { ...emptyLinks(), ...readJson<Partial<LinksCache>>(PATHS.linksCache, {}) };
+  const settings: Settings = { ...DEFAULT_SETTINGS, ...readJson<Partial<Settings>>(PATHS.settings, {}) };
+  const regions = [settings.nintendoStore.region, ...settings.nintendoStore.fallbackRegions.filter((r) => r !== settings.nintendoStore.region)];
   const status = readJson<FetchStatus | null>(PATHS.fetchStatus, null);
   const history = new ExclusivityHistory(PATHS.history);
   const previous = new Map(readJson<GamesFile>(PATHS.games, { generatedAt: "", games: [] }).games.map((g) => [g.id, g]));
@@ -214,6 +247,11 @@ export function buildGames(): BuildResult {
       const url = own[key] || fallback[key] || before?.links[key];
       if (url) game.links[key] = url;
     }
+    // Nintendo Store: chosen region, then fallback regions; DLC / editions then the base game's page.
+    const ownStore = storePages(game.id.startsWith("igdb:") ? candidates.get(Number(game.id.slice(5))) : undefined, links, settings);
+    const baseStore = entry.baseId !== undefined ? storePages(candidates.get(entry.baseId), links, settings) : {};
+    const store = regions.map((r) => ownStore[r]).find(Boolean) ?? regions.map((r) => baseStore[r]).find(Boolean);
+    if (store) game.links.nintendoStore = store;
     kept.push(entry);
   }
 

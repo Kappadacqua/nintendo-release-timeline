@@ -54,12 +54,15 @@ section(
 
 // --- Reference links (ITERATION-2 §7): overridable with links.wikipedia / links.nintendoWiki.
 const noLinks = games
-  .map((g) => ({ g, gaps: [!g.links.wikipedia && "Wikipedia", !g.links.nintendoWiki && "Nintendo Wiki"].filter(Boolean) as string[] }))
+  .map((g) => ({
+    g,
+    gaps: [!g.links.wikipedia && "Wikipedia", !g.links.nintendoWiki && "Nintendo Wiki", !g.links.nintendoStore && "Nintendo Store"].filter(Boolean) as string[],
+  }))
   .filter((m) => m.gaps.length);
 section(
-  "Games without a Wikipedia or Nintendo Wiki link",
+  "Games without a Wikipedia, Nintendo Wiki or Nintendo Store link",
   noLinks.map(({ g, gaps }) => `${label(g)} — ${gaps.join(", ")}`),
-  "Add them under games.<id>.links.wikipedia / links.nintendoWiki in data/overrides.json.",
+  "Add them in the admin panel (npm run dev → /admin) or under games.<id>.links in data/overrides.json.",
 );
 
 // --- From the last fetch.

@@ -8,6 +8,7 @@ const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
 const LINK_BUTTONS: { key: keyof Game["links"]; label: string }[] = [
   { key: "wikipedia", label: "Wikipedia" },
   { key: "nintendoWiki", label: "Nintendo Wiki" },
+  { key: "nintendoStore", label: "Nintendo Store" },
 ];
 
 function plural(n: number, unit: string) {

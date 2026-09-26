@@ -9,7 +9,7 @@ import { env, intEnv, PATHS, requireEnv } from "./lib/env";
 import { ExclusivityHistory } from "./lib/exclusivity";
 import { HttpError } from "./lib/http";
 import { Igdb, type IgdbGame, PLATFORM } from "./lib/igdb";
-import { nintendoWikiByTitle, wikipediaBySlug, wikipediaByTitle } from "./lib/links";
+import { nintendoWikiByTitle, wikidataBySlug, wikipediaByTitle } from "./lib/links";
 import { OpenCritic } from "./lib/opencritic";
 import { loadOverrides } from "./lib/overrides";
 import { sameTitle } from "./lib/transform";
@@ -222,14 +222,14 @@ async function fetchOpenCritic(games: Game[], status: FetchStatus) {
  * succeeds refreshes its keys; a failed one leaves the previous answers in place.
  */
 async function fetchLinks(selected: Selected[], candidates: Map<number, IgdbGame>, userAgent: string, status: FetchStatus) {
-  const links = readJson<LinksCache>(PATHS.linksCache, emptyLinks());
+  const links = { ...emptyLinks(), ...readJson<Partial<LinksCache>>(PATHS.linksCache, {}) };
   const bases = selected.flatMap((s) => baseOf(s, candidates) ?? []);
   const slugs = [...new Set([...selected.flatMap((s) => s.slug ?? []), ...bases.flatMap((b) => b.slug ?? [])])];
   const titles = [...new Set([...selected.map((s) => s.game.title), ...bases.map((b) => b.title)])];
   const baseTitles = [...new Set(bases.map((b) => b.title))];
 
   const refresh = async (
-    key: "wikipediaBySlug" | "wikipediaByTitle" | "nintendoWikiByTitle",
+    key: "wikipediaBySlug" | "wikipediaByTitle" | "nintendoWikiByTitle" | "eshopEuBySlug" | "eshopUsBySlug",
     keys: string[],
     lookup: () => Promise<Map<string, string>>,
     label: string,
@@ -245,7 +245,15 @@ async function fetchLinks(selected: Selected[], candidates: Map<number, IgdbGame
       status.linkErrors.push(`${label}: ${(err as Error).message}`);
     }
   };
-  await refresh("wikipediaBySlug", slugs, () => wikipediaBySlug(slugs, userAgent), "Wikipedia (Wikidata)");
+  // One Wikidata query gives the Wikipedia article and both eShop ids.
+  let wikidata: Map<string, { wikipedia?: string; eshopEu?: string; eshopUs?: string }> | null = null;
+  const fromWikidata = async (field: "wikipedia" | "eshopEu" | "eshopUs") => {
+    wikidata ??= await wikidataBySlug(slugs, userAgent);
+    return new Map([...wikidata].flatMap(([slug, v]) => (v[field] ? [[slug, v[field]!] as [string, string]] : [])));
+  };
+  await refresh("wikipediaBySlug", slugs, () => fromWikidata("wikipedia"), "Wikipedia (Wikidata)");
+  await refresh("eshopEuBySlug", slugs, () => fromWikidata("eshopEu"), "eShop Europe (Wikidata)");
+  await refresh("eshopUsBySlug", slugs, () => fromWikidata("eshopUs"), "eShop US (Wikidata)");
   await refresh("wikipediaByTitle", baseTitles, () => wikipediaByTitle(baseTitles, userAgent), "Wikipedia (titles)");
   await refresh("nintendoWikiByTitle", titles, () => nintendoWikiByTitle(titles, userAgent), "Nintendo Wiki");
   links.fetchedAt = new Date().toISOString();

@@ -27,6 +27,7 @@ const GAPS: { key: string; label: string; missing: (g: Game, conflicts: Set<stri
   { key: "backloggd", label: "Backloggd", missing: (g) => released(g) && !g.scores.user.backloggd },
   { key: "wikipedia", label: "Wikipedia", missing: (g) => !g.links.wikipedia },
   { key: "nintendoWiki", label: "Nintendo Wiki", missing: (g) => !g.links.nintendoWiki },
+  { key: "nintendoStore", label: "Nintendo Store", missing: (g) => !g.links.nintendoStore },
   { key: "conflict", label: "Exclusivity conflict", missing: (g, c) => c.has(g.id) },
 ];
 
@@ -214,6 +215,7 @@ function renderEditor(id: string) {
         <legend>Links <small>(leave empty to keep the automatic one)</small></legend>
         ${field("Wikipedia", "links.wikipedia", links.wikipedia, { type: "url" }, g.links.wikipedia ?? "none found")}
         ${field("Nintendo Wiki", "links.nintendoWiki", links.nintendoWiki, { type: "url" }, g.links.nintendoWiki ?? "none found")}
+        ${field("Nintendo Store", "links.nintendoStore", links.nintendoStore, { type: "url" }, g.links.nintendoStore ?? "none found")}
       </fieldset>
 
       <div class="admin-actions">
@@ -247,7 +249,12 @@ function fromForm(form: HTMLFormElement, previous: Override, title: string): Ove
   const o: Override = { ...previous };
   o.metacritic = clean({ critic: num("metacritic.critic"), criticCount: num("metacritic.criticCount"), user: num("metacritic.user"), userCount: num("metacritic.userCount") });
   o.backloggd = clean({ rating: num("backloggd.rating"), count: num("backloggd.count") });
-  const managedLinks = { metacritic: text("links.metacritic"), wikipedia: text("links.wikipedia"), nintendoWiki: text("links.nintendoWiki") };
+  const managedLinks = {
+    metacritic: text("links.metacritic"),
+    wikipedia: text("links.wikipedia"),
+    nintendoWiki: text("links.nintendoWiki"),
+    nintendoStore: text("links.nintendoStore"),
+  };
   const otherLinks = Object.fromEntries(Object.entries(previous.links ?? {}).filter(([k]) => !(k in managedLinks)));
   o.links = clean({ ...otherLinks, ...managedLinks }) as Record<string, string> | undefined;
   const ex = String(data.get("exclusivity"));

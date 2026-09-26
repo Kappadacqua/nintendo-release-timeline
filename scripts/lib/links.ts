@@ -4,35 +4,50 @@ import { sameTitle } from "./transform";
 const IGDB_GAME_ID = "P5794"; // Wikidata "Internet Game Database game ID" (the IGDB slug)
 const FANDOM_API = "https://nintendo.fandom.com/api.php";
 
-/** English Wikipedia article per IGDB slug, via Wikidata (one SPARQL query per 100 slugs). */
-export async function wikipediaBySlug(slugs: string[], userAgent: string): Promise<Map<string, string>> {
-  const out = new Map<string, string>();
+export interface WikidataLinks {
+  wikipedia?: string;
+  /** Nintendo eShop (Europe) id, P12418: https://www.nintendo.co.uk/-/-<id>.html */
+  eshopEu?: string;
+  /** Nintendo eShop id, P8084: https://www.nintendo.com/us/store/products/<id>/ */
+  eshopUs?: string;
+}
+
+/** Wikidata per IGDB slug: English Wikipedia article and eShop ids (one SPARQL query per 100 slugs). */
+export async function wikidataBySlug(slugs: string[], userAgent: string): Promise<Map<string, WikidataLinks>> {
+  const out = new Map<string, WikidataLinks>();
   const throttle = new Throttle(1000);
   for (let i = 0; i < slugs.length; i += 100) {
     const values = slugs
       .slice(i, i + 100)
       .map((s) => JSON.stringify(s))
       .join(" ");
-    const query = `SELECT ?slug ?article WHERE {
+    const query = `SELECT ?slug ?article ?eu ?us WHERE {
       VALUES ?slug { ${values} }
       ?item wdt:${IGDB_GAME_ID} ?slug .
-      ?article schema:about ?item ; schema:isPartOf <https://en.wikipedia.org/> .
+      OPTIONAL { ?article schema:about ?item ; schema:isPartOf <https://en.wikipedia.org/> . }
+      OPTIONAL { ?item wdt:P12418 ?eu . }
+      OPTIONAL { ?item wdt:P8084 ?us . }
     }`;
-    const res = await fetchJson<{ results: { bindings: { slug: { value: string }; article: { value: string } }[] } }>(
-      "https://query.wikidata.org/sparql",
-      {
-        method: "POST",
-        headers: {
-          "User-Agent": userAgent,
-          Accept: "application/sparql-results+json",
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: new URLSearchParams({ query }).toString(),
-        throttle,
-        label: "Wikidata SPARQL",
+    type Binding = Record<"slug" | "article" | "eu" | "us", { value: string } | undefined>;
+    const res = await fetchJson<{ results: { bindings: Binding[] } }>("https://query.wikidata.org/sparql", {
+      method: "POST",
+      headers: {
+        "User-Agent": userAgent,
+        Accept: "application/sparql-results+json",
+        "Content-Type": "application/x-www-form-urlencoded",
       },
-    );
-    for (const b of res.results.bindings) out.set(b.slug.value, b.article.value);
+      body: new URLSearchParams({ query }).toString(),
+      throttle,
+      label: "Wikidata SPARQL",
+    });
+    for (const b of res.results.bindings) {
+      const slug = b.slug!.value;
+      const cur = out.get(slug) ?? {};
+      cur.wikipedia ??= b.article?.value;
+      cur.eshopEu ??= b.eu?.value;
+      cur.eshopUs ??= b.us?.value;
+      out.set(slug, cur);
+    }
   }
   return out;
 }
