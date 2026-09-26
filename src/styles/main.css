@@ -118,7 +118,7 @@ a {
 }
 
 .app-header__date {
-  min-width: 220px;
+  min-width: 420px;
 }
 
 .app-header__actions {
@@ -227,32 +227,72 @@ main {
   will-change: transform;
 }
 
-/* Year / month, in the middle of the top bar */
+/* Date under the playhead, in the middle of the top bar: 2026 · September · Sat 26 */
 .timeline-header {
-  text-align: center;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 12px;
+  white-space: nowrap;
 }
 
 .timeline-header__slot {
   overflow: hidden;
-  line-height: 1.05;
+  line-height: 1.15;
+}
+
+.timeline-header__slot[hidden] {
+  display: none;
 }
 
 .timeline-header__slot span {
   display: inline-block;
 }
 
+/* Separator dot before month and day */
+.timeline-header__month::before,
+.timeline-header__day::before {
+  content: "·";
+  margin-right: 12px;
+  color: var(--text-muted);
+  font-weight: 900;
+}
+
 .timeline-header__year {
-  font-size: 44px;
+  font-size: 40px;
   font-weight: 900;
   letter-spacing: -0.03em;
 }
 
 .timeline-header__month {
-  font-size: 14px;
+  font-size: 22px;
   font-weight: 800;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
   color: var(--accent);
+}
+
+.timeline-header__day {
+  min-width: 5.2ch; /* "Wed 30" never shifts the row */
+  font-size: 22px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  text-align: left;
+}
+
+/* Fixed playhead: the timeline scrolls under it */
+.timeline__playhead {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 2px;
+  margin-left: -1px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    color-mix(in srgb, var(--accent) 45%, transparent) 12%,
+    color-mix(in srgb, var(--accent) 45%, transparent) 88%,
+    transparent
+  );
+  pointer-events: none;
 }
 
 /* Today */
@@ -322,7 +362,14 @@ main {
   top: 0;
   width: 0;
   height: 0;
-  /* Shrinks toward the release date on the line when the window is short. */
+}
+
+/* Card (and stacking connector): shrinks on short windows from the edge of the label band. */
+.tl-item__group {
+  position: absolute;
+  left: 0;
+  width: 0;
+  height: 0;
   transform: scale(var(--card-scale, 1));
   transform-origin: 0 0;
 }

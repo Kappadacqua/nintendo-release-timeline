@@ -9,6 +9,8 @@ const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
 export class Scroller {
   current = 0;
   target = 0;
+  /** Where every glide must come to rest (e.g. the nearest day). */
+  snap: (x: number) => number = (x) => x;
   private min = 0;
   private max = 0;
   private frame = 0;
@@ -29,11 +31,21 @@ export class Scroller {
     this.scrollTo(this.target + dx);
   }
 
+  /** Glide to `x`, snapped. */
   scrollTo(x: number) {
+    const to = this.clamp(this.snap(this.clamp(x)));
     // Reduced motion: no glide, just go there.
-    if (reducedMotion.matches) return this.jumpTo(x);
-    this.target = this.clamp(x);
+    if (reducedMotion.matches) return this.jumpTo(to);
+    this.target = to;
     this.start();
+  }
+
+  /**
+   * Come to rest on the snap point nearest to where the view is heading. After a
+   * drag, target and current coincide; after a click-to-glide, the glide is kept.
+   */
+  settle() {
+    this.scrollTo(this.target);
   }
 
   /** Move instantly (no easing), e.g. while dragging or on first render. */
@@ -80,24 +92,40 @@ export function bindScrollInput(
   scroller: Scroller,
   opts: {
     dayPx: number;
+    /** Move by whole days (wheel notch, trackpad, arrows). */
+    onDayStep: (days: number) => void;
     onToday: () => void;
     onHome: () => void;
     onEnd: () => void;
+    /** Esc. */
+    onEscape: () => void;
     /** Page Down / Page Up: jump to the next / previous game. */
     onGameStep: (direction: 1 | -1) => void;
     /** After any keyboard navigation (lets focus follow the centered game). */
     onKeyNavigate: () => void;
   },
 ) {
+  // Wheel: one mouse notch = one day. Trackpads send many small deltas, which add up
+  // to `trackpadDayPx` per day (the remainder is dropped when the direction flips).
+  let wheelAcc = 0;
   el.addEventListener(
     "wheel",
     (e) => {
       e.preventDefault();
-      // Vertical wheel scrolls horizontally; trackpads send deltaX directly.
-      let delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-      if (e.deltaMode === WheelEvent.DOM_DELTA_LINE) delta *= 16;
-      else if (e.deltaMode === WheelEvent.DOM_DELTA_PAGE) delta *= el.clientWidth;
-      scroller.nudge(delta);
+      const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+      if (!delta) return;
+      if (e.deltaMode !== WheelEvent.DOM_DELTA_PIXEL || Math.abs(delta) >= TIMELINE.wheelNotchPx) {
+        wheelAcc = 0;
+        opts.onDayStep(Math.sign(delta));
+        return;
+      }
+      if (Math.sign(delta) !== Math.sign(wheelAcc)) wheelAcc = 0;
+      wheelAcc += delta;
+      const days = Math.trunc(wheelAcc / TIMELINE.trackpadDayPx);
+      if (days) {
+        wheelAcc -= days * TIMELINE.trackpadDayPx;
+        opts.onDayStep(days);
+      }
     },
     { passive: false },
   );
@@ -145,8 +173,8 @@ export function bindScrollInput(
     // The click that follows a drag must not follow a link.
     suppressClick = true;
     setTimeout(() => (suppressClick = false), 0);
-    // No fling if the pointer paused before release.
-    if (e.timeStamp - lastT < 80) scroller.scrollTo(scroller.current + velocity * TIMELINE.flingMs);
+    // Fling if the pointer was still moving, then rest on the nearest day either way.
+    scroller.scrollTo(scroller.current + (e.timeStamp - lastT < 80 ? velocity * TIMELINE.flingMs : 0));
   };
   el.addEventListener("pointerup", endPress);
   el.addEventListener("pointercancel", endPress);
@@ -168,9 +196,10 @@ export function bindScrollInput(
     const t = e.target instanceof HTMLElement ? e.target : null;
     if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName) || t.closest("dialog"))) return;
 
-    const step = (e.shiftKey ? TIMELINE.keyStepDaysLarge : TIMELINE.keyStepDays) * opts.dayPx;
-    if (e.key === "ArrowRight") scroller.nudge(step);
-    else if (e.key === "ArrowLeft") scroller.nudge(-step);
+    const days = e.shiftKey ? TIMELINE.keyStepDaysLarge : 1;
+    if (e.key === "ArrowRight") opts.onDayStep(days);
+    else if (e.key === "ArrowLeft") opts.onDayStep(-days);
+    else if (e.key === "Escape") opts.onEscape();
     else if (e.key === "t" || e.key === "T") opts.onToday();
     else if (e.key === "Home") opts.onHome();
     else if (e.key === "End") opts.onEnd();

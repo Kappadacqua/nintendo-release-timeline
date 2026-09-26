@@ -3,7 +3,7 @@ import { type Card, cardWidth, createCard } from "../cards/card";
 import { assignLanes, type Lane } from "../cards/layout";
 import type { Game } from "../types";
 import { TIMELINE } from "./config";
-import { dayToDate, MONTHS, parseDay, todayEpochDay } from "./dates";
+import { dayToDate, MONTHS, parseDay, todayEpochDay, WEEKDAYS } from "./dates";
 import { TimelineHeader } from "./header";
 import { Minimap } from "./minimap";
 import { bindScrollInput, Scroller } from "./scroller";
@@ -15,9 +15,26 @@ interface Item {
   width: number;
   lane: Lane;
   /** Created lazily the first time the item comes near the viewport. */
-  node?: { root: HTMLElement; connector: SVGSVGElement; card: Card };
+  node?: {
+    root: HTMLElement;
+    connectors: SVGSVGElement[];
+    card: Card;
+    stubPath: SVGPathElement;
+    targetX: number;
+    dir: number;
+  };
   inRange: boolean;
   revealed: boolean;
+}
+
+function svgPath(className: string) {
+  const ns = "http://www.w3.org/2000/svg";
+  const svg = document.createElementNS(ns, "svg");
+  svg.setAttribute("class", className);
+  svg.setAttribute("aria-hidden", "true");
+  const path = document.createElementNS(ns, "path");
+  svg.append(path);
+  return { svg, path };
 }
 
 /** A game the keyboard can land on: dated card or TBA card, in timeline order. */
@@ -31,6 +48,8 @@ interface Palette {
   line: string;
   tick: string;
   label: string;
+  accent: string;
+  onAccent: string;
   font: string;
 }
 
@@ -68,6 +87,7 @@ export class Timeline {
   private current = -1;
   /** True while focus is moved by the timeline itself, which must not re-center the view. */
   private movingFocus = false;
+  private cardScale = 1;
 
   constructor(root: HTMLElement, games: Game[], headerSlot?: HTMLElement) {
     const lastRelease = games
@@ -102,17 +122,25 @@ export class Timeline {
     this.stops = this.buildStops();
 
     this.minimap = this.createMinimap();
-    this.el.append(this.canvas, this.world, this.minimap.el);
+    // Fixed playhead at the center; the timeline scrolls under it (cards stay above it).
+    const playhead = document.createElement("div");
+    playhead.className = "timeline__playhead";
+    playhead.setAttribute("aria-hidden", "true");
+    playhead.style.bottom = `${TIMELINE.minimapBandPx}px`;
+    this.el.append(this.canvas, playhead, this.world, this.minimap.el);
     (headerSlot ?? this.el).append(this.header.el);
     root.append(this.el);
     this.el.addEventListener("focusin", (e) => this.onFocusIn(e));
 
     this.scroller = new Scroller((x) => this.render(x));
+    this.scroller.snap = (x) => this.snapToDay(x);
     bindScrollInput(this.el, this.scroller, {
       dayPx: TIMELINE.dayPx,
+      onDayStep: (days) => this.scroller.scrollTo(this.snapToDay(this.scroller.target) + days * TIMELINE.dayPx),
       onToday: () => this.scroller.scrollTo(this.dayX(this.todayDay)),
-      onHome: () => this.goHome(),
+      onHome: () => this.scroller.scrollTo(0),
       onEnd: () => this.scroller.scrollTo(this.worldEnd),
+      onEscape: () => {},
       onGameStep: (direction) => this.stepGame(direction),
       onKeyNavigate: () => this.followWithFocus(),
     });
@@ -126,12 +154,6 @@ export class Timeline {
     this.render(this.scroller.current);
     // Month labels use the web font; redraw once it has loaded.
     document.fonts.ready.then(() => this.render(this.scroller.current));
-  }
-
-  /** Home: go to today; if already there, go to the start of the line. */
-  private goHome() {
-    const todayX = this.dayX(this.todayDay);
-    this.scroller.scrollTo(Math.abs(this.scroller.target - todayX) < 1 ? 0 : todayX);
   }
 
   /** Center the next / previous game (dated or TBA) relative to where the scroll is heading. */
@@ -217,10 +239,12 @@ export class Timeline {
   /** Scales cards down so they fit between the top bar and the minimap on short windows. */
   private fitCards() {
     const maxLevel = Math.max(0, ...this.items.map((i) => i.lane.level));
-    const need = TIMELINE.cardOffset + TIMELINE.cardMaxHeight + maxLevel * TIMELINE.stackStepY + 12;
-    const room = Math.min(this.lineY, this.height - TIMELINE.minimapBandPx - this.lineY);
-    const scale = Math.max(TIMELINE.minCardScale, Math.min(1, room / need));
-    this.el.style.setProperty("--card-scale", scale.toFixed(3));
+    // The label band (cardOffset) never shrinks; only cards and stacking do.
+    const room = Math.min(this.lineY, this.height - TIMELINE.minimapBandPx - this.lineY) - TIMELINE.cardOffset - 12;
+    const need = TIMELINE.cardMaxHeight + maxLevel * TIMELINE.stackStepY;
+    this.cardScale = Math.max(TIMELINE.minCardScale, Math.min(1, room / need));
+    this.el.style.setProperty("--card-scale", this.cardScale.toFixed(3));
+    for (const item of this.items) if (item.node) this.drawStub(item.node);
   }
 
   private dayX(day: number) {
@@ -245,44 +269,62 @@ export class Timeline {
     return placed.map((p, i) => ({ ...p, lane: lanes[i], inRange: false, revealed: false }));
   }
 
+  /**
+   * Card node: a fixed-length stub from the line to the edge of the label band
+   * (day numbers, months), then a group that scales on short windows with the
+   * card and, for stacked cards, the rest of the connector.
+   */
   private createNode(item: Item) {
     const { side, level, shift } = item.lane;
+    const off = TIMELINE.cardOffset;
+    const dir = side === "above" ? -1 : 1;
     const root = document.createElement("div");
     root.className = `tl-item tl-item--${side}`;
     root.style.left = `${item.x}px`;
     root.style.zIndex = String(10 - level);
 
-    const distance = TIMELINE.cardOffset + level * TIMELINE.stackStepY;
     const cardLeft = -item.width / 2 + shift + level * TIMELINE.stackStepX;
-
     // Straight connector when the card still sits over its date, elbow otherwise.
     const inset = 24;
-    const dir = side === "above" ? -1 : 1;
     const targetX = cardLeft + inset <= 0 && 0 <= cardLeft + item.width - inset ? 0 : cardLeft + inset;
-    const path =
-      targetX === 0
-        ? `M0 0 V${dir * distance}`
-        : `M0 0 V${(dir * distance) / 2} H${targetX} V${dir * distance}`;
-    const svgNs = "http://www.w3.org/2000/svg";
-    const connector = document.createElementNS(svgNs, "svg");
-    connector.setAttribute("class", "tl-item__connector");
-    connector.setAttribute("aria-hidden", "true");
-    const pathEl = document.createElementNS(svgNs, "path");
-    pathEl.setAttribute("d", path);
-    connector.append(pathEl);
+
+    const stub = svgPath("tl-item__connector");
+    const group = document.createElement("div");
+    group.className = "tl-item__group";
+    group.style.top = `${dir * off}px`;
+
+    const connectors: SVGSVGElement[] = [stub.svg];
+    const extra = level * TIMELINE.stackStepY;
+    if (extra > 0) {
+      const rest = svgPath("tl-item__connector");
+      rest.path.setAttribute("d", `M${targetX} 0 V${dir * extra}`);
+      group.append(rest.svg);
+      connectors.push(rest.svg);
+    }
 
     const dot = document.createElement("div");
     dot.className = "tl-item__dot";
 
     const card = createCard(item.game, this.todayDay);
     card.el.style.left = `${cardLeft}px`;
-    card.el.style[side === "above" ? "bottom" : "top"] = `${distance}px`;
+    card.el.style[side === "above" ? "bottom" : "top"] = `${extra}px`;
+    group.append(card.el);
 
-    root.append(connector, dot, card.el);
+    root.append(stub.svg, dot, group);
     this.world.append(root);
-    hideCard(connector, card);
-    return { root, connector, card };
+    const node = { root, connectors, card, stubPath: stub.path, targetX, dir };
+    this.drawStub(node);
+    hideCard(connectors, card);
+    return node;
   }
+
+  /** The stub ends where the scaled group puts the connector, so it follows `--card-scale`. */
+  private drawStub(node: { stubPath: SVGPathElement; targetX: number; dir: number }) {
+    const off = TIMELINE.cardOffset * node.dir;
+    const tx = node.targetX * this.cardScale;
+    node.stubPath.setAttribute("d", tx === 0 ? `M0 0 V${off}` : `M0 0 V${off / 2} H${tx} V${off}`);
+  }
+
 
   private createMinimap() {
     const months = [];
@@ -312,6 +354,7 @@ export class Timeline {
       todayX: this.dayX(this.todayDay),
       tba: this.tbaBlocks.length ? { startX: this.tbaStartX, endX: this.worldEnd } : null,
       onSeek: (x, smooth) => (smooth ? this.scroller.scrollTo(x) : this.scroller.jumpTo(x)),
+      onSeekEnd: () => this.scroller.settle(),
     });
   }
 
@@ -348,16 +391,32 @@ export class Timeline {
   }
 
   /** Header text: year / month on the dated line, block year / "Date TBA" in the TBA zone. */
-  private headerText(center: number): [string, string] {
+  /** Header: "2026 · September · Sat 26" under the playhead; block label / "Date TBA" in the TBA zone. */
+  private headerText(center: number): [string, string, string] {
     const tbaThreshold = this.tbaStartX - TIMELINE.tbaGapPx / 2;
     if (this.tbaBlocks.length && center >= tbaThreshold) {
       const half = TBA_LAYOUT.blockGap / 2;
       const block = [...this.tbaBlocks].reverse().find((b) => center >= b.x - half) ?? this.tbaBlocks[0];
-      return [block.label, "Date TBA"];
+      return [block.label, "Date TBA", ""];
     }
-    const day = Math.min(this.endDay, this.startDay + Math.round(center / TIMELINE.dayPx));
-    const date = dayToDate(day);
-    return [String(date.getUTCFullYear()), MONTHS[date.getUTCMonth()]];
+    const date = dayToDate(this.dayAt(center));
+    return [
+      String(date.getUTCFullYear()),
+      MONTHS[date.getUTCMonth()],
+      `${WEEKDAYS[date.getUTCDay()]} ${date.getUTCDate()}`,
+    ];
+  }
+
+  /** Calendar day under world x (clamped to the dated line). */
+  private dayAt(x: number) {
+    return Math.min(this.endDay, Math.max(this.startDay, this.startDay + Math.round(x / TIMELINE.dayPx)));
+  }
+
+  /** Every glide on the dated line rests exactly on a day; the TBA zone is free. */
+  private snapToDay(x: number) {
+    const lastDayX = this.dayX(this.endDay);
+    if (x > lastDayX + TIMELINE.dayPx / 2) return x;
+    return Math.round(x / TIMELINE.dayPx) * TIMELINE.dayPx;
   }
 
   /** Render only cards near the viewport; reveal each once its date is on screen. */
@@ -375,7 +434,7 @@ export class Timeline {
 
       if (canReveal && item.node && !item.revealed && item.x >= left && item.x <= right) {
         item.revealed = true;
-        revealCard(item.node.connector, item.node.card, item.lane.side);
+        revealCard(item.node.connectors, item.node.card, item.lane.side);
       }
     }
   }
@@ -387,6 +446,8 @@ export class Timeline {
       line: v("--timeline"),
       tick: v("--tick"),
       label: v("--text-muted"),
+      accent: v("--accent"),
+      onAccent: "#fff",
       font: getComputedStyle(document.body).fontFamily,
     };
   }
@@ -430,8 +491,7 @@ export class Timeline {
     }
     this.minimap.update(left, this.width);
 
-    const [primary, secondary] = this.headerText(center);
-    this.header.update(primary, secondary, Math.sign(center - this.lastCenter), this.ready);
+    this.header.update(this.headerText(center), Math.sign(center - this.lastCenter), this.ready);
     this.lastCenter = center;
   }
 
@@ -499,7 +559,9 @@ export class Timeline {
     // --- Ticks: only the visible days.
     const first = Math.max(0, Math.floor(left / dayPx) - 1);
     const last = Math.min(this.endDay - this.startDay, Math.ceil((left + width) / dayPx) + 1);
-    ctx.fillStyle = palette.tick;
+    const center = left + width / 2;
+    // Day under the playhead, or none in the TBA zone.
+    const centerIndex = center <= this.dayX(this.endDay) + dayPx / 2 ? this.dayAt(center) - this.startDay : -1;
     ctx.textAlign = "center";
     ctx.textBaseline = "top";
 
@@ -507,8 +569,7 @@ export class Timeline {
       const day = this.startDay + i;
       const date = dayToDate(day);
       const x = Math.round(i * dayPx - left);
-      const future = day > this.todayDay;
-      ctx.globalAlpha = future ? 0.55 : 1;
+      ctx.globalAlpha = day > this.todayDay ? 0.55 : 1;
 
       let half: number;
       let w: number;
@@ -522,7 +583,15 @@ export class Timeline {
         half = 5;
         w = 1;
       }
+      ctx.fillStyle = palette.tick;
       ctx.fillRect(x - w / 2, y - half, w, half * 2);
+
+      // Day numbers under 1, 5, 10, 15, 20, 25 (the playhead day is drawn below, larger).
+      if (i !== centerIndex && TIMELINE.labeledDays.includes(date.getUTCDate())) {
+        ctx.fillStyle = palette.label;
+        ctx.font = `700 11px ${palette.font}`;
+        ctx.fillText(String(date.getUTCDate()), x, y + 27);
+      }
 
       if (date.getUTCDate() === 1 || i === 0) {
         const month = MONTHS[date.getUTCMonth()].slice(0, 3).toUpperCase();
@@ -534,9 +603,26 @@ export class Timeline {
               : month;
         ctx.fillStyle = palette.label;
         ctx.font = `800 13px ${palette.font}`;
-        ctx.fillText(label, x, y + 30);
-        ctx.fillStyle = palette.tick;
+        ctx.fillText(label, x, y + 46);
       }
+    }
+
+    // --- The day under the playhead: accent tick and its number in a pill.
+    if (centerIndex >= first && centerIndex <= last) {
+      const x = Math.round(centerIndex * dayPx - left);
+      const label = String(dayToDate(this.startDay + centerIndex).getUTCDate());
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = palette.accent;
+      ctx.fillRect(x - 1.5, y - 16, 3, 32);
+      ctx.font = `900 14px ${palette.font}`;
+      const pillW = Math.max(26, ctx.measureText(label).width + 14);
+      ctx.beginPath();
+      ctx.roundRect(x - pillW / 2, y + 22, pillW, 22, 11);
+      ctx.fill();
+      ctx.fillStyle = palette.onAccent;
+      ctx.textBaseline = "middle";
+      ctx.fillText(label, x, y + 33.5);
+      ctx.textBaseline = "top";
     }
     ctx.globalAlpha = 1;
   }

@@ -8,6 +8,8 @@ export const MONTHS = [
   "July", "August", "September", "October", "November", "December",
 ];
 
+export const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
 /** "YYYY-MM-DD" → epoch day. */
 export function parseDay(iso: string): number {
   const [y, m, d] = iso.split("-").map(Number);

@@ -5,13 +5,13 @@ import type { Side } from "./layout";
 const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
 
 /** Hidden state before a card's release date first scrolls into view. */
-export function hideCard(connector: SVGSVGElement | null, card: Card) {
+export function hideCard(connector: SVGSVGElement[] | null, card: Card) {
   gsap.set(card.el, { opacity: 0 });
   if (connector) gsap.set(connector, { scaleY: 0, transformOrigin: "0 0" });
 }
 
 /** One-shot entrance: connector grows, card rises from the line, then rings fill. */
-export function revealCard(connector: SVGSVGElement | null, card: Card, side: Side) {
+export function revealCard(connector: SVGSVGElement[] | null, card: Card, side: Side) {
   if (reducedMotion.matches) {
     if (connector) gsap.set(connector, { scaleY: 1 });
     gsap.set(card.el, { opacity: 1 });

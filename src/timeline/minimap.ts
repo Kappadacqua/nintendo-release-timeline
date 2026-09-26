@@ -7,6 +7,8 @@ export interface MinimapOptions {
   tba: { startX: number; endX: number } | null;
   /** Called with a world x (as the new viewport center). `smooth` is false while scrubbing. */
   onSeek: (x: number, smooth: boolean) => void;
+  /** Scrubbing ended (the timeline snaps to the nearest day). */
+  onSeekEnd?: () => void;
 }
 
 /** Thin overview bar: months, one dot per game, the visible window; click or drag to jump. */
@@ -82,6 +84,7 @@ export class Minimap {
       if (scrubbing) this.opts.onSeek(this.worldXAt(e.clientX), false);
     });
     const end = () => {
+      if (scrubbing) this.opts.onSeekEnd?.();
       scrubbing = false;
       this.el.classList.remove("is-scrubbing");
     };
