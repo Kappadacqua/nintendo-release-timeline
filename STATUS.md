@@ -1,6 +1,6 @@
 # Stato del progetto
 
-Aggiornato: 2026-09-27 — Revisione qualità, task 1 (controlli automatici)
+Aggiornato: 2026-09-27 — Revisione qualità, task 2 (pagine Rankings e Studios)
 
 ## Ultimo checkpoint
 
@@ -12,6 +12,8 @@ Aggiornato: 2026-09-27 — Revisione qualità, task 1 (controlli automatici)
 Nessuno.
 
 ## Da verificare nel browser (Architetto)
+
+- Revisione, task 2 (solo documento, niente da vedere nel browser): `docs/review/pages.md` — 12 problemi (1 alta, 3 media, 8 bassa) da smistare in task di correzione. Alta: uno studio con gioco Switch 2 può mostrare un gioco Switch 1 (`scripts/lib/studios.ts`).
 
 - Revisione, task 1 (solo documento, niente da vedere nel browser): `docs/review/static.md` — 17 problemi (0 alta, 5 media, 12 bassa) da smistare in task di correzione. Coda in `docs/tasks/review.md`.
 
@@ -50,10 +52,11 @@ Nessuno.
 6. **Studios: giochi senza sviluppatore** — 3 giochi first party non hanno sviluppatore su IGDB e non vanno a nessuno studio (si sistemano con `developer` negli override dei giochi).
 7. **Studios: ordine** — l'ordine è ricalcolato nella pagina sul gioco *mostrato*: gli studi senza gioco Switch 2 (anche se `game` contiene un gioco Switch 1) e quelli con gioco Switch 2 senza data finiscono nel gruppo finale alfabetico.
 8. **Reduced motion incompleto** — titolo in alto a sinistra (`header.css:43`) e icona del tema (`theme.ts:44`) si muovono anche con `prefers-reduced-motion` (dettagli in `docs/review/static.md`).
+9. **Studios: gioco mostrato fissato alla build** — `studios.json` contiene un solo gioco per studio, scelto con la data UTC della build: quando esce, la pagina lo mostra come uscito anche se lo studio ha già il gioco successivo, finché non si rifà `data:build` (dettagli in `docs/review/pages.md`).
 
 ## Prossimi task (in ordine)
 
-0. Coda `docs/tasks/review.md`: task 2 (revisione pagine Rankings/Studios).
+0. Coda `docs/tasks/review.md`: task 3 (revisione pipeline dati).
 1. Verifica nel browser delle correzioni di `ec1c916` (Architetto).
 2. Correzioni emerse dalla verifica, un task per sessione.
 

@@ -21,7 +21,7 @@ Controlli:
 6. Animazioni (GSAP o CSS) che non rispettano prefers-reduced-motion: cerca dove sono definite e verifica il controllo, senza leggere i file interi.
 Verifica: elenca in cima al file dei risultati i comandi usati, così i controlli si possono ripetere.
 
-## [ ] Task 2 — Revisione delle pagine nuove
+## [x] Task 2 — Revisione delle pagine nuove
 Task: rivedere la logica delle pagine Rankings e Studios rispetto alla specifica.
 File da leggere: src/rankings/main.ts, src/studios/main.ts, src/games.ts, src/timeline/dates.ts; docs/SPEC.md solo §12 (Rankings) e §14 (Studios).
 Risultati in: docs/review/pages.md
