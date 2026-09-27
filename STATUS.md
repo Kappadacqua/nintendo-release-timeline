@@ -1,6 +1,6 @@
 # Stato del progetto
 
-Aggiornato: 2026-09-27 — Revisione qualità, task 2 (pagine Rankings e Studios)
+Aggiornato: 2026-09-27 — Revisione qualità, task 3 (pipeline dati)
 
 ## Ultimo checkpoint
 
@@ -12,6 +12,8 @@ Aggiornato: 2026-09-27 — Revisione qualità, task 2 (pagine Rankings e Studios
 Nessuno.
 
 ## Da verificare nel browser (Architetto)
+
+- Revisione, task 3 (solo documento, niente da vedere nel browser): `docs/review/data.md` — 16 problemi (0 alta, 6 media, 10 bassa) da smistare in task di correzione. `data:build` funziona senza rete e senza cache ed è idempotente; i rischi principali sono negli script di fetch (niente timeout, errori MediaWiki non riconosciuti, link degli aggiornamenti gratuiti persi se una fonte fallisce).
 
 - Revisione, task 2 (solo documento, niente da vedere nel browser): `docs/review/pages.md` — 12 problemi (1 alta, 3 media, 8 bassa) da smistare in task di correzione. Alta: uno studio con gioco Switch 2 può mostrare un gioco Switch 1 (`scripts/lib/studios.ts`).
 
@@ -53,10 +55,11 @@ Nessuno.
 7. **Studios: ordine** — l'ordine è ricalcolato nella pagina sul gioco *mostrato*: gli studi senza gioco Switch 2 (anche se `game` contiene un gioco Switch 1) e quelli con gioco Switch 2 senza data finiscono nel gruppo finale alfabetico.
 8. **Reduced motion incompleto** — titolo in alto a sinistra (`header.css:43`) e icona del tema (`theme.ts:44`) si muovono anche con `prefers-reduced-motion` (dettagli in `docs/review/static.md`).
 9. **Studios: gioco mostrato fissato alla build** — `studios.json` contiene un solo gioco per studio, scelto con la data UTC della build: quando esce, la pagina lo mostra come uscito anche se lo studio ha già il gioco successivo, finché non si rifà `data:build` (dettagli in `docs/review/pages.md`).
+10. **Studios: giochi di studi nascosti non segnalati** — "DK Challenge" e "The Legend of Zelda: Ocarina of Time" (sviluppatore IGDB "Nintendo", nascosto) non vanno a nessuno studio e `data:validate` non li elenca (dettagli in `docs/review/data.md`).
 
 ## Prossimi task (in ordine)
 
-0. Coda `docs/tasks/review.md`: task 3 (revisione pipeline dati).
+0. Coda `docs/tasks/review.md`: task 4 (test automatici con Vitest).
 1. Verifica nel browser delle correzioni di `ec1c916` (Architetto).
 2. Correzioni emerse dalla verifica, un task per sessione.
 

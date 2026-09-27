@@ -31,7 +31,7 @@ Cosa cercare:
 - Date e fusi orari: "uscito oggi" e tempi relativi coerenti con la timeline, nel fuso locale.
 - Logica duplicata tra le due pagine o con src/filters.ts che potrebbe divergere nel tempo.
 
-## [ ] Task 3 — Revisione della pipeline dati nuova
+## [x] Task 3 — Revisione della pipeline dati nuova
 Task: rivedere gli script di dati per aggiornamenti gratuiti e studi.
 File da leggere: scripts/lib/free-updates.ts, scripts/lib/studios.ts, scripts/lib/fandom.ts, scripts/fetch-free-updates.ts, scripts/fetch-studios.ts; in scripts/lib/build.ts solo le parti che li richiamano (trovale con grep).
 Risultati in: docs/review/data.md
