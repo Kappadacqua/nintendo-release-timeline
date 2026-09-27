@@ -2118,3 +2118,66 @@ kbd {
   display: flex;
   gap: 6px;
 }
+
+/* ---------- Minimap preview and draggable window (ITERATION-4 §7) ---------- */
+
+.minimap.is-over-window {
+  cursor: grab;
+}
+
+.minimap.is-scrubbing {
+  cursor: grabbing;
+}
+
+.minimap__preview {
+  position: absolute;
+  z-index: 2;
+  bottom: calc(100% + 10px);
+  display: grid;
+  gap: 8px;
+  width: max-content;
+  max-width: 280px;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--card);
+  box-shadow: var(--card-shadow-hover);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.minimap__preview[hidden] {
+  display: none;
+}
+
+.minimap__preview-game {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.minimap__preview-game img {
+  flex: none;
+  width: 36px;
+  height: 48px;
+  border-radius: 5px;
+  object-fit: cover;
+  background: var(--surface-2);
+}
+
+.minimap__preview-game strong,
+.minimap__preview-game small {
+  display: block;
+}
+
+.minimap__preview-game strong {
+  font-size: 13px;
+  line-height: 1.25;
+}
+
+.minimap__preview-game small {
+  margin-top: 2px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+}

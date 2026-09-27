@@ -37,6 +37,13 @@ interface Item {
   revealed: boolean;
 }
 
+/** "Nov 12, 2026", or the vague label / "Date TBA" (minimap preview). */
+function whenLabel(game: Game) {
+  if (!game.firstReleaseDate) return game.vagueRelease ? `Expected ${game.vagueRelease.label}` : "Date TBA";
+  const d = dayToDate(parseDay(game.firstReleaseDate));
+  return `${MONTHS[d.getUTCMonth()].slice(0, 3)} ${d.getUTCDate()}, ${d.getUTCFullYear()}`;
+}
+
 function svgPath(className: string) {
   const ns = "http://www.w3.org/2000/svg";
   const svg = document.createElementNS(ns, "svg");
@@ -200,6 +207,7 @@ export class Timeline {
       },
       onEscape: () => this.deselect(),
       onDragStart: () => this.deselect(),
+      onMonthStep: (months) => this.stepMonth(months),
       onGameStep: (direction) => this.stepGame(direction),
       onKeyNavigate: () => this.followWithFocus(),
     });
@@ -234,6 +242,18 @@ export class Timeline {
       next = direction > 0 ? this.stops.findIndex((s) => s.x > at + 0.5) : this.stops.findLastIndex((s) => s.x < at - 0.5);
     }
     if (next >= 0 && next < this.stops.length) this.select(next);
+  }
+
+  /**
+   * "[" / "]", Shift + wheel (ITERATION-4 §8): the 1st of the previous / next month.
+   * Going back from mid-month, the first step lands on the 1st of the current month.
+   */
+  private stepMonth(months: number) {
+    this.deselect();
+    const date = dayToDate(this.dayAt(this.snapToDay(this.scroller.target)));
+    const steps = months < 0 && date.getUTCDate() > 1 ? months + 1 : months;
+    const first = Date.UTC(date.getUTCFullYear(), date.getUTCMonth() + steps, 1) / 86_400_000;
+    this.scroller.scrollTo(this.dayX(Math.min(this.endDay, Math.max(this.startDay, first))));
   }
 
   /** Removes the timeline and every listener it registered (it is rebuilt when filters change). */
@@ -639,7 +659,7 @@ export class Timeline {
       kind: game.kind,
       fresh: !!news.unseenFor(game.id),
       upcoming: !game.firstReleaseDate || parseDay(game.firstReleaseDate) > this.todayDay,
-      title: game.title,
+      games: [{ title: game.title, coverUrl: game.coverUrl, when: whenLabel(game) }],
     }));
     return new Minimap({
       worldEnd: this.worldEnd,

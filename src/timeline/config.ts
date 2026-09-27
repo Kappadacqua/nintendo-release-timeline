@@ -13,12 +13,18 @@ export const TIMELINE = {
   wheelNotchUnitPx: 100,
   /** Trackpad: small deltas add up to this many px before moving one day. */
   trackpadDayPx: 40,
+  /** Trackpad with Shift: this many px per month. */
+  trackpadMonthPx: 160,
   /** Day numbers are printed under the ticks of these days of the month. */
   labeledDays: [1, 5, 10, 15, 20, 25],
   /** Fraction of the remaining distance covered per 60fps frame (lower = more inertia). */
   smoothing: 0.16,
-  /** How far a drag release keeps gliding, in ms of release velocity. */
-  flingMs: 220,
+  /** Drag inertia (ITERATION-4 §10): speed kept per 60fps frame (lower = more friction). */
+  flingFriction: 0.94,
+  /** Below this release speed (px/ms) a drag just snaps: no inertia from a slow or tiny move. */
+  flingMinVelocity: 0.35,
+  /** Inertia ends (and snaps) once it slows below this speed (px/ms). */
+  flingStopVelocity: 0.08,
 
   /** Distance from the line to the nearest card: the band for day numbers and months, never scaled. */
   cardOffset: 64,

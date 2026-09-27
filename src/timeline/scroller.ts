@@ -15,6 +15,8 @@ export class Scroller {
   private max = 0;
   private frame = 0;
   private lastTime = 0;
+  /** Drag release inertia (px/ms, world direction); 0 = plain easing toward `target`. */
+  private velocity = 0;
 
   constructor(private onChange: (x: number) => void) {}
 
@@ -31,9 +33,10 @@ export class Scroller {
     this.scrollTo(this.target + dx);
   }
 
-  /** Glide to `x`, snapped. */
+  /** Glide to `x`, snapped. Also ends any inertia (new input wins at once). */
   scrollTo(x: number) {
     if (!Number.isFinite(x)) return;
+    this.velocity = 0;
     const to = this.clamp(this.snap(this.clamp(x)));
     // Reduced motion: no glide, just go there.
     if (reducedMotion.matches) return this.jumpTo(to);
@@ -49,8 +52,32 @@ export class Scroller {
     this.scrollTo(this.target);
   }
 
+  /**
+   * After a drag (ITERATION-4 §10): keeps moving at the gesture's speed, slowing down by
+   * `flingFriction`, then rests on the nearest snap point. A slow release just snaps.
+   */
+  fling(velocity: number) {
+    if (reducedMotion.matches || Math.abs(velocity) < TIMELINE.flingMinVelocity) return this.settle();
+    this.velocity = velocity;
+    this.target = this.current;
+    this.start();
+  }
+
+  /** Inertia in progress? (a click during it stops it instead of selecting). */
+  get gliding() {
+    return this.velocity !== 0;
+  }
+
+  /** Stops inertia where it is and rests on the nearest snap point. */
+  halt() {
+    if (!this.velocity) return;
+    this.velocity = 0;
+    this.scrollTo(this.current);
+  }
+
   /** Move instantly (no easing), e.g. while dragging or on first render. */
   jumpTo(x: number) {
+    this.velocity = 0;
     this.target = this.current = this.clamp(x);
     this.stop();
     this.onChange(this.current);
@@ -79,6 +106,21 @@ export class Scroller {
   private tick = (now: number) => {
     const dt = Math.min(64, now - this.lastTime);
     this.lastTime = now;
+    if (this.velocity) {
+      // Inertia: free movement with friction; the bounds stop it dead (no bounce).
+      const next = this.clamp(this.current + this.velocity * dt);
+      const hitEdge = next !== this.current + this.velocity * dt;
+      this.current = this.target = next;
+      this.velocity *= Math.pow(TIMELINE.flingFriction, dt / (1000 / 60));
+      this.onChange(this.current);
+      if (hitEdge || Math.abs(this.velocity) < TIMELINE.flingStopVelocity) {
+        this.frame = 0;
+        this.scrollTo(this.current);
+      } else {
+        this.frame = requestAnimationFrame(this.tick);
+      }
+      return;
+    }
     // Frame-rate independent exponential easing.
     const k = 1 - Math.pow(1 - TIMELINE.smoothing, dt / (1000 / 60));
     this.current += (this.target - this.current) * k;
@@ -123,6 +165,8 @@ export function bindScrollInput(
     onEscape: () => void;
     /** A press turned into a drag. */
     onDragStart: () => void;
+    /** "[" / "]", Shift + wheel: to the first day of the previous / next month(s). */
+    onMonthStep: (months: number) => void;
     /** Page Down / Page Up: jump to the next / previous game. */
     onGameStep: (direction: 1 | -1) => void;
     /** After any keyboard navigation (lets focus follow the centered game). */
@@ -144,17 +188,20 @@ export function bindScrollInput(
       if (debugWheel) {
         console.log("[wheel]", { deltaX: e.deltaX, deltaY: e.deltaY, deltaMode: e.deltaMode, notches, accumulated: wheelAcc });
       }
+      // Shift + wheel: a month per notch (ITERATION-4 §8); trackpads need a longer swipe for it.
+      const step = e.shiftKey ? opts.onMonthStep : opts.onDayStep;
+      const unit = e.shiftKey ? TIMELINE.trackpadMonthPx : TIMELINE.trackpadDayPx;
       if (notches) {
         wheelAcc = 0;
-        opts.onDayStep(Math.sign(delta) * notches);
+        step(Math.sign(delta) * notches);
         return;
       }
       if (Math.sign(delta) !== Math.sign(wheelAcc)) wheelAcc = 0;
       wheelAcc += delta;
-      const days = Math.trunc(wheelAcc / TIMELINE.trackpadDayPx);
-      if (days) {
-        wheelAcc -= days * TIMELINE.trackpadDayPx;
-        opts.onDayStep(days);
+      const steps = Math.trunc(wheelAcc / unit);
+      if (steps) {
+        wheelAcc -= steps * unit;
+        step(steps);
       }
     },
     { passive: false },
@@ -172,6 +219,9 @@ export function bindScrollInput(
 
   el.addEventListener("pointerdown", (e) => {
     if (e.button !== 0) return;
+    // A press during inertia stops it, and does not count as a click on a card.
+    suppressClick = scroller.gliding;
+    scroller.halt();
     pressed = true;
     dragging = false;
     startX = lastX = e.clientX;
@@ -204,8 +254,8 @@ export function bindScrollInput(
     // The click that follows a drag must not follow a link.
     suppressClick = true;
     setTimeout(() => (suppressClick = false), 0);
-    // Fling if the pointer was still moving, then rest on the nearest day either way.
-    scroller.scrollTo(scroller.current + (e.timeStamp - lastT < 80 ? velocity * TIMELINE.flingMs : 0));
+    // Inertia if the pointer was still moving at release; otherwise just rest on the nearest day.
+    scroller.fling(e.timeStamp - lastT < 80 ? velocity : 0);
   };
   el.addEventListener("pointerup", endPress);
   el.addEventListener("pointercancel", endPress);
@@ -214,6 +264,7 @@ export function bindScrollInput(
     "click",
     (e) => {
       if (!suppressClick) return;
+      suppressClick = false;
       e.preventDefault();
       e.stopPropagation();
     },
@@ -223,7 +274,8 @@ export function bindScrollInput(
   el.addEventListener("dragstart", (e) => e.preventDefault());
 
   const onKey = (e: KeyboardEvent) => {
-    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    // AltGr (Ctrl+Alt on Windows) types "[" and "]" on many layouts, e.g. Italian.
+    if ((e.ctrlKey || e.metaKey || e.altKey) && !e.getModifierState("AltGraph")) return;
     const t = e.target instanceof HTMLElement ? e.target : null;
     if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName) || t.closest("dialog"))) return;
 
@@ -234,6 +286,8 @@ export function bindScrollInput(
     else if (e.key === "t" || e.key === "T") opts.onToday();
     else if (e.key === "Home") opts.onHome();
     else if (e.key === "End") opts.onEnd();
+    else if (e.key === "]") opts.onMonthStep(1);
+    else if (e.key === "[") opts.onMonthStep(-1);
     else if (e.key === "PageDown") opts.onGameStep(1);
     else if (e.key === "PageUp") opts.onGameStep(-1);
     else return;
