@@ -2,6 +2,7 @@ import "./styles/main.css";
 import { applyFilters, FiltersControl, loadFilters } from "./filters";
 import { news } from "./news";
 import { Search } from "./search";
+import { Presentation } from "./presentation";
 import { initTheme } from "./theme/theme";
 import { Timeline } from "./timeline/timeline";
 import { ZOOM_LEVELS, type ZoomLevel } from "./timeline/zoom";
@@ -18,12 +19,14 @@ const toggleShortcuts = () => (shortcuts.open ? shortcuts.close() : shortcuts.sh
 document.querySelector(".shortcuts-toggle")!.addEventListener("click", toggleShortcuts);
 /** Global keys that are not timeline navigation: "?" (shortcuts) and "/" (search). */
 let openSearch = () => {};
+let togglePresentation = () => {};
 window.addEventListener("keydown", (e) => {
   if (e.ctrlKey || e.metaKey || e.altKey) return;
   const t = e.target instanceof HTMLElement ? e.target : null;
   if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName) || t.closest("dialog"))) return;
   if (e.key === "?") toggleShortcuts();
   else if (e.key === "/") openSearch();
+  else if (e.key === "p" || e.key === "P") togglePresentation();
   else return;
   e.preventDefault();
 });
@@ -136,11 +139,24 @@ Promise.all([loadGames(), loadChanges()])
     });
     control.setCount(applyFilters(allGames, filters).length, allGames.length);
 
-    new ViewMenu(document.querySelector<HTMLElement>(".app-header__actions")!, view, (next, changed) => {
-      view = next;
-      if (changed === "cardStyle") timeline.setCompact(view.cardStyle === "compact");
-      if (changed === "groupSameDay") rebuild();
-    });
+    // Presentation (ITERATION-4 §9): always at the Day level.
+    const presentation = new Presentation(() => timeline);
+    const startPresentation = () => {
+      if (zoom !== "day") zoomTo("day");
+      presentation.start();
+    };
+    togglePresentation = () => (presentation.isActive ? presentation.stop() : startPresentation());
+
+    new ViewMenu(
+      document.querySelector<HTMLElement>(".app-header__actions")!,
+      view,
+      (next, changed) => {
+        view = next;
+        if (changed === "cardStyle") timeline.setCompact(view.cardStyle === "compact");
+        if (changed === "groupSameDay") rebuild();
+      },
+      [{ label: "Start presentation", key: "P", run: startPresentation }],
+    );
 
     new WhatsNew(
       document.querySelector<HTMLElement>(".app-header__actions")!,

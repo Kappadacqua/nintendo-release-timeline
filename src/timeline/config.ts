@@ -49,6 +49,10 @@ export const TIMELINE = {
   zoomCooldownMs: 350,
   /** Trackpad pinch: this many px of Ctrl + wheel delta make one zoom step. */
   zoomPinchPx: 60,
+  /** Presentation mode (ITERATION-4 §9): seconds on each game. */
+  presentationSeconds: 6,
+  /** Presentation: the pointer hides after this long without moving. */
+  presentationCursorMs: 2500,
   /** Cards never shrink below this scale on short windows. */
   minCardScale: 0.55,
 };

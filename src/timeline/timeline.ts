@@ -350,6 +350,21 @@ export class Timeline {
     if (state.selectedId) this.selectById(state.selectedId);
   }
 
+  /**
+   * Presentation (ITERATION-4 §9): the game after the selected one, or the first one after
+   * the playhead; past the last game with a precise date, back to the first (no TBA zone).
+   */
+  presentNext() {
+    const dated = (i: number) => i >= 0 && i < this.stops.length && !!this.stops[i].game.firstReleaseDate;
+    let next = this.selected >= 0 ? this.selected + 1 : this.stops.findIndex((s) => s.x >= this.scroller.target - 0.5);
+    if (!dated(next)) next = this.stops.findIndex((s) => !!s.game.firstReleaseDate);
+    if (next >= 0) this.select(next);
+  }
+
+  get hasSelection() {
+    return this.selected >= 0;
+  }
+
   /** Selects a game by id, e.g. from search (ITERATION-3); returns false if it isn't on the timeline. */
   selectById(gameId: string) {
     const index = this.stops.findIndex((s) => s.game.id === gameId);

@@ -56,6 +56,8 @@ export class ViewMenu {
     host: HTMLElement,
     initial: ViewSettings,
     private readonly onChange: (v: ViewSettings, changed: keyof ViewSettings) => void,
+    /** Commands at the bottom of the panel (e.g. the presentation). */
+    actions: { label: string; key?: string; run: () => void }[] = [],
   ) {
     this.view = initial;
     const wrap = document.createElement("div");
@@ -75,6 +77,22 @@ export class ViewMenu {
     this.panel.setAttribute("aria-label", "View settings");
     for (const choice of CHOICES) this.panel.append(this.segmented(choice));
     this.panel.append(this.toggle("groupSameDay", "Group same-day releases", "3 or more games on one day become one group"));
+    for (const action of actions) {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "view-menu__action";
+      b.textContent = action.label;
+      if (action.key) {
+        const kbd = document.createElement("kbd");
+        kbd.textContent = action.key;
+        b.append(kbd);
+      }
+      b.addEventListener("click", () => {
+        this.setOpen(false);
+        action.run();
+      });
+      this.panel.append(b);
+    }
     wrap.append(this.button, this.panel);
     host.prepend(wrap);
 
