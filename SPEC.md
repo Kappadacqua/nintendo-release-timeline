@@ -4,7 +4,7 @@ Sito desktop che mostra, su una timeline orizzontale scorrevole, i giochi Ninten
 
 Per ora il sito è solo per uso personale in locale; la pubblicazione su GitHub Pages arriverà più avanti. Il codice è su GitHub nel repository privato `Kappadacqua/nintendo-release-timeline`.
 
-> **Stato:** milestone 1–6, `ITERATION-2.md` e `ITERATION-3.md` completate. Dove un documento di iterazione è in contrasto con questo, vale l'iterazione.
+> **Stato:** milestone 1–6, `ITERATION-2.md`, `ITERATION-3.md` e `ITERATION-4.md` completate. Dove un documento di iterazione è in contrasto con questo, vale l'iterazione.
 
 ---
 
@@ -62,10 +62,14 @@ Per ora il sito è solo per uso personale in locale; la pubblicazione su GitHub 
   whats-new.ts           # pulsante e pannello "What's new"
   search.ts              # ricerca rapida
   filters.ts             # filtri dell'header
+  view.ts                # menu "View" (stile card, raggruppamento, presentazione)
+  zoom-control.ts        # selettore Day / Week / Month e transizione di zoom
+  presentation.ts        # modalità presentazione
   admin/                 # pannello admin (admin.html, solo in sviluppo)
-  timeline/              # timeline (selezione compresa), scroll, header data, minimappa, zona TBA,
-                         # sfondo del gioco selezionato (backdrop.ts), titolo del sito (site-title.ts), config
-  cards/                 # card, card espansa (expand.ts), cerchietti, layout collisioni, animazioni,
+  timeline/              # timeline (selezione compresa), scroll e inerzia, header data, minimappa, zona TBA,
+                         # sfondo del gioco selezionato (backdrop.ts), titolo del sito (site-title.ts), config,
+                         # livelli di zoom (zoom.ts), tacche (ticks.ts), gruppi dello stesso giorno (group.ts)
+  cards/                 # card, card espansa (expand.ts), card compatte (compact.ts), cerchietti, layout collisioni, animazioni,
                          # coriandoli (confetti.ts), bandiere, nomi sviluppatori
   theme/                 # tema giorno/notte
   styles/main.css        # tutti i token e gli stili
@@ -279,35 +283,57 @@ Il primo snapshot fa da base: nessun gioco è "new" rispetto a esso.
 - **Linea orizzontale rossa** dal 5/6/2025 all'ultima data precisa (o a oggi) + 60 giorni, con un pallino e l'etichetta della data iniziale; poi, dopo uno stacco con segno di interruzione (//), la **zona TBA**. La linea è centrata verticalmente nello spazio sopra la minimappa.
 - **Passato vs futuro**: linea piena nel passato, tratteggiata e più chiara nel futuro.
 - **Indicatore centrale** (playhead): linea verticale sottile fissa al centro; la timeline scorre sotto di essa, le card le passano sopra. Il giorno sotto l'indicatore ha la tacca in evidenza e il numero in una pillola rossa.
-- **Tacche** (32px per giorno, `dayPx` in `src/timeline/config.ts`): giorno corta, lunedì media, inizio mese alta. Numero del giorno sotto i giorni 1, 5, 10, 15, 20, 25 (`labeledDays`), etichetta del mese sotto i numeri (con l'anno a gennaio). Linea e tacche sono disegnate su canvas, solo per la parte visibile.
+- **Tacche** (livello Day: 32px per giorno, scale in `src/timeline/zoom.ts`): giorno corta, lunedì media, inizio mese alta. Numero del giorno sotto i giorni 1, 5, 10, 15, 20, 25 (`labeledDays`), etichetta del mese sotto i numeri (con l'anno a gennaio). Linea e tacche sono disegnate su canvas, solo per la parte visibile (`ticks.ts`).
+- **Fasce dei mesi**: un mese sì e uno no appena tinto (`--month-band`), dal bordo alto alla minimappa, dietro linea e card; solo sulla linea datata.
+- **Pallini per tipo**, sulla linea e nella minimappa: gioco rosso (`--timeline`), Switch 2 Edition diviso a metà nei due colori Joy-Con (`--joycon-left` / `--joycon-right`), DLC viola (`--dlc`) e quadrato. Pieno se uscito, anello se futuro. Legenda nel dialogo "?".
 - **Header** al centro della barra in alto: la data sotto l'indicatore, `2026 · September · Sat 26`; anno, mese e giorno si animano ognuno per conto suo nella direzione dello scroll. Nella zona TBA: "2027 · Date TBA" per i blocchi con anno, solo "Date TBA" per quello senza; l'indicatore centrale lì è nascosto.
-- **Aggancio al giorno**: ogni movimento (rotella, frecce, fine del trascinamento, minimappa) si ferma esattamente su un giorno; la zona TBA è libera.
+- **Aggancio al giorno**: ogni movimento (rotella, frecce, fine del trascinamento, minimappa) si ferma esattamente su un giorno (Week: sul lunedì; Month: sul 1° del mese); la zona TBA è libera.
 - **All'apertura** la timeline è centrata su **oggi** (fuso orario locale), con l'indicatore **"Today"** pulsante.
 - **Zona TBA**: blocchi per anno ("2026", "2027"…, poi "TBA"), tratteggiati, con le card dei giochi senza data precisa, collegati da una linea puntinata.
-- **Minimappa** in basso: mesi (anno a gennaio), un puntino per gioco (pieno se uscito, vuoto se futuro, quadrato se DLC, titolo al passaggio del mouse; **blu, più grande e con alone** se il gioco ha novità non viste, §8), lineetta su oggi, zona TBA a righe, riquadro della porzione visibile. Clic = salto con scorrimento; trascinamento = segue in diretta.
+- **Minimappa** in basso: mesi (anno a gennaio), un puntino per gioco (colore e forma per tipo come sulla linea; **blu, più grande e con alone** se il gioco ha novità non viste, §8; un solo punto più grande per un gruppo dello stesso giorno), lineetta su oggi, zona TBA a righe, riquadro della porzione visibile. Clic = salto con scorrimento; trascinamento = segue in diretta. Al passaggio del mouse su un punto, anteprima con copertina, titolo e data (tutti i giochi, per un gruppo). Il **riquadro si trascina**: la timeline lo segue in tempo reale (un clic senza movimento resta un salto).
+- **Uscite dello stesso giorno** (opzione "Group same-day releases" nel menu View, accesa di default): da **3 giochi** in su nello stesso giorno (dopo i filtri) compare un **gruppo** — copertine sovrapposte a ventaglio chiuso, "N games" e la data, pallino più grande. Clic sul gruppo o PagGiù che ci arriva: le card si **aprono a ventaglio** attorno alla data (sovrapposte, leggermente ruotate, attenuate senza trasparenza) e si seleziona il primo gioco; PagSu che ci arriva da dopo seleziona l'ultimo, così il gruppo si percorre nei due versi. Dentro, PagSu/PagGiù scorrono i suoi giochi e poi proseguono; uscendo o deselezionando il ventaglio si richiude. Il ventaglio sta nella larghezza visibile. Con l'opzione spenta, card singole.
 - **Rinvii**: nella posizione della data originale un cerchietto tratteggiato ("fantasma"), collegato da un arco tratteggiato al pallino della nuova data (solo il fantasma se il gioco è tornato TBA).
 - **Collisioni**: assegnazione a corsie sopra/sotto la linea; una card può scivolare di lato fino al 60% della larghezza (connettore a gomito) prima di impilarsi a mazzo; la card sotto il mouse o con il focus va in primo piano.
 - **Finestre basse**: le card si rimpiccioliscono (fino a 0.55) per stare fra la barra in alto e la minimappa. La fascia sotto la linea con numeri e mesi (`cardOffset`, 64px) non si restringe mai: il primo tratto del connettore resta fisso, si scala solo il gruppo con la card.
 - **Performance**: card create solo quando si avvicinano al viewport e nascoste quando sono lontane; 60fps misurati durante lo scorrimento.
 
+### Livelli di zoom
+
+Tre livelli: **Day** (32px/giorno), **Week** (8px/giorno), **Month** (2,6px/giorno). Si cambiano con **Ctrl + rotella** (anche il pizzico del trackpad; al massimo un livello ogni 350ms), i tasti **+** / **−**, o il selettore **Day · Week · Month** in alto a destra nella timeline, che mostra il livello attuale. La pagina si apre sempre a Day.
+
+- Il cambio ricostruisce la timeline alla nuova scala centrata sullo stesso giorno, con una transizione animata attorno all'indicatore: la vista vecchia si ingrandisce (zoom in) o si rimpicciolisce (zoom out) svanendo, la nuova arriva dal verso opposto; la minimappa non si anima.
+- Week / Month: rotella e frecce avanzano di una settimana / un mese (Shift: 4 settimane / 3 mesi); tacche ai lunedì con le settimane numerate ("W23") o solo ai mesi; la pillola dell'indicatore mostra "W39" o "SEP". L'header mostra sempre la data sotto l'indicatore.
+- Week / Month: le card (anche nella zona TBA) sono **solo copertina**, qualunque sia lo stile scelto; il titolo compare al passaggio del mouse. I gruppi dello stesso giorno si rimpiccioliscono ("8 games").
+- Selezionare un gioco da Week o Month (clic, PagSu/PagGiù, ricerca, novità) riporta a **Day** con il gioco selezionato; passando a Week o Month la selezione si toglie.
+
+### Modalità presentazione
+
+- Tasto **P** o "Start presentation" nel menu View; da Week / Month riporta prima a Day.
+- Parte dalla posizione attuale (dal gioco selezionato, o dal primo dopo l'indicatore) e passa al successivo ogni **6 secondi** (`presentationSeconds` in `config.ts`), con selezione, sfondo e animazioni come PagGiù. Rispetta i filtri; dopo l'ultimo gioco con data precisa ricomincia da capo (zona TBA esclusa).
+- **Spazio** mette in pausa e riprende; qualsiasi altro input (rotella, clic, tasti) la ferma e fa il suo effetto normale.
+- Una barra sottile in basso mostra il tempo prima del gioco successivo; un breve avviso dice come controllarla; il cursore si nasconde dopo 2,5s di immobilità.
+
 ### Controlli
 
 | Input | Azione |
 |---|---|
-| Rotella del mouse | 1 scatto = 1 giorno, sommato alla destinazione (l'animazione la insegue). Modalità righe/pagine (`deltaMode` 1/2): 1 giorno per evento. Modalità pixel: un evento ≥ `wheelNotchPx` (40px) è uno scatto; se il browser ha unito più scatti vale `floor(delta / wheelNotchUnitPx)` giorni (100px). `?debug=wheel` stampa ogni evento in console |
+| Rotella del mouse | 1 scatto = 1 giorno (Week / Month: una settimana / un mese; Shift: un mese a qualsiasi livello), sommato alla destinazione (l'animazione la insegue). Modalità righe/pagine (`deltaMode` 1/2): 1 giorno per evento. Modalità pixel: un evento ≥ `wheelNotchPx` (40px) è uno scatto; se il browser ha unito più scatti vale `floor(delta / wheelNotchUnitPx)` giorni (100px). `?debug=wheel` stampa ogni evento in console |
 | Trackpad | Solo i delta sotto `wheelNotchPx` si sommano, `trackpadDayPx` (40px) per giorno |
-| Trascinamento | Scorrimento libero con slancio; al rilascio aggancio al giorno più vicino (parte dopo 5px, così i clic sulle card restano clic) |
-| ← / → | Un giorno (Shift: una settimana) |
+| Trascinamento | Scorrimento libero (parte dopo 5px, così i clic sulle card restano clic). Rilasciando mentre si muove, **inerzia**: continua alla velocità del gesto e rallenta per attrito (`flingFriction`), poi si aggancia; un trascinamento lento o breve (sotto `flingMinVelocity`) si aggancia subito. Qualsiasi input la ferma (un clic durante l'inerzia non seleziona), si ferma ai limiti della timeline; niente inerzia con `prefers-reduced-motion` |
+| Ctrl + rotella, + / − | Livello di zoom (Day, Week, Month) |
+| ← / → | Un giorno (Shift: una settimana); a Week / Month una settimana / un mese |
+| [ / ] | Mese precedente / successivo (il 1° del mese); funziona anche con AltGr (tastiera italiana) |
+| P / Spazio | Avvia o ferma la presentazione / pausa |
 | PagSu / PagGiù | Seleziona il gioco precedente / successivo (§7) |
 | Home / Fine | Inizio della timeline / zona TBA |
 | T | Oggi |
 | Esc | Deseleziona |
-| Clic sulla minimappa | Salto al punto scelto (trascinando: segue in diretta) |
+| Clic sulla minimappa | Salto al punto scelto (trascinando: segue in diretta); trascinando il riquadro, la vista lo segue |
 | Tab | Card al centro (o selezionata), poi i suoi link; Invio o Spazio la seleziona |
 | ? | Dialogo con le scorciatoie (anche dal pulsante "?" nell'header) |
 | / | Ricerca rapida (§8) |
 
-Rotella, trascinamento, frecce, minimappa, T, Home/Fine, Esc e clic su un'area vuota **deselezionano**.
+Rotella, trascinamento, frecce, [ / ], minimappa, T, Home/Fine, Esc e clic su un'area vuota **deselezionano**.
 
 Con `prefers-reduced-motion` lo scorrimento salta direttamente, header e card non si animano, "Today" non pulsa.
 
@@ -325,9 +351,13 @@ Con `prefers-reduced-motion` lo scorrimento salta direttamente, header e card no
 - Sotto ogni cerchietto: nome della fonte (link, se c'è) e numero di recensioni o voti in forma compatta ("3.1K ratings")
 - **Upcoming** per i giochi futuri al posto dei voti ("In 12 days", "Tomorrow"); per i TBA "Expected 2027" o "Date TBA"; bordo tratteggiato
 
+### Card compatte
+
+Nel menu **View**, "Card style": `Full` (tutto) o `Compact` (solo copertina, titolo e badge; larghezza 236px, 220 per i DLC). La card **selezionata** torna sempre completa (voti, date, descrizione, pulsanti), crescendo attorno al proprio centro. Le corsie si ricalcolano con le larghezze della modalità attiva. Il cambio è animato: le card scivolano al nuovo posto mentre si ridimensionano, le parti nascoste si ripiegano. Nella zona TBA le card compatte mantengono la larghezza e si accorciano soltanto.
+
 ### Card DLC
 
-Più compatta, nastro diagonale "DLC", bordo rosso, sfondo leggermente rosato, riga "Expansion for *<gioco base>*", stessi blocchi voti. **Niente badge di esclusività** (riguarda il gioco base).
+Più compatta, nastro diagonale "DLC" e bordo viola (`--dlc`, lo stesso colore dei suoi pallini), sfondo leggermente violaceo, riga "Expansion for *<gioco base>*", stessi blocchi voti. **Niente badge di esclusività** (riguarda il gioco base).
 
 ### Card Switch 2 Edition
 
@@ -374,7 +404,11 @@ Le card già visibili all'apertura del sito compaiono subito, senza animazione. 
 
 ## 8. Novità, ricerca e filtri
 
-Nell'header, a destra: **What's new**, **filtri**, **ricerca**, **?**, **tema** (in sviluppo anche il link ✎ al pannello admin).
+Nell'header, a destra: **What's new**, **View**, **filtri**, **ricerca**, **?**, **tema** (in sviluppo anche il link ✎ al pannello admin).
+
+### Menu "View"
+
+Pannello simile a quello dei filtri: **Card style** (Full / Compact), **Group same-day releases** (acceso di default), **Start presentation** (P). Le scelte restano nel browser (`localStorage`, `view`); il livello di zoom no (la pagina si apre a Day).
 
 ### Novità ("What's new")
 
@@ -442,5 +476,7 @@ Variabili in `.env` (vedi `.env.example`): `TWITCH_CLIENT_ID`, `TWITCH_CLIENT_SE
 **Iterazione 2** (`ITERATION-2.md`) ✔: correzioni, indicatore centrale e controlli per giorno, selezione e card espansa, nuovi campi dati, sfondo, "uscito oggi", bordo Switch 2 Edition.
 
 **Iterazione 3** (`ITERATION-3.md`) ✔: fetch e build separati, pannello admin, pulsante Nintendo Store, ricerca e filtri, snapshot con rinvii e andamento dei voti, novità.
+
+**Iterazione 4** (`ITERATION-4.md`) ✔: menu View e card compatte, pallini per tipo e fasce dei mesi, minimappa con anteprima e riquadro trascinabile, salti per mese e inerzia, gruppi dello stesso giorno, livelli di zoom, modalità presentazione.
 
 Lavorare un punto alla volta, verificando nel browser prima di passare al successivo.
