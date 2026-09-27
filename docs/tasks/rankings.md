@@ -9,7 +9,7 @@ L'utente segue il lavoro dal telefono e non può rispondere subito:
 
 ---
 
-## [ ] Task 1 — Pagina e classifica OpenCritic
+## [x] Task 1 — Pagina e classifica OpenCritic
 
 **Task:** creare la pagina Rankings con una classifica dei giochi usciti ordinata per voto OpenCritic.
 

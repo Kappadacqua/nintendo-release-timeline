@@ -1,0 +1,120 @@
+/* ---------- Rankings page ---------- */
+
+.rankings-main {
+  overflow-y: auto;
+}
+
+.rankings {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 32px 32px 48px;
+}
+
+.rankings__head {
+  margin-bottom: 20px;
+}
+
+.rankings__title {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+}
+
+.rankings__subtitle {
+  margin: 4px 0 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.rankings__list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rank-row {
+  display: grid;
+  grid-template-columns: 44px 48px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 16px 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--card);
+  box-shadow: var(--card-shadow);
+}
+
+.rank-row--dlc {
+  background: var(--card-dlc);
+}
+
+.rank-row__pos {
+  font-size: 22px;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+/* The podium stands out. */
+.rank-row:nth-child(-n + 3) .rank-row__pos {
+  color: var(--accent);
+}
+
+.rank-row__cover {
+  display: block;
+  width: 48px;
+  height: 64px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  background: var(--surface-2);
+}
+
+.rank-row__info {
+  min-width: 0;
+}
+
+.rank-row__title {
+  overflow: hidden;
+  margin: 0;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rank-row__meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 5px 0 0;
+}
+
+.rank-row__date {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.badge--dlc {
+  background: var(--dlc);
+  color: #fff;
+}
+
+.rank-row__ring {
+  width: 72px;
+}
+
+.rankings__hidden {
+  margin: 18px 0 0;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+  color: var(--text-muted);
+}

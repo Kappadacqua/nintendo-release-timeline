@@ -1,6 +1,6 @@
 # Stato del progetto
 
-Aggiornato: 2026-09-27 — riorganizzazione del workflow
+Aggiornato: 2026-09-27 — Rankings, task 1
 
 ## Ultimo checkpoint
 
@@ -12,6 +12,8 @@ Aggiornato: 2026-09-27 — riorganizzazione del workflow
 Nessuno.
 
 ## Da verificare nel browser (Architetto)
+
+- Rankings, task 1: pagina `/rankings.html` con classifica OpenCritic (soglia 20 recensioni, 21 giochi oggi), riga dei giochi nascosti, navigazione "Timeline · Rankings" nell'header di entrambe le pagine (prima dei pulsanti), tema condiviso, animazione di comparsa e riempimento dei cerchietti.
 
 - CSS diviso in file per componente (`src/styles/`): build CSS identica byte per byte, nessun cambio visivo atteso.
 - `ec1c916`: limite dell'inerzia, chiusura del ventaglio a fine presentazione, card estesa non tagliata nel ventaglio, header aggiornato durante il movimento.
@@ -32,4 +34,4 @@ Nessuno.
 - Prestazioni 4K rimandate: si ottimizza per 1080p.
 
 - Store Nintendo: regione Italia.
-- Pagine Studios e Rankings: rimandate, specifiche in `docs/SPEC.md` (backlog).
+- Pagina Rankings: in sviluppo, coda in `docs/tasks/rankings.md`, specifica in `docs/SPEC.md` §12. Pagina Studios: rimandata.

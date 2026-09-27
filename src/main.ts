@@ -1,12 +1,13 @@
 import "./styles/main.css";
 import { applyFilters, FiltersControl, loadFilters } from "./filters";
+import { loadGames } from "./games";
 import { news } from "./news";
 import { Search } from "./search";
 import { Presentation } from "./presentation";
 import { initTheme } from "./theme/theme";
 import { Timeline } from "./timeline/timeline";
 import { ZOOM_LEVELS, type ZoomLevel } from "./timeline/zoom";
-import type { ChangesFile, Game, GamesFile } from "./types";
+import type { ChangesFile, Game } from "./types";
 import { loadView, ViewMenu } from "./view";
 import { WhatsNew } from "./whats-new";
 import { ZoomControl, zoomTransition } from "./zoom-control";
@@ -66,13 +67,6 @@ function devTools(current: () => Timeline) {
     }
     location.reload();
   });
-}
-
-async function loadGames(): Promise<Game[]> {
-  const res = await fetch(`${import.meta.env.BASE_URL}data/games.json`);
-  if (!res.ok) throw new Error(`games.json: HTTP ${res.status}`);
-  const data = (await res.json()) as GamesFile;
-  return data.games;
 }
 
 /** What's new is optional: without changes.json the site works as before. */

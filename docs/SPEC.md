@@ -482,3 +482,15 @@ Variabili in `.env` (vedi `.env.example`): `TWITCH_CLIENT_ID`, `TWITCH_CLIENT_SE
 **Iterazione 4** (`ITERATION-4.md`) ✔: menu View e card compatte, pallini per tipo e fasce dei mesi, minimappa con anteprima e riquadro trascinabile, salti per mese e inerzia, gruppi dello stesso giorno, livelli di zoom, modalità presentazione.
 
 Lavorare un punto alla volta, verificando nel browser prima di passare al successivo.
+
+## 12. Rankings
+
+**Stato: in sviluppo** (coda in `docs/tasks/rankings.md`).
+
+Pagina `rankings.html` (`src/rankings/main.ts`, `src/styles/rankings.css`), inclusa nella build di produzione.
+
+- Header con navigazione **"Timeline · Rankings"** su entrambe le pagine, pagina attiva evidenziata; stesso tema giorno/notte.
+- Solo giochi **usciti** (data di prima uscita ≤ oggi).
+- Classifica per voto **OpenCritic**, con soglia fissa a **20 recensioni** (diventa modificabile nel task 2). A parità di voto: più recensioni, poi titolo.
+- Giochi sotto soglia o senza voto: esclusi, con riga finale "N games hidden (fewer than 20 reviews)".
+- Ogni riga: posizione, copertina piccola, titolo, badge del tipo (DLC / Switch 2 Edition), data di uscita, cerchietto OpenCritic con numero di recensioni.

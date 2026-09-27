@@ -137,3 +137,44 @@ main {
   overflow: hidden;
 }
 
+
+/* Page navigation (Timeline · Rankings): always first among the actions, since the
+   timeline's menus are prepended to the same row at runtime. */
+.app-nav {
+  order: -1;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-right: 6px;
+  padding: 4px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+}
+
+.app-nav__link {
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.app-nav__link:hover {
+  color: var(--text);
+}
+
+.app-nav__link[aria-current="page"] {
+  background: var(--accent);
+  color: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-nav__link {
+    transition: none;
+  }
+}
