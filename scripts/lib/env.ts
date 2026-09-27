@@ -17,6 +17,7 @@ export const PATHS = {
   settings: `${ROOT}data/settings.json`,
   freeUpdates: `${ROOT}data/free-updates.json`,
   freeUpdatesCache: `${ROOT}data/cache/free-updates.json`,
+  freeUpdatesSeen: `${ROOT}data/free-updates-seen.json`,
   /** One file per data:fetch day; SNAPSHOTS_DIR points elsewhere (e.g. for tests). */
   snapshots: process.env.SNAPSHOTS_DIR ?? `${ROOT}data/snapshots`,
 };

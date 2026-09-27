@@ -106,7 +106,7 @@ const filtersAreDefault = (f: RankFilters) =>
 
 /** Same kind / exclusivity rules as the timeline filters, plus the year. */
 function filterGames(games: Game[], f: RankFilters) {
-  const kept = applyFilters(games, { ...f, thirdParty: true });
+  const kept = applyFilters(games, { ...f, thirdParty: true, freeUpdates: false });
   return f.year === "all" ? kept : kept.filter((g) => g.firstReleaseDate!.startsWith(`${f.year}-`));
 }
 
@@ -334,7 +334,8 @@ function controls(settings: Settings, onChange: () => void) {
 
 function render(root: HTMLElement, games: Game[]) {
   const settings = loadSettings();
-  const released = games.filter((g) => isReleased(g, todayEpochDay()));
+  // Free updates have no scores: never ranked, never counted among the hidden games.
+  const released = games.filter((g) => g.kind !== "free-update" && isReleased(g, todayEpochDay()));
   const years = [...new Set(released.map((g) => g.firstReleaseDate!.slice(0, 4)))].sort();
   const filters = loadRankFilters(years);
 

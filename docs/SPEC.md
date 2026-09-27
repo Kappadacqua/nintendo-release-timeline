@@ -503,3 +503,27 @@ Pagina `rankings.html` (`src/rankings/main.ts`, `src/styles/rankings.css`), incl
 - Nessun risultato per colpa dei filtri: "No games match these filters" con pulsante "Reset filters".
 
 Ordinamento, soglia e filtri sono salvati nel browser (`localStorage`, chiavi `rankings-settings` e `rankings-filters`). Cambiarli aggiorna la lista subito con una breve dissolvenza (niente animazione con `prefers-reduced-motion`).
+
+## 13. Free updates
+
+**Stato: fatto** (coda in `docs/tasks/free-updates.md`).
+
+Giochi Switch 1 con un aggiornamento gratuito per Switch 2. Fonte: `data/free-updates.json`, curato a mano dalla pagina Nintendo "games with free updates" (titolo, uscita originale, data dell'aggiornamento, link allo store USA).
+
+**Dati**
+- Tipo `free-update` in `games.json` (id `free-update:<titolo>`), accanto a `game`, `switch2-edition`, `dlc`. `firstReleaseDate` = data dell'aggiornamento; in più l'anno di uscita originale.
+- `npm run data:fetch-free-updates` interroga IGDB solo per questi titoli (copertina, riassunto, link Wikipedia e Nintendo Wiki) → `data/cache/free-updates.json`. `data:build` crea le voci; `data:validate` segnala quelle senza copertina.
+- **Niente voti.** Una sola data, senza regioni.
+- **Doppioni**: se il dataset ha già una voce dello stesso gioco (titolo normalizzato, es. una Switch 2 Edition), l'aggiornamento non crea una card.
+- **Store**: pagina italiana se la logica dei link la trova, altrimenti `store_url` del file.
+
+**Timeline e card**
+- Card con colore dedicato (token `--free-update`, bordo e pallini su linea e minimappa), badge "Free update", riga "Worldwide · data", "Originally released AAAA", nessuna sezione voti. Selezionata: riassunto, tempo relativo, pulsanti Wikipedia / Nintendo Wiki / Store.
+- Gli aggiornamenti dello stesso giorno formano un **gruppo separato** da quello dei giochi ("N free updates").
+- Voce nella legenda del pannello "?".
+
+**Resto del sito**
+- Filtro timeline **"Free updates"**, acceso di default, salvato con gli altri; il contatore "N of M games" li include.
+- **Rankings** (e Studios, quando ci sarà): mai presenti, nemmeno nel conteggio dei nascosti.
+- **Ricerca**: presenti, indicati come "Free update".
+- **What's new**: gli aggiornamenti non sono negli snapshot di `data:fetch`; il giorno in cui compaiono nel file lo registra `data:build` in `data/free-updates-seen.json`. Il primo import (17 voci) vale come già noto (`null`): solo i titoli aggiunti dopo compaiono come "New", con dettaglio "Free update · data".

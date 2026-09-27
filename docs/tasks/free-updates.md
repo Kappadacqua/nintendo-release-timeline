@@ -58,7 +58,7 @@ L'utente segue il lavoro dal telefono e non può rispondere subito:
 
 ---
 
-## [ ] Task 3 — Filtro e resto del sito
+## [x] Task 3 — Filtro e resto del sito
 
 **Task:** integrare gli aggiornamenti gratuiti nei filtri e verificarne l'esclusione dalle altre pagine.
 

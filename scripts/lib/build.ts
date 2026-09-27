@@ -2,7 +2,7 @@ import type { ChangesFile, Game, GamesFile } from "../../src/types";
 import { type FetchStatus, type IgdbCache, type LinksCache, readJson, type WikipediaCache, emptyLinks, writeJson } from "./cache";
 import { PATHS } from "./env";
 import { ExclusivityHistory } from "./exclusivity";
-import { freeUpdateGames } from "./free-updates";
+import { freeUpdateGames, freeUpdatesFirstSeen } from "./free-updates";
 import { type IgdbGame, PLATFORM } from "./igdb";
 import { baseTitleOfEdition, wikipediaUrl } from "./links";
 import { loadOpenCriticCache } from "./opencritic";
@@ -273,7 +273,7 @@ export function buildGames(): BuildResult {
   const snapshots = readSnapshots(PATHS.snapshots);
   addHistory(games, snapshots, today);
   // What's new (ITERATION-3 §4).
-  const changes: ChangesFile = { generatedAt: report.generatedAt, changes: changesOf(games, snapshots, today) };
+  const changes: ChangesFile = { generatedAt: report.generatedAt, changes: changesOf(games, snapshots, today, freeUpdatesFirstSeen(today)) };
 
   const file: GamesFile = { generatedAt: report.generatedAt, games };
   writeJson(PATHS.games, file);

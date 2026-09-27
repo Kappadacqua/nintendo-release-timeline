@@ -4,16 +4,18 @@ import type { Game } from "./types";
 export interface Filters {
   dlc: boolean;
   switch2Edition: boolean;
+  freeUpdates: boolean;
   thirdParty: boolean;
   exclusivesOnly: boolean;
 }
 
-const DEFAULTS: Filters = { dlc: true, switch2Edition: true, thirdParty: true, exclusivesOnly: false };
+const DEFAULTS: Filters = { dlc: true, switch2Edition: true, freeUpdates: true, thirdParty: true, exclusivesOnly: false };
 const STORAGE_KEY = "filters";
 
 const OPTIONS: { key: keyof Filters; label: string; hint: string }[] = [
   { key: "dlc", label: "DLC", hint: "Expansions and add-ons" },
   { key: "switch2Edition", label: "Switch 2 Edition", hint: "Upgraded Switch 1 games" },
+  { key: "freeUpdates", label: "Free updates", hint: "Switch 1 games with a free Switch 2 update" },
   { key: "thirdParty", label: "Third-party", hint: "Exclusives from other publishers" },
   { key: "exclusivesOnly", label: "Exclusives only", hint: "Hide games also on other consoles or PC (phones don't count)" },
 ];
@@ -40,6 +42,7 @@ export function applyFilters(games: Game[], f: Filters) {
     (g) =>
       (f.dlc || g.kind !== "dlc") &&
       (f.switch2Edition || g.kind !== "switch2-edition") &&
+      (f.freeUpdates || g.kind !== "free-update") &&
       // Older data without the flag counts as first-party.
       (f.thirdParty || g.firstParty !== false) &&
       // Switch + phone games (e.g. Pokémon Champions) stay: only other consoles / PC count.

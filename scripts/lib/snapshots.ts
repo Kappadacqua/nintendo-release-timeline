@@ -109,8 +109,9 @@ const CRITICS = ["opencritic", "metacritic"] as const;
 /**
  * public/data/changes.json (ITERATION-3 §4): each point compared with the one before.
  * The first snapshot is the baseline, so nothing is "new" in it. Newest first.
+ * Free updates are "new" on the day they first appeared in their file (`freeFirstSeen`), not by snapshot.
  */
-export function changesOf(games: Game[], snapshots: Snapshot[], today: string): Change[] {
+export function changesOf(games: Game[], snapshots: Snapshot[], today: string, freeFirstSeen: Record<string, string | null> = {}): Change[] {
   const points = timeline(games, snapshots, today);
   const since = new Date(Date.parse(today) - CHANGES_DAYS * 86_400_000).toISOString().slice(0, 10);
   const out: Change[] = [];
@@ -119,7 +120,7 @@ export function changesOf(games: Game[], snapshots: Snapshot[], today: string): 
     const { date, games: now } = points[i];
     const before = points[i - 1].games;
     for (const [id, g] of Object.entries(now)) {
-      if (!seen.has(id)) {
+      if (!seen.has(id) && !(id in freeFirstSeen)) {
         // Missing from every earlier point, not just a failed fetch the day before.
         seen.add(id);
         out.push({ date, id, type: "new" });
@@ -138,6 +139,8 @@ export function changesOf(games: Game[], snapshots: Snapshot[], today: string): 
       }
     }
   }
+  for (const [id, date] of Object.entries(freeFirstSeen)) if (date) out.push({ date, id, type: "new" });
+  out.sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0));
   const current = new Set(games.map((g) => g.id));
   return out.filter((c) => c.date >= since && current.has(c.id)).reverse();
 }

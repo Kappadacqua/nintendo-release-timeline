@@ -1,5 +1,5 @@
 import type { Game } from "../../src/types";
-import { emptyLinks, readJson } from "./cache";
+import { emptyLinks, readJson, writeJson } from "./cache";
 import { PATHS } from "./env";
 import type { IgdbGame } from "./igdb";
 import { baseTitleOfEdition } from "./links";
@@ -53,6 +53,22 @@ export const emptyFreeUpdatesCache = (): FreeUpdatesCache => ({
 
 export function loadFreeUpdates(): FreeUpdateEntry[] {
   return readJson<FreeUpdatesFile | null>(PATHS.freeUpdates, null)?.games ?? [];
+}
+
+/**
+ * data/free-updates-seen.json: the build day each free update first appeared in the file,
+ * null for the first import (already known, so never "new" in What's new). The free updates
+ * are not in the data:fetch snapshots, so this is what dates their "new" change.
+ */
+export function freeUpdatesFirstSeen(today: string): Record<string, string | null> {
+  const saved = readJson<Record<string, string | null> | null>(PATHS.freeUpdatesSeen, null);
+  const seen = { ...saved };
+  for (const { title } of loadFreeUpdates()) {
+    const id = freeUpdateId(title);
+    if (!(id in seen)) seen[id] = saved ? today : null;
+  }
+  writeJson(PATHS.freeUpdatesSeen, seen);
+  return seen;
 }
 
 /** Stable id from the title, so a new IGDB match does not change it. */
