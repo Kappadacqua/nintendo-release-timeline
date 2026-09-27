@@ -1,6 +1,6 @@
 # Stato del progetto
 
-Aggiornato: 2026-09-27 — Documentazione, task 3 (lista di lavoro per il pannello admin)
+Aggiornato: 2026-09-27 — Documentazione, task 4 (README.md)
 
 ## Ultimo checkpoint
 
@@ -12,6 +12,8 @@ Aggiornato: 2026-09-27 — Documentazione, task 3 (lista di lavoro per il pannel
 Nessuno.
 
 ## Da verificare nel browser (Architetto)
+
+- Documentazione, task 4 (solo documento, niente da vedere nel browser): `README.md` in inglese (83 righe) — progetto, requisiti, installazione, variabili `.env`, comandi, pipeline dati, pagine, pannello admin, rimandi a SPEC e STATUS.
 
 - Documentazione, task 3 (solo documento, niente da vedere nel browser): `docs/admin-todo.md` — 47 giochi usciti senza Metacritic (voto critica e utenti), 47 senza Backloggd, 14 senza sviluppatore o con "Nintendo" (5 first party). Link di ricerca da provare su qualche riga.
 

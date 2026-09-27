@@ -23,7 +23,7 @@ Regole:
 - Scrivi docs/admin-todo.md: una tabella per tipo di dato mancante, con titolo, data di uscita, e link di ricerca pronti (https://www.metacritic.com/search/<titolo>/ e https://backloggd.com/search/games/<titolo>/, con il titolo codificato per URL). Ordina per data di uscita, i più recenti prima.
 - Nel report: i conteggi per tipo.
 
-## [ ] Task 4 — README.md
+## [x] Task 4 — README.md
 - Scrivi README.md in inglese: cos'è il progetto, requisiti (Node), installazione, comandi principali, come funziona la pipeline dati (fetch → cache → build → public/data), pagine del sito, pannello admin, dove sono la specifica (docs/SPEC.md) e lo stato (STATUS.md).
 - Breve: al massimo 120 righe. Nessuna chiave API, solo il nome delle variabili richieste in .env (ricavalo da scripts/lib/env.ts con grep).
 
