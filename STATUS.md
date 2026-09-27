@@ -1,6 +1,6 @@
 # Stato del progetto
 
-Aggiornato: 2026-09-27 — Pulizia dopo Rankings, Free updates e Studios
+Aggiornato: 2026-09-27 — Revisione qualità, task 1 (controlli automatici)
 
 ## Ultimo checkpoint
 
@@ -12,6 +12,8 @@ Aggiornato: 2026-09-27 — Pulizia dopo Rankings, Free updates e Studios
 Nessuno.
 
 ## Da verificare nel browser (Architetto)
+
+- Revisione, task 1 (solo documento, niente da vedere nel browser): `docs/review/static.md` — 17 problemi (0 alta, 5 media, 12 bassa) da smistare in task di correzione. Coda in `docs/tasks/review.md`.
 
 - Pulizia: contatore dei filtri della timeline "N of M" (senza "games") quando un filtro nasconde qualcosa; senza filtri resta "M games". In "What's new" un nuovo aggiornamento gratuito mostra "Free update · out <data>" (non verificabile finché non si aggiunge un titolo a `data/free-updates.json`). Tempi relativi di card selezionata e pagina Studios invariati (helper `daySpan` ora in `src/timeline/dates.ts`).
 
@@ -47,9 +49,11 @@ Nessuno.
 5. **Due gruppi nello stesso giorno** — il gruppo dei giochi e quello degli aggiornamenti hanno la stessa x: la disposizione in corsie li separa, ma il passaggio da un ventaglio aperto all'altro non è mai stato provato.
 6. **Studios: giochi senza sviluppatore** — 3 giochi first party non hanno sviluppatore su IGDB e non vanno a nessuno studio (si sistemano con `developer` negli override dei giochi).
 7. **Studios: ordine** — l'ordine è ricalcolato nella pagina sul gioco *mostrato*: gli studi senza gioco Switch 2 (anche se `game` contiene un gioco Switch 1) e quelli con gioco Switch 2 senza data finiscono nel gruppo finale alfabetico.
+8. **Reduced motion incompleto** — titolo in alto a sinistra (`header.css:43`) e icona del tema (`theme.ts:44`) si muovono anche con `prefers-reduced-motion` (dettagli in `docs/review/static.md`).
 
 ## Prossimi task (in ordine)
 
+0. Coda `docs/tasks/review.md`: task 2 (revisione pagine Rankings/Studios).
 1. Verifica nel browser delle correzioni di `ec1c916` (Architetto).
 2. Correzioni emerse dalla verifica, un task per sessione.
 

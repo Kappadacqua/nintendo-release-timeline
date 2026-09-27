@@ -9,7 +9,7 @@ Esegui un solo task per volta, il primo non spuntato. A fine task: commit, aggio
 - Nel report finale in chat: solo il numero di problemi per gravità e i titoli di quelli ad alta gravità. Il dettaglio sta nel file.
 - Non eseguire data:fetch, data:fetch-studios, data:fetch-free-updates; non fare git push; non toccare wip/perf.
 
-## [ ] Task 1 — Controlli automatici
+## [x] Task 1 — Controlli automatici
 Task: controlli oggettivi su src/ e scripts/ con comandi, senza leggere i file per intero.
 Risultati in: docs/review/static.md
 Controlli:
