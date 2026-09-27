@@ -18,7 +18,7 @@ Regole:
 - Scrivi docs/review/triage.md: raggruppali in task proposti (stessa area del codice, max 3–5 file ciascuno), con per ogni gruppo: problemi inclusi, file, impegno stimato (piccolo/medio), raccomandazione (fare / rimandare / ignorare) e motivo in una riga.
 - Nel report: solo numero di gruppi e raccomandazioni.
 
-## [ ] Task 3 — Lista di lavoro per il pannello admin
+## [x] Task 3 — Lista di lavoro per il pannello admin
 - Usa npm run data:validate e comandi mirati su public/data/games.json (node -e) per elencare i giochi usciti senza Metacritic, senza Backloggd, e quelli senza sviluppatore o con sviluppatore "Nintendo".
 - Scrivi docs/admin-todo.md: una tabella per tipo di dato mancante, con titolo, data di uscita, e link di ricerca pronti (https://www.metacritic.com/search/<titolo>/ e https://backloggd.com/search/games/<titolo>/, con il titolo codificato per URL). Ordina per data di uscita, i più recenti prima.
 - Nel report: i conteggi per tipo.

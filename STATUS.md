@@ -1,6 +1,6 @@
 # Stato del progetto
 
-Aggiornato: 2026-09-27 — Documentazione, task 2 (smistamento dei problemi di gravità bassa)
+Aggiornato: 2026-09-27 — Documentazione, task 3 (lista di lavoro per il pannello admin)
 
 ## Ultimo checkpoint
 
@@ -12,6 +12,8 @@ Aggiornato: 2026-09-27 — Documentazione, task 2 (smistamento dei problemi di g
 Nessuno.
 
 ## Da verificare nel browser (Architetto)
+
+- Documentazione, task 3 (solo documento, niente da vedere nel browser): `docs/admin-todo.md` — 47 giochi usciti senza Metacritic (voto critica e utenti), 47 senza Backloggd, 14 senza sviluppatore o con "Nintendo" (5 first party). Link di ricerca da provare su qualche riga.
 
 - Documentazione, task 2 (solo documento, niente da vedere nel browser): `docs/review/triage.md` — i 28 problemi di gravità bassa aperti in 13 gruppi (6 fare, 6 rimandare, 1 ignorare), da trasformare in una coda di task se approvati.
 
@@ -65,11 +67,11 @@ Nessuno.
 3. **"What's new"** — mai verificato con due snapshot reali.
 4. **Free updates in "What's new"** — `data/free-updates-seen.json` è stato generato dalla build e va tenuto nel repo: se viene cancellato, la build successiva tratta di nuovo tutte le voci come già note (nessuna novità).
 5. **Due gruppi nello stesso giorno** — il gruppo dei giochi e quello degli aggiornamenti hanno la stessa x: la disposizione in corsie li separa, ma il passaggio da un ventaglio aperto all'altro non è mai stato provato.
-6. **Studios: giochi senza sviluppatore** — 3 giochi first party non hanno sviluppatore su IGDB e non vanno a nessuno studio (si sistemano con `developer` negli override dei giochi).
+6. **Studios: giochi senza sviluppatore** — 3 giochi first party non hanno sviluppatore su IGDB e non vanno a nessuno studio. Gli override dei giochi IGDB non accettano ancora `developer` (solo `manualGames`): serve un task di codice. Elenco in `docs/admin-todo.md`.
 7. **Studios: ordine** — l'ordine è ricalcolato nella pagina sul gioco *mostrato*: gli studi senza gioco Switch 2 e quelli con gioco Switch 2 senza data finiscono nel gruppo finale alfabetico.
 8. **Reduced motion incompleto** — restano i problemi di gravità bassa di `docs/review/static.md` (es. pomello degli interruttori, `filters.css:93`).
 9. **Studios: gioco mostrato fissato alla build** — `studios.json` contiene un solo gioco per studio, scelto con il giorno locale della build: quando esce, la pagina lo mostra come uscito anche se lo studio ha già il gioco successivo, finché non si rifà `data:build`. Il fuso UTC è corretto (fixes, task 1); resta da valutare se scrivere tutti i giochi Switch 2 e scegliere nella pagina.
-10. **Studios: giochi di studi nascosti** — "DK Challenge" e "The Legend of Zelda: Ocarina of Time" (sviluppatore IGDB "Nintendo", nascosto) non vanno a nessuno studio; ora `data:validate` li elenca, si sistemano con `developer` negli override dei giochi.
+10. **Studios: giochi di studi nascosti** — "DK Challenge" e "The Legend of Zelda: Ocarina of Time" (sviluppatore IGDB "Nintendo", nascosto) non vanno a nessuno studio; ora `data:validate` li elenca; come il punto 6, serve prima un override `developer` per i giochi IGDB.
 
 ## Prossimi task (in ordine)
 
