@@ -8,10 +8,16 @@ import { createScoreRing, type ScoreRing } from "./score-ring";
 
 /** Card widths in px; the collision layout needs them before any DOM exists. */
 export const CARD_WIDTH = { game: 300, dlc: 264 } as const;
+/** Compact cards (ITERATION-4 §2): cover, title and badges only. */
+export const COMPACT_CARD_WIDTH = { game: 236, dlc: 220 } as const;
 
-export function cardWidth(game: Game) {
-  return game.kind === "dlc" ? CARD_WIDTH.dlc : CARD_WIDTH.game;
+export function cardWidth(game: Game, compact = false) {
+  const widths = compact ? COMPACT_CARD_WIDTH : CARD_WIDTH;
+  return game.kind === "dlc" ? widths.dlc : widths.game;
 }
+
+/** Marks what a compact card hides (dates, scores, developer…); the selected card shows it again. */
+const FULL_ONLY = "card__full";
 
 export interface Card {
   el: HTMLElement;
@@ -43,7 +49,7 @@ export function regionsOutToday(game: Game, todayDay: number): Region[] {
 
 /** "~~Nov 5, 2026~~ → Dec 3, 2026" (or "→ TBA") under the badges of a delayed game. */
 function delayLine(game: Game, delay: Delay) {
-  const p = el("p", "card__delay");
+  const p = el("p", `card__delay ${FULL_ONLY}`);
   const long = (iso: string) => {
     const [y, m, d] = iso.split("-").map(Number);
     return `${MONTHS[m - 1].slice(0, 3)} ${d}, ${y}`;
@@ -90,7 +96,7 @@ function badges(game: Game, outToday: Region[], delay: Delay | null) {
 }
 
 function metaLine(game: Game) {
-  const p = el("p", "card__meta");
+  const p = el("p", `card__meta ${FULL_ONLY}`);
   if (game.developer) {
     const short = shortDeveloper(game.developer);
     const dev = el("span", "card__developer", short);
@@ -147,7 +153,9 @@ export function createCard(game: Game, todayDay: number): Card {
     "article",
     `card card--${game.kind}${isUpcoming ? " card--upcoming" : ""}${outToday.length ? " card--out-today" : ""}`,
   );
-  card.style.width = `${cardWidth(game)}px`;
+  // The CSS picks one of the two, so switching style can animate the width.
+  card.style.setProperty("--w-full", `${cardWidth(game)}px`);
+  card.style.setProperty("--w-compact", `${cardWidth(game, true)}px`);
   card.dataset.gameId = game.id;
   card.setAttribute("aria-label", describe(game, isUpcoming));
   // Roving focus: the timeline makes the centered card (and its links) tabbable.
@@ -165,7 +173,7 @@ export function createCard(game: Game, todayDay: number): Card {
   const info = el("div", "card__info");
   info.append(el("h3", "card__title", game.title));
   if (game.kind === "dlc" && game.baseGameTitle) {
-    const base = el("p", "card__base", "Expansion for ");
+    const base = el("p", `card__base ${FULL_ONLY}`, "Expansion for ");
     base.append(el("em", undefined, game.baseGameTitle));
     info.append(base);
   }
@@ -174,11 +182,14 @@ export function createCard(game: Game, todayDay: number): Card {
   info.append(badges(game, outToday, delay));
   if (delay) info.append(delayLine(game, delay));
   top.append(cover, info);
-  card.append(top, regionalDates(game));
+  const dates = regionalDates(game);
+  dates.classList.add(FULL_ONLY);
+  card.append(top, dates);
 
   const rings: ScoreRing[] = [];
   if (isUpcoming) {
     card.append(upcoming(game, todayDay));
+    card.lastElementChild!.classList.add(FULL_ONLY);
   } else {
     const { critic, user } = game.scores;
     const { links } = game;
@@ -195,7 +206,7 @@ export function createCard(game: Game, todayDay: number): Card {
       (source, i) => ([...critics, ...users][i].el.dataset.source = source),
     );
     rings.push(...critics, ...users);
-    const scores = el("div", "card__scores");
+    const scores = el("div", `card__scores ${FULL_ONLY}`);
     scores.append(scoreGroup("Critics", critics), scoreGroup("Users", users));
     card.append(scores);
   }

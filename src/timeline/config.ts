@@ -38,6 +38,8 @@ export const TIMELINE = {
   minimapBandPx: 64,
   /** Tallest card (game with scores and a 3-line title), used to fit cards to short windows. */
   cardMaxHeight: 272,
+  /** Tallest compact card (cover, title, badges). */
+  compactCardMaxHeight: 124,
   /** Cards never shrink below this scale on short windows. */
   minCardScale: 0.55,
 };

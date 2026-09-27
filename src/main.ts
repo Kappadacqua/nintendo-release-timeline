@@ -5,6 +5,7 @@ import { Search } from "./search";
 import { initTheme } from "./theme/theme";
 import { Timeline } from "./timeline/timeline";
 import type { ChangesFile, Game, GamesFile } from "./types";
+import { loadView, ViewMenu } from "./view";
 import { WhatsNew } from "./whats-new";
 
 initTheme(document.querySelector<HTMLButtonElement>(".theme-toggle")!);
@@ -89,8 +90,11 @@ Promise.all([loadGames(), loadChanges()])
     // Before the timeline: cards and minimap dots read it when they are created.
     news.load(changes, today);
     let filters = loadFilters();
+    let view = loadView();
     const create = (games: Game[]) =>
-      new Timeline(app, games, document.querySelector<HTMLElement>("#timeline-date")!, document.querySelector<HTMLElement>(".app-title")!);
+      new Timeline(app, games, document.querySelector<HTMLElement>("#timeline-date")!, document.querySelector<HTMLElement>(".app-title")!, {
+        compact: view.cardStyle === "compact",
+      });
     let timeline = create(applyFilters(allGames, filters));
 
     // Filters change the layout (lanes, collisions), so the timeline is rebuilt, keeping
@@ -105,6 +109,11 @@ Promise.all([loadGames(), loadChanges()])
       control.setCount(visible.length, allGames.length);
     });
     control.setCount(applyFilters(allGames, filters).length, allGames.length);
+
+    new ViewMenu(document.querySelector<HTMLElement>(".app-header__actions")!, view, (next, changed) => {
+      view = next;
+      if (changed === "cardStyle") timeline.setCompact(view.cardStyle === "compact");
+    });
 
     new WhatsNew(
       document.querySelector<HTMLElement>(".app-header__actions")!,

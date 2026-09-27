@@ -1,4 +1,6 @@
+import { gsap } from "gsap";
 import { hideCard, revealCard } from "../cards/appear";
+import { MORPH_SECONDS, morphParts } from "../cards/compact";
 import { type Anchor, collapseCard, expandCard } from "../cards/expand";
 import { type Card, cardWidth, createCard } from "../cards/card";
 import { assignLanes, type Lane } from "../cards/layout";
@@ -22,9 +24,12 @@ interface Item {
   /** Created lazily the first time the item comes near the viewport. */
   node?: {
     root: HTMLElement;
+    group: HTMLElement;
     connectors: SVGSVGElement[];
     card: Card;
     stubPath: SVGPathElement;
+    /** Connector from the band edge out to a stacked card (hidden at level 0). */
+    restPath: SVGPathElement;
     targetX: number;
     dir: number;
   };
@@ -78,6 +83,8 @@ export class Timeline {
   private readonly header = new TimelineHeader();
   private readonly scroller: Scroller;
   private readonly items: Item[];
+  /** Compact cards (ITERATION-4 §2): layout and fitting use their size. */
+  private compact: boolean;
   private readonly tbaBlocks: TbaBlock[];
   private readonly minimap: Minimap;
 
@@ -94,7 +101,7 @@ export class Timeline {
   private palette!: Palette;
   private lastCenter = 0;
   private ready = false;
-  private readonly stops: Stop[];
+  private stops: Stop[];
   /** Index in `stops` of the tabbable card (the one nearest the center). */
   private current = -1;
   /** True while focus is moved by the timeline itself, which must not re-center the view. */
@@ -112,7 +119,14 @@ export class Timeline {
   private readonly disposers: (() => void)[] = [];
   private destroyed = false;
 
-  constructor(root: HTMLElement, games: Game[], headerSlot?: HTMLElement, titleEl?: HTMLElement) {
+  constructor(
+    root: HTMLElement,
+    games: Game[],
+    headerSlot?: HTMLElement,
+    titleEl?: HTMLElement,
+    options: { compact?: boolean } = {},
+  ) {
+    this.compact = options.compact ?? false;
     const lastRelease = games
       .flatMap((g) => Object.values(g.releaseDates))
       .filter((d): d is string => !!d)
@@ -120,7 +134,7 @@ export class Timeline {
     this.endDay = Math.max(lastRelease, this.todayDay) + TIMELINE.endMarginDays;
 
     this.el = document.createElement("div");
-    this.el.className = "timeline";
+    this.el.className = `timeline${this.compact ? " is-compact" : ""}`;
     this.el.setAttribute("role", "region");
     this.el.setAttribute("aria-label", "Release timeline. Press ? for keyboard shortcuts.");
 
@@ -264,7 +278,8 @@ export class Timeline {
     card.closest<HTMLElement>("[hidden]")?.removeAttribute("hidden");
     stop.layer().classList.add("is-selected-layer");
     this.el.classList.add("has-selection");
-    expandCard(card, stop.game, this.todayDay, stop.anchor, () => this.visibleBand());
+    // A compact card unfolds into the full one.
+    morphParts([card], () => expandCard(card, stop.game, this.todayDay, stop.anchor, () => this.visibleBand()), !this.opening);
     this.siteTitle?.show(stop.game);
     this.backdrop.show(stop.game);
     news.markSeen(stop.game.id);
@@ -285,7 +300,8 @@ export class Timeline {
 
   private unmark(index: number) {
     const stop = this.stops[index];
-    collapseCard(stop.card());
+    const card = stop.card();
+    morphParts([card], () => collapseCard(card));
     stop.layer().classList.remove("is-selected-layer");
   }
 
@@ -423,7 +439,7 @@ export class Timeline {
     const maxLevel = Math.max(0, ...this.items.map((i) => i.lane.level));
     // The label band (cardOffset) never shrinks; only cards and stacking do.
     const room = Math.min(this.lineY, this.height - TIMELINE.minimapBandPx - this.lineY) - TIMELINE.cardOffset - 12;
-    const need = TIMELINE.cardMaxHeight + maxLevel * TIMELINE.stackStepY;
+    const need = (this.compact ? TIMELINE.compactCardMaxHeight : TIMELINE.cardMaxHeight) + maxLevel * TIMELINE.stackStepY;
     this.cardScale = Math.max(TIMELINE.minCardScale, Math.min(1, room / need));
     this.el.style.setProperty("--card-scale", this.cardScale.toFixed(3));
     for (const item of this.items) if (item.node) this.drawStub(item.node);
@@ -480,7 +496,7 @@ export class Timeline {
   private layoutItems(games: Game[]): Item[] {
     const placed = games
       .filter((game) => game.firstReleaseDate)
-      .map((game) => ({ game, x: this.dayX(parseDay(game.firstReleaseDate!)), width: cardWidth(game) }))
+      .map((game) => ({ game, x: this.dayX(parseDay(game.firstReleaseDate!)), width: cardWidth(game, this.compact) }))
       .sort((a, b) => a.x - b.x);
     const lanes = assignLanes(placed, TIMELINE.laneGap, TIMELINE.maxShift);
     return placed.map((p, i) => ({ ...p, lane: lanes[i], inRange: false, revealed: false }));
@@ -492,47 +508,103 @@ export class Timeline {
    * card and, for stacked cards, the rest of the connector.
    */
   private createNode(item: Item) {
-    const { side, level, shift } = item.lane;
-    const off = TIMELINE.cardOffset;
-    const dir = side === "above" ? -1 : 1;
     const root = document.createElement("div");
-    root.className = `tl-item tl-item--${side}`;
     root.style.left = `${item.x}px`;
-    root.style.zIndex = String(10 - level);
+    const stub = svgPath("tl-item__connector");
+    const rest = svgPath("tl-item__connector");
+    const group = document.createElement("div");
+    group.className = "tl-item__group";
+    const dot = document.createElement("div");
+    dot.className = "tl-item__dot";
+    const card = createCard(item.game, this.todayDay);
+    group.append(rest.svg, card.el);
+    root.append(stub.svg, dot, group);
+    this.world.append(root);
+    const connectors = [stub.svg, rest.svg];
+    const node = { root, group, connectors, card, stubPath: stub.path, restPath: rest.path, targetX: 0, dir: 1 };
+    item.node = node;
+    this.placeNode(item);
+    hideCard(connectors, card);
+    return node;
+  }
+
+  /** Puts card and connectors where the item's lane says (also after the card style changes). */
+  private placeNode(item: Item) {
+    const node = item.node!;
+    const { side, level, shift } = item.lane;
+    const dir = side === "above" ? -1 : 1;
+    node.root.classList.add("tl-item");
+    node.root.classList.toggle("tl-item--above", side === "above");
+    node.root.classList.toggle("tl-item--below", side === "below");
+    node.root.style.zIndex = String(10 - level);
 
     const cardLeft = -item.width / 2 + shift + level * TIMELINE.stackStepX;
     // Straight connector when the card still sits over its date, elbow otherwise.
     const inset = 24;
-    const targetX = cardLeft + inset <= 0 && 0 <= cardLeft + item.width - inset ? 0 : cardLeft + inset;
+    node.targetX = cardLeft + inset <= 0 && 0 <= cardLeft + item.width - inset ? 0 : cardLeft + inset;
+    node.dir = dir;
+    node.group.style.top = `${dir * TIMELINE.cardOffset}px`;
 
-    const stub = svgPath("tl-item__connector");
-    const group = document.createElement("div");
-    group.className = "tl-item__group";
-    group.style.top = `${dir * off}px`;
-
-    const connectors: SVGSVGElement[] = [stub.svg];
     const extra = level * TIMELINE.stackStepY;
-    if (extra > 0) {
-      const rest = svgPath("tl-item__connector");
-      rest.path.setAttribute("d", `M${targetX} 0 V${dir * extra}`);
-      group.append(rest.svg);
-      connectors.push(rest.svg);
-    }
+    node.restPath.setAttribute("d", extra > 0 ? `M${node.targetX} 0 V${dir * extra}` : "");
 
-    const dot = document.createElement("div");
-    dot.className = "tl-item__dot";
-
-    const card = createCard(item.game, this.todayDay);
-    card.el.style.left = `${cardLeft}px`;
-    card.el.style[side === "above" ? "bottom" : "top"] = `${extra}px`;
-    group.append(card.el);
-
-    root.append(stub.svg, dot, group);
-    this.world.append(root);
-    const node = { root, connectors, card, stubPath: stub.path, targetX, dir };
+    const el = node.card.el;
+    el.style.left = `${cardLeft}px`;
+    el.style[side === "above" ? "bottom" : "top"] = `${extra}px`;
+    el.style[side === "above" ? "top" : "bottom"] = "";
     this.drawStub(node);
-    hideCard(connectors, card);
-    return node;
+  }
+
+  /**
+   * Full / compact cards (ITERATION-4 §2), animated: lanes are recomputed with the new
+   * widths, cards glide to their new place while resizing and their parts fold / unfold.
+   */
+  setCompact(compact: boolean) {
+    if (compact === this.compact) return;
+    this.compact = compact;
+    const animate = this.ready && !matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const lanes = assignLanes(
+      this.items.map((i) => ({ x: i.x, width: cardWidth(i.game, compact) })),
+      TIMELINE.laneGap,
+      TIMELINE.maxShift,
+    );
+    const visible = this.items.filter((i) => i.node && !i.node.root.hidden);
+    const before = new Map(visible.map((i) => [i, i.node!.card.el.getBoundingClientRect()]));
+    const cards = [
+      ...this.items.flatMap((i) => (i.node ? [i.node.card.el] : [])),
+      ...this.tbaBlocks.flatMap((b) => b.slots.flatMap((s) => (s.card ? [s.card.el] : []))),
+    ];
+    if (animate) this.el.classList.add("is-restyling");
+    morphParts(
+      cards,
+      () => {
+        this.el.classList.toggle("is-compact", compact);
+        this.items.forEach((item, k) => {
+          item.width = cardWidth(item.game, compact);
+          item.lane = lanes[k];
+          if (item.node) this.placeNode(item);
+        });
+      },
+      animate,
+    );
+    // Stops keep their order (same dates); only which side each card grows toward changed.
+    this.stops = this.buildStops();
+    this.fitCards();
+    if (!animate) return;
+    // FLIP: from where each card was to its new place, measured on the edge facing the line.
+    for (const [item, old] of before) {
+      const el = item.node!.card.el;
+      const now = el.getBoundingClientRect();
+      const above = item.lane.side === "above";
+      const dx = old.left - now.left;
+      const dy = above ? old.bottom - now.bottom : old.top - now.top;
+      const scale = this.cardScale || 1;
+      const selected = this.selected >= 0 && this.stops[this.selected].game === item.game;
+      // The selected card's `y` belongs to its fit-in-view nudge: horizontal glide only.
+      gsap.from(el, { x: dx / scale, ...(selected ? {} : { y: dy / scale }), duration: MORPH_SECONDS, ease: "power2.out" });
+      gsap.from(item.node!.connectors, { opacity: 0, duration: MORPH_SECONDS, ease: "power1.in" });
+    }
+    setTimeout(() => this.el.classList.remove("is-restyling"), MORPH_SECONDS * 1000 + 50);
   }
 
   /** The stub ends where the scaled group puts the connector, so it follows `--card-scale`. */
