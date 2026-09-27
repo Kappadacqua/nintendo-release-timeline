@@ -63,6 +63,7 @@ interface Stop {
 
 interface Palette {
   line: string;
+  monthBand: string;
   tick: string;
   label: string;
   accent: string;
@@ -515,7 +516,9 @@ export class Timeline {
     const group = document.createElement("div");
     group.className = "tl-item__group";
     const dot = document.createElement("div");
-    dot.className = "tl-item__dot";
+    // Color by type, filled once released (ITERATION-4 §3).
+    const upcoming = parseDay(item.game.firstReleaseDate!) > this.todayDay;
+    dot.className = `tl-item__dot tl-item__dot--${item.game.kind}${upcoming ? " is-upcoming" : ""}`;
     const card = createCard(item.game, this.todayDay);
     group.append(rest.svg, card.el);
     root.append(stub.svg, dot, group);
@@ -740,6 +743,7 @@ export class Timeline {
     const v = (name: string) => css.getPropertyValue(name).trim();
     this.palette = {
       line: v("--timeline"),
+      monthBand: v("--month-band"),
       tick: v("--tick"),
       label: v("--text-muted"),
       accent: v("--accent"),
@@ -800,12 +804,36 @@ export class Timeline {
     this.lastCenter = center;
   }
 
+  /**
+   * Every other month barely tinted, from the top to the minimap (ITERATION-4 §5),
+   * on the dated line only: the TBA zone has its own blocks.
+   */
+  private drawMonthBands(left: number) {
+    const { ctx, width, palette } = this;
+    const lineStart = this.dayX(this.startDay) - left;
+    const lineEnd = this.dayX(this.endDay + 1) - left;
+    const bottom = this.height - TIMELINE.minimapBandPx;
+    const first = dayToDate(this.dayAt(left));
+    ctx.fillStyle = palette.monthBand;
+    for (let y = first.getUTCFullYear(), m = first.getUTCMonth(); ; m++) {
+      if (m === 12) [y, m] = [y + 1, 0];
+      const from = this.dayX(Date.UTC(y, m, 1) / 86_400_000) - left;
+      if (from > width || from > lineEnd) break;
+      if ((y * 12 + m) % 2 === 0) continue;
+      const to = this.dayX(Date.UTC(y, m + 1, 1) / 86_400_000) - left;
+      const x0 = Math.max(from, lineStart, 0);
+      const x1 = Math.min(to, lineEnd, width);
+      if (x1 > x0) ctx.fillRect(x0, 0, x1 - x0, bottom);
+    }
+  }
+
   private drawCanvas(left: number) {
     const { ctx, width, height, palette } = this;
     const dayPx = TIMELINE.dayPx;
     const y = this.lineY;
 
     ctx.clearRect(0, 0, width, height);
+    this.drawMonthBands(left);
 
     // --- Line: solid in the past, dashed and lighter in the future.
     const startX = this.dayX(this.startDay) - left;

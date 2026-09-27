@@ -32,8 +32,12 @@
   /* Switch 2 Edition border: the two Joy-Con colours */
   --joycon-left: #00b8e6;
   --joycon-right: #ff3b4e;
+  /* DLC: dots, ribbon and border (ITERATION-4 §3), apart from red and the Joy-Con pair. */
+  --dlc: #7c3aed;
+  /* Every other month, behind line and cards (ITERATION-4 §5). */
+  --month-band: rgb(0 0 0 / 0.03);
   --card: #ffffff;
-  --card-dlc: #fff7f7;
+  --card-dlc: #faf7ff;
   --card-shadow: 0 4px 16px rgb(0 0 0 / 0.07);
   --card-shadow-hover: 0 10px 28px rgb(0 0 0 / 0.14);
 
@@ -55,8 +59,10 @@
   --flag-border: rgb(255 255 255 / 0.4);
   --joycon-left: #2ccfff;
   --joycon-right: #ff5a69;
+  --dlc: #a98bff;
+  --month-band: rgb(255 255 255 / 0.035);
     --card: #141417;
-    --card-dlc: #1b1315;
+    --card-dlc: #17141e;
     --card-shadow: 0 4px 16px rgb(0 0 0 / 0.5);
     --card-shadow-hover: 0 10px 28px rgb(0 0 0 / 0.7);
     color-scheme: dark;
@@ -77,8 +83,10 @@
   --flag-border: rgb(255 255 255 / 0.4);
   --joycon-left: #2ccfff;
   --joycon-right: #ff5a69;
+  --dlc: #a98bff;
+  --month-band: rgb(255 255 255 / 0.035);
   --card: #141417;
-  --card-dlc: #1b1315;
+  --card-dlc: #17141e;
   --card-shadow: 0 4px 16px rgb(0 0 0 / 0.5);
   --card-shadow-hover: 0 10px 28px rgb(0 0 0 / 0.7);
   color-scheme: dark;
@@ -461,14 +469,19 @@ main {
   stroke-linejoin: round;
 }
 
+/* Released: filled; upcoming: a ring. Color by type (see "Dots by type"). */
 .tl-item__dot {
   position: absolute;
   left: -6px;
   top: -6px;
   width: 12px;
   height: 12px;
-  border: 3px solid var(--timeline);
+  border: 3px solid var(--dot, var(--timeline));
   border-radius: 50%;
+  background: var(--dot, var(--timeline));
+}
+
+.tl-item__dot.is-upcoming {
   background: var(--bg);
 }
 
@@ -746,7 +759,7 @@ a.ring__source:hover {
 
 .card--dlc {
   padding: 10px 12px;
-  border: 2px solid color-mix(in srgb, var(--accent) 55%, var(--border));
+  border: 2px solid color-mix(in srgb, var(--dlc) 55%, var(--border));
   background: var(--card-dlc);
   overflow: hidden;
 }
@@ -769,7 +782,7 @@ a.ring__source:hover {
   width: 92px;
   padding: 2px 0;
   transform: rotate(45deg);
-  background: var(--accent);
+  background: var(--dlc);
   color: #fff;
   font-size: 10px;
   font-weight: 900;
@@ -908,8 +921,9 @@ a.ring__source:hover {
   width: 7px;
   height: 7px;
   margin: -3.5px 0 0 -3.5px;
+  border: 1.5px solid var(--dot, var(--timeline));
   border-radius: 50%;
-  background: var(--timeline);
+  background: var(--dot, var(--timeline));
 }
 
 .minimap__dot--dlc {
@@ -917,7 +931,6 @@ a.ring__source:hover {
 }
 
 .minimap__dot.is-upcoming {
-  border: 1.5px solid var(--timeline);
   background: var(--bg);
 }
 
@@ -1647,7 +1660,7 @@ kbd {
 }
 
 /* Bigger, blue and haloed: it must stand out from the red dots. */
-.minimap__dot.has-news {
+.minimap .minimap__dot.has-news {
   z-index: 1;
   width: 11px;
   height: 11px;
@@ -2045,4 +2058,63 @@ kbd {
   margin: 6px 2px 0;
   font-size: 12px;
   color: var(--text-muted);
+}
+
+/* ---------- Dots by type (ITERATION-4 §3) ---------- */
+
+/* Legend in the "?" dialog. */
+.legend-dot {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 3px solid var(--dot, var(--timeline));
+  border-radius: 50%;
+  background: var(--dot, var(--timeline));
+  vertical-align: -2px;
+}
+
+.legend-dot.is-upcoming {
+  background: var(--bg);
+}
+
+.tl-item__dot--dlc,
+.minimap__dot--dlc,
+.legend-dot--dlc {
+  --dot: var(--dlc);
+}
+
+/* Switch 2 Edition: split in the two Joy-Con colors, like its card border. */
+.tl-item__dot--switch2-edition,
+.minimap__dot--switch2-edition,
+.legend-dot--switch2-edition {
+  border-color: transparent;
+  background: linear-gradient(90deg, var(--joycon-left) 50%, var(--joycon-right) 50%) border-box;
+}
+
+.tl-item__dot--switch2-edition.is-upcoming,
+.minimap__dot--switch2-edition.is-upcoming,
+.legend-dot--switch2-edition.is-upcoming {
+  background:
+    linear-gradient(var(--bg), var(--bg)) padding-box,
+    linear-gradient(90deg, var(--joycon-left) 50%, var(--joycon-right) 50%) border-box;
+}
+
+/* DLC dots are also square: a cue that does not rely on color. */
+.tl-item__dot--dlc,
+.legend-dot--dlc {
+  border-radius: 3px;
+}
+
+.shortcuts h3 {
+  margin: 0 0 10px;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.shortcuts__legend dt {
+  display: flex;
+  gap: 6px;
 }
