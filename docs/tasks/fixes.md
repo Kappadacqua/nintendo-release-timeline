@@ -19,7 +19,7 @@ Problemi: tutti quelli di gravità media in docs/review/data.md, esclusi quelli 
 File: quelli indicati in data.md per ciascun problema.
 Verifica: typecheck, npm test (l'it.todo "giochi di studi nascosti o chiusi tra i non abbinati" diventa attivo e passa), data:build, data:validate. games.json e studios.json non devono cambiare salvo dove la correzione lo richiede: spiega nel report ogni differenza.
 
-## [ ] Task 3 — Rankings: voti senza numero di recensioni e altri problemi medi
+## [x] Task 3 — Rankings: voti senza numero di recensioni e altri problemi medi
 Regola decisa: se la soglia è maggiore di 0, un voto con numero di recensioni sconosciuto non entra in classifica per quella fonte (né nelle medie). Nella riga mostra "—" al posto del conteggio.
 Problemi: la regola sopra, più gli altri problemi di gravità media di docs/review/pages.md non già corretti nel task 1.
 File: src/rankings/rank.ts, src/rankings/main.ts, i relativi test; aggiorna SPEC §12 con la regola.

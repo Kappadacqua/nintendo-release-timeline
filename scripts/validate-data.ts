@@ -6,11 +6,12 @@
  */
 import { existsSync, readFileSync } from "node:fs";
 import type { Game, GamesFile } from "../src/types";
+import { localToday } from "./lib/build";
 import { PATHS } from "./lib/env";
 import { loadOverrides } from "./lib/overrides";
 import type { FetchReport } from "./lib/report";
 
-const today = new Date().toISOString().slice(0, 10);
+const today = localToday();
 const bold = (s: string) => (process.stdout.isTTY ? `\x1b[1m${s}\x1b[0m` : s);
 const dim = (s: string) => (process.stdout.isTTY ? `\x1b[2m${s}\x1b[0m` : s);
 

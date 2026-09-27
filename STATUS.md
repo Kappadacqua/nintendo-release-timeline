@@ -1,6 +1,6 @@
 # Stato del progetto
 
-Aggiornato: 2026-09-27 — Correzioni, task 2 (pipeline dati, problemi medi)
+Aggiornato: 2026-09-27 — Correzioni, task 3 (Rankings, problemi medi)
 
 ## Ultimo checkpoint
 
@@ -12,6 +12,8 @@ Aggiornato: 2026-09-27 — Correzioni, task 2 (pipeline dati, problemi medi)
 Nessuno.
 
 ## Da verificare nel browser (Architetto)
+
+- Correzioni, task 3 (Rankings): con i dati attuali (solo OpenCritic, sempre con conteggio) nessun cambio visivo atteso. Con "Min. reviews" alto (es. 500) e un filtro non predefinito (es. DLC acceso) la lista vuota ora dice "No games to rank" senza "Reset filters"; con un filtro che da solo svuota la lista (es. anno 2025 + Exclusives only, se dà zero) resta "No games match these filters" + "Reset filters". Un voto senza numero di recensioni (inseribile dal pannello admin per Metacritic/Backloggd) non entra con soglia > 0: riga dei nascosti "…; N with no review count", nel cerchietto "—"; con soglia 0 entra. `data:validate` usa il giorno locale come la build.
 
 - Correzioni, task 2 (niente da vedere nel browser: `games.json`, `studios.json` e `changes.json` identici a parte `generatedAt`). Pipeline: `fetchJson` con timeout di 30 s, ritenta anche gli errori di rete, errore con nome della fonte per JSON non valido, `Retry-After` limitato a 60 s. `data:fetch-studios` si ferma sugli errori MediaWiki e su pagine mancanti, e non sovrascrive una cache con meno studi senza `-- --force`. `data:fetch-free-updates` tiene i link della cache precedente se una fonte fallisce, segna gli abbinamenti "solo per anno" e accetta `igdbId` nelle voci di `data/free-updates.json`. `data:validate` ora elenca "Nintendo (hidden studio) — DK Challenge, The Legend of Zelda: Ocarina of Time" e segnala la cache studi vuota. La build usa il giorno locale anche per "released", storico voti e "What's new". Gli script di fetch non sono stati eseguiti: le nuove strade di errore sono provate solo con un server locale.
 
@@ -62,7 +64,6 @@ Nessuno.
 8. **Reduced motion incompleto** — titolo in alto a sinistra (`header.css:43`) e icona del tema (`theme.ts:44`) si muovono anche con `prefers-reduced-motion` (dettagli in `docs/review/static.md`).
 9. **Studios: gioco mostrato fissato alla build** — `studios.json` contiene un solo gioco per studio, scelto con il giorno locale della build: quando esce, la pagina lo mostra come uscito anche se lo studio ha già il gioco successivo, finché non si rifà `data:build`. Il fuso UTC è corretto (fixes, task 1); resta da valutare se scrivere tutti i giochi Switch 2 e scegliere nella pagina.
 10. **Studios: giochi di studi nascosti** — "DK Challenge" e "The Legend of Zelda: Ocarina of Time" (sviluppatore IGDB "Nintendo", nascosto) non vanno a nessuno studio; ora `data:validate` li elenca, si sistemano con `developer` negli override dei giochi.
-11. **`data:validate` in UTC** — `scripts/validate-data.ts:13` calcola ancora `today` in UTC, mentre la build usa il giorno locale: tra mezzanotte e le 2 i controlli sui voti manuali possono usare il giorno prima.
 
 ## Prossimi task (in ordine)
 

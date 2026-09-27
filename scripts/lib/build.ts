@@ -129,7 +129,7 @@ export interface Settings {
 }
 
 /** Today in the local time zone, "YYYY-MM-DD", as on the timeline and the Studios page. */
-const localToday = () => {
+export const localToday = () => {
   const now = new Date();
   return [now.getFullYear(), now.getMonth() + 1, now.getDate()].map((n) => String(n).padStart(2, "0")).join("-");
 };

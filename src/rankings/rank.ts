@@ -48,18 +48,28 @@ export type Ranked = {
   used: ScoreSource[];
 };
 
-/** Released games with a score from the chosen sort, best first. */
+/** A score passes the threshold on its own; an unknown review count passes only a threshold of 0. */
+function passes(score: Score | null, minReviews: number) {
+  if (score == null) return false;
+  return score.count == null ? minReviews === 0 : score.count >= minReviews;
+}
+
+/**
+ * Released games with a score from the chosen sort, best first. `hidden` counts the other
+ * released games; `noCount` is the part of them with a score whose review count is unknown.
+ */
 export function rank(games: Game[], today: number, { sort, minReviews }: Settings) {
   const { sources } = SORTS.find((s) => s.key === sort)!;
   const released = games.filter((g) => isReleased(g, today));
   const ranked: Ranked[] = [];
+  let noCount = 0;
   for (const game of released) {
     // Each source counts only if it reaches the threshold on its own.
-    const used = sources.filter((src) => {
-      const score = scoreOf(game, src);
-      return score != null && (score.count ?? 0) >= minReviews;
-    });
-    if (used.length === 0) continue;
+    const used = sources.filter((src) => passes(scoreOf(game, src), minReviews));
+    if (used.length === 0) {
+      if (sources.some((src) => scoreOf(game, src)?.count === null)) noCount++;
+      continue;
+    }
     const scores = used.map((src) => scoreOf(game, src)!);
     ranked.push({
       game,
@@ -70,5 +80,5 @@ export function rank(games: Game[], today: number, { sort, minReviews }: Setting
   }
   // Ties: more reviews first, then title.
   ranked.sort((a, b) => b.value - a.value || b.count - a.count || a.game.title.localeCompare(b.game.title));
-  return { ranked, hidden: released.length - ranked.length };
+  return { ranked, hidden: released.length - ranked.length, noCount };
 }

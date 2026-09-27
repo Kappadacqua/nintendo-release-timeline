@@ -29,13 +29,13 @@ Correzione: in `toStudio` calcolare `game` su `list.filter(info.onSwitch2)` quan
 `studios.json` contiene un solo gioco per studio, scelto con la data della build. Quando quel gioco esce, la pagina ricalcola lo stato ("Released 2 days ago") ma continua a mostrarlo anche se lo studio ha già un altro gioco datato in uscita, finché non si rifà `data:build`. In più `today` della build è la data UTC (`toISOString`) e il confronto è `>`: tra mezzanotte e le 2 in Italia la scelta usa il giorno precedente, e un gioco che esce oggi conta come "uscito" per la build ma come "in uscita" per la pagina (`src/studios/main.ts:75`).
 Correzione: scrivere in `studios.json` tutti i giochi Switch 2 datati dello studio (id, titolo, copertina, data) e scegliere il gioco nella pagina con `todayEpochDay()`.
 
-**[media] `src/rankings/main.ts:371-374` — "No games match these filters" anche quando la colpa è la soglia**
+**[media] `src/rankings/main.ts:371-374` — "No games match these filters" anche quando la colpa è la soglia** ✔ corretto in `Rankings: unknown review counts, empty list cause`
 Il messaggio e il pulsante "Reset filters" compaiono ogni volta che i filtri non sono quelli predefiniti, anche se la lista è vuota per il valore di "Min. reviews" (es. soglia 500 con DLC acceso): il reset non cambia niente e la lista resta vuota. SPEC §12 lo prevede solo per risultati mancanti "per colpa dei filtri".
 Correzione: mostrare il messaggio sui filtri solo se `rank(released, …)` con i filtri predefiniti dà almeno un risultato; altrimenti "No games to rank" + riga dei nascosti.
 
 ### Casi limite
 
-**[media] `src/rankings/main.ts:165` — voti senza numero di recensioni esclusi con qualsiasi soglia > 0**
+**[media] `src/rankings/main.ts:165` — voti senza numero di recensioni esclusi con qualsiasi soglia > 0** ✔ corretto in `Rankings: unknown review counts, empty list cause`
 `(score.count ?? 0) >= minReviews`: un voto senza `count` vale 0 recensioni. Nel pannello admin il numero di recensioni di Metacritic e Backloggd è facoltativo (`src/admin/main.ts:193-204`, `overrides-schema.ts:59-71`), quindi un voto inserito senza conteggio non entra mai in classifica con la soglia predefinita, e la riga dei nascosti dice "fewer than 20 reviews" per un gioco di cui il numero non si conosce. Oggi solo OpenCritic ha dati, tutti con `count`.
 Correzione: decidere la regola (conteggio obbligatorio nell'admin, oppure `count: null` sempre sopra soglia) e, se esclusi, contarli come "no review count" nella riga dei nascosti.
 

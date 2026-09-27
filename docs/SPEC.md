@@ -495,12 +495,12 @@ Pagina `rankings.html` (`src/rankings/main.ts`, `src/styles/rankings.css`), incl
 
 **Ordinamento** — selettore "Sort by": OpenCritic, Metacritic, Metacritic User, Backloggd, Critics average (OpenCritic + Metacritic, voti normalizzati), Users average (Metacritic User + Backloggd). A parità di valore: più recensioni, poi titolo. Predefinito: OpenCritic.
 
-**Soglia** — campo "Min. reviews", predefinito 20. Per una singola fonte vale sul numero di recensioni di quella fonte; per le medie contano solo le fonti che superano la soglia, e il gioco entra se almeno una la supera. Esclusi: riga finale "N games hidden (no score or fewer than X reviews)". Una classifica corta per Metacritic e Backloggd (dati manuali incompleti) è attesa.
+**Soglia** — campo "Min. reviews", predefinito 20. Per una singola fonte vale sul numero di recensioni di quella fonte; per le medie contano solo le fonti che superano la soglia, e il gioco entra se almeno una la supera. **Numero di recensioni sconosciuto**: con soglia maggiore di 0 il voto non entra in classifica per quella fonte né nelle medie (con soglia 0 entra); nel cerchietto "—" al posto del conteggio. Esclusi: riga finale "N games hidden (no score or fewer than X reviews)", con "; K with no review count" se alcuni hanno un voto senza conteggio. Una classifica corta per Metacritic e Backloggd (dati manuali incompleti) è attesa.
 
 **Filtri** — indipendenti da quelli della timeline:
 - Includi DLC (predefinito off), includi Switch 2 Edition (on), solo esclusive (off, stessa regola della timeline: contano solo altre console e PC), anno (All / anni presenti nei giochi usciti; predefinito All).
 - Posizioni ricalcolate dopo i filtri (1, 2, 3… senza buchi). Contatore "N games ranked".
-- Nessun risultato per colpa dei filtri: "No games match these filters" con pulsante "Reset filters".
+- Nessun risultato per colpa dei filtri (con i filtri predefiniti ci sarebbe almeno un gioco): "No games match these filters" con pulsante "Reset filters". Se la colpa è la soglia: "No games to rank" e la riga dei nascosti.
 
 Ordinamento, soglia e filtri sono salvati nel browser (`localStorage`, chiavi `rankings-settings` e `rankings-filters`). Cambiarli aggiorna la lista subito con una breve dissolvenza (niente animazione con `prefers-reduced-motion`).
 
@@ -508,7 +508,7 @@ Ordinamento, soglia e filtri sono salvati nel browser (`localStorage`, chiavi `r
 
 **Stato: fatto** (coda in `docs/tasks/free-updates.md`).
 
-Giochi Switch 1 con un aggiornamento gratuito per Switch 2. Fonte: `data/free-updates.json`, curato a mano dalla pagina Nintendo "games with free updates" (titolo, uscita originale, data dell'aggiornamento, link allo store USA).
+Giochi Switch 1 con un aggiornamento gratuito per Switch 2. Fonte: `data/free-updates.json`, curato a mano dalla pagina Nintendo "games with free updates" (titolo, uscita originale, data dell'aggiornamento, link allo store USA). Campo facoltativo `igdbId`: id IGDB del gioco originale, da mettere quando la ricerca per titolo trova il gioco sbagliato o nessuno, o quando `data:fetch-free-updates` segnala un abbinamento "solo per anno".
 
 **Dati**
 - Tipo `free-update` in `games.json` (id `free-update:<titolo>`), accanto a `game`, `switch2-edition`, `dlc`. `firstReleaseDate` = data dell'aggiornamento; in più l'anno di uscita originale.

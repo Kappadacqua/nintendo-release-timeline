@@ -78,7 +78,28 @@ describe("rank: threshold and hidden games", () => {
     expect(titles([scored("Today", { oc: score(80, 30) }, "2026-09-27")], "opencritic")).toEqual(["Today"]);
   });
 
-  // docs/review/pages.md, "voti senza numero di recensioni": the rule is still to be decided
-  // (count required in the admin panel, or `count: null` always above the threshold).
-  it.todo("scores without a review count follow the chosen rule and are reported as such among the hidden games");
+  // docs/review/pages.md, "voti senza numero di recensioni".
+  describe("scores without a review count", () => {
+    const g = [
+      scored("Counted", { oc: score(80, 30) }),
+      scored("Unknown", { oc: score(90, null) }),
+      scored("Unknown MC", { oc: score(70, 5), mc: score(95, null) }),
+    ];
+
+    it("are left out with a threshold above 0 and reported among the hidden games", () => {
+      expect(rank(g, today, { sort: "opencritic", minReviews: 20 })).toMatchObject({ hidden: 2, noCount: 1 });
+      expect(rank(g, today, { sort: "critics", minReviews: 20 })).toMatchObject({ hidden: 2, noCount: 2 });
+      expect(titles(g, "critics")).toEqual(["Counted"]);
+    });
+
+    it("stay out of the averages with a threshold above 0", () => {
+      const both = [scored("A", { oc: score(90, 30), mc: score(50, null) })];
+      expect(rank(both, today, { sort: "critics", minReviews: 20 }).ranked[0]).toMatchObject({ value: 90, used: ["opencritic"] });
+    });
+
+    it("are ranked with a threshold of 0", () => {
+      expect(titles(g, "opencritic", 0)).toEqual(["Unknown", "Counted", "Unknown MC"]);
+      expect(rank(g, today, { sort: "opencritic", minReviews: 0 })).toMatchObject({ hidden: 0, noCount: 0 });
+    });
+  });
 });

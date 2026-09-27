@@ -22,7 +22,7 @@ Sito desktop personale: una timeline orizzontale dei giochi Nintendo usciti dal 
 | `npm run data:validate` | Elenca dati mancanti e conflitti. |
 | `npm run data:fetch` | Chiamate API reali con quota limitata. **Non eseguirlo mai se il task non lo chiede esplicitamente.** |
 | `npm run data:fetch-free-updates` | Rete (IGDB, Wikipedia, Nintendo Wiki) per i titoli di `data/free-updates.json` → `data/cache/free-updates.json`. **Solo se il task lo chiede esplicitamente.** |
-| `npm run data:fetch-studios` | Rete (Nintendo Wiki) per gli studi first party → `data/cache/studios.json`. **Solo se il task lo chiede esplicitamente.** |
+| `npm run data:fetch-studios` | Rete (Nintendo Wiki) per gli studi first party → `data/cache/studios.json`. Non sovrascrive una cache con più studi: `npm run data:fetch-studios -- --force` per accettare la lista più corta. **Solo se il task lo chiede esplicitamente.** |
 | `npm run dev` | Il dev server lo tiene acceso l'utente. **Non avviarlo.** La verifica nel browser la fa l'Architetto. |
 
 ## Mappa dei moduli

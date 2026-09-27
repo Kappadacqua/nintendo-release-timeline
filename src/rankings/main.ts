@@ -174,9 +174,11 @@ function row(entry: Ranked, position: number, sort: SortKey) {
   return { li, rings };
 }
 
-function hiddenText(hidden: number, minReviews: number) {
+function hiddenText(hidden: number, noCount: number, minReviews: number) {
   const games = `${hidden} ${hidden === 1 ? "game" : "games"} hidden`;
-  return minReviews > 0 ? `${games} (no score or fewer than ${minReviews} reviews)` : `${games} (no score)`;
+  if (minReviews === 0) return `${games} (no score)`;
+  const reasons = `no score or fewer than ${minReviews} reviews`;
+  return noCount > 0 ? `${games} (${reasons}; ${noCount} with no review count)` : `${games} (${reasons})`;
 }
 
 function filterBar(filters: RankFilters, years: string[], onChange: () => void) {
@@ -290,17 +292,22 @@ function render(root: HTMLElement, games: Game[]) {
   let transition: gsap.core.Timeline | null = null;
 
   function fillList() {
-    const { ranked, hidden } = rank(filterGames(released, filters), todayEpochDay(), settings);
+    const today = todayEpochDay();
+    const { ranked, hidden, noCount } = rank(filterGames(released, filters), today, settings);
     const label = SORTS.find((s) => s.key === settings.sort)!.label;
     subtitle.textContent = `Released games by ${label} score`;
     const rows = ranked.map((entry, i) => row(entry, i + 1, settings.sort));
     list.replaceChildren(...rows.map((r) => r.li));
     rings = rows.flatMap((r) => r.rings);
-    hiddenEl.textContent = hiddenText(hidden, settings.minReviews);
+    hiddenEl.textContent = hiddenText(hidden, noCount, settings.minReviews);
     hiddenEl.hidden = hidden === 0;
     countEl.textContent = `${ranked.length} ${ranked.length === 1 ? "game" : "games"} ranked`;
-    // No match because of the filters: offer a way back; otherwise the hidden line explains it.
-    const filtered = !filtersAreDefault(filters);
+    // No match because of the filters (the defaults would rank something): offer a way back;
+    // otherwise the threshold is the cause and the hidden line explains it.
+    const filtered =
+      ranked.length === 0 &&
+      !filtersAreDefault(filters) &&
+      rank(filterGames(released, FILTER_DEFAULTS), today, settings).ranked.length > 0;
     empty.hidden = ranked.length > 0;
     emptyText.textContent = filtered ? "No games match these filters" : "No games to rank";
     resetButton.hidden = !filtered;
