@@ -16,7 +16,7 @@ Sito desktop personale: una timeline orizzontale dei giochi Nintendo usciti dal 
 | Comando | Uso |
 |---|---|
 | `npm run typecheck` | Controllo dei tipi. Da eseguire a fine di ogni task. |
-| `npm test` | Test Vitest (`*.test.ts` accanto ai moduli). Da eseguire a fine task se hai toccato logica coperta dai test (date, Rankings, ordine Studios, `scripts/lib/studios.ts`, `scripts/lib/free-updates.ts`). I bug noti sono `it.todo` con il riferimento a `docs/review/`: quando li correggi, trasformali in `it`. |
+| `npm test` | Test Vitest (`*.test.ts` accanto ai moduli). Da eseguire a fine task se hai toccato logica coperta dai test (date, tempo relativo della card in `expand.ts`, Rankings, ordine Studios, `scripts/lib/studios.ts`, `scripts/lib/free-updates.ts`). I bug noti sono `it.todo` con il riferimento a `docs/review/`: quando li correggi, trasformali in `it`. |
 | `npm run build` | Typecheck + build di produzione. Da eseguire a fine task se hai toccato config, entry point o import. |
 | `npm run data:build` | Rigenera `public/data/games.json` da cache + overrides. Nessuna rete. |
 | `npm run data:validate` | Elenca dati mancanti e conflitti. |
@@ -24,11 +24,12 @@ Sito desktop personale: una timeline orizzontale dei giochi Nintendo usciti dal 
 | `npm run data:fetch-free-updates` | Rete (IGDB, Wikipedia, Nintendo Wiki) per i titoli di `data/free-updates.json` → `data/cache/free-updates.json`. **Solo se il task lo chiede esplicitamente.** |
 | `npm run data:fetch-studios` | Rete (Nintendo Wiki) per gli studi first party → `data/cache/studios.json`. Non sovrascrive una cache con più studi: `npm run data:fetch-studios -- --force` per accettare la lista più corta. **Solo se il task lo chiede esplicitamente.** |
 | `npm run dev` | Il dev server lo tiene acceso l'utente. **Non avviarlo.** La verifica nel browser la fa l'Architetto. |
+| `npm run preview` | Serve la build di `dist/`. Come `dev`, **non avviarlo.** |
 
 ## Mappa dei moduli
 
 **`src/timeline/`** — la timeline
-- `timeline.ts` (1082 righe) — orchestrazione della timeline: rendering, posizionamento card, selezione. **File grande.**
+- `timeline.ts` (1090 righe) — orchestrazione della timeline: rendering, posizionamento card, selezione. **File grande.**
 - `scroller.ts` (351) — scorrimento: rotella, trascinamento, inerzia, salti, animazioni di movimento.
 - `group.ts` — gruppi di uscite nello stesso giorno e ventaglio.
 - `minimap.ts` — minimappa, tooltip, riquadro trascinabile.
@@ -45,15 +46,17 @@ Sito desktop personale: una timeline orizzontale dei giochi Nintendo usciti dal 
 - `main.ts` — avvio dell'app. `test-utils.ts` — dati minimi per i test. `types.ts` — tipi condivisi (`Game`, `Score`, `Studio`…). `games.ts` — caricamento di `games.json`, condiviso da timeline e Rankings.
 - `view.ts` — menu View. `filters.ts` — filtri. `search.ts` — ricerca. `presentation.ts` — modalità presentazione.
 - `whats-new.ts`, `news.ts`, `history.ts` — novità, rinvii, storico voti. `zoom-control.ts` — selettore Day/Week/Month.
-- `theme/theme.ts` — tema giorno/notte. `admin/` — pannello admin (solo sviluppo).
-- `styles/main.css` — solo `@import` delle parti, nell'ordine della cascata (non riordinare). Parti in `styles/`: `tokens.css` (`:root` e temi), `base.css`, `header.css`, `timeline.css`, `timeline-items.css`, `card.css`, `dlc-card.css`, `tba.css`, `minimap.css`, `loading.css`, `shortcuts.css`, `selection.css`, `backdrop.css`, `switch2-edition.css`, `out-today.css`, `selection-extras.css` (override su sfondo/selezione, link admin), `filters.css`, `search.css`, `delays.css`, `whats-new.css`, `compact.css`, `view-menu.css`, `dots.css`, `minimap-preview.css`, `groups.css`, `zoom.css`, `presentation.css`, `groups-fan.css` (ventaglio aperto, rivisto).
+- `theme/theme.ts` — tema giorno/notte. `admin/` — pannello admin (`main.ts`, `admin.css`; solo sviluppo).
+- `styles/main.css` — solo `@import` delle parti, nell'ordine della cascata (non riordinare). Parti in `styles/`: `tokens.css` (`:root` e temi), `base.css`, `header.css`, `timeline.css`, `timeline-items.css`, `card.css`, `dlc-card.css`, `tba.css`, `minimap.css`, `loading.css`, `shortcuts.css`, `selection.css`, `backdrop.css`, `switch2-edition.css`, `out-today.css`, `selection-extras.css` (override su sfondo/selezione, link admin), `filters.css`, `search.css`, `delays.css`, `whats-new.css`, `compact.css`, `view-menu.css`, `dots.css`, `minimap-preview.css`, `groups.css`, `zoom.css`, `presentation.css`, `groups-fan.css` (ventaglio aperto, rivisto). `rankings.css` e `studios.css` non sono in `main.css`: li importano le rispettive pagine.
+
+**Pagine** (root): `index.html` (timeline), `rankings.html`, `studios.html`, `admin.html` (solo sviluppo).
 
 **`src/rankings/`** — pagina `/rankings.html`: `main.ts` (pagina, filtri), `rank.ts` (ordinamento e soglia, senza DOM).
 
 **`src/studios/`** — pagina `/studios.html`: `main.ts` (card degli studi, interruttore terze parti), `order.ts` (tempo relativo e ordine, senza DOM).
 
 **`scripts/`** — pipeline dati
-- `fetch-data.ts` → rete → `data/cache/`. `build-data.ts` + `lib/build.ts` → `public/data/games.json` e `studios.json`.
+- `fetch-data.ts` → rete → `data/cache/`. `build-data.ts` + `lib/build.ts` → `public/data/games.json`, `changes.json` e `studios.json`.
 - `fetch-free-updates.ts` → `data/cache/free-updates.json`. `fetch-studios.ts` → `data/cache/studios.json`.
 - `lib/`: `igdb.ts`, `opencritic.ts`, `wikipedia.ts`, `links.ts` (fonti), `transform.ts`, `exclusivity.ts`, `snapshots.ts`, `overrides.ts`, `overrides-schema.ts`, `cache.ts`, `http.ts`, `env.ts` (tutti i percorsi, `PATHS`), `report.ts`.
 - `lib/free-updates.ts` — aggiornamenti gratuiti Switch 2 → voci `free-update`. `lib/fandom.ts` — studi da Nintendo Wiki (API MediaWiki). `lib/studios.ts` — costruzione di `studios.json`.

@@ -69,6 +69,6 @@ Correzione: stesso controllo `typeof === "boolean"` per ogni chiave anche in `lo
 `el()` identica in `rankings/main.ts:115`, `studios/main.ts:45` (variante in `cards/card.ts:31`); `formatDate` "Jun 5, 2025" in `rankings/main.ts:127`, `studios/main.ts:53`, `search.ts:11`, `whats-new.ts:9`, `cards/card.ts:57`; `loadStudios` (`studios/main.ts:198`) copia `loadGames` (`games.ts:4`); avvio con messaggio d'errore uguale in fondo a entrambe le pagine.
 Correzione: `el` e `formatDate` in un modulo condiviso (es. `src/dom.ts`, `dates.ts`), `loadJson<T>(file)` in `games.ts`.
 
-**[bassa] `docs/SPEC.md` §12 — navigazione ancora "Timeline · Rankings"**
+**[bassa] `docs/SPEC.md` §12 — navigazione ancora "Timeline · Rankings"** ✔ corretto in `Docs: CLAUDE.md and SPEC aligned with code`
 §14 dice "Timeline · Rankings · Studios" su tutte e tre le pagine (ed è così nel codice); §12 non è stato aggiornato.
 Correzione: allineare la riga di §12 a §14 (task che tocca la SPEC).

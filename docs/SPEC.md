@@ -15,7 +15,7 @@ Per ora il sito è solo per uso personale in locale; la pubblicazione su GitHub 
 - **Fuse.js** per la ricerca tollerante agli errori
 - Script di raccolta dati in **Node + TypeScript** (`tsx` per eseguirli)
 - Node **≥ 20.19** (`.nvmrc`: 24). Le variabili di `.env` sono lette con `process.loadEnvFile`, senza dipendenze.
-- Nessun backend: il sito legge i file statici `public/data/games.json` e `public/data/changes.json`. Solo in sviluppo un plugin Vite serve il pannello admin (§10)
+- Nessun backend: il sito legge i file statici `public/data/games.json`, `public/data/changes.json` e `public/data/studios.json`. Solo in sviluppo un plugin Vite serve il pannello admin (§10)
 - Chiavi API in `.env` (escluso da git), in futuro nei GitHub Secrets
 
 ## 2. Struttura cartelle
@@ -24,6 +24,8 @@ Per ora il sito è solo per uso personale in locale; la pubblicazione su GitHub 
 /scripts
   fetch-data.ts          # solo rete: IGDB, Wikipedia/Wikidata, OpenCritic, Fandom → data/cache/, poi build e snapshot
   build-data.ts          # senza rete: cache + overrides + storico → games.json e changes.json
+  fetch-free-updates.ts  # solo rete: IGDB, Wikipedia, Nintendo Wiki per data/free-updates.json → data/cache/free-updates.json (§13)
+  fetch-studios.ts       # solo rete: studi first party da Nintendo Wiki → data/cache/studios.json (§14)
   validate-data.ts       # cosa va completato o deciso a mano
   vite-admin.ts          # plugin Vite del pannello admin (solo `vite dev`)
   lib/build.ts           # perimetro, merge, link Nintendo Store, storico → games.json
@@ -40,11 +42,18 @@ Per ora il sito è solo per uso personale in locale; la pubblicazione su GitHub 
   lib/exclusivity.ts     # storico esclusività (→ "timed")
   lib/overrides.ts       # overrides.json: override per gioco, abbinamenti Wikipedia, giochi manuali
   lib/report.ts          # tipo di data/fetch-report.json
+  lib/free-updates.ts    # aggiornamenti gratuiti Switch 2 → voci free-update, free-updates-seen.json
+  lib/fandom.ts          # studi da Nintendo Wiki (API MediaWiki)
+  lib/studios.ts         # costruzione di studios.json
+  *.test.ts              # test Vitest accanto ai moduli (anche in /src)
 /data
   overrides.json         # dati inseriti a mano (vedi §4.2)
   settings.json          # impostazioni (regione del Nintendo Store)
+  free-updates.json      # aggiornamenti gratuiti Switch 2, curati a mano (§13)
+  free-updates-seen.json # giorno in cui ogni aggiornamento è comparso, da versionare e mai cancellare (§13)
+  studios-overrides.json # correzioni agli studi: chiusi, nascosti, alias (§14)
   exclusivity-history.json   # storico esclusività, da versionare
-  cache/                 # risposte grezze delle API, da versionare: igdb, wikipedia, links, opencritic
+  cache/                 # risposte grezze delle API, da versionare: igdb, wikipedia, links, opencritic, free-updates, studios
                          # (fetch-status.json, esito delle chiamate, è ignorato da git)
   snapshots/YYYY-MM-DD.json  # uno per giorno di data:fetch, da versionare (§5)
   backups/               # copie di overrides.json prima di ogni salvataggio dall'admin (ignorato da git)
@@ -53,10 +62,14 @@ Per ora il sito è solo per uso personale in locale; la pubblicazione su GitHub 
 /public
   data/games.json        # output finale letto dal sito
   data/changes.json      # novità (§8)
+  data/studios.json      # studi e loro gioco Switch 2 (§14)
   covers/placeholder.svg # copertina di ripiego
+index.html, rankings.html, studios.html, admin.html   # pagine (admin solo in sviluppo)
 /src
   main.ts                # tema, dialogo scorciatoie, caricamento dati, collegamento dei pezzi
-  types.ts               # schema di games.json e changes.json
+  types.ts               # schema di games.json, changes.json e studios.json
+  games.ts               # caricamento di games.json (timeline e Rankings)
+  test-utils.ts          # dati minimi per i test
   history.ts             # regole dei rinvii (condivise da build e sito)
   news.ts                # novità viste / non viste (localStorage)
   whats-new.ts           # pulsante e pannello "What's new"
@@ -66,13 +79,17 @@ Per ora il sito è solo per uso personale in locale; la pubblicazione su GitHub 
   zoom-control.ts        # selettore Day / Week / Month e transizione di zoom
   presentation.ts        # modalità presentazione
   admin/                 # pannello admin (admin.html, solo in sviluppo)
+  rankings/              # pagina Rankings (main.ts) e ordinamento senza DOM (rank.ts) (§12)
+  studios/               # pagina Studios (main.ts) e ordine senza DOM (order.ts) (§14)
   timeline/              # timeline (selezione compresa), scroll e inerzia, header data, minimappa, zona TBA,
                          # sfondo del gioco selezionato (backdrop.ts), titolo del sito (site-title.ts), config,
                          # livelli di zoom (zoom.ts), tacche (ticks.ts), gruppi dello stesso giorno (group.ts)
   cards/                 # card, card espansa (expand.ts), card compatte (compact.ts), cerchietti, layout collisioni, animazioni,
                          # coriandoli (confetti.ts), bandiere, nomi sviluppatori
   theme/                 # tema giorno/notte
-  styles/main.css        # tutti i token e gli stili
+  styles/main.css        # solo @import delle parti della timeline, nell'ordine della cascata
+  styles/tokens.css      # token in :root e temi; le altre parti per componente (card.css, minimap.css…)
+  styles/rankings.css, styles/studios.css   # stili delle pagine Rankings e Studios
 .env.example
 ```
 
@@ -207,8 +224,8 @@ interface GamesFile {
 }
 
 interface Game {
-  id: string;                    // "igdb:<id>" oppure "manual:<slug>"
-  kind: "game" | "switch2-edition" | "dlc";
+  id: string;                    // "igdb:<id>", "manual:<slug>" oppure "free-update:<titolo>"
+  kind: "game" | "switch2-edition" | "dlc" | "free-update";
   title: string;                 // titolo inglese
   baseGameTitle?: string;        // solo per DLC
   coverUrl: string;
@@ -219,6 +236,7 @@ interface Game {
   releaseDates: Partial<Record<Region, string | null>>; // "YYYY-MM-DD" o null = TBA
   firstReleaseDate: string | null;  // la più vicina tra JP/EU/NA
   vagueRelease?: { year: number; label: string }; // per la zona TBA ("2026", "Q2 2027"…)
+  originalReleaseYear?: number;  // solo free-update: anno di uscita originale su Switch
   dateHistory?: { date: string; firstReleaseDate: string | null }[];  // solo i cambi, se più di uno
   scoreHistory?: Partial<Record<"opencritic" | "metacritic" | "metacriticUser" | "backloggd",
     { date: string; normalized: number }[]>>;  // solo i cambi, fonti con almeno 2 punti
@@ -445,7 +463,8 @@ Pannello simile a quello dei filtri: **Card style** (Full / Compact), **Group sa
 Variabili in `.env` (vedi `.env.example`): `TWITCH_CLIENT_ID`, `TWITCH_CLIENT_SECRET`, `RAPIDAPI_KEY` (facoltativa), `OPENCRITIC_MAX_SEARCHES`, `OPENCRITIC_MAX_REQUESTS`, `OPENCRITIC_CATALOG_DAYS`, `WIKI_CONTACT`.
 
 - `npm run data:fetch` → interroga le API e salva le risposte grezze in `data/cache/`, poi esegue la build e scrive lo snapshot del giorno. Se un passo essenziale fallisce (es. credenziali IGDB mancanti) si ferma senza toccare `games.json`.
-- `npm run data:build` → **senza rete** (~50ms): cache + `overrides.json` + `settings.json` + storico esclusività + snapshot → `public/data/games.json`, `public/data/changes.json` e `data/fetch-report.json`. Si usa dopo aver modificato a mano overrides o impostazioni.
+- `npm run data:build` → **senza rete** (~50ms): cache + `overrides.json` + `settings.json` + storico esclusività + snapshot + `free-updates.json` + `studios-overrides.json` → `public/data/games.json`, `public/data/changes.json`, `public/data/studios.json` e `data/fetch-report.json` (aggiorna anche `data/free-updates-seen.json`). Si usa dopo aver modificato a mano overrides o impostazioni.
+- `npm run data:fetch-free-updates` e `npm run data:fetch-studios` → rete, solo per aggiornamenti gratuiti (§13) e studi (§14).
 - `npm run data:validate` → elenca:
   - giochi **usciti senza Metacritic o Backloggd** (con quali mancano);
   - conflitti di esclusività non ancora decisi;
@@ -475,11 +494,11 @@ Variabili in `.env` (vedi `.env.example`): `TWITCH_CLIENT_ID`, `TWITCH_CLIENT_SE
 6. ~~**Rifinitura**: performance, accessibilità da tastiera, dettagli visivi.~~ ✔
 7. *(Più avanti)* GitHub Action e pubblicazione su GitHub Pages.
 
-**Iterazione 2** (`ITERATION-2.md`) ✔: correzioni, indicatore centrale e controlli per giorno, selezione e card espansa, nuovi campi dati, sfondo, "uscito oggi", bordo Switch 2 Edition.
+**Iterazione 2** (`docs/archive/ITERATION-2.md`) ✔: correzioni, indicatore centrale e controlli per giorno, selezione e card espansa, nuovi campi dati, sfondo, "uscito oggi", bordo Switch 2 Edition.
 
-**Iterazione 3** (`ITERATION-3.md`) ✔: fetch e build separati, pannello admin, pulsante Nintendo Store, ricerca e filtri, snapshot con rinvii e andamento dei voti, novità.
+**Iterazione 3** (`docs/archive/ITERATION-3.md`) ✔: fetch e build separati, pannello admin, pulsante Nintendo Store, ricerca e filtri, snapshot con rinvii e andamento dei voti, novità.
 
-**Iterazione 4** (`ITERATION-4.md`) ✔: menu View e card compatte, pallini per tipo e fasce dei mesi, minimappa con anteprima e riquadro trascinabile, salti per mese e inerzia, gruppi dello stesso giorno, livelli di zoom, modalità presentazione.
+**Iterazione 4** (`docs/archive/ITERATION-4.md`) ✔: menu View e card compatte, pallini per tipo e fasce dei mesi, minimappa con anteprima e riquadro trascinabile, salti per mese e inerzia, gruppi dello stesso giorno, livelli di zoom, modalità presentazione.
 
 Lavorare un punto alla volta, verificando nel browser prima di passare al successivo.
 
@@ -489,7 +508,7 @@ Lavorare un punto alla volta, verificando nel browser prima di passare al succes
 
 Pagina `rankings.html` (`src/rankings/main.ts`, `src/styles/rankings.css`), inclusa nella build di produzione.
 
-- Header con navigazione **"Timeline · Rankings"** su entrambe le pagine, pagina attiva evidenziata; stesso tema giorno/notte.
+- Header con navigazione **"Timeline · Rankings · Studios"** su tutte e tre le pagine, pagina attiva evidenziata; stesso tema giorno/notte.
 - Solo giochi **usciti** (data di prima uscita ≤ oggi).
 - Ogni riga: posizione, copertina piccola, titolo, badge del tipo (DLC / Switch 2 Edition), data di uscita, quattro cerchietti (OpenCritic, Metacritic, Metacritic User, Backloggd; N/D dove manca il voto). Il cerchietto usato per ordinare è evidenziato; per le medie c'è anche una pillola col valore della media.
 
@@ -524,7 +543,7 @@ Giochi Switch 1 con un aggiornamento gratuito per Switch 2. Fonte: `data/free-up
 
 **Resto del sito**
 - Filtro timeline **"Free updates"**, acceso di default, salvato con gli altri; il contatore "N of M games" li include.
-- **Rankings** (e Studios, quando ci sarà): mai presenti, nemmeno nel conteggio dei nascosti.
+- **Rankings** e **Studios**: mai presenti, nemmeno nel conteggio dei nascosti.
 - **Ricerca**: presenti, indicati come "Free update".
 - **What's new**: gli aggiornamenti non sono negli snapshot di `data:fetch`; il giorno in cui compaiono nel file lo registra `data:build` in `data/free-updates-seen.json`. Il primo import (17 voci) vale come già noto (`null`): solo i titoli aggiunti dopo compaiono come "New", con dettaglio "Free update · data".
 

@@ -7,7 +7,7 @@ Regole:
 - Per verificare le informazioni usa comandi mirati (find, wc, grep, git log), non leggere interi file di codice.
 - Non eseguire i comandi data:fetch*, non fare git push, non toccare wip/perf.
 
-## [ ] Task 1 — CLAUDE.md e SPEC allineati al codice
+## [x] Task 1 — CLAUDE.md e SPEC allineati al codice
 - Confronta la mappa dei moduli di CLAUDE.md con i file reali (find src scripts -type f | xargs wc -l): file mancanti, file che non esistono più, righe e descrizioni sbagliate. Correggi.
 - Controlla la tabella dei comandi con gli script di package.json.
 - In docs/SPEC.md cerca affermazioni superate dal codice (es. §12 con "Timeline · Rankings" invece di tre voci). Verifica con grep, correggi il testo e segna in docs/review/*.md i problemi di documentazione risolti.

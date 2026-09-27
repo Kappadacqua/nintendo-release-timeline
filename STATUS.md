@@ -1,6 +1,6 @@
 # Stato del progetto
 
-Aggiornato: 2026-09-27 — Correzioni, task 4 (Stile: token, reduced motion, gruppo aggiornamenti)
+Aggiornato: 2026-09-27 — Documentazione, task 1 (CLAUDE.md e SPEC allineati al codice)
 
 ## Ultimo checkpoint
 
@@ -12,6 +12,8 @@ Aggiornato: 2026-09-27 — Correzioni, task 4 (Stile: token, reduced motion, gru
 Nessuno.
 
 ## Da verificare nel browser (Architetto)
+
+- Documentazione, task 1 (solo documenti, niente da vedere nel browser): mappa dei moduli e tabella dei comandi di `CLAUDE.md`, `docs/SPEC.md` §1, §2, §5, §10, §11, §12, §13 allineati al codice. Coda in `docs/tasks/docs.md` (il testo del task 5 è troncato: da completare).
 
 - Correzioni, task 4 (Stile): nuovi token in `tokens.css` — `--news` (blu, un po' più chiaro nel tema scuro: `#3d95ff`), `--news-text`, `--delayed`, `--delayed-text`. Controllare in entrambi i temi: badge "New" e pallini di "What's new", badge dei rinvii (arancione come prima), tipo "Delayed" nel pannello "What's new" (ora stesso arancione del badge: `#b36b00` chiaro / `#ffc15e` scuro, prima `#d98200`). Con reduced motion attivo: il titolo in alto a sinistra cambia con sola dissolvenza (niente scorrimento di 6px) e l'icona del tema non ruota. Il gruppo "12 free updates" del 5 giugno 2025 ha bordo verde, fondo `--card-free-update` ed etichetta verde, come le card degli aggiornamenti.
 
