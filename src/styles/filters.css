@@ -1,0 +1,118 @@
+/* ---------- Filters (ITERATION-3 §6) ---------- */
+
+.filters {
+  position: relative;
+  align-self: center;
+}
+
+.filters__toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font: 800 14px var(--font);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.filters__toggle:hover {
+  border-color: var(--accent);
+}
+
+/* A dot when some filter differs from the default. */
+.filters__toggle.is-filtered::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.filters__caret {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.filters__panel {
+  position: absolute;
+  z-index: 60;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 290px;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--card);
+  box-shadow: var(--card-shadow-hover);
+}
+
+.filters__option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.filters__option:hover {
+  background: var(--surface);
+}
+
+.filters__option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.filters__switch {
+  position: relative;
+  flex: none;
+  width: 36px;
+  height: 20px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  transition: background-color 0.2s ease;
+}
+
+.filters__switch::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.3);
+  transition: transform 0.2s ease;
+}
+
+.filters__option input:checked + .filters__switch {
+  background: var(--accent);
+}
+
+.filters__option input:checked + .filters__switch::after {
+  transform: translateX(16px);
+}
+
+.filters__option input:focus-visible + .filters__switch {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.filters__option strong {
+  display: block;
+  font-size: 14px;
+}
+
+.filters__option small {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+

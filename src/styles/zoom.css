@@ -1,0 +1,132 @@
+/* ---------- Zoom levels (ITERATION-4 §6) ---------- */
+
+/* What a zoom transition scales: everything but the minimap. */
+.timeline__stage {
+  position: absolute;
+  inset: 0;
+}
+
+/* Week / Month: cards are just their cover; the title shows on hover. */
+.timeline.is-zoomed-out .tl-item .card:not(.is-selected),
+.timeline.is-zoomed-out .tba-block .card:not(.is-selected) {
+  width: var(--w-cover);
+  padding: 4px;
+}
+
+.timeline.is-zoomed-out .card:not(.is-selected, .card--group) > :not(.card__top, .card__peek),
+.timeline.is-zoomed-out .card:not(.is-selected) .card__info {
+  display: none;
+}
+
+.timeline.is-zoomed-out .card:not(.is-selected) .card__top {
+  gap: 0;
+}
+
+.timeline.is-zoomed-out .card:not(.is-selected) .card__cover {
+  width: 64px;
+  height: 86px;
+}
+
+.timeline.is-zoomed-out .card--dlc:not(.is-selected) {
+  overflow: visible;
+}
+
+.card__peek {
+  display: none;
+}
+
+.timeline.is-zoomed-out .tl-item:hover .card__peek,
+.timeline.is-zoomed-out .tba-block .card:hover .card__peek {
+  display: block;
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  width: max-content;
+  max-width: 220px;
+  padding: 5px 9px;
+  border-radius: var(--radius-sm);
+  background: var(--text);
+  color: var(--bg);
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.25;
+  text-align: center;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.tl-item--above .card__peek,
+.tba-block .card__peek {
+  bottom: calc(100% + 6px);
+}
+
+.tl-item--below .card__peek {
+  top: calc(100% + 6px);
+}
+
+.timeline.is-zoomed-out .tl-item:hover {
+  z-index: 38 !important;
+}
+
+/* A same-day group, zoomed out: small closed fan and its count. */
+.timeline.is-zoomed-out .card--group {
+  padding: 4px 6px 6px;
+}
+
+.timeline.is-zoomed-out .group-stack__covers {
+  height: 62px;
+}
+
+.timeline.is-zoomed-out .group-stack__cover {
+  width: 40px;
+  height: 54px;
+  margin-left: -20px;
+  transform: translateX(calc(var(--i) * 9px)) rotate(calc(var(--i) * 6deg));
+}
+
+.timeline.is-zoomed-out .group-stack__label {
+  justify-content: center;
+  margin-top: 4px;
+}
+
+.timeline.is-zoomed-out .group-stack__label strong {
+  font-size: 12px;
+}
+
+.timeline.is-zoomed-out .group-stack__label span {
+  display: none;
+}
+
+/* Current level, top right of the timeline: click to change (also Ctrl + wheel, + / −). */
+.zoom-control {
+  position: absolute;
+  z-index: 35;
+  top: 12px;
+  right: 32px;
+  display: flex;
+  padding: 3px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
+  backdrop-filter: blur(8px);
+}
+
+.zoom-control button {
+  padding: 4px 11px;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--text-muted);
+  font: 800 12px var(--font);
+  cursor: pointer;
+}
+
+.zoom-control button:hover {
+  color: var(--text);
+}
+
+.zoom-control button[aria-pressed="true"] {
+  background: var(--accent);
+  color: #fff;
+}
+

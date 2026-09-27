@@ -1,0 +1,45 @@
+/* ---------- Compact cards (ITERATION-4 §2) ---------- */
+
+/* card.ts sets both widths; the mode picks one, so the change can animate. */
+.card {
+  width: var(--w-full);
+}
+
+.tl-item .card {
+  transition:
+    box-shadow 0.2s ease,
+    border-color 0.2s ease,
+    filter 0.3s ease,
+    width 0.35s ease,
+    margin-left 0.35s ease;
+}
+
+/* On the dated line compact cards are narrower (TBA blocks keep their width, only fold). */
+.timeline.is-compact .tl-item .card:not(.is-selected) {
+  width: var(--w-compact);
+}
+
+/* Selected, a compact card becomes the full one, growing around its own center. */
+.timeline.is-compact .tl-item .card.is-selected {
+  margin-left: calc((var(--w-compact) - var(--w-full)) / 2);
+}
+
+.timeline.is-compact .card:not(.is-selected) .card__full:not(.is-folding) {
+  display: none;
+}
+
+.timeline.is-compact .card:not(.is-selected) .card__badges:empty {
+  display: none;
+}
+
+/* While switching style, the scale for short windows follows smoothly too. */
+.timeline.is-restyling .tl-item__group {
+  transition: transform 0.35s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tl-item .card {
+    transition: none;
+  }
+}
+

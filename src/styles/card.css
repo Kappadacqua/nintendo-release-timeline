@@ -1,0 +1,270 @@
+/* ---------- Card ---------- */
+
+.card {
+  position: absolute;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--card);
+  box-shadow: var(--card-shadow);
+  cursor: default;
+  transition:
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.tl-item:hover .card {
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+  box-shadow: var(--card-shadow-hover);
+}
+
+.timeline.is-dragging .card {
+  cursor: grabbing;
+}
+
+.card__top {
+  display: flex;
+  gap: 12px;
+}
+
+.card__cover {
+  flex: none;
+  width: 72px;
+  height: 96px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  background: var(--surface-2);
+}
+
+.card__info {
+  min-width: 0;
+}
+
+.card__title {
+  display: -webkit-box;
+  margin: 0 0 4px;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.card__meta,
+.card__base {
+  margin: 0 0 6px;
+  font-size: 12px;
+  line-height: 1.35;
+  color: var(--text-muted);
+}
+
+.card__base em {
+  font-style: italic;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.card__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.badge {
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  font-size: 10.5px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.badge--accent {
+  background: var(--accent);
+  color: #fff;
+}
+
+.badge--accent-soft {
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  color: var(--accent);
+}
+
+.badge--s2 {
+  background: var(--text);
+  color: var(--bg);
+}
+
+.card__dates {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0 0;
+  padding: 7px 0 0;
+  border-top: 1px solid var(--border);
+  list-style: none;
+  font-size: 11.5px;
+  font-weight: 700;
+}
+
+.card__date {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.card__date-region {
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--text-muted);
+}
+
+.card__date .is-tba {
+  color: var(--text-muted);
+}
+
+.flag {
+  flex: none;
+  border-radius: 1.5px;
+  color: var(--flag-border); /* the SVG border strokes currentColor */
+}
+
+/* Scores */
+.card__scores {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+
+.score-group__title {
+  margin: 0 0 6px;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.score-group__rings {
+  display: flex;
+  gap: 4px;
+}
+
+.ring {
+  --ring: var(--score-none);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 58px;
+}
+
+.ring--mighty {
+  --ring: var(--score-mighty);
+}
+.ring--strong {
+  --ring: var(--score-strong);
+}
+.ring--fair {
+  --ring: var(--score-fair);
+}
+.ring--weak {
+  --ring: var(--score-weak);
+}
+
+.ring__dial {
+  position: relative;
+  width: 44px;
+  height: 44px;
+}
+
+.ring__dial svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.ring__track {
+  fill: none;
+  stroke: var(--surface-2);
+  stroke-width: 4;
+}
+
+.ring__fill {
+  fill: none;
+  stroke: var(--ring);
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.ring--none .ring__fill {
+  display: none;
+}
+
+.ring__value {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  color: var(--ring);
+}
+
+.ring--none .ring__value {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.ring__source {
+  margin-top: 3px;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+a.ring__source:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.ring__count {
+  font-size: 9.5px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* Upcoming */
+.card--upcoming {
+  border-style: dashed;
+}
+
+.card__upcoming {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+.card__upcoming-label {
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.card__upcoming-when {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+

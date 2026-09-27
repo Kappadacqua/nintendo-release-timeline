@@ -1,0 +1,131 @@
+/* ---------- Search (ITERATION-3 §5) ---------- */
+
+/* Magnifier: a ring and a handle. */
+.search-toggle__icon {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  margin: -2px 0 0 -2px;
+  border: 2.5px solid var(--text);
+  border-radius: 50%;
+}
+
+.search-toggle__icon::after {
+  content: "";
+  position: absolute;
+  right: -6px;
+  bottom: -5px;
+  width: 7px;
+  height: 2.5px;
+  border-radius: 2px;
+  background: var(--text);
+  transform: rotate(45deg);
+}
+
+.search {
+  width: min(620px, calc(100vw - 32px));
+  margin-top: 12vh;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--card);
+  color: var(--text);
+  box-shadow: var(--card-shadow-hover);
+}
+
+.search::backdrop {
+  background: rgb(0 0 0 / 0.35);
+}
+
+.search__field {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+}
+
+.search__icon {
+  position: relative;
+  flex: none;
+  width: 16px;
+  height: 16px;
+  border: 2.5px solid var(--text-muted);
+  border-radius: 50%;
+}
+
+.search__icon::after {
+  content: "";
+  position: absolute;
+  right: -6px;
+  bottom: -5px;
+  width: 7px;
+  height: 2.5px;
+  border-radius: 2px;
+  background: var(--text-muted);
+  transform: rotate(45deg);
+}
+
+.search__field input {
+  flex: 1;
+  border: 0;
+  background: none;
+  color: var(--text);
+  font: 700 18px var(--font);
+  outline: none;
+}
+
+.search__results {
+  max-height: 420px;
+  margin: 0;
+  padding: 6px;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.search__result {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.search__result[aria-selected="true"] {
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+
+.search__result img {
+  flex: none;
+  width: 32px;
+  height: 44px;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.search__text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.search__text strong {
+  overflow: hidden;
+  font-size: 15px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.search__text small {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.search__empty {
+  padding: 14px 12px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+

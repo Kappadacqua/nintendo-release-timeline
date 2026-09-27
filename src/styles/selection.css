@@ -1,0 +1,88 @@
+/* ---------- Selection (ITERATION-2 §3) ---------- */
+
+.card {
+  transition:
+    box-shadow 0.2s ease,
+    border-color 0.2s ease,
+    filter 0.3s ease;
+}
+
+.timeline.has-selection .card:not(.is-selected) {
+  filter: opacity(0.5);
+}
+
+.card.is-selected {
+  border-color: var(--accent);
+  box-shadow:
+    0 0 0 3px var(--accent),
+    0 0 18px 4px color-mix(in srgb, var(--accent) 65%, transparent),
+    0 0 60px 14px color-mix(in srgb, var(--accent) 38%, transparent),
+    var(--card-shadow-hover);
+}
+
+.tl-item.is-selected-layer {
+  z-index: 40 !important;
+}
+
+.tba-block .card.is-selected {
+  z-index: 2;
+}
+
+.card__more {
+  overflow: hidden;
+}
+
+.card__when {
+  margin: 10px 0 0;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+}
+
+.card__summary {
+  display: -webkit-box;
+  margin: 6px 0 0;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--text-muted);
+}
+
+/* Always one row, also in the narrower DLC card: the buttons share the width. */
+.card__actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.card-button {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+  padding: 6px 8px;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 11.5px;
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.card-button:hover {
+  filter: brightness(1.1);
+}
+
+.card-button.is-disabled {
+  border-color: var(--border);
+  background: var(--surface-2);
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+

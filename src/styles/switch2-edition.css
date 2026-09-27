@@ -1,0 +1,9 @@
+/* ---------- Switch 2 Edition: two-colour Joy-Con border (ITERATION-2 §6) ---------- */
+
+.card--switch2-edition {
+  border: 2px solid transparent;
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    linear-gradient(90deg, var(--joycon-left) 0%, var(--joycon-left) 35%, var(--joycon-right) 65%, var(--joycon-right) 100%) border-box;
+}
+

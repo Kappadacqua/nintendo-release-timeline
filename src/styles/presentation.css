@@ -1,0 +1,109 @@
+/* ---------- Presentation mode (ITERATION-4 §9) ---------- */
+
+/* Time left on the current game: a thin bar along the bottom edge. */
+.presentation-bar {
+  position: fixed;
+  z-index: 90;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+  pointer-events: none;
+}
+
+.presentation-bar[hidden] {
+  display: none;
+}
+
+.presentation-bar span {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: var(--accent);
+}
+
+.presentation-bar.is-paused span {
+  animation-play-state: paused !important;
+}
+
+@keyframes presentation-fill {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.presentation-toast {
+  position: fixed;
+  z-index: 91;
+  bottom: 96px;
+  left: 50%;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: var(--text);
+  color: var(--bg);
+  font-size: 13px;
+  font-weight: 800;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate(-50%, 8px);
+  pointer-events: none;
+}
+
+.presentation-toast.is-shown {
+  animation: presentation-toast 2.6s ease forwards;
+}
+
+@keyframes presentation-toast {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 8px);
+  }
+  10%,
+  80% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, 0);
+  }
+}
+
+body.is-cursor-hidden,
+body.is-cursor-hidden * {
+  cursor: none !important;
+}
+
+.view-menu__action {
+  width: 100%;
+  margin-top: 14px;
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text);
+  font: 800 13px var(--font);
+  text-align: left;
+  cursor: pointer;
+}
+
+.view-menu__action:hover {
+  border-color: var(--accent);
+}
+
+.view-menu__action kbd {
+  float: right;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .presentation-toast.is-shown {
+    animation: none;
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+

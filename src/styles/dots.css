@@ -1,0 +1,59 @@
+/* ---------- Dots by type (ITERATION-4 §3) ---------- */
+
+/* Legend in the "?" dialog. */
+.legend-dot {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 3px solid var(--dot, var(--timeline));
+  border-radius: 50%;
+  background: var(--dot, var(--timeline));
+  vertical-align: -2px;
+}
+
+.legend-dot.is-upcoming {
+  background: var(--bg);
+}
+
+.tl-item__dot--dlc,
+.minimap__dot--dlc,
+.legend-dot--dlc {
+  --dot: var(--dlc);
+}
+
+/* Switch 2 Edition: split in the two Joy-Con colors, like its card border. */
+.tl-item__dot--switch2-edition,
+.minimap__dot--switch2-edition,
+.legend-dot--switch2-edition {
+  border-color: transparent;
+  background: linear-gradient(90deg, var(--joycon-left) 50%, var(--joycon-right) 50%) border-box;
+}
+
+.tl-item__dot--switch2-edition.is-upcoming,
+.minimap__dot--switch2-edition.is-upcoming,
+.legend-dot--switch2-edition.is-upcoming {
+  background:
+    linear-gradient(var(--bg), var(--bg)) padding-box,
+    linear-gradient(90deg, var(--joycon-left) 50%, var(--joycon-right) 50%) border-box;
+}
+
+/* DLC dots are also square: a cue that does not rely on color. */
+.tl-item__dot--dlc,
+.legend-dot--dlc {
+  border-radius: 3px;
+}
+
+.shortcuts h3 {
+  margin: 0 0 10px;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.shortcuts__legend dt {
+  display: flex;
+  gap: 6px;
+}
+

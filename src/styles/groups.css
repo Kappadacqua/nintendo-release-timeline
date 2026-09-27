@@ -1,0 +1,101 @@
+/* ---------- Same-day groups (ITERATION-4 §4) ---------- */
+
+.card--group {
+  padding: 12px 14px 10px;
+  cursor: pointer;
+}
+
+.group-stack__covers {
+  position: relative;
+  height: 104px;
+}
+
+/* A closed fan of covers; it opens a little on hover. */
+.group-stack__cover {
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  width: 66px;
+  height: 88px;
+  margin-left: -33px;
+  border: 2px solid var(--card);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  box-shadow: 0 3px 8px rgb(0 0 0 / 0.2);
+  object-fit: cover;
+  transform: translateX(calc(var(--i) * 20px)) rotate(calc(var(--i) * 7deg));
+  transform-origin: 50% 120%;
+  transition: transform 0.25s ease;
+}
+
+.tl-item:hover .group-stack__cover,
+.card--group:focus-visible .group-stack__cover {
+  transform: translateX(calc(var(--i) * 26px)) rotate(calc(var(--i) * 10deg));
+}
+
+.group-stack__label {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+.group-stack__label strong {
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.group-stack__label span {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+/* Open: the fan spreads over its neighbours; the hovered card peeks out. */
+.tl-item.is-fanned {
+  z-index: 39 !important;
+}
+
+.fan-card:not(.is-selected):hover {
+  z-index: 99 !important;
+}
+
+/* The fan's cards overlap: dimmed without transparency, so none shows through another. */
+.timeline.has-selection .fan-card:not(.is-selected) {
+  filter: saturate(0.5) brightness(0.95);
+}
+
+:root[data-theme="dark"] .timeline.has-selection .fan-card:not(.is-selected) {
+  filter: saturate(0.5) brightness(0.7);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .timeline.has-selection .fan-card:not(.is-selected) {
+    filter: saturate(0.5) brightness(0.7);
+  }
+}
+
+.tl-item__dot--group {
+  left: -9px;
+  top: -9px;
+  width: 18px;
+  height: 18px;
+  border-width: 4px;
+}
+
+.minimap__dot--group {
+  width: 11px;
+  height: 11px;
+  margin: -5.5px 0 0 -5.5px;
+}
+
+.view-menu__toggle-row {
+  margin: 12px -10px 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .group-stack__cover {
+    transition: none;
+  }
+}
+

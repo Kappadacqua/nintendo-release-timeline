@@ -1,0 +1,22 @@
+/* Open fan (ITERATION-4 §4, revised): the other games are compact (cover, title) and
+   side by side; the selected one is full size, under the playhead. */
+.tl-item.is-fanned .fan-card:not(.is-selected) {
+  width: var(--w-compact);
+}
+
+.tl-item.is-fanned .fan-card:not(.is-selected) .card__full:not(.is-folding) {
+  display: none;
+}
+
+/* The fan positions its selected card itself (no compact-mode centering offset). */
+.timeline .tl-item .card.fan-card.is-selected {
+  margin-left: 0;
+}
+
+/* No width animation in the fan: the card you leave closes at once, the row glides. */
+.tl-item .card.fan-card {
+  transition:
+    box-shadow 0.2s ease,
+    border-color 0.2s ease,
+    filter 0.3s ease;
+}

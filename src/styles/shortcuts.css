@@ -1,0 +1,62 @@
+/* ---------- Keyboard shortcuts dialog ---------- */
+
+.shortcuts {
+  width: min(460px, calc(100vw - 32px));
+  padding: 24px 28px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--bg);
+  color: var(--text);
+  box-shadow: var(--card-shadow-hover);
+}
+
+.shortcuts::backdrop {
+  background: rgb(0 0 0 / 0.35);
+}
+
+.shortcuts h2 {
+  margin: 0 0 16px;
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.shortcuts dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 10px 18px;
+  margin: 0 0 20px;
+  font-size: 14px;
+}
+
+.shortcuts dt {
+  white-space: nowrap;
+}
+
+.shortcuts dd {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+kbd {
+  display: inline-block;
+  min-width: 24px;
+  padding: 2px 7px;
+  border: 1px solid var(--border);
+  border-bottom-width: 2px;
+  border-radius: 6px;
+  background: var(--surface);
+  font: 800 12px/1.4 var(--font);
+  color: var(--text);
+  text-align: center;
+}
+
+.shortcuts__close {
+  padding: 8px 18px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font: 800 14px var(--font);
+  cursor: pointer;
+}
+

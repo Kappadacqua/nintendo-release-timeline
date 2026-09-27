@@ -5,7 +5,7 @@ Aggiornato: 2026-09-27 — riorganizzazione del workflow
 ## Ultimo checkpoint
 
 - `main` @ `ec1c916` — Inertia cap, presentation stop, fan card fit, live header
-- Branch `wip/perf`: modifiche interrotte a canvas e sfondo (`main.css`, `backdrop.ts`, `config.ts`, `timeline.ts`). **Non verificate**, parcheggiate finché il 4K non torna una priorità.
+- Branch `wip/perf`: modifiche interrotte a canvas e sfondo (`main.css` — prima della divisione in file, il merge andrà adattato —, `backdrop.ts`, `config.ts`, `timeline.ts`). **Non verificate**, parcheggiate finché il 4K non torna una priorità.
 
 ## Lavoro in corso
 
@@ -13,6 +13,7 @@ Nessuno.
 
 ## Da verificare nel browser (Architetto)
 
+- CSS diviso in file per componente (`src/styles/`): build CSS identica byte per byte, nessun cambio visivo atteso.
 - `ec1c916`: limite dell'inerzia, chiusura del ventaglio a fine presentazione, card estesa non tagliata nel ventaglio, header aggiornato durante il movimento.
 
 ## Problemi noti

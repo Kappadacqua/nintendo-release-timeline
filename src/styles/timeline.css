@@ -1,0 +1,159 @@
+/* ---------- Timeline ---------- */
+
+.timeline {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+  outline: none;
+}
+
+.timeline.is-dragging {
+  cursor: grabbing;
+}
+
+.timeline__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.timeline__world {
+  position: absolute;
+  top: 0; /* set to the line's y in JS */
+  left: 0;
+  height: 0;
+  will-change: transform;
+}
+
+/* Date under the playhead, in the middle of the top bar: 2026 · September · Sat 26 */
+.timeline-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 12px;
+  white-space: nowrap;
+}
+
+.timeline-header__slot {
+  overflow: hidden;
+  line-height: 1.15;
+}
+
+.timeline-header__slot[hidden] {
+  display: none;
+}
+
+.timeline-header__slot span {
+  display: inline-block;
+}
+
+/* Separator dot before month and day */
+.timeline-header__month::before,
+.timeline-header__day::before {
+  content: "·";
+  margin-right: 12px;
+  color: var(--text-muted);
+  font-weight: 900;
+}
+
+.timeline-header__year {
+  font-size: 40px;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+
+.timeline-header__month {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--accent);
+}
+
+.timeline-header__day {
+  min-width: 5.2ch; /* "Wed 30" never shifts the row */
+  font-size: 22px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  text-align: left;
+}
+
+/* Fixed playhead: the timeline scrolls under it */
+.timeline__playhead {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 2px;
+  margin-left: -1px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    color-mix(in srgb, var(--accent) 45%, transparent) 12%,
+    color-mix(in srgb, var(--accent) 45%, transparent) 88%,
+    transparent
+  );
+  pointer-events: none;
+}
+
+/* Today */
+.timeline-today {
+  position: absolute;
+  z-index: 20;
+  top: 0;
+  width: 0;
+  height: 0;
+}
+
+.timeline-today__dot {
+  position: absolute;
+  left: -8px;
+  top: -8px;
+  width: 16px;
+  height: 16px;
+  border: 3px solid var(--bg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.timeline-today__dot::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: today-pulse 1.8s ease-out infinite;
+}
+
+@keyframes today-pulse {
+  from {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  to {
+    transform: scale(3.2);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .timeline-today__dot::after {
+    animation: none;
+  }
+}
+
+.timeline-today__label {
+  position: absolute;
+  bottom: 30px;
+  left: 0;
+  transform: translateX(-50%);
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+

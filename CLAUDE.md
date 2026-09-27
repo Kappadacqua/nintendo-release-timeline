@@ -43,7 +43,7 @@ Sito desktop personale: una timeline orizzontale dei giochi Nintendo usciti dal 
 - `view.ts` — menu View. `filters.ts` — filtri. `search.ts` — ricerca. `presentation.ts` — modalità presentazione.
 - `whats-new.ts`, `news.ts`, `history.ts` — novità, rinvii, storico voti. `zoom-control.ts` — selettore Day/Week/Month.
 - `theme/theme.ts` — tema giorno/notte. `admin/` — pannello admin (solo sviluppo).
-- `styles/main.css` (2548 righe) — **tutto il CSS**, token in `:root`. **File grande.**
+- `styles/main.css` — solo `@import` delle parti, nell'ordine della cascata (non riordinare). Parti in `styles/`: `tokens.css` (`:root` e temi), `base.css`, `header.css`, `timeline.css`, `timeline-items.css`, `card.css`, `dlc-card.css`, `tba.css`, `minimap.css`, `loading.css`, `shortcuts.css`, `selection.css`, `backdrop.css`, `switch2-edition.css`, `out-today.css`, `selection-extras.css` (override su sfondo/selezione, link admin), `filters.css`, `search.css`, `delays.css`, `whats-new.css`, `compact.css`, `view-menu.css`, `dots.css`, `minimap-preview.css`, `groups.css`, `zoom.css`, `presentation.css`, `groups-fan.css` (ventaglio aperto, rivisto).
 
 **`scripts/`** — pipeline dati
 - `fetch-data.ts` → rete → `data/cache/`. `build-data.ts` + `lib/build.ts` → `public/data/games.json`.
@@ -53,7 +53,7 @@ Sito desktop personale: una timeline orizzontale dei giochi Nintendo usciti dal 
 ## Come leggere il codice
 
 - Parti dai file indicati nel prompt. Se non ne indica, usa la mappa qui sopra.
-- **File grandi** (`timeline.ts`, `main.css`, `scroller.ts`): mai leggerli interi. Cerca prima con grep il simbolo o il selettore, poi leggi solo l'intervallo di righe necessario.
+- **File grandi** (`timeline.ts`, `scroller.ts`): mai leggerli interi. Cerca prima con grep il simbolo o il selettore, poi leggi solo l'intervallo di righe necessario.
 - Per capire chi usa una funzione, cerca il nome con grep invece di aprire i file uno a uno.
 - Se per completare il task devi toccare file o aree non indicati nel prompt, fermati e segnalalo nel report invece di esplorare.
 
@@ -70,7 +70,7 @@ Se ti serve un'informazione sui dati (es. i campi di un gioco), estraila con un 
 
 ## Convenzioni
 
-- Colori, spaziature e durate come token CSS in `:root` di `main.css`, con varianti per tema scuro. Niente colori scritti direttamente nei componenti.
+- Colori, spaziature e durate come token CSS in `:root` di `styles/tokens.css`, con varianti per tema scuro. Niente colori scritti direttamente nei componenti.
 - Costanti di comportamento in `src/timeline/config.ts`.
 - Rispettare `prefers-reduced-motion` per ogni nuova animazione.
 - Testi dell'interfaccia in inglese.

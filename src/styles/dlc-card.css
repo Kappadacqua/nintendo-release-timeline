@@ -1,0 +1,35 @@
+/* ---------- DLC card ---------- */
+
+.card--dlc {
+  padding: 10px 12px;
+  border: 2px solid color-mix(in srgb, var(--dlc) 55%, var(--border));
+  background: var(--card-dlc);
+  overflow: hidden;
+}
+
+.card--dlc .card__cover {
+  width: 56px;
+  height: 75px;
+}
+
+.card--dlc .card__title {
+  padding-right: 28px;
+  font-size: 13.5px;
+  -webkit-line-clamp: 2;
+}
+
+.card__ribbon {
+  position: absolute;
+  top: 9px;
+  right: -26px;
+  width: 92px;
+  padding: 2px 0;
+  transform: rotate(45deg);
+  background: var(--dlc);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-align: center;
+}
+
