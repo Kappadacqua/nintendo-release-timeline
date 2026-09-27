@@ -5,7 +5,7 @@ Aggiornato: 2026-09-27 — riorganizzazione del workflow
 ## Ultimo checkpoint
 
 - `main` @ `ec1c916` — Inertia cap, presentation stop, fan card fit, live header
-- Branch `wip/perf`: modifiche interrotte a canvas e sfondo (`main.css`, `backdrop.ts`, `config.ts`, `timeline.ts`). **Non verificate**, non ancora unite.
+- Branch `wip/perf`: modifiche interrotte a canvas e sfondo (`main.css`, `backdrop.ts`, `config.ts`, `timeline.ts`). **Non verificate**, parcheggiate finché il 4K non torna una priorità.
 
 ## Lavoro in corso
 
@@ -17,17 +17,18 @@ Nessuno.
 
 ## Problemi noti
 
-1. **Prestazioni** — durante lo scorrimento 1–3 fps su schermo 4K (3840×1943, densità 2x); blocco di circa 9 s all'apertura. Il thread principale è libero: il problema è nel rendering. Comparso tra `26c8e4c` (fine iterazione 3) e `59452f2` (fine iterazione 4).
+1. **Prestazioni solo in 4K** — su schermo 4K a densità 2x (3840×1943) lo scorrimento scende a 1–3 fps. Su 1080p (1880×903, densità 1x) il sito è fluido: 60 fps a riposo e in scorrimento. **In pausa**: l'utente usa uno schermo 1080p. Se servirà, partire da `wip/perf` (limite di risoluzione del canvas, sfondo sfocato più leggero).
 2. **Dati manuali mancanti** — Metacritic e Backloggd non compilati per la maggior parte dei giochi (si inseriscono dal pannello admin).
 3. **"What's new"** — mai verificato con due snapshot reali.
 
 ## Prossimi task (in ordine)
 
-1. Individuare il commit che ha causato il calo di prestazioni (misure fatte dall'Architetto, nessun task per l'agente).
-2. Correggere la causa individuata.
-3. Valutare `wip/perf`: unire, adattare o scartare.
+1. Verifica nel browser delle correzioni di `ec1c916` (Architetto).
+2. Correzioni emerse dalla verifica, un task per sessione.
 
 ## Decisioni recenti
+
+- Prestazioni 4K rimandate: si ottimizza per 1080p.
 
 - Store Nintendo: regione Italia.
 - Pagine Studios e Rankings: rimandate, specifiche in `docs/SPEC.md` (backlog).
