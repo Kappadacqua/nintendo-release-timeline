@@ -1,0 +1,140 @@
+{
+  "source": "https://www.nintendo.com/us/gaming-systems/switch-2/transfer-guide/games-with-free-updates/",
+  "description": "Nintendo Switch games with free updates for Nintendo Switch 2",
+  "count": 19,
+  "games": [
+    {
+      "title": "ARMS",
+      "game_release_date": "2017-06-16",
+      "switch_2_update_date": "2025-06-05",
+      "type": "free_update",      
+      "store_url": "https://www.nintendo.com/us/store/products/arms-switch/"
+    },
+    {
+      "title": "Animal Crossing: New Horizons",
+      "game_release_date": "2020-03-20",
+      "switch_2_update_date": "2026-01-15",
+      "type": "free_update",      
+      "store_url": "https://www.nintendo.com/us/store/products/animal-crossing-new-horizons-switch/"
+    },
+    {
+      "title": "Big Brain Academy: Brain vs. Brain",
+      "game_release_date": "2021-12-03",
+      "switch_2_update_date": "2025-06-05",
+      "type": "free_update",      
+      "store_url": "https://www.nintendo.com/us/store/products/big-brain-academy-brain-vs-brain-switch/"
+    },
+    {
+      "title": "Captain Toad: Treasure Tracker",
+      "game_release_date": "2018-07-13",
+      "switch_2_update_date": "2025-06-05",
+      "type": "free_update",      
+      "store_url": "https://www.nintendo.com/us/store/products/captain-toad-treasure-tracker-switch/"
+    },
+    {
+      "title": "Clubhouse Games: 51 Worldwide Classics",
+      "game_release_date": "2020-06-05",
+      "switch_2_update_date": "2025-06-05",
+      "type": "free_update",      
+      "store_url": "https://www.nintendo.com/us/store/products/clubhouse-games-51-worldwide-classics-switch/"
+    },
+    {
+      "title": "Donkey Kong Country Returns HD",
+      "game_release_date": "2025-01-16",
+      "switch_2_update_date": "2026-01-20",
+      "type": "free_update",      
+      "store_url": "https://www.nintendo.com/us/store/products/donkey-kong-country-returns-hd-switch/"
+    },
+    {
+      "title": "Game Builder Garage",
+      "game_release_date": "2021-06-11",
+      "switch_2_update_date": "2025-06-05",
+      "type": "free_update",      
+      "store_url": "https://www.nintendo.com/us/store/products/game-builder-garage-switch/"
+    },
+    {
+      "title": "Mario Kart 8 Deluxe",
+      "game_release_date": "2017-04-28",
+      "switch_2_update_date": "2026-09-01",
+      "type": "free_update",      
+      "store_url": "https://www.nintendo.com/us/store/products/mario-kart-8-deluxe-switch/"
+    },
+    {
+      "title": "New Super Mario Bros. U Deluxe",
+      "game_release_date": "2019-01-11",
+      "switch_2_update_date": "2025-06-05",
+      "type": "free_update",      
+      "store_url": "https://www.nintendo.com/us/store/products/new-super-mario-bros-u-deluxe-switch/"
+    },
+    {
+      "title": "Pikmin 3 Deluxe",
+      "game_release_date": "2020-10-30",
+      "switch_2_update_date": "2026-08-31",
+      "type": "free_update",      
+      "store_url": "https://www.nintendo.com/us/store/products/pikmin-3-deluxe-switch/"
+    },
+    {
+      "title": "Pokémon Champions",
+      "game_release_date": "2026-04-08",
+      "switch_2_update_date": "2026-04-08",
+      "type": "free_update",      
+      "store_url": "https://www.nintendo.com/us/store/products/pokemon-champions-switch/"
+    },
+    {
+      "title": "Pokémon Scarlet",
+      "game_release_date": "2022-11-18",
+      "switch_2_update_date": "2025-06-05",
+      "type": "free_update",      
+      "store_url": "https://www.nintendo.com/us/store/products/pokemon-scarlet-switch/"
+    },
+    {
+      "title": "Pokémon Violet",
+      "game_release_date": "2022-11-18",
+      "switch_2_update_date": "2025-06-05",
+      "type": "free_update",      
+      "store_url": "https://www.nintendo.com/us/store/products/pokemon-violet-switch/"
+    },
+    {
+      "title": "Splatoon 3",
+      "game_release_date": "2022-09-09",
+      "switch_2_update_date": "2025-06-12",
+      "type": "free_update",      
+      "store_url": "https://www.nintendo.com/us/store/products/splatoon-3-switch/"
+    },
+    {
+      "title": "Super Mario 3D World + Bowser's Fury",
+      "game_release_date": "2021-02-12",
+      "switch_2_update_date": "2025-06-05",
+      "type": "free_update",      
+      "store_url": "https://www.nintendo.com/us/store/products/super-mario-3d-world-plus-bowsers-fury-switch/"
+    },
+    {
+      "title": "Super Mario Galaxy + Super Mario Galaxy 2",
+      "game_release_date": "2025-10-02",
+      "switch_2_update_date": "2025-10-02",
+      "type": "free_update",      
+      "store_url": "https://www.nintendo.com/us/store/products/super-mario-galaxy-plus-super-mario-galaxy-2-switch/"
+    },
+    {
+      "title": "Super Mario Odyssey",
+      "game_release_date": "2017-10-27",
+      "switch_2_update_date": "2025-06-05",
+      "type": "free_update",      
+      "store_url": "https://www.nintendo.com/us/store/products/super-mario-odyssey-switch/"
+    },
+    {
+      "title": "The Legend of Zelda: Echoes of Wisdom",
+      "game_release_date": "2024-09-26",
+      "switch_2_update_date": "2025-06-05",
+      "type": "free_update",      
+      "store_url": "https://www.nintendo.com/us/store/products/the-legend-of-zelda-echoes-of-wisdom-switch/"
+    },
+    {
+      "title": "The Legend of Zelda: Link's Awakening",
+      "game_release_date": "2019-09-20",
+      "switch_2_update_date": "2025-06-05",
+      "type": "free_update",      
+      "store_url": "https://www.nintendo.com/us/store/products/the-legend-of-zelda-links-awakening-switch/"
+    }
+  ]
+}
