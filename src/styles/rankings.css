@@ -82,6 +82,116 @@
   color: var(--text-muted);
 }
 
+/* Filters and ranked count, between the heading and the list. */
+.rankings__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  margin-bottom: 16px;
+}
+
+.rank-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 6px;
+}
+
+.rank-filters__toggle {
+  position: relative;
+  gap: 8px;
+  padding: 6px 8px;
+}
+
+.rank-filters__toggle strong {
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.rank-years {
+  display: flex;
+  margin-left: 6px;
+  padding: 3px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+}
+
+.rank-years button {
+  padding: 4px 11px;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--text-muted);
+  font: 800 12px var(--font);
+  cursor: pointer;
+}
+
+.rank-years button:hover {
+  color: var(--text);
+}
+
+.rank-years button[aria-pressed="true"] {
+  background: var(--accent);
+  color: #fff;
+}
+
+.rank-years button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.rankings__count {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+}
+
+.rankings__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 40px 16px;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-md);
+}
+
+.rankings__empty[hidden] {
+  display: none;
+}
+
+.rankings__empty-text {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--text-muted);
+}
+
+.rankings__reset {
+  height: 34px;
+  padding: 0 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font: 800 13px var(--font);
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.rankings__reset:hover {
+  border-color: var(--text-muted);
+}
+
+.rankings__reset:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
 .rankings__list {
   display: flex;
   flex-direction: column;

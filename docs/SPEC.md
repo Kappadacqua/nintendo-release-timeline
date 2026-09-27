@@ -485,12 +485,21 @@ Lavorare un punto alla volta, verificando nel browser prima di passare al succes
 
 ## 12. Rankings
 
-**Stato: in sviluppo** (coda in `docs/tasks/rankings.md`).
+**Stato: fatto** (coda in `docs/tasks/rankings.md`).
 
 Pagina `rankings.html` (`src/rankings/main.ts`, `src/styles/rankings.css`), inclusa nella build di produzione.
 
 - Header con navigazione **"Timeline · Rankings"** su entrambe le pagine, pagina attiva evidenziata; stesso tema giorno/notte.
 - Solo giochi **usciti** (data di prima uscita ≤ oggi).
-- Classifica per voto **OpenCritic**, con soglia fissa a **20 recensioni** (diventa modificabile nel task 2). A parità di voto: più recensioni, poi titolo.
-- Giochi sotto soglia o senza voto: esclusi, con riga finale "N games hidden (fewer than 20 reviews)".
-- Ogni riga: posizione, copertina piccola, titolo, badge del tipo (DLC / Switch 2 Edition), data di uscita, cerchietto OpenCritic con numero di recensioni.
+- Ogni riga: posizione, copertina piccola, titolo, badge del tipo (DLC / Switch 2 Edition), data di uscita, quattro cerchietti (OpenCritic, Metacritic, Metacritic User, Backloggd; N/D dove manca il voto). Il cerchietto usato per ordinare è evidenziato; per le medie c'è anche una pillola col valore della media.
+
+**Ordinamento** — selettore "Sort by": OpenCritic, Metacritic, Metacritic User, Backloggd, Critics average (OpenCritic + Metacritic, voti normalizzati), Users average (Metacritic User + Backloggd). A parità di valore: più recensioni, poi titolo. Predefinito: OpenCritic.
+
+**Soglia** — campo "Min. reviews", predefinito 20. Per una singola fonte vale sul numero di recensioni di quella fonte; per le medie contano solo le fonti che superano la soglia, e il gioco entra se almeno una la supera. Esclusi: riga finale "N games hidden (no score or fewer than X reviews)". Una classifica corta per Metacritic e Backloggd (dati manuali incompleti) è attesa.
+
+**Filtri** — indipendenti da quelli della timeline:
+- Includi DLC (predefinito off), includi Switch 2 Edition (on), solo esclusive (off, stessa regola della timeline: contano solo altre console e PC), anno (All / anni presenti nei giochi usciti; predefinito All).
+- Posizioni ricalcolate dopo i filtri (1, 2, 3… senza buchi). Contatore "N games ranked".
+- Nessun risultato per colpa dei filtri: "No games match these filters" con pulsante "Reset filters".
+
+Ordinamento, soglia e filtri sono salvati nel browser (`localStorage`, chiavi `rankings-settings` e `rankings-filters`). Cambiarli aggiorna la lista subito con una breve dissolvenza (niente animazione con `prefers-reduced-motion`).

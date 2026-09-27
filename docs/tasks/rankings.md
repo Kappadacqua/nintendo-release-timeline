@@ -52,7 +52,7 @@ L'utente segue il lavoro dal telefono e non può rispondere subito:
 
 ---
 
-## [ ] Task 3 — Filtri
+## [x] Task 3 — Filtri
 
 **Task:** aggiungere i filtri alla pagina Rankings.
 

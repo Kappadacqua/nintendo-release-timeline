@@ -1,6 +1,6 @@
 # Stato del progetto
 
-Aggiornato: 2026-09-27 — Rankings, task 2
+Aggiornato: 2026-09-27 — Rankings, task 3
 
 ## Ultimo checkpoint
 
@@ -12,6 +12,8 @@ Aggiornato: 2026-09-27 — Rankings, task 2
 Nessuno.
 
 ## Da verificare nel browser (Architetto)
+
+- Rankings, task 3: barra filtri sotto il titolo (interruttori DLC off / Switch 2 Edition on / Exclusives only off, anni All·2025·2026) con contatore "N games ranked" a destra; posizioni ricalcolate; con filtri che non danno risultati, riquadro "No games match these filters" + "Reset filters"; filtri ricordati al ricaricamento e indipendenti da quelli della timeline.
 
 - Rankings, task 2: selettore "Sort by" (6 fonti) e campo "Min. reviews" (predefinito 20) sopra la lista; quattro cerchietti per riga con quello usato evidenziato (bordo colorato), pillola con la media per Critics/Users average; riga dei nascosti aggiornata; scelte ricordate al ricaricamento; breve dissolvenza al cambio.
 
@@ -36,4 +38,4 @@ Nessuno.
 - Prestazioni 4K rimandate: si ottimizza per 1080p.
 
 - Store Nintendo: regione Italia.
-- Pagina Rankings: in sviluppo, coda in `docs/tasks/rankings.md`, specifica in `docs/SPEC.md` §12. Pagina Studios: rimandata.
+- Pagina Rankings: coda completata (`docs/tasks/rankings.md`), specifica in `docs/SPEC.md` §12. Pagina Studios: rimandata.

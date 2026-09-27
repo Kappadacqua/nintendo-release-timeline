@@ -3,9 +3,11 @@ import "../styles/base.css";
 import "../styles/header.css";
 import "../styles/card.css";
 import "../styles/loading.css";
+import "../styles/filters.css";
 import "../styles/rankings.css";
 import { gsap } from "gsap";
 import { createScoreRing, tier, type ScoreRing } from "../cards/score-ring";
+import { applyFilters } from "../filters";
 import { loadGames } from "../games";
 import { initTheme } from "../theme/theme";
 import { MONTHS, parseDay, todayEpochDay } from "../timeline/dates";
@@ -58,6 +60,54 @@ function saveSettings(s: Settings) {
 
 function validMin(v: unknown) {
   return typeof v === "number" && Number.isFinite(v) && v >= 0 ? Math.floor(v) : null;
+}
+
+// ---------- Filters (SPEC §12), independent from the timeline's ----------
+
+interface RankFilters {
+  dlc: boolean;
+  switch2Edition: boolean;
+  exclusivesOnly: boolean;
+  /** "all" or a release year. */
+  year: string;
+}
+
+const FILTER_DEFAULTS: RankFilters = { dlc: false, switch2Edition: true, exclusivesOnly: false, year: "all" };
+const FILTERS_KEY = "rankings-filters";
+
+const TOGGLES: { key: "dlc" | "switch2Edition" | "exclusivesOnly"; label: string; hint: string }[] = [
+  { key: "dlc", label: "DLC", hint: "Expansions and add-ons" },
+  { key: "switch2Edition", label: "Switch 2 Edition", hint: "Upgraded Switch 1 games" },
+  { key: "exclusivesOnly", label: "Exclusives only", hint: "Hide games also on other consoles or PC (phones don't count)" },
+];
+
+function loadRankFilters(years: string[]): RankFilters {
+  try {
+    const saved = JSON.parse(localStorage.getItem(FILTERS_KEY) ?? "{}") as Partial<RankFilters>;
+    const f = { ...FILTER_DEFAULTS };
+    for (const { key } of TOGGLES) if (typeof saved[key] === "boolean") f[key] = saved[key];
+    if (typeof saved.year === "string" && years.includes(saved.year)) f.year = saved.year;
+    return f;
+  } catch {
+    return { ...FILTER_DEFAULTS };
+  }
+}
+
+function saveRankFilters(f: RankFilters) {
+  try {
+    localStorage.setItem(FILTERS_KEY, JSON.stringify(f));
+  } catch {
+    /* storage unavailable: filters last for this visit only */
+  }
+}
+
+const filtersAreDefault = (f: RankFilters) =>
+  TOGGLES.every(({ key }) => f[key] === FILTER_DEFAULTS[key]) && f.year === FILTER_DEFAULTS.year;
+
+/** Same kind / exclusivity rules as the timeline filters, plus the year. */
+function filterGames(games: Game[], f: RankFilters) {
+  const kept = applyFilters(games, { ...f, thirdParty: true });
+  return f.year === "all" ? kept : kept.filter((g) => g.firstReleaseDate!.startsWith(`${f.year}-`));
 }
 
 // ---------- Ranking ----------
@@ -197,6 +247,52 @@ function hiddenText(hidden: number, minReviews: number) {
   return minReviews > 0 ? `${games} (no score or fewer than ${minReviews} reviews)` : `${games} (no score)`;
 }
 
+function filterBar(filters: RankFilters, years: string[], onChange: () => void) {
+  const bar = el("div", "rank-filters");
+  bar.setAttribute("role", "group");
+  bar.setAttribute("aria-label", "Filters");
+
+  const inputs = TOGGLES.map(({ key, label, hint }) => {
+    const option = el("label", "filters__option rank-filters__toggle");
+    option.title = hint;
+    const input = el("input", "");
+    input.type = "checkbox";
+    input.checked = filters[key];
+    input.addEventListener("change", () => {
+      filters[key] = input.checked;
+      onChange();
+    });
+    option.append(input, el("span", "filters__switch"), el("strong", "", label));
+    bar.append(option);
+    return { key, input };
+  });
+
+  const yearGroup = el("div", "rank-years");
+  yearGroup.setAttribute("role", "group");
+  yearGroup.setAttribute("aria-label", "Release year");
+  const yearButtons = ["all", ...years].map((year) => {
+    const button = el("button", "", year === "all" ? "All" : year);
+    button.type = "button";
+    button.addEventListener("click", () => {
+      if (filters.year === year) return;
+      filters.year = year;
+      sync();
+      onChange();
+    });
+    yearGroup.append(button);
+    return { year, button };
+  });
+  bar.append(yearGroup);
+
+  /** Puts the controls back in line with `filters` (after a reset). */
+  function sync() {
+    for (const { key, input } of inputs) input.checked = filters[key];
+    for (const { year, button } of yearButtons) button.setAttribute("aria-pressed", String(filters.year === year));
+  }
+  sync();
+  return { bar, sync };
+}
+
 function controls(settings: Settings, onChange: () => void) {
   const form = el("form", "rankings__controls");
   form.addEventListener("submit", (e) => e.preventDefault());
@@ -238,6 +334,9 @@ function controls(settings: Settings, onChange: () => void) {
 
 function render(root: HTMLElement, games: Game[]) {
   const settings = loadSettings();
+  const released = games.filter((g) => isReleased(g, todayEpochDay()));
+  const years = [...new Set(released.map((g) => g.firstReleaseDate!.slice(0, 4)))].sort();
+  const filters = loadRankFilters(years);
 
   const page = el("section", "rankings");
   const head = el("header", "rankings__head");
@@ -246,12 +345,19 @@ function render(root: HTMLElement, games: Game[]) {
   heading.append(el("h1", "rankings__title", "Rankings"), subtitle);
   const list = el("ol", "rankings__list");
   const hiddenEl = el("p", "rankings__hidden");
+  const countEl = el("p", "rankings__count");
+  countEl.setAttribute("aria-live", "polite");
+  const empty = el("div", "rankings__empty");
+  const emptyText = el("p", "rankings__empty-text");
+  const resetButton = el("button", "rankings__reset", "Reset filters");
+  resetButton.type = "button";
+  empty.append(emptyText, resetButton);
 
   let rings: ScoreRing[] = [];
   let transition: gsap.core.Timeline | null = null;
 
   function fillList() {
-    const { ranked, hidden } = rank(games, todayEpochDay(), settings);
+    const { ranked, hidden } = rank(filterGames(released, filters), todayEpochDay(), settings);
     const label = SORTS.find((s) => s.key === settings.sort)!.label;
     subtitle.textContent = `Released games by ${label} score`;
     const rows = ranked.map((entry, i) => row(entry, i + 1, settings.sort));
@@ -259,10 +365,17 @@ function render(root: HTMLElement, games: Game[]) {
     rings = rows.flatMap((r) => r.rings);
     hiddenEl.textContent = hiddenText(hidden, settings.minReviews);
     hiddenEl.hidden = hidden === 0;
+    countEl.textContent = `${ranked.length} ${ranked.length === 1 ? "game" : "games"} ranked`;
+    // No match because of the filters: offer a way back; otherwise the hidden line explains it.
+    const filtered = !filtersAreDefault(filters);
+    empty.hidden = ranked.length > 0;
+    emptyText.textContent = filtered ? "No games match these filters" : "No games to rank";
+    resetButton.hidden = !filtered;
   }
 
   function update() {
     saveSettings(settings);
+    saveRankFilters(filters);
     transition?.progress(1).kill();
     fillList();
     // Rings jump straight to their value; a quick fade marks the change.
@@ -273,8 +386,17 @@ function render(root: HTMLElement, games: Game[]) {
       .fromTo(list, { autoAlpha: 0, y: 6 }, { autoAlpha: 1, y: 0, duration: 0.22, ease: "power2.out", clearProps: "all" });
   }
 
+  const filterControls = filterBar(filters, years, update);
+  resetButton.addEventListener("click", () => {
+    Object.assign(filters, FILTER_DEFAULTS);
+    filterControls.sync();
+    update();
+  });
+  const toolbar = el("div", "rankings__toolbar");
+  toolbar.append(filterControls.bar, countEl);
+
   head.append(heading, controls(settings, update));
-  page.append(head, list, hiddenEl);
+  page.append(head, toolbar, list, empty, hiddenEl);
   root.append(page);
   fillList();
 
