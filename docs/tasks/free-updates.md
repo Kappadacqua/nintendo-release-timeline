@@ -24,7 +24,7 @@ L'utente segue il lavoro dal telefono e non può rispondere subito:
 
 ---
 
-## [ ] Task 1 — Dati degli aggiornamenti gratuiti
+## [x] Task 1 — Dati degli aggiornamenti gratuiti
 
 **Task:** trasformare `data/free-updates.json` in voci di tipo `free-update` dentro `public/data/games.json`.
 

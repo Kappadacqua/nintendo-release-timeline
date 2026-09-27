@@ -14,7 +14,8 @@ export interface Score {
 
 export interface Game {
   id: string; // "igdb:<id>"
-  kind: "game" | "switch2-edition" | "dlc";
+  /** "free-update": a Switch game's free Switch 2 update, placed on the update date, no scores. */
+  kind: "game" | "switch2-edition" | "dlc" | "free-update";
   title: string;
   baseGameTitle?: string; // DLC only
   coverUrl: string;
@@ -29,6 +30,8 @@ export interface Game {
   /** Normalized score per source over time, changes only (oldest first). */
   scoreHistory?: Partial<Record<ScoreSource, { date: string; normalized: number }[]>>;
   vagueRelease?: { year: number; label: string };
+  /** Free updates only: year the game first came out on Switch. */
+  originalReleaseYear?: number;
   exclusivity: "exclusive" | "timed" | null;
   /** Published by Nintendo / The Pokémon Company (or a DLC / edition of such a game). */
   firstParty: boolean;

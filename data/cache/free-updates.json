@@ -1,0 +1,4253 @@
+{
+  "fetchedAt": "2026-09-27T13:06:06.699Z",
+  "matches": {
+    "ARMS": 26759,
+    "Animal Crossing: New Horizons": 109462,
+    "Big Brain Academy: Brain vs. Brain": 166489,
+    "Captain Toad: Treasure Tracker": 243900,
+    "Clubhouse Games: 51 Worldwide Classics": 131961,
+    "Donkey Kong Country Returns HD": 306143,
+    "Game Builder Garage": 146762,
+    "Mario Kart 8 Deluxe": 26764,
+    "New Super Mario Bros. U Deluxe": 109457,
+    "Pikmin 3 Deluxe": 136498,
+    "Pokémon Champions": 333568,
+    "Pokémon Scarlet": 191931,
+    "Pokémon Violet": 191930,
+    "Splatoon 3": 143613,
+    "Super Mario 3D World + Bowser's Fury": 138227,
+    "Super Mario Galaxy + Super Mario Galaxy 2": 366878,
+    "Super Mario Odyssey": 26758,
+    "The Legend of Zelda: Echoes of Wisdom": 306149,
+    "The Legend of Zelda: Link's Awakening": 115284
+  },
+  "games": [
+    {
+      "id": 26759,
+      "artworks": [
+        {
+          "id": 11804,
+          "alpha_channel": false,
+          "height": 1080,
+          "image_id": "ar93w",
+          "width": 1920,
+          "artwork_type": 1
+        }
+      ],
+      "cover": {
+        "id": 76379,
+        "image_id": "co1mxn"
+      },
+      "first_release_date": 1497571200,
+      "genres": [
+        {
+          "id": 4,
+          "name": "Fighting"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 43567,
+          "company": {
+            "id": 4034,
+            "name": "Nintendo of Europe"
+          },
+          "developer": false,
+          "publisher": true
+        },
+        {
+          "id": 43566,
+          "company": {
+            "id": 2850,
+            "name": "Nintendo of America"
+          },
+          "developer": false,
+          "publisher": true
+        },
+        {
+          "id": 268541,
+          "company": {
+            "id": 45214,
+            "name": "Nintendo EPD Production Group No. 9"
+          },
+          "developer": true,
+          "publisher": false
+        },
+        {
+          "id": 268542,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        },
+        {
+          "id": 369726,
+          "company": {
+            "id": 2095,
+            "name": "Panic Button Games"
+          },
+          "developer": false,
+          "publisher": false
+        }
+      ],
+      "name": "Arms",
+      "platforms": [
+        508,
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 741031,
+          "date": 1497571200,
+          "platform": 130,
+          "y": 2017,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        },
+        {
+          "id": 743557,
+          "date": 1749081600,
+          "platform": 508,
+          "y": 2025,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 180732,
+          "height": 720,
+          "image_id": "g76whkqw9fxueg7i30pe",
+          "width": 1280
+        },
+        {
+          "id": 35797,
+          "height": 419,
+          "image_id": "c9mwcp2wg13yswuy69h6",
+          "width": 745
+        },
+        {
+          "id": 35796,
+          "height": 419,
+          "image_id": "pujwbvgzh1sbeunpqwjl",
+          "width": 745
+        },
+        {
+          "id": 35798,
+          "height": 419,
+          "image_id": "ufk2yvgojwy8httag9pf",
+          "width": 745
+        },
+        {
+          "id": 180727,
+          "height": 720,
+          "image_id": "nhivpzz5lg15ss8lifrp",
+          "width": 1280
+        },
+        {
+          "id": 180729,
+          "height": 720,
+          "image_id": "zcv5si5mynajveehaowa",
+          "width": 1280
+        },
+        {
+          "id": 180731,
+          "height": 720,
+          "image_id": "edlrlowcwwrndvgpj1vk",
+          "width": 1280
+        },
+        {
+          "id": 35799,
+          "height": 419,
+          "image_id": "huevpwgmnp1ex0szuagn",
+          "width": 745
+        },
+        {
+          "id": 180730,
+          "height": 720,
+          "image_id": "ngdpxsgcyhiqqxw7oh5g",
+          "width": 1280
+        },
+        {
+          "id": 180728,
+          "height": 720,
+          "image_id": "bbd9x9q3lxj0ok6utaqv",
+          "width": 1280
+        },
+        {
+          "id": 180734,
+          "height": 720,
+          "image_id": "u1eub77vuqpbis8hjwfk",
+          "width": 1280
+        },
+        {
+          "id": 180733,
+          "height": 720,
+          "image_id": "ncgrwwncrzozwtpoz3io",
+          "width": 1280
+        }
+      ],
+      "slug": "arms",
+      "summary": "Arms, a mix of boxing and shooting where you use extendable arms to battle your friends both locally and online! Take a Joy-Con in each hand and punch forward, twisting your fists to bend your attacks.\n\n\"Choose a fighting champion from around the world, equip your own combination of extendable arms, and then use a mix of button presses and quick hand motions to really take the fight to your opponent. Throw punches and guide them midflight to hit agile fighters, avoid incoming attacks with dashes, or trampoline high into the air to rain down fists from above. Power-up your punches to deal extra damage or curve your fists around obstacles to hit skittish opponents. Fill up your special gauge to dish out devastating combinations and finish them off. Unleash your inner fighter in this unbelievable sporting event! \"",
+      "websites": [
+        {
+          "id": 48643,
+          "url": "https://en.wikipedia.org/wiki/Arms_(video_game)",
+          "type": {
+            "id": 3,
+            "type": "Wikipedia"
+          }
+        },
+        {
+          "id": 726905,
+          "url": "https://twitter.com/ARMS_Cobutter",
+          "type": {
+            "id": 5,
+            "type": "Twitter"
+          }
+        },
+        {
+          "id": 791937,
+          "url": "https://www.nintendo.com/games/detail/arms-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        },
+        {
+          "id": 49711,
+          "url": "http://nintendo.wikia.com/wiki/ARMS",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
+          }
+        },
+        {
+          "id": 49710,
+          "url": "http://arms.nintendo.com/",
+          "type": {
+            "id": 1,
+            "type": "Official Website"
+          }
+        },
+        {
+          "id": 337886,
+          "url": "https://www.twitch.tv/directory/game/Arms",
+          "type": {
+            "id": 6,
+            "type": "Twitch"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 0,
+        "type": "Main Game"
+      }
+    },
+    {
+      "id": 109462,
+      "artworks": [
+        {
+          "id": 8780,
+          "alpha_channel": false,
+          "height": 669,
+          "image_id": "ar6rw",
+          "width": 999,
+          "artwork_type": 1
+        },
+        {
+          "id": 8778,
+          "alpha_channel": false,
+          "height": 630,
+          "image_id": "ar6ru",
+          "width": 952,
+          "artwork_type": 1
+        },
+        {
+          "id": 8779,
+          "alpha_channel": false,
+          "height": 617,
+          "image_id": "ar6rv",
+          "width": 995,
+          "artwork_type": 1
+        },
+        {
+          "id": 225759,
+          "alpha_channel": true,
+          "height": 569,
+          "image_id": "ar4u73",
+          "width": 856,
+          "artwork_type": 7
+        }
+      ],
+      "cover": {
+        "id": 182224,
+        "image_id": "co3wls"
+      },
+      "first_release_date": 1584662400,
+      "genres": [
+        {
+          "id": 13,
+          "name": "Simulator"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 268540,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        },
+        {
+          "id": 268539,
+          "company": {
+            "id": 45211,
+            "name": "Nintendo EPD Production Group No. 5"
+          },
+          "developer": true,
+          "publisher": false
+        }
+      ],
+      "name": "Animal Crossing: New Horizons",
+      "platforms": [
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 769388,
+          "date": 1584662400,
+          "platform": 130,
+          "y": 2020,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 1,
+            "region": "europe"
+          }
+        },
+        {
+          "id": 692495,
+          "date": 1666656000,
+          "platform": 130,
+          "y": 2022,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 10,
+            "region": "brazil"
+          }
+        },
+        {
+          "id": 692477,
+          "date": 1584662400,
+          "platform": 130,
+          "y": 2020,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 1380514,
+          "height": 720,
+          "image_id": "sctl7m",
+          "width": 1280
+        },
+        {
+          "id": 1380515,
+          "height": 720,
+          "image_id": "sctl7n",
+          "width": 1280
+        },
+        {
+          "id": 1380516,
+          "height": 720,
+          "image_id": "sctl7o",
+          "width": 1280
+        },
+        {
+          "id": 377384,
+          "height": 1080,
+          "image_id": "sc836w",
+          "width": 1920
+        },
+        {
+          "id": 385274,
+          "height": 1080,
+          "image_id": "sc89a2",
+          "width": 1920
+        },
+        {
+          "id": 377382,
+          "height": 1080,
+          "image_id": "sc836u",
+          "width": 1920
+        },
+        {
+          "id": 377385,
+          "height": 1080,
+          "image_id": "sc836x",
+          "width": 1920
+        },
+        {
+          "id": 377383,
+          "height": 1080,
+          "image_id": "sc836v",
+          "width": 1920
+        },
+        {
+          "id": 377386,
+          "height": 1080,
+          "image_id": "sc836y",
+          "width": 1920
+        },
+        {
+          "id": 308203,
+          "height": 1080,
+          "image_id": "sc6lt7",
+          "width": 1920
+        },
+        {
+          "id": 308204,
+          "height": 1080,
+          "image_id": "sc6lt8",
+          "width": 1920
+        },
+        {
+          "id": 377380,
+          "height": 1080,
+          "image_id": "sc836s",
+          "width": 1920
+        },
+        {
+          "id": 377381,
+          "height": 1080,
+          "image_id": "sc836t",
+          "width": 1920
+        }
+      ],
+      "slug": "animal-crossing-new-horizons",
+      "summary": "Escape to a deserted island and create your own paradise as you explore, create, and customize in Animal Crossing: New Horizons. Your island getaway has a wealth of natural resources that can be used to craft everything from tools to creature comforts. You can hunt down insects at the crack of dawn, decorate your paradise throughout the day, or enjoy sunset on the beach while fishing in the ocean. The time of day and season match real life, so each day on your island is a chance to check in and find new surprises all year round.",
+      "websites": [
+        {
+          "id": 116670,
+          "url": "https://en.wikipedia.org/wiki/Animal_Crossing:_New_Horizons",
+          "type": {
+            "id": 3,
+            "type": "Wikipedia"
+          }
+        },
+        {
+          "id": 742245,
+          "url": "https://nookipedia.com/wiki/Animal_Crossing:_New_Horizons",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
+          }
+        },
+        {
+          "id": 742248,
+          "url": "https://www.youtube.com/nintendo",
+          "type": {
+            "id": 9,
+            "type": "YouTube"
+          }
+        },
+        {
+          "id": 742249,
+          "url": "https://www.reddit.com/r/AnimalCrossingNewHor/",
+          "type": {
+            "id": 14,
+            "type": "Subreddit"
+          }
+        },
+        {
+          "id": 742246,
+          "url": "https://www.facebook.com/NintendoAmerica?cd=true",
+          "type": {
+            "id": 4,
+            "type": "Facebook"
+          }
+        },
+        {
+          "id": 742247,
+          "url": "https://www.instagram.com/nintendoamerica/?cd=true",
+          "type": {
+            "id": 8,
+            "type": "Instagram"
+          }
+        },
+        {
+          "id": 137604,
+          "url": "https://twitter.com/animalcrossing",
+          "type": {
+            "id": 5,
+            "type": "Twitter"
+          }
+        },
+        {
+          "id": 139144,
+          "url": "https://discordapp.com/invite/qcNyHre",
+          "type": {
+            "id": 18,
+            "type": "Discord"
+          }
+        },
+        {
+          "id": 116668,
+          "url": "https://www.nintendo.com/games/detail/animal-crossing-new-horizons-switch/",
+          "type": {
+            "id": 1,
+            "type": "Official Website"
+          }
+        },
+        {
+          "id": 386281,
+          "url": "https://www.twitch.tv/directory/game/Animal%20Crossing%3A%20New%20Horizons",
+          "type": {
+            "id": 6,
+            "type": "Twitch"
+          }
+        },
+        {
+          "id": 1101866,
+          "url": "https://www.nintendo.com/us/store/products/animal-crossing-new-horizons-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 0,
+        "type": "Main Game"
+      }
+    },
+    {
+      "id": 166489,
+      "artworks": [
+        {
+          "id": 49087,
+          "alpha_channel": false,
+          "height": 1080,
+          "image_id": "ar11vj",
+          "width": 1920,
+          "artwork_type": 1
+        }
+      ],
+      "cover": {
+        "id": 185972,
+        "image_id": "co3zhw"
+      },
+      "first_release_date": 1638489600,
+      "genres": [
+        {
+          "id": 9,
+          "name": "Puzzle"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 147436,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        }
+      ],
+      "name": "Big Brain Academy: Brain vs. Brain",
+      "platforms": [
+        508,
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 797643,
+          "date": 1749081600,
+          "platform": 508,
+          "y": 2025,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        },
+        {
+          "id": 807231,
+          "date": 1638489600,
+          "platform": 130,
+          "y": 2021,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 2,
+            "region": "north_america"
+          }
+        },
+        {
+          "id": 807232,
+          "date": 1638489600,
+          "platform": 130,
+          "y": 2021,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 1,
+            "region": "europe"
+          }
+        },
+        {
+          "id": 807233,
+          "date": 1638489600,
+          "platform": 130,
+          "y": 2021,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 5,
+            "region": "japan"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 602795,
+          "height": 720,
+          "image_id": "sccx4b",
+          "width": 1280
+        },
+        {
+          "id": 602796,
+          "height": 720,
+          "image_id": "sccx4c",
+          "width": 1280
+        },
+        {
+          "id": 602797,
+          "height": 720,
+          "image_id": "sccx4d",
+          "width": 1280
+        },
+        {
+          "id": 602798,
+          "height": 720,
+          "image_id": "sccx4e",
+          "width": 1280
+        },
+        {
+          "id": 602799,
+          "height": 720,
+          "image_id": "sccx4f",
+          "width": 1280
+        }
+      ],
+      "slug": "big-brain-academy-brain-vs-brain",
+      "summary": "Battle to see who has the brawniest brain\n\nTake on a series of brain-bending activities that test your mental mettle in Big Brain Academy: Brain vs. Brain for the Nintendo Switch system! Play a wide variety of activities, like memorizing a series of numbers, identifying an animal as it slowly comes into focus, or helping guide a train to its goal in fun, fast activities. Go brain-to-brain with friends and family in 4-player* matches to see who gets the highest score. Everyone can play together at varying difficulties, so a kid can hold their own against an adult in this battle of the brains!\n\nTreat your brain to some quick mental fun\n\nGet your own Big Brain Brawn score with a fun test. Boost your skill and speed by practicing certain activities. Of course, you can also prep for your next multiplayer brain battle or compare scores with friends and family. Unlock dozens of outfit options for your in-game avatar—from a cat outfit to a corn costume!\n\nGo brain vs. brain against mind-masters near and far\n\nWant to see how you match up to brainiacs around the world? Hop into Ghost Clash mode to compete against other users’ data**. Choose from mental marvels worldwide, folks on your friend's list, or family members who have profiles on the same system. Outside of Ghost Clash mode, check your rankings to see how your Big Brain Brawn matches up against others.",
+      "websites": [
+        {
+          "id": 799368,
+          "url": "https://www.nintendo.com/games/detail/big-brain-academy-brain-vs-brain-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        },
+        {
+          "id": 217478,
+          "url": "https://www.nintendo.co.jp/switch/azlsa/index.html",
+          "type": {
+            "id": 1,
+            "type": "Official Website"
+          }
+        },
+        {
+          "id": 467229,
+          "url": "https://www.twitch.tv/directory/game/Big%20Brain%20Academy:%20Brain%20vs.%20Brain",
+          "type": {
+            "id": 6,
+            "type": "Twitch"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 0,
+        "type": "Main Game"
+      }
+    },
+    {
+      "id": 243900,
+      "artworks": [
+        {
+          "id": 134177,
+          "alpha_channel": true,
+          "height": 800,
+          "image_id": "ar2vj5",
+          "width": 1600,
+          "artwork_type": 1
+        },
+        {
+          "id": 134178,
+          "alpha_channel": false,
+          "height": 1080,
+          "image_id": "ar2vj6",
+          "width": 1920,
+          "artwork_type": 1
+        },
+        {
+          "id": 134176,
+          "alpha_channel": true,
+          "height": 800,
+          "image_id": "ar2vj4",
+          "width": 1600,
+          "artwork_type": 1
+        },
+        {
+          "id": 199704,
+          "alpha_channel": true,
+          "height": 976,
+          "image_id": "ar4a3c",
+          "width": 1436,
+          "artwork_type": 1
+        },
+        {
+          "id": 199705,
+          "alpha_channel": true,
+          "height": 1036,
+          "image_id": "ar4a3d",
+          "width": 550,
+          "artwork_type": 1
+        },
+        {
+          "id": 199706,
+          "alpha_channel": true,
+          "height": 1279,
+          "image_id": "ar4a3e",
+          "width": 973,
+          "artwork_type": 1
+        },
+        {
+          "id": 199707,
+          "alpha_channel": false,
+          "height": 1280,
+          "image_id": "ar4a3f",
+          "width": 1285,
+          "artwork_type": 1
+        }
+      ],
+      "cover": {
+        "id": 295719,
+        "image_id": "co6c6f"
+      },
+      "first_release_date": 1531440000,
+      "genres": [
+        {
+          "id": 8,
+          "name": "Platform"
+        },
+        {
+          "id": 9,
+          "name": "Puzzle"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 209787,
+          "company": {
+            "id": 2910,
+            "name": "1-UP Studio"
+          },
+          "developer": false,
+          "publisher": true
+        },
+        {
+          "id": 209788,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        },
+        {
+          "id": 209789,
+          "company": {
+            "id": 768,
+            "name": "Nintendo Software Technology"
+          },
+          "developer": true,
+          "publisher": false
+        },
+        {
+          "id": 209786,
+          "company": {
+            "id": 7902,
+            "name": "Nintendo Entertainment Planning & Development"
+          },
+          "developer": true,
+          "publisher": false
+        }
+      ],
+      "name": "Captain Toad: Treasure Tracker",
+      "parent_game": {
+        "id": 7337,
+        "name": "Captain Toad: Treasure Tracker"
+      },
+      "platforms": [
+        508,
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 465608,
+          "date": 1531440000,
+          "platform": 130,
+          "y": 2018,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        },
+        {
+          "id": 743558,
+          "date": 1749081600,
+          "platform": 508,
+          "y": 2025,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 1034090,
+          "height": 675,
+          "image_id": "scm5wq",
+          "width": 1200
+        },
+        {
+          "id": 1034091,
+          "height": 675,
+          "image_id": "scm5wr",
+          "width": 1200
+        },
+        {
+          "id": 1034088,
+          "height": 675,
+          "image_id": "scm5wo",
+          "width": 1200
+        },
+        {
+          "id": 1034089,
+          "height": 675,
+          "image_id": "scm5wp",
+          "width": 1200
+        },
+        {
+          "id": 1034092,
+          "height": 675,
+          "image_id": "scm5ws",
+          "width": 1200
+        },
+        {
+          "id": 1034093,
+          "height": 675,
+          "image_id": "scm5wt",
+          "width": 1200
+        }
+      ],
+      "slug": "captain-toad-treasure-tracker--3",
+      "summary": "Captain Toad stars in his own puzzling quest on the Nintendo Switch system! Our stubby hero must dodge dangers and track treasures across many trap-filled courses. Survive smoldering volcanoes, hazardous steam engines, haunted houses, and even new courses based on the Super Mario Odyssey game! Luckily, a second player can join in by tossing turnips at enemies.",
+      "websites": [
+        {
+          "id": 542109,
+          "url": "https://en.wikipedia.org/wiki/Captain_Toad:_Treasure_Tracker",
+          "type": {
+            "id": 3,
+            "type": "Wikipedia"
+          }
+        },
+        {
+          "id": 542107,
+          "url": "https://www.reddit.com/r/CaptainToad",
+          "type": {
+            "id": 14,
+            "type": "Subreddit"
+          }
+        },
+        {
+          "id": 791953,
+          "url": "https://www.nintendo.com/games/detail/captain-toad-treasure-tracker-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        },
+        {
+          "id": 542108,
+          "url": "https://www.mariowiki.com/Captain_Toad:_Treasure_Tracker",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
+          }
+        },
+        {
+          "id": 542106,
+          "url": "http://captaintoad.nintendo.com/",
+          "type": {
+            "id": 1,
+            "type": "Official Website"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 11,
+        "type": "Port"
+      }
+    },
+    {
+      "id": 131961,
+      "artworks": [
+        {
+          "id": 8739,
+          "alpha_channel": false,
+          "height": 1080,
+          "image_id": "ar6qr",
+          "width": 1920,
+          "artwork_type": 1
+        }
+      ],
+      "cover": {
+        "id": 95749,
+        "image_id": "co21vp"
+      },
+      "first_release_date": 1591228800,
+      "genres": [
+        {
+          "id": 33,
+          "name": "Arcade"
+        },
+        {
+          "id": 35,
+          "name": "Card & Board Game"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 95367,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        },
+        {
+          "id": 100892,
+          "company": {
+            "id": 1100,
+            "name": "NDCube"
+          },
+          "developer": true,
+          "publisher": false
+        }
+      ],
+      "name": "Clubhouse Games: 51 Worldwide Classics",
+      "platforms": [
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 342121,
+          "date": 1591228800,
+          "platform": 130,
+          "y": 2020,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 1,
+            "region": "europe"
+          }
+        },
+        {
+          "id": 191848,
+          "date": 1591315200,
+          "platform": 130,
+          "y": 2020,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 380545,
+          "height": 1080,
+          "image_id": "sc85mp",
+          "width": 1920
+        },
+        {
+          "id": 380544,
+          "height": 1080,
+          "image_id": "sc85mo",
+          "width": 1920
+        },
+        {
+          "id": 380547,
+          "height": 1080,
+          "image_id": "sc85mr",
+          "width": 1920
+        },
+        {
+          "id": 380546,
+          "height": 1080,
+          "image_id": "sc85mq",
+          "width": 1920
+        },
+        {
+          "id": 380541,
+          "height": 1080,
+          "image_id": "sc85ml",
+          "width": 1920
+        },
+        {
+          "id": 380542,
+          "height": 1080,
+          "image_id": "sc85mm",
+          "width": 1920
+        },
+        {
+          "id": 380543,
+          "height": 1080,
+          "image_id": "sc85mn",
+          "width": 1920
+        },
+        {
+          "id": 432566,
+          "height": 1032,
+          "image_id": "sc99rq",
+          "width": 1843
+        },
+        {
+          "id": 432565,
+          "height": 1034,
+          "image_id": "sc99rp",
+          "width": 1842
+        },
+        {
+          "id": 432567,
+          "height": 1036,
+          "image_id": "sc99rr",
+          "width": 1842
+        },
+        {
+          "id": 432568,
+          "height": 1031,
+          "image_id": "sc99rs",
+          "width": 1841
+        },
+        {
+          "id": 432569,
+          "height": 1036,
+          "image_id": "sc99rt",
+          "width": 1842
+        }
+      ],
+      "slug": "clubhouse-games-51-worldwide-classics",
+      "summary": "Play and discover 51 board games, tabletop games, and more all in one package—Clubhouse Games: 51 Worldwide Classics. This diverse collection includes games from all over the world across multiple genres, from familiar favorites like Chess to international hits like Mancala that have been around for hundreds of years!",
+      "websites": [
+        {
+          "id": 392562,
+          "url": "https://www.twitch.tv/directory/game/Clubhouse%20Games%3A%2051%20Worldwide%20Classics",
+          "type": {
+            "id": 6,
+            "type": "Twitch"
+          }
+        },
+        {
+          "id": 786368,
+          "url": "https://www.nintendo.com/games/detail/clubhouse-games-51-worldwide-classics-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        },
+        {
+          "id": 137657,
+          "url": "https://www.nintendo.com/games/detail/clubhouse-games-51-worldwide-classics-switch/",
+          "type": {
+            "id": 1,
+            "type": "Official Website"
+          }
+        },
+        {
+          "id": 142755,
+          "url": "https://en.wikipedia.org/wiki/Clubhouse_Games:_51_Worldwide_Classics",
+          "type": {
+            "id": 3,
+            "type": "Wikipedia"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 0,
+        "type": "Main Game"
+      }
+    },
+    {
+      "id": 306143,
+      "artworks": [
+        {
+          "id": 140736,
+          "alpha_channel": false,
+          "height": 800,
+          "image_id": "ar30lc",
+          "width": 1600,
+          "artwork_type": 1
+        },
+        {
+          "id": 204196,
+          "alpha_channel": true,
+          "height": 1120,
+          "image_id": "ar4dk4",
+          "width": 1182,
+          "artwork_type": 1
+        },
+        {
+          "id": 204197,
+          "alpha_channel": true,
+          "height": 1091,
+          "image_id": "ar4dk5",
+          "width": 1280,
+          "artwork_type": 1
+        },
+        {
+          "id": 204198,
+          "alpha_channel": true,
+          "height": 1120,
+          "image_id": "ar4dk6",
+          "width": 1132,
+          "artwork_type": 1
+        },
+        {
+          "id": 204194,
+          "alpha_channel": false,
+          "height": 729,
+          "image_id": "ar4dk2",
+          "width": 1280,
+          "artwork_type": 1
+        },
+        {
+          "id": 204195,
+          "alpha_channel": false,
+          "height": 462,
+          "image_id": "ar4dk3",
+          "width": 1280,
+          "artwork_type": 1
+        }
+      ],
+      "cover": {
+        "id": 525905,
+        "image_id": "cob9sh"
+      },
+      "first_release_date": 1736985600,
+      "genres": [
+        {
+          "id": 8,
+          "name": "Platform"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 272856,
+          "company": {
+            "id": 4741,
+            "name": "Forever Entertainment S.A."
+          },
+          "developer": true,
+          "publisher": false
+        },
+        {
+          "id": 272855,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        }
+      ],
+      "name": "Donkey Kong Country Returns HD",
+      "parent_game": {
+        "id": 1100,
+        "name": "Donkey Kong Country Returns"
+      },
+      "platforms": [
+        508,
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 608296,
+          "date": 1736985600,
+          "platform": 130,
+          "y": 2025,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        },
+        {
+          "id": 861278,
+          "date": 1768953600,
+          "platform": 508,
+          "y": 2026,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 1347433,
+          "height": 720,
+          "image_id": "scsvop",
+          "width": 1280
+        },
+        {
+          "id": 1347434,
+          "height": 720,
+          "image_id": "scsvoq",
+          "width": 1280
+        },
+        {
+          "id": 1347436,
+          "height": 720,
+          "image_id": "scsvos",
+          "width": 1280
+        },
+        {
+          "id": 1347431,
+          "height": 720,
+          "image_id": "scsvon",
+          "width": 1280
+        },
+        {
+          "id": 1347435,
+          "height": 720,
+          "image_id": "scsvor",
+          "width": 1280
+        },
+        {
+          "id": 1347437,
+          "height": 720,
+          "image_id": "scsvot",
+          "width": 1280
+        },
+        {
+          "id": 1347432,
+          "height": 720,
+          "image_id": "scsvoo",
+          "width": 1280
+        }
+      ],
+      "slug": "donkey-kong-country-returns-hd",
+      "summary": "Donkey Kong and Diddy Kong are back for some ground-pounding action in this HD version of Donkey Kong Country Returns, originally released on the Wii system.\n\nPlay solo, or with a buddy in local two-player co-op, in an adventure brimming with hijinks where you can stomp obstacles, send mine carts careening, fly high on rocket barrels and even hitch a ride on Rambi the Rhino.\n\nExperience 80 a-peel-ing levels, including the additional ones from the Nintendo 3DS version.",
+      "websites": [
+        {
+          "id": 834420,
+          "url": "https://www.nintendo.com/us/store/products/donkey-kong-country-returns-hd-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        },
+        {
+          "id": 834421,
+          "url": "https://www.twitch.tv/directory/category/donkey-kong-country-returns-hd",
+          "type": {
+            "id": 6,
+            "type": "Twitch"
+          }
+        },
+        {
+          "id": 834422,
+          "url": "https://www.mariowiki.com/Donkey_Kong_Country_Returns_HD",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 9,
+        "type": "Remaster"
+      }
+    },
+    {
+      "id": 146762,
+      "artworks": [
+        {
+          "id": 13132,
+          "alpha_channel": false,
+          "height": 1080,
+          "image_id": "ara4s",
+          "width": 1920,
+          "artwork_type": 1
+        }
+      ],
+      "cover": {
+        "id": 139224,
+        "image_id": "co2zfc"
+      },
+      "first_release_date": 1623369600,
+      "involved_companies": [
+        {
+          "id": 130104,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": true,
+          "publisher": true
+        }
+      ],
+      "name": "Game Builder Garage",
+      "platforms": [
+        508,
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 242715,
+          "date": 1623369600,
+          "platform": 130,
+          "y": 2021,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        },
+        {
+          "id": 338075,
+          "date": 1631232000,
+          "platform": 130,
+          "y": 2021,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 1,
+            "region": "europe"
+          }
+        },
+        {
+          "id": 743559,
+          "date": 1749081600,
+          "platform": 508,
+          "y": 2025,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 442041,
+          "height": 720,
+          "image_id": "sc9h2x",
+          "width": 1280
+        },
+        {
+          "id": 442042,
+          "height": 720,
+          "image_id": "sc9h2y",
+          "width": 1280
+        },
+        {
+          "id": 442043,
+          "height": 720,
+          "image_id": "sc9h2z",
+          "width": 1280
+        },
+        {
+          "id": 442044,
+          "height": 720,
+          "image_id": "sc9h30",
+          "width": 1280
+        },
+        {
+          "id": 442045,
+          "height": 720,
+          "image_id": "sc9h31",
+          "width": 1280
+        }
+      ],
+      "slug": "game-builder-garage",
+      "summary": "Turn gaming time into learning time with the Game Builder Garage software. Kids can learn how to make their own games with guided lessons created by Nintendo. From a simple game of tag to a run-and-jump obstacle course, each lesson is broken down into multiple, manageable segments that let kids go at their own pace—and have fun in the process. Learn the basics of visual game programming By playing through interactive lessons, kids will learn the basics of visual game programming. Nodon, colorful creatures with distinct personalities, keep kids engaged through lessons with tips and motivating messages. With a simple press of a button, swap between the programming screen and the game screen—watch how programming changes the game on the fly. Track progress and build confidence After completing each lesson and building a game, kids will test their knowledge by completing Checkpoints—small puzzles or tasks to solve with programming. Master these skills and head to Free Programming mode to let your imagination (and programming chops) run wild. The Nodon you meet each have distinct personalities that complement their functions. Have fun connecting them together to see how they interact and bring your game to life. The in-game Nodopedia lets you quickly check what each Nodon does as you create. There’s also a guide that recaps important skills! Easily swap between the Programming and Game screens to see the hard-working Nodon in action. Take advantage of the Nintendo Switch system’s many features. Instead of the control stick, program motion controls to control your game. Want to create…",
+      "websites": [
+        {
+          "id": 183759,
+          "url": "https://www.nintendo.com/games/detail/game-builder-garage-switch",
+          "type": {
+            "id": 1,
+            "type": "Official Website"
+          }
+        },
+        {
+          "id": 791954,
+          "url": "https://www.nintendo.com/games/detail/game-builder-garage-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        },
+        {
+          "id": 455001,
+          "url": "https://www.twitch.tv/directory/game/Game%20Builder%20Garage",
+          "type": {
+            "id": 6,
+            "type": "Twitch"
+          }
+        },
+        {
+          "id": 988076,
+          "url": "https://en.wikipedia.org/wiki/Game_Builder_Garage",
+          "type": {
+            "id": 3,
+            "type": "Wikipedia"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 0,
+        "type": "Main Game"
+      }
+    },
+    {
+      "id": 26764,
+      "artworks": [
+        {
+          "id": 5915,
+          "alpha_channel": false,
+          "height": 1060,
+          "image_id": "ar4kb",
+          "width": 1500,
+          "artwork_type": 1
+        },
+        {
+          "id": 174184,
+          "alpha_channel": true,
+          "height": 1390,
+          "image_id": "ar3qeg",
+          "width": 4808,
+          "artwork_type": 7
+        }
+      ],
+      "cover": {
+        "id": 94741,
+        "image_id": "co213p"
+      },
+      "first_release_date": 1493337600,
+      "genres": [
+        {
+          "id": 10,
+          "name": "Racing"
+        },
+        {
+          "id": 33,
+          "name": "Arcade"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 224451,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        },
+        {
+          "id": 330805,
+          "company": {
+            "id": 45214,
+            "name": "Nintendo EPD Production Group No. 9"
+          },
+          "developer": true,
+          "publisher": false
+        },
+        {
+          "id": 330806,
+          "company": {
+            "id": 7902,
+            "name": "Nintendo Entertainment Planning & Development"
+          },
+          "developer": true,
+          "publisher": false
+        }
+      ],
+      "name": "Mario Kart 8 Deluxe",
+      "parent_game": {
+        "id": 2350,
+        "name": "Mario Kart 8"
+      },
+      "platforms": [
+        508,
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 498152,
+          "date": 1493337600,
+          "platform": 130,
+          "y": 2017,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        },
+        {
+          "id": 692490,
+          "date": 1667001600,
+          "platform": 130,
+          "y": 2022,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 10,
+            "region": "brazil"
+          }
+        },
+        {
+          "id": 960146,
+          "date": 1788220800,
+          "platform": 508,
+          "y": 2026,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 164519,
+          "height": 720,
+          "image_id": "k25mvvrzl2ko8rnjdpz7",
+          "width": 1280
+        },
+        {
+          "id": 41617,
+          "height": 180,
+          "image_id": "xdzg7620kqx6i4zkm4tp",
+          "width": 300
+        },
+        {
+          "id": 164512,
+          "height": 720,
+          "image_id": "vmhgawm7zlvd8qqmk8ya",
+          "width": 1280
+        },
+        {
+          "id": 164514,
+          "height": 720,
+          "image_id": "qoh5zyyom9pt9sfiu1vv",
+          "width": 1280
+        },
+        {
+          "id": 164513,
+          "height": 720,
+          "image_id": "isnqp0khpg87nfpssd5k",
+          "width": 1280
+        },
+        {
+          "id": 164517,
+          "height": 720,
+          "image_id": "sjmvyyxrudwmpfps77rt",
+          "width": 1280
+        },
+        {
+          "id": 164520,
+          "height": 720,
+          "image_id": "niwpbmiwgkuuep26jz0a",
+          "width": 1280
+        },
+        {
+          "id": 164522,
+          "height": 720,
+          "image_id": "uwi7duel81c43tikqeup",
+          "width": 1280
+        },
+        {
+          "id": 164516,
+          "height": 720,
+          "image_id": "e7lig4czwkoyoqblh6zf",
+          "width": 1280
+        },
+        {
+          "id": 164518,
+          "height": 720,
+          "image_id": "kjexiacfocg6wrz0cdbs",
+          "width": 1280
+        },
+        {
+          "id": 164521,
+          "height": 720,
+          "image_id": "widay9y9r9nqelxu7spw",
+          "width": 1280
+        },
+        {
+          "id": 164515,
+          "height": 720,
+          "image_id": "bvpqncieyfptsjncuwbf",
+          "width": 1280
+        }
+      ],
+      "slug": "mario-kart-8-deluxe",
+      "summary": "Hit the road with the definitive version of Mario Kart 8 and play anytime, anywhere! Race your friends or battle them in a revised battle mode on new and returning battle courses. Play locally in up to 4-player multiplayer in 1080p while playing in TV Mode. Every track from the Wii U version, including DLC, makes a glorious return. Plus, the Inklings appear as all-new guest characters, along with returning favorites, such as King Boo, Dry Bones, and Bowser Jr.!",
+      "websites": [
+        {
+          "id": 173184,
+          "url": "https://mariokart8deluxe.nintendo.com/",
+          "type": {
+            "id": 1,
+            "type": "Official Website"
+          }
+        },
+        {
+          "id": 21889,
+          "url": "https://en.wikipedia.org/wiki/Mario_Kart_8",
+          "type": {
+            "id": 3,
+            "type": "Wikipedia"
+          }
+        },
+        {
+          "id": 815287,
+          "url": "https://www.nintendo.com/games/detail/mario-kart-8-deluxe-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        },
+        {
+          "id": 299562,
+          "url": "https://www.twitch.tv/directory/game/Mario%20Kart%208%20Deluxe",
+          "type": {
+            "id": 6,
+            "type": "Twitch"
+          }
+        },
+        {
+          "id": 299563,
+          "url": "https://www.reddit.com/r/MarioKart8Deluxe",
+          "type": {
+            "id": 14,
+            "type": "Subreddit"
+          }
+        },
+        {
+          "id": 21888,
+          "url": "https://www.mariowiki.com/Mario_Kart_8_Deluxe",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
+          }
+        },
+        {
+          "id": 1095126,
+          "url": "https://discord.gg/mariokart",
+          "type": {
+            "id": 18,
+            "type": "Discord"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 10,
+        "type": "Expanded Game"
+      }
+    },
+    {
+      "id": 109457,
+      "artworks": [
+        {
+          "id": 6353,
+          "alpha_channel": false,
+          "height": 1060,
+          "image_id": "ar4wh",
+          "width": 1500,
+          "artwork_type": 1
+        },
+        {
+          "id": 160274,
+          "alpha_channel": true,
+          "height": 1301,
+          "image_id": "ar3fo2",
+          "width": 1295,
+          "artwork_type": 1
+        },
+        {
+          "id": 160277,
+          "alpha_channel": false,
+          "height": 4000,
+          "image_id": "ar3fo5",
+          "width": 4000,
+          "artwork_type": 1
+        },
+        {
+          "id": 160275,
+          "alpha_channel": false,
+          "height": 1800,
+          "image_id": "ar3fo3",
+          "width": 1800,
+          "artwork_type": 1
+        },
+        {
+          "id": 160276,
+          "alpha_channel": false,
+          "height": 1600,
+          "image_id": "ar3fo4",
+          "width": 1600,
+          "artwork_type": 1
+        },
+        {
+          "id": 160273,
+          "alpha_channel": true,
+          "height": 1378,
+          "image_id": "ar3fo1",
+          "width": 3821,
+          "artwork_type": 1
+        }
+      ],
+      "cover": {
+        "id": 86169,
+        "image_id": "co1uhl"
+      },
+      "first_release_date": 1547164800,
+      "genres": [
+        {
+          "id": 8,
+          "name": "Platform"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 70183,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        },
+        {
+          "id": 369743,
+          "company": {
+            "id": 2095,
+            "name": "Panic Button Games"
+          },
+          "developer": false,
+          "publisher": false
+        },
+        {
+          "id": 403799,
+          "company": {
+            "id": 7902,
+            "name": "Nintendo Entertainment Planning & Development"
+          },
+          "developer": true,
+          "publisher": false
+        }
+      ],
+      "name": "New Super Mario Bros. U Deluxe",
+      "parent_game": {
+        "id": 119120,
+        "name": "New Super Mario Bros. U + New Super Luigi U"
+      },
+      "platforms": [
+        508,
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 170454,
+          "date": 1547164800,
+          "platform": 130,
+          "y": 2019,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        },
+        {
+          "id": 743560,
+          "date": 1749081600,
+          "platform": 508,
+          "y": 2025,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 266744,
+          "height": 1080,
+          "image_id": "sc5ptk",
+          "width": 1920
+        },
+        {
+          "id": 266742,
+          "height": 1080,
+          "image_id": "sc5pti",
+          "width": 1920
+        },
+        {
+          "id": 266743,
+          "height": 1080,
+          "image_id": "sc5ptj",
+          "width": 1920
+        },
+        {
+          "id": 266745,
+          "height": 1080,
+          "image_id": "sc5ptl",
+          "width": 1920
+        },
+        {
+          "id": 250778,
+          "height": 720,
+          "image_id": "dnubasrryx51b80koamd",
+          "width": 1280
+        }
+      ],
+      "slug": "new-super-mario-bros-u-deluxe",
+      "summary": "Join Mario, Luigi, and pals for single-player or multiplayer fun anytime, anywhere! Take on two family-friendly, side-scrolling adventures with up to three friends* as you try to save the Mushroom Kingdom. Includes the New Super Mario Bros. U and harder, faster New Super Luigi U games—both of which include Nabbit and Toadette as playable characters!",
+      "websites": [
+        {
+          "id": 474633,
+          "url": "https://www.twitch.tv/directory/game/New%20Super%20Mario%20Bros.%20U%20Deluxe",
+          "type": {
+            "id": 6,
+            "type": "Twitch"
+          }
+        },
+        {
+          "id": 791955,
+          "url": "https://www.nintendo.com/games/detail/new-super-mario-bros-u-deluxe-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        },
+        {
+          "id": 89788,
+          "url": "https://www.reddit.com/r/Mario",
+          "type": {
+            "id": 14,
+            "type": "Subreddit"
+          }
+        },
+        {
+          "id": 107979,
+          "url": "https://www.mariowiki.com/New_Super_Mario_Bros._U_Deluxe",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
+          }
+        },
+        {
+          "id": 107980,
+          "url": "https://en.wikipedia.org/wiki/New_Super_Mario_Bros._U#New_Super_Mario_Bros._U_Deluxe",
+          "type": {
+            "id": 3,
+            "type": "Wikipedia"
+          }
+        },
+        {
+          "id": 94524,
+          "url": "https://www.nintendo.com/games/detail/new-super-mario-bros-u-deluxe-switch",
+          "type": {
+            "id": 1,
+            "type": "Official Website"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 10,
+        "type": "Expanded Game"
+      }
+    },
+    {
+      "id": 136498,
+      "artworks": [
+        {
+          "id": 12729,
+          "alpha_channel": false,
+          "height": 1080,
+          "image_id": "ar9tl",
+          "width": 1920,
+          "artwork_type": 1
+        }
+      ],
+      "cover": {
+        "id": 394976,
+        "image_id": "co8grk"
+      },
+      "first_release_date": 1603929600,
+      "genres": [
+        {
+          "id": 11,
+          "name": "Real Time Strategy (RTS)"
+        },
+        {
+          "id": 31,
+          "name": "Adventure"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 330803,
+          "company": {
+            "id": 45215,
+            "name": "Nintendo EPD Production Group No. 10"
+          },
+          "developer": true,
+          "publisher": false
+        },
+        {
+          "id": 369968,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        },
+        {
+          "id": 369969,
+          "company": {
+            "id": 2821,
+            "name": "Eighting"
+          },
+          "developer": true,
+          "publisher": false
+        }
+      ],
+      "name": "Pikmin 3 Deluxe",
+      "parent_game": {
+        "id": 2241,
+        "name": "Pikmin 3"
+      },
+      "platforms": [
+        508,
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 205991,
+          "date": 1604016000,
+          "platform": 130,
+          "y": 2020,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        },
+        {
+          "id": 339610,
+          "date": 1603929600,
+          "platform": 130,
+          "y": 2020,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 1,
+            "region": "europe"
+          }
+        },
+        {
+          "id": 959741,
+          "date": 1788134400,
+          "platform": 508,
+          "y": 2026,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 395178,
+          "height": 720,
+          "image_id": "sc8gx6",
+          "width": 1280
+        },
+        {
+          "id": 395180,
+          "height": 720,
+          "image_id": "sc8gx8",
+          "width": 1280
+        },
+        {
+          "id": 395183,
+          "height": 720,
+          "image_id": "sc8gxb",
+          "width": 1280
+        },
+        {
+          "id": 395182,
+          "height": 720,
+          "image_id": "sc8gxa",
+          "width": 1280
+        },
+        {
+          "id": 395179,
+          "height": 720,
+          "image_id": "sc8gx7",
+          "width": 1280
+        },
+        {
+          "id": 395181,
+          "height": 720,
+          "image_id": "sc8gx9",
+          "width": 1280
+        }
+      ],
+      "slug": "pikmin-3-deluxe",
+      "summary": "Prepare yourselves, brave explorers, and set-off for the lush planet PNF-404!\n\nThis new version for Nintendo Switch features multiple difficulty modes, new side-story missions featuring Olimar and Louie, and all the DLC from the original release.",
+      "websites": [
+        {
+          "id": 833526,
+          "url": "https://www.nintendo.com/games/detail/pikmin-3-deluxe-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        },
+        {
+          "id": 681929,
+          "url": "https://www.twitch.tv/directory/category/pikmin-3-deluxe",
+          "type": {
+            "id": 6,
+            "type": "Twitch"
+          }
+        },
+        {
+          "id": 681930,
+          "url": "https://www.pikminwiki.com/Pikmin_3_Deluxe",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
+          }
+        },
+        {
+          "id": 161776,
+          "url": "https://pikmin3.nintendo.com/",
+          "type": {
+            "id": 1,
+            "type": "Official Website"
+          }
+        },
+        {
+          "id": 254138,
+          "url": "https://en.wikipedia.org/wiki/Pikmin_3",
+          "type": {
+            "id": 3,
+            "type": "Wikipedia"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 10,
+        "type": "Expanded Game"
+      }
+    },
+    {
+      "id": 333568,
+      "artworks": [
+        {
+          "id": 155602,
+          "alpha_channel": false,
+          "height": 2020,
+          "image_id": "ar3c2a",
+          "width": 2860,
+          "artwork_type": 1
+        },
+        {
+          "id": 181022,
+          "alpha_channel": true,
+          "height": 952,
+          "image_id": "ar3voe",
+          "width": 1847,
+          "artwork_type": 7
+        }
+      ],
+      "cover": {
+        "id": 441723,
+        "image_id": "co9gu3"
+      },
+      "first_release_date": 1775606400,
+      "genres": [
+        {
+          "id": 4,
+          "name": "Fighting"
+        },
+        {
+          "id": 12,
+          "name": "Role-playing (RPG)"
+        },
+        {
+          "id": 15,
+          "name": "Strategy"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 309827,
+          "company": {
+            "id": 62031,
+            "name": "The Pokémon Works"
+          },
+          "developer": true,
+          "publisher": false
+        },
+        {
+          "id": 309828,
+          "company": {
+            "id": 1074,
+            "name": "The Pokémon Company"
+          },
+          "developer": false,
+          "publisher": true
+        },
+        {
+          "id": 309824,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        },
+        {
+          "id": 309826,
+          "company": {
+            "id": 1617,
+            "name": "Game Freak"
+          },
+          "developer": false,
+          "publisher": false
+        }
+      ],
+      "name": "Pokémon Champions",
+      "platforms": [
+        508,
+        34,
+        39,
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 892959,
+          "date": 1775606400,
+          "platform": 130,
+          "y": 2026,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        },
+        {
+          "id": 892960,
+          "date": 1775606400,
+          "platform": 508,
+          "y": 2026,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        },
+        {
+          "id": 921284,
+          "date": 1781654400,
+          "platform": 34,
+          "y": 2026,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        },
+        {
+          "id": 921285,
+          "date": 1781654400,
+          "platform": 39,
+          "y": 2026,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 1914528,
+          "height": 1896,
+          "image_id": "sc1519c",
+          "width": 3370
+        },
+        {
+          "id": 1914529,
+          "height": 1896,
+          "image_id": "sc1519d",
+          "width": 3370
+        },
+        {
+          "id": 1914530,
+          "height": 1896,
+          "image_id": "sc1519e",
+          "width": 3370
+        },
+        {
+          "id": 1472410,
+          "height": 540,
+          "image_id": "scvk4a",
+          "width": 960
+        },
+        {
+          "id": 1472411,
+          "height": 540,
+          "image_id": "scvk4b",
+          "width": 960
+        }
+      ],
+      "slug": "pokemon-champions",
+      "summary": "Get ready to experience everything you love about Pokémon battles all in one place—in Pokémon Champions. This new, battle-focused game will feature familiar mechanics such as Pokémon types, Abilities, and moves, creating an environment conducive to rich and varied strategies for new and experienced Trainers alike. It’s not just familiar mechanics—you’ll be able to bring in classic Pokémon from Pokémon HOME, too! Look forward to cross-platform battles alongside your favorite Pokémon on Nintendo Switch and mobile, with a variety of different modes available for your desired experience.",
+      "websites": [
+        {
+          "id": 837165,
+          "url": "https://www.nintendo.com/us/store/products/pokemon-champions-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        },
+        {
+          "id": 715381,
+          "url": "https://champions.pokemon.com/en-us/",
+          "type": {
+            "id": 1,
+            "type": "Official Website"
+          }
+        },
+        {
+          "id": 1027606,
+          "url": "https://www.twitch.tv/directory/category/pokemon-champions",
+          "type": {
+            "id": 6,
+            "type": "Twitch"
+          }
+        },
+        {
+          "id": 1027607,
+          "url": "https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Champions",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
+          }
+        },
+        {
+          "id": 1027608,
+          "url": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Champions",
+          "type": {
+            "id": 3,
+            "type": "Wikipedia"
+          }
+        },
+        {
+          "id": 1090808,
+          "url": "https://play.google.com/store/apps/details?id=jp.pokemon.pokemonchampions&hl=en_US",
+          "type": {
+            "id": 12,
+            "type": "Google Play"
+          }
+        },
+        {
+          "id": 1090809,
+          "url": "https://apps.apple.com/us/app/pok%C3%A9mon-champions/id6741503079",
+          "type": {
+            "id": 10,
+            "type": "App Store (iPhone)"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 0,
+        "type": "Main Game"
+      }
+    },
+    {
+      "id": 191931,
+      "artworks": [
+        {
+          "id": 180905,
+          "alpha_channel": true,
+          "height": 919,
+          "image_id": "ar3vl5",
+          "width": 2036,
+          "artwork_type": 7
+        }
+      ],
+      "cover": {
+        "id": 270126,
+        "image_id": "co5sfi"
+      },
+      "first_release_date": 1668729600,
+      "genres": [
+        {
+          "id": 12,
+          "name": "Role-playing (RPG)"
+        },
+        {
+          "id": 16,
+          "name": "Turn-based strategy (TBS)"
+        },
+        {
+          "id": 31,
+          "name": "Adventure"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 164696,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        },
+        {
+          "id": 164697,
+          "company": {
+            "id": 1617,
+            "name": "Game Freak"
+          },
+          "developer": true,
+          "publisher": false
+        },
+        {
+          "id": 255815,
+          "company": {
+            "id": 17457,
+            "name": "Flame Hearts"
+          },
+          "developer": false,
+          "publisher": false
+        },
+        {
+          "id": 256264,
+          "company": {
+            "id": 4248,
+            "name": "Digital Works Entertainment"
+          },
+          "developer": false,
+          "publisher": false
+        }
+      ],
+      "name": "Pokémon Scarlet",
+      "platforms": [
+        508,
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 362214,
+          "date": 1668729600,
+          "platform": 130,
+          "y": 2022,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        },
+        {
+          "id": 743561,
+          "date": 1749081600,
+          "platform": 508,
+          "y": 2025,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 757957,
+          "height": 529,
+          "image_id": "scg8ud",
+          "width": 940
+        },
+        {
+          "id": 757958,
+          "height": 529,
+          "image_id": "scg8ue",
+          "width": 940
+        },
+        {
+          "id": 757960,
+          "height": 529,
+          "image_id": "scg8ug",
+          "width": 940
+        },
+        {
+          "id": 757959,
+          "height": 529,
+          "image_id": "scg8uf",
+          "width": 940
+        }
+      ],
+      "slug": "pokemon-scarlet",
+      "summary": "The Pokémon Scarlet and Pokémon Violet games, the newest chapters in the Pokémon series, are coming to Nintendo Switch later this year. With these new titles, the Pokémon series takes a new evolutionary step, allowing you to explore freely in a richly expressed open world.\n\nVarious towns blend seamlessly into the wilderness with no borders. You’ll be able to see the Pokémon of this region in the skies, in the seas, in the forests, on the streets—all over! You’ll be able to experience the true joy of the Pokémon series—battling against wild Pokémon in order to catch them—now in an open-world game that players of any age can enjoy.​",
+      "websites": [
+        {
+          "id": 484649,
+          "url": "https://www.twitch.tv/directory/game/Pok%C3%A9mon%20Scarlet/Violet",
+          "type": {
+            "id": 6,
+            "type": "Twitch"
+          }
+        },
+        {
+          "id": 266302,
+          "url": "https://www.facebook.com/Pokemon",
+          "type": {
+            "id": 4,
+            "type": "Facebook"
+          }
+        },
+        {
+          "id": 791956,
+          "url": "https://www.nintendo.com/store/products/pokemon-scarlet-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        },
+        {
+          "id": 266303,
+          "url": "https://twitter.com/Pokemon",
+          "type": {
+            "id": 5,
+            "type": "Twitter"
+          }
+        },
+        {
+          "id": 266304,
+          "url": "https://www.instagram.com/pokemon",
+          "type": {
+            "id": 8,
+            "type": "Instagram"
+          }
+        },
+        {
+          "id": 266305,
+          "url": "https://discord.gg/invite/pokemon",
+          "type": {
+            "id": 18,
+            "type": "Discord"
+          }
+        },
+        {
+          "id": 330201,
+          "url": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Scarlet_and_Violet",
+          "type": {
+            "id": 3,
+            "type": "Wikipedia"
+          }
+        },
+        {
+          "id": 1099331,
+          "url": "https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Scarlet_and_Violet",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 0,
+        "type": "Main Game"
+      }
+    },
+    {
+      "id": 191930,
+      "artworks": [
+        {
+          "id": 180904,
+          "alpha_channel": true,
+          "height": 920,
+          "image_id": "ar3vl4",
+          "width": 1716,
+          "artwork_type": 7
+        }
+      ],
+      "cover": {
+        "id": 270118,
+        "image_id": "co5sfa"
+      },
+      "first_release_date": 1668729600,
+      "genres": [
+        {
+          "id": 12,
+          "name": "Role-playing (RPG)"
+        },
+        {
+          "id": 16,
+          "name": "Turn-based strategy (TBS)"
+        },
+        {
+          "id": 31,
+          "name": "Adventure"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 164695,
+          "company": {
+            "id": 1617,
+            "name": "Game Freak"
+          },
+          "developer": true,
+          "publisher": false
+        },
+        {
+          "id": 164700,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        },
+        {
+          "id": 256265,
+          "company": {
+            "id": 17457,
+            "name": "Flame Hearts"
+          },
+          "developer": false,
+          "publisher": false
+        },
+        {
+          "id": 256266,
+          "company": {
+            "id": 4248,
+            "name": "Digital Works Entertainment"
+          },
+          "developer": false,
+          "publisher": false
+        }
+      ],
+      "name": "Pokémon Violet",
+      "platforms": [
+        508,
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 362215,
+          "date": 1668729600,
+          "platform": 130,
+          "y": 2022,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        },
+        {
+          "id": 743562,
+          "date": 1749081600,
+          "platform": 508,
+          "y": 2025,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 740299,
+          "height": 1678,
+          "image_id": "scfv7v",
+          "width": 3000
+        },
+        {
+          "id": 740300,
+          "height": 1680,
+          "image_id": "scfv7w",
+          "width": 3000
+        },
+        {
+          "id": 740301,
+          "height": 1676,
+          "image_id": "scfv7x",
+          "width": 3000
+        },
+        {
+          "id": 740302,
+          "height": 1814,
+          "image_id": "scfv7y",
+          "width": 3316
+        }
+      ],
+      "slug": "pokemon-violet",
+      "summary": "Catch, battle, and train Pokémon in the Paldea Region, a vast land filled with lakes, towering peaks, wastelands, small towns, and sprawling cities. Explore a wide-open world at your own pace and traverse land, water, and air by riding on a form-shifting Legendary Pokémon. Choose either Sprigatito, Fuecoco, or Quaxly, to be your first partner Pokémon before setting off on your journey through Paldea.",
+      "websites": [
+        {
+          "id": 266311,
+          "url": "https://twitter.com/Pokemon",
+          "type": {
+            "id": 5,
+            "type": "Twitter"
+          }
+        },
+        {
+          "id": 791957,
+          "url": "https://www.nintendo.com/store/products/pokemon-violet-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        },
+        {
+          "id": 266312,
+          "url": "https://www.instagram.com/pokemon",
+          "type": {
+            "id": 8,
+            "type": "Instagram"
+          }
+        },
+        {
+          "id": 266310,
+          "url": "https://www.facebook.com/Pokemon",
+          "type": {
+            "id": 4,
+            "type": "Facebook"
+          }
+        },
+        {
+          "id": 266313,
+          "url": "https://discord.gg/invite/pokemon",
+          "type": {
+            "id": 18,
+            "type": "Discord"
+          }
+        },
+        {
+          "id": 1099332,
+          "url": "https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Scarlet_and_Violet",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 0,
+        "type": "Main Game"
+      }
+    },
+    {
+      "id": 143613,
+      "artworks": [
+        {
+          "id": 74627,
+          "alpha_channel": false,
+          "height": 1080,
+          "image_id": "ar1lkz",
+          "width": 1920,
+          "artwork_type": 1
+        }
+      ],
+      "cover": {
+        "id": 246135,
+        "image_id": "co59x3"
+      },
+      "first_release_date": 1662681600,
+      "genres": [
+        {
+          "id": 5,
+          "name": "Shooter"
+        },
+        {
+          "id": 8,
+          "name": "Platform"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 284481,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        },
+        {
+          "id": 330824,
+          "company": {
+            "id": 45211,
+            "name": "Nintendo EPD Production Group No. 5"
+          },
+          "developer": true,
+          "publisher": false
+        },
+        {
+          "id": 362921,
+          "company": {
+            "id": 16586,
+            "name": "Bandai Namco Studios Singapore"
+          },
+          "developer": false,
+          "publisher": false
+        }
+      ],
+      "name": "Splatoon 3",
+      "platforms": [
+        508,
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 692497,
+          "date": 1666656000,
+          "platform": 130,
+          "y": 2022,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 10,
+            "region": "brazil"
+          }
+        },
+        {
+          "id": 692481,
+          "date": 1662681600,
+          "platform": 130,
+          "y": 2022,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        },
+        {
+          "id": 755012,
+          "date": 1749686400,
+          "platform": 508,
+          "y": 2025,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 422788,
+          "height": 1080,
+          "image_id": "sc9284",
+          "width": 1920
+        },
+        {
+          "id": 422789,
+          "height": 1080,
+          "image_id": "sc9285",
+          "width": 1920
+        },
+        {
+          "id": 422787,
+          "height": 1080,
+          "image_id": "sc9283",
+          "width": 1920
+        },
+        {
+          "id": 422790,
+          "height": 1080,
+          "image_id": "sc9286",
+          "width": 1920
+        },
+        {
+          "id": 422791,
+          "height": 1080,
+          "image_id": "sc9287",
+          "width": 1920
+        }
+      ],
+      "slug": "splatoon-3",
+      "summary": "Enter the Splatlands, a sun-scorched desert inhabited by battle-hardened Inklings and Octolings. Splatsville, the city of chaos, is the adrenaline-fueled heart of this dusty wasteland. Even in this desolate environment, Turf War reigns supreme and battles rage in new stages located in the surrounding wilds. Dynamic new moves help these fighters dodge attacks and cover more ground, along with a new bow-shaped weapon to sling ink.",
+      "websites": [
+        {
+          "id": 317123,
+          "url": "https://www.twitch.tv/directory/game/Splatoon%203",
+          "type": {
+            "id": 6,
+            "type": "Twitch"
+          }
+        },
+        {
+          "id": 256248,
+          "url": "https://splatoonwiki.org/wiki/Splatoon_3",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
+          }
+        },
+        {
+          "id": 591059,
+          "url": "https://www.reddit.com/r/splatoon",
+          "type": {
+            "id": 14,
+            "type": "Subreddit"
+          }
+        },
+        {
+          "id": 277906,
+          "url": "https://nintendo.co.jp/switch/av5ja/index.html",
+          "type": {
+            "id": 1,
+            "type": "Official Website"
+          }
+        },
+        {
+          "id": 264498,
+          "url": "https://en.wikipedia.org/wiki/Splatoon_3",
+          "type": {
+            "id": 3,
+            "type": "Wikipedia"
+          }
+        },
+        {
+          "id": 804757,
+          "url": "https://www.nintendo.com/store/products/splatoon-3-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        },
+        {
+          "id": 1098881,
+          "url": "https://www.twitter.com/SplatoonNA",
+          "type": {
+            "id": 5,
+            "type": "Twitter"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 0,
+        "type": "Main Game"
+      }
+    },
+    {
+      "id": 138227,
+      "artworks": [
+        {
+          "id": 12966,
+          "alpha_channel": false,
+          "height": 1080,
+          "image_id": "ara06",
+          "width": 1920,
+          "artwork_type": 1
+        },
+        {
+          "id": 204082,
+          "alpha_channel": false,
+          "height": 1280,
+          "image_id": "ar4dgy",
+          "width": 720,
+          "artwork_type": 1
+        },
+        {
+          "id": 204083,
+          "alpha_channel": false,
+          "height": 720,
+          "image_id": "ar4dgz",
+          "width": 1280,
+          "artwork_type": 1
+        },
+        {
+          "id": 204084,
+          "alpha_channel": false,
+          "height": 1280,
+          "image_id": "ar4dh0",
+          "width": 720,
+          "artwork_type": 1
+        },
+        {
+          "id": 243041,
+          "alpha_channel": false,
+          "height": 565,
+          "image_id": "ar57j5",
+          "width": 1280,
+          "artwork_type": 1
+        },
+        {
+          "id": 243042,
+          "alpha_channel": true,
+          "height": 1668,
+          "image_id": "ar57j6",
+          "width": 1280,
+          "artwork_type": 7
+        },
+        {
+          "id": 243201,
+          "alpha_channel": false,
+          "height": 256,
+          "image_id": "ar57nl",
+          "width": 256,
+          "artwork_type": 11
+        }
+      ],
+      "cover": {
+        "id": 527557,
+        "image_id": "cobb2d"
+      },
+      "first_release_date": 1613088000,
+      "genres": [
+        {
+          "id": 8,
+          "name": "Platform"
+        },
+        {
+          "id": 31,
+          "name": "Adventure"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 107320,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        },
+        {
+          "id": 369729,
+          "company": {
+            "id": 45213,
+            "name": "Nintendo EPD Production Group No. 8"
+          },
+          "developer": true,
+          "publisher": false
+        },
+        {
+          "id": 369732,
+          "company": {
+            "id": 2095,
+            "name": "Panic Button Games"
+          },
+          "developer": false,
+          "publisher": false
+        },
+        {
+          "id": 369737,
+          "company": {
+            "id": 2910,
+            "name": "1-UP Studio"
+          },
+          "developer": false,
+          "publisher": false
+        },
+        {
+          "id": 369738,
+          "company": {
+            "id": 768,
+            "name": "Nintendo Software Technology"
+          },
+          "developer": false,
+          "publisher": false
+        }
+      ],
+      "name": "Super Mario 3D World + Bowser's Fury",
+      "platforms": [
+        508,
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 692471,
+          "date": 1613088000,
+          "platform": 130,
+          "y": 2021,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        },
+        {
+          "id": 692500,
+          "date": 1666656000,
+          "platform": 130,
+          "y": 2022,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 10,
+            "region": "brazil"
+          }
+        },
+        {
+          "id": 743563,
+          "date": 1749081600,
+          "platform": 508,
+          "y": 2025,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 398238,
+          "height": 720,
+          "image_id": "sc8ja6",
+          "width": 1280
+        },
+        {
+          "id": 398239,
+          "height": 720,
+          "image_id": "sc8ja7",
+          "width": 1280
+        },
+        {
+          "id": 398240,
+          "height": 720,
+          "image_id": "sc8ja8",
+          "width": 1280
+        },
+        {
+          "id": 949539,
+          "height": 1080,
+          "image_id": "sckco3",
+          "width": 1920
+        },
+        {
+          "id": 949540,
+          "height": 1080,
+          "image_id": "sckco4",
+          "width": 1920
+        },
+        {
+          "id": 398241,
+          "height": 720,
+          "image_id": "sc8ja9",
+          "width": 1280
+        },
+        {
+          "id": 398243,
+          "height": 720,
+          "image_id": "sc8jab",
+          "width": 1280
+        },
+        {
+          "id": 398242,
+          "height": 720,
+          "image_id": "sc8jaa",
+          "width": 1280
+        },
+        {
+          "id": 949541,
+          "height": 1080,
+          "image_id": "sckco5",
+          "width": 1920
+        }
+      ],
+      "slug": "super-mario-3d-world-plus-bowsers-fury",
+      "summary": "The Super Mario 3D World + Bowser’s Fury game features the same lively co-op gameplay, creative levels and power-ups as the original game, but with added improvements. In the Super Mario 3D World part of the game, characters move faster and the dash powers up more quickly. Both adventures support the newly added Snapshot Mode, pause the action to get the perfect shot, apply filters, and decorate with stamps!",
+      "websites": [
+        {
+          "id": 791958,
+          "url": "https://www.nintendo.com/games/detail/super-mario-3d-world-plus-bowsers-fury-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        },
+        {
+          "id": 255634,
+          "url": "https://www.mariowiki.com/Super_Mario_3D_World_%2B_Bowser%27s_Fury",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
+          }
+        },
+        {
+          "id": 255636,
+          "url": "https://en.wikipedia.org/wiki/Super_Mario_3D_World",
+          "type": {
+            "id": 3,
+            "type": "Wikipedia"
+          }
+        },
+        {
+          "id": 513417,
+          "url": "https://www.nintendo.com/games/detail/super-mario-3d-world-plus-bowsers-fury-switch",
+          "type": {
+            "id": 1,
+            "type": "Official Website"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 3,
+        "type": "Bundle"
+      }
+    },
+    {
+      "id": 366878,
+      "artworks": [
+        {
+          "id": 197029,
+          "alpha_channel": false,
+          "height": 1950,
+          "image_id": "ar4811",
+          "width": 3000,
+          "artwork_type": 3
+        }
+      ],
+      "cover": {
+        "id": 507858,
+        "image_id": "coavv6"
+      },
+      "first_release_date": 1759363200,
+      "genres": [
+        {
+          "id": 8,
+          "name": "Platform"
+        },
+        {
+          "id": 31,
+          "name": "Adventure"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 369815,
+          "company": {
+            "id": 768,
+            "name": "Nintendo Software Technology"
+          },
+          "developer": true,
+          "publisher": false
+        },
+        {
+          "id": 369816,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        }
+      ],
+      "name": "Super Mario Galaxy + Super Mario Galaxy 2",
+      "platforms": [
+        508,
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 800753,
+          "date": 1759363200,
+          "platform": 130,
+          "y": 2025,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        },
+        {
+          "id": 800762,
+          "date": 1759363200,
+          "platform": 508,
+          "y": 2025,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 1644006,
+          "height": 720,
+          "image_id": "scz8iu",
+          "width": 1280
+        },
+        {
+          "id": 1644008,
+          "height": 720,
+          "image_id": "scz8iw",
+          "width": 1280
+        },
+        {
+          "id": 1644007,
+          "height": 720,
+          "image_id": "scz8iv",
+          "width": 1280
+        },
+        {
+          "id": 1644009,
+          "height": 720,
+          "image_id": "scz8ix",
+          "width": 1280
+        },
+        {
+          "id": 1644010,
+          "height": 720,
+          "image_id": "scz8iy",
+          "width": 1280
+        },
+        {
+          "id": 1644011,
+          "height": 720,
+          "image_id": "scz8iz",
+          "width": 1280
+        }
+      ],
+      "slug": "super-mario-galaxy-plus-super-mario-galaxy-2",
+      "summary": "Travel the stars with Mario in enhanced versions of these beloved adventures.",
+      "websites": [
+        {
+          "id": 869161,
+          "url": "https://www.nintendo.com/us/store/products/super-mario-galaxy-plus-super-mario-galaxy-2-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        },
+        {
+          "id": 871217,
+          "url": "https://www.mariowiki.com/Super_Mario_Galaxy_%2B_Super_Mario_Galaxy_2",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 3,
+        "type": "Bundle"
+      }
+    },
+    {
+      "id": 26758,
+      "artworks": [
+        {
+          "id": 4416,
+          "height": 1280,
+          "image_id": "lymumhy07tlqyprs0zrn",
+          "width": 720,
+          "artwork_type": 1
+        },
+        {
+          "id": 215541,
+          "alpha_channel": true,
+          "height": 399,
+          "image_id": "ar4mb9",
+          "width": 640,
+          "artwork_type": 7
+        },
+        {
+          "id": 4414,
+          "height": 720,
+          "image_id": "hriz7w8t0miezwopnmty",
+          "width": 1260,
+          "artwork_type": 1
+        },
+        {
+          "id": 4419,
+          "height": 1280,
+          "image_id": "senpgpjooi9fwhysffv1",
+          "width": 720,
+          "artwork_type": 1
+        },
+        {
+          "id": 4412,
+          "height": 1130,
+          "image_id": "oe0hmt38prtysolbvzks",
+          "width": 1100,
+          "artwork_type": 1
+        },
+        {
+          "id": 4420,
+          "height": 1280,
+          "image_id": "vapxvj2ifan0ouuw7ksd",
+          "width": 720,
+          "artwork_type": 1
+        },
+        {
+          "id": 4410,
+          "height": 1200,
+          "image_id": "buisfmajyc12br1hzjfw",
+          "width": 1200,
+          "artwork_type": 1
+        },
+        {
+          "id": 4411,
+          "height": 990,
+          "image_id": "xckqu6txd6ffgcwm6hyc",
+          "width": 1100,
+          "artwork_type": 1
+        },
+        {
+          "id": 6191,
+          "alpha_channel": false,
+          "height": 1060,
+          "image_id": "ar4rz",
+          "width": 1500,
+          "artwork_type": 1
+        },
+        {
+          "id": 4413,
+          "height": 780,
+          "image_id": "fygteyk1h66mtk6prfhj",
+          "width": 1260,
+          "artwork_type": 1
+        },
+        {
+          "id": 6192,
+          "alpha_channel": false,
+          "height": 1059,
+          "image_id": "ar4s0",
+          "width": 1500,
+          "artwork_type": 1
+        },
+        {
+          "id": 6190,
+          "alpha_channel": false,
+          "height": 1271,
+          "image_id": "ar4ry",
+          "width": 1800,
+          "artwork_type": 1
+        },
+        {
+          "id": 4417,
+          "height": 1280,
+          "image_id": "ag3ukomdxscrk7qnze0g",
+          "width": 720,
+          "artwork_type": 1
+        },
+        {
+          "id": 4418,
+          "height": 1280,
+          "image_id": "xgp4q9imiqjzvjsmftu1",
+          "width": 720,
+          "artwork_type": 1
+        },
+        {
+          "id": 215540,
+          "alpha_channel": false,
+          "height": 946,
+          "image_id": "ar4mb8",
+          "width": 992,
+          "artwork_type": 1
+        }
+      ],
+      "cover": {
+        "id": 76371,
+        "image_id": "co1mxf"
+      },
+      "first_release_date": 1509062400,
+      "genres": [
+        {
+          "id": 8,
+          "name": "Platform"
+        },
+        {
+          "id": 31,
+          "name": "Adventure"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 268535,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        },
+        {
+          "id": 69095,
+          "company": {
+            "id": 2910,
+            "name": "1-UP Studio"
+          },
+          "developer": false,
+          "publisher": false
+        },
+        {
+          "id": 369727,
+          "company": {
+            "id": 45213,
+            "name": "Nintendo EPD Production Group No. 8"
+          },
+          "developer": true,
+          "publisher": false
+        },
+        {
+          "id": 369728,
+          "company": {
+            "id": 2095,
+            "name": "Panic Button Games"
+          },
+          "developer": false,
+          "publisher": false
+        }
+      ],
+      "name": "Super Mario Odyssey",
+      "platforms": [
+        508,
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 692467,
+          "date": 1509062400,
+          "platform": 130,
+          "y": 2017,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        },
+        {
+          "id": 743556,
+          "date": 1749081600,
+          "platform": 508,
+          "y": 2025,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        },
+        {
+          "id": 692493,
+          "date": 1666656000,
+          "platform": 130,
+          "y": 2022,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 10,
+            "region": "brazil"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 44371,
+          "height": 720,
+          "image_id": "kcapvog4g7ko1n21x57t",
+          "width": 1280
+        },
+        {
+          "id": 44374,
+          "height": 720,
+          "image_id": "kmbewcsuuytnsxvemltw",
+          "width": 1280
+        },
+        {
+          "id": 44372,
+          "height": 720,
+          "image_id": "tcgnbkmz7f0tgglfol9m",
+          "width": 1280
+        },
+        {
+          "id": 44373,
+          "height": 720,
+          "image_id": "q1ydkthtdtozqzw1tr2m",
+          "width": 1280
+        },
+        {
+          "id": 44370,
+          "height": 720,
+          "image_id": "hj3spi7odlvp4pfvnwtv",
+          "width": 1280
+        },
+        {
+          "id": 174797,
+          "height": 720,
+          "image_id": "ovib1jmt2wcifb8vvrl9",
+          "width": 1280
+        },
+        {
+          "id": 174798,
+          "height": 720,
+          "image_id": "eggangsrrexlrxekqn2f",
+          "width": 1280
+        },
+        {
+          "id": 174803,
+          "height": 720,
+          "image_id": "qgcn3akcfv4rvojqdbvb",
+          "width": 1280
+        },
+        {
+          "id": 174802,
+          "height": 720,
+          "image_id": "tznt5qzxdqdzqxsy1crl",
+          "width": 1280
+        },
+        {
+          "id": 174799,
+          "height": 720,
+          "image_id": "equ6v5psjfdq2sepgw41",
+          "width": 1280
+        },
+        {
+          "id": 174801,
+          "height": 720,
+          "image_id": "xugrhmbobkhqi2pgs0xs",
+          "width": 1280
+        },
+        {
+          "id": 1010715,
+          "height": 703,
+          "image_id": "sclnvf",
+          "width": 1263
+        }
+      ],
+      "slug": "super-mario-odyssey",
+      "summary": "Explore incredible places far from the Mushroom Kingdom as you join Mario and his new ally Cappy on a massive, globe-trotting 3D adventure. Use amazing new abilities, like the power to capture and control objects, animals, and enemies to collect Power Moons so you can power up the Odyssey airship and save Princess Peach from Bowser’s wedding plans!",
+      "websites": [
+        {
+          "id": 20715,
+          "url": "https://www.mariowiki.com/Super_Mario_Odyssey",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
+          }
+        },
+        {
+          "id": 791959,
+          "url": "https://www.nintendo.com/games/detail/super-mario-odyssey-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        },
+        {
+          "id": 20714,
+          "url": "http://www.nintendo.com/games/detail/super-mario-odyssey-switch",
+          "type": {
+            "id": 1,
+            "type": "Official Website"
+          }
+        },
+        {
+          "id": 140148,
+          "url": "https://www.reddit.com/r/SuperMarioOdyssey",
+          "type": {
+            "id": 14,
+            "type": "Subreddit"
+          }
+        },
+        {
+          "id": 513988,
+          "url": "https://www.twitch.tv/directory/game/Super%20Mario%20Odyssey",
+          "type": {
+            "id": 6,
+            "type": "Twitch"
+          }
+        },
+        {
+          "id": 20716,
+          "url": "https://en.wikipedia.org/wiki/Super_Mario_Odyssey",
+          "type": {
+            "id": 3,
+            "type": "Wikipedia"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 0,
+        "type": "Main Game"
+      }
+    },
+    {
+      "id": 306149,
+      "artworks": [
+        {
+          "id": 260570,
+          "alpha_channel": false,
+          "height": 1080,
+          "image_id": "ar5l22",
+          "width": 1920,
+          "artwork_type": 3
+        },
+        {
+          "id": 260572,
+          "alpha_channel": true,
+          "height": 1044,
+          "image_id": "ar5l24",
+          "width": 1532,
+          "artwork_type": 5
+        },
+        {
+          "id": 260571,
+          "alpha_channel": true,
+          "height": 1044,
+          "image_id": "ar5l23",
+          "width": 1532,
+          "artwork_type": 7
+        }
+      ],
+      "cover": {
+        "id": 390431,
+        "image_id": "co8d9b"
+      },
+      "first_release_date": 1727308800,
+      "genres": [
+        {
+          "id": 9,
+          "name": "Puzzle"
+        },
+        {
+          "id": 31,
+          "name": "Adventure"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 271143,
+          "company": {
+            "id": 739,
+            "name": "Grezzo"
+          },
+          "developer": true,
+          "publisher": false
+        },
+        {
+          "id": 271144,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        },
+        {
+          "id": 289877,
+          "company": {
+            "id": 7902,
+            "name": "Nintendo Entertainment Planning & Development"
+          },
+          "developer": true,
+          "publisher": false
+        },
+        {
+          "id": 330792,
+          "company": {
+            "id": 45209,
+            "name": "Nintendo EPD Production Group No. 3"
+          },
+          "developer": true,
+          "publisher": false
+        }
+      ],
+      "name": "The Legend of Zelda: Echoes of Wisdom",
+      "platforms": [
+        508,
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 605509,
+          "date": 1727308800,
+          "platform": 130,
+          "y": 2024,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        },
+        {
+          "id": 743566,
+          "date": 1749081600,
+          "platform": 508,
+          "y": 2025,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 1343526,
+          "height": 513,
+          "image_id": "scsso6",
+          "width": 912
+        },
+        {
+          "id": 1343527,
+          "height": 1080,
+          "image_id": "scsso7",
+          "width": 1920
+        },
+        {
+          "id": 1343531,
+          "height": 1080,
+          "image_id": "scssob",
+          "width": 1920
+        },
+        {
+          "id": 1343528,
+          "height": 1080,
+          "image_id": "scsso8",
+          "width": 1920
+        },
+        {
+          "id": 1343530,
+          "height": 1080,
+          "image_id": "scssoa",
+          "width": 1920
+        },
+        {
+          "id": 1343529,
+          "height": 1080,
+          "image_id": "scsso9",
+          "width": 1920
+        }
+      ],
+      "slug": "the-legend-of-zelda-echoes-of-wisdom",
+      "summary": "The people of Hyrule are being stolen away by strange rifts that have appeared, and with a certain swordsman among those missing, it’s up to Princess Zelda to save her kingdom.\n\nTeam up with the mysterious fairy, Tri, and use the power of the Tri Rod to learn how to create echoes, imitations of things found in the environment. You can then recreate those echoes whenever you like to solve puzzles and defeat enemies.\n\nCreate echoes like water blocks to reach new heights, make bridges out of old beds, throw rocks at foes, or find your own creative combination of echoes to do things your way. You can even create echoes of monsters to fight at your side in combat!",
+      "websites": [
+        {
+          "id": 791960,
+          "url": "https://www.nintendo.com/us/store/products/the-legend-of-zelda-echoes-of-wisdom-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        },
+        {
+          "id": 646962,
+          "url": "https://zeldawiki.wiki/wiki/The_Legend_of_Zelda:_Echoes_of_Wisdom",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
+          }
+        },
+        {
+          "id": 646963,
+          "url": "https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Echoes_of_Wisdom",
+          "type": {
+            "id": 3,
+            "type": "Wikipedia"
+          }
+        },
+        {
+          "id": 657532,
+          "url": "https://m.twitch.tv/directory/category/the-legend-of-zelda-echoes-of-wisdom",
+          "type": {
+            "id": 6,
+            "type": "Twitch"
+          }
+        },
+        {
+          "id": 659049,
+          "url": "https://www.reddit.com/r/zelda/",
+          "type": {
+            "id": 14,
+            "type": "Subreddit"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 0,
+        "type": "Main Game"
+      }
+    },
+    {
+      "id": 115284,
+      "artworks": [
+        {
+          "id": 13060,
+          "alpha_channel": false,
+          "height": 1080,
+          "image_id": "ara2s",
+          "width": 1920,
+          "artwork_type": 1
+        }
+      ],
+      "cover": {
+        "id": 81482,
+        "image_id": "co1qve"
+      },
+      "first_release_date": 1568937600,
+      "genres": [
+        {
+          "id": 9,
+          "name": "Puzzle"
+        },
+        {
+          "id": 31,
+          "name": "Adventure"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 82852,
+          "company": {
+            "id": 739,
+            "name": "Grezzo"
+          },
+          "developer": true,
+          "publisher": false
+        },
+        {
+          "id": 74463,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        },
+        {
+          "id": 256274,
+          "company": {
+            "id": 4248,
+            "name": "Digital Works Entertainment"
+          },
+          "developer": false,
+          "publisher": false
+        }
+      ],
+      "name": "The Legend of Zelda: Link's Awakening",
+      "parent_game": {
+        "id": 1028,
+        "name": "The Legend of Zelda: Link's Awakening"
+      },
+      "platforms": [
+        508,
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 500277,
+          "date": 1568937600,
+          "platform": 130,
+          "y": 2019,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        },
+        {
+          "id": 743567,
+          "date": 1749081600,
+          "platform": 508,
+          "y": 2025,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 958007,
+          "height": 720,
+          "image_id": "sckj7b",
+          "width": 1280
+        },
+        {
+          "id": 958008,
+          "height": 720,
+          "image_id": "sckj7c",
+          "width": 1280
+        },
+        {
+          "id": 958009,
+          "height": 720,
+          "image_id": "sckj7d",
+          "width": 1280
+        },
+        {
+          "id": 958013,
+          "height": 720,
+          "image_id": "sckj7h",
+          "width": 1280
+        },
+        {
+          "id": 958012,
+          "height": 720,
+          "image_id": "sckj7g",
+          "width": 1280
+        },
+        {
+          "id": 958015,
+          "height": 720,
+          "image_id": "sckj7j",
+          "width": 1280
+        },
+        {
+          "id": 958010,
+          "height": 720,
+          "image_id": "sckj7e",
+          "width": 1280
+        },
+        {
+          "id": 958016,
+          "height": 720,
+          "image_id": "sckj7k",
+          "width": 1280
+        },
+        {
+          "id": 958017,
+          "height": 720,
+          "image_id": "sckj7l",
+          "width": 1280
+        },
+        {
+          "id": 958014,
+          "height": 720,
+          "image_id": "sckj7i",
+          "width": 1280
+        },
+        {
+          "id": 958011,
+          "height": 720,
+          "image_id": "sckj7f",
+          "width": 1280
+        }
+      ],
+      "slug": "the-legend-of-zelda-links-awakening--1",
+      "summary": "As Link, you awaken in a strange land away from Hyrule, where animals talk and monsters roam. To uncover the truth behind your whereabouts and rouse the legendary Wind Fish, explore Koholint Island and all its trap-ridden dungeons, reimagined in stunning detail for this new release of one of the most beloved The Legend of Zelda games. Along the way, you'll meet a hilarious assortment of charming characters to which you'll never want to say goodbye.\n\nIn this new version of the game, the classic soundtrack has been reborn with new arrangements, and now you can equip more items at once, review key conversations, and navigate the map in new ways. Try your hand at the renovated mini-games to earn dolls based on the Super Mario series...or Chamber Stones, which you can use to arrange your own Chamber Dungeons. Each one is a puzzle in and of itself!",
+      "websites": [
+        {
+          "id": 575056,
+          "url": "https://zeldawiki.wiki/wiki/The_Legend_of_Zelda:_Link%27s_Awakening_(Nintendo_Switch)",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
+          }
+        },
+        {
+          "id": 791961,
+          "url": "https://www.nintendo.com/games/detail/the-legend-of-zelda-links-awakening-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        },
+        {
+          "id": 108476,
+          "url": "https://www.nintendo.com/games/detail/the-legend-of-zelda-links-awakening-switch/",
+          "type": {
+            "id": 1,
+            "type": "Official Website"
+          }
+        },
+        {
+          "id": 452838,
+          "url": "https://www.twitch.tv/directory/game/The%20Legend%20of%20Zelda:%20Link's%20Awakening",
+          "type": {
+            "id": 6,
+            "type": "Twitch"
+          }
+        },
+        {
+          "id": 107988,
+          "url": "https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Link%27s_Awakening_(2019_video_game)",
+          "type": {
+            "id": 3,
+            "type": "Wikipedia"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 8,
+        "type": "Remake"
+      }
+    }
+  ],
+  "wikipediaByTitle": {
+    "ARMS": "https://en.wikipedia.org/wiki/Arms_(video_game)",
+    "Animal Crossing: New Horizons": "https://en.wikipedia.org/wiki/Animal_Crossing:_New_Horizons",
+    "Big Brain Academy: Brain vs. Brain": "https://en.wikipedia.org/wiki/Big_Brain_Academy:_Brain_vs._Brain",
+    "Captain Toad: Treasure Tracker": "https://en.wikipedia.org/wiki/Captain_Toad:_Treasure_Tracker",
+    "Clubhouse Games: 51 Worldwide Classics": "https://en.wikipedia.org/wiki/Clubhouse_Games:_51_Worldwide_Classics",
+    "Game Builder Garage": "https://en.wikipedia.org/wiki/Game_Builder_Garage",
+    "Mario Kart 8 Deluxe": "https://en.wikipedia.org/wiki/Mario_Kart_8_Deluxe",
+    "New Super Mario Bros. U Deluxe": "https://en.wikipedia.org/wiki/New_Super_Mario_Bros._U_Deluxe",
+    "Pokémon Champions": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Champions",
+    "Pokémon Scarlet": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Scarlet",
+    "Pokémon Violet": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Violet",
+    "Splatoon 3": "https://en.wikipedia.org/wiki/Splatoon_3",
+    "Super Mario Odyssey": "https://en.wikipedia.org/wiki/Super_Mario_Odyssey",
+    "The Legend of Zelda: Echoes of Wisdom": "https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Echoes_of_Wisdom",
+    "The Legend of Zelda: Link's Awakening": "https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Link%27s_Awakening_(2019_video_game)",
+    "Donkey Kong Country Returns HD": "https://en.wikipedia.org/wiki/Donkey_Kong_Country_Returns",
+    "Pikmin 3 Deluxe": "https://en.wikipedia.org/wiki/Pikmin_3",
+    "Super Mario 3D World + Bowser's Fury": "https://en.wikipedia.org/wiki/Super_Mario_3D_World"
+  },
+  "nintendoWikiByTitle": {
+    "ARMS": "https://nintendo.fandom.com/wiki/ARMS",
+    "Animal Crossing: New Horizons": "https://nintendo.fandom.com/wiki/Animal_Crossing%3A_New_Horizons",
+    "Big Brain Academy: Brain vs. Brain": "https://nintendo.fandom.com/wiki/Big_Brain_Academy%3A_Brain_vs._Brain",
+    "Captain Toad: Treasure Tracker": "https://nintendo.fandom.com/wiki/Captain_Toad%3A_Treasure_Tracker",
+    "Clubhouse Games: 51 Worldwide Classics": "https://nintendo.fandom.com/wiki/Clubhouse_Games%3A_51_Worldwide_Classics",
+    "Donkey Kong Country Returns HD": "https://nintendo.fandom.com/wiki/Donkey_Kong_Country_Returns_HD",
+    "Game Builder Garage": "https://nintendo.fandom.com/wiki/Game_Builder_Garage",
+    "Mario Kart 8 Deluxe": "https://nintendo.fandom.com/wiki/Mario_Kart_8_Deluxe",
+    "New Super Mario Bros. U Deluxe": "https://nintendo.fandom.com/wiki/New_Super_Mario_Bros._U_Deluxe",
+    "Pikmin 3 Deluxe": "https://nintendo.fandom.com/wiki/Pikmin_3_Deluxe",
+    "Pokémon Champions": "https://nintendo.fandom.com/wiki/Pok%C3%A9mon_Champions",
+    "Pokémon Scarlet": "https://nintendo.fandom.com/wiki/Pok%C3%A9mon_Scarlet_and_Violet",
+    "Pokémon Violet": "https://nintendo.fandom.com/wiki/Pok%C3%A9mon_Scarlet_and_Violet",
+    "Splatoon 3": "https://nintendo.fandom.com/wiki/Splatoon_3",
+    "Super Mario 3D World + Bowser's Fury": "https://nintendo.fandom.com/wiki/Super_Mario_3D_World_%2B_Bowser's_Fury",
+    "Super Mario Galaxy + Super Mario Galaxy 2": "https://nintendo.fandom.com/wiki/Super_Mario_Galaxy_%2B_Super_Mario_Galaxy_2",
+    "Super Mario Odyssey": "https://nintendo.fandom.com/wiki/Super_Mario_Odyssey",
+    "The Legend of Zelda: Echoes of Wisdom": "https://nintendo.fandom.com/wiki/The_Legend_of_Zelda%3A_Echoes_of_Wisdom",
+    "The Legend of Zelda: Link's Awakening": "https://nintendo.fandom.com/wiki/The_Legend_of_Zelda%3A_Link's_Awakening"
+  },
+  "eshopEuBySlug": {
+    "animal-crossing-new-horizons": "1438623",
+    "big-brain-academy-brain-vs-brain": "2034538",
+    "captain-toad-treasure-tracker--3": "1348071",
+    "clubhouse-games-51-worldwide-classics": "1748086",
+    "mario-kart-8-deluxe": "1173281",
+    "new-super-mario-bros-u-deluxe": "1438640",
+    "pokemon-scarlet": "2179556",
+    "pokemon-violet": "2180576",
+    "splatoon-3": "1924751",
+    "super-mario-3d-world-plus-bowsers-fury": "1832228",
+    "super-mario-odyssey": "1173332",
+    "the-legend-of-zelda-links-awakening--1": "1514327"
+  },
+  "eshopUsBySlug": {
+    "arms": "arms-switch",
+    "animal-crossing-new-horizons": "animal-crossing-new-horizons-switch",
+    "big-brain-academy-brain-vs-brain": "big-brain-academy-brain-vs-brain-switch",
+    "captain-toad-treasure-tracker--3": "captain-toad-treasure-tracker-3ds",
+    "clubhouse-games-51-worldwide-classics": "clubhouse-games-51-worldwide-classics-switch",
+    "game-builder-garage": "game-builder-garage-switch",
+    "mario-kart-8-deluxe": "mario-kart-8-deluxe-switch",
+    "new-super-mario-bros-u-deluxe": "new-super-mario-bros-u-deluxe-switch",
+    "pikmin-3-deluxe": "pikmin-3-deluxe-switch",
+    "pokemon-champions": "pokemon-champions-switch",
+    "pokemon-scarlet": "pokemon-scarlet-switch",
+    "pokemon-violet": "pokemon-violet-switch",
+    "splatoon-3": "splatoon-3-switch",
+    "super-mario-3d-world-plus-bowsers-fury": "super-mario-3d-world-plus-bowsers-fury-switch",
+    "super-mario-galaxy-plus-super-mario-galaxy-2": "super-mario-galaxy-plus-super-mario-galaxy-2-switch",
+    "super-mario-odyssey": "super-mario-odyssey-switch",
+    "the-legend-of-zelda-echoes-of-wisdom": "the-legend-of-zelda-echoes-of-wisdom-switch",
+    "the-legend-of-zelda-links-awakening--1": "the-legend-of-zelda-links-awakening-switch"
+  }
+}

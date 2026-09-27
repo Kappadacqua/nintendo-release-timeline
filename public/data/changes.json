@@ -1,4 +1,90 @@
 {
-  "generatedAt": "2026-09-27T07:21:40.242Z",
-  "changes": []
+  "generatedAt": "2026-09-27T13:06:29.361Z",
+  "changes": [
+    {
+      "date": "2026-09-27",
+      "id": "free-update:mario-kart-8-deluxe",
+      "type": "new"
+    },
+    {
+      "date": "2026-09-27",
+      "id": "free-update:pikmin-3-deluxe",
+      "type": "new"
+    },
+    {
+      "date": "2026-09-27",
+      "id": "free-update:donkey-kong-country-returns-hd",
+      "type": "new"
+    },
+    {
+      "date": "2026-09-27",
+      "id": "free-update:super-mario-galaxy-super-mario-galaxy-2",
+      "type": "new"
+    },
+    {
+      "date": "2026-09-27",
+      "id": "free-update:splatoon-3",
+      "type": "new"
+    },
+    {
+      "date": "2026-09-27",
+      "id": "free-update:the-legend-of-zelda-link-s-awakening",
+      "type": "new"
+    },
+    {
+      "date": "2026-09-27",
+      "id": "free-update:the-legend-of-zelda-echoes-of-wisdom",
+      "type": "new"
+    },
+    {
+      "date": "2026-09-27",
+      "id": "free-update:super-mario-odyssey",
+      "type": "new"
+    },
+    {
+      "date": "2026-09-27",
+      "id": "free-update:super-mario-3d-world-bowser-s-fury",
+      "type": "new"
+    },
+    {
+      "date": "2026-09-27",
+      "id": "free-update:pokemon-violet",
+      "type": "new"
+    },
+    {
+      "date": "2026-09-27",
+      "id": "free-update:pokemon-scarlet",
+      "type": "new"
+    },
+    {
+      "date": "2026-09-27",
+      "id": "free-update:new-super-mario-bros-u-deluxe",
+      "type": "new"
+    },
+    {
+      "date": "2026-09-27",
+      "id": "free-update:game-builder-garage",
+      "type": "new"
+    },
+    {
+      "date": "2026-09-27",
+      "id": "free-update:clubhouse-games-51-worldwide-classics",
+      "type": "new"
+    },
+    {
+      "date": "2026-09-27",
+      "id": "free-update:captain-toad-treasure-tracker",
+      "type": "new"
+    },
+    {
+      "date": "2026-09-27",
+      "id": "free-update:big-brain-academy-brain-vs-brain",
+      "type": "new"
+    },
+    {
+      "date": "2026-09-27",
+      "id": "free-update:arms",
+      "type": "new"
+    }
+  ]
 }

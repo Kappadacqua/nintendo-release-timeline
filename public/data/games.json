@@ -1,6 +1,160 @@
 {
-  "generatedAt": "2026-09-27T07:21:40.242Z",
+  "generatedAt": "2026-09-27T13:06:29.361Z",
   "games": [
+    {
+      "id": "free-update:arms",
+      "kind": "free-update",
+      "title": "ARMS",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co1mxn.jpg",
+      "summary": "Arms, a mix of boxing and shooting where you use extendable arms to battle your friends both locally and online! Take a Joy-Con in each hand and punch forward, twisting your fists to bend your attacks.\n\n\"Choose a fighting champion from around the world, equip your own combination of extendable arms, and then use a mix of button presses and quick hand motions to really take the fight to your opponent. Throw punches and guide them midflight to hit agile fighters, avoid incoming attacks with dashes, or trampoline high into the air to rain down fists from above. Power-up your punches to deal extra damage or curve your fists around obstacles to hit skittish opponents. Fill up your special gauge to dish out devastating combinations and finish them off. Unleash your inner fighter in this unbelievable sporting event! \"",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/g76whkqw9fxueg7i30pe.jpg",
+      "developer": "Nintendo EPD Production Group No. 9",
+      "genres": [
+        "Fighting"
+      ],
+      "releaseDates": {
+        "JP": "2025-06-05",
+        "EU": "2025-06-05",
+        "NA": "2025-06-05"
+      },
+      "firstReleaseDate": "2025-06-05",
+      "exclusivity": null,
+      "firstParty": true,
+      "alsoOnSwitch1": true,
+      "onOtherConsoles": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Arms_(video_game)",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/ARMS",
+        "nintendoStore": "https://www.nintendo.com/us/store/products/arms-switch/"
+      },
+      "originalReleaseYear": 2017
+    },
+    {
+      "id": "free-update:big-brain-academy-brain-vs-brain",
+      "kind": "free-update",
+      "title": "Big Brain Academy: Brain vs. Brain",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co3zhw.jpg",
+      "summary": "Battle to see who has the brawniest brain\n\nTake on a series of brain-bending activities that test your mental mettle in Big Brain Academy: Brain vs. Brain for the Nintendo Switch system! Play a wide variety of activities, like memorizing a series of numbers, identifying an animal as it slowly comes into focus, or helping guide a train to its goal in fun, fast activities. Go brain-to-brain with friends and family in 4-player* matches to see who gets the highest score. Everyone can play together at varying difficulties, so a kid can hold their own against an adult in this battle of the brains!\n\nTreat your brain to some quick mental fun\n\nGet your own Big Brain Brawn score with a fun test. Boost your skill and speed by practicing certain activities. Of course, you can also prep for your next multiplayer brain battle or compare scores with friends and family. Unlock dozens of outfit options for your in-game avatar—from a cat outfit to a corn costume!\n\nGo brain vs. brain against mind-masters near and far\n\nWant to see how you match up to brainiacs around the world? Hop into Ghost Clash mode to compete against other users’ data**. Choose from mental marvels worldwide, folks on your friend's list, or family members who have profiles on the same system. Outside of Ghost Clash mode, check your rankings to see how your Big Brain Brawn matches up against others.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/sccx4b.jpg",
+      "developer": null,
+      "genres": [
+        "Puzzle"
+      ],
+      "releaseDates": {
+        "JP": "2025-06-05",
+        "EU": "2025-06-05",
+        "NA": "2025-06-05"
+      },
+      "firstReleaseDate": "2025-06-05",
+      "exclusivity": null,
+      "firstParty": true,
+      "alsoOnSwitch1": true,
+      "onOtherConsoles": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Big_Brain_Academy:_Brain_vs._Brain",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Big_Brain_Academy%3A_Brain_vs._Brain",
+        "nintendoStore": "https://www.nintendo.it/-/-2034538.html"
+      },
+      "originalReleaseYear": 2021
+    },
+    {
+      "id": "free-update:captain-toad-treasure-tracker",
+      "kind": "free-update",
+      "title": "Captain Toad: Treasure Tracker",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co6c6f.jpg",
+      "summary": "Captain Toad stars in his own puzzling quest on the Nintendo Switch system! Our stubby hero must dodge dangers and track treasures across many trap-filled courses. Survive smoldering volcanoes, hazardous steam engines, haunted houses, and even new courses based on the Super Mario Odyssey game! Luckily, a second player can join in by tossing turnips at enemies.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/scm5wq.jpg",
+      "developer": "Nintendo Software Technology",
+      "genres": [
+        "Platform",
+        "Puzzle"
+      ],
+      "releaseDates": {
+        "JP": "2025-06-05",
+        "EU": "2025-06-05",
+        "NA": "2025-06-05"
+      },
+      "firstReleaseDate": "2025-06-05",
+      "exclusivity": null,
+      "firstParty": true,
+      "alsoOnSwitch1": true,
+      "onOtherConsoles": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Captain_Toad:_Treasure_Tracker",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Captain_Toad%3A_Treasure_Tracker",
+        "nintendoStore": "https://www.nintendo.it/-/-1348071.html"
+      },
+      "originalReleaseYear": 2018
+    },
+    {
+      "id": "free-update:clubhouse-games-51-worldwide-classics",
+      "kind": "free-update",
+      "title": "Clubhouse Games: 51 Worldwide Classics",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co21vp.jpg",
+      "summary": "Play and discover 51 board games, tabletop games, and more all in one package—Clubhouse Games: 51 Worldwide Classics. This diverse collection includes games from all over the world across multiple genres, from familiar favorites like Chess to international hits like Mancala that have been around for hundreds of years!",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/sc85mp.jpg",
+      "developer": "NDCube",
+      "genres": [
+        "Arcade",
+        "Card & board"
+      ],
+      "releaseDates": {
+        "JP": "2025-06-05",
+        "EU": "2025-06-05",
+        "NA": "2025-06-05"
+      },
+      "firstReleaseDate": "2025-06-05",
+      "exclusivity": null,
+      "firstParty": true,
+      "alsoOnSwitch1": true,
+      "onOtherConsoles": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Clubhouse_Games:_51_Worldwide_Classics",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Clubhouse_Games%3A_51_Worldwide_Classics",
+        "nintendoStore": "https://www.nintendo.it/-/-1748086.html"
+      },
+      "originalReleaseYear": 2020
+    },
     {
       "id": "igdb:338093",
       "kind": "game",
@@ -45,6 +199,42 @@
         "nintendoWiki": "https://nintendo.fandom.com/wiki/FAST_Fusion",
         "nintendoStore": "https://www.nintendo.com/us/store/products/fast-fusion-switch-2/"
       }
+    },
+    {
+      "id": "free-update:game-builder-garage",
+      "kind": "free-update",
+      "title": "Game Builder Garage",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co2zfc.jpg",
+      "summary": "Turn gaming time into learning time with the Game Builder Garage software. Kids can learn how to make their own games with guided lessons created by Nintendo. From a simple game of tag to a run-and-jump obstacle course, each lesson is broken down into multiple, manageable segments that let kids go at their own pace—and have fun in the process. Learn the basics of visual game programming By playing through interactive lessons, kids will learn the basics of visual game programming. Nodon, colorful creatures with distinct personalities, keep kids engaged through lessons with tips and motivating messages. With a simple press of a button, swap between the programming screen and the game screen—watch how programming changes the game on the fly. Track progress and build confidence After completing each lesson and building a game, kids will test their knowledge by completing Checkpoints—small puzzles or tasks to solve with programming. Master these skills and head to Free Programming mode to let your imagination (and programming chops) run wild. The Nodon you meet each have distinct personalities that complement their functions. Have fun connecting them together to see how they interact and bring your game to life. The in-game Nodopedia lets you quickly check what each Nodon does as you create. There’s also a guide that recaps important skills! Easily swap between the Programming and Game screens to see the hard-working Nodon in action. Take advantage of the Nintendo Switch system’s many features. Instead of the control stick, program motion controls to control your game. Want to create…",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/sc9h2x.jpg",
+      "developer": "Nintendo",
+      "genres": [],
+      "releaseDates": {
+        "JP": "2025-06-05",
+        "EU": "2025-06-05",
+        "NA": "2025-06-05"
+      },
+      "firstReleaseDate": "2025-06-05",
+      "exclusivity": null,
+      "firstParty": true,
+      "alsoOnSwitch1": true,
+      "onOtherConsoles": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Game_Builder_Garage",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Game_Builder_Garage",
+        "nintendoStore": "https://www.nintendo.com/us/store/products/game-builder-garage-switch/"
+      },
+      "originalReleaseYear": 2021
     },
     {
       "id": "igdb:338067",
@@ -92,6 +282,44 @@
       }
     },
     {
+      "id": "free-update:new-super-mario-bros-u-deluxe",
+      "kind": "free-update",
+      "title": "New Super Mario Bros. U Deluxe",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co1uhl.jpg",
+      "summary": "Join Mario, Luigi, and pals for single-player or multiplayer fun anytime, anywhere! Take on two family-friendly, side-scrolling adventures with up to three friends* as you try to save the Mushroom Kingdom. Includes the New Super Mario Bros. U and harder, faster New Super Luigi U games—both of which include Nabbit and Toadette as playable characters!",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/sc5ptk.jpg",
+      "developer": "Nintendo Entertainment Planning & Development",
+      "genres": [
+        "Platform"
+      ],
+      "releaseDates": {
+        "JP": "2025-06-05",
+        "EU": "2025-06-05",
+        "NA": "2025-06-05"
+      },
+      "firstReleaseDate": "2025-06-05",
+      "exclusivity": null,
+      "firstParty": true,
+      "alsoOnSwitch1": true,
+      "onOtherConsoles": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "wikipedia": "https://en.wikipedia.org/wiki/New_Super_Mario_Bros._U_Deluxe",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/New_Super_Mario_Bros._U_Deluxe",
+        "nintendoStore": "https://www.nintendo.it/-/-1438640.html"
+      },
+      "originalReleaseYear": 2019
+    },
+    {
       "id": "igdb:338069",
       "kind": "game",
       "title": "Nintendo Switch 2 Welcome Tour",
@@ -134,6 +362,84 @@
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Nintendo_Switch_2_Welcome_Tour",
         "nintendoStore": "https://www.nintendo.it/-/-2789271.html"
       }
+    },
+    {
+      "id": "free-update:pokemon-scarlet",
+      "kind": "free-update",
+      "title": "Pokémon Scarlet",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co5sfi.jpg",
+      "summary": "The Pokémon Scarlet and Pokémon Violet games, the newest chapters in the Pokémon series, are coming to Nintendo Switch later this year. With these new titles, the Pokémon series takes a new evolutionary step, allowing you to explore freely in a richly expressed open world.\n\nVarious towns blend seamlessly into the wilderness with no borders. You’ll be able to see the Pokémon of this region in the skies, in the seas, in the forests, on the streets—all over! You’ll be able to experience the true joy of the Pokémon series—battling against wild Pokémon in order to catch them—now in an open-world game that players of any age can enjoy.​",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/scg8ud.jpg",
+      "developer": "Game Freak",
+      "genres": [
+        "RPG",
+        "Strategy"
+      ],
+      "releaseDates": {
+        "JP": "2025-06-05",
+        "EU": "2025-06-05",
+        "NA": "2025-06-05"
+      },
+      "firstReleaseDate": "2025-06-05",
+      "exclusivity": null,
+      "firstParty": true,
+      "alsoOnSwitch1": true,
+      "onOtherConsoles": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Scarlet",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Pok%C3%A9mon_Scarlet_and_Violet",
+        "nintendoStore": "https://www.nintendo.it/-/-2179556.html"
+      },
+      "originalReleaseYear": 2022
+    },
+    {
+      "id": "free-update:pokemon-violet",
+      "kind": "free-update",
+      "title": "Pokémon Violet",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co5sfa.jpg",
+      "summary": "Catch, battle, and train Pokémon in the Paldea Region, a vast land filled with lakes, towering peaks, wastelands, small towns, and sprawling cities. Explore a wide-open world at your own pace and traverse land, water, and air by riding on a form-shifting Legendary Pokémon. Choose either Sprigatito, Fuecoco, or Quaxly, to be your first partner Pokémon before setting off on your journey through Paldea.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/scfv7v.jpg",
+      "developer": "Game Freak",
+      "genres": [
+        "RPG",
+        "Strategy"
+      ],
+      "releaseDates": {
+        "JP": "2025-06-05",
+        "EU": "2025-06-05",
+        "NA": "2025-06-05"
+      },
+      "firstReleaseDate": "2025-06-05",
+      "exclusivity": null,
+      "firstParty": true,
+      "alsoOnSwitch1": true,
+      "onOtherConsoles": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Violet",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Pok%C3%A9mon_Scarlet_and_Violet",
+        "nintendoStore": "https://www.nintendo.it/-/-2180576.html"
+      },
+      "originalReleaseYear": 2022
     },
     {
       "id": "igdb:338091",
@@ -215,6 +521,84 @@
         "backloggd": "https://backloggd.com/games/shine-post-be-your-idol/",
         "wikipedia": "https://en.wikipedia.org/wiki/Shine_Post:_Be_Your_Idol!"
       }
+    },
+    {
+      "id": "free-update:super-mario-3d-world-bowser-s-fury",
+      "kind": "free-update",
+      "title": "Super Mario 3D World + Bowser's Fury",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobb2d.jpg",
+      "summary": "The Super Mario 3D World + Bowser’s Fury game features the same lively co-op gameplay, creative levels and power-ups as the original game, but with added improvements. In the Super Mario 3D World part of the game, characters move faster and the dash powers up more quickly. Both adventures support the newly added Snapshot Mode, pause the action to get the perfect shot, apply filters, and decorate with stamps!",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/sc8ja6.jpg",
+      "developer": "Nintendo EPD Production Group No. 8",
+      "genres": [
+        "Platform",
+        "Adventure"
+      ],
+      "releaseDates": {
+        "JP": "2025-06-05",
+        "EU": "2025-06-05",
+        "NA": "2025-06-05"
+      },
+      "firstReleaseDate": "2025-06-05",
+      "exclusivity": null,
+      "firstParty": true,
+      "alsoOnSwitch1": true,
+      "onOtherConsoles": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Super_Mario_3D_World",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Super_Mario_3D_World_%2B_Bowser's_Fury",
+        "nintendoStore": "https://www.nintendo.it/-/-1832228.html"
+      },
+      "originalReleaseYear": 2021
+    },
+    {
+      "id": "free-update:super-mario-odyssey",
+      "kind": "free-update",
+      "title": "Super Mario Odyssey",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co1mxf.jpg",
+      "summary": "Explore incredible places far from the Mushroom Kingdom as you join Mario and his new ally Cappy on a massive, globe-trotting 3D adventure. Use amazing new abilities, like the power to capture and control objects, animals, and enemies to collect Power Moons so you can power up the Odyssey airship and save Princess Peach from Bowser’s wedding plans!",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/kcapvog4g7ko1n21x57t.jpg",
+      "developer": "Nintendo EPD Production Group No. 8",
+      "genres": [
+        "Platform",
+        "Adventure"
+      ],
+      "releaseDates": {
+        "JP": "2025-06-05",
+        "EU": "2025-06-05",
+        "NA": "2025-06-05"
+      },
+      "firstReleaseDate": "2025-06-05",
+      "exclusivity": null,
+      "firstParty": true,
+      "alsoOnSwitch1": true,
+      "onOtherConsoles": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Super_Mario_Odyssey",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Super_Mario_Odyssey",
+        "nintendoStore": "https://www.nintendo.it/-/-1173332.html"
+      },
+      "originalReleaseYear": 2017
     },
     {
       "id": "igdb:338087",
@@ -307,6 +691,84 @@
       }
     },
     {
+      "id": "free-update:the-legend-of-zelda-echoes-of-wisdom",
+      "kind": "free-update",
+      "title": "The Legend of Zelda: Echoes of Wisdom",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co8d9b.jpg",
+      "summary": "The people of Hyrule are being stolen away by strange rifts that have appeared, and with a certain swordsman among those missing, it’s up to Princess Zelda to save her kingdom.\n\nTeam up with the mysterious fairy, Tri, and use the power of the Tri Rod to learn how to create echoes, imitations of things found in the environment. You can then recreate those echoes whenever you like to solve puzzles and defeat enemies.\n\nCreate echoes like water blocks to reach new heights, make bridges out of old beds, throw rocks at foes, or find your own creative combination of echoes to do things your way. You can even create echoes of monsters to fight at your side in combat!",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/scsso6.jpg",
+      "developer": "Grezzo",
+      "genres": [
+        "Puzzle",
+        "Adventure"
+      ],
+      "releaseDates": {
+        "JP": "2025-06-05",
+        "EU": "2025-06-05",
+        "NA": "2025-06-05"
+      },
+      "firstReleaseDate": "2025-06-05",
+      "exclusivity": null,
+      "firstParty": true,
+      "alsoOnSwitch1": true,
+      "onOtherConsoles": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "wikipedia": "https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Echoes_of_Wisdom",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/The_Legend_of_Zelda%3A_Echoes_of_Wisdom",
+        "nintendoStore": "https://www.nintendo.com/us/store/products/the-legend-of-zelda-echoes-of-wisdom-switch/"
+      },
+      "originalReleaseYear": 2024
+    },
+    {
+      "id": "free-update:the-legend-of-zelda-link-s-awakening",
+      "kind": "free-update",
+      "title": "The Legend of Zelda: Link's Awakening",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co1qve.jpg",
+      "summary": "As Link, you awaken in a strange land away from Hyrule, where animals talk and monsters roam. To uncover the truth behind your whereabouts and rouse the legendary Wind Fish, explore Koholint Island and all its trap-ridden dungeons, reimagined in stunning detail for this new release of one of the most beloved The Legend of Zelda games. Along the way, you'll meet a hilarious assortment of charming characters to which you'll never want to say goodbye.\n\nIn this new version of the game, the classic soundtrack has been reborn with new arrangements, and now you can equip more items at once, review key conversations, and navigate the map in new ways. Try your hand at the renovated mini-games to earn dolls based on the Super Mario series...or Chamber Stones, which you can use to arrange your own Chamber Dungeons. Each one is a puzzle in and of itself!",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/sckj7b.jpg",
+      "developer": "Grezzo",
+      "genres": [
+        "Puzzle",
+        "Adventure"
+      ],
+      "releaseDates": {
+        "JP": "2025-06-05",
+        "EU": "2025-06-05",
+        "NA": "2025-06-05"
+      },
+      "firstReleaseDate": "2025-06-05",
+      "exclusivity": null,
+      "firstParty": true,
+      "alsoOnSwitch1": true,
+      "onOtherConsoles": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "wikipedia": "https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Link%27s_Awakening_(2019_video_game)",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/The_Legend_of_Zelda%3A_Link's_Awakening",
+        "nintendoStore": "https://www.nintendo.it/-/-1514327.html"
+      },
+      "originalReleaseYear": 2019
+    },
+    {
       "id": "igdb:338073",
       "kind": "switch2-edition",
       "title": "The Legend of Zelda: Tears of the Kingdom - Nintendo Switch 2 Edition",
@@ -350,6 +812,45 @@
         "nintendoWiki": "https://nintendo.fandom.com/wiki/The_Legend_of_Zelda%3A_Tears_of_the_Kingdom",
         "nintendoStore": "https://www.nintendo.it/-/-2787249.html"
       }
+    },
+    {
+      "id": "free-update:splatoon-3",
+      "kind": "free-update",
+      "title": "Splatoon 3",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co59x3.jpg",
+      "summary": "Enter the Splatlands, a sun-scorched desert inhabited by battle-hardened Inklings and Octolings. Splatsville, the city of chaos, is the adrenaline-fueled heart of this dusty wasteland. Even in this desolate environment, Turf War reigns supreme and battles rage in new stages located in the surrounding wilds. Dynamic new moves help these fighters dodge attacks and cover more ground, along with a new bow-shaped weapon to sling ink.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/sc9284.jpg",
+      "developer": "Nintendo EPD Production Group No. 5",
+      "genres": [
+        "Shooter",
+        "Platform"
+      ],
+      "releaseDates": {
+        "JP": "2025-06-12",
+        "EU": "2025-06-12",
+        "NA": "2025-06-12"
+      },
+      "firstReleaseDate": "2025-06-12",
+      "exclusivity": null,
+      "firstParty": true,
+      "alsoOnSwitch1": true,
+      "onOtherConsoles": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Splatoon_3",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Splatoon_3",
+        "nintendoStore": "https://www.nintendo.it/-/-1924751.html"
+      },
+      "originalReleaseYear": 2022
     },
     {
       "id": "igdb:338106",
@@ -735,6 +1236,44 @@
       }
     },
     {
+      "id": "free-update:super-mario-galaxy-super-mario-galaxy-2",
+      "kind": "free-update",
+      "title": "Super Mario Galaxy + Super Mario Galaxy 2",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coavv6.jpg",
+      "summary": "Travel the stars with Mario in enhanced versions of these beloved adventures.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/scz8iu.jpg",
+      "developer": "Nintendo Software Technology",
+      "genres": [
+        "Platform",
+        "Adventure"
+      ],
+      "releaseDates": {
+        "JP": "2025-10-02",
+        "EU": "2025-10-02",
+        "NA": "2025-10-02"
+      },
+      "firstReleaseDate": "2025-10-02",
+      "exclusivity": null,
+      "firstParty": true,
+      "alsoOnSwitch1": true,
+      "onOtherConsoles": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Super_Mario_Galaxy_%2B_Super_Mario_Galaxy_2",
+        "nintendoStore": "https://www.nintendo.com/us/store/products/super-mario-galaxy-plus-super-mario-galaxy-2-switch/"
+      },
+      "originalReleaseYear": 2025
+    },
+    {
       "id": "igdb:366900",
       "kind": "game",
       "title": "Super Mario Galaxy 2",
@@ -1075,6 +1614,44 @@
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Animal_Crossing%3A_New_Horizons",
         "nintendoStore": "https://www.nintendo.com/us/store/products/animal-crossing-new-horizons-nintendo-switch-2-edition-switch-2/"
       }
+    },
+    {
+      "id": "free-update:donkey-kong-country-returns-hd",
+      "kind": "free-update",
+      "title": "Donkey Kong Country Returns HD",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cob9sh.jpg",
+      "summary": "Donkey Kong and Diddy Kong are back for some ground-pounding action in this HD version of Donkey Kong Country Returns, originally released on the Wii system.\n\nPlay solo, or with a buddy in local two-player co-op, in an adventure brimming with hijinks where you can stomp obstacles, send mine carts careening, fly high on rocket barrels and even hitch a ride on Rambi the Rhino.\n\nExperience 80 a-peel-ing levels, including the additional ones from the Nintendo 3DS version.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/scsvop.jpg",
+      "developer": "Forever Entertainment S.A.",
+      "genres": [
+        "Platform"
+      ],
+      "releaseDates": {
+        "JP": "2026-01-20",
+        "EU": "2026-01-20",
+        "NA": "2026-01-20"
+      },
+      "firstReleaseDate": "2026-01-20",
+      "exclusivity": null,
+      "firstParty": true,
+      "alsoOnSwitch1": true,
+      "onOtherConsoles": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Donkey_Kong_Country_Returns",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Donkey_Kong_Country_Returns_HD",
+        "nintendoStore": "https://www.nintendo.com/us/store/products/donkey-kong-country-returns-hd-switch/"
+      },
+      "originalReleaseYear": 2025
     },
     {
       "id": "igdb:386785",
@@ -1868,6 +2445,84 @@
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Pok%C3%A9mon_Pokopia",
         "nintendoStore": "https://www.nintendo.com/us/store/products/part-1-bubbly-basin-70050000074547-switch-2/"
       }
+    },
+    {
+      "id": "free-update:pikmin-3-deluxe",
+      "kind": "free-update",
+      "title": "Pikmin 3 Deluxe",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co8grk.jpg",
+      "summary": "Prepare yourselves, brave explorers, and set-off for the lush planet PNF-404!\n\nThis new version for Nintendo Switch features multiple difficulty modes, new side-story missions featuring Olimar and Louie, and all the DLC from the original release.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/sc8gx6.jpg",
+      "developer": "Nintendo EPD Production Group No. 10",
+      "genres": [
+        "RTS",
+        "Adventure"
+      ],
+      "releaseDates": {
+        "JP": "2026-08-31",
+        "EU": "2026-08-31",
+        "NA": "2026-08-31"
+      },
+      "firstReleaseDate": "2026-08-31",
+      "exclusivity": null,
+      "firstParty": true,
+      "alsoOnSwitch1": true,
+      "onOtherConsoles": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Pikmin_3",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Pikmin_3_Deluxe",
+        "nintendoStore": "https://www.nintendo.com/us/store/products/pikmin-3-deluxe-switch/"
+      },
+      "originalReleaseYear": 2020
+    },
+    {
+      "id": "free-update:mario-kart-8-deluxe",
+      "kind": "free-update",
+      "title": "Mario Kart 8 Deluxe",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co213p.jpg",
+      "summary": "Hit the road with the definitive version of Mario Kart 8 and play anytime, anywhere! Race your friends or battle them in a revised battle mode on new and returning battle courses. Play locally in up to 4-player multiplayer in 1080p while playing in TV Mode. Every track from the Wii U version, including DLC, makes a glorious return. Plus, the Inklings appear as all-new guest characters, along with returning favorites, such as King Boo, Dry Bones, and Bowser Jr.!",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/k25mvvrzl2ko8rnjdpz7.jpg",
+      "developer": "Nintendo EPD Production Group No. 9",
+      "genres": [
+        "Racing",
+        "Arcade"
+      ],
+      "releaseDates": {
+        "JP": "2026-09-01",
+        "EU": "2026-09-01",
+        "NA": "2026-09-01"
+      },
+      "firstReleaseDate": "2026-09-01",
+      "exclusivity": null,
+      "firstParty": true,
+      "alsoOnSwitch1": true,
+      "onOtherConsoles": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Mario_Kart_8_Deluxe",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Mario_Kart_8_Deluxe",
+        "nintendoStore": "https://www.nintendo.it/-/-1173281.html"
+      },
+      "originalReleaseYear": 2017
     },
     {
       "id": "igdb:381237",

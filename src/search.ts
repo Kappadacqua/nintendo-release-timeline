@@ -2,7 +2,7 @@ import Fuse from "fuse.js";
 import { MONTHS } from "./timeline/dates";
 import type { Game } from "./types";
 
-const KIND_LABEL: Record<Game["kind"], string> = { game: "Game", dlc: "DLC", "switch2-edition": "Switch 2 Edition" };
+const KIND_LABEL: Record<Game["kind"], string> = { game: "Game", dlc: "DLC", "switch2-edition": "Switch 2 Edition", "free-update": "Free update" };
 const MAX_RESULTS = 8;
 
 function when(g: Game) {

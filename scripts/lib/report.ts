@@ -25,4 +25,6 @@ export interface FetchReport {
   excludedWithoutReviewPage: { id: string; title: string; kind: string }[];
   /** DLC / Switch 2 Editions kept without that check (OpenCritic off or out of budget). */
   unverifiedReviewPage: { id: string; title: string; kind: string }[];
+  /** data/free-updates.json entries left out (same game already listed) or not found on IGDB. */
+  freeUpdates?: { created: number; duplicates: { title: string; of: string }[]; notOnIgdb: string[] };
 }

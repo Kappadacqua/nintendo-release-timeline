@@ -2,6 +2,7 @@ import type { ChangesFile, Game, GamesFile } from "../../src/types";
 import { type FetchStatus, type IgdbCache, type LinksCache, readJson, type WikipediaCache, emptyLinks, writeJson } from "./cache";
 import { PATHS } from "./env";
 import { ExclusivityHistory } from "./exclusivity";
+import { freeUpdateGames } from "./free-updates";
 import { type IgdbGame, PLATFORM } from "./igdb";
 import { baseTitleOfEdition, wikipediaUrl } from "./links";
 import { loadOpenCriticCache } from "./opencritic";
@@ -133,7 +134,7 @@ const EU_PAGE = /nintendo\.(?:com\/(?!us\/)[a-z]{2}-[a-z]{2}|co\.uk|de|fr|it|es|
 const US_STORE = /^https:\/\/www\.nintendo\.com\/us\/store\/products\//;
 
 /** Store page per region for one IGDB game, from Wikidata ids and IGDB links. */
-function storePages(g: IgdbGame | undefined, links: LinksCache, settings: Settings): Partial<Record<StoreRegion, string>> {
+export function storePages(g: IgdbGame | undefined, links: LinksCache, settings: Settings): Partial<Record<StoreRegion, string>> {
   if (!g) return {};
   const urls = (g.websites ?? []).map((w) => w.url ?? "");
   const euId = links.eshopEuBySlug[g.slug] ?? urls.map((u) => EU_PAGE.exec(u)?.[1]).find(Boolean);
@@ -257,10 +258,15 @@ export function buildGames(): BuildResult {
     kept.push(entry);
   }
 
+  // Free Switch 2 updates of Switch games (data/free-updates.json), unless that game already has a card.
+  const withOverrides = kept.map(({ game }) => applyOverride(game, overrides[game.id]));
+  const free = freeUpdateGames(withOverrides, (g, l) => storePages(g, l, settings).EU);
+  report.freeUpdates = { created: free.games.length, duplicates: free.duplicates, notOnIgdb: free.notOnIgdb };
+  const freeGames = free.games.filter((g) => overrides[g.id]?.include !== false).map((g) => applyOverride(g, overrides[g.id]));
+
   // Dated games by date, then TBA by expected year (unknown year last), then title.
   const sortKey = (g: Game) => g.firstReleaseDate ?? `9999-${g.vagueRelease?.year ?? 9999}`;
-  const games = kept
-    .map(({ game }) => applyOverride(game, overrides[game.id]))
+  const games = [...withOverrides, ...freeGames]
     .sort((a, b) => (sortKey(a) < sortKey(b) ? -1 : sortKey(a) > sortKey(b) ? 1 : a.title.localeCompare(b.title)));
   report.counts.included = games.length;
   // Date and score histories from data/snapshots/ (ITERATION-3 §3).

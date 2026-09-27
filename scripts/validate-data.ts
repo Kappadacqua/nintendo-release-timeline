@@ -34,8 +34,8 @@ const report: FetchReport | null = existsSync(PATHS.report)
 console.log(`${games.length} games in games.json${report ? `, fetched ${report.generatedAt.slice(0, 16).replace("T", " ")}` : ""}`);
 if (!report) console.log(dim("No data/fetch-report.json: run `npm run data:fetch` for conflict checks."));
 
-// --- Manual scores (SPEC §4): only released games can have them.
-const released = games.filter((g) => g.firstReleaseDate && g.firstReleaseDate <= today);
+// --- Manual scores (SPEC §4): only released games can have them (free updates have none).
+const released = games.filter((g) => g.kind !== "free-update" && g.firstReleaseDate && g.firstReleaseDate <= today);
 const missing = released
   .map((g) => {
     const gaps = [
@@ -65,8 +65,24 @@ section(
   "Add them in the admin panel (npm run dev → /admin) or under games.<id>.links in data/overrides.json.",
 );
 
+// --- Free updates (data/free-updates.json): the cover comes from IGDB.
+section(
+  "Free updates without a cover",
+  games.filter((g) => g.kind === "free-update" && g.coverUrl.includes("covers/placeholder")).map(label),
+  "Run `npm run data:fetch-free-updates`, or set coverUrl under games.<id> in data/overrides.json.",
+);
+
 // --- From the last fetch.
 if (report) {
+  if (report.freeUpdates?.duplicates.length) {
+    console.log(`\n${bold("Free updates merged into an existing card")} ${dim("— not an error")}`);
+    for (const d of report.freeUpdates.duplicates) console.log(`  - ${d.title} ${dim(`→ ${d.of}`)}`);
+  }
+  section(
+    "Free updates not found on IGDB",
+    report.freeUpdates?.notOnIgdb ?? [],
+    "Check the title in data/free-updates.json, then run `npm run data:fetch-free-updates`.",
+  );
   section(
     "Exclusivity conflicts (Wikipedia vs IGDB)",
     report.exclusivityConflicts
