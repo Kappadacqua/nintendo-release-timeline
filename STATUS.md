@@ -1,6 +1,6 @@
 # Stato del progetto
 
-Aggiornato: 2026-09-27 — Free updates, task 3 (coda completata)
+Aggiornato: 2026-09-27 — Studios, task 1
 
 ## Ultimo checkpoint
 
@@ -12,6 +12,8 @@ Aggiornato: 2026-09-27 — Free updates, task 3 (coda completata)
 Nessuno.
 
 ## Da verificare nel browser (Architetto)
+
+- Studios, task 1 (solo dati, niente da vedere nel browser): `npm run data:fetch-studios` → `data/cache/studios.json` (29 pagine della categoria, 17 attive dopo le correzioni). `data/studios-overrides.json`: 11 studi segnati chiusi perché l'infobox ha una data `defunct` ma nessuna categoria "Defunct"/"Former". Da rivedere: "Nintendo" (casa madre, non uno studio), "Nintendo Studios Singapore" (categoria "Bandai Namco subsidiaries").
 
 - Free updates, task 3: interruttore "Free updates" nel menu filtri (acceso di default, ricordato al ricaricamento; spento nasconde card, pallini e gruppo del 5 giugno; il contatore "N of M games" cambia); nessun aggiornamento in Rankings né nella riga dei nascosti; ricerca (es. "ARMS") li trova con "Free update · data"; "What's new" non mostra i 17 aggiornamenti attuali.
 
@@ -47,4 +49,4 @@ Nessuno.
 - Prestazioni 4K rimandate: si ottimizza per 1080p.
 
 - Store Nintendo: regione Italia.
-- Pagina Rankings: coda completata (`docs/tasks/rankings.md`), specifica in `docs/SPEC.md` §12. Pagina Studios: rimandata.
+- Pagina Rankings: coda completata (`docs/tasks/rankings.md`), specifica in `docs/SPEC.md` §12. Pagina Studios: coda in corso (`docs/tasks/studios.md`), task 1 fatto.

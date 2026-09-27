@@ -11,7 +11,8 @@
     "data:fetch": "tsx scripts/fetch-data.ts",
     "data:validate": "tsx scripts/validate-data.ts",
     "data:build": "tsx scripts/build-data.ts",
-    "data:fetch-free-updates": "tsx scripts/fetch-free-updates.ts"
+    "data:fetch-free-updates": "tsx scripts/fetch-free-updates.ts",
+    "data:fetch-studios": "tsx scripts/fetch-studios.ts"
   },
   "dependencies": {
     "fuse.js": "^7.5.0",

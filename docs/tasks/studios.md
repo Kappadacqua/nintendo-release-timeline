@@ -22,7 +22,7 @@ L'utente segue il lavoro dal telefono e non può rispondere subito:
 
 ---
 
-## [ ] Task 1 — Raccolta degli studi da Nintendo Wiki
+## [x] Task 1 — Raccolta degli studi da Nintendo Wiki
 
 **Task:** creare lo script che scarica la lista degli studi first party e il file curato per le correzioni manuali.
 
