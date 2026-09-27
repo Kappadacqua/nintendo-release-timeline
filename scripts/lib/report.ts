@@ -27,4 +27,6 @@ export interface FetchReport {
   unverifiedReviewPage: { id: string; title: string; kind: string }[];
   /** data/free-updates.json entries left out (same game already listed) or not found on IGDB. */
   freeUpdates?: { created: number; duplicates: { title: string; of: string }[]; notOnIgdb: string[] };
+  /** IGDB developers of first-party games that match no Nintendo Wiki studio (data/studios-overrides.json). */
+  studiosUnmatched?: { developer: string; titles: string[] }[];
 }

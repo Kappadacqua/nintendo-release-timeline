@@ -38,7 +38,7 @@ L'utente segue il lavoro dal telefono e non può rispondere subito:
 
 ---
 
-## [ ] Task 2 — Dati degli studi per il sito
+## [x] Task 2 — Dati degli studi per il sito
 
 **Task:** generare `public/data/studios.json` abbinando gli studi ai giochi del dataset.
 

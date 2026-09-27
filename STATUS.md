@@ -1,6 +1,6 @@
 # Stato del progetto
 
-Aggiornato: 2026-09-27 — Studios, task 1
+Aggiornato: 2026-09-27 — Studios, task 2
 
 ## Ultimo checkpoint
 
@@ -12,6 +12,8 @@ Aggiornato: 2026-09-27 — Studios, task 1
 Nessuno.
 
 ## Da verificare nel browser (Architetto)
+
+- Studios, task 2 (solo dati, niente da vedere nel browser): `npm run data:build` scrive anche `public/data/studios.json` (15 studi first party attivi, 10 con un gioco; 24 di terze parti con esclusive). `data:validate` elenca 15 sviluppatori first party non abbinati (HAL, Game Freak, Intelligent Systems…: non sono nella categoria di Nintendo Wiki, quindi finiscono tra le terze parti). Nascosti: "Nintendo" (casa madre, i suoi giochi non vanno a nessuno studio) e "Nintendo Studios Singapore" (possibile controllata Bandai Namco, da verificare). "Nintendo Cube" ↔ IGDB "NDCube".
 
 - Studios, task 1 (solo dati, niente da vedere nel browser): `npm run data:fetch-studios` → `data/cache/studios.json` (29 pagine della categoria, 17 attive dopo le correzioni). `data/studios-overrides.json`: 11 studi segnati chiusi perché l'infobox ha una data `defunct` ma nessuna categoria "Defunct"/"Former". Da rivedere: "Nintendo" (casa madre, non uno studio), "Nintendo Studios Singapore" (categoria "Bandai Namco subsidiaries").
 
@@ -37,6 +39,7 @@ Nessuno.
 3. **"What's new"** — mai verificato con due snapshot reali.
 4. **Free updates in "What's new"** — `data/free-updates-seen.json` è stato generato dalla build e va tenuto nel repo: se viene cancellato, la build successiva tratta di nuovo tutte le voci come già note (nessuna novità).
 5. **Due gruppi nello stesso giorno** — il gruppo dei giochi e quello degli aggiornamenti hanno la stessa x: la disposizione in corsie li separa, ma il passaggio da un ventaglio aperto all'altro non è mai stato provato.
+6. **Studios: nomi IGDB doppi** — "Konami" e "Konami Digital Entertainment" sono due studi di terze parti distinti in `studios.json` (nessun accorpamento per le terze parti).
 
 ## Prossimi task (in ordine)
 
@@ -49,4 +52,4 @@ Nessuno.
 - Prestazioni 4K rimandate: si ottimizza per 1080p.
 
 - Store Nintendo: regione Italia.
-- Pagina Rankings: coda completata (`docs/tasks/rankings.md`), specifica in `docs/SPEC.md` §12. Pagina Studios: coda in corso (`docs/tasks/studios.md`), task 1 fatto.
+- Pagina Rankings: coda completata (`docs/tasks/rankings.md`), specifica in `docs/SPEC.md` §12. Pagina Studios: coda in corso (`docs/tasks/studios.md`), task 1–2 fatti.

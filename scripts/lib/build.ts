@@ -1,4 +1,4 @@
-import type { ChangesFile, Game, GamesFile } from "../../src/types";
+import type { ChangesFile, Game, GamesFile, StudiosFile } from "../../src/types";
 import { type FetchStatus, type IgdbCache, type LinksCache, readJson, type WikipediaCache, emptyLinks, writeJson } from "./cache";
 import { PATHS } from "./env";
 import { ExclusivityHistory } from "./exclusivity";
@@ -9,6 +9,7 @@ import { loadOpenCriticCache } from "./opencritic";
 import { applyOverride, loadOverrides, manualToGame, type OverridesFile, score } from "./overrides";
 import type { FetchReport } from "./report";
 import { addHistory, changesOf, readSnapshots } from "./snapshots";
+import { buildStudios } from "./studios";
 import { igdbExclusive, inDateRange, isExcludedType, isOnSwitch, kindOf, releaseInfo, toGame } from "./transform";
 
 /** A game inside the perimeter, before scores, links and overrides. */
@@ -275,9 +276,18 @@ export function buildGames(): BuildResult {
   // What's new (ITERATION-3 §4).
   const changes: ChangesFile = { generatedAt: report.generatedAt, changes: changesOf(games, snapshots, today, freeUpdatesFirstSeen(today)) };
 
+  // Studios page: Switch 2 availability from the cached IGDB platforms; hand-written games are Switch 2 ones.
+  const onSwitch2 = (g: Game) =>
+    g.kind === "switch2-edition" ||
+    !g.id.startsWith("igdb:") ||
+    (candidates.get(Number(g.id.slice(5)))?.platforms ?? []).includes(PLATFORM.SWITCH_2);
+  const studios = buildStudios(games, onSwitch2, today);
+  report.studiosUnmatched = studios.unmatched;
+
   const file: GamesFile = { generatedAt: report.generatedAt, games };
   writeJson(PATHS.games, file);
   writeJson(PATHS.changes, changes);
+  writeJson(PATHS.studios, { generatedAt: report.generatedAt, studios: studios.studios } satisfies StudiosFile);
   writeJson(PATHS.report, report);
   return { games, report };
 }

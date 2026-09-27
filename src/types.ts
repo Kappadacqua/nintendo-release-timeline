@@ -74,3 +74,29 @@ export interface ChangesFile {
   generatedAt: string;
   changes: Change[];
 }
+
+/** The game a studio card shows (public/data/studios.json): next one out, else the latest. */
+export interface StudioGame {
+  id: string;
+  title: string;
+  coverUrl: string;
+  date: string; // "YYYY-MM-DD"
+  status: "upcoming" | "released";
+}
+
+/** One studio of public/data/studios.json. */
+export interface Studio {
+  name: string;
+  /** Nintendo Wiki page; null for third-party studios. */
+  url: string | null;
+  /** In Nintendo Wiki's first party developers; false = third party with an exclusive in games.json. */
+  firstParty: boolean;
+  game: StudioGame | null;
+  /** At least one game or Switch 2 Edition playable on Switch 2 in games.json (DLC and free updates excluded). */
+  hasSwitch2Game: boolean;
+}
+
+export interface StudiosFile {
+  generatedAt: string;
+  studios: Studio[];
+}
