@@ -101,7 +101,8 @@
 }
 
 /* Free update: one worldwide date instead of the three flags, and the original year. */
-.card__worldwide {
+/* Two classes: .card__dates below would otherwise win and split the line with space-between. */
+.card__dates.card__worldwide {
   display: block;
   font-weight: 700;
 }

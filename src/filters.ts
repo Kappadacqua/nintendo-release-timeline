@@ -50,7 +50,15 @@ export function applyFilters(games: Game[], f: Filters) {
   );
 }
 
-const isDefault = (f: Filters) => OPTIONS.every(({ key }) => f[key] === DEFAULTS[key]);
+export const isDefault = (f: Filters) => OPTIONS.every(({ key }) => f[key] === DEFAULTS[key]);
+
+/**
+ * "58 games" only when no filter is on: an active filter that hides nothing
+ * (e.g. "Exclusives only" when every game is exclusive) still reads "58 of 58".
+ */
+export function countLabel(visible: number, total: number, filtered: boolean) {
+  return visible === total && !filtered ? `${total} games` : `${visible} of ${total}`;
+}
 
 /**
  * "42 of 58 games ▾" in the header: the count is always visible, the switches
@@ -120,8 +128,9 @@ export class FiltersControl {
   /** "42 of 58" (games and free updates); a dot marks non-default filters. */
   setCount(visible: number, total: number) {
     this.button.innerHTML = `<span class="filters__count"></span><span class="filters__caret" aria-hidden="true">▾</span>`;
-    this.button.querySelector(".filters__count")!.textContent = visible === total ? `${total} games` : `${visible} of ${total}`;
-    this.button.classList.toggle("is-filtered", !isDefault(this.filters));
+    const filtered = !isDefault(this.filters);
+    this.button.querySelector(".filters__count")!.textContent = countLabel(visible, total, filtered);
+    this.button.classList.toggle("is-filtered", filtered);
     this.button.setAttribute("aria-label", `Filters: showing ${visible} of ${total}`);
   }
 }

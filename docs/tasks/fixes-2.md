@@ -10,7 +10,7 @@ File: src/timeline/group.ts, src/timeline/timeline.ts (solo le parti dei gruppi,
 - Se nello stesso giorno ci sono un gruppo di giochi e uno di aggiornamenti, il pallino sulla linea e nella minimappa è diviso a metà: colore dei giochi e verde degli aggiornamenti.
 - Card del gruppo: "12 free updates" e la data non devono andare a capo (allarga la card o riduci il formato della data).
 
-## [ ] Task 2 — Card degli aggiornamenti e filtro esclusive
+## [x] Task 2 — Card degli aggiornamenti e filtro esclusive
 File: src/cards/card.ts, src/styles/card.css, src/filters.ts.
 - La riga "Worldwide · Jun 12, 2025" deve stare unita: oggi "Worldwide" è a sinistra e "· Jun 12, 2025" a destra.
 - Nel menu filtri della timeline "Exclusives only" risulta attivo ma il contatore dice "84 games" come se nessun filtro fosse attivo. Verifica se il filtro funziona e se lo stato mostrato è coerente; correggi ciò che non lo è.

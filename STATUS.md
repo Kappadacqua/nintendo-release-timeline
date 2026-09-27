@@ -1,6 +1,6 @@
 # Stato del progetto
 
-Aggiornato: 2026-09-27 — Correzioni `docs/tasks/fixes-2.md`, task 1 (gruppi dello stesso giorno)
+Aggiornato: 2026-09-27 — Correzioni `docs/tasks/fixes-2.md`, task 2 (card aggiornamenti, filtro esclusive)
 
 ## Ultimo checkpoint
 
@@ -23,6 +23,7 @@ Nessuno.
 
 Dettagli completi nelle versioni precedenti di questo file (`git show 58d0ac7:STATUS.md`).
 
+- fixes-2 task 2 — Card di un aggiornamento gratuito: "Worldwide · Jun 12, 2025" unito a sinistra. Filtri: con "Exclusives only" attivo il pulsante dice "84 of 84" (non "84 games") e ha il pallino; il filtro oggi non nasconde nulla perché nei dati nessun gioco è su altre console.
 - fixes-2 task 1 — Gruppi del 5 giugno 2025: PagGiù da Shine Post → primo aggiornamento (ARMS…), PagSu simmetrico; card selezionata del ventaglio centrata sotto l'indicatore anche per gli ultimi giochi e dopo passaggi rapidi tra i due gruppi; pallino diviso a metà (colore giochi / verde) sulla linea e nella minimappa, anche "upcoming"; card "12 free updates · Jun 5, 2025" su una riga (gruppo largo 240 px, mese abbreviato).
 
 - `90079bb` Stile: token `--news`/`--delayed` in entrambi i temi (badge "New", pallini e tipo "Delayed" di "What's new", badge dei rinvii); reduced motion su titolo in alto a sinistra e icona del tema; gruppo "12 free updates" del 5 giugno 2025 in verde.
@@ -45,7 +46,8 @@ Dettagli completi nelle versioni precedenti di questo file (`git show 58d0ac7:ST
 6. **Studios: giochi senza studio** — 3 giochi first party senza sviluppatore IGDB, più "DK Challenge" e "Ocarina of Time" (sviluppatore "Nintendo", nascosto). Serve un task di codice: override `developer` per i giochi IGDB (oggi solo `manualGames`).
 7. **Studios: ordine** — ricalcolato sul gioco *mostrato*: studi senza gioco Switch 2 o con gioco senza data finiscono nel gruppo finale alfabetico.
 8. **Studios: gioco fissato alla build** — `studios.json` ha un solo gioco per studio: quando esce, la pagina lo mostra come uscito finché non si rifà `data:build`. Da valutare: scrivere tutti i giochi Switch 2 e scegliere nella pagina.
-9. **Problemi di gravità bassa** — 28 aperti (es. reduced motion incompleto, `filters.css:93`), smistati in 13 gruppi in `docs/review/triage.md`.
+9. **"Exclusives only" senza effetto sui dati attuali** — tutti gli 84 elementi sono esclusivi o solo Switch + telefoni; 3 giochi (Putty World, Bit Boy!! Arcade 2, Chit Chat Party!) non hanno `onOtherConsoles`, passano perché `exclusive`.
+10. **Problemi di gravità bassa** — 28 aperti (es. reduced motion incompleto, `filters.css:93`), smistati in 13 gruppi in `docs/review/triage.md`.
 
 ## Prossimi task (in ordine)
 

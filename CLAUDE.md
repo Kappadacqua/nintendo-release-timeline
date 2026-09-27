@@ -16,7 +16,7 @@ Sito desktop personale: una timeline orizzontale dei giochi Nintendo usciti dal 
 | Comando | Uso |
 |---|---|
 | `npm run typecheck` | Controllo dei tipi. Da eseguire a fine di ogni task. |
-| `npm test` | Test Vitest (`*.test.ts` accanto ai moduli). Da eseguire a fine task se hai toccato logica coperta dai test (date, tempo relativo della card in `expand.ts`, Rankings, ordine Studios, `scripts/lib/studios.ts`, `scripts/lib/free-updates.ts`). I bug noti sono `it.todo` con il riferimento a `docs/review/`: quando li correggi, trasformali in `it`. |
+| `npm test` | Test Vitest (`*.test.ts` accanto ai moduli). Da eseguire a fine task se hai toccato logica coperta dai test (date, tempo relativo della card in `expand.ts`, Rankings, ordine Studios, filtri, gruppi dello stesso giorno, `scripts/lib/studios.ts`, `scripts/lib/free-updates.ts`). I bug noti sono `it.todo` con il riferimento a `docs/review/`: quando li correggi, trasformali in `it`. |
 | `npm run build` | Typecheck + build di produzione. Da eseguire a fine task se hai toccato config, entry point o import. |
 | `npm run data:build` | Rigenera `public/data/games.json` da cache + overrides. Nessuna rete. |
 | `npm run data:validate` | Elenca dati mancanti e conflitti. |
@@ -31,7 +31,7 @@ Sito desktop personale: una timeline orizzontale dei giochi Nintendo usciti dal 
 **`src/timeline/`** — la timeline
 - `timeline.ts` (1090 righe) — orchestrazione della timeline: rendering, posizionamento card, selezione. **File grande.**
 - `scroller.ts` (351) — scorrimento: rotella, trascinamento, inerzia, salti, animazioni di movimento.
-- `group.ts` — gruppi di uscite nello stesso giorno e ventaglio.
+- `group.ts` — gruppi di uscite nello stesso giorno e ventaglio. `same-day.ts` — ordine da tastiera e colori del pallino per i gruppi dello stesso giorno (senza DOM).
 - `minimap.ts` — minimappa, tooltip, riquadro trascinabile.
 - `ticks.ts` — tacche e numeri dei giorni. `dates.ts` — utilità sulle date.
 - `zoom.ts` — livelli Day/Week/Month. `header.ts` — data nell'header. `site-title.ts` — titolo/gioco selezionato in alto a sinistra.
