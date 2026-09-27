@@ -79,12 +79,14 @@ function badges(game: Game, outToday: Region[], delay: Delay | null) {
   if (outToday.length) list.push([outTodayLabel(outToday), "badge--out-today"]);
   if (delay && !freshDelay) list.push(["Delayed", "badge--delayed"]);
   if (game.kind === "switch2-edition") list.push(["Switch 2 Edition", "badge--s2"]);
+  if (game.kind === "free-update") list.push(["Free update", "badge--free-update"]);
   // Exclusivity describes the base game, so DLC cards don't repeat it.
   if (game.kind !== "dlc") {
     if (game.exclusivity === "exclusive") list.push(["Exclusive", "badge--accent"]);
     if (game.exclusivity === "timed") list.push(["Timed exclusive", "badge--accent-soft"]);
   }
-  if (game.alsoOnSwitch1) list.push(["Also on Switch 1", ""]);
+  // A free update is by definition for a Switch 1 game: the badge would say nothing.
+  if (game.alsoOnSwitch1 && game.kind !== "free-update") list.push(["Also on Switch 1", ""]);
   const wrap = el("div", "card__badges");
   if (fresh) {
     const badge = el("span", "badge badge--news", NEWS_LABEL[fresh.type]);
@@ -123,6 +125,13 @@ function regionalDates(game: Game) {
     list.append(item);
   }
   return list;
+}
+
+/** Free updates have one date for every region: "Worldwide · Jun 5, 2025". */
+function worldwideDate(game: Game) {
+  const p = el("p", "card__dates card__worldwide");
+  p.append(el("span", "card__date-region", "Worldwide"), ` · ${game.firstReleaseDate ? shortDate(game.firstReleaseDate, 0) : "TBA"}`);
+  return p;
 }
 
 function upcoming(game: Game, todayDay: number) {
@@ -180,20 +189,28 @@ export function createCard(game: Game, todayDay: number): Card {
     base.append(el("em", undefined, game.baseGameTitle));
     info.append(base);
   }
+  if (game.kind === "free-update" && game.originalReleaseYear) {
+    info.append(el("p", "card__original", `Originally released ${game.originalReleaseYear}`));
+  }
   if (game.developer || game.genres.length) info.append(metaLine(game));
   const delay = currentDelay(game, dayToDate(todayDay).toISOString().slice(0, 10));
   info.append(badges(game, outToday, delay));
   if (delay) info.append(delayLine(game, delay));
   top.append(cover, info);
-  const dates = regionalDates(game);
-  dates.classList.add(FULL_ONLY);
-  card.append(top, dates);
+  if (game.kind === "free-update") {
+    card.append(top, worldwideDate(game));
+  } else {
+    const dates = regionalDates(game);
+    dates.classList.add(FULL_ONLY);
+    card.append(top, dates);
+  }
 
   const rings: ScoreRing[] = [];
   if (isUpcoming) {
     card.append(upcoming(game, todayDay));
     card.lastElementChild!.classList.add(FULL_ONLY);
-  } else {
+  } else if (game.kind !== "free-update") {
+    // Free updates have no scores (docs/tasks/free-updates.md).
     const { critic, user } = game.scores;
     const { links } = game;
     const critics = [
@@ -236,11 +253,15 @@ function describe(game: Game, isUpcoming: boolean) {
   const parts = [game.title];
   if (game.kind === "dlc") parts.push(game.baseGameTitle ? `DLC for ${game.baseGameTitle}` : "DLC");
   if (game.kind === "switch2-edition") parts.push("Nintendo Switch 2 Edition");
+  if (game.kind === "free-update") {
+    parts.push("free Switch 2 update");
+    if (game.originalReleaseYear) parts.push(`originally released ${game.originalReleaseYear}`);
+  }
   if (game.firstReleaseDate) parts.push(`${isUpcoming ? "coming" : "released"} ${longDate(game.firstReleaseDate)}`);
   else parts.push(game.vagueRelease ? `expected ${game.vagueRelease.label}` : "release date to be announced");
   if (game.exclusivity === "exclusive") parts.push("exclusive");
   if (game.exclusivity === "timed") parts.push("timed exclusive");
-  if (!isUpcoming) {
+  if (!isUpcoming && game.kind !== "free-update") {
     const oc = game.scores.critic.opencritic;
     parts.push(oc ? `OpenCritic ${oc.value}` : "no OpenCritic score yet");
   }

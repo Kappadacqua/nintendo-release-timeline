@@ -41,7 +41,7 @@ L'utente segue il lavoro dal telefono e non può rispondere subito:
 
 ---
 
-## [ ] Task 2 — Card e timeline
+## [x] Task 2 — Card e timeline
 
 **Task:** mostrare gli aggiornamenti gratuiti sulla timeline con una card dedicata.
 

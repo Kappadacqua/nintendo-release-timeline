@@ -21,6 +21,12 @@
   --dot: var(--dlc);
 }
 
+.tl-item__dot--free-update,
+.minimap__dot--free-update,
+.legend-dot--free-update {
+  --dot: var(--free-update);
+}
+
 /* Switch 2 Edition: split in the two Joy-Con colors, like its card border. */
 .tl-item__dot--switch2-edition,
 .minimap__dot--switch2-edition,

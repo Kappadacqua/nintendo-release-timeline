@@ -7,6 +7,11 @@
   overflow: hidden;
 }
 
+.card--free-update {
+  border: 2px solid color-mix(in srgb, var(--free-update) 55%, var(--border));
+  background: var(--card-free-update);
+}
+
 .card--dlc .card__cover {
   width: 56px;
   height: 75px;

@@ -642,11 +642,15 @@ export class Timeline {
     const placed = [...byDay.entries()]
       .flatMap(([day, list]): { game: Game; games?: Game[]; x: number; width: number }[] => {
         const x = this.dayX(parseDay(day));
-        if (this.group && list.length >= GROUP_MIN_GAMES) {
-          const sorted = [...list].sort((a, b) => a.title.localeCompare(b.title));
-          return [{ game: sorted[0], games: sorted, x, width: this.groupWidth() }];
-        }
-        return list.map((game) => ({ game, x, width: this.widthOf(game) }));
+        // Free updates never share a group with the day's games: each set groups on its own.
+        const sets = [list.filter((g) => g.kind !== "free-update"), list.filter((g) => g.kind === "free-update")];
+        return sets.flatMap((set) => {
+          if (this.group && set.length >= GROUP_MIN_GAMES) {
+            const sorted = [...set].sort((a, b) => a.title.localeCompare(b.title));
+            return [{ game: sorted[0], games: sorted, x, width: this.groupWidth() }];
+          }
+          return set.map((game) => ({ game, x, width: this.widthOf(game) }));
+        });
       })
       .sort((a, b) => a.x - b.x);
     const lanes = assignLanes(placed, TIMELINE.laneGap, TIMELINE.maxShift);
@@ -668,7 +672,11 @@ export class Timeline {
     const dot = document.createElement("div");
     // Color by type, filled once released (ITERATION-4 §3); a group has a bigger dot.
     const upcoming = parseDay(item.game.firstReleaseDate!) > this.todayDay;
-    const kind = item.games ? "group" : item.game.kind;
+    const kind = !item.games
+      ? item.game.kind
+      : item.games.every((g) => g.kind === "free-update")
+        ? "group tl-item__dot--free-update"
+        : "group";
     dot.className = `tl-item__dot tl-item__dot--${kind}${upcoming ? " is-upcoming" : ""}`;
     const card = item.games ? createGroupStack(item.games) : createCard(item.game, this.todayDay);
     group.append(rest.svg, card.el);

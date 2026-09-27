@@ -39,7 +39,10 @@ export function createGroupStack(games: Game[]): Card {
   el.dataset.gameId = games[0].id;
   el.tabIndex = -1;
   const date = games[0].firstReleaseDate!;
-  el.setAttribute("aria-label", `${games.length} games released on ${longDate(date)}: ${games.map((g) => g.title).join(", ")}. Press Enter to open.`);
+  // Free updates form their own group (docs/tasks/free-updates.md), labelled as such.
+  const noun = games.every((g) => g.kind === "free-update") ? "free updates" : "games";
+  if (noun === "free updates") el.classList.add("card--group-free-update");
+  el.setAttribute("aria-label", `${games.length} ${noun} released on ${longDate(date)}: ${games.map((g) => g.title).join(", ")}. Press Enter to open.`);
 
   const covers = document.createElement("div");
   covers.className = "group-stack__covers";
@@ -60,7 +63,7 @@ export function createGroupStack(games: Game[]): Card {
   const label = document.createElement("div");
   label.className = "group-stack__label";
   const count = document.createElement("strong");
-  count.textContent = `${games.length} games`;
+  count.textContent = `${games.length} ${noun}`;
   const when = document.createElement("span");
   when.textContent = longDate(date);
   label.append(count, when);

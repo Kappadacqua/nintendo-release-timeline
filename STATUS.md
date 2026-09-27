@@ -1,6 +1,6 @@
 # Stato del progetto
 
-Aggiornato: 2026-09-27 — Free updates, task 1
+Aggiornato: 2026-09-27 — Free updates, task 2
 
 ## Ultimo checkpoint
 
@@ -12,6 +12,8 @@ Aggiornato: 2026-09-27 — Free updates, task 1
 Nessuno.
 
 ## Da verificare nel browser (Architetto)
+
+- Free updates, task 2: card verde (bordo, badge "Free update", riga "Worldwide · Jun 5, 2025", "Originally released AAAA" sotto il titolo, niente voti); selezionata con tempo relativo, riassunto e pulsanti Wikipedia / Nintendo Wiki / Store; pallini verdi su linea e minimappa, anche il pallino grande del gruppo di soli aggiornamenti; il 5 giugno 2025 due gruppi separati ("8 games" e "12 free updates") nello stesso giorno, PagSu/PagGiù passano da un ventaglio all'altro; legenda "?" con la nuova voce. Controllare che il verde (`--free-update`) si distingua da Joy-Con sinistro e dal tier "weak" dei voti in entrambi i temi.
 
 - Free updates, task 1 (solo dati): 17 voci `kind: "free-update"` in `games.json` (id `free-update:<titolo>`), cache in `data/cache/free-updates.json`. Finché non c'è il task 2 appaiono sulla timeline come card normali senza voti. Esclusi come doppioni: Animal Crossing: New Horizons (ha la Switch 2 Edition), Pokémon Champions.
 
@@ -30,6 +32,7 @@ Nessuno.
 2. **Dati manuali mancanti** — Metacritic e Backloggd non compilati per la maggior parte dei giochi (si inseriscono dal pannello admin).
 3. **"What's new"** — mai verificato con due snapshot reali.
 4. **Free updates in "What's new"** — le 17 voci risultano tutte "new" in `changes.json` (nessuno snapshot le contiene). Da decidere nel task 3 se va bene o se il primo lotto va escluso.
+5. **Due gruppi nello stesso giorno** — il gruppo dei giochi e quello degli aggiornamenti hanno la stessa x: la disposizione in corsie li separa, ma il passaggio da un ventaglio aperto all'altro non è mai stato provato.
 
 ## Prossimi task (in ordine)
 

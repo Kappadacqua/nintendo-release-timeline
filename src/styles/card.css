@@ -95,6 +95,24 @@
   color: var(--bg);
 }
 
+.badge--free-update {
+  background: var(--free-update);
+  color: var(--bg);
+}
+
+/* Free update: one worldwide date instead of the three flags, and the original year. */
+.card__worldwide {
+  display: block;
+  font-weight: 700;
+}
+
+.card__original {
+  margin: 2px 0 4px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
 .card__dates {
   display: flex;
   justify-content: space-between;
