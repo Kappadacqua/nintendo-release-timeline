@@ -7,8 +7,10 @@ export interface MinimapPreview {
 
 export interface MinimapDot {
   x: number;
-  id: string;
+  /** Game ids (several for a same-day group). */
+  ids: string[];
   kind: string;
+  group: boolean;
   upcoming: boolean;
   fresh: boolean;
   games: MinimapPreview[];
@@ -72,8 +74,11 @@ export class Minimap {
 
     add("minimap__today", opts.todayX);
     for (const d of opts.dots) {
-      const dot = add(`minimap__dot minimap__dot--${d.kind}${d.upcoming ? " is-upcoming" : ""}${d.fresh ? " has-news" : ""}`, d.x);
-      dot.dataset.gameId = d.id;
+      const dot = add(
+        `minimap__dot minimap__dot--${d.kind}${d.group ? " minimap__dot--group" : ""}${d.upcoming ? " is-upcoming" : ""}${d.fresh ? " has-news" : ""}`,
+        d.x,
+      );
+      dot.dataset.gameIds = d.ids.join(" ");
     }
 
     this.window = document.createElement("div");

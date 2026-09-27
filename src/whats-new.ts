@@ -109,8 +109,9 @@ export class WhatsNew {
         badge.remove();
       }
     }
-    for (const dot of document.querySelectorAll<HTMLElement>(".minimap__dot[data-game-id]")) {
-      dot.classList.toggle("has-news", fresh.has(dot.dataset.gameId!));
+    // A same-day group's dot stands for several games.
+    for (const dot of document.querySelectorAll<HTMLElement>(".minimap__dot[data-game-ids]")) {
+      dot.classList.toggle("has-news", dot.dataset.gameIds!.split(" ").some((id) => fresh.has(id)));
     }
     if (!this.panel.hidden) this.render();
   }

@@ -1,9 +1,11 @@
 /** View settings (ITERATION-4 §1): how the timeline looks, remembered in the browser. */
 export interface ViewSettings {
   cardStyle: "full" | "compact";
+  /** Same-day releases as one group (ITERATION-4 §4). */
+  groupSameDay: boolean;
 }
 
-const DEFAULTS: ViewSettings = { cardStyle: "full" };
+const DEFAULTS: ViewSettings = { cardStyle: "full", groupSameDay: true };
 const STORAGE_KEY = "view";
 
 export function loadView(): ViewSettings {
@@ -11,6 +13,7 @@ export function loadView(): ViewSettings {
     const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "{}") as Partial<ViewSettings>;
     const view = { ...DEFAULTS, ...saved };
     if (view.cardStyle !== "full" && view.cardStyle !== "compact") view.cardStyle = DEFAULTS.cardStyle;
+    if (typeof view.groupSameDay !== "boolean") view.groupSameDay = DEFAULTS.groupSameDay;
     return view;
   } catch {
     return { ...DEFAULTS };
@@ -71,6 +74,7 @@ export class ViewMenu {
     this.panel.setAttribute("role", "group");
     this.panel.setAttribute("aria-label", "View settings");
     for (const choice of CHOICES) this.panel.append(this.segmented(choice));
+    this.panel.append(this.toggle("groupSameDay", "Group same-day releases", "3 or more games on one day become one group"));
     wrap.append(this.button, this.panel);
     host.prepend(wrap);
 
@@ -117,6 +121,23 @@ export class ViewMenu {
     showHint();
     fieldset.append(legend, row, hint);
     return fieldset;
+  }
+
+  /** An on / off setting, drawn like the filter switches. */
+  private toggle(key: "groupSameDay", label: string, hint: string) {
+    const row = document.createElement("label");
+    row.className = "filters__option view-menu__toggle-row";
+    row.innerHTML = `<input type="checkbox"><span class="filters__switch" aria-hidden="true"></span><span><strong></strong><small></small></span>`;
+    const input = row.querySelector("input")!;
+    input.checked = this.view[key];
+    row.querySelector("strong")!.textContent = label;
+    row.querySelector("small")!.textContent = hint;
+    input.addEventListener("change", () => {
+      this.view = { ...this.view, [key]: input.checked };
+      saveView(this.view);
+      this.onChange(this.view, key);
+    });
+    return row;
   }
 
   private setOpen(open: boolean) {

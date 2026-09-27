@@ -14,10 +14,14 @@ import { Minimap } from "./minimap";
 import { bindScrollInput, Scroller } from "./scroller";
 import { Backdrop } from "./backdrop";
 import { SiteTitle } from "./site-title";
+import { createGroupStack, Fan, GROUP_MIN_GAMES, GROUP_WIDTH } from "./group";
 import { createTbaBlockNode, layoutTba, TBA_LAYOUT, type TbaBlock } from "./tba";
 
 interface Item {
+  /** The game, or the first game of a same-day group. */
   game: Game;
+  /** Same-day group (ITERATION-4 §4): all its games, by title. */
+  games?: Game[];
   x: number;
   width: number;
   lane: Lane;
@@ -30,6 +34,8 @@ interface Item {
     stubPath: SVGPathElement;
     /** Connector from the band edge out to a stacked card (hidden at level 0). */
     restPath: SVGPathElement;
+    /** Open state of a same-day group. */
+    fan?: Fan;
     targetX: number;
     dir: number;
   };
@@ -66,6 +72,10 @@ interface Stop {
   reveal: () => void;
   /** Element to lift above the others while selected. */
   layer: () => HTMLElement;
+  /** Same-day group this game belongs to: opened when one of its games is selected. */
+  group?: Item;
+  open?: (animate: boolean) => void;
+  close?: (animate: boolean) => void;
 }
 
 interface Palette {
@@ -93,6 +103,8 @@ export class Timeline {
   private readonly items: Item[];
   /** Compact cards (ITERATION-4 §2): layout and fitting use their size. */
   private compact: boolean;
+  /** Same-day releases grouped (ITERATION-4 §4). */
+  private readonly group: boolean;
   private readonly tbaBlocks: TbaBlock[];
   private readonly minimap: Minimap;
 
@@ -132,9 +144,10 @@ export class Timeline {
     games: Game[],
     headerSlot?: HTMLElement,
     titleEl?: HTMLElement,
-    options: { compact?: boolean } = {},
+    options: { compact?: boolean; group?: boolean } = {},
   ) {
     this.compact = options.compact ?? false;
+    this.group = options.group ?? false;
     const lastRelease = games
       .flatMap((g) => Object.values(g.releaseDates))
       .filter((d): d is string => !!d)
@@ -291,10 +304,14 @@ export class Timeline {
   private select(index: number) {
     if (index === this.selected) return;
     const stop = this.stops[index];
-    if (this.selected >= 0) this.unmark(this.selected);
+    const previous = this.selected >= 0 ? this.stops[this.selected] : null;
+    if (previous) this.unmark(this.selected);
+    // Leaving a group folds it; entering one spreads it (and straightens this game's card).
+    if (previous?.group && previous.group !== stop.group) previous.close?.(true);
     this.selected = index;
-    this.setCurrent(index);
     stop.reveal();
+    stop.open?.(!this.opening);
+    this.setCurrent(index);
     const card = stop.card();
     card.closest<HTMLElement>("[hidden]")?.removeAttribute("hidden");
     stop.layer().classList.add("is-selected-layer");
@@ -313,6 +330,7 @@ export class Timeline {
   private deselect() {
     if (this.selected < 0) return;
     this.unmark(this.selected);
+    this.stops[this.selected].close?.(true);
     this.selected = -1;
     this.el.classList.remove("has-selection");
     this.siteTitle?.clear();
@@ -362,9 +380,28 @@ export class Timeline {
 
 
   private buildStops(): Stop[] {
-    const dated: Stop[] = this.items.map((item) => {
+    const dated: Stop[] = this.items.flatMap((item): Stop[] => {
       const node = () => (item.node ??= this.createNode(item));
-      return {
+      const reveal = () => {
+        if (item.revealed) return;
+        item.revealed = true;
+        revealCard(node().connectors, node().card, item.lane.side);
+      };
+      if (item.games) {
+        // One stop per game, all on the group's date: PagSu / PagGiù walk through it.
+        return item.games.map((game) => ({
+          x: item.x,
+          game,
+          anchor: item.lane.side,
+          card: () => (node().fan!.isOpen ? node().fan!.cardOf(game.id) : node().card.el),
+          layer: () => node().root,
+          reveal,
+          group: item,
+          open: (animate) => node().fan!.open(game.id, animate),
+          close: (animate) => node().fan!.close(animate),
+        }));
+      }
+      return [{
         x: item.x,
         game: item.game,
         anchor: item.lane.side,
@@ -375,7 +412,7 @@ export class Timeline {
           item.revealed = true;
           revealCard(node().connectors, node().card, item.lane.side);
         },
-      };
+      }];
     });
     const tba: Stop[] = this.tbaBlocks.flatMap((block) =>
       block.slots.map((slot) => {
@@ -515,9 +552,19 @@ export class Timeline {
 
   /** Games with a precise date, positioned and assigned to lanes. */
   private layoutItems(games: Game[]): Item[] {
-    const placed = games
-      .filter((game) => game.firstReleaseDate)
-      .map((game) => ({ game, x: this.dayX(parseDay(game.firstReleaseDate!)), width: cardWidth(game, this.compact) }))
+    const byDay = new Map<string, Game[]>();
+    for (const game of games) {
+      if (game.firstReleaseDate) byDay.set(game.firstReleaseDate, [...(byDay.get(game.firstReleaseDate) ?? []), game]);
+    }
+    const placed = [...byDay.entries()]
+      .flatMap(([day, list]): { game: Game; games?: Game[]; x: number; width: number }[] => {
+        const x = this.dayX(parseDay(day));
+        if (this.group && list.length >= GROUP_MIN_GAMES) {
+          const sorted = [...list].sort((a, b) => a.title.localeCompare(b.title));
+          return [{ game: sorted[0], games: sorted, x, width: GROUP_WIDTH }];
+        }
+        return list.map((game) => ({ game, x, width: cardWidth(game, this.compact) }));
+      })
       .sort((a, b) => a.x - b.x);
     const lanes = assignLanes(placed, TIMELINE.laneGap, TIMELINE.maxShift);
     return placed.map((p, i) => ({ ...p, lane: lanes[i], inRange: false, revealed: false }));
@@ -536,15 +583,27 @@ export class Timeline {
     const group = document.createElement("div");
     group.className = "tl-item__group";
     const dot = document.createElement("div");
-    // Color by type, filled once released (ITERATION-4 §3).
+    // Color by type, filled once released (ITERATION-4 §3); a group has a bigger dot.
     const upcoming = parseDay(item.game.firstReleaseDate!) > this.todayDay;
-    dot.className = `tl-item__dot tl-item__dot--${item.game.kind}${upcoming ? " is-upcoming" : ""}`;
-    const card = createCard(item.game, this.todayDay);
+    const kind = item.games ? "group" : item.game.kind;
+    dot.className = `tl-item__dot tl-item__dot--${kind}${upcoming ? " is-upcoming" : ""}`;
+    const card = item.games ? createGroupStack(item.games) : createCard(item.game, this.todayDay);
     group.append(rest.svg, card.el);
     root.append(stub.svg, dot, group);
     this.world.append(root);
     const connectors = [stub.svg, rest.svg];
-    const node = { root, group, connectors, card, stubPath: stub.path, restPath: rest.path, targetX: 0, dir: 1 };
+    const node: NonNullable<Item["node"]> = { root, group, connectors, card, stubPath: stub.path, restPath: rest.path, targetX: 0, dir: 1 };
+    if (item.games) {
+      node.fan = new Fan(
+        group,
+        card,
+        item.games,
+        this.todayDay,
+        () => ({ side: item.lane.side, extra: item.lane.level * TIMELINE.stackStepY }),
+        () => this.compact,
+        () => this.width / this.cardScale - 160,
+      );
+    }
     item.node = node;
     this.placeNode(item);
     hideCard(connectors, card);
@@ -576,6 +635,7 @@ export class Timeline {
     el.style[side === "above" ? "bottom" : "top"] = `${extra}px`;
     el.style[side === "above" ? "top" : "bottom"] = "";
     this.drawStub(node);
+    if (node.fan?.isOpen) node.fan.layout(this.selected >= 0 ? this.stops[this.selected].game.id : null);
   }
 
   /**
@@ -587,7 +647,7 @@ export class Timeline {
     this.compact = compact;
     const animate = this.ready && !matchMedia("(prefers-reduced-motion: reduce)").matches;
     const lanes = assignLanes(
-      this.items.map((i) => ({ x: i.x, width: cardWidth(i.game, compact) })),
+      this.items.map((i) => ({ x: i.x, width: i.games ? GROUP_WIDTH : cardWidth(i.game, compact) })),
       TIMELINE.laneGap,
       TIMELINE.maxShift,
     );
@@ -603,7 +663,7 @@ export class Timeline {
       () => {
         this.el.classList.toggle("is-compact", compact);
         this.items.forEach((item, k) => {
-          item.width = cardWidth(item.game, compact);
+          item.width = item.games ? GROUP_WIDTH : cardWidth(item.game, compact);
           item.lane = lanes[k];
           if (item.node) this.placeNode(item);
         });
@@ -650,17 +710,23 @@ export class Timeline {
         major: m === 0,
       });
     }
+    // A same-day group is one (bigger) dot; its preview lists all its games.
     const dots = [
-      ...this.items.map((i) => ({ x: i.x, game: i.game })),
-      ...this.tbaBlocks.flatMap((b) => b.slots.map((s) => ({ x: s.x, game: s.game }))),
-    ].map(({ x, game }) => ({
-      x,
-      id: game.id,
-      kind: game.kind,
-      fresh: !!news.unseenFor(game.id),
-      upcoming: !game.firstReleaseDate || parseDay(game.firstReleaseDate) > this.todayDay,
-      games: [{ title: game.title, coverUrl: game.coverUrl, when: whenLabel(game) }],
-    }));
+      ...this.items.map((i) => ({ x: i.x, games: i.games ?? [i.game] })),
+      ...this.tbaBlocks.flatMap((b) => b.slots.map((s) => ({ x: s.x, games: [s.game] }))),
+    ].map(({ x, games }) => {
+      const game = games[0];
+      const kinds = new Set(games.map((g) => g.kind));
+      return {
+        x,
+        ids: games.map((g) => g.id),
+        kind: kinds.size === 1 ? game.kind : "game",
+        group: games.length > 1,
+        fresh: games.some((g) => !!news.unseenFor(g.id)),
+        upcoming: !game.firstReleaseDate || parseDay(game.firstReleaseDate) > this.todayDay,
+        games: games.map((g) => ({ title: g.title, coverUrl: g.coverUrl, when: whenLabel(g) })),
+      };
+    });
     return new Minimap({
       worldEnd: this.worldEnd,
       months,

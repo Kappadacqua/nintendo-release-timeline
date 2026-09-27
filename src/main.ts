@@ -94,25 +94,30 @@ Promise.all([loadGames(), loadChanges()])
     const create = (games: Game[]) =>
       new Timeline(app, games, document.querySelector<HTMLElement>("#timeline-date")!, document.querySelector<HTMLElement>(".app-title")!, {
         compact: view.cardStyle === "compact",
+        group: view.groupSameDay,
       });
     let timeline = create(applyFilters(allGames, filters));
 
-    // Filters change the layout (lanes, collisions), so the timeline is rebuilt, keeping
-    // the view and, if still visible, the selected game.
-    const control = new FiltersControl(document.querySelector<HTMLElement>(".app-header__actions")!, filters, (next) => {
-      filters = next;
+    // Filters and grouping change the layout (lanes, collisions), so the timeline is rebuilt,
+    // keeping the view and, if still visible, the selected game.
+    const rebuild = () => {
       const state = timeline.getState();
       timeline.destroy();
       const visible = applyFilters(allGames, filters);
       timeline = create(visible);
       timeline.restoreState(state);
       control.setCount(visible.length, allGames.length);
+    };
+    const control = new FiltersControl(document.querySelector<HTMLElement>(".app-header__actions")!, filters, (next) => {
+      filters = next;
+      rebuild();
     });
     control.setCount(applyFilters(allGames, filters).length, allGames.length);
 
     new ViewMenu(document.querySelector<HTMLElement>(".app-header__actions")!, view, (next, changed) => {
       view = next;
       if (changed === "cardStyle") timeline.setCompact(view.cardStyle === "compact");
+      if (changed === "groupSameDay") rebuild();
     });
 
     new WhatsNew(
