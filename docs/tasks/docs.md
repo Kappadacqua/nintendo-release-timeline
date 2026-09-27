@@ -28,4 +28,5 @@ Regole:
 - Breve: al massimo 120 righe. Nessuna chiave API, solo il nome delle variabili richieste in .env (ricavalo da scripts/lib/env.ts con grep).
 
 ## [ ] Task 5 — STATUS.md sfoltito
-- Togli le voci chius
+- Togli le voci chiuse e riassumi la storia recente in al massimo 5 righe (i dettagli restano nella storia di Git e nei file di revisione).
+- Obiettivo: STATUS.md sotto le 60 righe, con ultimo checkpoint, problemi noti aperti, verifiche nel browser in sospeso, prossimi passi.
