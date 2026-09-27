@@ -25,8 +25,16 @@ export interface FetchReport {
   excludedWithoutReviewPage: { id: string; title: string; kind: string }[];
   /** DLC / Switch 2 Editions kept without that check (OpenCritic off or out of budget). */
   unverifiedReviewPage: { id: string; title: string; kind: string }[];
-  /** data/free-updates.json entries left out (same game already listed) or not found on IGDB. */
-  freeUpdates?: { created: number; duplicates: { title: string; of: string }[]; notOnIgdb: string[] };
-  /** IGDB developers of first-party games that match no Nintendo Wiki studio (data/studios-overrides.json). */
+  /**
+   * data/free-updates.json entries left out (same game already listed), not found on IGDB, or
+   * matched by release year only.
+   */
+  freeUpdates?: { created: number; duplicates: { title: string; of: string }[]; notOnIgdb: string[]; approximate?: string[] };
+  /**
+   * IGDB developers of first-party games that match no Nintendo Wiki studio (data/studios-overrides.json),
+   * and games of hidden or closed wiki studios.
+   */
   studiosUnmatched?: { developer: string; titles: string[] }[];
+  /** data/cache/studios.json missing or empty when studios.json was built. */
+  studiosCacheEmpty?: boolean;
 }

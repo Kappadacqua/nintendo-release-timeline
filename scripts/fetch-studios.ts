@@ -2,9 +2,10 @@
  * npm run data:fetch-studios — Nintendo's first-party studios from Nintendo Wiki
  * (Category:First_party_developers), with categories and active state, saved in
  * data/cache/studios.json. Public MediaWiki API only: no quotas.
- * Manual fixes go in data/studios-overrides.json.
+ * Manual fixes go in data/studios-overrides.json. If the category has fewer studios than the
+ * saved cache, the cache is kept: run `npm run data:fetch-studios -- --force` to accept them.
  */
-import { writeJson } from "./lib/cache";
+import { readJson, writeJson } from "./lib/cache";
 import { env, PATHS } from "./lib/env";
 import { fetchFirstPartyStudios, loadStudiosOverrides, type StudiosCache } from "./lib/fandom";
 
@@ -14,6 +15,14 @@ async function main() {
   const userAgent = `NintendoReleaseTimeline/0.1 (personal project; ${env("WIKI_CONTACT") ?? "no contact set"})`;
   const studios = await fetchFirstPartyStudios(userAgent);
   if (!studios.length) throw new Error("No pages in Category:First_party_developers.");
+  const previous = readJson<StudiosCache | null>(PATHS.studiosCache, null)?.studios ?? [];
+  if (studios.length < previous.length && !process.argv.includes("--force")) {
+    const gone = previous.filter((p) => !studios.some((s) => s.title === p.title)).map((p) => p.title);
+    throw new Error(
+      `${studios.length} studios, ${previous.length} in the saved cache (missing: ${gone.join(", ")}). ` +
+        "Cache kept; run `npm run data:fetch-studios -- --force` to save the smaller list.",
+    );
+  }
   const cache: StudiosCache = {
     fetchedAt: new Date().toISOString(),
     source: "https://nintendo.fandom.com/wiki/Category:First_party_developers",

@@ -178,11 +178,18 @@ describe("buildStudios: unmatched developers", () => {
   });
 
   // docs/review/data.md, [media] "i giochi di uno studio nascosto o chiuso spariscono senza comparire tra i non abbinati".
-  it.todo("lists the games of hidden or closed wiki studios", () => {
+  it("lists the games of hidden or closed wiki studios", () => {
     files.studios = [wiki("Nintendo"), wiki("Old Studio", false)];
     files.overrides = { Nintendo: { hidden: true } } satisfies StudiosOverrides;
     const games = [game("DK Challenge", "Nintendo", "2026-01-01", { firstParty: true }), game("B", "Old Studio", "2026-01-01", { firstParty: true })];
     expect(build(games).unmatched.flatMap((u) => u.titles).sort()).toEqual(["B", "DK Challenge"]);
+  });
+
+  // docs/review/data.md, [media] "senza cache degli studi la build riesce ma trasforma gli studi first party in partner".
+  it("flags a missing or empty studios cache", () => {
+    expect(build([]).cacheEmpty).toBe(true);
+    files.studios = [wiki("EPD")];
+    expect(build([]).cacheEmpty).toBe(false);
   });
 
   // docs/review/data.md, [bassa] "due studi della wiki con lo stesso nome normalizzato si sovrascrivono".

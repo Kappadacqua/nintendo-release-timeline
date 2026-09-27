@@ -54,12 +54,23 @@ export const fandomUrl = (pageTitle: string) =>
 
 const CLOSED = /defunct|former/i;
 
-interface CategoryMembers {
+/** MediaWiki reports many errors (parameters, maxlag, limits) with HTTP 200 and this body. */
+interface ApiError {
+  error?: { code: string; info?: string };
+}
+
+/** The response, or an error when MediaWiki answered with `error`. */
+function checked<T extends ApiError>(res: T, label: string): T {
+  if (res.error) throw new Error(`${label}: MediaWiki error ${res.error.code}${res.error.info ? ` — ${res.error.info}` : ""}`);
+  return res;
+}
+
+interface CategoryMembers extends ApiError {
   query?: { categorymembers?: { title: string; ns: number }[] };
   continue?: Record<string, string>;
 }
 
-interface PagesQuery {
+interface PagesQuery extends ApiError {
   query?: {
     pages?: {
       title: string;
@@ -89,7 +100,8 @@ export async function fetchFirstPartyStudios(userAgent: string): Promise<FandomS
       cmlimit: "500",
       ...next,
     });
-    const res = await fetchJson<CategoryMembers>(`${FANDOM_API}?${params}`, { headers, throttle, label: "Nintendo Wiki category" });
+    const label = "Nintendo Wiki category";
+    const res = checked(await fetchJson<CategoryMembers>(`${FANDOM_API}?${params}`, { headers, throttle, label }), label);
     titles.push(...(res.query?.categorymembers ?? []).map((m) => m.title));
     next = res.continue ?? {};
   } while (Object.keys(next).length);
@@ -111,7 +123,8 @@ export async function fetchFirstPartyStudios(userAgent: string): Promise<FandomS
         titles: titles.slice(i, i + 50).join("|"),
         ...cont,
       });
-      const res = await fetchJson<PagesQuery>(`${FANDOM_API}?${params}`, { headers, throttle, label: "Nintendo Wiki pages" });
+      const label = "Nintendo Wiki pages";
+      const res = checked(await fetchJson<PagesQuery>(`${FANDOM_API}?${params}`, { headers, throttle, label }), label);
       for (const p of res.query?.pages ?? []) {
         if (p.missing) continue;
         const page = pages.get(p.title) ?? { categories: [], content: "" };
@@ -123,8 +136,11 @@ export async function fetchFirstPartyStudios(userAgent: string): Promise<FandomS
     } while (Object.keys(cont).length);
   }
 
+  // A category member without its page means a failed or partial answer: never a smaller cache.
+  const lost = titles.filter((t) => !pages.has(t));
+  if (lost.length) throw new Error(`Nintendo Wiki pages: no data for ${lost.join(", ")}`);
+
   return titles
-    .filter((t) => pages.has(t))
     .map((title) => {
       const { categories, content } = pages.get(title)!;
       const defunct = (content.match(/^\s*\|\s*defunct\s*=(.*)$/m)?.[1] ?? "").trim();

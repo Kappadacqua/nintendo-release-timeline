@@ -128,7 +128,7 @@ export interface Settings {
   };
 }
 
-/** Today in the local time zone, "YYYY-MM-DD": the day the Studios page and the timeline count from. */
+/** Today in the local time zone, "YYYY-MM-DD", as on the timeline and the Studios page. */
 const localToday = () => {
   const now = new Date();
   return [now.getFullYear(), now.getMonth() + 1, now.getDate()].map((n) => String(n).padStart(2, "0")).join("-");
@@ -172,7 +172,7 @@ export function buildGames(): BuildResult {
   const status = readJson<FetchStatus | null>(PATHS.fetchStatus, null);
   const history = new ExclusivityHistory(PATHS.history);
   const previous = new Map(readJson<GamesFile>(PATHS.games, { generatedAt: "", games: [] }).games.map((g) => [g.id, g]));
-  const today = new Date().toISOString().slice(0, 10);
+  const today = localToday();
 
   const { selected, wikiPageById, wikipediaUnmatched, candidates } = selectGames(igdb, wiki, overridesFile);
   const report: FetchReport = {
@@ -268,7 +268,7 @@ export function buildGames(): BuildResult {
   // Free Switch 2 updates of Switch games (data/free-updates.json), unless that game already has a card.
   const withOverrides = kept.map(({ game }) => applyOverride(game, overrides[game.id]));
   const free = freeUpdateGames(withOverrides, (g, l) => storePages(g, l, settings).EU);
-  report.freeUpdates = { created: free.games.length, duplicates: free.duplicates, notOnIgdb: free.notOnIgdb };
+  report.freeUpdates = { created: free.games.length, duplicates: free.duplicates, notOnIgdb: free.notOnIgdb, approximate: free.approximate };
   const freeGames = free.games.filter((g) => overrides[g.id]?.include !== false).map((g) => applyOverride(g, overrides[g.id]));
 
   // Dated games by date, then TBA by expected year (unknown year last), then title.
@@ -295,9 +295,10 @@ export function buildGames(): BuildResult {
         return igdb ? publishers(igdb).some(isNintendoPublisher) : g.firstParty;
       },
     },
-    localToday(),
+    today,
   );
   report.studiosUnmatched = studios.unmatched;
+  report.studiosCacheEmpty = studios.cacheEmpty;
 
   const file: GamesFile = { generatedAt: report.generatedAt, games };
   writeJson(PATHS.games, file);

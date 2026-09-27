@@ -14,7 +14,7 @@ Regola: la scelta del gioco da mostrare deve dare la precedenza ai giochi Switch
 File: scripts/lib/studios.ts, scripts/lib/build.ts (solo le parti pertinenti), src/studios/order.ts e i relativi test.
 Verifica: typecheck, npm test (i due it.todo corrispondenti diventano attivi e passano), data:build.
 
-## [ ] Task 2 — Pipeline dati: problemi di gravità media
+## [x] Task 2 — Pipeline dati: problemi di gravità media
 Problemi: tutti quelli di gravità media in docs/review/data.md, esclusi quelli rimandati a pages.md.
 File: quelli indicati in data.md per ciascun problema.
 Verifica: typecheck, npm test (l'it.todo "giochi di studi nascosti o chiusi tra i non abbinati" diventa attivo e passa), data:build, data:validate. games.json e studios.json non devono cambiare salvo dove la correzione lo richiede: spiega nel report ogni differenza.

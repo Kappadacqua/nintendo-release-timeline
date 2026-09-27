@@ -22,22 +22,48 @@ export class HttpError extends Error {
   }
 }
 
-/** fetch + JSON, retrying 429 and 5xx with exponential backoff. */
+const TIMEOUT_MS = 30_000;
+/** Longest wait accepted from a Retry-After header. */
+const MAX_RETRY_WAIT_MS = 60_000;
+
+/**
+ * fetch + JSON, retrying 429, 5xx and network errors (timeouts included) with exponential
+ * backoff. Every error message starts with the label.
+ */
 export async function fetchJson<T>(
   url: string,
   init: RequestInit & { throttle?: Throttle; label?: string } = {},
   retries = 4,
 ): Promise<T> {
   const { throttle, label = url, ...request } = init;
+  const backoff = (attempt: number) => sleep(1000 * 2 ** attempt);
   for (let attempt = 0; ; attempt++) {
     await throttle?.wait();
-    const res = await fetch(url, request);
-    if (res.ok) return (await res.json()) as T;
+    let res: Response;
+    try {
+      res = await fetch(url, { ...request, signal: request.signal ?? AbortSignal.timeout(TIMEOUT_MS) });
+    } catch (err) {
+      // DNS, connection reset, timeout: fetch rejects without a response.
+      if (attempt < retries) {
+        await backoff(attempt);
+        continue;
+      }
+      throw new Error(`${label}: ${(err as Error).message}`);
+    }
+    if (res.ok) {
+      const text = await res.text();
+      try {
+        return JSON.parse(text) as T;
+      } catch {
+        throw new Error(`${label}: invalid JSON (HTTP ${res.status}) ${text.slice(0, 300)}`);
+      }
+    }
 
     const retryable = res.status === 429 || res.status >= 500;
     if (retryable && attempt < retries) {
       const retryAfter = Number(res.headers.get("retry-after"));
-      await sleep(Number.isFinite(retryAfter) && retryAfter > 0 ? retryAfter * 1000 : 1000 * 2 ** attempt);
+      if (Number.isFinite(retryAfter) && retryAfter > 0) await sleep(Math.min(retryAfter * 1000, MAX_RETRY_WAIT_MS));
+      else await backoff(attempt);
       continue;
     }
     const body = (await res.text()).slice(0, 300);

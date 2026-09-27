@@ -29,7 +29,7 @@ Controllati senza problemi:
 
 ### Build senza rete / senza cache
 
-**[media] `scripts/lib/studios.ts:45,57-62` — senza cache degli studi la build riesce ma trasforma gli studi first party in partner, senza avvisi**
+**[media] `scripts/lib/studios.ts:45,57-62` — senza cache degli studi la build riesce ma trasforma gli studi first party in partner, senza avvisi** ✔ corretto in `Data: fetch timeouts, kept links, hidden studios, local build day`
 Se `data/cache/studios.json` manca o è vuoto, `byName` è vuota e ogni chiave di `studios-overrides.json` diventa un alias: gli studi Nintendo (EPD, NST, Nintendo Cube…) finiscono tra gli "altri" e, essendo pubblicati da Nintendo, compaiono come "Partner" senza link a Nintendo Wiki. Né il report né `data:validate` segnalano la cache mancante. Oggi non succede perché la cache è versionata.
 Correzione: con `cache.studios` vuoto aggiungere un avviso al report (mostrato da `data:validate`), oppure non scrivere `studios.json` in quel caso.
 
@@ -49,21 +49,21 @@ Correzione: far restituire alla funzione la mappa aggiornata e scriverla insieme
 
 ### Errori di rete negli script di fetch
 
-**[media] `scripts/lib/http.ts:26-46` — niente timeout, errori di rete non ritentati, JSON non valido senza contesto**
+**[media] `scripts/lib/http.ts:26-46` — niente timeout, errori di rete non ritentati, JSON non valido senza contesto** ✔ corretto in `Data: fetch timeouts, kept links, hidden studios, local build day`
 `fetch` non ha `signal`: una connessione che resta aperta blocca lo script per sempre. Gli errori di rete (DNS, `ECONNRESET`, lanciati da `fetch` come `TypeError`) non passano dal ciclo di tentativi e fanno fallire tutto al primo errore. Una risposta 200 non JSON (pagina HTML di un proxy o di manutenzione) produce un `SyntaxError` senza `label`. Un `Retry-After` molto grande viene atteso senza limite. Vale per entrambi gli script di fetch (e per `data:fetch`).
 Correzione: `signal: AbortSignal.timeout(30_000)`, ritentare anche gli errori di `fetch`, avvolgere `res.json()` per aggiungere `label`, limitare l'attesa (es. 60 s).
 
-**[media] `scripts/lib/fandom.ts:92,114,126` + `scripts/fetch-studios.ts:15-22` — gli errori dell'API MediaWiki passano inosservati e una risposta parziale sovrascrive la cache**
+**[media] `scripts/lib/fandom.ts:92,114,126` + `scripts/fetch-studios.ts:15-22` — gli errori dell'API MediaWiki passano inosservati e una risposta parziale sovrascrive la cache** ✔ corretto in `Data: fetch timeouts, kept links, hidden studios, local build day`
 MediaWiki segnala molti errori (parametri, `maxlag`, limiti) con HTTP 200 e un corpo `{ "error": … }`: `res.query` è assente e il codice lo tratta come "nessun risultato". Sulla categoria lo script si ferma ("No pages…"), ma se fallisce una delle richieste delle pagine, quegli studi spariscono in silenzio (`titles.filter((t) => pages.has(t))`) e `fetch-studios` scrive comunque la cache ridotta: alla build successiva gli studi mancanti non compaiono più.
 Correzione: in `fetchFirstPartyStudios` lanciare un errore se la risposta ha `error` o se un titolo della categoria non ha pagina; in `fetch-studios` non sovrascrivere se il numero di studi cala rispetto alla cache precedente senza conferma.
 
-**[media] `scripts/fetch-free-updates.ts:20,54-81` + `scripts/lib/free-updates.ts:157-161` — un errore su Wikidata / Wikipedia / Nintendo Wiki cancella i link salvati**
+**[media] `scripts/fetch-free-updates.ts:20,54-81` + `scripts/lib/free-updates.ts:157-161` — un errore su Wikidata / Wikipedia / Nintendo Wiki cancella i link salvati** ✔ corretto in `Data: fetch timeouts, kept links, hidden studios, local build day`
 La cache viene ricostruita da zero (`emptyFreeUpdatesCache()`): se una delle tre fonti di link fallisce, l'errore viene solo stampato e la cache si scrive senza quei link, perdendo quelli del giro precedente. In build gli aggiornamenti gratuiti, a differenza dei giochi normali (`before?.links[key]`, `build.ts:251`), non ripiegano sui link di `games.json`, quindi i pulsanti Wikipedia / Nintendo Wiki / Store spariscono dalle card.
 Correzione: in caso di errore di una fonte, copiare nella nuova cache le voci di quella fonte dalla cache precedente.
 
 ### Abbinamento degli studi
 
-**[media] `scripts/lib/studios.ts:73-76` — i giochi di uno studio nascosto o chiuso spariscono senza comparire tra i non abbinati**
+**[media] `scripts/lib/studios.ts:73-76` — i giochi di uno studio nascosto o chiuso spariscono senza comparire tra i non abbinati** ✔ corretto in `Data: fetch timeouts, kept links, hidden studios, local build day`
 Un gioco il cui sviluppatore corrisponde a uno studio della wiki non mostrato (chiuso o `hidden`) non va a nessuno studio e non finisce in `unmatched`, quindi `data:validate` non lo segnala. Oggi: "DK Challenge" e "The Legend of Zelda: Ocarina of Time" (sviluppatore IGDB "Nintendo", nascosto come casa madre). Lo stesso accadrebbe a un gioco nuovo attribuito a uno studio segnato chiuso a mano (es. "Nintendo EPD Smart Device Production Group", chiuso nel 2026).
 Correzione: aggiungere questi giochi a `unmatched` (con il nome dello studio non mostrato), così `data:validate` li elenca e si sistemano con `developer` negli override.
 
@@ -89,7 +89,7 @@ Correzione: preferire il primo sviluppatore che corrisponde a uno studio mostrat
 
 ### Doppioni e abbinamento degli aggiornamenti gratuiti
 
-**[media] `scripts/fetch-free-updates.ts:41-46` — la ricerca di riserva accetta un gioco diverso con lo stesso anno**
+**[media] `scripts/fetch-free-updates.ts:41-46` — la ricerca di riserva accetta un gioco diverso con lo stesso anno** ✔ corretto in `Data: fetch timeouts, kept links, hidden studios, local build day`
 Se nessun risultato ha lo stesso titolo, viene preso il primo dei 5 risultati della ricerca uscito nello stesso anno del gioco originale, qualunque sia il titolo (IGDB restituisce spesso DLC, raccolte o giochi omonimi). La card riceve copertina, riassunto, sviluppatore e link di un altro gioco, e né il log né `data:validate` lo segnalano (conta solo come "trovato"). Oggi tutti i 19 titoli sono abbinati per titolo.
 Correzione: registrare in cache gli abbinamenti per anno come "approssimati" e mostrarli in `data:validate`; in più permettere un `igdbId` esplicito nella voce di `data/free-updates.json`.
 

@@ -26,8 +26,13 @@ export const isNintendoPublisher = (name: string) => /^nintendo\b|\bpokemon comp
 
 export interface StudiosResult {
   studios: Studio[];
-  /** Developers of first-party games attributed to no studio ("" = no IGDB developer). */
+  /**
+   * Developers of first-party games attributed to no studio ("" = no IGDB developer), and the
+   * games of hidden or closed wiki studios ("Nintendo (hidden studio)").
+   */
   unmatched: { developer: string; titles: string[] }[];
+  /** data/cache/studios.json missing or empty: the Nintendo studios end up as partners. */
+  cacheEmpty: boolean;
 }
 
 /** What the caller knows from the cached IGDB data. */
@@ -51,11 +56,12 @@ export function buildStudios(games: Game[], info: StudioGameInfo, today: string)
 
   // Every wiki studio (closed and hidden ones too) claims its names, so their games are "matched"
   // without being shown: e.g. "Nintendo", the parent company, is hidden and attributes to no one.
-  const byName = new Map<string, { title: string; url: string; shown: boolean }>();
+  const byName = new Map<string, { title: string; url: string; shown: boolean; hidden: boolean }>();
   for (const s of cache.studios) {
     const o = overrides[s.title] ?? {};
-    const shown = (o.active ?? s.active) && !o.hidden;
-    for (const name of [s.title, ...(o.igdbNames ?? [])]) byName.set(normalizeStudio(name), { title: s.title, url: s.url, shown });
+    const hidden = !!o.hidden;
+    const shown = (o.active ?? s.active) && !hidden;
+    for (const name of [s.title, ...(o.igdbNames ?? [])]) byName.set(normalizeStudio(name), { title: s.title, url: s.url, shown, hidden });
   }
   // Overrides for names outside the wiki: aliases (and hiding) for partners and third parties.
   const alias = new Map<string, { name: string; hidden: boolean }>();
@@ -76,6 +82,11 @@ export function buildStudios(games: Game[], info: StudioGameInfo, today: string)
     const studio = byName.get(normalizeStudio(g.developer));
     if (studio) {
       if (studio.shown) gamesOf.set(studio.title, [...(gamesOf.get(studio.title) ?? []), g]);
+      else {
+        // Nobody shows these games: data:validate lists them, to fix with a game `developer` override.
+        const key = `${studio.title} (${studio.hidden ? "hidden" : "closed"} studio)`;
+        unmatched.set(key, [...(unmatched.get(key) ?? []), g.title]);
+      }
       continue;
     }
     const a = alias.get(normalizeStudio(g.developer));
@@ -107,7 +118,11 @@ export function buildStudios(games: Game[], info: StudioGameInfo, today: string)
     ...rest,
   ].sort(byShownGame);
 
-  return { studios, unmatched: [...unmatched].map(([developer, titles]) => ({ developer, titles })) };
+  return {
+    studios,
+    unmatched: [...unmatched].map(([developer, titles]) => ({ developer, titles })),
+    cacheEmpty: cache.studios.length === 0,
+  };
 }
 
 const dated = (list: Game[]) =>

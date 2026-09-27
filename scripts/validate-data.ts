@@ -84,6 +84,11 @@ if (report) {
     "Check the title in data/free-updates.json, then run `npm run data:fetch-free-updates`.",
   );
   section(
+    "Free updates matched on IGDB by release year only",
+    report.freeUpdates?.approximate ?? [],
+    'Check cover and summary on the card; if it is another game, set "igdbId" on the entry in data/free-updates.json and run `npm run data:fetch-free-updates`.',
+  );
+  section(
     "Exclusivity conflicts (Wikipedia vs IGDB)",
     report.exclusivityConflicts
       .filter((c) => overrides[c.id]?.exclusivity === undefined) // already decided by hand
@@ -111,6 +116,11 @@ if (report) {
     report.opencritic.enabled
       ? "OpenCritic budget ran out; they will be checked on the next runs."
       : "RAPIDAPI_KEY is not set, so they were kept without the check.",
+  );
+  section(
+    "Studios cache missing or empty",
+    report.studiosCacheEmpty ? ["data/cache/studios.json has no studios: Nintendo's studios were built as partners, without Nintendo Wiki links."] : [],
+    "Run `npm run data:fetch-studios` (or restore the file from git), then `npm run data:build`.",
   );
   section(
     "First-party games attributed to no studio",

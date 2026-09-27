@@ -97,6 +97,7 @@ export interface Studio {
   /** Nintendo Wiki page; null for partners and third-party studios. */
   url: string | null;
   category: StudioCategory;
+  /** Always a Switch 2 game (the next out, else the latest released); null without a dated one. */
   game: StudioGame | null;
   /** At least one game or Switch 2 Edition playable on Switch 2 in games.json (DLC and free updates excluded). */
   hasSwitch2Game: boolean;

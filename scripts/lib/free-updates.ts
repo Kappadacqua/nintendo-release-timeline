@@ -19,6 +19,8 @@ export interface FreeUpdateEntry {
   type: "free_update";
   /** US store page, used when no Italian (EU) page is known. */
   store_url?: string;
+  /** IGDB id of the original game, when the title search finds the wrong one or none. */
+  igdbId?: number;
 }
 
 export interface FreeUpdatesFile {
@@ -39,6 +41,8 @@ export interface FreeUpdatesCache {
   /** Wikidata eShop ids per IGDB slug (same meaning as in links.json). */
   eshopEuBySlug: Record<string, string>;
   eshopUsBySlug: Record<string, string>;
+  /** Titles matched only by the original release year, not by title: to check by hand. */
+  approximate: string[];
 }
 
 export const emptyFreeUpdatesCache = (): FreeUpdatesCache => ({
@@ -49,6 +53,7 @@ export const emptyFreeUpdatesCache = (): FreeUpdatesCache => ({
   nintendoWikiByTitle: {},
   eshopEuBySlug: {},
   eshopUsBySlug: {},
+  approximate: [],
 });
 
 export function loadFreeUpdates(): FreeUpdateEntry[] {
@@ -98,6 +103,8 @@ export interface FreeUpdatesResult {
   duplicates: { title: string; of: string }[];
   /** No IGDB match: no cover, summary or developer. */
   notOnIgdb: string[];
+  /** Matched on IGDB by release year only (possibly another game). */
+  approximate: string[];
 }
 
 /**
@@ -111,7 +118,7 @@ export function freeUpdateGames(
   const cache = { ...emptyFreeUpdatesCache(), ...readJson<Partial<FreeUpdatesCache>>(PATHS.freeUpdatesCache, {}) };
   const igdb = new Map(cache.games.map((g) => [g.id, g]));
   const links = { ...emptyLinks(), eshopEuBySlug: cache.eshopEuBySlug, eshopUsBySlug: cache.eshopUsBySlug };
-  const result: FreeUpdatesResult = { games: [], duplicates: [], notOnIgdb: [] };
+  const result: FreeUpdatesResult = { games: [], duplicates: [], notOnIgdb: [], approximate: [] };
 
   for (const entry of loadFreeUpdates()) {
     const dup = duplicateOf(entry.title, existing);
@@ -123,6 +130,7 @@ export function freeUpdateGames(
     const id = cache.matches[entry.title];
     const g = id != null ? igdb.get(id) : undefined;
     if (!g) result.notOnIgdb.push(entry.title);
+    else if (cache.approximate.includes(entry.title)) result.approximate.push(entry.title);
     const base: Game = g
       ? toGame(g, { releaseDates: {}, firstReleaseDate: null, fullyUnknown: false })
       : {
