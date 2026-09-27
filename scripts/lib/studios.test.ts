@@ -147,7 +147,7 @@ describe("buildStudios: shown game", () => {
   });
 
   // docs/review/pages.md, [alta] "uno studio con un gioco Switch 2 può mostrare un gioco Switch 1".
-  it.todo("never shows a Switch 1 game for a studio with a Switch 2 game", () => {
+  it("never shows a Switch 1 game for a studio with a Switch 2 game", () => {
     const games = [game("S2 TBA", "EPD", null), game("S1 dated", "EPD", "2026-12-01", { s1: true, s2: false })];
     expect(byName(games, "EPD")?.game).toBeNull();
     const later = [game("S2", "EPD", "2026-05-01"), game("S1 later", "EPD", "2026-12-01", { s1: true, s2: false })];
@@ -155,8 +155,8 @@ describe("buildStudios: shown game", () => {
   });
 
   // docs/review/pages.md, [media] "il gioco mostrato è fissato al momento della build, in UTC":
-  // the page counts a game out today as upcoming (days >= 0), the build as released.
-  it.todo("treats a game out on the build day as upcoming, like the page", () => {
+  // the page counts a game out today as upcoming (days >= 0), and so does the build.
+  it("treats a game out on the build day as upcoming, like the page", () => {
     const games = [game("Today", "EPD", TODAY), game("Next", "EPD", "2026-12-01")];
     expect(byName(games, "EPD")?.game).toMatchObject({ title: "Today", status: "upcoming" });
   });

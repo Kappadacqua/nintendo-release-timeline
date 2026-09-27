@@ -1,6 +1,6 @@
 # Stato del progetto
 
-Aggiornato: 2026-09-27 — Revisione qualità, task 4 (test Vitest)
+Aggiornato: 2026-09-27 — Correzioni, task 1 (Studios: gioco mostrato e data della build)
 
 ## Ultimo checkpoint
 
@@ -12,6 +12,8 @@ Aggiornato: 2026-09-27 — Revisione qualità, task 4 (test Vitest)
 Nessuno.
 
 ## Da verificare nel browser (Architetto)
+
+- Correzioni, task 1 (`docs/tasks/fixes.md`): in `studios.json` il gioco di uno studio è scelto solo tra i giochi Switch 2 (quelli senza gioco Switch 2 hanno `game: null`, prima avevano il gioco Switch 1); la build usa il giorno locale e conta come "upcoming" un gioco che esce oggi, come la pagina. Nella pagina Studios non è atteso nessun cambio visivo con i dati attuali: EPD No. 4, TNX, Wonderfy, Artdink restano "No Switch 2 game yet" + "Latest: … · Switch 1".
 
 - Revisione, task 4: Vitest (`npm test`, 51 test + 6 `it.todo`). Logica pura spostata senza cambiarla in `src/rankings/rank.ts` e `src/studios/order.ts`: controllare che Rankings (ordinamento, soglia, medie) e Studios (stato "Upcoming · in N days", ordine) funzionino come prima. I 6 `todo` sono i bug noti di `docs/review/pages.md` e `data.md`: quando si correggono, `it.todo` → `it`.
 
@@ -54,9 +56,9 @@ Nessuno.
 4. **Free updates in "What's new"** — `data/free-updates-seen.json` è stato generato dalla build e va tenuto nel repo: se viene cancellato, la build successiva tratta di nuovo tutte le voci come già note (nessuna novità).
 5. **Due gruppi nello stesso giorno** — il gruppo dei giochi e quello degli aggiornamenti hanno la stessa x: la disposizione in corsie li separa, ma il passaggio da un ventaglio aperto all'altro non è mai stato provato.
 6. **Studios: giochi senza sviluppatore** — 3 giochi first party non hanno sviluppatore su IGDB e non vanno a nessuno studio (si sistemano con `developer` negli override dei giochi).
-7. **Studios: ordine** — l'ordine è ricalcolato nella pagina sul gioco *mostrato*: gli studi senza gioco Switch 2 (anche se `game` contiene un gioco Switch 1) e quelli con gioco Switch 2 senza data finiscono nel gruppo finale alfabetico.
+7. **Studios: ordine** — l'ordine è ricalcolato nella pagina sul gioco *mostrato*: gli studi senza gioco Switch 2 e quelli con gioco Switch 2 senza data finiscono nel gruppo finale alfabetico.
 8. **Reduced motion incompleto** — titolo in alto a sinistra (`header.css:43`) e icona del tema (`theme.ts:44`) si muovono anche con `prefers-reduced-motion` (dettagli in `docs/review/static.md`).
-9. **Studios: gioco mostrato fissato alla build** — `studios.json` contiene un solo gioco per studio, scelto con la data UTC della build: quando esce, la pagina lo mostra come uscito anche se lo studio ha già il gioco successivo, finché non si rifà `data:build` (dettagli in `docs/review/pages.md`).
+9. **Studios: gioco mostrato fissato alla build** — `studios.json` contiene un solo gioco per studio, scelto con il giorno locale della build: quando esce, la pagina lo mostra come uscito anche se lo studio ha già il gioco successivo, finché non si rifà `data:build`. Il fuso UTC è corretto (fixes, task 1); resta da valutare se scrivere tutti i giochi Switch 2 e scegliere nella pagina.
 10. **Studios: giochi di studi nascosti non segnalati** — "DK Challenge" e "The Legend of Zelda: Ocarina of Time" (sviluppatore IGDB "Nintendo", nascosto) non vanno a nessuno studio e `data:validate` non li elenca (dettagli in `docs/review/data.md`).
 
 ## Prossimi task (in ordine)

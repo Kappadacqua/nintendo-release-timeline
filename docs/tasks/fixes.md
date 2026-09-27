@@ -8,7 +8,7 @@ Regole:
 - Segna i problemi corretti in docs/review/*.md aggiungendo "✔ corretto in <commit>" accanto al titolo.
 - Non eseguire i comandi data:fetch*, non fare git push, non toccare wip/perf.
 
-## [ ] Task 1 — Studi: gioco mostrato e data della build
+## [x] Task 1 — Studi: gioco mostrato e data della build
 Problemi: in docs/review/pages.md, [alta] studio con gioco Switch 2 che mostra un gioco Switch 1; [media] gioco che esce il giorno della build "uscito" per la build ma "in uscita" per la pagina.
 Regola: la scelta del gioco da mostrare deve dare la precedenza ai giochi Switch 2, e build e pagina devono usare la stessa regola di data, basata sul fuso locale (come la timeline).
 File: scripts/lib/studios.ts, scripts/lib/build.ts (solo le parti pertinenti), src/studios/order.ts e i relativi test.

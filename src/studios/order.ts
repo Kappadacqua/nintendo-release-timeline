@@ -11,7 +11,7 @@ export function relative(days: number) {
   return days > 0 ? `Upcoming · in ${daySpan(days)}` : `Released ${daySpan(-days)} ago`;
 }
 
-/** The Switch 2 game on the card: none for studios without one (their game is a Switch 1 game). */
+/** The Switch 2 game on the card: none for studios without one (the build leaves `game` null for them). */
 export const shownGame = (s: Studio) => (s.hasSwitch2Game ? s.game : null);
 
 /** Upcoming (nearest first), then released (latest first), then no game (alphabetical). */

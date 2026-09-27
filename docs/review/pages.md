@@ -21,11 +21,11 @@ Controllati senza problemi: soglia a 0 o non numerica (`validMin` scarta NaN, ne
 
 ### Differenze da SPEC
 
-**[alta] `scripts/lib/studios.ts:88,120` + `src/studios/main.ts:67` — uno studio con un gioco Switch 2 può mostrare un gioco Switch 1**
+**[alta] `scripts/lib/studios.ts:88,120` + `src/studios/main.ts:67` — uno studio con un gioco Switch 2 può mostrare un gioco Switch 1** ✔ corretto in `Studios: Switch 2 game first, local build day`
 `shownGame(list, today)` sceglie tra *tutti* i giochi dello studio, anche quelli solo Switch 1; la pagina mostra `studio.game` quando `hasSwitch2Game` è vero. Uno studio con un gioco Switch 2 senza data e un gioco Switch 1 datato mostra il gioco Switch 1 al posto di "Release date TBA"; con un gioco Switch 1 più recente o in uscita dopo, mostra quello al posto del gioco Switch 2 (SPEC §14: "prossimo in uscita… altrimenti l'ultimo uscito" tra i giochi Switch 2). Nei dati attuali i 26 giochi mostrati per studi con gioco Switch 2 sono giochi Switch 2 o Switch 2 Edition (controllo su `games.json`, piattaforme IGDB non verificate), ma basta un nuovo gioco Switch 1 nel dataset.
 Correzione: in `toStudio` calcolare `game` su `list.filter(info.onSwitch2)` quando `hasSwitch2Game`, sul resto solo per `latestSwitch1Game`.
 
-**[media] `scripts/lib/studios.ts:120-123` + `scripts/lib/build.ts:169` — il gioco mostrato è fissato al momento della build, in UTC**
+**[media] `scripts/lib/studios.ts:120-123` + `scripts/lib/build.ts:169` — il gioco mostrato è fissato al momento della build, in UTC** ✔ corretto in `Studios: Switch 2 game first, local build day`
 `studios.json` contiene un solo gioco per studio, scelto con la data della build. Quando quel gioco esce, la pagina ricalcola lo stato ("Released 2 days ago") ma continua a mostrarlo anche se lo studio ha già un altro gioco datato in uscita, finché non si rifà `data:build`. In più `today` della build è la data UTC (`toISOString`) e il confronto è `>`: tra mezzanotte e le 2 in Italia la scelta usa il giorno precedente, e un gioco che esce oggi conta come "uscito" per la build ma come "in uscita" per la pagina (`src/studios/main.ts:75`).
 Correzione: scrivere in `studios.json` tutti i giochi Switch 2 datati dello studio (id, titolo, copertina, data) e scegliere il gioco nella pagina con `todayEpochDay()`.
 

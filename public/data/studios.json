@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-27T16:25:14.971Z",
+  "generatedAt": "2026-09-27T17:23:56.509Z",
   "studios": [
     {
       "name": "Monolith Soft",
@@ -80,26 +80,6 @@
       "hasSwitch2Game": true
     },
     {
-      "name": "TNX",
-      "url": null,
-      "category": "partner",
-      "game": {
-        "id": "igdb:337031",
-        "title": "Rhythm Heaven Groove",
-        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobwkn.jpg",
-        "date": "2026-07-02",
-        "status": "released"
-      },
-      "hasSwitch2Game": false,
-      "latestSwitch1Game": {
-        "id": "igdb:337031",
-        "title": "Rhythm Heaven Groove",
-        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobwkn.jpg",
-        "date": "2026-07-02",
-        "status": "released"
-      }
-    },
-    {
       "name": "Velan Studios",
       "url": null,
       "category": "partner",
@@ -111,26 +91,6 @@
         "status": "released"
       },
       "hasSwitch2Game": true
-    },
-    {
-      "name": "Artdink",
-      "url": null,
-      "category": "third-party",
-      "game": {
-        "id": "igdb:388239",
-        "title": "A-Train 9 Evolution",
-        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc178.jpg",
-        "date": "2026-06-04",
-        "status": "released"
-      },
-      "hasSwitch2Game": false,
-      "latestSwitch1Game": {
-        "id": "igdb:388239",
-        "title": "A-Train 9 Evolution",
-        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc178.jpg",
-        "date": "2026-06-04",
-        "status": "released"
-      }
     },
     {
       "name": "Konami",
@@ -157,26 +117,6 @@
         "status": "released"
       },
       "hasSwitch2Game": true
-    },
-    {
-      "name": "Nintendo EPD Production Group No. 4",
-      "url": "https://nintendo.fandom.com/wiki/Nintendo_EPD_Production_Group_No._4",
-      "category": "first-party",
-      "game": {
-        "id": "igdb:337036",
-        "title": "Tomodachi Life: Living the Dream",
-        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobdqd.jpg",
-        "date": "2026-04-16",
-        "status": "released"
-      },
-      "hasSwitch2Game": false,
-      "latestSwitch1Game": {
-        "id": "igdb:337036",
-        "title": "Tomodachi Life: Living the Dream",
-        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobdqd.jpg",
-        "date": "2026-04-16",
-        "status": "released"
-      }
     },
     {
       "name": "The Pokémon Works",
@@ -335,26 +275,6 @@
       "hasSwitch2Game": true
     },
     {
-      "name": "Wonderfy",
-      "url": null,
-      "category": "partner",
-      "game": {
-        "id": "igdb:356551",
-        "title": "Pokémon Friends",
-        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coa5oc.jpg",
-        "date": "2025-07-22",
-        "status": "released"
-      },
-      "hasSwitch2Game": false,
-      "latestSwitch1Game": {
-        "id": "igdb:356551",
-        "title": "Pokémon Friends",
-        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coa5oc.jpg",
-        "date": "2025-07-22",
-        "status": "released"
-      }
-    },
-    {
       "name": "Nintendo EPD Production Group No. 8",
       "url": "https://nintendo.fandom.com/wiki/Nintendo_EPD_Production_Group_No._8",
       "category": "first-party",
@@ -427,6 +347,20 @@
       "hasSwitch2Game": false
     },
     {
+      "name": "Artdink",
+      "url": null,
+      "category": "third-party",
+      "game": null,
+      "hasSwitch2Game": false,
+      "latestSwitch1Game": {
+        "id": "igdb:388239",
+        "title": "A-Train 9 Evolution",
+        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc178.jpg",
+        "date": "2026-06-04",
+        "status": "released"
+      }
+    },
+    {
       "name": "Bloober Team",
       "url": null,
       "category": "third-party",
@@ -469,6 +403,20 @@
       "hasSwitch2Game": false
     },
     {
+      "name": "Nintendo EPD Production Group No. 4",
+      "url": "https://nintendo.fandom.com/wiki/Nintendo_EPD_Production_Group_No._4",
+      "category": "first-party",
+      "game": null,
+      "hasSwitch2Game": false,
+      "latestSwitch1Game": {
+        "id": "igdb:337036",
+        "title": "Tomodachi Life: Living the Dream",
+        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobdqd.jpg",
+        "date": "2026-04-16",
+        "status": "released"
+      }
+    },
+    {
       "name": "Nitrome",
       "url": null,
       "category": "third-party",
@@ -488,6 +436,34 @@
       "category": "first-party",
       "game": null,
       "hasSwitch2Game": false
+    },
+    {
+      "name": "TNX",
+      "url": null,
+      "category": "partner",
+      "game": null,
+      "hasSwitch2Game": false,
+      "latestSwitch1Game": {
+        "id": "igdb:337031",
+        "title": "Rhythm Heaven Groove",
+        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobwkn.jpg",
+        "date": "2026-07-02",
+        "status": "released"
+      }
+    },
+    {
+      "name": "Wonderfy",
+      "url": null,
+      "category": "partner",
+      "game": null,
+      "hasSwitch2Game": false,
+      "latestSwitch1Game": {
+        "id": "igdb:356551",
+        "title": "Pokémon Friends",
+        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coa5oc.jpg",
+        "date": "2025-07-22",
+        "status": "released"
+      }
     }
   ]
 }

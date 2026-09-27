@@ -40,7 +40,10 @@ export interface StudioGameInfo {
   byNintendo: (g: Game) => boolean;
 }
 
-/** Games and Switch 2 Editions count; DLC and free updates don't. */
+/**
+ * Games and Switch 2 Editions count; DLC and free updates don't. `today` is the local calendar day
+ * ("YYYY-MM-DD"): a game out today is still upcoming, as on the page and the timeline.
+ */
 export function buildStudios(games: Game[], info: StudioGameInfo, today: string): StudiosResult {
   const cache = readJson<StudiosCache>(PATHS.studiosCache, { fetchedAt: "", source: "", studios: [] });
   const overrides = loadStudiosOverrides();
@@ -83,9 +86,11 @@ export function buildStudios(games: Game[], info: StudioGameInfo, today: string)
   }
 
   const toStudio = (name: string, url: string | null, category: StudioCategory, list: Game[]): Studio => {
-    const hasSwitch2Game = list.some(info.onSwitch2);
+    // Only Switch 2 games are shown; Switch 1 games only give "Latest: … · Switch 1" to studios without one.
+    const switch2 = list.filter(info.onSwitch2);
+    const hasSwitch2Game = switch2.length > 0;
     const switch1 = hasSwitch2Game ? null : latestGame(list.filter(info.onSwitch1), today);
-    return { name, url, category, game: shownGame(list, today), hasSwitch2Game, ...(switch1 && { latestSwitch1Game: switch1 }) };
+    return { name, url, category, game: shownGame(switch2, today), hasSwitch2Game, ...(switch1 && { latestSwitch1Game: switch1 }) };
   };
   const rest: Studio[] = [];
   for (const o of others.values()) {
@@ -113,13 +118,13 @@ const toStudioGame = (g: Game, today: string): StudioGame => ({
   title: g.title,
   coverUrl: g.coverUrl,
   date: g.firstReleaseDate!,
-  status: g.firstReleaseDate! > today ? "upcoming" : "released",
+  status: g.firstReleaseDate! >= today ? "upcoming" : "released",
 });
 
-/** The next game out with a precise date, else the latest released one. */
+/** The next game out (today included) with a precise date, else the latest released one. */
 function shownGame(list: Game[], today: string): StudioGame | null {
   const sorted = dated(list);
-  const g = sorted.find((g) => g.firstReleaseDate! > today) ?? sorted.at(-1);
+  const g = sorted.find((g) => g.firstReleaseDate! >= today) ?? sorted.at(-1);
   return g ? toStudioGame(g, today) : null;
 }
 

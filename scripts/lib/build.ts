@@ -128,6 +128,12 @@ export interface Settings {
   };
 }
 
+/** Today in the local time zone, "YYYY-MM-DD": the day the Studios page and the timeline count from. */
+const localToday = () => {
+  const now = new Date();
+  return [now.getFullYear(), now.getMonth() + 1, now.getDate()].map((n) => String(n).padStart(2, "0")).join("-");
+};
+
 const DEFAULT_SETTINGS: Settings = { nintendoStore: { region: "EU", euSite: "www.nintendo.co.uk", fallbackRegions: ["US"] } };
 
 /** European eShop id from an IGDB link to a European nintendo.com / nintendo.xx game page. */
@@ -289,7 +295,7 @@ export function buildGames(): BuildResult {
         return igdb ? publishers(igdb).some(isNintendoPublisher) : g.firstParty;
       },
     },
-    today,
+    localToday(),
   );
   report.studiosUnmatched = studios.unmatched;
 
