@@ -1,5 +1,5 @@
 import { gsap } from "gsap";
-import { parseDay } from "../timeline/dates";
+import { daySpan, parseDay } from "../timeline/dates";
 import type { Game, ScoreSource } from "../types";
 
 const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
@@ -14,16 +14,6 @@ const LINK_BUTTONS: { key: keyof Game["links"]; label: string; short?: string }[
   { key: "nintendoStore", label: "Nintendo Store", short: "Store" },
 ];
 
-function plural(n: number, unit: string) {
-  return `${n} ${unit}${n === 1 ? "" : "s"}`;
-}
-
-function span(days: number) {
-  if (days < 60) return plural(days, "day");
-  const months = Math.round(days / 30.44);
-  return months < 24 ? plural(months, "month") : plural(Math.round(days / 365.25), "year");
-}
-
 /** "Out in 12 days", "Out today", "Released 3 days ago" (first release, local time zone). */
 export function relativeRelease(game: Game, todayDay: number) {
   if (!game.firstReleaseDate) return game.vagueRelease ? `Expected ${game.vagueRelease.label}` : "Release date TBA";
@@ -31,7 +21,7 @@ export function relativeRelease(game: Game, todayDay: number) {
   if (days === 0) return "Out today";
   if (days === 1) return "Out tomorrow";
   if (days === -1) return "Released yesterday";
-  return days > 0 ? `Out in ${span(days)}` : `Released ${span(-days)} ago`;
+  return days > 0 ? `Out in ${daySpan(days)}` : `Released ${daySpan(-days)} ago`;
 }
 
 function linkButton(label: string, href: string | undefined, short = label) {

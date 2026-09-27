@@ -5,8 +5,8 @@
  * Manual fixes go in data/studios-overrides.json.
  */
 import { writeJson } from "./lib/cache";
-import { env } from "./lib/env";
-import { fetchFirstPartyStudios, loadStudiosOverrides, STUDIO_PATHS, type StudiosCache } from "./lib/fandom";
+import { env, PATHS } from "./lib/env";
+import { fetchFirstPartyStudios, loadStudiosOverrides, type StudiosCache } from "./lib/fandom";
 
 const log = (...args: unknown[]) => console.log("•", ...args);
 
@@ -19,7 +19,7 @@ async function main() {
     source: "https://nintendo.fandom.com/wiki/Category:First_party_developers",
     studios,
   };
-  writeJson(STUDIO_PATHS.cache, cache);
+  writeJson(PATHS.studiosCache, cache);
 
   const overrides = loadStudiosOverrides();
   // Keys outside the category are partner / third-party aliases, unless they force "active".

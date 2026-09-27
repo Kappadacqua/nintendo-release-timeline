@@ -20,6 +20,8 @@ Sito desktop personale: una timeline orizzontale dei giochi Nintendo usciti dal 
 | `npm run data:build` | Rigenera `public/data/games.json` da cache + overrides. Nessuna rete. |
 | `npm run data:validate` | Elenca dati mancanti e conflitti. |
 | `npm run data:fetch` | Chiamate API reali con quota limitata. **Non eseguirlo mai se il task non lo chiede esplicitamente.** |
+| `npm run data:fetch-free-updates` | Rete (IGDB, Wikipedia, Nintendo Wiki) per i titoli di `data/free-updates.json` → `data/cache/free-updates.json`. **Solo se il task lo chiede esplicitamente.** |
+| `npm run data:fetch-studios` | Rete (Nintendo Wiki) per gli studi first party → `data/cache/studios.json`. **Solo se il task lo chiede esplicitamente.** |
 | `npm run dev` | Il dev server lo tiene acceso l'utente. **Non avviarlo.** La verifica nel browser la fa l'Architetto. |
 
 ## Mappa dei moduli
@@ -39,15 +41,21 @@ Sito desktop personale: una timeline orizzontale dei giochi Nintendo usciti dal 
 - `layout.ts` — dimensioni/collisioni. `appear.ts` — animazione di comparsa. `confetti.ts` — "Out today".
 
 **`src/`** (root)
-- `main.ts` — avvio dell'app. `types.ts` — tipi condivisi (`Game`, `Score`…).
+- `main.ts` — avvio dell'app. `types.ts` — tipi condivisi (`Game`, `Score`, `Studio`…). `games.ts` — caricamento di `games.json`, condiviso da timeline e Rankings.
 - `view.ts` — menu View. `filters.ts` — filtri. `search.ts` — ricerca. `presentation.ts` — modalità presentazione.
 - `whats-new.ts`, `news.ts`, `history.ts` — novità, rinvii, storico voti. `zoom-control.ts` — selettore Day/Week/Month.
 - `theme/theme.ts` — tema giorno/notte. `admin/` — pannello admin (solo sviluppo).
 - `styles/main.css` — solo `@import` delle parti, nell'ordine della cascata (non riordinare). Parti in `styles/`: `tokens.css` (`:root` e temi), `base.css`, `header.css`, `timeline.css`, `timeline-items.css`, `card.css`, `dlc-card.css`, `tba.css`, `minimap.css`, `loading.css`, `shortcuts.css`, `selection.css`, `backdrop.css`, `switch2-edition.css`, `out-today.css`, `selection-extras.css` (override su sfondo/selezione, link admin), `filters.css`, `search.css`, `delays.css`, `whats-new.css`, `compact.css`, `view-menu.css`, `dots.css`, `minimap-preview.css`, `groups.css`, `zoom.css`, `presentation.css`, `groups-fan.css` (ventaglio aperto, rivisto).
 
+**`src/rankings/`** — pagina `/rankings.html`: `main.ts` (classifica, ordinamento, filtri).
+
+**`src/studios/`** — pagina `/studios.html`: `main.ts` (card degli studi, interruttore terze parti).
+
 **`scripts/`** — pipeline dati
-- `fetch-data.ts` → rete → `data/cache/`. `build-data.ts` + `lib/build.ts` → `public/data/games.json`.
-- `lib/`: `igdb.ts`, `opencritic.ts`, `wikipedia.ts`, `links.ts` (fonti), `transform.ts`, `exclusivity.ts`, `snapshots.ts`, `overrides.ts`, `overrides-schema.ts`, `cache.ts`, `http.ts`, `env.ts`, `report.ts`.
+- `fetch-data.ts` → rete → `data/cache/`. `build-data.ts` + `lib/build.ts` → `public/data/games.json` e `studios.json`.
+- `fetch-free-updates.ts` → `data/cache/free-updates.json`. `fetch-studios.ts` → `data/cache/studios.json`.
+- `lib/`: `igdb.ts`, `opencritic.ts`, `wikipedia.ts`, `links.ts` (fonti), `transform.ts`, `exclusivity.ts`, `snapshots.ts`, `overrides.ts`, `overrides-schema.ts`, `cache.ts`, `http.ts`, `env.ts` (tutti i percorsi, `PATHS`), `report.ts`.
+- `lib/free-updates.ts` — aggiornamenti gratuiti Switch 2 → voci `free-update`. `lib/fandom.ts` — studi da Nintendo Wiki (API MediaWiki). `lib/studios.ts` — costruzione di `studios.json`.
 - `validate-data.ts`. `vite-admin.ts` — plugin Vite del pannello admin.
 
 ## Come leggere il codice
@@ -75,6 +83,7 @@ Se ti serve un'informazione sui dati (es. i campi di un gioco), estraila con un 
 - Rispettare `prefers-reduced-motion` per ogni nuova animazione.
 - Testi dell'interfaccia in inglese.
 - Non modificare `docs/SPEC.md` se il task non lo chiede.
+- `data/free-updates-seen.json` va versionato e **non va mai cancellato**: senza, la build successiva tratta tutti gli aggiornamenti gratuiti come già noti e "What's new" non ne mostra nessuno.
 
 ## Fine di ogni task
 

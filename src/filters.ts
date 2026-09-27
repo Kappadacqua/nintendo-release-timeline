@@ -117,11 +117,11 @@ export class FiltersControl {
     this.button.setAttribute("aria-expanded", String(open));
   }
 
-  /** "42 of 58 games"; a dot marks non-default filters. */
+  /** "42 of 58" (games and free updates); a dot marks non-default filters. */
   setCount(visible: number, total: number) {
     this.button.innerHTML = `<span class="filters__count"></span><span class="filters__caret" aria-hidden="true">▾</span>`;
-    this.button.querySelector(".filters__count")!.textContent = visible === total ? `${total} games` : `${visible} of ${total} games`;
+    this.button.querySelector(".filters__count")!.textContent = visible === total ? `${total} games` : `${visible} of ${total}`;
     this.button.classList.toggle("is-filtered", !isDefault(this.filters));
-    this.button.setAttribute("aria-label", `Filters: showing ${visible} of ${total} games`);
+    this.button.setAttribute("aria-label", `Filters: showing ${visible} of ${total}`);
   }
 }

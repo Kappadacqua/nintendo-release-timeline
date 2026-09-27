@@ -1,6 +1,6 @@
 # Stato del progetto
 
-Aggiornato: 2026-09-27 — Studios, task 3
+Aggiornato: 2026-09-27 — Pulizia dopo Rankings, Free updates e Studios
 
 ## Ultimo checkpoint
 
@@ -12,6 +12,8 @@ Aggiornato: 2026-09-27 — Studios, task 3
 Nessuno.
 
 ## Da verificare nel browser (Architetto)
+
+- Pulizia: contatore dei filtri della timeline "N of M" (senza "games") quando un filtro nasconde qualcosa; senza filtri resta "M games". In "What's new" un nuovo aggiornamento gratuito mostra "Free update · out <data>" (non verificabile finché non si aggiunge un titolo a `data/free-updates.json`). Tempi relativi di card selezionata e pagina Studios invariati (helper `daySpan` ora in `src/timeline/dates.ts`).
 
 - Studios, task 3: pagina `/studios.html`, navigazione "Timeline · Rankings · Studios" su tutte e tre le pagine. Griglia di card: nome (link a Nintendo Wiki in nuova scheda solo per i first party), badge First party (rosso) / Partner (rosso tenue) / Third party (grigio), copertina, titolo, data, stato "Upcoming · in N days" (in rosso) o "Released N months ago". Senza gioco Switch 2: riquadro tratteggiato "No Switch 2 game yet" + "Latest: <titolo> · Switch 1" (EPD No. 4, TNX, Wonderfy, Artdink); con gioco Switch 2 senza data: "Release date TBA" (FromSoftware, Bloober Team…). Interruttore "Show third-party studios" spento di default (30 studi → 40 acceso), ricordato al ricaricamento; dissolvenza al cambio. Entrambi i temi.
 

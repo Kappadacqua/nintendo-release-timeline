@@ -25,8 +25,9 @@ function weekLabel(monday: string, today: string) {
 
 function detail(c: Change, game: Game) {
   const when = (d: string | null) => (d ? fmt(d) : (game.vagueRelease?.label ?? "TBA"));
-  if (c.type === "new" && game.kind === "free-update") return `Free update · ${when(game.firstReleaseDate)}`;
-  if (c.type === "new") return `Added · ${game.firstReleaseDate ? `out ${fmt(game.firstReleaseDate)}` : when(null)}`;
+  const out = game.firstReleaseDate ? `out ${fmt(game.firstReleaseDate)}` : when(null);
+  if (c.type === "new" && game.kind === "free-update") return `Free update · ${out}`;
+  if (c.type === "new") return `Added · ${out}`;
   if (c.type === "delayed") return `${fmt(c.from)} → ${when(c.to)}`;
   return `First reviews · ${c.source === "opencritic" ? "OpenCritic" : "Metacritic"} ${c.normalized}`;
 }

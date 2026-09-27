@@ -26,3 +26,12 @@ export function todayEpochDay(): number {
 export function dayToDate(day: number): Date {
   return new Date(day * MS_PER_DAY);
 }
+
+const plural = (n: number, unit: string) => `${n} ${unit}${n === 1 ? "" : "s"}`;
+
+/** "26 days", "3 months", "2 years": days under 60, then months under 24, then years. */
+export function daySpan(days: number) {
+  if (days < 60) return plural(days, "day");
+  const months = Math.round(days / 30.44);
+  return months < 24 ? plural(months, "month") : plural(Math.round(days / 365.25), "year");
+}

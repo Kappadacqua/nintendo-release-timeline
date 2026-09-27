@@ -7,7 +7,7 @@ import "../styles/filters.css";
 import "../styles/studios.css";
 import { gsap } from "gsap";
 import { initTheme } from "../theme/theme";
-import { MONTHS, parseDay, todayEpochDay } from "../timeline/dates";
+import { daySpan, MONTHS, parseDay, todayEpochDay } from "../timeline/dates";
 import type { Studio, StudioCategory, StudioGame, StudiosFile } from "../types";
 
 initTheme(document.querySelector<HTMLButtonElement>(".theme-toggle")!);
@@ -55,21 +55,12 @@ function formatDate(iso: string) {
   return `${MONTHS[m - 1].slice(0, 3)} ${d}, ${y}`;
 }
 
-const plural = (n: number, unit: string) => `${n} ${unit}${n === 1 ? "" : "s"}`;
-
-/** Same spans as the timeline cards: days, then months, then years. */
-function span(days: number) {
-  if (days < 60) return plural(days, "day");
-  const months = Math.round(days / 30.44);
-  return months < 24 ? plural(months, "month") : plural(Math.round(days / 365.25), "year");
-}
-
 /** "Upcoming · in 26 days", "Out today", "Released 3 months ago" — from the date, not the build's status. */
 function relative(days: number) {
   if (days === 0) return "Out today";
   if (days === 1) return "Upcoming · tomorrow";
   if (days === -1) return "Released yesterday";
-  return days > 0 ? `Upcoming · in ${span(days)}` : `Released ${span(-days)} ago`;
+  return days > 0 ? `Upcoming · in ${daySpan(days)}` : `Released ${daySpan(-days)} ago`;
 }
 
 /** The Switch 2 game on the card: none for studios without one (their game is a Switch 1 game). */

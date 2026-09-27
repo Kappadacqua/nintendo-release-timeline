@@ -1,6 +1,7 @@
 import type { Game, Studio, StudioCategory, StudioGame } from "../../src/types";
 import { readJson } from "./cache";
-import { type StudiosCache, loadStudiosOverrides, STUDIO_PATHS } from "./fandom";
+import { PATHS } from "./env";
+import { type StudiosCache, loadStudiosOverrides } from "./fandom";
 
 /**
  * public/data/studios.json: Nintendo Wiki's active first-party studios, the partners (developers
@@ -41,7 +42,7 @@ export interface StudioGameInfo {
 
 /** Games and Switch 2 Editions count; DLC and free updates don't. */
 export function buildStudios(games: Game[], info: StudioGameInfo, today: string): StudiosResult {
-  const cache = readJson<StudiosCache>(STUDIO_PATHS.cache, { fetchedAt: "", source: "", studios: [] });
+  const cache = readJson<StudiosCache>(PATHS.studiosCache, { fetchedAt: "", source: "", studios: [] });
   const overrides = loadStudiosOverrides();
   const wikiTitles = new Set(cache.studios.map((s) => s.title));
 

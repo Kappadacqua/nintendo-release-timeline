@@ -1,5 +1,5 @@
 import { readJson } from "./cache";
-import { ROOT } from "./env";
+import { PATHS } from "./env";
 import { fetchJson, Throttle } from "./http";
 
 /**
@@ -10,11 +10,6 @@ import { fetchJson, Throttle } from "./http";
 
 const FANDOM_API = "https://nintendo.fandom.com/api.php";
 const CATEGORY = "Category:First_party_developers";
-
-export const STUDIO_PATHS = {
-  cache: `${ROOT}data/cache/studios.json`,
-  overrides: `${ROOT}data/studios-overrides.json`,
-};
 
 export interface FandomStudio {
   title: string;
@@ -52,7 +47,7 @@ export interface StudioOverride {
 
 export type StudiosOverrides = Record<string, StudioOverride>;
 
-export const loadStudiosOverrides = () => readJson<StudiosOverrides>(STUDIO_PATHS.overrides, {});
+export const loadStudiosOverrides = () => readJson<StudiosOverrides>(PATHS.studiosOverrides, {});
 
 export const fandomUrl = (pageTitle: string) =>
   `https://nintendo.fandom.com/wiki/${encodeURIComponent(pageTitle.replace(/ /g, "_")).replace(/%2F/g, "/")}`;
