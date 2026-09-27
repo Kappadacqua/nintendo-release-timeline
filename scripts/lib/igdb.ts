@@ -22,7 +22,13 @@ export const GAME_FIELDS = [
   "cover.image_id",
   "summary",
   "artworks.image_id",
+  "artworks.artwork_type",
+  "artworks.width",
+  "artworks.height",
+  "artworks.alpha_channel",
   "screenshots.image_id",
+  "screenshots.width",
+  "screenshots.height",
   "websites.url",
   "websites.type.type",
   "genres.name",
@@ -55,8 +61,9 @@ export interface IgdbGame {
   version_parent?: number;
   cover?: { image_id?: string };
   summary?: string;
-  artworks?: { image_id?: string }[];
-  screenshots?: { image_id?: string }[];
+  /** artwork_type: 1 artwork, 2 key art without logo, 3 key art with logo, 4 concept art, 5–15 logos, covers, icons… */
+  artworks?: { image_id?: string; artwork_type?: number; width?: number; height?: number; alpha_channel?: boolean }[];
+  screenshots?: { image_id?: string; width?: number; height?: number }[];
   websites?: { url?: string; type?: { type?: string } }[];
   genres?: { name: string }[];
   involved_companies?: { company?: { name?: string }; developer?: boolean; publisher?: boolean }[];

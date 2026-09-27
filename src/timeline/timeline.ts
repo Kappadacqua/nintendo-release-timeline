@@ -16,7 +16,7 @@ import { Backdrop } from "./backdrop";
 import { SiteTitle } from "./site-title";
 import { createGroupStack, Fan, GROUP_COVER_WIDTH, GROUP_MIN_GAMES, GROUP_WIDTH } from "./group";
 import { drawTicks } from "./ticks";
-import { addUnits, nextZoom, snapDay, ZOOM, type ZoomLevel } from "./zoom";
+import { addUnits, isoWeek, nextZoom, snapDay, ZOOM, type ZoomLevel } from "./zoom";
 import { createTbaBlockNode, layoutTba, TBA_LAYOUT, type TbaBlock } from "./tba";
 
 interface Item {
@@ -310,21 +310,14 @@ export class Timeline {
   }
 
   /** Removes the timeline and every listener it registered (it is rebuilt when filters change). */
-  destroy(keepDom = false) {
+  destroy() {
     if (this.destroyed) return;
     this.destroyed = true;
     for (const dispose of this.disposers) dispose();
     this.backdrop.destroy();
     this.siteTitle?.destroy();
     this.header.el.remove();
-    // A zoom transition removes the element itself once the old view has faded out.
-    if (keepDom) this.el.classList.add("is-leaving");
-    else this.el.remove();
-  }
-
-  /** The timeline element, e.g. to remove it after a zoom transition. */
-  get element() {
-    return this.el;
+    this.el.remove();
   }
 
   /** Line y within the stage: the center of a zoom transition. */
@@ -378,7 +371,8 @@ export class Timeline {
     // Zoomed out, cards are covers only: a selected game is seen at the Day level.
     if (this.zoom !== "day" && this.onZoom) return this.onZoom("day", stop.game.id);
     const previous = this.selected >= 0 ? this.stops[this.selected] : null;
-    if (previous) this.unmark(this.selected);
+    // Moving on (Page Up / Down, a click elsewhere): the previous card closes at once.
+    if (previous) this.unmark(this.selected, true);
     // Leaving a group folds it; entering one spreads it (and straightens this game's card).
     if (previous?.group && previous.group !== stop.group) previous.close?.(true);
     this.selected = index;
@@ -410,10 +404,10 @@ export class Timeline {
     this.backdrop.hide();
   }
 
-  private unmark(index: number) {
+  private unmark(index: number, instant = false) {
     const stop = this.stops[index];
     const card = stop.card();
-    morphParts([card], () => collapseCard(card));
+    morphParts([card], () => collapseCard(card, instant), !instant);
     stop.layer().classList.remove("is-selected-layer");
   }
 
@@ -683,8 +677,6 @@ export class Timeline {
         item.games,
         this.todayDay,
         () => ({ side: item.lane.side, extra: item.lane.level * TIMELINE.stackStepY }),
-        () => this.compact,
-        () => this.width / this.cardScale - 160,
       );
     }
     item.node = node;
@@ -873,11 +865,9 @@ export class Timeline {
       return block.label === "TBA" ? ["Date TBA", "", ""] : [block.label, "Date TBA", ""];
     }
     const date = dayToDate(this.dayAt(center));
-    return [
-      String(date.getUTCFullYear()),
-      MONTHS[date.getUTCMonth()],
-      `${WEEKDAYS[date.getUTCDay()]} ${date.getUTCDate()}`,
-    ];
+    // Zoomed out the last part follows the level: "W39" at Week, nothing at Month.
+    const last = this.zoom === "day" ? `${WEEKDAYS[date.getUTCDay()]} ${date.getUTCDate()}` : this.zoom === "week" ? `W${isoWeek(date)}` : "";
+    return [String(date.getUTCFullYear()), MONTHS[date.getUTCMonth()], last];
   }
 
   /** Calendar day under world x (clamped to the dated line). */

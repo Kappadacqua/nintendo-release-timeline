@@ -105,7 +105,7 @@ Regole di dettaglio:
 | Dato | Fonte | Modalità |
 |---|---|---|
 | Titolo (inglese), copertina, sviluppatore, generi, piattaforme, tipo | IGDB API | automatica |
-| Riassunto, immagine di sfondo (artwork → screenshot → copertina) | IGDB API | automatica |
+| Riassunto, immagine di sfondo (key art senza logo → screenshot → … → copertina) | IGDB API | automatica |
 | Link Wikipedia | Wikidata (P5794 → sitelink enwiki) o pagina della categoria | automatica, sovrascrivibile |
 | Link Nintendo Wiki (`nintendo.fandom.com`) | API MediaWiki di Fandom | automatica, sovrascrivibile |
 | Link Nintendo Store | Wikidata (P12418 eShop EU, P8084 eShop US) e link `websites` di IGDB | automatica, sovrascrivibile |
@@ -128,7 +128,7 @@ Note:
 - **Link Nintendo Wiki**: titolo esatto (o redirect definito dalla wiki) con l'API di Fandom; altrimenti una ricerca, accettata solo se il titolo normalizzato coincide. In caso di dubbio nessun link (DLC e titoli minori spesso non hanno pagina).
 - **Link Nintendo Store**: regione in `data/settings.json` (`nintendoStore.region`, default `"EU"`; `euSite` sceglie il sito europeo, impostato su `www.nintendo.it` (default del codice `www.nintendo.co.uk`); `fallbackRegions`, default `["US"]`, si provano in ordine se la regione scelta non ha la pagina). Pagina EU: `https://<euSite>/-/-<id>.html` con l'id eShop europeo (Wikidata o link IGDB a un sito Nintendo europeo); pagina US: link IGDB a `nintendo.com/us/store/products/` o id Wikidata. DLC e Switch 2 Edition senza pagina propria usano quella del gioco base.
 - Se Wikidata o Fandom non rispondono, restano i link del `games.json` precedente.
-- **Immagine di sfondo**: IGDB `artworks` → `screenshots` (taglia `1080p`) → copertina.
+- **Immagine di sfondo** (taglia `1080p`): solo immagini orizzontali e senza trasparenza, in quest'ordine: artwork di tipo *key art without logo* → screenshot → *concept art* → altri artwork → *key art with logo* → copertina. Gli artwork IGDB sono spesso la copertina stessa (key art con logo) o un personaggio su fondo trasparente, che sfocati sembrano la copertina: per questo si leggono `artwork_type`, dimensioni e `alpha_channel`.
 
 ### 4.1 Esclusività
 
@@ -225,6 +225,7 @@ interface Game {
   exclusivity: "exclusive" | "timed" | null;
   alsoOnSwitch1: boolean;
   firstParty: boolean;           // Nintendo / The Pokémon Company, o DLC / edizione di un loro gioco
+  onOtherConsoles?: boolean;     // anche su altre console o PC (i telefoni non contano); assente per i giochi manuali
   scores: {
     critic: {
       opencritic: Score | null;
@@ -287,11 +288,12 @@ Il primo snapshot fa da base: nessun gioco è "new" rispetto a esso.
 - **Fasce dei mesi**: un mese sì e uno no appena tinto (`--month-band`), dal bordo alto alla minimappa, dietro linea e card; solo sulla linea datata.
 - **Pallini per tipo**, sulla linea e nella minimappa: gioco rosso (`--timeline`), Switch 2 Edition diviso a metà nei due colori Joy-Con (`--joycon-left` / `--joycon-right`), DLC viola (`--dlc`) e quadrato. Pieno se uscito, anello se futuro. Legenda nel dialogo "?".
 - **Header** al centro della barra in alto: la data sotto l'indicatore, `2026 · September · Sat 26`; anno, mese e giorno si animano ognuno per conto suo nella direzione dello scroll. Nella zona TBA: "2027 · Date TBA" per i blocchi con anno, solo "Date TBA" per quello senza; l'indicatore centrale lì è nascosto.
+- **Durata degli spostamenti**: rotella e frecce inseguono la destinazione; i salti lunghi (oltre `glideMinPx`, 300px: Home, Fine, T, minimappa, ricerca, novità) sono una corsa a tempo che dura al massimo `maxGlideMs` (600ms).
 - **Aggancio al giorno**: ogni movimento (rotella, frecce, fine del trascinamento, minimappa) si ferma esattamente su un giorno (Week: sul lunedì; Month: sul 1° del mese); la zona TBA è libera.
 - **All'apertura** la timeline è centrata su **oggi** (fuso orario locale), con l'indicatore **"Today"** pulsante.
 - **Zona TBA**: blocchi per anno ("2026", "2027"…, poi "TBA"), tratteggiati, con le card dei giochi senza data precisa, collegati da una linea puntinata.
 - **Minimappa** in basso: mesi (anno a gennaio), un puntino per gioco (colore e forma per tipo come sulla linea; **blu, più grande e con alone** se il gioco ha novità non viste, §8; un solo punto più grande per un gruppo dello stesso giorno), lineetta su oggi, zona TBA a righe, riquadro della porzione visibile. Clic = salto con scorrimento; trascinamento = segue in diretta. Al passaggio del mouse su un punto, anteprima con copertina, titolo e data (tutti i giochi, per un gruppo). Il **riquadro si trascina**: la timeline lo segue in tempo reale (un clic senza movimento resta un salto).
-- **Uscite dello stesso giorno** (opzione "Group same-day releases" nel menu View, accesa di default): da **3 giochi** in su nello stesso giorno (dopo i filtri) compare un **gruppo** — copertine sovrapposte a ventaglio chiuso, "N games" e la data, pallino più grande. Clic sul gruppo o PagGiù che ci arriva: le card si **aprono a ventaglio** attorno alla data (sovrapposte, leggermente ruotate, attenuate senza trasparenza) e si seleziona il primo gioco; PagSu che ci arriva da dopo seleziona l'ultimo, così il gruppo si percorre nei due versi. Dentro, PagSu/PagGiù scorrono i suoi giochi e poi proseguono; uscendo o deselezionando il ventaglio si richiude. Il ventaglio sta nella larghezza visibile. Con l'opzione spenta, card singole.
+- **Uscite dello stesso giorno** (opzione "Group same-day releases" nel menu View, accesa di default): da **3 giochi** in su nello stesso giorno (dopo i filtri) compare un **gruppo** — copertine sovrapposte a ventaglio chiuso, "N games" e la data, pallino più grande. Clic sul gruppo o PagGiù che ci arriva: le card si **aprono a ventaglio** e si seleziona il primo gioco. Il ventaglio è una fila: la card selezionata, completa, sta sotto l'indicatore; le altre, compatte (copertina e titolo), la seguono in ordine ai due lati senza sovrapporsi (titoli sempre leggibili), leggermente inclinate e abbassate man mano che si allontanano; la fila scorre quando cambia la selezione e le card oltre i bordi entrano con PagSu/PagGiù; PagSu che ci arriva da dopo seleziona l'ultimo, così il gruppo si percorre nei due versi. Dentro, PagSu/PagGiù scorrono i suoi giochi e poi proseguono; uscendo o deselezionando il ventaglio si richiude. Con l'opzione spenta, card singole.
 - **Rinvii**: nella posizione della data originale un cerchietto tratteggiato ("fantasma"), collegato da un arco tratteggiato al pallino della nuova data (solo il fantasma se il gioco è tornato TBA).
 - **Collisioni**: assegnazione a corsie sopra/sotto la linea; una card può scivolare di lato fino al 60% della larghezza (connettore a gomito) prima di impilarsi a mazzo; la card sotto il mouse o con il focus va in primo piano.
 - **Finestre basse**: le card si rimpiccioliscono (fino a 0.55) per stare fra la barra in alto e la minimappa. La fascia sotto la linea con numeri e mesi (`cardOffset`, 64px) non si restringe mai: il primo tratto del connettore resta fisso, si scala solo il gruppo con la card.
@@ -301,8 +303,8 @@ Il primo snapshot fa da base: nessun gioco è "new" rispetto a esso.
 
 Tre livelli: **Day** (32px/giorno), **Week** (8px/giorno), **Month** (2,6px/giorno). Si cambiano con **Ctrl + rotella** (anche il pizzico del trackpad; al massimo un livello ogni 350ms), i tasti **+** / **−**, o il selettore **Day · Week · Month** in alto a destra nella timeline, che mostra il livello attuale. La pagina si apre sempre a Day.
 
-- Il cambio ricostruisce la timeline alla nuova scala centrata sullo stesso giorno, con una transizione animata attorno all'indicatore: la vista vecchia si ingrandisce (zoom in) o si rimpicciolisce (zoom out) svanendo, la nuova arriva dal verso opposto; la minimappa non si anima.
-- Week / Month: rotella e frecce avanzano di una settimana / un mese (Shift: 4 settimane / 3 mesi); tacche ai lunedì con le settimane numerate ("W23") o solo ai mesi; la pillola dell'indicatore mostra "W39" o "SEP". L'header mostra sempre la data sotto l'indicatore.
+- Il cambio ricostruisce la timeline alla nuova scala centrata sullo stesso giorno: la vista vecchia sparisce subito (mai due timeline sovrapposte), la nuova entra in 300ms attorno all'indicatore, un po' più piccola (zoom in) o più grande (zoom out); la minimappa non si anima.
+- Week / Month: rotella e frecce avanzano di una settimana / un mese (Shift: 4 settimane / 3 mesi); tacche ai lunedì con le settimane numerate ("W23") o solo ai mesi; la pillola dell'indicatore mostra "W39" o "SEP". L'header mostra la data sotto l'indicatore adattata al livello: "2026 · September · W39" a Week, "2026 · October" a Month. Le etichette dei mesi che finirebbero sotto la pillola o addosso all'etichetta precedente (es. "JUN 5, 2025" e "JUL") non si disegnano.
 - Week / Month: le card (anche nella zona TBA) sono **solo copertina**, qualunque sia lo stile scelto; il titolo compare al passaggio del mouse. I gruppi dello stesso giorno si rimpiccioliscono ("8 games").
 - Selezionare un gioco da Week o Month (clic, PagSu/PagGiù, ricerca, novità) riporta a **Day** con il gioco selezionato; passando a Week o Month la selezione si toglie.
 
@@ -333,7 +335,7 @@ Tre livelli: **Day** (32px/giorno), **Week** (8px/giorno), **Month** (2,6px/gior
 | ? | Dialogo con le scorciatoie (anche dal pulsante "?" nell'header) |
 | / | Ricerca rapida (§8) |
 
-Rotella, trascinamento, frecce, [ / ], minimappa, T, Home/Fine, Esc e clic su un'area vuota **deselezionano**.
+Rotella, trascinamento, frecce, [ / ], minimappa, T, Home/Fine, Esc e clic su un'area vuota **deselezionano**. Passando a un altro gioco (PagSu/PagGiù, clic) la card precedente si richiude subito, senza animazione.
 
 Con `prefers-reduced-motion` lo scorrimento salta direttamente, header e card non si animano, "Today" non pulsa.
 
@@ -425,7 +427,7 @@ Pannello simile a quello dei filtri: **Card style** (Full / Compact), **Group sa
 
 ### Filtri
 
-- Pulsante "67 games ▾" (o "42 of 67 games", con un pallino se i filtri non sono quelli di default) che apre gli interruttori **DLC**, **Switch 2 Edition**, **Third-party**, **Exclusives only**.
+- Pulsante "67 games ▾" (o "42 of 67 games", con un pallino se i filtri non sono quelli di default) che apre gli interruttori **DLC**, **Switch 2 Edition**, **Third-party**, **Exclusives only**. "Exclusives only" nasconde i giochi usciti anche su altre console o PC; i giochi Switch + telefono (Pokémon Friends, Pokémon Champions) restano.
 - Si applicano a timeline, minimappa, PagSu/PagGiù e ricerca; cambiarli ricostruisce la timeline mantenendo la posizione e, se ancora visibile, il gioco selezionato.
 - Le scelte restano salvate nel browser (`localStorage`, `filters`).
 

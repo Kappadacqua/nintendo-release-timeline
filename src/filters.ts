@@ -15,7 +15,7 @@ const OPTIONS: { key: keyof Filters; label: string; hint: string }[] = [
   { key: "dlc", label: "DLC", hint: "Expansions and add-ons" },
   { key: "switch2Edition", label: "Switch 2 Edition", hint: "Upgraded Switch 1 games" },
   { key: "thirdParty", label: "Third-party", hint: "Exclusives from other publishers" },
-  { key: "exclusivesOnly", label: "Exclusives only", hint: "Hide games also on other consoles" },
+  { key: "exclusivesOnly", label: "Exclusives only", hint: "Hide games also on other consoles or PC (phones don't count)" },
 ];
 
 export function loadFilters(): Filters {
@@ -42,7 +42,8 @@ export function applyFilters(games: Game[], f: Filters) {
       (f.switch2Edition || g.kind !== "switch2-edition") &&
       // Older data without the flag counts as first-party.
       (f.thirdParty || g.firstParty !== false) &&
-      (!f.exclusivesOnly || g.exclusivity === "exclusive"),
+      // Switch + phone games (e.g. Pokémon Champions) stay: only other consoles / PC count.
+      (!f.exclusivesOnly || g.exclusivity === "exclusive" || g.onOtherConsoles === false),
   );
 }
 

@@ -34,29 +34,17 @@ export class ZoomControl {
 const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
 
 /**
- * Zoom transition: the old view grows (zooming in) or shrinks (zooming out) around the
- * playhead as it fades, while the new one comes from the other way; then the old is removed.
+ * Zoom transition: the old view goes at once (never two timelines on screen); the new one
+ * comes in around the playhead, from a little smaller (zooming in) or larger (zooming out).
  */
 export function zoomTransition(from: Timeline, to: Timeline, zoomingIn: boolean) {
-  from.destroy(true);
-  const old = from.element;
-  if (reducedMotion.matches) return old.remove();
-  const big = 1.6;
-  const small = 0.62;
-  const origin = (t: Timeline) => `50% ${t.lineCenterY}px`;
-  gsap.to(from.stage, {
-    scale: zoomingIn ? big : small,
-    opacity: 0,
-    transformOrigin: origin(from),
-    duration: 0.45,
-    ease: "power2.in",
-    onComplete: () => old.remove(),
-  });
+  from.destroy();
+  if (reducedMotion.matches) return;
   gsap.from(to.stage, {
-    scale: zoomingIn ? small : big,
+    scale: zoomingIn ? 0.85 : 1.18,
     opacity: 0,
-    transformOrigin: origin(to),
-    duration: 0.45,
+    transformOrigin: `50% ${to.lineCenterY}px`,
+    duration: 0.3,
     ease: "power2.out",
     clearProps: "transform,opacity",
   });

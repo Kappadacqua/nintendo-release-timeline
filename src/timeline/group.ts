@@ -1,5 +1,5 @@
 import { gsap } from "gsap";
-import { type Card, cardWidth, createCard } from "../cards/card";
+import { type Card, CARD_WIDTH, cardWidth, createCard } from "../cards/card";
 import type { Side } from "../cards/layout";
 import type { Game } from "../types";
 import { MONTHS } from "./dates";
@@ -13,12 +13,14 @@ export const GROUP_MIN_GAMES = 3;
 export const GROUP_WIDTH = 220;
 export const GROUP_COVER_WIDTH = 96;
 
-/** The open fan is at most this wide (and never wider than the view): cards overlap more when there are many. */
-const FAN_MAX_SPAN = 1400;
-/** Degrees between neighbouring cards of the open fan. */
-const FAN_SPREAD = 3.5;
-/** How much higher (px) the middle of the fan sits than its ends. */
-const FAN_ARC = 26;
+/** Gap (px) between the cards of the open fan: they never overlap, so every title reads. */
+const FAN_GAP = 16;
+/** Degrees each step away from the selected card tilts (at most FAN_MAX_TILT). */
+const FAN_TILT = 1.5;
+const FAN_MAX_TILT = 5;
+/** How much lower (px) each step away from the selected card sits (at most FAN_MAX_DROP). */
+const FAN_DROP = 8;
+const FAN_MAX_DROP = 28;
 const OPEN_S = 0.45;
 const CLOSE_S = 0.3;
 
@@ -84,9 +86,6 @@ export class Fan {
     private readonly todayDay: number,
     /** Side and stacking offset of the group's lane, read when opening. */
     private readonly lane: () => { side: Side; extra: number },
-    private readonly compact: () => boolean,
-    /** Room in the view (unscaled px), so the whole fan stays on screen. */
-    private readonly room: () => number,
   ) {}
 
   /** The card of a game of the group (all cards are created on first use). */
@@ -107,40 +106,49 @@ export class Fan {
     });
   }
 
-  /** Where card i sits in the open fan, relative to the date. */
-  private poseOf(i: number) {
-    const n = this.games.length;
-    const w = cardWidth(this.games[i], this.compact());
-    const maxSpan = Math.max(w * 1.5, Math.min(FAN_MAX_SPAN, this.room()));
-    const step = Math.min(w * 0.5, (maxSpan - w) / Math.max(1, n - 1));
-    const span = w + step * (n - 1);
-    const mid = (n - 1) / 2;
+  /**
+   * Where each card sits in the open fan, relative to the date: the selected card (full
+   * size) right under the playhead, the others (compact: cover, title) in order on both
+   * sides, side by side. The row slides as the selection moves; cards past the edges of
+   * the view come in with Page Up / Page Down.
+   */
+  private poses(selected: number) {
     const { side, extra } = this.lane();
     const dir = side === "above" ? 1 : -1;
-    const off = i - mid;
-    return {
-      left: -span / 2 + i * step,
-      lift: extra + FAN_ARC * (1 - (off / Math.max(1, mid)) ** 2),
-      rotation: dir * off * FAN_SPREAD,
-      side,
-    };
+    const width = (i: number) => (i === selected ? CARD_WIDTH[this.games[i].kind === "dlc" ? "dlc" : "game"] : cardWidth(this.games[i], true));
+    const lefts: number[] = [];
+    lefts[selected] = -width(selected) / 2;
+    for (let i = selected - 1; i >= 0; i--) lefts[i] = lefts[i + 1] - FAN_GAP - width(i);
+    for (let i = selected + 1; i < this.games.length; i++) lefts[i] = lefts[i - 1] + width(i - 1) + FAN_GAP;
+    // The selected card grows ×1.05 around its center: keep the neighbours clear of it.
+    const grow = (width(selected) * 0.05) / 2;
+    return this.games.map((_, i) => {
+      const off = i - selected;
+      return {
+        left: lefts[i] + Math.sign(off) * grow,
+        lift: extra - Math.min(FAN_MAX_DROP, Math.abs(off) * FAN_DROP) + FAN_MAX_DROP,
+        rotation: dir * Math.sign(off) * Math.min(FAN_MAX_TILT, Math.abs(off) * FAN_TILT),
+        side,
+      };
+    });
   }
 
-  /** Card positions for the current side and width (also after the card style changes). */
+  /** Card positions around the selected game; they glide there unless `instant`. */
   layout(selectedId: string | null = null, instant = false) {
     if (!this.cards.length) return;
+    const selected = Math.max(0, this.games.findIndex((g) => g.id === selectedId));
+    const poses = this.poses(selected);
+    const quick = instant || reducedMotion.matches;
     this.cards.forEach((card, i) => {
-      const pose = this.poseOf(i);
+      const pose = poses[i];
       const el = card.el;
-      el.style.left = `${pose.left}px`;
       el.style[pose.side === "above" ? "bottom" : "top"] = `${pose.lift}px`;
       el.style[pose.side === "above" ? "top" : "bottom"] = "";
       el.style.transformOrigin = pose.side === "above" ? "50% 100%" : "50% 0%";
-      const selected = this.games[i].id === selectedId;
-      el.style.zIndex = String(selected ? 100 : i + 1);
-      const rotation = selected ? 0 : pose.rotation;
-      if (instant || reducedMotion.matches) gsap.set(el, { rotation });
-      else gsap.to(el, { rotation, duration: 0.3, ease: "power2.out", overwrite: false });
+      el.style.zIndex = String(i === selected ? 100 : 50 - Math.abs(i - selected));
+      const to = { left: pose.left, rotation: i === selected ? 0 : pose.rotation };
+      if (quick) gsap.set(el, to);
+      else gsap.to(el, { ...to, duration: 0.3, ease: "power2.out", overwrite: false });
     });
   }
 

@@ -33,6 +33,8 @@ export interface Game {
   /** Published by Nintendo / The Pokémon Company (or a DLC / edition of such a game). */
   firstParty: boolean;
   alsoOnSwitch1: boolean;
+  /** Also on a console or PC that isn't a Nintendo one (phones don't count); absent for manual games. */
+  onOtherConsoles?: boolean;
   scores: {
     critic: {
       opencritic: Score | null;

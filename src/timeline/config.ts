@@ -16,6 +16,10 @@ export const TIMELINE = {
   labeledDays: [1, 5, 10, 15, 20, 25],
   /** Fraction of the remaining distance covered per 60fps frame (lower = more inertia). */
   smoothing: 0.16,
+  /** Jumps longer than this (px) glide in a fixed time instead of chasing the target… */
+  glideMinPx: 300,
+  /** …and never take longer than this. */
+  maxGlideMs: 600,
   /** Drag inertia (ITERATION-4 §10): speed kept per 60fps frame (lower = more friction). */
   flingFriction: 0.94,
   /** Below this release speed (px/ms) a drag just snaps: no inertia from a slow or tiny move. */

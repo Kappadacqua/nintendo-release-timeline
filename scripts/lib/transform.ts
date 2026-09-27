@@ -125,6 +125,9 @@ export function isOnSwitch(g: IgdbGame) {
 }
 
 /** True when every platform is Switch or Switch 2 (covers cross-gen Nintendo releases). */
+/** Platforms that keep a game a Nintendo console exclusive: Switch, Switch 2, iOS (39), Android (34). */
+const CONSOLE_EXCLUSIVE_PLATFORMS: number[] = [PLATFORM.SWITCH, PLATFORM.SWITCH_2, 39, 34];
+
 export function igdbExclusive(g: IgdbGame) {
   const platforms = g.platforms ?? [];
   return platforms.length > 0 && platforms.every((p) => SWITCH_PLATFORMS.includes(p));
@@ -135,12 +138,21 @@ export function publishers(g: IgdbGame) {
 }
 
 /** Game record before scores, overrides and exclusivity history. */
-/** Full-screen background (ITERATION-2 §4): artwork → screenshot → cover (the site blurs it heavily). */
+/**
+ * Full-screen background (ITERATION-2 §4; the site blurs it heavily). IGDB "artworks" are
+ * often the box art again (key art with the logo) or a character on a transparent
+ * background, which blur into the cover: so a landscape, opaque picture is preferred, by
+ * kind: key art without logo → screenshot → concept art → other artwork → key art with
+ * logo → cover.
+ */
 function backgroundOf(g: IgdbGame): string | null {
-  const art = g.artworks?.find((a) => a.image_id)?.image_id;
-  if (art) return IMAGE_URL(art, "1080p");
-  const shot = g.screenshots?.find((s) => s.image_id)?.image_id;
-  if (shot) return IMAGE_URL(shot, "1080p");
+  const landscape = (i: { width?: number; height?: number }) => !i.width || !i.height || i.width / i.height >= 1.3;
+  const arts = (g.artworks ?? []).filter((a) => a.image_id && !a.alpha_channel && landscape(a));
+  const art = (type: number) => arts.find((a) => a.artwork_type === type)?.image_id;
+  const shot = (g.screenshots ?? []).find((s) => s.image_id && landscape(s))?.image_id;
+  // Untyped artworks (older cache) count as plain artworks.
+  const best = art(2) ?? shot ?? art(4) ?? arts.find((a) => a.artwork_type === 1 || a.artwork_type === undefined)?.image_id ?? art(3);
+  if (best) return IMAGE_URL(best, "1080p");
   return g.cover?.image_id ? IMAGE_URL(g.cover.image_id) : null;
 }
 
@@ -166,6 +178,8 @@ export function toGame(g: IgdbGame, info: Dates): Game {
     exclusivity: null,
     firstParty: false,
     alsoOnSwitch1: platforms.includes(PLATFORM.SWITCH) && platforms.includes(PLATFORM.SWITCH_2),
+    // For the "Exclusives only" filter: phones and tablets are not consoles.
+    onOtherConsoles: platforms.some((p) => !CONSOLE_EXCLUSIVE_PLATFORMS.includes(p)),
     scores: { critic: { opencritic: null, metacritic: null }, user: { metacritic: null, backloggd: null } },
     // Backloggd is built on IGDB, so its URLs use the IGDB slug.
     links: { backloggd: `https://backloggd.com/games/${g.slug}/` },

@@ -17,6 +17,8 @@ export class Scroller {
   private lastTime = 0;
   /** Drag release inertia (px/ms, world direction); 0 = plain easing toward `target`. */
   private velocity = 0;
+  /** A long jump (Home, End, minimap, search…) is a timed glide, never longer than `maxGlideMs`. */
+  private glide: { from: number; to: number; start: number; duration: number } | null = null;
 
   constructor(private onChange: (x: number) => void) {}
 
@@ -41,6 +43,12 @@ export class Scroller {
     // Reduced motion: no glide, just go there.
     if (reducedMotion.matches) return this.jumpTo(to);
     this.target = to;
+    // Short steps (wheel, arrows) chase the target; long jumps glide in bounded time.
+    const distance = Math.abs(to - this.current);
+    this.glide =
+      distance > TIMELINE.glideMinPx
+        ? { from: this.current, to, start: performance.now(), duration: Math.min(TIMELINE.maxGlideMs, 250 + distance * 0.12) }
+        : null;
     this.start();
   }
 
@@ -59,6 +67,7 @@ export class Scroller {
   fling(velocity: number) {
     if (reducedMotion.matches || Math.abs(velocity) < TIMELINE.flingMinVelocity) return this.settle();
     this.velocity = velocity;
+    this.glide = null;
     this.target = this.current;
     this.start();
   }
@@ -78,6 +87,7 @@ export class Scroller {
   /** Move instantly (no easing), e.g. while dragging or on first render. */
   jumpTo(x: number) {
     this.velocity = 0;
+    this.glide = null;
     this.target = this.current = this.clamp(x);
     this.stop();
     this.onChange(this.current);
@@ -106,6 +116,22 @@ export class Scroller {
   private tick = (now: number) => {
     const dt = Math.min(64, now - this.lastTime);
     this.lastTime = now;
+    if (this.glide) {
+      const g = this.glide;
+      const t = Math.min(1, (now - g.start) / g.duration);
+      // Ease in-out (cubic): leaves smoothly, lands softly.
+      const e = t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2;
+      this.current = g.from + (g.to - g.from) * e;
+      if (t >= 1) {
+        this.current = g.to;
+        this.glide = null;
+        this.frame = 0;
+      } else {
+        this.frame = requestAnimationFrame(this.tick);
+      }
+      this.onChange(this.current);
+      return;
+    }
     if (this.velocity) {
       // Inertia: free movement with friction; the bounds stop it dead (no bounce).
       const next = this.clamp(this.current + this.velocity * dt);
