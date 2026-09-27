@@ -10,7 +10,7 @@ import { MONTHS } from "./dates";
  */
 export const GROUP_MIN_GAMES = 3;
 /** Width of the closed group, for the lane layout (zoomed out: covers only). */
-export const GROUP_WIDTH = 220;
+export const GROUP_WIDTH = 240;
 export const GROUP_COVER_WIDTH = 96;
 
 /** Gap (px) between the cards of the open fan: they never overlap, so every title reads. */
@@ -20,6 +20,8 @@ const FAN_TILT = 1.5;
 const FAN_MAX_TILT = 5;
 const OPEN_S = 0.45;
 const CLOSE_S = 0.3;
+/** What opening / closing (and the selected card's nudge) leave on the fan's cards. */
+const FOLD_PROPS = "x,y,scale,opacity";
 
 const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
 
@@ -65,7 +67,9 @@ export function createGroupStack(games: Game[]): Card {
   const count = document.createElement("strong");
   count.textContent = `${games.length} ${noun}`;
   const when = document.createElement("span");
-  when.textContent = longDate(date);
+  // Short month, so "12 free updates" and the date fit on one line.
+  const [y, m, d] = date.split("-").map(Number);
+  when.textContent = `${MONTHS[m - 1].slice(0, 3)} ${d}, ${y}`;
   label.append(count, when);
   el.append(covers, label);
   return { el, rings: [] };
@@ -160,6 +164,9 @@ export class Fan {
     this.host.closest(".tl-item")?.classList.add("is-fanned");
     // A close still running (reopened quickly) must not bring the stack back afterwards.
     gsap.killTweensOf([this.stack.el, ...this.cards.map((c) => c.el)]);
+    // A close cut short leaves its offsets behind: the spread would end on them (the
+    // selected card no longer under the playhead).
+    gsap.set(this.cards.map((c) => c.el), { clearProps: FOLD_PROPS });
     for (const card of this.cards) card.el.hidden = false;
     this.layout(selectedId, true);
     const stackMid = this.stack.el.offsetLeft + this.stack.el.offsetWidth / 2;
@@ -193,7 +200,7 @@ export class Fan {
       if (this.isOpen) return;
       for (const card of this.cards) {
         card.el.hidden = true;
-        gsap.set(card.el, { clearProps: "x,scale,opacity" });
+        gsap.set(card.el, { clearProps: FOLD_PROPS });
       }
       item?.classList.remove("is-fanned");
     };

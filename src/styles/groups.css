@@ -49,9 +49,11 @@
 
 .group-stack__label {
   display: flex;
+  gap: 8px;
   align-items: baseline;
   justify-content: space-between;
   margin-top: 8px;
+  white-space: nowrap;
 }
 
 .group-stack__label strong {

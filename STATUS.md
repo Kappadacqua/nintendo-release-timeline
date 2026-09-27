@@ -1,6 +1,6 @@
 # Stato del progetto
 
-Aggiornato: 2026-09-27 — Documentazione, task 5 (STATUS.md sfoltito)
+Aggiornato: 2026-09-27 — Correzioni `docs/tasks/fixes-2.md`, task 1 (gruppi dello stesso giorno)
 
 ## Ultimo checkpoint
 
@@ -23,6 +23,8 @@ Nessuno.
 
 Dettagli completi nelle versioni precedenti di questo file (`git show 58d0ac7:STATUS.md`).
 
+- fixes-2 task 1 — Gruppi del 5 giugno 2025: PagGiù da Shine Post → primo aggiornamento (ARMS…), PagSu simmetrico; card selezionata del ventaglio centrata sotto l'indicatore anche per gli ultimi giochi e dopo passaggi rapidi tra i due gruppi; pallino diviso a metà (colore giochi / verde) sulla linea e nella minimappa, anche "upcoming"; card "12 free updates · Jun 5, 2025" su una riga (gruppo largo 240 px, mese abbreviato).
+
 - `90079bb` Stile: token `--news`/`--delayed` in entrambi i temi (badge "New", pallini e tipo "Delayed" di "What's new", badge dei rinvii); reduced motion su titolo in alto a sinistra e icona del tema; gruppo "12 free updates" del 5 giugno 2025 in verde.
 - `4e1cc85` Rankings: lista vuota "No games to rank" con soglia alta (senza "Reset filters") vs "No games match these filters"; voti senza numero di recensioni esclusi con soglia > 0 ("—" nel cerchietto).
 - `1887abe` Rankings (ordinamento, soglia, medie) e Studios (stato "Upcoming · in N days", ordine) invariati dopo lo spostamento della logica in `rank.ts` e `order.ts`.
@@ -39,7 +41,7 @@ Dettagli completi nelle versioni precedenti di questo file (`git show 58d0ac7:ST
 2. **Dati manuali mancanti** — Metacritic e Backloggd da compilare dal pannello admin: elenco in `docs/admin-todo.md`.
 3. **"What's new"** — mai verificato con due snapshot reali; un nuovo aggiornamento gratuito ("Free update · out <data>") non è verificabile finché non si aggiunge un titolo a `data/free-updates.json`.
 4. **`data/free-updates-seen.json`** — va tenuto nel repo: se cancellato, la build tratta tutte le voci come già note (nessuna novità).
-5. **Due gruppi nello stesso giorno** — stessa x, separati dalle corsie; il passaggio da un ventaglio aperto all'altro non è mai stato provato.
+5. **Due gruppi nello stesso giorno** — stessa x, separati dalle corsie; ordine da tastiera corretto (fixes-2 task 1), passaggio tra ventagli da verificare nel browser.
 6. **Studios: giochi senza studio** — 3 giochi first party senza sviluppatore IGDB, più "DK Challenge" e "Ocarina of Time" (sviluppatore "Nintendo", nascosto). Serve un task di codice: override `developer` per i giochi IGDB (oggi solo `manualGames`).
 7. **Studios: ordine** — ricalcolato sul gioco *mostrato*: studi senza gioco Switch 2 o con gioco senza data finiscono nel gruppo finale alfabetico.
 8. **Studios: gioco fissato alla build** — `studios.json` ha un solo gioco per studio: quando esce, la pagina lo mostra come uscito finché non si rifà `data:build`. Da valutare: scrivere tutti i giochi Switch 2 e scegliere nella pagina.

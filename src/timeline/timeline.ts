@@ -15,6 +15,7 @@ import { bindScrollInput, Scroller } from "./scroller";
 import { Backdrop } from "./backdrop";
 import { SiteTitle } from "./site-title";
 import { createGroupStack, Fan, GROUP_COVER_WIDTH, GROUP_MIN_GAMES, GROUP_WIDTH } from "./group";
+import { mixesKinds, orderStops } from "./same-day";
 import { drawTicks } from "./ticks";
 import { addUnits, isoWeek, nextZoom, snapDay, ZOOM, type ZoomLevel } from "./zoom";
 import { createTbaBlockNode, layoutTba, TBA_LAYOUT, type TbaBlock } from "./tba";
@@ -507,8 +508,9 @@ export class Timeline {
         };
       }),
     );
-    // By first release date, then title; the TBA zone comes last, by year (its x order).
-    return [...dated, ...tba].sort((a, b) => a.x - b.x || a.game.title.localeCompare(b.game.title));
+    // By first release date, then title (a group's games together); the TBA zone comes last,
+    // by year (its x order).
+    return orderStops([...dated, ...tba]);
   }
 
 
@@ -672,11 +674,14 @@ export class Timeline {
     const dot = document.createElement("div");
     // Color by type, filled once released (ITERATION-4 §3); a group has a bigger dot.
     const upcoming = parseDay(item.game.firstReleaseDate!) > this.todayDay;
+    // A group on a day with games and free updates: one dot split in their two colors.
     const kind = !item.games
       ? item.game.kind
-      : item.games.every((g) => g.kind === "free-update")
-        ? "group tl-item__dot--free-update"
-        : "group";
+      : mixesKinds(this.items, item.x)
+        ? "group tl-item__dot--mixed"
+        : item.games.every((g) => g.kind === "free-update")
+          ? "group tl-item__dot--free-update"
+          : "group";
     dot.className = `tl-item__dot tl-item__dot--${kind}${upcoming ? " is-upcoming" : ""}`;
     const card = item.games ? createGroupStack(item.games) : createCard(item.game, this.todayDay);
     group.append(rest.svg, card.el);
@@ -806,15 +811,15 @@ export class Timeline {
     }
     // A same-day group is one (bigger) dot; its preview lists all its games.
     const dots = [
-      ...this.items.map((i) => ({ x: i.x, games: i.games ?? [i.game] })),
-      ...this.tbaBlocks.flatMap((b) => b.slots.map((s) => ({ x: s.x, games: [s.game] }))),
-    ].map(({ x, games }) => {
+      ...this.items.map((i) => ({ x: i.x, games: i.games ?? [i.game], mixed: !!i.games && mixesKinds(this.items, i.x) })),
+      ...this.tbaBlocks.flatMap((b) => b.slots.map((s) => ({ x: s.x, games: [s.game], mixed: false }))),
+    ].map(({ x, games, mixed }) => {
       const game = games[0];
       const kinds = new Set(games.map((g) => g.kind));
       return {
         x,
         ids: games.map((g) => g.id),
-        kind: kinds.size === 1 ? game.kind : "game",
+        kind: mixed ? "mixed" : kinds.size === 1 ? game.kind : "game",
         group: games.length > 1,
         fresh: games.some((g) => !!news.unseenFor(g.id)),
         upcoming: !game.firstReleaseDate || parseDay(game.firstReleaseDate) > this.todayDay,

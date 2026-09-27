@@ -43,6 +43,20 @@
     linear-gradient(90deg, var(--joycon-left) 50%, var(--joycon-right) 50%) border-box;
 }
 
+/* A day with a group of games and one of free updates: one dot, half each color. */
+.tl-item__dot--mixed,
+.minimap__dot--mixed {
+  border-color: transparent;
+  background: linear-gradient(90deg, var(--timeline) 50%, var(--free-update) 50%) border-box;
+}
+
+.tl-item__dot--mixed.is-upcoming,
+.minimap__dot--mixed.is-upcoming {
+  background:
+    linear-gradient(var(--bg), var(--bg)) padding-box,
+    linear-gradient(90deg, var(--timeline) 50%, var(--free-update) 50%) border-box;
+}
+
 /* DLC dots are also square: a cue that does not rely on color. */
 .tl-item__dot--dlc,
 .legend-dot--dlc {

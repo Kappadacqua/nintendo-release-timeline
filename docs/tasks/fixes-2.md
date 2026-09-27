@@ -3,7 +3,7 @@
 Esegui un solo task per volta, il primo non spuntato. A fine task: typecheck, npm test, commit, aggiorna STATUS.md, spunta il task ([x]) nello stesso commit, report di CLAUDE.md.
 Regole: correggi solo i problemi indicati; altri problemi vanno nel report alla voce "Aperto". Se la logica è testabile, aggiungi un test. Non eseguire data:fetch*, niente git push, non toccare wip/perf.
 
-## [ ] Task 1 — Gruppi dello stesso giorno
+## [x] Task 1 — Gruppi dello stesso giorno
 File: src/timeline/group.ts, src/timeline/timeline.ts (solo le parti dei gruppi, trovale con grep), src/styles/groups.css, src/styles/dots.css.
 - PagGiù dall'ultimo elemento di un gruppo deve selezionare il PRIMO elemento del gruppo successivo nello stesso giorno (oggi arriva al 9° aggiornamento invece che al primo); PagSu simmetrico, sull'ultimo.
 - La card selezionata in un ventaglio aperto deve sempre centrarsi sotto l'indicatore, anche per gli ultimi elementi (oggi con Shine Post, ultimo gioco del 5 giugno 2025, resta spostata a sinistra).
