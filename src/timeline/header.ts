@@ -13,6 +13,8 @@ export class TimelineHeader {
   private slots: { wrap: HTMLElement; text: HTMLElement }[];
   private shown = new Map<HTMLElement, string>();
   private swaps = new Map<HTMLElement, gsap.core.Timeline>();
+  /** When any part last changed: while the date keeps changing (a glide), no animation. */
+  private changedAt = -Infinity;
 
   constructor() {
     this.el = document.createElement("div");
@@ -30,6 +32,14 @@ export class TimelineHeader {
 
   /** `direction` is +1 when moving forward in time, -1 backward. */
   update(parts: [string, string, string], direction: number, animate = true) {
+    // While moving, the date changes every frame: an animation restarted each time would
+    // never show the new text, so all parts are written straight away (and stay consistent).
+    const now = performance.now();
+    const changed = parts.some((part, i) => this.shown.get(this.slots[i].text) !== part);
+    if (!changed) return;
+    const rapid = now - this.changedAt < 250;
+    this.changedAt = now;
+    if (rapid) animate = false;
     parts.forEach((part, i) => {
       const { wrap, text } = this.slots[i];
       wrap.hidden = part === "";

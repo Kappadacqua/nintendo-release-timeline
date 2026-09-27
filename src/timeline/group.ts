@@ -18,9 +18,6 @@ const FAN_GAP = 16;
 /** Degrees each step away from the selected card tilts (at most FAN_MAX_TILT). */
 const FAN_TILT = 1.5;
 const FAN_MAX_TILT = 5;
-/** How much lower (px) each step away from the selected card sits (at most FAN_MAX_DROP). */
-const FAN_DROP = 8;
-const FAN_MAX_DROP = 28;
 const OPEN_S = 0.45;
 const CLOSE_S = 0.3;
 
@@ -126,7 +123,7 @@ export class Fan {
       const off = i - selected;
       return {
         left: lefts[i] + Math.sign(off) * grow,
-        lift: extra - Math.min(FAN_MAX_DROP, Math.abs(off) * FAN_DROP) + FAN_MAX_DROP,
+        lift: extra,
         rotation: dir * Math.sign(off) * Math.min(FAN_MAX_TILT, Math.abs(off) * FAN_TILT),
         side,
       };
@@ -158,6 +155,8 @@ export class Fan {
     this.isOpen = true;
     this.ensure();
     this.host.closest(".tl-item")?.classList.add("is-fanned");
+    // A close still running (reopened quickly) must not bring the stack back afterwards.
+    gsap.killTweensOf([this.stack.el, ...this.cards.map((c) => c.el)]);
     for (const card of this.cards) card.el.hidden = false;
     this.layout(selectedId, true);
     const stackMid = this.stack.el.offsetLeft + this.stack.el.offsetWidth / 2;
@@ -195,6 +194,7 @@ export class Fan {
       }
       item?.classList.remove("is-fanned");
     };
+    gsap.killTweensOf(this.stack.el);
     if (!animate || reducedMotion.matches) {
       gsap.set(this.stack.el, { autoAlpha: 1, scale: 1 });
       return done();

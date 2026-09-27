@@ -73,6 +73,9 @@ export class Presentation {
     window.removeEventListener("pointerdown", this.onInput, true);
     window.removeEventListener("pointermove", this.onPointerMove);
     this.bar.hidden = true;
+    // The shown game is let go: an open group folds, its card goes back to compact.
+    // (An input that stopped it may select something else right after, e.g. a click.)
+    this.timeline().clearSelection();
     this.say("Presentation stopped");
     this.onChange(false);
   }

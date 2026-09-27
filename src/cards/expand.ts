@@ -148,6 +148,14 @@ export function expandCard(card: HTMLElement, game: Game, todayDay: number, anch
   const fit = () => {
     const r = card.getBoundingClientRect();
     const b = bounds();
+    // Taller than the room on its side of the line: shrink it, its edge toward the line
+    // staying put, rather than push it over the line (where it would look cut off).
+    const room = anchor === "above" ? r.bottom - b.top : anchor === "below" ? b.bottom - r.top : b.height;
+    if (anchor !== "center" && r.height > room) {
+      const scale = Number(gsap.getProperty(card, "scale")) * (room / r.height);
+      gsap.to(card, { scale, duration: reducedMotion.matches ? 0 : 0.2, ease: "power2.out", overwrite: "auto" });
+      return;
+    }
     const dy = r.top < b.top ? b.top - r.top : r.bottom > b.bottom ? b.bottom - r.bottom : 0;
     if (!dy) return;
     // `y` is in the card's parent coordinates, which shrink with the window (--card-scale):

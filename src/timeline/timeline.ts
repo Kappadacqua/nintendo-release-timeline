@@ -232,6 +232,7 @@ export class Timeline {
 
     this.scroller = new Scroller((x) => this.render(x));
     this.scroller.snap = (x) => this.snapToDay(x);
+    this.scroller.maxFlingPx = TIMELINE.flingMaxDays * this.dayPx;
     const unbindKeys = bindScrollInput(this.el, this.scroller, {
       dayPx: this.dayPx,
       largeStep: ZOOM[this.zoom].largeStep,
@@ -356,6 +357,11 @@ export class Timeline {
 
   get hasSelection() {
     return this.selected >= 0;
+  }
+
+  /** Back to plain browsing: the selected card collapses, an open group folds. */
+  clearSelection() {
+    this.deselect();
   }
 
   /** Selects a game by id, e.g. from search (ITERATION-3); returns false if it isn't on the timeline. */

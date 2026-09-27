@@ -9,6 +9,8 @@ const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
 export class Scroller {
   current = 0;
   target = 0;
+  /** Longest distance (px) a drag's inertia may cover (about a month at the current zoom). */
+  maxFlingPx = Infinity;
   /** Where every glide must come to rest (e.g. the nearest day). */
   snap: (x: number) => number = (x) => x;
   private min = 0;
@@ -66,7 +68,11 @@ export class Scroller {
    */
   fling(velocity: number) {
     if (reducedMotion.matches || Math.abs(velocity) < TIMELINE.flingMinVelocity) return this.settle();
-    this.velocity = velocity;
+    // With friction f per 60fps frame the glide covers v · 16.7ms / (1 − f): cap v so that
+    // even a very fast flick never travels further than maxFlingPx.
+    const frameMs = 1000 / 60;
+    const maxVelocity = (this.maxFlingPx * (1 - TIMELINE.flingFriction)) / frameMs;
+    this.velocity = Math.sign(velocity) * Math.min(Math.abs(velocity), maxVelocity);
     this.glide = null;
     this.target = this.current;
     this.start();

@@ -24,6 +24,8 @@ export const TIMELINE = {
   flingFriction: 0.94,
   /** Below this release speed (px/ms) a drag just snaps: no inertia from a slow or tiny move. */
   flingMinVelocity: 0.35,
+  /** However fast the flick, inertia never travels more than this many days (at any zoom). */
+  flingMaxDays: 30,
   /** Inertia ends (and snaps) once it slows below this speed (px/ms). */
   flingStopVelocity: 0.08,
 
