@@ -1,6 +1,6 @@
 # Stato del progetto
 
-Aggiornato: 2026-09-27 — Documentazione, task 1 (CLAUDE.md e SPEC allineati al codice)
+Aggiornato: 2026-09-27 — Documentazione, task 2 (smistamento dei problemi di gravità bassa)
 
 ## Ultimo checkpoint
 
@@ -12,6 +12,8 @@ Aggiornato: 2026-09-27 — Documentazione, task 1 (CLAUDE.md e SPEC allineati al
 Nessuno.
 
 ## Da verificare nel browser (Architetto)
+
+- Documentazione, task 2 (solo documento, niente da vedere nel browser): `docs/review/triage.md` — i 28 problemi di gravità bassa aperti in 13 gruppi (6 fare, 6 rimandare, 1 ignorare), da trasformare in una coda di task se approvati.
 
 - Documentazione, task 1 (solo documenti, niente da vedere nel browser): mappa dei moduli e tabella dei comandi di `CLAUDE.md`, `docs/SPEC.md` §1, §2, §5, §10, §11, §12, §13 allineati al codice. Coda in `docs/tasks/docs.md`.
 

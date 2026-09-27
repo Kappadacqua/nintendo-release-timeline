@@ -13,7 +13,7 @@ Regole:
 - In docs/SPEC.md cerca affermazioni superate dal codice (es. §12 con "Timeline · Rankings" invece di tre voci). Verifica con grep, correggi il testo e segna in docs/review/*.md i problemi di documentazione risolti.
 - Nel report: l'elenco delle correzioni fatte.
 
-## [ ] Task 2 — Smistamento dei problemi di gravità bassa
+## [x] Task 2 — Smistamento dei problemi di gravità bassa
 - Leggi i problemi di gravità bassa non ancora corretti in docs/review/static.md, pages.md, data.md.
 - Scrivi docs/review/triage.md: raggruppali in task proposti (stessa area del codice, max 3–5 file ciascuno), con per ogni gruppo: problemi inclusi, file, impegno stimato (piccolo/medio), raccomandazione (fare / rimandare / ignorare) e motivo in una riga.
 - Nel report: solo numero di gruppi e raccomandazioni.
