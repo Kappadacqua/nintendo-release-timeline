@@ -1,6 +1,6 @@
 # Stato del progetto
 
-Aggiornato: 2026-09-27 — Revisione qualità, task 3 (pipeline dati)
+Aggiornato: 2026-09-27 — Revisione qualità, task 4 (test Vitest)
 
 ## Ultimo checkpoint
 
@@ -12,6 +12,8 @@ Aggiornato: 2026-09-27 — Revisione qualità, task 3 (pipeline dati)
 Nessuno.
 
 ## Da verificare nel browser (Architetto)
+
+- Revisione, task 4: Vitest (`npm test`, 51 test + 6 `it.todo`). Logica pura spostata senza cambiarla in `src/rankings/rank.ts` e `src/studios/order.ts`: controllare che Rankings (ordinamento, soglia, medie) e Studios (stato "Upcoming · in N days", ordine) funzionino come prima. I 6 `todo` sono i bug noti di `docs/review/pages.md` e `data.md`: quando si correggono, `it.todo` → `it`.
 
 - Revisione, task 3 (solo documento, niente da vedere nel browser): `docs/review/data.md` — 16 problemi (0 alta, 6 media, 10 bassa) da smistare in task di correzione. `data:build` funziona senza rete e senza cache ed è idempotente; i rischi principali sono negli script di fetch (niente timeout, errori MediaWiki non riconosciuti, link degli aggiornamenti gratuiti persi se una fonte fallisce).
 
@@ -59,7 +61,7 @@ Nessuno.
 
 ## Prossimi task (in ordine)
 
-0. Coda `docs/tasks/review.md`: task 4 (test automatici con Vitest).
+0. Smistare i problemi di `docs/review/` in task di correzione (coda `docs/tasks/review.md` completata).
 1. Verifica nel browser delle correzioni di `ec1c916` (Architetto).
 2. Correzioni emerse dalla verifica, un task per sessione.
 

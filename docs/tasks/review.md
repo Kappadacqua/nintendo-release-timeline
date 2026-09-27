@@ -41,7 +41,7 @@ Cosa cercare:
 - Gestione degli errori di rete negli script di fetch (timeout, risposte non valide, limiti di frequenza).
 - Regole di abbinamento dei nomi degli studi e dei doppioni degli aggiornamenti: casi che potrebbero abbinare in modo sbagliato.
 
-## [ ] Task 4 — Test automatici della logica pura
+## [x] Task 4 — Test automatici della logica pura
 Task: introdurre Vitest e scrivere test per le funzioni di logica pura più delicate. Questo task modifica il repository.
 File: package.json (devDependency vitest, script test), nuovi file *.test.ts accanto ai moduli testati. Se una funzione da testare non è esportata, esportala senza cambiarne il comportamento.
 Cosa testare:

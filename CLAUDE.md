@@ -16,6 +16,7 @@ Sito desktop personale: una timeline orizzontale dei giochi Nintendo usciti dal 
 | Comando | Uso |
 |---|---|
 | `npm run typecheck` | Controllo dei tipi. Da eseguire a fine di ogni task. |
+| `npm test` | Test Vitest (`*.test.ts` accanto ai moduli). Da eseguire a fine task se hai toccato logica coperta dai test (date, Rankings, ordine Studios, `scripts/lib/studios.ts`, `scripts/lib/free-updates.ts`). I bug noti sono `it.todo` con il riferimento a `docs/review/`: quando li correggi, trasformali in `it`. |
 | `npm run build` | Typecheck + build di produzione. Da eseguire a fine task se hai toccato config, entry point o import. |
 | `npm run data:build` | Rigenera `public/data/games.json` da cache + overrides. Nessuna rete. |
 | `npm run data:validate` | Elenca dati mancanti e conflitti. |
@@ -41,15 +42,15 @@ Sito desktop personale: una timeline orizzontale dei giochi Nintendo usciti dal 
 - `layout.ts` — dimensioni/collisioni. `appear.ts` — animazione di comparsa. `confetti.ts` — "Out today".
 
 **`src/`** (root)
-- `main.ts` — avvio dell'app. `types.ts` — tipi condivisi (`Game`, `Score`, `Studio`…). `games.ts` — caricamento di `games.json`, condiviso da timeline e Rankings.
+- `main.ts` — avvio dell'app. `test-utils.ts` — dati minimi per i test. `types.ts` — tipi condivisi (`Game`, `Score`, `Studio`…). `games.ts` — caricamento di `games.json`, condiviso da timeline e Rankings.
 - `view.ts` — menu View. `filters.ts` — filtri. `search.ts` — ricerca. `presentation.ts` — modalità presentazione.
 - `whats-new.ts`, `news.ts`, `history.ts` — novità, rinvii, storico voti. `zoom-control.ts` — selettore Day/Week/Month.
 - `theme/theme.ts` — tema giorno/notte. `admin/` — pannello admin (solo sviluppo).
 - `styles/main.css` — solo `@import` delle parti, nell'ordine della cascata (non riordinare). Parti in `styles/`: `tokens.css` (`:root` e temi), `base.css`, `header.css`, `timeline.css`, `timeline-items.css`, `card.css`, `dlc-card.css`, `tba.css`, `minimap.css`, `loading.css`, `shortcuts.css`, `selection.css`, `backdrop.css`, `switch2-edition.css`, `out-today.css`, `selection-extras.css` (override su sfondo/selezione, link admin), `filters.css`, `search.css`, `delays.css`, `whats-new.css`, `compact.css`, `view-menu.css`, `dots.css`, `minimap-preview.css`, `groups.css`, `zoom.css`, `presentation.css`, `groups-fan.css` (ventaglio aperto, rivisto).
 
-**`src/rankings/`** — pagina `/rankings.html`: `main.ts` (classifica, ordinamento, filtri).
+**`src/rankings/`** — pagina `/rankings.html`: `main.ts` (pagina, filtri), `rank.ts` (ordinamento e soglia, senza DOM).
 
-**`src/studios/`** — pagina `/studios.html`: `main.ts` (card degli studi, interruttore terze parti).
+**`src/studios/`** — pagina `/studios.html`: `main.ts` (card degli studi, interruttore terze parti), `order.ts` (tempo relativo e ordine, senza DOM).
 
 **`scripts/`** — pipeline dati
 - `fetch-data.ts` → rete → `data/cache/`. `build-data.ts` + `lib/build.ts` → `public/data/games.json` e `studios.json`.
@@ -87,7 +88,7 @@ Se ti serve un'informazione sui dati (es. i campi di un gioco), estraila con un 
 
 ## Fine di ogni task
 
-1. `npm run typecheck` (e `npm run build` se serve) devono passare.
+1. `npm run typecheck` (e `npm run build` / `npm test` se serve) devono passare.
 2. Commit con messaggio `Area: descrizione breve` (es. `Timeline: cap canvas DPR`). Un commit per task.
 3. Aggiorna `STATUS.md`: sposta il task tra quelli "da verificare", aggiungi problemi noti emersi.
 4. Rispondi **solo** con questo report:

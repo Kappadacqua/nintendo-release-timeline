@@ -10,30 +10,15 @@ import { createScoreRing, tier, type ScoreRing } from "../cards/score-ring";
 import { applyFilters } from "../filters";
 import { loadGames } from "../games";
 import { initTheme } from "../theme/theme";
-import { MONTHS, parseDay, todayEpochDay } from "../timeline/dates";
-import type { Game, Score, ScoreSource } from "../types";
+import { MONTHS, todayEpochDay } from "../timeline/dates";
+import type { Game, ScoreSource } from "../types";
+import { isReleased, rank, type Ranked, scoreOf, type Settings, SORTS, type SortKey } from "./rank";
 
 initTheme(document.querySelector<HTMLButtonElement>(".theme-toggle")!);
 
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 // ---------- Settings (SPEC §12) ----------
-
-type SortKey = ScoreSource | "critics" | "users";
-
-const SORTS: { key: SortKey; label: string; sources: ScoreSource[] }[] = [
-  { key: "opencritic", label: "OpenCritic", sources: ["opencritic"] },
-  { key: "metacritic", label: "Metacritic", sources: ["metacritic"] },
-  { key: "metacriticUser", label: "Metacritic User", sources: ["metacriticUser"] },
-  { key: "backloggd", label: "Backloggd", sources: ["backloggd"] },
-  { key: "critics", label: "Critics average", sources: ["opencritic", "metacritic"] },
-  { key: "users", label: "Users average", sources: ["metacriticUser", "backloggd"] },
-];
-
-interface Settings {
-  sort: SortKey;
-  minReviews: number;
-}
 
 const DEFAULTS: Settings = { sort: "opencritic", minReviews: 20 };
 const STORAGE_KEY = "rankings-settings";
@@ -110,7 +95,7 @@ function filterGames(games: Game[], f: RankFilters) {
   return f.year === "all" ? kept : kept.filter((g) => g.firstReleaseDate!.startsWith(`${f.year}-`));
 }
 
-// ---------- Ranking ----------
+// ---------- Helpers ----------
 
 function el<K extends keyof HTMLElementTagNameMap>(tag: K, className: string, text?: string) {
   const node = document.createElement(tag);
@@ -119,63 +104,10 @@ function el<K extends keyof HTMLElementTagNameMap>(tag: K, className: string, te
   return node;
 }
 
-function isReleased(game: Game, today: number) {
-  return game.firstReleaseDate != null && parseDay(game.firstReleaseDate) <= today;
-}
-
 /** "Jun 5, 2025" */
 function formatDate(iso: string) {
   const [y, m, d] = iso.split("-").map(Number);
   return `${MONTHS[m - 1].slice(0, 3)} ${d}, ${y}`;
-}
-
-function scoreOf(game: Game, source: ScoreSource): Score | null {
-  const { critic, user } = game.scores;
-  switch (source) {
-    case "opencritic":
-      return critic.opencritic;
-    case "metacritic":
-      return critic.metacritic;
-    case "metacriticUser":
-      return user.metacritic;
-    case "backloggd":
-      return user.backloggd;
-  }
-}
-
-type Ranked = {
-  game: Game;
-  /** Normalized 0–100 value used for sorting. */
-  value: number;
-  /** Reviews behind the value, for ties. */
-  count: number;
-  /** Sources that passed the threshold and make up the value. */
-  used: ScoreSource[];
-};
-
-/** Released games with a score from the chosen sort, best first. */
-function rank(games: Game[], today: number, { sort, minReviews }: Settings) {
-  const { sources } = SORTS.find((s) => s.key === sort)!;
-  const released = games.filter((g) => isReleased(g, today));
-  const ranked: Ranked[] = [];
-  for (const game of released) {
-    // Each source counts only if it reaches the threshold on its own.
-    const used = sources.filter((src) => {
-      const score = scoreOf(game, src);
-      return score != null && (score.count ?? 0) >= minReviews;
-    });
-    if (used.length === 0) continue;
-    const scores = used.map((src) => scoreOf(game, src)!);
-    ranked.push({
-      game,
-      value: scores.reduce((sum, s) => sum + s.normalized, 0) / scores.length,
-      count: scores.reduce((sum, s) => sum + (s.count ?? 0), 0),
-      used,
-    });
-  }
-  // Ties: more reviews first, then title.
-  ranked.sort((a, b) => b.value - a.value || b.count - a.count || a.game.title.localeCompare(b.game.title));
-  return { ranked, hidden: released.length - ranked.length };
 }
 
 // ---------- Rendering ----------
