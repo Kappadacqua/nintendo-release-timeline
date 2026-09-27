@@ -1,0 +1,224 @@
+/* ---------- Studios page ---------- */
+
+.studios-main {
+  overflow-y: auto;
+}
+
+.studios {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 32px 32px 48px;
+}
+
+.studios__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.studios__title {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+}
+
+.studios__subtitle {
+  margin: 4px 0 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.studios__toolbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.studios__toggle {
+  position: relative;
+  gap: 8px;
+  padding: 6px 8px;
+}
+
+.studios__toggle strong {
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.studios__count {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+}
+
+.studios__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.studios__empty {
+  padding: 40px 16px;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-md);
+  font-size: 15px;
+  font-weight: 800;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.studios__empty[hidden] {
+  display: none;
+}
+
+/* ---------- Studio card ---------- */
+
+.studio-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px 16px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--card);
+  box-shadow: var(--card-shadow);
+}
+
+.studio-card__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.studio-card__name {
+  min-width: 0;
+  margin: 0;
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 1.25;
+}
+
+.studio-card__link {
+  text-decoration: none;
+}
+
+.studio-card__link:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.studio-card__link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.studio-badge {
+  flex: none;
+  margin-top: 1px;
+}
+
+.studio-badge--first-party {
+  background: var(--accent);
+  color: #fff;
+}
+
+.studio-badge--partner {
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  color: var(--accent);
+}
+
+.studio-badge--third-party {
+  color: var(--text-muted);
+}
+
+/* The shown game: cover, title, date, status. */
+.studio-game {
+  display: grid;
+  grid-template-columns: 60px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+}
+
+.studio-game__cover {
+  display: block;
+  width: 60px;
+  height: 80px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  background: var(--surface-2);
+}
+
+.studio-game__info {
+  min-width: 0;
+}
+
+.studio-game__title {
+  display: -webkit-box;
+  overflow: hidden;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.3;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.studio-game__date {
+  display: block;
+  margin-top: 4px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.studio-game__status {
+  margin: 2px 0 0;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--text-muted);
+}
+
+.studio-game.is-upcoming .studio-game__status {
+  color: var(--accent);
+}
+
+/* No Switch 2 game (or no precise date): same height as a game block. */
+.studio-none {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  min-height: 80px;
+  padding: 0 14px;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.studio-none__text {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--text-muted);
+}
+
+.studio-none__latest {
+  overflow: hidden;
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text-muted);
+}

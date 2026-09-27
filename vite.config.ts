@@ -10,6 +10,7 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, "index.html"),
         rankings: resolve(__dirname, "rankings.html"),
+        studios: resolve(__dirname, "studios.html"),
       },
     },
   },

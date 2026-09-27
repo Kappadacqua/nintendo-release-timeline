@@ -73,7 +73,7 @@ L'utente segue il lavoro dal telefono e non può rispondere subito:
 
 ---
 
-## [ ] Task 3 — Pagina Studios
+## [x] Task 3 — Pagina Studios
 
 **Task:** creare la pagina Studios.
 

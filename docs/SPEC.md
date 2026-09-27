@@ -527,3 +527,23 @@ Giochi Switch 1 con un aggiornamento gratuito per Switch 2. Fonte: `data/free-up
 - **Rankings** (e Studios, quando ci sarà): mai presenti, nemmeno nel conteggio dei nascosti.
 - **Ricerca**: presenti, indicati come "Free update".
 - **What's new**: gli aggiornamenti non sono negli snapshot di `data:fetch`; il giorno in cui compaiono nel file lo registra `data:build` in `data/free-updates-seen.json`. Il primo import (17 voci) vale come già noto (`null`): solo i titoli aggiunti dopo compaiono come "New", con dettaglio "Free update · data".
+
+## 14. Studios
+
+**Stato: fatto** (coda in `docs/tasks/studios.md`).
+
+Pagina `studios.html` (`src/studios/main.ts`, `src/styles/studios.css`), inclusa nella build di produzione. Navigazione **"Timeline · Rankings · Studios"** su tutte e tre le pagine, pagina attiva evidenziata.
+
+**Dati** — `public/data/studios.json`, scritto da `npm run data:build`.
+- **First party**: categoria `Category:First_party_developers` di Nintendo Wiki (API MediaWiki, `npm run data:fetch-studios` → `data/cache/studios.json`). Esclusi gli studi chiusi o accorpati (categorie "Defunct"/"Former"); i casi incerti restano attivi. Esclusa "Nintendo" (casa madre).
+- **Partner**: sviluppano almeno un gioco del dataset pubblicato da Nintendo o The Pokémon Company (publisher IGDB in cache).
+- **Third party**: solo esclusive di altri editori.
+- Corrispondenza nomi Wiki ↔ IGDB con nomi normalizzati, più `data/studios-overrides.json` (`active`, `igdbNames`, `hidden`; una chiave che non è una pagina della wiki è un alias per partner e terze parti).
+- **Gioco mostrato**: il prossimo in uscita con data precisa, altrimenti l'ultimo uscito. Contano giochi e Switch 2 Edition, non DLC né free update. `hasSwitch2Game` e, per gli studi senza gioco Switch 2, `latestSwitch1Game`.
+
+**Pagina**
+- Una card per studio: nome (link a Nintendo Wiki in una nuova scheda, solo per i first party), badge "First party" / "Partner" / "Third party", gioco con copertina, titolo, data e stato ("Upcoming · in 26 days" / "Released 3 months ago", calcolato dalla data a ogni visita).
+- Senza gioco Switch 2: "No Switch 2 game yet" e, se c'è, una riga piccola "Latest: <titolo> · Switch 1". Con un gioco Switch 2 senza data precisa: "Release date TBA".
+- **Ordine**: prima gli studi con un gioco in uscita (data più vicina prima), poi quelli con un gioco uscito (più recente prima), infine quelli senza gioco Switch 2 datato (alfabetico).
+- First party e Partner sempre visibili; interruttore **"Show third-party studios"**, spento di default, salvato nel browser (`localStorage`, chiave `studios-show-third-party`). Contatore "N studios" degli studi visibili.
+- Comparsa delle card con breve dissolvenza, e dissolvenza al cambio dell'interruttore (niente animazione con `prefers-reduced-motion`).
