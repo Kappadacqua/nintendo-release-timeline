@@ -56,15 +56,15 @@ grep -nE "gsap\.(to|from|fromTo|timeline|set)|reducedMotion|requestAnimationFram
 
 ### 2. Colori scritti direttamente
 
-**[media] `src/styles/whats-new.css:3-6` — token `--news` / `--news-text` definiti fuori da `tokens.css`**
+**[media] `src/styles/whats-new.css:3-6` — token `--news` / `--news-text` definiti fuori da `tokens.css`** ✔ corretto in `Style: tokens, reduced motion, free update group`
 Blu `#0a7cff` e `#fff` in un `:root` del componente, senza variante per il tema scuro.
 Correzione: spostarli in `tokens.css` con varianti scure.
 
-**[media] `src/styles/delays.css:4-15` — palette "rinviato" con temi gestiti nel componente**
+**[media] `src/styles/delays.css:4-15` — palette "rinviato" con temi gestiti nel componente** ✔ corretto in `Style: tokens, reduced motion, free update group`
 `#f5a623`, `#b36b00`, `#ffc15e` scritti a mano, con i selettori del tema scuro duplicati qui invece che in `tokens.css`.
 Correzione: token `--delayed` / `--delayed-text` in `tokens.css` (chiaro + scuro) e `var()` qui.
 
-**[media] `src/styles/whats-new.css:249` — `#d98200` per il tipo "delayed"**
+**[media] `src/styles/whats-new.css:249` — `#d98200` per il tipo "delayed"** ✔ corretto in `Style: tokens, reduced motion, free update group`
 Quarto arancione, diverso da quelli di `delays.css`, senza variante scura.
 Correzione: usare lo stesso token `--delayed-text` del punto precedente.
 
@@ -96,7 +96,7 @@ Esclusi di proposito: `src/cards/flags.ts` (colori ufficiali delle bandiere) e `
 
 ### 3. Classi CSS
 
-**[bassa] `src/timeline/group.ts:44` — `card--group-free-update` senza regole CSS**
+**[bassa] `src/timeline/group.ts:44` — `card--group-free-update` senza regole CSS** ✔ corretto in `Style: tokens, reduced motion, free update group`
 Il gruppo di soli aggiornamenti riceve la classe, ma nessuno stile la usa: la card del gruppo non si distingue da quella dei giochi (i pallini sì, via `tl-item__dot--*`).
 Correzione: aggiungere lo stile verde (bordo/badge) o togliere la classe.
 
@@ -118,11 +118,11 @@ Correzione: rimuoverla oppure limitarla a `import.meta.env.DEV`.
 
 ### 6. prefers-reduced-motion
 
-**[media] `src/styles/header.css:43-45` — titolo/gioco selezionato: transizione di `transform` senza eccezione**
+**[media] `src/styles/header.css:43-45` — titolo/gioco selezionato: transizione di `transform` senza eccezione** ✔ corretto in `Style: tokens, reduced motion, free update group`
 `.app-title__site` / `.app-title__game` scorrono di 6px in 0.3s; il blocco reduced-motion a riga 176 copre solo `.app-nav__link`.
 Correzione: aggiungere i due selettori al blocco di riga 176 (`transition: none` o solo opacità).
 
-**[media] `src/theme/theme.ts:44-48` — rotazione dell'icona del tema con GSAP senza controllo**
+**[media] `src/theme/theme.ts:44-48` — rotazione dell'icona del tema con GSAP senza controllo** ✔ corretto in `Style: tokens, reduced motion, free update group`
 `gsap.fromTo` (rotate −90°→0, scale 0.6→1, `back.out`) parte sempre.
 Correzione: saltare l'animazione se `matchMedia("(prefers-reduced-motion: reduce)").matches`.
 

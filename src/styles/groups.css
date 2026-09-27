@@ -5,6 +5,20 @@
   cursor: pointer;
 }
 
+/* Only free updates: the green accent of their cards and dots. */
+.card--group-free-update {
+  border: 2px solid color-mix(in srgb, var(--free-update) 55%, var(--border));
+  background: var(--card-free-update);
+}
+
+.card--group-free-update .group-stack__cover {
+  border-color: var(--card-free-update);
+}
+
+.card--group-free-update .group-stack__label strong {
+  color: var(--free-update);
+}
+
 .group-stack__covers {
   position: relative;
   height: 104px;

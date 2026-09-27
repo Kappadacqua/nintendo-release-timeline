@@ -177,4 +177,15 @@ main {
   .app-nav__link {
     transition: none;
   }
+
+  /* Title and selected game swap with a fade only, no slide. */
+  .app-title__site,
+  .app-title__game {
+    transition: opacity 0.3s ease;
+  }
+
+  .app-title__game,
+  .app-title.is-game .app-title__site {
+    transform: none;
+  }
 }

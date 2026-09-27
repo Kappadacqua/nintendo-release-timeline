@@ -1,6 +1,6 @@
 # Stato del progetto
 
-Aggiornato: 2026-09-27 — Correzioni, task 3 (Rankings, problemi medi)
+Aggiornato: 2026-09-27 — Correzioni, task 4 (Stile: token, reduced motion, gruppo aggiornamenti)
 
 ## Ultimo checkpoint
 
@@ -12,6 +12,8 @@ Aggiornato: 2026-09-27 — Correzioni, task 3 (Rankings, problemi medi)
 Nessuno.
 
 ## Da verificare nel browser (Architetto)
+
+- Correzioni, task 4 (Stile): nuovi token in `tokens.css` — `--news` (blu, un po' più chiaro nel tema scuro: `#3d95ff`), `--news-text`, `--delayed`, `--delayed-text`. Controllare in entrambi i temi: badge "New" e pallini di "What's new", badge dei rinvii (arancione come prima), tipo "Delayed" nel pannello "What's new" (ora stesso arancione del badge: `#b36b00` chiaro / `#ffc15e` scuro, prima `#d98200`). Con reduced motion attivo: il titolo in alto a sinistra cambia con sola dissolvenza (niente scorrimento di 6px) e l'icona del tema non ruota. Il gruppo "12 free updates" del 5 giugno 2025 ha bordo verde, fondo `--card-free-update` ed etichetta verde, come le card degli aggiornamenti.
 
 - Correzioni, task 3 (Rankings): con i dati attuali (solo OpenCritic, sempre con conteggio) nessun cambio visivo atteso. Con "Min. reviews" alto (es. 500) e un filtro non predefinito (es. DLC acceso) la lista vuota ora dice "No games to rank" senza "Reset filters"; con un filtro che da solo svuota la lista (es. anno 2025 + Exclusives only, se dà zero) resta "No games match these filters" + "Reset filters". Un voto senza numero di recensioni (inseribile dal pannello admin per Metacritic/Backloggd) non entra con soglia > 0: riga dei nascosti "…; N with no review count", nel cerchietto "—"; con soglia 0 entra. `data:validate` usa il giorno locale come la build.
 
@@ -61,7 +63,7 @@ Nessuno.
 5. **Due gruppi nello stesso giorno** — il gruppo dei giochi e quello degli aggiornamenti hanno la stessa x: la disposizione in corsie li separa, ma il passaggio da un ventaglio aperto all'altro non è mai stato provato.
 6. **Studios: giochi senza sviluppatore** — 3 giochi first party non hanno sviluppatore su IGDB e non vanno a nessuno studio (si sistemano con `developer` negli override dei giochi).
 7. **Studios: ordine** — l'ordine è ricalcolato nella pagina sul gioco *mostrato*: gli studi senza gioco Switch 2 e quelli con gioco Switch 2 senza data finiscono nel gruppo finale alfabetico.
-8. **Reduced motion incompleto** — titolo in alto a sinistra (`header.css:43`) e icona del tema (`theme.ts:44`) si muovono anche con `prefers-reduced-motion` (dettagli in `docs/review/static.md`).
+8. **Reduced motion incompleto** — restano i problemi di gravità bassa di `docs/review/static.md` (es. pomello degli interruttori, `filters.css:93`).
 9. **Studios: gioco mostrato fissato alla build** — `studios.json` contiene un solo gioco per studio, scelto con il giorno locale della build: quando esce, la pagina lo mostra come uscito anche se lo studio ha già il gioco successivo, finché non si rifà `data:build`. Il fuso UTC è corretto (fixes, task 1); resta da valutare se scrivere tutti i giochi Switch 2 e scegliere nella pagina.
 10. **Studios: giochi di studi nascosti** — "DK Challenge" e "The Legend of Zelda: Ocarina of Time" (sviluppatore IGDB "Nintendo", nascosto) non vanno a nessuno studio; ora `data:validate` li elenca, si sistemano con `developer` negli override dei giochi.
 

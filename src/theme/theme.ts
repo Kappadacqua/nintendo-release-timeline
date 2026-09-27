@@ -4,6 +4,7 @@ type Theme = "light" | "dark";
 
 const STORAGE_KEY = "theme";
 const systemDark = window.matchMedia("(prefers-color-scheme: dark)");
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 function storedTheme(): Theme | null {
   try {
@@ -41,6 +42,7 @@ export function initTheme(button: HTMLButtonElement) {
       // Storage unavailable: theme still switches for this session.
     }
     apply(next, button);
+    if (reducedMotion.matches) return;
     gsap.fromTo(
       button.querySelector(".theme-toggle__icon"),
       { rotate: -90, scale: 0.6 },

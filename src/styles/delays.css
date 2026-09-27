@@ -1,18 +1,8 @@
 /* ---------- Delays (ITERATION-3 §3) ---------- */
 
 .badge--delayed {
-  background: color-mix(in srgb, #f5a623 22%, transparent);
-  color: #b36b00;
-}
-
-:root[data-theme="dark"] .badge--delayed {
-  color: #ffc15e;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .badge--delayed {
-    color: #ffc15e;
-  }
+  background: color-mix(in srgb, var(--delayed) 22%, transparent);
+  color: var(--delayed-text);
 }
 
 .card__delay {

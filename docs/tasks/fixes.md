@@ -25,7 +25,7 @@ Problemi: la regola sopra, più gli altri problemi di gravità media di docs/rev
 File: src/rankings/rank.ts, src/rankings/main.ts, i relativi test; aggiorna SPEC §12 con la regola.
 Verifica: typecheck, npm test (l'it.todo senza corpo sui voti senza recensioni diventa un test completo e passa), build.
 
-## [ ] Task 4 — Stile: token, riduci movimento, gruppo aggiornamenti
+## [x] Task 4 — Stile: token, riduci movimento, gruppo aggiornamenti
 Problemi: i 5 di gravità media in docs/review/static.md (colori --news, palette dei rinvii e #d98200 da spostare in src/styles/tokens.css con varianti per il tema scuro; animazione del titolo nell'header e dell'icona del tema da disattivare con prefers-reduced-motion). In più: la classe card--group-free-update non ha regole CSS; dai al gruppo "N free updates" l'accento verde degli aggiornamenti gratuiti (bordo ed etichetta), coerente con le card e i pallini.
 File: src/styles/tokens.css e i CSS indicati in static.md, src/styles/groups.css.
 Verifica: typecheck, build. Nel report elenca cosa controllare nel browser.

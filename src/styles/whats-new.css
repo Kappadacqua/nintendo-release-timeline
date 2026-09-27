@@ -1,10 +1,5 @@
 /* ---------- What's new (ITERATION-3 §4) ---------- */
 
-:root {
-  --news: #0a7cff;
-  --news-text: #fff;
-}
-
 .badge--news {
   display: inline-flex;
   align-items: center;
@@ -246,7 +241,7 @@
 }
 
 .whats-new__item--delayed .whats-new__type {
-  color: #d98200;
+  color: var(--delayed-text);
 }
 
 .whats-new__item.is-seen .whats-new__type {
