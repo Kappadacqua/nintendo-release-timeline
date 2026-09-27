@@ -30,7 +30,7 @@ L'utente segue il lavoro dal telefono e non può rispondere subito:
 
 ---
 
-## [ ] Task 2 — Ordinamento e soglia
+## [x] Task 2 — Ordinamento e soglia
 
 **Task:** permettere di scegliere la fonte di ordinamento e la soglia minima di recensioni.
 
