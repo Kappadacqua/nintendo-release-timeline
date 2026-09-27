@@ -1,6 +1,6 @@
 # Stato del progetto
 
-Aggiornato: 2026-09-27 — Studios, task 2
+Aggiornato: 2026-09-27 — Studios, task 2b
 
 ## Ultimo checkpoint
 
@@ -12,6 +12,8 @@ Aggiornato: 2026-09-27 — Studios, task 2
 Nessuno.
 
 ## Da verificare nel browser (Architetto)
+
+- Studios, task 2b (solo dati, niente da vedere nel browser): `studios.json` ha `category` al posto di `firstParty`: 15 first-party, 15 partner (HAL, Game Freak, Intelligent Systems, FromSoftware…), 10 third-party. Alias in `studios-overrides.json`: "Konami Digital Entertainment" → "Konami". `latestSwitch1Game` per 4 studi (EPD No. 4, TNX, Wonderfy, Artdink). `data:validate` riporta solo 3 giochi first party senza sviluppatore IGDB (Nintendo Switch Sports Resort, Pikmin 4 S2 Edition, Hyrule Warriors: Age of Calamity DE).
 
 - Studios, task 2 (solo dati, niente da vedere nel browser): `npm run data:build` scrive anche `public/data/studios.json` (15 studi first party attivi, 10 con un gioco; 24 di terze parti con esclusive). `data:validate` elenca 15 sviluppatori first party non abbinati (HAL, Game Freak, Intelligent Systems…: non sono nella categoria di Nintendo Wiki, quindi finiscono tra le terze parti). Nascosti: "Nintendo" (casa madre, i suoi giochi non vanno a nessuno studio) e "Nintendo Studios Singapore" (possibile controllata Bandai Namco, da verificare). "Nintendo Cube" ↔ IGDB "NDCube".
 
@@ -39,7 +41,7 @@ Nessuno.
 3. **"What's new"** — mai verificato con due snapshot reali.
 4. **Free updates in "What's new"** — `data/free-updates-seen.json` è stato generato dalla build e va tenuto nel repo: se viene cancellato, la build successiva tratta di nuovo tutte le voci come già note (nessuna novità).
 5. **Due gruppi nello stesso giorno** — il gruppo dei giochi e quello degli aggiornamenti hanno la stessa x: la disposizione in corsie li separa, ma il passaggio da un ventaglio aperto all'altro non è mai stato provato.
-6. **Studios: nomi IGDB doppi** — "Konami" e "Konami Digital Entertainment" sono due studi di terze parti distinti in `studios.json` (nessun accorpamento per le terze parti).
+6. **Studios: giochi senza sviluppatore** — 3 giochi first party non hanno sviluppatore su IGDB e non vanno a nessuno studio (si sistemano con `developer` negli override dei giochi).
 
 ## Prossimi task (in ordine)
 
@@ -52,4 +54,4 @@ Nessuno.
 - Prestazioni 4K rimandate: si ottimizza per 1080p.
 
 - Store Nintendo: regione Italia.
-- Pagina Rankings: coda completata (`docs/tasks/rankings.md`), specifica in `docs/SPEC.md` §12. Pagina Studios: coda in corso (`docs/tasks/studios.md`), task 1–2 fatti.
+- Pagina Rankings: coda completata (`docs/tasks/rankings.md`), specifica in `docs/SPEC.md` §12. Pagina Studios: coda in corso (`docs/tasks/studios.md`), task 1, 2 e 2b fatti.

@@ -56,6 +56,23 @@ L'utente segue il lavoro dal telefono e non può rispondere subito:
 
 ---
 
+## [x] Task 2b — Categoria "partner"
+
+**Task:** distinguere tra gli studi i partner di Nintendo.
+
+**File:** `scripts/lib/studios.ts`, `scripts/lib/build.ts`, `scripts/lib/fandom.ts`, `scripts/fetch-studios.ts`, `scripts/validate-data.ts`, `src/types.ts`, `data/studios-overrides.json`.
+
+**Atteso:**
+- `category` al posto di `firstParty` in `studios.json` e nei tipi: `"first-party"` (categoria Nintendo Wiki), `"partner"` (sviluppa almeno un gioco del dataset pubblicato da Nintendo o The Pokémon Company, dai publisher IGDB in cache), `"third-party"` (solo esclusive di altri editori).
+- Gli sviluppatori "Nintendo" (società madre) restano esclusi.
+- Alias per partner e terze parti in `data/studios-overrides.json`: una chiave che non è una pagina della wiki è il nome dello studio, i suoi `igdbNames` vengono accorpati (es. "Konami Digital Entertainment" → "Konami").
+- Studi senza gioco Switch 2 ma con un gioco Switch 1 nel dataset: anche `latestSwitch1Game`.
+- `data:validate`: la sezione dei non abbinati resta vuota o quasi.
+
+**Verifica:** typecheck + `npm run data:build` + `npm run data:validate`.
+
+---
+
 ## [ ] Task 3 — Pagina Studios
 
 **Task:** creare la pagina Studios.

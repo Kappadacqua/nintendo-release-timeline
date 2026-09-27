@@ -22,7 +22,8 @@ async function main() {
   writeJson(STUDIO_PATHS.cache, cache);
 
   const overrides = loadStudiosOverrides();
-  const unknown = Object.keys(overrides).filter((t) => !studios.some((s) => s.title === t));
+  // Keys outside the category are partner / third-party aliases, unless they force "active".
+  const unknown = Object.keys(overrides).filter((t) => overrides[t].active !== undefined && !studios.some((s) => s.title === t));
   // Uncertain cases already decided in the overrides file are not doubts any more.
   const open = studios.filter((s) => s.uncertain && overrides[s.title]?.active === undefined);
   const active = studios.filter((s) => overrides[s.title]?.active ?? s.active).length;

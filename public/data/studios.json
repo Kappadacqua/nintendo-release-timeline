@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-09-27T14:01:23.939Z",
+  "generatedAt": "2026-09-27T16:25:14.971Z",
   "studios": [
     {
       "name": "Monolith Soft",
       "url": "https://nintendo.fandom.com/wiki/Monolith_Soft",
-      "firstParty": true,
+      "category": "first-party",
       "game": {
         "id": "igdb:405448",
         "title": "Xenoblade Chronicles 3: Nintendo Switch 2 Edition",
@@ -17,7 +17,7 @@
     {
       "name": "MercurySteam",
       "url": null,
-      "firstParty": false,
+      "category": "partner",
       "game": {
         "id": "igdb:408719",
         "title": "Metroid Ravenous",
@@ -30,7 +30,7 @@
     {
       "name": "Intelligent Systems",
       "url": null,
-      "firstParty": false,
+      "category": "partner",
       "game": {
         "id": "igdb:366896",
         "title": "Fire Emblem: Fortune's Weave",
@@ -43,7 +43,7 @@
     {
       "name": "Shapefarm",
       "url": null,
-      "firstParty": false,
+      "category": "third-party",
       "game": {
         "id": "igdb:381237",
         "title": "Orbitals",
@@ -56,7 +56,7 @@
     {
       "name": "Nintendo EPD Production Group No. 5",
       "url": "https://nintendo.fandom.com/wiki/Nintendo_EPD_Production_Group_No._5",
-      "firstParty": true,
+      "category": "first-party",
       "game": {
         "id": "igdb:348977",
         "title": "Splatoon Raiders",
@@ -69,7 +69,7 @@
     {
       "name": "Imageneer",
       "url": null,
-      "firstParty": false,
+      "category": "partner",
       "game": {
         "id": "igdb:402033",
         "title": "Fitness Boxing 3: Your Personal Trainer - Nintendo Switch 2 Edition",
@@ -82,7 +82,7 @@
     {
       "name": "TNX",
       "url": null,
-      "firstParty": false,
+      "category": "partner",
       "game": {
         "id": "igdb:337031",
         "title": "Rhythm Heaven Groove",
@@ -90,12 +90,19 @@
         "date": "2026-07-02",
         "status": "released"
       },
-      "hasSwitch2Game": false
+      "hasSwitch2Game": false,
+      "latestSwitch1Game": {
+        "id": "igdb:337031",
+        "title": "Rhythm Heaven Groove",
+        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobwkn.jpg",
+        "date": "2026-07-02",
+        "status": "released"
+      }
     },
     {
       "name": "Velan Studios",
       "url": null,
-      "firstParty": false,
+      "category": "partner",
       "game": {
         "id": "igdb:400709",
         "title": "Star Fox",
@@ -108,7 +115,7 @@
     {
       "name": "Artdink",
       "url": null,
-      "firstParty": false,
+      "category": "third-party",
       "game": {
         "id": "igdb:388239",
         "title": "A-Train 9 Evolution",
@@ -116,12 +123,19 @@
         "date": "2026-06-04",
         "status": "released"
       },
-      "hasSwitch2Game": false
+      "hasSwitch2Game": false,
+      "latestSwitch1Game": {
+        "id": "igdb:388239",
+        "title": "A-Train 9 Evolution",
+        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc178.jpg",
+        "date": "2026-06-04",
+        "status": "released"
+      }
     },
     {
-      "name": "Konami Digital Entertainment",
+      "name": "Konami",
       "url": null,
-      "firstParty": false,
+      "category": "third-party",
       "game": {
         "id": "igdb:388431",
         "title": "eFootball Kick-Off!",
@@ -134,7 +148,7 @@
     {
       "name": "Good-Feel",
       "url": null,
-      "firstParty": false,
+      "category": "partner",
       "game": {
         "id": "igdb:366883",
         "title": "Yoshi and the Mysterious Book",
@@ -147,7 +161,7 @@
     {
       "name": "Nintendo EPD Production Group No. 4",
       "url": "https://nintendo.fandom.com/wiki/Nintendo_EPD_Production_Group_No._4",
-      "firstParty": true,
+      "category": "first-party",
       "game": {
         "id": "igdb:337036",
         "title": "Tomodachi Life: Living the Dream",
@@ -155,12 +169,32 @@
         "date": "2026-04-16",
         "status": "released"
       },
-      "hasSwitch2Game": false
+      "hasSwitch2Game": false,
+      "latestSwitch1Game": {
+        "id": "igdb:337036",
+        "title": "Tomodachi Life: Living the Dream",
+        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobdqd.jpg",
+        "date": "2026-04-16",
+        "status": "released"
+      }
+    },
+    {
+      "name": "The Pokémon Works",
+      "url": null,
+      "category": "partner",
+      "game": {
+        "id": "igdb:333568",
+        "title": "Pokémon Champions",
+        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co9gu3.jpg",
+        "date": "2026-04-08",
+        "status": "released"
+      },
+      "hasSwitch2Game": true
     },
     {
       "name": "Nintendo EPD Production Group No. 10",
       "url": "https://nintendo.fandom.com/wiki/Nintendo_EPD_Production_Group_No._10",
-      "firstParty": true,
+      "category": "first-party",
       "game": {
         "id": "igdb:366881",
         "title": "Super Mario Bros. Wonder: Nintendo Switch 2 Edition + Meetup in Bellabel Park",
@@ -173,7 +207,7 @@
     {
       "name": "Omega Force",
       "url": null,
-      "firstParty": false,
+      "category": "partner",
       "game": {
         "id": "igdb:366893",
         "title": "Pokémon Pokopia",
@@ -186,7 +220,7 @@
     {
       "name": "Camelot Software Planning",
       "url": null,
-      "firstParty": false,
+      "category": "partner",
       "game": {
         "id": "igdb:366880",
         "title": "Mario Tennis Fever",
@@ -199,7 +233,7 @@
     {
       "name": "adglobe",
       "url": null,
-      "firstParty": false,
+      "category": "third-party",
       "game": {
         "id": "igdb:388428",
         "title": "Tokyo Scramble",
@@ -212,7 +246,7 @@
     {
       "name": "Nintendo EPD Production Group No. 6",
       "url": "https://nintendo.fandom.com/wiki/Nintendo_EPD_Production_Group_No._6",
-      "firstParty": true,
+      "category": "first-party",
       "game": {
         "id": "igdb:37136",
         "title": "Metroid Prime 4: Beyond",
@@ -225,7 +259,7 @@
     {
       "name": "Sora",
       "url": null,
-      "firstParty": false,
+      "category": "partner",
       "game": {
         "id": "igdb:338105",
         "title": "Kirby Air Riders",
@@ -238,7 +272,7 @@
     {
       "name": "AAA Games Studio",
       "url": null,
-      "firstParty": false,
+      "category": "partner",
       "game": {
         "id": "igdb:338085",
         "title": "Hyrule Warriors: Age of Imprisonment",
@@ -251,7 +285,7 @@
     {
       "name": "Game Freak",
       "url": null,
-      "firstParty": false,
+      "category": "partner",
       "game": {
         "id": "igdb:288327",
         "title": "Pokémon Legends: Z-A",
@@ -264,7 +298,7 @@
     {
       "name": "Nintendo Software Technology",
       "url": "https://nintendo.fandom.com/wiki/Nintendo_Software_Technology",
-      "firstParty": true,
+      "category": "first-party",
       "game": {
         "id": "igdb:366900",
         "title": "Super Mario Galaxy 2",
@@ -277,7 +311,7 @@
     {
       "name": "HAL Laboratory",
       "url": null,
-      "firstParty": false,
+      "category": "partner",
       "game": {
         "id": "igdb:338074",
         "title": "Kirby and the Forgotten Land: Nintendo Switch 2 Edition + Star-Crossed World",
@@ -290,7 +324,7 @@
     {
       "name": "Nintendo Cube",
       "url": "https://nintendo.fandom.com/wiki/Nintendo_Cube",
-      "firstParty": true,
+      "category": "first-party",
       "game": {
         "id": "igdb:338071",
         "title": "Super Mario Party Jamboree: Nintendo Switch 2 Edition + Jamboree TV",
@@ -301,9 +335,29 @@
       "hasSwitch2Game": true
     },
     {
+      "name": "Wonderfy",
+      "url": null,
+      "category": "partner",
+      "game": {
+        "id": "igdb:356551",
+        "title": "Pokémon Friends",
+        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coa5oc.jpg",
+        "date": "2025-07-22",
+        "status": "released"
+      },
+      "hasSwitch2Game": false,
+      "latestSwitch1Game": {
+        "id": "igdb:356551",
+        "title": "Pokémon Friends",
+        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coa5oc.jpg",
+        "date": "2025-07-22",
+        "status": "released"
+      }
+    },
+    {
       "name": "Nintendo EPD Production Group No. 8",
       "url": "https://nintendo.fandom.com/wiki/Nintendo_EPD_Production_Group_No._8",
-      "firstParty": true,
+      "category": "first-party",
       "game": {
         "id": "igdb:338106",
         "title": "Donkey Kong Bananza",
@@ -314,22 +368,9 @@
       "hasSwitch2Game": true
     },
     {
-      "name": "Konami",
-      "url": null,
-      "firstParty": false,
-      "game": {
-        "id": "igdb:217964",
-        "title": "Shine Post: Be Your Idol!",
-        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co9m6w.jpg",
-        "date": "2025-06-05",
-        "status": "released"
-      },
-      "hasSwitch2Game": true
-    },
-    {
       "name": "Nintendo EPD Production Group No. 3",
       "url": "https://nintendo.fandom.com/wiki/Nintendo_EPD_Production_Group_No._3",
-      "firstParty": true,
+      "category": "first-party",
       "game": {
         "id": "igdb:338073",
         "title": "The Legend of Zelda: Tears of the Kingdom - Nintendo Switch 2 Edition",
@@ -342,7 +383,7 @@
     {
       "name": "Nintendo EPD Production Group No. 9",
       "url": "https://nintendo.fandom.com/wiki/Nintendo_EPD_Production_Group_No._9",
-      "firstParty": true,
+      "category": "first-party",
       "game": {
         "id": "igdb:338067",
         "title": "Mario Kart World",
@@ -355,7 +396,7 @@
     {
       "name": "Sega",
       "url": null,
-      "firstParty": false,
+      "category": "third-party",
       "game": {
         "id": "igdb:338091",
         "title": "Puyo Puyo Tetris 2S",
@@ -368,7 +409,7 @@
     {
       "name": "Shin'en Multimedia",
       "url": null,
-      "firstParty": false,
+      "category": "third-party",
       "game": {
         "id": "igdb:338093",
         "title": "Fast Fusion",
@@ -381,70 +422,70 @@
     {
       "name": "1-Up Studio",
       "url": "https://nintendo.fandom.com/wiki/1-Up_Studio",
-      "firstParty": true,
+      "category": "first-party",
       "game": null,
       "hasSwitch2Game": false
     },
     {
       "name": "Bloober Team",
       "url": null,
-      "firstParty": false,
+      "category": "third-party",
       "game": null,
       "hasSwitch2Game": true
     },
     {
       "name": "Bplus",
       "url": null,
-      "firstParty": false,
+      "category": "third-party",
       "game": null,
       "hasSwitch2Game": true
     },
     {
       "name": "FromSoftware",
       "url": null,
-      "firstParty": false,
+      "category": "partner",
       "game": null,
       "hasSwitch2Game": true
     },
     {
       "name": "GungHo Online Entertainment",
       "url": null,
-      "firstParty": false,
+      "category": "third-party",
       "game": null,
       "hasSwitch2Game": true
     },
     {
       "name": "Next Level Games",
       "url": "https://nintendo.fandom.com/wiki/Next_Level_Games",
-      "firstParty": true,
+      "category": "first-party",
       "game": null,
       "hasSwitch2Game": false
     },
     {
       "name": "Nintendo Entertainment Planning & Development",
       "url": "https://nintendo.fandom.com/wiki/Nintendo_Entertainment_Planning_%26_Development",
-      "firstParty": true,
+      "category": "first-party",
       "game": null,
       "hasSwitch2Game": false
     },
     {
       "name": "Nitrome",
       "url": null,
-      "firstParty": false,
+      "category": "third-party",
       "game": null,
       "hasSwitch2Game": true
     },
     {
       "name": "Retro Studios",
       "url": "https://nintendo.fandom.com/wiki/Retro_Studios",
-      "firstParty": true,
+      "category": "first-party",
       "game": null,
       "hasSwitch2Game": false
     },
     {
       "name": "SRD",
       "url": "https://nintendo.fandom.com/wiki/SRD",
-      "firstParty": true,
+      "category": "first-party",
       "game": null,
       "hasSwitch2Game": false
     }

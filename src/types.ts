@@ -84,16 +84,24 @@ export interface StudioGame {
   status: "upcoming" | "released";
 }
 
+/**
+ * "first-party": in Nintendo Wiki's first party developers. "partner": develops a game of
+ * games.json published by Nintendo or The Pokémon Company. "third-party": only exclusives
+ * published by others.
+ */
+export type StudioCategory = "first-party" | "partner" | "third-party";
+
 /** One studio of public/data/studios.json. */
 export interface Studio {
   name: string;
-  /** Nintendo Wiki page; null for third-party studios. */
+  /** Nintendo Wiki page; null for partners and third-party studios. */
   url: string | null;
-  /** In Nintendo Wiki's first party developers; false = third party with an exclusive in games.json. */
-  firstParty: boolean;
+  category: StudioCategory;
   game: StudioGame | null;
   /** At least one game or Switch 2 Edition playable on Switch 2 in games.json (DLC and free updates excluded). */
   hasSwitch2Game: boolean;
+  /** Only without a Switch 2 game: the Switch 1 game of games.json with the latest date, if any. */
+  latestSwitch1Game?: StudioGame;
 }
 
 export interface StudiosFile {

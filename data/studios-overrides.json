@@ -1,4 +1,9 @@
 {
+  "Konami": {
+    "igdbNames": [
+      "Konami Digital Entertainment"
+    ]
+  },
   "Nintendo": {
     "hidden": true,
     "note": "Parent company, not a studio: its games are attributed to no studio"
@@ -12,6 +17,10 @@
     "active": false,
     "note": "Infobox: defunct 2015"
   },
+  "Nintendo Entertainment Analysis & Development": {
+    "active": false,
+    "note": "Infobox: defunct September 16, 2015"
+  },
   "Nintendo EPD Production Group No. 1": {
     "active": false,
     "note": "Infobox: defunct 2020"
@@ -23,10 +32,6 @@
   "Nintendo EPD Smart Device Production Group": {
     "active": false,
     "note": "Infobox: defunct 2026"
-  },
-  "Nintendo Entertainment Analysis & Development": {
-    "active": false,
-    "note": "Infobox: defunct September 16, 2015"
   },
   "Nintendo Integrated Research & Development": {
     "active": false,

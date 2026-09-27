@@ -9,8 +9,8 @@ import { loadOpenCriticCache } from "./opencritic";
 import { applyOverride, loadOverrides, manualToGame, type OverridesFile, score } from "./overrides";
 import type { FetchReport } from "./report";
 import { addHistory, changesOf, readSnapshots } from "./snapshots";
-import { buildStudios } from "./studios";
-import { igdbExclusive, inDateRange, isExcludedType, isOnSwitch, kindOf, releaseInfo, toGame } from "./transform";
+import { buildStudios, isNintendoPublisher } from "./studios";
+import { igdbExclusive, inDateRange, isExcludedType, isOnSwitch, kindOf, publishers, releaseInfo, toGame } from "./transform";
 
 /** A game inside the perimeter, before scores, links and overrides. */
 export interface Selected {
@@ -276,12 +276,21 @@ export function buildGames(): BuildResult {
   // What's new (ITERATION-3 §4).
   const changes: ChangesFile = { generatedAt: report.generatedAt, changes: changesOf(games, snapshots, today, freeUpdatesFirstSeen(today)) };
 
-  // Studios page: Switch 2 availability from the cached IGDB platforms; hand-written games are Switch 2 ones.
-  const onSwitch2 = (g: Game) =>
-    g.kind === "switch2-edition" ||
-    !g.id.startsWith("igdb:") ||
-    (candidates.get(Number(g.id.slice(5)))?.platforms ?? []).includes(PLATFORM.SWITCH_2);
-  const studios = buildStudios(games, onSwitch2, today);
+  // Studios page: platforms and publishers from the cached IGDB data; hand-written games are
+  // Switch 2 ones, and published by Nintendo when first party.
+  const igdbOf = (g: Game) => (g.id.startsWith("igdb:") ? candidates.get(Number(g.id.slice(5))) : undefined);
+  const studios = buildStudios(
+    games,
+    {
+      onSwitch2: (g) => g.kind === "switch2-edition" || !g.id.startsWith("igdb:") || (igdbOf(g)?.platforms ?? []).includes(PLATFORM.SWITCH_2),
+      onSwitch1: (g) => g.kind === "game" && (igdbOf(g)?.platforms ?? []).includes(PLATFORM.SWITCH),
+      byNintendo: (g) => {
+        const igdb = igdbOf(g);
+        return igdb ? publishers(igdb).some(isNintendoPublisher) : g.firstParty;
+      },
+    },
+    today,
+  );
   report.studiosUnmatched = studios.unmatched;
 
   const file: GamesFile = { generatedAt: report.generatedAt, games };

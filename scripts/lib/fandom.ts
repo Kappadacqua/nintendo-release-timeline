@@ -35,11 +35,14 @@ export interface StudiosCache {
   studios: FandomStudio[];
 }
 
-/** data/studios-overrides.json: manual fixes, by Nintendo Wiki page title. */
+/**
+ * data/studios-overrides.json: manual fixes, by Nintendo Wiki page title. A key that is not a
+ * wiki page names a partner or third-party studio: its "igdbNames" are merged under that name.
+ */
 export interface StudioOverride {
   /** Forces the studio active (true) or closed (false), whatever the wiki says. */
   active?: boolean;
-  /** Developer names used on IGDB when they differ from the wiki title. */
+  /** Developer names used on IGDB when they differ from the wiki title (or the studio name). */
   igdbNames?: string[];
   /** Never shown on the site. */
   hidden?: boolean;

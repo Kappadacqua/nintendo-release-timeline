@@ -1,10 +1,11 @@
-import type { Game, Studio, StudioGame } from "../../src/types";
+import type { Game, Studio, StudioCategory, StudioGame } from "../../src/types";
 import { readJson } from "./cache";
 import { type StudiosCache, loadStudiosOverrides, STUDIO_PATHS } from "./fandom";
 
 /**
- * public/data/studios.json: Nintendo Wiki's active first-party studios, plus the third-party
- * developers of exclusives, each matched to games.json through the IGDB developer name.
+ * public/data/studios.json: Nintendo Wiki's active first-party studios, the partners (developers
+ * of a game published by Nintendo or The Pokémon Company) and the third-party developers of
+ * exclusives, each matched to games.json through the IGDB developer name.
  */
 
 /** Developer names compared loosely: case, accents, "&", punctuation and company suffixes ignored. */
@@ -19,19 +20,30 @@ export function normalizeStudio(name: string) {
     .trim();
 }
 
+/** Nintendo (and its regional branches) or The Pokémon Company, as an IGDB publisher name. */
+export const isNintendoPublisher = (name: string) => /^nintendo\b|\bpokemon company\b/.test(normalizeStudio(name));
+
 export interface StudiosResult {
   studios: Studio[];
-  /** IGDB developers of first-party games that match no wiki studio (neither active nor hidden). */
+  /** Developers of first-party games attributed to no studio ("" = no IGDB developer). */
   unmatched: { developer: string; titles: string[] }[];
 }
 
-/**
- * `onSwitch2` tells whether a game is playable on Switch 2 (IGDB platforms, read by the caller).
- * Games and Switch 2 Editions count; DLC and free updates don't.
- */
-export function buildStudios(games: Game[], onSwitch2: (g: Game) => boolean, today: string): StudiosResult {
+/** What the caller knows from the cached IGDB data. */
+export interface StudioGameInfo {
+  /** Playable on Switch 2. */
+  onSwitch2: (g: Game) => boolean;
+  /** Released on Switch 1. */
+  onSwitch1: (g: Game) => boolean;
+  /** Published by Nintendo or The Pokémon Company. */
+  byNintendo: (g: Game) => boolean;
+}
+
+/** Games and Switch 2 Editions count; DLC and free updates don't. */
+export function buildStudios(games: Game[], info: StudioGameInfo, today: string): StudiosResult {
   const cache = readJson<StudiosCache>(STUDIO_PATHS.cache, { fetchedAt: "", source: "", studios: [] });
   const overrides = loadStudiosOverrides();
+  const wikiTitles = new Set(cache.studios.map((s) => s.title));
 
   // Every wiki studio (closed and hidden ones too) claims its names, so their games are "matched"
   // without being shown: e.g. "Nintendo", the parent company, is hidden and attributes to no one.
@@ -41,50 +53,79 @@ export function buildStudios(games: Game[], onSwitch2: (g: Game) => boolean, tod
     const shown = (o.active ?? s.active) && !o.hidden;
     for (const name of [s.title, ...(o.igdbNames ?? [])]) byName.set(normalizeStudio(name), { title: s.title, url: s.url, shown });
   }
+  // Overrides for names outside the wiki: aliases (and hiding) for partners and third parties.
+  const alias = new Map<string, { name: string; hidden: boolean }>();
+  for (const [name, o] of Object.entries(overrides)) {
+    if (wikiTitles.has(name)) continue;
+    for (const n of [name, ...(o.igdbNames ?? [])]) alias.set(normalizeStudio(n), { name, hidden: !!o.hidden });
+  }
 
   const counted = games.filter((g) => g.kind === "game" || g.kind === "switch2-edition");
   const gamesOf = new Map<string, Game[]>();
-  const thirdParty = new Map<string, { name: string; games: Game[]; exclusive: boolean }>();
+  const others = new Map<string, { name: string; games: Game[]; hidden: boolean }>();
   const unmatched = new Map<string, string[]>();
   for (const g of counted) {
-    if (!g.developer) continue;
-    const key = normalizeStudio(g.developer);
-    const studio = byName.get(key);
+    if (!g.developer) {
+      if (g.firstParty) unmatched.set("", [...(unmatched.get("") ?? []), g.title]);
+      continue;
+    }
+    const studio = byName.get(normalizeStudio(g.developer));
     if (studio) {
       if (studio.shown) gamesOf.set(studio.title, [...(gamesOf.get(studio.title) ?? []), g]);
       continue;
     }
-    if (g.firstParty) unmatched.set(g.developer, [...(unmatched.get(g.developer) ?? []), g.title]);
-    const t = thirdParty.get(key) ?? { name: g.developer, games: [], exclusive: false };
-    t.games.push(g);
-    t.exclusive ||= g.exclusivity !== null;
-    thirdParty.set(key, t);
+    const a = alias.get(normalizeStudio(g.developer));
+    const key = normalizeStudio(a?.name ?? g.developer);
+    const o = others.get(key) ?? { name: a?.name ?? g.developer, games: [], hidden: a?.hidden ?? false };
+    o.games.push(g);
+    others.set(key, o);
   }
 
-  const toStudio = (name: string, url: string | null, firstParty: boolean, list: Game[]): Studio => ({
-    name,
-    url,
-    firstParty,
-    game: shownGame(list, today),
-    hasSwitch2Game: list.some(onSwitch2),
-  });
+  const toStudio = (name: string, url: string | null, category: StudioCategory, list: Game[]): Studio => {
+    const hasSwitch2Game = list.some(info.onSwitch2);
+    const switch1 = hasSwitch2Game ? null : latestGame(list.filter(info.onSwitch1), today);
+    return { name, url, category, game: shownGame(list, today), hasSwitch2Game, ...(switch1 && { latestSwitch1Game: switch1 }) };
+  };
+  const rest: Studio[] = [];
+  for (const o of others.values()) {
+    const category = o.games.some(info.byNintendo) ? "partner" : o.games.some((g) => g.exclusivity !== null) ? "third-party" : null;
+    // First-party games whose developer is neither a wiki studio nor a partner.
+    if (category !== "partner")
+      for (const g of o.games.filter((g) => g.firstParty)) unmatched.set(g.developer!, [...(unmatched.get(g.developer!) ?? []), g.title]);
+    if (category && !o.hidden) rest.push(toStudio(o.name, null, category, o.games));
+  }
   const studios = [
     ...cache.studios
       .filter((s) => byName.get(normalizeStudio(s.title))?.shown)
-      .map((s) => toStudio(s.title, s.url, true, gamesOf.get(s.title) ?? [])),
-    ...[...thirdParty.values()].filter((t) => t.exclusive).map((t) => toStudio(t.name, null, false, t.games)),
+      .map((s) => toStudio(s.title, s.url, "first-party", gamesOf.get(s.title) ?? [])),
+    ...rest,
   ].sort(byShownGame);
 
   return { studios, unmatched: [...unmatched].map(([developer, titles]) => ({ developer, titles })) };
 }
 
+const dated = (list: Game[]) =>
+  list.filter((g) => g.firstReleaseDate).sort((a, b) => a.firstReleaseDate!.localeCompare(b.firstReleaseDate!));
+
+const toStudioGame = (g: Game, today: string): StudioGame => ({
+  id: g.id,
+  title: g.title,
+  coverUrl: g.coverUrl,
+  date: g.firstReleaseDate!,
+  status: g.firstReleaseDate! > today ? "upcoming" : "released",
+});
+
 /** The next game out with a precise date, else the latest released one. */
 function shownGame(list: Game[], today: string): StudioGame | null {
-  const dated = list.filter((g) => g.firstReleaseDate).sort((a, b) => a.firstReleaseDate!.localeCompare(b.firstReleaseDate!));
-  const next = dated.find((g) => g.firstReleaseDate! > today);
-  const g = next ?? dated.at(-1);
-  if (!g) return null;
-  return { id: g.id, title: g.title, coverUrl: g.coverUrl, date: g.firstReleaseDate!, status: next ? "upcoming" : "released" };
+  const sorted = dated(list);
+  const g = sorted.find((g) => g.firstReleaseDate! > today) ?? sorted.at(-1);
+  return g ? toStudioGame(g, today) : null;
+}
+
+/** The game with the latest precise date. */
+function latestGame(list: Game[], today: string): StudioGame | null {
+  const g = dated(list).at(-1);
+  return g ? toStudioGame(g, today) : null;
 }
 
 /** Upcoming first (soonest first), then released (latest first), then no game (alphabetical). */

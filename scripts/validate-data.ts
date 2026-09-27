@@ -113,9 +113,9 @@ if (report) {
       : "RAPIDAPI_KEY is not set, so they were kept without the check.",
   );
   section(
-    "First-party developers matching no Nintendo Wiki studio",
-    (report.studiosUnmatched ?? []).map((u) => `${u.developer} ${dim(`— ${u.titles.join(", ")}`)}`),
-    'Add the IGDB name under "igdbNames" of the studio in data/studios-overrides.json (or run `npm run data:fetch-studios`).',
+    "First-party games attributed to no studio",
+    (report.studiosUnmatched ?? []).map((u) => `${u.developer || "(no IGDB developer)"} ${dim(`— ${u.titles.join(", ")}`)}`),
+    'Add the IGDB name under "igdbNames" of the studio in data/studios-overrides.json, or set "developer" in the game overrides.',
   );
   section("OpenCritic errors", report.opencritic.errors);
   section("Wikipedia / Nintendo Wiki errors", report.linkErrors ?? []);
