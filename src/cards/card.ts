@@ -10,6 +10,8 @@ import { createScoreRing, type ScoreRing } from "./score-ring";
 export const CARD_WIDTH = { game: 300, dlc: 264 } as const;
 /** Compact cards (ITERATION-4 §2): cover, title and badges only. */
 export const COMPACT_CARD_WIDTH = { game: 236, dlc: 220 } as const;
+/** Zoomed out (Week / Month, ITERATION-4 §6) cards are just the cover. */
+export const COVER_CARD_WIDTH = 74;
 
 export function cardWidth(game: Game, compact = false) {
   const widths = compact ? COMPACT_CARD_WIDTH : CARD_WIDTH;
@@ -156,6 +158,7 @@ export function createCard(game: Game, todayDay: number): Card {
   // The CSS picks one of the two, so switching style can animate the width.
   card.style.setProperty("--w-full", `${cardWidth(game)}px`);
   card.style.setProperty("--w-compact", `${cardWidth(game, true)}px`);
+  card.style.setProperty("--w-cover", `${COVER_CARD_WIDTH}px`);
   card.dataset.gameId = game.id;
   card.setAttribute("aria-label", describe(game, isUpcoming));
   // Roving focus: the timeline makes the centered card (and its links) tabbable.
@@ -210,6 +213,11 @@ export function createCard(game: Game, todayDay: number): Card {
     scores.append(scoreGroup("Critics", critics), scoreGroup("Users", users));
     card.append(scores);
   }
+
+  // Zoomed out only the cover shows: the title appears on hover.
+  const peek = el("span", "card__peek", game.title);
+  peek.setAttribute("aria-hidden", "true");
+  card.append(peek);
 
   card.querySelectorAll("a").forEach((a) => (a.tabIndex = -1));
   cover.addEventListener("error", () => (cover.src = PLACEHOLDER_COVER), { once: true });

@@ -9,8 +9,9 @@ import { MONTHS } from "./dates";
  * filters), the timeline shows one group instead of a pile of cards.
  */
 export const GROUP_MIN_GAMES = 3;
-/** Width of the closed group, for the lane layout. */
+/** Width of the closed group, for the lane layout (zoomed out: covers only). */
 export const GROUP_WIDTH = 220;
+export const GROUP_COVER_WIDTH = 96;
 
 /** The open fan is at most this wide (and never wider than the view): cards overlap more when there are many. */
 const FAN_MAX_SPAN = 1400;
@@ -34,6 +35,7 @@ export function createGroupStack(games: Game[]): Card {
   el.className = "card card--group";
   el.style.setProperty("--w-full", `${GROUP_WIDTH}px`);
   el.style.setProperty("--w-compact", `${GROUP_WIDTH}px`);
+  el.style.setProperty("--w-cover", `${GROUP_COVER_WIDTH}px`);
   // A click (or Enter) on the group selects its first game, which opens it.
   el.dataset.gameId = games[0].id;
   el.tabIndex = -1;

@@ -27,7 +27,11 @@ export interface TbaBlock {
 }
 
 /** Groups games without a precise date by expected year and lays the blocks out from `startX`. */
-export function layoutTba(games: Game[], startX: number): { blocks: TbaBlock[]; endX: number } {
+export function layoutTba(
+  games: Game[],
+  startX: number,
+  widthOf: (game: Game) => number = (g) => cardWidth(g),
+): { blocks: TbaBlock[]; endX: number } {
   const groups = new Map<number | null, Game[]>();
   for (const game of games) {
     const year = game.vagueRelease?.year ?? null;
@@ -41,12 +45,12 @@ export function layoutTba(games: Game[], startX: number): { blocks: TbaBlock[]; 
   let cursor = startX;
   for (const year of years) {
     const blockGames = groups.get(year)!.sort((a, b) => a.title.localeCompare(b.title));
-    const cardsWidth = blockGames.reduce((sum, g) => sum + cardWidth(g), 0) + cardGap * (blockGames.length - 1);
+    const cardsWidth = blockGames.reduce((sum, g) => sum + widthOf(g), 0) + cardGap * (blockGames.length - 1);
     const width = Math.max(minWidth, cardsWidth + padding * 2);
 
     let cardX = cursor + (width - cardsWidth) / 2;
     const slots = blockGames.map((game) => {
-      const w = cardWidth(game);
+      const w = widthOf(game);
       const slot = { game, x: cardX + w / 2, revealed: false };
       cardX += w + cardGap;
       return slot;

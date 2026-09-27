@@ -2,7 +2,7 @@ import { gsap } from "gsap";
 import { hideCard, revealCard } from "../cards/appear";
 import { MORPH_SECONDS, morphParts } from "../cards/compact";
 import { type Anchor, collapseCard, expandCard } from "../cards/expand";
-import { type Card, cardWidth, createCard } from "../cards/card";
+import { type Card, cardWidth, COVER_CARD_WIDTH, createCard } from "../cards/card";
 import { assignLanes, type Lane } from "../cards/layout";
 import { currentDelay } from "../history";
 import { news } from "../news";
@@ -14,7 +14,9 @@ import { Minimap } from "./minimap";
 import { bindScrollInput, Scroller } from "./scroller";
 import { Backdrop } from "./backdrop";
 import { SiteTitle } from "./site-title";
-import { createGroupStack, Fan, GROUP_MIN_GAMES, GROUP_WIDTH } from "./group";
+import { createGroupStack, Fan, GROUP_COVER_WIDTH, GROUP_MIN_GAMES, GROUP_WIDTH } from "./group";
+import { drawTicks } from "./ticks";
+import { addUnits, nextZoom, snapDay, ZOOM, type ZoomLevel } from "./zoom";
 import { createTbaBlockNode, layoutTba, TBA_LAYOUT, type TbaBlock } from "./tba";
 
 interface Item {
@@ -88,6 +90,23 @@ interface Palette {
   font: string;
 }
 
+/** Where the view is, independent of the zoom level (so a rebuild at another level keeps it). */
+export interface TimelineState {
+  /** Day under the playhead (fractional while gliding), on the dated line… */
+  day?: number;
+  /** …or the distance (px) from the start of the TBA zone. */
+  tba?: number;
+  selectedId: string | null;
+}
+
+export interface TimelineOptions {
+  compact?: boolean;
+  group?: boolean;
+  zoom?: ZoomLevel;
+  /** Ctrl + wheel, + / −, or selecting a game while zoomed out (which returns to Day). */
+  onZoom?: (level: ZoomLevel, selectId?: string) => void;
+}
+
 /**
  * Horizontal timeline. World coordinates: x = (days since start) * dayPx.
  * Ticks and the line are drawn on a canvas sized to the viewport, so only the
@@ -105,6 +124,12 @@ export class Timeline {
   private compact: boolean;
   /** Same-day releases grouped (ITERATION-4 §4). */
   private readonly group: boolean;
+  /** Zoom level (ITERATION-4 §6) and its scale. */
+  readonly zoom: ZoomLevel;
+  private readonly dayPx: number;
+  private readonly onZoom?: TimelineOptions["onZoom"];
+  /** Everything that scales in a zoom transition (not the minimap). */
+  readonly stage: HTMLElement;
   private readonly tbaBlocks: TbaBlock[];
   private readonly minimap: Minimap;
 
@@ -144,10 +169,13 @@ export class Timeline {
     games: Game[],
     headerSlot?: HTMLElement,
     titleEl?: HTMLElement,
-    options: { compact?: boolean; group?: boolean } = {},
+    options: TimelineOptions = {},
   ) {
     this.compact = options.compact ?? false;
     this.group = options.group ?? false;
+    this.zoom = options.zoom ?? "day";
+    this.dayPx = ZOOM[this.zoom].dayPx;
+    this.onZoom = options.onZoom;
     const lastRelease = games
       .flatMap((g) => Object.values(g.releaseDates))
       .filter((d): d is string => !!d)
@@ -155,7 +183,7 @@ export class Timeline {
     this.endDay = Math.max(lastRelease, this.todayDay) + TIMELINE.endMarginDays;
 
     this.el = document.createElement("div");
-    this.el.className = `timeline${this.compact ? " is-compact" : ""}`;
+    this.el.className = `timeline zoom-${this.zoom}${this.zoom !== "day" ? " is-zoomed-out" : ""}${this.compact ? " is-compact" : ""}`;
     this.el.setAttribute("role", "region");
     this.el.setAttribute("aria-label", "Release timeline. Press ? for keyboard shortcuts.");
 
@@ -173,6 +201,7 @@ export class Timeline {
     const tba = layoutTba(
       games.filter((g) => !g.firstReleaseDate),
       this.dayX(this.endDay) + TIMELINE.tbaGapPx,
+      (g) => this.widthOf(g),
     );
     this.tbaBlocks = tba.blocks;
     this.tbaStartX = this.tbaBlocks.length ? this.tbaBlocks[0].x : this.dayX(this.endDay);
@@ -190,7 +219,10 @@ export class Timeline {
     this.band = document.createElement("div");
     this.band.className = "timeline__band";
     this.band.setAttribute("aria-hidden", "true");
-    this.el.append(this.band, this.canvas, playhead, this.world, this.minimap.el);
+    this.stage = document.createElement("div");
+    this.stage.className = "timeline__stage";
+    this.stage.append(this.band, this.canvas, playhead, this.world);
+    this.el.append(this.stage, this.minimap.el);
     (headerSlot ?? this.el).append(this.header.el);
     root.append(this.el);
     this.el.addEventListener("focusin", (e) => this.onFocusIn(e));
@@ -201,10 +233,18 @@ export class Timeline {
     this.scroller = new Scroller((x) => this.render(x));
     this.scroller.snap = (x) => this.snapToDay(x);
     const unbindKeys = bindScrollInput(this.el, this.scroller, {
-      dayPx: TIMELINE.dayPx,
-      onDayStep: (days) => {
+      dayPx: this.dayPx,
+      largeStep: ZOOM[this.zoom].largeStep,
+      // Wheel notch, arrow: a day, a week or a month depending on the zoom level.
+      onDayStep: (units) => {
         this.deselect();
-        this.scroller.scrollTo(this.snapToDay(this.scroller.target) + days * TIMELINE.dayPx);
+        if (this.zoom === "day") return this.scroller.scrollTo(this.snapToDay(this.scroller.target) + units * this.dayPx);
+        const from = this.dayAt(this.snapToDay(this.scroller.target));
+        this.scroller.scrollTo(this.dayX(Math.min(this.endDay, Math.max(this.startDay, addUnits(from, units, this.zoom)))));
+      },
+      onZoom: (dir) => {
+        const level = nextZoom(this.zoom, dir);
+        if (level) this.onZoom?.(level);
       },
       onToday: () => {
         this.deselect();
@@ -270,26 +310,42 @@ export class Timeline {
   }
 
   /** Removes the timeline and every listener it registered (it is rebuilt when filters change). */
-  destroy() {
+  destroy(keepDom = false) {
     if (this.destroyed) return;
     this.destroyed = true;
     for (const dispose of this.disposers) dispose();
     this.backdrop.destroy();
     this.siteTitle?.destroy();
     this.header.el.remove();
-    this.el.remove();
+    // A zoom transition removes the element itself once the old view has faded out.
+    if (keepDom) this.el.classList.add("is-leaving");
+    else this.el.remove();
+  }
+
+  /** The timeline element, e.g. to remove it after a zoom transition. */
+  get element() {
+    return this.el;
+  }
+
+  /** Line y within the stage: the center of a zoom transition. */
+  get lineCenterY() {
+    return this.lineY;
   }
 
   /** Where the view is and what is selected, to come back to it after a reload. */
-  getState() {
-    return { x: this.scroller.target, selectedId: this.selected >= 0 ? this.stops[this.selected].game.id : null };
+  getState(): TimelineState {
+    const x = this.scroller.target;
+    const selectedId = this.selected >= 0 ? this.stops[this.selected].game.id : null;
+    if (this.tbaBlocks.length && x >= this.tbaStartX - TIMELINE.tbaGapPx / 2) return { tba: x - this.tbaStartX, selectedId };
+    return { day: this.startDay + x / this.dayPx, selectedId };
   }
 
-  restoreState(state: { x: number; selectedId: string | null }) {
+  restoreState(state: TimelineState) {
     // Like the first paint: header and cards are simply there (no animation to wait for,
     // which also holds in a background tab, where animations are paused).
     this.opening = true;
-    this.scroller.jumpTo(state.x);
+    const x = state.tba !== undefined ? this.tbaStartX + state.tba : this.dayX(state.day ?? this.todayDay);
+    this.scroller.jumpTo(this.snapToDay(x));
     this.opening = false;
     if (state.selectedId) this.selectById(state.selectedId);
   }
@@ -304,6 +360,8 @@ export class Timeline {
   private select(index: number) {
     if (index === this.selected) return;
     const stop = this.stops[index];
+    // Zoomed out, cards are covers only: a selected game is seen at the Day level.
+    if (this.zoom !== "day" && this.onZoom) return this.onZoom("day", stop.game.id);
     const previous = this.selected >= 0 ? this.stops[this.selected] : null;
     if (previous) this.unmark(this.selected);
     // Leaving a group folds it; entering one spreads it (and straightens this game's card).
@@ -497,14 +555,24 @@ export class Timeline {
     const maxLevel = Math.max(0, ...this.items.map((i) => i.lane.level));
     // The label band (cardOffset) never shrinks; only cards and stacking do.
     const room = Math.min(this.lineY, this.height - TIMELINE.minimapBandPx - this.lineY) - TIMELINE.cardOffset - 12;
-    const need = (this.compact ? TIMELINE.compactCardMaxHeight : TIMELINE.cardMaxHeight) + maxLevel * TIMELINE.stackStepY;
+    const tallest = this.zoom !== "day" ? TIMELINE.coverCardMaxHeight : this.compact ? TIMELINE.compactCardMaxHeight : TIMELINE.cardMaxHeight;
+    const need = tallest + maxLevel * TIMELINE.stackStepY;
     this.cardScale = Math.max(TIMELINE.minCardScale, Math.min(1, room / need));
     this.el.style.setProperty("--card-scale", this.cardScale.toFixed(3));
     for (const item of this.items) if (item.node) this.drawStub(item.node);
   }
 
   private dayX(day: number) {
-    return (day - this.startDay) * TIMELINE.dayPx;
+    return (day - this.startDay) * this.dayPx;
+  }
+
+  /** Layout width of a game's card: covers only when zoomed out, else full or compact. */
+  private widthOf(game: Game) {
+    return this.zoom !== "day" ? COVER_CARD_WIDTH : cardWidth(game, this.compact);
+  }
+
+  private groupWidth() {
+    return this.zoom !== "day" ? GROUP_COVER_WIDTH : GROUP_WIDTH;
   }
 
   /**
@@ -561,9 +629,9 @@ export class Timeline {
         const x = this.dayX(parseDay(day));
         if (this.group && list.length >= GROUP_MIN_GAMES) {
           const sorted = [...list].sort((a, b) => a.title.localeCompare(b.title));
-          return [{ game: sorted[0], games: sorted, x, width: GROUP_WIDTH }];
+          return [{ game: sorted[0], games: sorted, x, width: this.groupWidth() }];
         }
-        return list.map((game) => ({ game, x, width: cardWidth(game, this.compact) }));
+        return list.map((game) => ({ game, x, width: this.widthOf(game) }));
       })
       .sort((a, b) => a.x - b.x);
     const lanes = assignLanes(placed, TIMELINE.laneGap, TIMELINE.maxShift);
@@ -645,6 +713,11 @@ export class Timeline {
   setCompact(compact: boolean) {
     if (compact === this.compact) return;
     this.compact = compact;
+    // Zoomed out, cards are covers only: the style shows again back at the Day level.
+    if (this.zoom !== "day") {
+      this.el.classList.toggle("is-compact", compact);
+      return;
+    }
     const animate = this.ready && !matchMedia("(prefers-reduced-motion: reduce)").matches;
     const lanes = assignLanes(
       this.items.map((i) => ({ x: i.x, width: i.games ? GROUP_WIDTH : cardWidth(i.game, compact) })),
@@ -794,14 +867,18 @@ export class Timeline {
 
   /** Calendar day under world x (clamped to the dated line). */
   private dayAt(x: number) {
-    return Math.min(this.endDay, Math.max(this.startDay, this.startDay + Math.round(x / TIMELINE.dayPx)));
+    return Math.min(this.endDay, Math.max(this.startDay, this.startDay + Math.round(x / this.dayPx)));
   }
 
-  /** Every glide on the dated line rests exactly on a day; the TBA zone is free. */
+  /**
+   * Every glide on the dated line rests exactly on a day (zoomed out: on a Monday or
+   * on the 1st of a month); the TBA zone is free.
+   */
   private snapToDay(x: number) {
     const lastDayX = this.dayX(this.endDay);
-    if (x > lastDayX + TIMELINE.dayPx / 2) return x;
-    return Math.round(x / TIMELINE.dayPx) * TIMELINE.dayPx;
+    if (x > lastDayX + this.dayPx / 2) return x;
+    const day = snapDay(this.dayAt(x), this.zoom);
+    return this.dayX(Math.min(this.endDay, Math.max(this.startDay, day)));
   }
 
   /** Render only cards near the viewport; reveal each once its date is on screen. */
@@ -915,7 +992,6 @@ export class Timeline {
 
   private drawCanvas(left: number) {
     const { ctx, width, height, palette } = this;
-    const dayPx = TIMELINE.dayPx;
     const y = this.lineY;
 
     ctx.clearRect(0, 0, width, height);
@@ -975,74 +1051,21 @@ export class Timeline {
       ctx.fill();
     }
 
-    // --- Ticks: only the visible days.
-    const first = Math.max(0, Math.floor(left / dayPx) - 1);
-    const last = Math.min(this.endDay - this.startDay, Math.ceil((left + width) / dayPx) + 1);
+    // --- Ticks and labels for the zoom level.
     const center = left + width / 2;
-    // Day under the playhead, or none in the TBA zone.
-    const centerIndex = center <= this.dayX(this.endDay) + dayPx / 2 ? this.dayAt(center) - this.startDay : -1;
-    ctx.textAlign = "center";
-    ctx.textBaseline = "top";
-
-    for (let i = first; i <= last; i++) {
-      const day = this.startDay + i;
-      const date = dayToDate(day);
-      const x = Math.round(i * dayPx - left);
-      ctx.globalAlpha = day > this.todayDay ? 0.55 : 1;
-
-      let half: number;
-      let w: number;
-      if (date.getUTCDate() === 1) {
-        half = 22;
-        w = 2;
-      } else if (date.getUTCDay() === 1) {
-        half = 11;
-        w = 1.5;
-      } else {
-        half = 5;
-        w = 1;
-      }
-      ctx.fillStyle = palette.tick;
-      ctx.fillRect(x - w / 2, y - half, w, half * 2);
-
-      // Day numbers under 1, 5, 10, 15, 20, 25 (the playhead day is drawn below, larger).
-      if (i !== centerIndex && TIMELINE.labeledDays.includes(date.getUTCDate())) {
-        ctx.fillStyle = palette.label;
-        ctx.font = `700 11px ${palette.font}`;
-        ctx.fillText(String(date.getUTCDate()), x, y + 27);
-      }
-
-      if (date.getUTCDate() === 1 || i === 0) {
-        const month = MONTHS[date.getUTCMonth()].slice(0, 3).toUpperCase();
-        const label =
-          i === 0
-            ? `${month} ${date.getUTCDate()}, ${date.getUTCFullYear()}`
-            : date.getUTCMonth() === 0
-              ? `${month} ${date.getUTCFullYear()}`
-              : month;
-        ctx.fillStyle = palette.label;
-        ctx.font = `800 13px ${palette.font}`;
-        ctx.fillText(label, x, y + 46);
-      }
-    }
-
-    // --- The day under the playhead: accent tick and its number in a pill.
-    if (centerIndex >= first && centerIndex <= last) {
-      const x = Math.round(centerIndex * dayPx - left);
-      const label = String(dayToDate(this.startDay + centerIndex).getUTCDate());
-      ctx.globalAlpha = 1;
-      ctx.fillStyle = palette.accent;
-      ctx.fillRect(x - 1.5, y - 16, 3, 32);
-      ctx.font = `900 14px ${palette.font}`;
-      const pillW = Math.max(26, ctx.measureText(label).width + 14);
-      ctx.beginPath();
-      ctx.roundRect(x - pillW / 2, y + 22, pillW, 22, 11);
-      ctx.fill();
-      ctx.fillStyle = palette.onAccent;
-      ctx.textBaseline = "middle";
-      ctx.fillText(label, x, y + 33.5);
-      ctx.textBaseline = "top";
-    }
-    ctx.globalAlpha = 1;
+    drawTicks({
+      ctx,
+      left,
+      width,
+      y,
+      dayPx: this.dayPx,
+      startDay: this.startDay,
+      endDay: this.endDay,
+      todayDay: this.todayDay,
+      // The unit under the playhead, or none in the TBA zone.
+      centerDay: center <= this.dayX(this.endDay) + this.dayPx / 2 ? this.dayAt(center) : null,
+      zoom: this.zoom,
+      palette,
+    });
   }
 }

@@ -165,6 +165,10 @@ export function bindScrollInput(
     onEscape: () => void;
     /** A press turned into a drag. */
     onDragStart: () => void;
+    /** Shift + arrow moves this many units (days, weeks or months). */
+    largeStep: number;
+    /** Ctrl + wheel, "+" / "−": +1 zooms in (toward Day), -1 zooms out. */
+    onZoom: (dir: 1 | -1) => void;
     /** "[" / "]", Shift + wheel: to the first day of the previous / next month(s). */
     onMonthStep: (months: number) => void;
     /** Page Down / Page Up: jump to the next / previous game. */
@@ -178,12 +182,26 @@ export function bindScrollInput(
   // deltas summed, so an event is worth as many days as notches it contains.
   // Trackpads send many small deltas, which add up to `trackpadDayPx` per day.
   let wheelAcc = 0;
+  let zoomAcc = 0;
+  let lastZoom = 0;
   el.addEventListener(
     "wheel",
     (e) => {
       e.preventDefault();
       const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
       if (!delta) return;
+      // Ctrl + wheel (also a trackpad pinch): zoom level (ITERATION-4 §6), not the page zoom.
+      if (e.ctrlKey) {
+        if (Math.sign(delta) !== Math.sign(zoomAcc)) zoomAcc = 0;
+        zoomAcc += delta;
+        const notch = wheelNotches(e, delta) > 0 || Math.abs(zoomAcc) >= TIMELINE.zoomPinchPx;
+        if (notch && e.timeStamp - lastZoom > TIMELINE.zoomCooldownMs) {
+          lastZoom = e.timeStamp;
+          zoomAcc = 0;
+          opts.onZoom(delta < 0 ? 1 : -1);
+        }
+        return;
+      }
       const notches = wheelNotches(e, delta);
       if (debugWheel) {
         console.log("[wheel]", { deltaX: e.deltaX, deltaY: e.deltaY, deltaMode: e.deltaMode, notches, accumulated: wheelAcc });
@@ -279,13 +297,15 @@ export function bindScrollInput(
     const t = e.target instanceof HTMLElement ? e.target : null;
     if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName) || t.closest("dialog"))) return;
 
-    const days = e.shiftKey ? TIMELINE.keyStepDaysLarge : 1;
+    const days = e.shiftKey ? opts.largeStep : 1;
     if (e.key === "ArrowRight") opts.onDayStep(days);
     else if (e.key === "ArrowLeft") opts.onDayStep(-days);
     else if (e.key === "Escape") opts.onEscape();
     else if (e.key === "t" || e.key === "T") opts.onToday();
     else if (e.key === "Home") opts.onHome();
     else if (e.key === "End") opts.onEnd();
+    else if (e.key === "+" || e.key === "=") opts.onZoom(1);
+    else if (e.key === "-" || e.key === "_" || e.key === "−") opts.onZoom(-1);
     else if (e.key === "]") opts.onMonthStep(1);
     else if (e.key === "[") opts.onMonthStep(-1);
     else if (e.key === "PageDown") opts.onGameStep(1);

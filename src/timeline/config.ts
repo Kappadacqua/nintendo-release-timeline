@@ -1,12 +1,9 @@
 export const TIMELINE = {
-  /** Horizontal pixels per day (ITERATION-2 §2: ~32px). */
-  dayPx: 32,
+  // Scale per zoom level (32px per day at Day level) and Shift + arrow steps: see zoom.ts.
   /** Switch 2 launch: first day on the line. */
   startDate: "2025-06-05",
   /** Days of line drawn after the last precise release date (or today, if later). */
   endMarginDays: 60,
-  /** Shift+arrow moves by this many days (plain arrows: one day). */
-  keyStepDaysLarge: 7,
   /** A wheel event at least this big (px) is one mouse-wheel notch = one day. */
   wheelNotchPx: 40,
   /** Pixels per notch when the browser merges several notches into one event. */
@@ -46,6 +43,12 @@ export const TIMELINE = {
   cardMaxHeight: 272,
   /** Tallest compact card (cover, title, badges). */
   compactCardMaxHeight: 124,
+  /** Zoomed-out card: the cover alone. */
+  coverCardMaxHeight: 100,
+  /** Ctrl + wheel: at most one zoom level per this many ms (trackpad pinches send bursts). */
+  zoomCooldownMs: 350,
+  /** Trackpad pinch: this many px of Ctrl + wheel delta make one zoom step. */
+  zoomPinchPx: 60,
   /** Cards never shrink below this scale on short windows. */
   minCardScale: 0.55,
 };

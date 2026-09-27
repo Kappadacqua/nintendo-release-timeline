@@ -4,9 +4,11 @@ import { news } from "./news";
 import { Search } from "./search";
 import { initTheme } from "./theme/theme";
 import { Timeline } from "./timeline/timeline";
+import { ZOOM_LEVELS, type ZoomLevel } from "./timeline/zoom";
 import type { ChangesFile, Game, GamesFile } from "./types";
 import { loadView, ViewMenu } from "./view";
 import { WhatsNew } from "./whats-new";
+import { ZoomControl, zoomTransition } from "./zoom-control";
 
 initTheme(document.querySelector<HTMLButtonElement>(".theme-toggle")!);
 
@@ -91,12 +93,32 @@ Promise.all([loadGames(), loadChanges()])
     news.load(changes, today);
     let filters = loadFilters();
     let view = loadView();
+    // The page always opens at the Day level.
+    let zoom: ZoomLevel = "day";
     const create = (games: Game[]) =>
       new Timeline(app, games, document.querySelector<HTMLElement>("#timeline-date")!, document.querySelector<HTMLElement>(".app-title")!, {
         compact: view.cardStyle === "compact",
         group: view.groupSameDay,
+        zoom,
+        onZoom: (level, selectId) => zoomTo(level, selectId),
       });
     let timeline = create(applyFilters(allGames, filters));
+
+    // Zoom levels (ITERATION-4 §6): the timeline is rebuilt at the new scale, centered on
+    // the same day, with an animated transition; a game picked while zoomed out opens at Day.
+    const zoomTo = (level: ZoomLevel, selectId?: string) => {
+      if (level === zoom && !selectId) return;
+      const zoomingIn = ZOOM_LEVELS.indexOf(level) < ZOOM_LEVELS.indexOf(zoom);
+      const state = timeline.getState();
+      const previous = timeline;
+      zoom = level;
+      timeline = create(applyFilters(allGames, filters));
+      zoomTransition(previous, timeline, zoomingIn);
+      // Zoomed out nothing stays selected (cards are covers only).
+      timeline.restoreState({ ...state, selectedId: level === "day" ? (selectId ?? state.selectedId) : null });
+      zoomControl.set(level);
+    };
+    const zoomControl = new ZoomControl(app, zoom, (level) => zoomTo(level));
 
     // Filters and grouping change the layout (lanes, collisions), so the timeline is rebuilt,
     // keeping the view and, if still visible, the selected game.
