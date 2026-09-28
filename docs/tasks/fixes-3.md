@@ -8,7 +8,7 @@ In modalità Compact, la card di Pikmin 3 Deluxe (aggiornamento gratuito, 31 ago
 File: src/cards/layout.ts, src/timeline/timeline.ts (solo il calcolo delle collisioni, trovalo con grep), src/styles/compact.css se serve.
 Atteso: il calcolo usa le dimensioni reali di ogni tipo di card, in modalità Full e Compact. Nessuna sovrapposizione.
 
-## [ ] Task 2 — Bordo degli aggiornamenti selezionati e header stretto
+## [x] Task 2 — Bordo degli aggiornamenti selezionati e header stretto
 - Un aggiornamento gratuito selezionato mostra il bordo rosso della selezione al posto di quello verde. Come per le Switch 2 Edition, la selezione deve aggiungere il bagliore senza coprire il bordo del tipo.
 - Con la finestra larga meno di circa 1400 px l'header è affollato e "Nintendo Release Timeline" va su due righe. Il titolo deve restare su una riga fino a 1280 px (la larghezza minima del sito): accorcialo sotto una certa larghezza (es. solo il pallino rosso e "NRT", o nascondi il testo lasciando il pallino) oppure compatta i pulsanti.
 File: src/styles/selection.css (o il file che gestisce il bagliore di selezione), src/styles/header.css.

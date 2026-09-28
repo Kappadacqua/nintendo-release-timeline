@@ -189,3 +189,27 @@ main {
     transform: none;
   }
 }
+
+/* The site name stays on one line: below 1440 px (header crowded by the timeline's
+   menus) it shortens to "NRT"; the full name stays readable to screen readers. */
+.app-title__site {
+  white-space: nowrap;
+}
+
+.app-title__short {
+  display: none;
+}
+
+@media (max-width: 1439px) {
+  .app-title__name {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  .app-title__short {
+    display: inline;
+  }
+}

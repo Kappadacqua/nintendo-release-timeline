@@ -60,3 +60,16 @@
   text-decoration: none;
 }
 
+
+/* Hover / selection keep the free update's green border; selected, an outer glow in the same green. */
+.tl-item:hover .card--free-update,
+.card--free-update.is-selected {
+  border-color: color-mix(in srgb, var(--free-update) 55%, var(--border));
+}
+
+.card--free-update.is-selected {
+  box-shadow:
+    0 0 18px 4px color-mix(in srgb, var(--free-update) 65%, transparent),
+    0 0 60px 14px color-mix(in srgb, var(--free-update) 38%, transparent),
+    var(--card-shadow-hover);
+}

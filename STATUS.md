@@ -1,6 +1,6 @@
 # Stato del progetto
 
-Aggiornato: 2026-09-28 — Correzioni `docs/tasks/fixes-3.md`, task 1 (collisioni delle card degli aggiornamenti)
+Aggiornato: 2026-09-28 — Correzioni `docs/tasks/fixes-3.md`, task 2 (bordo degli aggiornamenti selezionati, header stretto)
 
 ## Ultimo checkpoint
 
@@ -23,6 +23,7 @@ Nessuno.
 
 Dettagli completi nelle versioni precedenti di questo file (`git show 58d0ac7:STATUS.md`).
 
+- fixes-3 task 2 — Aggiornamento gratuito selezionato (es. Pikmin 3 Deluxe): bordo verde invariato, bagliore esterno verde al posto dell'anello rosso; al passaggio del mouse il bordo resta verde; anche nel ventaglio del 5 giugno 2025 e nei due temi. Header: sotto 1440 px di larghezza il titolo diventa pallino rosso + "NRT" su una riga (provare 1280 e 1439 px), da 1440 in su "Nintendo Release Timeline" su una riga; stesso comportamento in Rankings e Studios.
 - fixes-3 task 1 — Compact: Orbitals (3 set 2026) impilata dietro Pikmin 3 Deluxe ne sporge di una striscia piena (56 px, come tra due card normali) invece di restarne coperta. Full: una card impilata dietro una card più alta (gioco uscito con i voti davanti a un aggiornamento o a un gioco in uscita) si sposta più in fuori allo stesso modo. Pile tra card della stessa altezza invariate; su finestre basse le card si rimpiccioliscono quanto serve a far stare le pile più alte.
 - fixes-2 task 6 — Rankings, ordinando per "Critics average" o "Users average": nella pillola, sotto il numero, "1 of 2 sources" in piccolo per i giochi con una sola fonte sopra soglia (nessuna riga per quelli con due); etichette e suggerimenti di DLC / Switch 2 Edition / Exclusives only invariati. Timeline: filtri salvati ricaricati come prima. Nessun altro cambio visivo (resto solo pipeline dati e avvisi di `data:validate`).
 - fixes-2 task 5 — Nessun cambio visivo atteso per il testo bianco (badge, nastri DLC, "Out today", tasti delle scorciatoie, pulsanti attivi, date sul canvas nei due temi). Ombre leggermente uniformate: pomello degli interruttori, segmento attivo del menu View, miniatura nell'header, copertine del gruppo chiuso. Velo dietro scorciatoie (?) e ricerca invariato. Admin: "Saved" verde (nel tema scuro ora verde chiaro). Con reduced motion attivo nel sistema: il pomello degli interruttori scatta senza scorrere; in presentazione (P) nessuna barra in basso, al suo posto "3 / 20" sopra la minimappa a destra, aggiornato a ogni gioco e fermo in pausa.
