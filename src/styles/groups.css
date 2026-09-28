@@ -35,7 +35,7 @@
   border: 2px solid var(--card);
   border-radius: var(--radius-sm);
   background: var(--surface-2);
-  box-shadow: 0 3px 8px rgb(0 0 0 / 0.2);
+  box-shadow: var(--shadow-md);
   object-fit: cover;
   transform: translateX(calc(var(--i) * 20px)) rotate(calc(var(--i) * 7deg));
   transform-origin: 50% 120%;

@@ -134,7 +134,7 @@
 
 .rank-years button[aria-pressed="true"] {
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
 }
 
 .rank-years button:focus-visible {
@@ -268,7 +268,7 @@
 
 .badge--dlc {
   background: var(--dlc);
-  color: #fff;
+  color: var(--on-accent);
 }
 
 .rank-row__scores {

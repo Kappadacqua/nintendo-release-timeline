@@ -31,7 +31,7 @@
   padding: 2px 0;
   transform: rotate(45deg);
   background: var(--dlc);
-  color: #fff;
+  color: var(--on-accent);
   font-size: 10px;
   font-weight: 900;
   letter-spacing: 0.12em;

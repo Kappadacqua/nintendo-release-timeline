@@ -34,7 +34,7 @@
 }
 
 .search::backdrop {
-  background: rgb(0 0 0 / 0.35);
+  background: var(--overlay);
 }
 
 .search__field {

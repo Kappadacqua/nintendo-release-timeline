@@ -360,6 +360,11 @@ export class Timeline {
     return this.selected >= 0;
   }
 
+  /** For the presentation counter: which stops have a precise date, and the selected one. */
+  get presentationStops() {
+    return { dated: this.stops.map((s) => !!s.game.firstReleaseDate), selected: this.selected };
+  }
+
   /** Back to plain browsing: the selected card collapses, an open group folds. */
   clearSelection() {
     this.deselect();
@@ -934,7 +939,7 @@ export class Timeline {
       tick: v("--tick"),
       label: v("--text-muted"),
       accent: v("--accent"),
-      onAccent: "#fff",
+      onAccent: v("--on-accent"),
       font: getComputedStyle(document.body).fontFamily,
     };
   }

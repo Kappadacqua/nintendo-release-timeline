@@ -131,7 +131,7 @@
 
 .studio-badge--first-party {
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
 }
 
 .studio-badge--partner {

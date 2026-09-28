@@ -28,7 +28,7 @@ File: scripts/lib/overrides-schema.ts, scripts/lib/overrides.ts, scripts/lib/bui
 - Correggi il commento in studios.ts. Aggiorna docs/admin-todo.md: lo sviluppatore ora si corregge dal pannello.
 Verifica anche: data:build (dati invariati finché non si inseriscono correzioni).
 
-## [ ] Task 5 — Smistamento: gruppi 1, 2, 3
+## [x] Task 5 — Smistamento: gruppi 1, 2, 3
 Problemi: gruppi 1 (bianco su fondo colorato), 2 (ombre e velo), 3 (reduced motion residui) di docs/review/triage.md.
 Decisione per il gruppo 3: con prefers-reduced-motion la barra della presentazione non si anima; mostra solo il contatore (es. "3 / 20").
 Nel report elenca cosa controllare nel browser.

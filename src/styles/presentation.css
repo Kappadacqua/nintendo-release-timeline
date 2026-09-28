@@ -27,6 +27,27 @@
   animation-play-state: paused !important;
 }
 
+/* Reduced motion: no moving bar, only which game this is, e.g. "3 / 20". Above the minimap. */
+.presentation-counter {
+  position: fixed;
+  z-index: 90;
+  right: 32px;
+  bottom: 62px;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+}
+
+.presentation-counter[hidden] {
+  display: none;
+}
+
 @keyframes presentation-fill {
   from {
     width: 0;

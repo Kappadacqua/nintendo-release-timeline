@@ -26,17 +26,17 @@ Fonti: i problemi **[bassa]** non ancora segnati ✔ in `static.md` (11 su 12), 
 
 ## Gruppi
 
-### 1. Stile: bianco su fondo colorato — fare, piccolo
+### 1. Stile: bianco su fondo colorato — fare, piccolo ✔
 - Problemi (`static.md` §2): `#fff` scritto a mano in 12 punti; pomello degli interruttori `#fff` (`filters.css:91`); `#fff` e `#1a8f3c` nel pannello admin.
 - File: `tokens.css` (nuovo `--on-accent`), `timeline.ts:932` (`readPalette`), `admin.css`, più una riga in ciascuno di `dlc-card`, `timeline`, `shortcuts`, `header`, `out-today`, `studios`, `card`, `rankings`, `zoom`, `selection`, `filters.css`.
 - Motivo: sostituzione meccanica senza cambi visivi che chiude la convenzione "niente colori nei componenti"; supera il limite di file ma è una riga per file.
 
-### 2. Stile: ombre e velo — fare, piccolo
+### 2. Stile: ombre e velo — fare, piccolo ✔
 - Problemi (`static.md` §2): 4 ombre `rgb(0 0 0 / …)` e il velo 0.35 identico in due file.
 - File: `tokens.css` (`--shadow-sm`, `--overlay`), `header.css`, `filters.css`, `view-menu.css`, `groups.css`, `shortcuts.css`, `search.css`.
 - Motivo: il velo duplicato deve restare uguale nei due pannelli; conviene farlo subito dopo il gruppo 1, che tocca già `tokens.css`.
 
-### 3. Reduced motion residui — fare, piccolo
+### 3. Reduced motion residui — fare, piccolo ✔
 - Problemi (`static.md` §6): pomello degli interruttori con `transition: transform` (`filters.css:93`); barra `presentation-fill` sempre animata (`presentation.ts:96`).
 - File: `filters.css`, `presentation.ts`, `presentation.css`.
 - Motivo: chiude il problema noto 8 di `STATUS.md`; per la barra va solo deciso "barra statica" o "solo contatore".

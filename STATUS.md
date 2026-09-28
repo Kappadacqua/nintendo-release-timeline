@@ -1,6 +1,6 @@
 # Stato del progetto
 
-Aggiornato: 2026-09-28 — Correzioni `docs/tasks/fixes-2.md`, task 4 (sviluppatore nelle correzioni)
+Aggiornato: 2026-09-28 — Correzioni `docs/tasks/fixes-2.md`, task 5 (smistamento gruppi 1, 2, 3)
 
 ## Ultimo checkpoint
 
@@ -23,6 +23,7 @@ Nessuno.
 
 Dettagli completi nelle versioni precedenti di questo file (`git show 58d0ac7:STATUS.md`).
 
+- fixes-2 task 5 — Nessun cambio visivo atteso per il testo bianco (badge, nastri DLC, "Out today", tasti delle scorciatoie, pulsanti attivi, date sul canvas nei due temi). Ombre leggermente uniformate: pomello degli interruttori, segmento attivo del menu View, miniatura nell'header, copertine del gruppo chiuso. Velo dietro scorciatoie (?) e ricerca invariato. Admin: "Saved" verde (nel tema scuro ora verde chiaro). Con reduced motion attivo nel sistema: il pomello degli interruttori scatta senza scorrere; in presentazione (P) nessuna barra in basso, al suo posto "3 / 20" sopra la minimappa a destra, aggiornato a ogni gioco e fermo in pausa.
 - fixes-2 task 4 — Admin: campo "Developer" nel riquadro di un gioco (segnaposto = sviluppatore IGDB); salvando "Nintendo EPD" su DK Challenge il gioco passa a quello studio in `/studios.html`; svuotare il campo torna allo sviluppatore IGDB.
 - fixes-2 task 3 — Studios: FromSoftware mostra copertina e titolo di The Duskbloods con "Release date TBA" (anche Bloober Team, Nitrome; Bplus e GungHo con copertina segnaposto, visibili con le terze parti); "Latest: … · Switch 1" tronca il titolo e lascia " · Switch 1" (provare una card stretta); "Nintendo Entertainment Planning & Development" non compare più (39 studi con terze parti).
 - fixes-2 task 2 — Card di un aggiornamento gratuito: "Worldwide · Jun 12, 2025" unito a sinistra. Filtri: con "Exclusives only" attivo il pulsante dice "84 of 84" (non "84 games") e ha il pallino; il filtro oggi non nasconde nulla perché nei dati nessun gioco è su altre console.
@@ -49,7 +50,7 @@ Dettagli completi nelle versioni precedenti di questo file (`git show 58d0ac7:ST
 7. **Studios: ordine** — ricalcolato sul gioco *mostrato*: studi senza gioco Switch 2 o con gioco senza data finiscono nel gruppo finale alfabetico.
 8. **Studios: gioco fissato alla build** — `studios.json` ha un solo gioco per studio: quando esce, la pagina lo mostra come uscito finché non si rifà `data:build`. Da valutare: scrivere tutti i giochi Switch 2 e scegliere nella pagina.
 9. **"Exclusives only" senza effetto sui dati attuali** — tutti gli 84 elementi sono esclusivi o solo Switch + telefoni; 3 giochi (Putty World, Bit Boy!! Arcade 2, Chit Chat Party!) non hanno `onOtherConsoles`, passano perché `exclusive`.
-10. **Problemi di gravità bassa** — 28 aperti (es. reduced motion incompleto, `filters.css:93`), smistati in 13 gruppi in `docs/review/triage.md`.
+10. **Problemi di gravità bassa** — 22 aperti, smistati in `docs/review/triage.md` (gruppi 1, 2, 3 fatti; restano da fare 7, 10, 12).
 
 ## Prossimi task (in ordine)
 

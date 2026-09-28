@@ -68,15 +68,15 @@ Correzione: token `--delayed` / `--delayed-text` in `tokens.css` (chiaro + scuro
 Quarto arancione, diverso da quelli di `delays.css`, senza variante scura.
 Correzione: usare lo stesso token `--delayed-text` del punto precedente.
 
-**[bassa] Testo bianco su fondo colorato scritto come `#fff` (12 punti)**
+**[bassa] Testo bianco su fondo colorato scritto come `#fff` (12 punti)** ✔ corretto in `Style: on-accent, shadows, overlay, reduced motion`
 `dlc-card.css:34`, `timeline.css:154`, `shortcuts.css:58`, `header.css:173`, `out-today.css:5`, `studios.css:134`, `card.css:85`, `rankings.css:137`, `rankings.css:271`, `zoom.css:130`, `selection.css:71`; in TS `src/timeline/timeline.ts:932` (`onAccent: "#fff"` per il canvas).
 Correzione: token `--on-accent` in `tokens.css`, letto anche da `readPalette()`.
 
-**[bassa] Ombre e velature `rgb(0 0 0 / …)` fuori dai token (6 punti)**
+**[bassa] Ombre e velature `rgb(0 0 0 / …)` fuori dai token (6 punti)** ✔ corretto in `Style: on-accent, shadows, overlay, reduced motion`
 `header.css:70`, `filters.css:92`, `view-menu.css:99`, `groups.css:24` (ombre); `shortcuts.css:14`, `search.css:37` (velo 0.35 identico in due file).
 Correzione: token `--shadow-sm` e `--overlay` accanto a `--card-shadow`.
 
-**[bassa] `src/styles/filters.css:91` — pomello degli interruttori `background: #fff`**
+**[bassa] `src/styles/filters.css:91` — pomello degli interruttori `background: #fff`** ✔ corretto in `Style: on-accent, shadows, overlay, reduced motion`
 Bianco fisso anche nel tema scuro.
 Correzione: token (es. `--switch-knob`) con variante scura se serve.
 
@@ -88,7 +88,7 @@ Correzione: token `--confetti-*` in `tokens.css` o solo `var()` esistenti.
 `--backdrop-blur`, `--backdrop-opacity`, `--backdrop-veil` con varianti di tema definite nel componente (non colori, ma stessa convenzione).
 Correzione: spostarli in `tokens.css`.
 
-**[bassa] `src/admin/admin.css:99,276,292` — colori diretti nel pannello admin**
+**[bassa] `src/admin/admin.css:99,276,292` — colori diretti nel pannello admin** ✔ corretto in `Style: on-accent, shadows, overlay, reduced motion`
 `#fff` (×2) e `#1a8f3c`. Solo sviluppo.
 Correzione: `var(--on-accent)` e `var(--free-update)` o un token `--success`.
 
@@ -126,11 +126,11 @@ Correzione: aggiungere i due selettori al blocco di riga 176 (`transition: none`
 `gsap.fromTo` (rotate −90°→0, scale 0.6→1, `back.out`) parte sempre.
 Correzione: saltare l'animazione se `matchMedia("(prefers-reduced-motion: reduce)").matches`.
 
-**[bassa] `src/styles/filters.css:93` — pomello degli interruttori `transition: transform 0.2s`**
+**[bassa] `src/styles/filters.css:93` — pomello degli interruttori `transition: transform 0.2s`** ✔ corretto in `Style: on-accent, shadows, overlay, reduced motion`
 Movimento breve, ma non disattivato con reduced motion (usato anche in Rankings e Studios).
 Correzione: `transition: none` per `.filters__switch::after` in un blocco reduced-motion.
 
-**[bassa] `src/presentation.ts:96` — barra di avanzamento `presentation-fill` sempre animata**
+**[bassa] `src/presentation.ts:96` — barra di avanzamento `presentation-fill` sempre animata** ✔ corretto in `Style: on-accent, shadows, overlay, reduced motion`
 Nessun controllo di reduced motion né in `presentation.ts` né in `presentation.css:102` (che copre solo il toast). È un indicatore di tempo, quindi accettabile, ma va deciso.
 Correzione: con reduced motion, barra piena statica o solo il contatore.
 

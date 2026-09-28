@@ -11,7 +11,7 @@
 }
 
 .shortcuts::backdrop {
-  background: rgb(0 0 0 / 0.35);
+  background: var(--overlay);
 }
 
 .shortcuts h2 {
@@ -55,7 +55,7 @@ kbd {
   border: 0;
   border-radius: 999px;
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
   font: 800 14px var(--font);
   cursor: pointer;
 }

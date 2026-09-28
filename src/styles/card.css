@@ -82,7 +82,7 @@
 
 .badge--accent {
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
 }
 
 .badge--accent-soft {

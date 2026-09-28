@@ -49,6 +49,16 @@
   --delayed-text: #b36b00;
   --card-shadow: 0 4px 16px rgb(0 0 0 / 0.07);
   --card-shadow-hover: 0 10px 28px rgb(0 0 0 / 0.14);
+  /* Small shadows: switch knobs and segments (sm), covers and thumbnails (md). */
+  --shadow-sm: 0 1px 3px rgb(0 0 0 / 0.25);
+  --shadow-md: 0 2px 8px rgb(0 0 0 / 0.2);
+  /* Veil behind modal panels (shortcuts, search). */
+  --overlay: rgb(0 0 0 / 0.35);
+  /* Text and marks on a coloured fill (accent, badges, ribbons), same in both themes. */
+  --on-accent: #fff;
+  --switch-knob: #fff;
+  /* Positive feedback (admin panel). */
+  --success: #1a8f3c;
 
   color-scheme: light;
 }
@@ -78,6 +88,7 @@
     --delayed-text: #ffc15e;
     --card-shadow: 0 4px 16px rgb(0 0 0 / 0.5);
     --card-shadow-hover: 0 10px 28px rgb(0 0 0 / 0.7);
+    --success: #3ddc84;
     color-scheme: dark;
   }
 }
@@ -106,6 +117,7 @@
   --delayed-text: #ffc15e;
   --card-shadow: 0 4px 16px rgb(0 0 0 / 0.5);
   --card-shadow-hover: 0 10px 28px rgb(0 0 0 / 0.7);
+  --success: #3ddc84;
   color-scheme: dark;
 }
 

@@ -96,7 +96,7 @@ body.admin {
 .admin-chip[aria-pressed="true"] {
   border-color: var(--accent);
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
 }
 
 .admin-count {
@@ -273,7 +273,7 @@ body.admin {
   border: 1px solid var(--accent);
   border-radius: 999px;
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
   font: 800 14px var(--font);
   cursor: pointer;
 }
@@ -289,7 +289,7 @@ body.admin {
 }
 
 .admin-status.is-ok {
-  color: #1a8f3c;
+  color: var(--success);
 }
 
 .admin-status.is-error {

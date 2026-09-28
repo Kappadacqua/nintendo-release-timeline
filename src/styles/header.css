@@ -67,7 +67,7 @@
   height: 46px;
   border-radius: 6px;
   object-fit: cover;
-  box-shadow: 0 2px 8px rgb(0 0 0 / 0.2);
+  box-shadow: var(--shadow-md);
 }
 
 .app-title__game-name {
@@ -170,7 +170,7 @@ main {
 
 .app-nav__link[aria-current="page"] {
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -4,9 +4,26 @@ import type { Timeline } from "./timeline/timeline";
 const IGNORED_KEYS = new Set(["Shift", "Control", "Alt", "Meta", "AltGraph", "CapsLock"]);
 
 /**
+ * Counter shown instead of the bar with reduced motion: the selected game among those
+ * with a precise date (the ones the presentation visits), e.g. "3 / 20"; "" without one.
+ */
+export function counterText(dated: boolean[], selected: number): string {
+  if (selected < 0 || !dated[selected]) return "";
+  let index = 0;
+  let total = 0;
+  dated.forEach((d, i) => {
+    if (!d) return;
+    total++;
+    if (i <= selected) index++;
+  });
+  return `${index} / ${total}`;
+}
+
+/**
  * Presentation mode (ITERATION-4 §9): from where the view is, the next game every few
  * seconds, selected as with Page Down. Space pauses; any other input stops it. A thin
- * bar shows the time left; the pointer hides while it is still.
+ * bar shows the time left (with reduced motion, a still "3 / 20" counter instead); the
+ * pointer hides while it is still.
  */
 export class Presentation {
   private active = false;
@@ -18,6 +35,7 @@ export class Presentation {
   private cursorTimer = 0;
   private readonly bar: HTMLElement;
   private readonly toast: HTMLElement;
+  private readonly counter: HTMLElement;
   private readonly stepMs = TIMELINE.presentationSeconds * 1000;
 
   constructor(
@@ -29,10 +47,13 @@ export class Presentation {
     this.bar.hidden = true;
     this.bar.setAttribute("aria-hidden", "true");
     this.bar.innerHTML = `<span></span>`;
+    this.counter = document.createElement("div");
+    this.counter.className = "presentation-counter";
+    this.counter.hidden = true;
     this.toast = document.createElement("div");
     this.toast.className = "presentation-toast";
     this.toast.setAttribute("role", "status");
-    document.body.append(this.bar, this.toast);
+    document.body.append(this.bar, this.counter, this.toast);
   }
 
   get isActive() {
@@ -73,6 +94,7 @@ export class Presentation {
     window.removeEventListener("pointerdown", this.onInput, true);
     window.removeEventListener("pointermove", this.onPointerMove);
     this.bar.hidden = true;
+    this.counter.hidden = true;
     // The shown game is let go: an open group folds, its card goes back to compact.
     // (An input that stopped it may select something else right after, e.g. a click.)
     this.timeline().clearSelection();
@@ -87,6 +109,14 @@ export class Presentation {
       this.timeline().presentNext();
       this.schedule(this.stepMs);
     }, ms);
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      const { dated, selected } = this.timeline().presentationStops;
+      this.counter.textContent = counterText(dated, selected);
+      this.counter.hidden = !this.counter.textContent;
+      this.bar.hidden = true;
+      return;
+    }
+    this.counter.hidden = true;
     // The bar restarts its fill from where this step is.
     const fill = this.bar.firstElementChild as HTMLElement;
     this.bar.hidden = false;

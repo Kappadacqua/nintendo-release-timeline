@@ -2,7 +2,7 @@
 
 .badge--out-today {
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
   box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 30%, transparent);
 }
 
