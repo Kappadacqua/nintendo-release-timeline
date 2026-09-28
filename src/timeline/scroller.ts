@@ -1,5 +1,5 @@
 import { TIMELINE } from "./config";
-import { restPoint, WheelFling } from "./wheel-fling";
+import { restPoint, WheelFling, type WheelAction } from "./wheel-fling";
 
 const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
 
@@ -253,29 +253,42 @@ export function bindScrollInput(
   // When the page is busy, browsers merge several notches into one event with the
   // deltas summed, so an event is worth as many days as notches it contains.
   // Trackpads send many small deltas, which add up to `trackpadDayPx` per day.
-  // Quick bursts of notches fling (wheel-fling.ts); trackpads keep the plain behavior.
+  // A longer spin shifts up to 3 or 7 days per notch plus inertia (wheel-fling.ts); trackpads keep the plain behavior.
   const unitPx = opts.dayPx * opts.unitDays;
+  const maxPx = TIMELINE.wheelFlingMaxDays * opts.dayPx;
   const wheelFling = new WheelFling();
-  const flingWheel = (velocity: number) => {
+  /** Where the current spin started, and where it was last sent to land. */
+  let spinFrom = 0;
+  let spinLanding = 0;
+  const spinWheel = (action: Extract<WheelAction, { kind: "move" }>, step: (units: number) => void) => {
+    const dir = Math.sign(action.moved || action.units);
+    if (action.start) spinFrom = spinLanding = scroller.target;
+    // Gear 1 with nothing coasting, or reduced motion: plain steps, snapped.
+    if (reducedMotion.matches || (action.rest === action.moved && scroller.coastDirection !== dir)) {
+      if (action.units) step(action.units);
+      spinLanding = scroller.target;
+      return;
+    }
+    if (!action.units && action.rest === action.moved) return;
     opts.onWheelFling();
-    // A fling already under way never slows down when the notches do.
-    const ongoing =
-      scroller.coastDirection === Math.sign(velocity)
-        ? ((scroller.target - scroller.current) * -Math.log(TIMELINE.wheelFlingFriction)) / (1000 / 60)
-        : 0;
-    const v = velocity * unitPx;
     const { min, max } = scroller.bounds;
-    scroller.coast(
-      restPoint(scroller.current, Math.abs(ongoing) > Math.abs(v) ? ongoing : v, {
-        friction: TIMELINE.wheelFlingFriction,
-        maxPx: TIMELINE.wheelFlingMaxDays * opts.dayPx,
-        min,
-        max,
-        snap: scroller.snap,
-        magnets: opts.magnets(),
-        magnetPx: TIMELINE.wheelMagnetUnits * unitPx,
-      }),
-    );
+    const notched = spinFrom + action.moved * unitPx;
+    const limit = spinFrom + dir * maxPx;
+    // Never behind the notches or an earlier landing of this spin, never past the limit.
+    const [near, far] = dir > 0 ? [Math.max(notched, spinLanding), limit] : [Math.min(notched, spinLanding), limit];
+    const lo = Math.max(min, Math.min(near, far));
+    const hi = Math.min(max, Math.max(near, far));
+    spinLanding =
+      action.rest === action.moved
+        ? restPoint(near, { lo, hi, snap: scroller.snap, magnets: [], magnetPx: 0 })
+        : restPoint(spinFrom + action.rest * unitPx, {
+            lo,
+            hi,
+            snap: scroller.snap,
+            magnets: opts.magnets(),
+            magnetPx: TIMELINE.wheelMagnetUnits * unitPx,
+          });
+    scroller.coast(spinLanding);
   };
   let wheelAcc = 0;
   let zoomAcc = 0;
@@ -315,14 +328,11 @@ export function bindScrollInput(
         const action = wheelFling.notch(e.timeStamp, delta > 0 ? 1 : -1, notches, {
           flying: scroller.coastDirection,
           reduced: reducedMotion.matches,
+          maxUnits: Math.max(1, Math.round(TIMELINE.wheelFlingMaxDays / opts.unitDays)),
         });
         if (debugWheel) console.log("[wheel]", action);
         if (action.kind === "brake") scroller.halt();
-        else if (action.kind === "fling") flingWheel(action.velocity);
-        else if (action.rapid) step(action.units * Math.max(1, Math.round(TIMELINE.wheelReducedRapidDays / opts.unitDays)));
-        // A slower notch during a fling pushes its landing one unit further, at the same pace.
-        else if (scroller.coastDirection === Math.sign(action.units)) scroller.coast(scroller.snap(scroller.target + action.units * unitPx));
-        else step(action.units);
+        else spinWheel(action, step);
         return;
       }
       wheelFling.trackpad(e.timeStamp);

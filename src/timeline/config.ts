@@ -29,23 +29,27 @@ export const TIMELINE = {
   /** Inertia ends (and snaps) once it slows below this speed (px/ms). */
   flingStopVelocity: 0.08,
 
-  /** Wheel momentum: this many notches within `wheelFlingWindowMs` start a fling… */
-  wheelFlingNotches: 3,
-  wheelFlingWindowMs: 150,
-  /** …at `wheelFlingGain` units (days, weeks, months) per second for each notch per second… */
-  wheelFlingGain: 1.5,
-  /** …plus this fraction more for each notch per second above the threshold rate (faster spin, longer fling). */
-  wheelFlingAccel: 0.05,
+  /**
+   * Mouse-wheel gears, chosen by how long the wheel has been spinning without a pause.
+   * Notches less than this far apart (ms) are one continuous spin; a longer pause starts afresh in gear 1…
+   */
+  wheelGearGapMs: 150,
+  /** …and a notch further than this (ms) from the previous one (the pace slows) drops one gear. */
+  wheelGearSlowGapMs: 100,
+  /** Gears 2 and 3 start after this long of continuous spin (ms). */
+  wheelGearStartMs: [300, 800],
+  /** Units (days, weeks, months) per notch in gears 1, 2, 3. */
+  wheelGearUnits: [1, 3, 7],
+  /** Most units the view coasts past the last notch in gears 1, 2, 3 (gear 1: none, it just snaps). */
+  wheelGearInertiaUnits: [0, 7, 30],
   /** Speed kept per 60fps frame while a wheel fling slows down (same as a drag's `flingFriction`). */
   wheelFlingFriction: 0.94,
-  /** A wheel fling never coasts further than this many days (about 3 months, at any zoom). */
+  /** A continuous spin (notches + inertia) never moves further than this many days (about 3 months, at any zoom). */
   wheelFlingMaxDays: 91,
   /** A wheel fling that would stop within this many units of a release lands on it. */
   wheelMagnetUnits: 2,
   /** After a trackpad-like event (small delta), wheel events never fling for this long. */
   wheelTrackpadHoldMs: 400,
-  /** Reduced motion: each notch of a quick burst moves this many days (1 unit at Week / Month). */
-  wheelReducedRapidDays: 7,
 
   /** Distance from the line to the nearest card: the band for day numbers and months, never scaled. */
   cardOffset: 64,
