@@ -53,7 +53,13 @@ export interface FetchStatus {
 }
 
 export function readJson<T>(path: string, fallback: T): T {
-  return existsSync(path) ? (JSON.parse(readFileSync(path, "utf8")) as T) : fallback;
+  if (!existsSync(path)) return fallback;
+  try {
+    return JSON.parse(readFileSync(path, "utf8")) as T;
+  } catch (err) {
+    // Hand-edited files (free-updates.json, studios-overrides.json): say which one is broken.
+    throw new Error(`Invalid JSON in ${path}: ${(err as Error).message}`, { cause: err });
+  }
 }
 
 export function writeJson(path: string, data: unknown) {

@@ -39,11 +39,11 @@ Correzione: mostrare il messaggio sui filtri solo se `rank(released, …)` con i
 `(score.count ?? 0) >= minReviews`: un voto senza `count` vale 0 recensioni. Nel pannello admin il numero di recensioni di Metacritic e Backloggd è facoltativo (`src/admin/main.ts:193-204`, `overrides-schema.ts:59-71`), quindi un voto inserito senza conteggio non entra mai in classifica con la soglia predefinita, e la riga dei nascosti dice "fewer than 20 reviews" per un gioco di cui il numero non si conosce. Oggi solo OpenCritic ha dati, tutti con `count`.
 Correzione: decidere la regola (conteggio obbligatorio nell'admin, oppure `count: null` sempre sopra soglia) e, se esclusi, contarli come "no review count" nella riga dei nascosti.
 
-**[bassa] `src/rankings/main.ts:199-205,171` — la pillola "Critics avg" / "Users avg" non dice quando la media è di una sola fonte**
+**[bassa] `src/rankings/main.ts:199-205,171` — la pillola "Critics avg" / "Users avg" non dice quando la media è di una sola fonte** ✔ corretto in `Rankings, Data: single-source average, filter validation, hand-written files, wiki studios`
 Con una sola fonte sopra soglia la "media" è il voto di quella fonte, e il gioco concorre con quelli che hanno entrambe (conforme a SPEC). Si capisce solo guardando quale cerchietto è evidenziato.
 Correzione: aggiungere alla pillola (o all'`aria-label`) l'indicazione "1 of 2 sources" quando `entry.used.length === 1`.
 
-**[bassa] `src/rankings/main.ts:338-339`, `src/studios/main.ts:141` — pagina aperta a cavallo della mezzanotte**
+**[bassa] `src/rankings/main.ts:338-339`, `src/studios/main.ts:141` — pagina aperta a cavallo della mezzanotte** ✔ corretto in `Rankings, Data: single-source average, filter validation, hand-written files, wiki studios`
 Rankings calcola `released` e gli anni una volta sola al caricamento, mentre `rank()` usa un `todayEpochDay()` nuovo a ogni cambio: un gioco che esce a mezzanotte non compare finché non si ricarica. Studios fissa `today` al caricamento. Stesso comportamento della timeline (`timeline.ts:137`), quindi coerente, ma i due tempi di Rankings non lo sono tra loro.
 Correzione: in Rankings calcolare `released` dentro `fillList()` con lo stesso `today`, oppure fissare `today` una volta in `render()` e passarlo a `rank()`.
 
@@ -57,11 +57,11 @@ Correzione: funzione condivisa in `src/timeline/dates.ts` che restituisce `{ day
 La build ordina con `status` (UTC, oggi = "released"), la pagina riordina con il giorno locale (oggi = "upcoming"). L'ordine in `studios.json` e il campo `status` non sono usati dalla pagina.
 Correzione: tenere solo l'ordine della pagina (e togliere `status` dal JSON) oppure documentare che quello della build è solo indicativo.
 
-**[bassa] `src/rankings/main.ts:78-82` e `src/filters.ts:15-21` — etichette e suggerimenti dei filtri copiati**
+**[bassa] `src/rankings/main.ts:78-82` e `src/filters.ts:15-21` — etichette e suggerimenti dei filtri copiati** ✔ corretto in `Rankings, Data: single-source average, filter validation, hand-written files, wiki studios`
 DLC, Switch 2 Edition ed Exclusives only hanno label e hint riscritti uguali nei due file: una modifica in uno non arriva all'altro.
 Correzione: esportare `OPTIONS` da `filters.ts` e prendere in Rankings le voci che servono.
 
-**[bassa] `src/filters.ts:23-30` — i filtri della timeline non validano i valori salvati**
+**[bassa] `src/filters.ts:23-30` — i filtri della timeline non validano i valori salvati** ✔ corretto in `Rankings, Data: single-source average, filter validation, hand-written files, wiki studios`
 `{ ...DEFAULTS, ...saved }` accetta qualsiasi tipo (es. `"dlc": "false"` stringa è vero); Rankings invece controlla che ogni valore sia booleano (`rankings/main.ts:88`). Stessa esigenza, due livelli di robustezza.
 Correzione: stesso controllo `typeof === "boolean"` per ogni chiave anche in `loadFilters`.
 

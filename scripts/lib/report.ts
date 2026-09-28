@@ -29,7 +29,7 @@ export interface FetchReport {
    * data/free-updates.json entries left out (same game already listed), not found on IGDB, or
    * matched by release year only.
    */
-  freeUpdates?: { created: number; duplicates: { title: string; of: string }[]; notOnIgdb: string[]; approximate?: string[] };
+  freeUpdates?: { created: number; duplicates: { title: string; of: string }[]; notOnIgdb: string[]; approximate?: string[]; invalid?: string[] };
   /**
    * IGDB developers of first-party games that match no Nintendo Wiki studio (data/studios-overrides.json),
    * and games of hidden or closed wiki studios.
@@ -37,4 +37,8 @@ export interface FetchReport {
   studiosUnmatched?: { developer: string; titles: string[] }[];
   /** data/cache/studios.json missing or empty when studios.json was built. */
   studiosCacheEmpty?: boolean;
+  /** Names claimed by two Nintendo Wiki studios ("name — kept, not ignored"). */
+  studiosNameCollisions?: string[];
+  /** data/studios-overrides.json keys that are no wiki page and no game's developer (renamed page?). */
+  studiosUnusedOverrides?: string[];
 }

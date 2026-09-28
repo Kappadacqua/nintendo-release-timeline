@@ -73,3 +73,23 @@ describe("freeUpdateId", () => {
     expect(freeUpdateId("  Kirby & the Forgotten Land! ")).toBe("free-update:kirby-the-forgotten-land");
   });
 });
+
+describe("freeUpdateGames: invalid entries", () => {
+  it("leaves out entries without a title or with a malformed date, with the reason", () => {
+    file.entries = [
+      entry("Good"),
+      { ...entry("No date"), game_release_date: undefined },
+      { ...entry("Short date"), switch_2_update_date: "2025-6-5" },
+      { ...entry("Not a day"), switch_2_update_date: "2025-02-30" },
+      { ...entry(""), title: "  " },
+    ];
+    const r = freeUpdateGames([], () => undefined);
+    expect(r.games.map((g) => g.title)).toEqual(["Good"]);
+    expect(r.invalid).toEqual([
+      'No date — game_release_date "" is not YYYY-MM-DD',
+      'Short date — switch_2_update_date "2025-6-5" is not YYYY-MM-DD',
+      'Not a day — switch_2_update_date "2025-02-30" is not YYYY-MM-DD',
+      "entry 5 — missing title",
+    ]);
+  });
+});

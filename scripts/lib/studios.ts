@@ -33,6 +33,13 @@ export interface StudiosResult {
   unmatched: { developer: string; titles: string[] }[];
   /** data/cache/studios.json missing or empty: the Nintendo studios end up as partners. */
   cacheEmpty: boolean;
+  /** Names claimed by two wiki studios ("name — kept, ignored"): the shown studio wins. */
+  nameCollisions: string[];
+  /**
+   * Override keys that are neither a wiki page nor the developer of any game: often a studio
+   * renamed on the wiki, whose override silently became an unused alias.
+   */
+  unusedOverrides: string[];
 }
 
 /** What the caller knows from the cached IGDB data. */
@@ -57,11 +64,23 @@ export function buildStudios(games: Game[], info: StudioGameInfo, today: string)
   // Every wiki studio (closed and hidden ones too) claims its names, so their games are "matched"
   // without being shown: e.g. "Nintendo", the parent company, is hidden and attributes to no one.
   const byName = new Map<string, { title: string; url: string; shown: boolean; hidden: boolean }>();
+  const nameCollisions: string[] = [];
   for (const s of cache.studios) {
     const o = overrides[s.title] ?? {};
     const hidden = !!o.hidden;
     const shown = (o.active ?? s.active) && !hidden;
-    for (const name of [s.title, ...(o.igdbNames ?? [])]) byName.set(normalizeStudio(name), { title: s.title, url: s.url, shown, hidden });
+    for (const name of [s.title, ...(o.igdbNames ?? [])]) {
+      const key = normalizeStudio(name);
+      const prev = byName.get(key);
+      const entry = { title: s.title, url: s.url, shown, hidden };
+      if (prev && prev.title !== s.title) {
+        // Same name for two studios (an alias, or titles differing only by punctuation / suffix):
+        // the shown one keeps the games, whatever the order of the cache.
+        const [kept, ignored] = shown && !prev.shown ? [entry, prev] : [prev, entry];
+        nameCollisions.push(`${name} — ${kept.title}, not ${ignored.title}`);
+        byName.set(key, kept);
+      } else byName.set(key, entry);
+    }
   }
   // Overrides for names outside the wiki: aliases (and hiding) for partners and third parties.
   const alias = new Map<string, { name: string; hidden: boolean }>();
@@ -74,6 +93,7 @@ export function buildStudios(games: Game[], info: StudioGameInfo, today: string)
   const gamesOf = new Map<string, Game[]>();
   const others = new Map<string, { name: string; games: Game[]; hidden: boolean }>();
   const unmatched = new Map<string, string[]>();
+  const usedAliases = new Set<string>();
   for (const g of counted) {
     if (!g.developer) {
       if (g.firstParty) unmatched.set("", [...(unmatched.get("") ?? []), g.title]);
@@ -91,6 +111,7 @@ export function buildStudios(games: Game[], info: StudioGameInfo, today: string)
       continue;
     }
     const a = alias.get(normalizeStudio(g.developer));
+    if (a) usedAliases.add(a.name);
     const key = normalizeStudio(a?.name ?? g.developer);
     const o = others.get(key) ?? { name: a?.name ?? g.developer, games: [], hidden: a?.hidden ?? false };
     o.games.push(g);
@@ -133,6 +154,9 @@ export function buildStudios(games: Game[], info: StudioGameInfo, today: string)
     studios,
     unmatched: [...unmatched].map(([developer, titles]) => ({ developer, titles })),
     cacheEmpty: cache.studios.length === 0,
+    nameCollisions,
+    // With an empty cache every key looks unused: cacheEmpty already says why.
+    unusedOverrides: cache.studios.length ? Object.keys(overrides).filter((n) => !wikiTitles.has(n) && !usedAliases.has(n)) : [],
   };
 }
 

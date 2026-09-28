@@ -199,9 +199,24 @@ describe("buildStudios: unmatched developers", () => {
   });
 
   // docs/review/data.md, [bassa] "due studi della wiki con lo stesso nome normalizzato si sovrascrivono".
-  it.todo("prefers the shown studio when a closed one claims the same name", () => {
+  it("prefers the shown studio when a closed one claims the same name", () => {
     files.studios = [wiki("EPD"), wiki("Old EPD", false)];
     files.overrides = { "Old EPD": { igdbNames: ["EPD"] } } satisfies StudiosOverrides;
-    expect(byName([game("Mario", "EPD", "2026-01-01")], "EPD")?.game?.title).toBe("Mario");
+    const games = [game("Mario", "EPD", "2026-01-01")];
+    expect(byName(games, "EPD")?.game?.title).toBe("Mario");
+    expect(build(games).nameCollisions).toEqual(["EPD — EPD, not Old EPD"]);
+    // Same result whatever the order of the cache.
+    files.studios = [wiki("Old EPD", false), wiki("EPD")];
+    expect(byName(games, "EPD")?.game?.title).toBe("Mario");
+    expect(build(games).nameCollisions).toEqual(["EPD — EPD, not Old EPD"]);
+  });
+
+  // docs/review/data.md, [bassa] "una pagina rinominata sulla wiki trasforma il suo override in un alias".
+  it("lists override keys that are no wiki page and no game's developer", () => {
+    files.studios = [wiki("EPD")];
+    files.overrides = { EPD: { hidden: false }, "Nintendo Cube": { igdbNames: ["NDcube"] }, Partner: {} } satisfies StudiosOverrides;
+    const games = [game("A", "Partner", "2026-01-01", { byNintendo: true })];
+    expect(build(games).unusedOverrides).toEqual(["Nintendo Cube"]);
+    expect(build([game("B", "NDcube", "2026-01-01")]).unusedOverrides).toEqual(["Partner"]);
   });
 });

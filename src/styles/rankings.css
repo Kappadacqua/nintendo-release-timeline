@@ -317,6 +317,15 @@
   color: var(--text-muted);
 }
 
+/* "1 of 2 sources": the average is a single source's score. */
+.rank-avg__sources {
+  margin-top: 1px;
+  font-size: 9px;
+  font-weight: 700;
+  white-space: nowrap;
+  color: var(--text-muted);
+}
+
 .rankings__hidden {
   margin: 18px 0 0;
   font-size: 13px;

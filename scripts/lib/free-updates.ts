@@ -56,9 +56,36 @@ export const emptyFreeUpdatesCache = (): FreeUpdatesCache => ({
   approximate: [],
 });
 
-export function loadFreeUpdates(): FreeUpdateEntry[] {
-  return readJson<FreeUpdatesFile | null>(PATHS.freeUpdates, null)?.games ?? [];
+/** A real calendar day written as YYYY-MM-DD (dates are sorted and compared as strings). */
+function isDay(value: unknown) {
+  if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  const d = new Date(`${value}T00:00:00Z`);
+  return !Number.isNaN(d.getTime()) && d.toISOString().startsWith(value);
 }
+
+/** Why a hand-written entry cannot be used, or null when it is valid. */
+export function invalidReason(entry: Partial<Record<keyof FreeUpdateEntry, unknown>>): string | null {
+  if (typeof entry.title !== "string" || !entry.title.trim()) return "missing title";
+  if (!isDay(entry.game_release_date)) return `game_release_date "${entry.game_release_date ?? ""}" is not YYYY-MM-DD`;
+  if (!isDay(entry.switch_2_update_date)) return `switch_2_update_date "${entry.switch_2_update_date ?? ""}" is not YYYY-MM-DD`;
+  return null;
+}
+
+/** data/free-updates.json split into usable entries and the ones left out ("title — reason"). */
+export function readFreeUpdates(): { entries: FreeUpdateEntry[]; invalid: string[] } {
+  const games = readJson<FreeUpdatesFile | null>(PATHS.freeUpdates, null)?.games ?? [];
+  const entries: FreeUpdateEntry[] = [];
+  const invalid: string[] = [];
+  for (const [i, entry] of games.entries()) {
+    const reason = invalidReason(entry ?? {});
+    if (reason == null) entries.push(entry);
+    else invalid.push(`${reason === "missing title" ? `entry ${i + 1}` : entry.title} — ${reason}`);
+  }
+  return { entries, invalid };
+}
+
+/** The valid entries of data/free-updates.json. */
+export const loadFreeUpdates = () => readFreeUpdates().entries;
 
 /**
  * data/free-updates-seen.json: the build day each free update first appeared in the file,
@@ -105,6 +132,8 @@ export interface FreeUpdatesResult {
   notOnIgdb: string[];
   /** Matched on IGDB by release year only (possibly another game). */
   approximate: string[];
+  /** Left out: missing title or a date not written as YYYY-MM-DD ("title — reason"). */
+  invalid: string[];
 }
 
 /**
@@ -118,9 +147,10 @@ export function freeUpdateGames(
   const cache = { ...emptyFreeUpdatesCache(), ...readJson<Partial<FreeUpdatesCache>>(PATHS.freeUpdatesCache, {}) };
   const igdb = new Map(cache.games.map((g) => [g.id, g]));
   const links = { ...emptyLinks(), eshopEuBySlug: cache.eshopEuBySlug, eshopUsBySlug: cache.eshopUsBySlug };
-  const result: FreeUpdatesResult = { games: [], duplicates: [], notOnIgdb: [], approximate: [] };
+  const { entries, invalid } = readFreeUpdates();
+  const result: FreeUpdatesResult = { games: [], duplicates: [], notOnIgdb: [], approximate: [], invalid };
 
-  for (const entry of loadFreeUpdates()) {
+  for (const entry of entries) {
     const dup = duplicateOf(entry.title, existing);
     if (dup) {
       result.duplicates.push({ title: entry.title, of: dup.title });

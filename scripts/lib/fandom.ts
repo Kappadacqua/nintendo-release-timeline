@@ -52,7 +52,18 @@ export const loadStudiosOverrides = () => readJson<StudiosOverrides>(PATHS.studi
 export const fandomUrl = (pageTitle: string) =>
   `https://nintendo.fandom.com/wiki/${encodeURIComponent(pageTitle.replace(/ /g, "_")).replace(/%2F/g, "/")}`;
 
-const CLOSED = /defunct|former/i;
+// Whole words: "Platformer developers" is not a closed studio.
+const CLOSED = /\b(?:defunct|former)\b/i;
+
+/**
+ * Active unless a category says "defunct" / "former"; the infobox `defunct` field (anywhere in
+ * the template, also with several parameters on one line) makes an active studio uncertain.
+ */
+export function studioState(categories: string[], content: string) {
+  const defunct = (content.match(/\|\s*defunct\s*=([^|}\n]*)/)?.[1] ?? "").trim();
+  const active = !categories.some((c) => CLOSED.test(c));
+  return { defunct, active, uncertain: active && defunct !== "" };
+}
 
 /** MediaWiki reports many errors (parameters, maxlag, limits) with HTTP 200 and this body. */
 interface ApiError {
@@ -143,9 +154,7 @@ export async function fetchFirstPartyStudios(userAgent: string): Promise<FandomS
   return titles
     .map((title) => {
       const { categories, content } = pages.get(title)!;
-      const defunct = (content.match(/^\s*\|\s*defunct\s*=(.*)$/m)?.[1] ?? "").trim();
-      const active = !categories.some((c) => CLOSED.test(c));
-      return { title, url: fandomUrl(title), categories: [...new Set(categories)].sort(), defunct, active, uncertain: active && defunct !== "" };
+      return { title, url: fandomUrl(title), categories: [...new Set(categories)].sort(), ...studioState(categories, content) };
     })
     .sort((a, b) => a.title.localeCompare(b.title));
 }

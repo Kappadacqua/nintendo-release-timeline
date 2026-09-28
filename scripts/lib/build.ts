@@ -268,7 +268,13 @@ export function buildGames(): BuildResult {
   // Free Switch 2 updates of Switch games (data/free-updates.json), unless that game already has a card.
   const withOverrides = kept.map(({ game }) => applyOverride(game, overrides[game.id]));
   const free = freeUpdateGames(withOverrides, (g, l) => storePages(g, l, settings).EU);
-  report.freeUpdates = { created: free.games.length, duplicates: free.duplicates, notOnIgdb: free.notOnIgdb, approximate: free.approximate };
+  report.freeUpdates = {
+    created: free.games.length,
+    duplicates: free.duplicates,
+    notOnIgdb: free.notOnIgdb,
+    approximate: free.approximate,
+    invalid: free.invalid,
+  };
   const freeGames = free.games.filter((g) => overrides[g.id]?.include !== false).map((g) => applyOverride(g, overrides[g.id]));
 
   // Dated games by date, then TBA by expected year (unknown year last), then title.
@@ -299,6 +305,8 @@ export function buildGames(): BuildResult {
   );
   report.studiosUnmatched = studios.unmatched;
   report.studiosCacheEmpty = studios.cacheEmpty;
+  report.studiosNameCollisions = studios.nameCollisions;
+  report.studiosUnusedOverrides = studios.unusedOverrides;
 
   const file: GamesFile = { generatedAt: report.generatedAt, games };
   writeJson(PATHS.games, file);

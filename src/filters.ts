@@ -12,7 +12,8 @@ export interface Filters {
 const DEFAULTS: Filters = { dlc: true, switch2Edition: true, freeUpdates: true, thirdParty: true, exclusivesOnly: false };
 const STORAGE_KEY = "filters";
 
-const OPTIONS: { key: keyof Filters; label: string; hint: string }[] = [
+/** Switch labels and hints, shared with the Rankings filters. */
+export const FILTER_OPTIONS: { key: keyof Filters; label: string; hint: string }[] = [
   { key: "dlc", label: "DLC", hint: "Expansions and add-ons" },
   { key: "switch2Edition", label: "Switch 2 Edition", hint: "Upgraded Switch 1 games" },
   { key: "freeUpdates", label: "Free updates", hint: "Switch 1 games with a free Switch 2 update" },
@@ -22,8 +23,14 @@ const OPTIONS: { key: keyof Filters; label: string; hint: string }[] = [
 
 export function loadFilters(): Filters {
   try {
-    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "{}") as Partial<Filters>;
-    return { ...DEFAULTS, ...saved };
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "{}") as Partial<Record<keyof Filters, unknown>>;
+    // Only real booleans: a stored "false" string would otherwise turn a filter on.
+    const f = { ...DEFAULTS };
+    for (const { key } of FILTER_OPTIONS) {
+      const value = saved?.[key];
+      if (typeof value === "boolean") f[key] = value;
+    }
+    return f;
   } catch {
     return { ...DEFAULTS };
   }
@@ -50,7 +57,7 @@ export function applyFilters(games: Game[], f: Filters) {
   );
 }
 
-export const isDefault = (f: Filters) => OPTIONS.every(({ key }) => f[key] === DEFAULTS[key]);
+export const isDefault = (f: Filters) => FILTER_OPTIONS.every(({ key }) => f[key] === DEFAULTS[key]);
 
 /**
  * "58 games" only when no filter is on: an active filter that hides nothing
@@ -89,7 +96,7 @@ export class FiltersControl {
     this.panel.hidden = true;
     this.panel.setAttribute("role", "group");
     this.panel.setAttribute("aria-label", "Filters");
-    for (const { key, label, hint } of OPTIONS) {
+    for (const { key, label, hint } of FILTER_OPTIONS) {
       const row = document.createElement("label");
       row.className = "filters__option";
       row.innerHTML = `<input type="checkbox"><span class="filters__switch" aria-hidden="true"></span><span><strong></strong><small></small></span>`;

@@ -80,6 +80,11 @@ if (report) {
     for (const d of report.freeUpdates.duplicates) console.log(`  - ${d.title} ${dim(`→ ${d.of}`)}`);
   }
   section(
+    "Free updates left out: invalid entry",
+    report.freeUpdates?.invalid ?? [],
+    "Fix the entry in data/free-updates.json: a title and dates written as YYYY-MM-DD.",
+  );
+  section(
     "Free updates not found on IGDB",
     report.freeUpdates?.notOnIgdb ?? [],
     "Check the title in data/free-updates.json, then run `npm run data:fetch-free-updates`.",
@@ -127,6 +132,16 @@ if (report) {
     "First-party games attributed to no studio",
     (report.studiosUnmatched ?? []).map((u) => `${u.developer || "(no IGDB developer)"} ${dim(`— ${u.titles.join(", ")}`)}`),
     'Add the IGDB name under "igdbNames" of the studio in data/studios-overrides.json, or set "developer" in the game overrides.',
+  );
+  section(
+    "Names claimed by two Nintendo Wiki studios",
+    report.studiosNameCollisions ?? [],
+    'The first studio keeps the games. Remove the duplicate name from "igdbNames" in data/studios-overrides.json.',
+  );
+  section(
+    "Studio overrides that match nothing",
+    report.studiosUnusedOverrides ?? [],
+    "No Nintendo Wiki page and no game with this developer: if the wiki renamed the page, rename the key in data/studios-overrides.json.",
   );
   section("OpenCritic errors", report.opencritic.errors);
   section("Wikipedia / Nintendo Wiki errors", report.linkErrors ?? []);

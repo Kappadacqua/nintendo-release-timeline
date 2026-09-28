@@ -56,7 +56,7 @@ Fonti: i problemi **[bassa]** non ancora segnati ✔ in `static.md` (11 su 12), 
 - File: `presentation.ts`, `timeline.ts:186`, `studios/main.ts:94`, `scroller.ts:238`.
 - Motivo: nessun effetto per l'utente (il log parte solo con `?debug=wheel`); da fare solo quando si toccano già questi file, limitando il log a `import.meta.env.DEV`.
 
-### 7. Rankings e filtri — fare, piccolo
+### 7. Rankings e filtri — fare, piccolo ✔
 - Problemi (`pages.md`): pillola "Critics/Users avg" che non dice quando la media è di una sola fonte; `released` e `today` calcolati in momenti diversi; etichette dei filtri copiate da `filters.ts`; `loadFilters` della timeline non valida i valori salvati.
 - File: `src/rankings/main.ts`, `src/filters.ts` (esportare `OPTIONS`, controllo `typeof === "boolean"`), eventualmente `src/rankings/rank.ts` e il suo test.
 - Motivo: stessa area e pochi file; la validazione evita un filtro rovinato da un valore salvato non valido. Per la pillola serve decidere il testo ("1 of 2 sources" visibile o solo nell'`aria-label`).
@@ -71,7 +71,7 @@ Fonti: i problemi **[bassa]** non ancora segnati ✔ in `static.md` (11 su 12), 
 - File: `scripts/lib/studios.ts`, `src/studios/main.ts`, `src/types.ts`.
 - Motivo: dopo le correzioni (task 1) le due regole coincidono; resta la duplicazione, da togliere insieme alla decisione sul problema noto 9 (tutti i giochi Switch 2 nel JSON, scelta nella pagina), che riscrive lo stesso codice.
 
-### 10. File di dati scritti a mano — fare, piccolo
+### 10. File di dati scritti a mano — fare, piccolo ✔
 - Problemi (`data.md`): un JSON non valido ferma la build senza il nome del file (`cache.ts:56`); le voci di `data/free-updates.json` non sono validate (data mancante o scritta male).
 - File: `scripts/lib/cache.ts`, `scripts/lib/free-updates.ts`, `scripts/lib/free-updates.test.ts`.
 - Motivo: sono i file che si modificano a mano più spesso e oggi un errore di battitura dà un messaggio incomprensibile o una data sbagliata in `games.json`.
@@ -81,7 +81,7 @@ Fonti: i problemi **[bassa]** non ancora segnati ✔ in `static.md` (11 su 12), 
 - File: `scripts/lib/free-updates.ts`, `scripts/lib/build.ts`, `scripts/lib/free-updates.test.ts`.
 - Motivo: oggi i 17 aggiornamenti sono corretti e l'effetto peggiore è un giorno di differenza nella data "New"; va fatto prima di rinominare una voce o aggiungere titoli ambigui. Attenzione: tocca `free-updates-seen.json`, che non va mai cancellato.
 
-### 12. Studi da Nintendo Wiki: riconoscimento e avvisi — fare, piccolo
+### 12. Studi da Nintendo Wiki: riconoscimento e avvisi — fare, piccolo ✔
 - Problemi (`data.md`): `CLOSED` riconosce "former" dentro altre parole; `defunct` letto solo a inizio riga; collisioni tra nomi normalizzati senza avviso; pagina rinominata sulla wiki che trasforma l'override in un alias.
 - File: `scripts/lib/fandom.ts`, `scripts/lib/studios.ts`, `scripts/fetch-studios.ts`, `scripts/lib/studios.test.ts`.
 - Motivo: le due regex sono correzioni di una riga; gli avvisi rendono visibili errori che oggi passano in silenzio. Le regex agiscono solo al prossimo `data:fetch-studios` (da non eseguire nel task).

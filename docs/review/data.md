@@ -33,11 +33,11 @@ Controllati senza problemi:
 Se `data/cache/studios.json` manca o è vuoto, `byName` è vuota e ogni chiave di `studios-overrides.json` diventa un alias: gli studi Nintendo (EPD, NST, Nintendo Cube…) finiscono tra gli "altri" e, essendo pubblicati da Nintendo, compaiono come "Partner" senza link a Nintendo Wiki. Né il report né `data:validate` segnalano la cache mancante. Oggi non succede perché la cache è versionata.
 Correzione: con `cache.studios` vuoto aggiungere un avviso al report (mostrato da `data:validate`), oppure non scrivere `studios.json` in quel caso.
 
-**[bassa] `scripts/lib/cache.ts:56` — un JSON scritto a mano non valido ferma la build con un errore senza nome del file**
+**[bassa] `scripts/lib/cache.ts:56` — un JSON scritto a mano non valido ferma la build con un errore senza nome del file** ✔ corretto in `Rankings, Data: single-source average, filter validation, hand-written files, wiki studios`
 `data/free-updates.json` e `data/studios-overrides.json` si modificano a mano; una virgola in più fa fallire `JSON.parse` con un `SyntaxError` che non dice quale file.
 Correzione: in `readJson` catturare l'errore e rilanciarlo con il percorso.
 
-**[bassa] `scripts/lib/free-updates.ts:122,154` — le voci di `data/free-updates.json` non sono validate**
+**[bassa] `scripts/lib/free-updates.ts:122,154` — le voci di `data/free-updates.json` non sono validate** ✔ corretto in `Rankings, Data: single-source average, filter validation, hand-written files, wiki studios`
 Una voce senza `game_release_date` fa fallire la build (`.slice` su `undefined`); una data scritta male (es. `2025-6-5`) passa e finisce in `games.json` come `firstReleaseDate`, ordinata e confrontata come stringa. `overrides.json` ha uno schema (`overrides-schema.ts`), questo file no.
 Correzione: controllare in `loadFreeUpdates` titolo non vuoto e date `AAAA-MM-GG`, scartando la voce con un avviso nel report.
 
@@ -67,19 +67,19 @@ Correzione: in caso di errore di una fonte, copiare nella nuova cache le voci di
 Un gioco il cui sviluppatore corrisponde a uno studio della wiki non mostrato (chiuso o `hidden`) non va a nessuno studio e non finisce in `unmatched`, quindi `data:validate` non lo segnala. Oggi: "DK Challenge" e "The Legend of Zelda: Ocarina of Time" (sviluppatore IGDB "Nintendo", nascosto come casa madre). Lo stesso accadrebbe a un gioco nuovo attribuito a uno studio segnato chiuso a mano (es. "Nintendo EPD Smart Device Production Group", chiuso nel 2026).
 Correzione: aggiungere questi giochi a `unmatched` (con il nome dello studio non mostrato), così `data:validate` li elenca e si sistemano con `developer` negli override.
 
-**[bassa] `scripts/lib/fandom.ts:55` — `CLOSED` riconosce "former" anche dentro altre parole**
+**[bassa] `scripts/lib/fandom.ts:55` — `CLOSED` riconosce "former" anche dentro altre parole** ✔ corretto in `Rankings, Data: single-source average, filter validation, hand-written files, wiki studios`
 `/defunct|former/i` segna come chiuso uno studio con una categoria come "Platformer developers" o "Performer…". Oggi l'unica categoria che corrisponde è "Defunct companies".
 Correzione: `/\b(?:defunct|former)\b/i`.
 
-**[bassa] `scripts/lib/fandom.ts:130` — il campo `defunct` dell'infobox si trova solo a inizio riga**
+**[bassa] `scripts/lib/fandom.ts:130` — il campo `defunct` dell'infobox si trova solo a inizio riga** ✔ corretto in `Rankings, Data: single-source average, filter validation, hand-written files, wiki studios`
 La regex cerca `| defunct =` all'inizio di una riga: un infobox scritto con più parametri sulla stessa riga non viene letto e lo studio non è segnato come dubbio (`uncertain`).
 Correzione: `/\|\s*defunct\s*=([^|}\n]*)/`.
 
-**[bassa] `scripts/lib/studios.ts:51-56` — due studi della wiki con lo stesso nome normalizzato si sovrascrivono**
+**[bassa] `scripts/lib/studios.ts:51-56` — due studi della wiki con lo stesso nome normalizzato si sovrascrivono** ✔ corretto in `Rankings, Data: single-source average, filter validation, hand-written files, wiki studios`
 `byName.set` tiene l'ultimo: se un alias (`igdbNames`) di uno studio chiuso coincide con il nome di uno attivo, o due titoli differiscono solo per punteggiatura o suffisso societario ("Co., Ltd."), i giochi vanno allo studio sbagliato o a nessuno, a seconda dell'ordine alfabetico della cache. Oggi nessuna collisione.
 Correzione: preferire lo studio mostrato in caso di collisione e registrarla nel report.
 
-**[bassa] `scripts/fetch-studios.ts:26` + `scripts/lib/studios.ts:58-62` — una pagina rinominata sulla wiki trasforma il suo override in un alias**
+**[bassa] `scripts/fetch-studios.ts:26` + `scripts/lib/studios.ts:58-62` — una pagina rinominata sulla wiki trasforma il suo override in un alias** ✔ corretto in `Rankings, Data: single-source average, filter validation, hand-written files, wiki studios`
 `fetch-studios` avvisa solo per le chiavi con `active` assenti dalla categoria. Se la wiki rinomina "Nintendo Cube" o "Nintendo Studios Singapore", l'override (`igdbNames`, `hidden`) diventa in silenzio un alias partner/terze parti: "Nintendo Cube" comparirebbe come Partner senza link.
 Correzione: avvisare per ogni chiave degli override che non è una pagina della cache e non ha giochi di partner o terze parti con quel nome.
 

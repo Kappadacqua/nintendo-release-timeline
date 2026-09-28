@@ -33,7 +33,7 @@ Problemi: gruppi 1 (bianco su fondo colorato), 2 (ombre e velo), 3 (reduced moti
 Decisione per il gruppo 3: con prefers-reduced-motion la barra della presentazione non si anima; mostra solo il contatore (es. "3 / 20").
 Nel report elenca cosa controllare nel browser.
 
-## [ ] Task 6 — Smistamento: gruppi 7, 10, 12
+## [x] Task 6 — Smistamento: gruppi 7, 10, 12
 Problemi: gruppi 7 (Rankings e filtri), 10 (file di dati scritti a mano), 12 (studi da Nintendo Wiki: regex e avvisi) di docs/review/triage.md.
 Decisione per il gruppo 7: il testo "1 of 2 sources" nelle medie è visibile, in piccolo sotto il valore.
 Verifica anche: data:build e data:validate.

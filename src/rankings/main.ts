@@ -7,7 +7,7 @@ import "../styles/filters.css";
 import "../styles/rankings.css";
 import { gsap } from "gsap";
 import { createScoreRing, tier, type ScoreRing } from "../cards/score-ring";
-import { applyFilters } from "../filters";
+import { applyFilters, FILTER_OPTIONS } from "../filters";
 import { loadGames } from "../games";
 import { initTheme } from "../theme/theme";
 import { MONTHS, todayEpochDay } from "../timeline/dates";
@@ -60,11 +60,9 @@ interface RankFilters {
 const FILTER_DEFAULTS: RankFilters = { dlc: false, switch2Edition: true, exclusivesOnly: false, year: "all" };
 const FILTERS_KEY = "rankings-filters";
 
-const TOGGLES: { key: "dlc" | "switch2Edition" | "exclusivesOnly"; label: string; hint: string }[] = [
-  { key: "dlc", label: "DLC", hint: "Expansions and add-ons" },
-  { key: "switch2Edition", label: "Switch 2 Edition", hint: "Upgraded Switch 1 games" },
-  { key: "exclusivesOnly", label: "Exclusives only", hint: "Hide games also on other consoles or PC (phones don't count)" },
-];
+// Labels and hints come from the timeline filters, so the two pages never drift apart.
+const TOGGLE_KEYS = ["dlc", "switch2Edition", "exclusivesOnly"] as const;
+const TOGGLES = TOGGLE_KEYS.map((key) => ({ ...FILTER_OPTIONS.find((o) => o.key === key)!, key }));
 
 function loadRankFilters(years: string[]): RankFilters {
   try {
@@ -128,11 +126,15 @@ function scoreGroup(title: string, rings: ScoreRing[]) {
 }
 
 /** Average of the sources used, shown as a pill in the score tier color. */
-function averagePill(entry: Ranked, label: string) {
+function averagePill(entry: Ranked, label: string, sources: number) {
   const value = Math.round(entry.value);
   const pill = el("div", `rank-avg ring--${tier({ value, scale: 100, normalized: value, count: null })}`);
-  pill.append(el("span", "rank-avg__value", String(value)), el("span", "rank-avg__label", label));
-  pill.setAttribute("aria-label", `${label}: ${value} out of 100`);
+  // Only one source above the threshold: the "average" is that source's score (small, under the value).
+  const partial = entry.used.length < sources ? `${entry.used.length} of ${sources} sources` : "";
+  pill.append(el("span", "rank-avg__value", String(value)));
+  if (partial) pill.append(el("span", "rank-avg__sources", partial));
+  pill.append(el("span", "rank-avg__label", label));
+  pill.setAttribute("aria-label", `${label}: ${value} out of 100${partial ? `, ${partial}` : ""}`);
   return pill;
 }
 
@@ -166,7 +168,8 @@ function row(entry: Ranked, position: number, sort: SortKey) {
   });
   const scores = el("div", "rank-row__scores");
   if (sort === "critics" || sort === "users") {
-    scores.append(averagePill(entry, sort === "critics" ? "Critics avg" : "Users avg"));
+    const sources = SORTS.find((s) => s.key === sort)!.sources.length;
+    scores.append(averagePill(entry, sort === "critics" ? "Critics avg" : "Users avg", sources));
   }
   scores.append(scoreGroup("Critics", rings.slice(0, 2)), scoreGroup("Users", rings.slice(2)));
 
@@ -269,7 +272,10 @@ function controls(settings: Settings, onChange: () => void) {
 function render(root: HTMLElement, games: Game[]) {
   const settings = loadSettings();
   // Free updates have no scores: never ranked, never counted among the hidden games.
-  const released = games.filter((g) => g.kind !== "free-update" && isReleased(g, todayEpochDay()));
+  // One "today" for the whole visit (like the timeline): the released list, the years
+  // and the ranking always agree, even across midnight.
+  const today = todayEpochDay();
+  const released = games.filter((g) => g.kind !== "free-update" && isReleased(g, today));
   const years = [...new Set(released.map((g) => g.firstReleaseDate!.slice(0, 4)))].sort();
   const filters = loadRankFilters(years);
 
@@ -292,7 +298,6 @@ function render(root: HTMLElement, games: Game[]) {
   let transition: gsap.core.Timeline | null = null;
 
   function fillList() {
-    const today = todayEpochDay();
     const { ranked, hidden, noCount } = rank(filterGames(released, filters), today, settings);
     const label = SORTS.find((s) => s.key === settings.sort)!.label;
     subtitle.textContent = `Released games by ${label} score`;
