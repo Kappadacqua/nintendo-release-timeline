@@ -1,6 +1,6 @@
 # Stato del progetto
 
-Aggiornato: 2026-09-28 — Correzioni `docs/tasks/fixes-3.md` completate (task 3: aggiornamenti gratuiti esclusi dai controlli sui voti dell'admin)
+Aggiornato: 2026-09-28 — Ritocchi finali: bordo DLC selezionato, spazio nell'header, sezioni voti nascoste per gli aggiornamenti nell'admin
 
 ## Ultimo checkpoint
 
@@ -23,6 +23,7 @@ Nessuno.
 
 Dettagli completi nelle versioni precedenti di questo file (`git show 58d0ac7:STATUS.md`).
 
+- Ritocchi finali — DLC (es. un'espansione con nastro "DLC"): al passaggio del mouse e selezionata tiene il bordo viola, selezionata ha un bagliore viola al posto dell'anello rosso, nei due temi e anche da Week/Month. Header: sotto 1660 px (non più 1440) "NRT" con pallino, ben staccato dalla data, tutto su una riga fino a 1280 px; la data sta al centro dello spazio tra titolo e pulsanti (al centro della pagina non c'è posto) e non si sposta selezionando un gioco (il nome del gioco selezionato si tronca prima); da 1660 px il nome intero senza toccare "2026". Controllare 1280, 1500, 1501 (compare "What's new" per esteso), 1659, 1660 e Rankings/Studios. Admin: aprendo un aggiornamento gratuito niente sezioni OpenCritic, Metacritic e Backloggd; salvandolo gli altri campi si salvano come prima e i voti/link Metacritic già presenti nell'override restano.
 - fixes-3 task 3 — Admin (`/admin.html`): il filtro predefinito "Metacritic / Backloggd" elenca 47 elementi (non 64), nessun aggiornamento gratuito; anche il filtro OpenCritic non li elenca. I filtri Wikipedia / Nintendo Wiki / Nintendo Store li includono ancora quando manca il link.
 - fixes-3 task 2 — Aggiornamento gratuito selezionato (es. Pikmin 3 Deluxe): bordo verde invariato, bagliore esterno verde al posto dell'anello rosso; al passaggio del mouse il bordo resta verde; anche nel ventaglio del 5 giugno 2025 e nei due temi. Header: sotto 1440 px di larghezza il titolo diventa pallino rosso + "NRT" su una riga (provare 1280 e 1439 px), da 1440 in su "Nintendo Release Timeline" su una riga; stesso comportamento in Rankings e Studios.
 - fixes-3 task 1 — Compact: Orbitals (3 set 2026) impilata dietro Pikmin 3 Deluxe ne sporge di una striscia piena (56 px, come tra due card normali) invece di restarne coperta. Full: una card impilata dietro una card più alta (gioco uscito con i voti davanti a un aggiornamento o a un gioco in uscita) si sposta più in fuori allo stesso modo. Pile tra card della stessa altezza invariate; su finestre basse le card si rimpiccioliscono quanto serve a far stare le pile più alte.

@@ -79,6 +79,7 @@
 }
 
 .app-title__dot {
+  flex: none;
   width: 14px;
   height: 14px;
   border-radius: 50%;
@@ -190,7 +191,7 @@ main {
   }
 }
 
-/* The site name stays on one line: below 1440 px (header crowded by the timeline's
+/* The site name stays on one line: below 1660 px (header crowded by the timeline's
    menus) it shortens to "NRT"; the full name stays readable to screen readers. */
 .app-title__site {
   white-space: nowrap;
@@ -200,7 +201,7 @@ main {
   display: none;
 }
 
-@media (max-width: 1439px) {
+@media (max-width: 1659px) {
   .app-title__name {
     position: absolute;
     width: 1px;
@@ -211,5 +212,22 @@ main {
 
   .app-title__short {
     display: inline;
+  }
+
+  /* The actions take over half the row, so the date can't sit at the page centre: it centres
+     between a fixed-width title column and the actions, with a gap on both sides. The title
+     column grows with the window, so it never moves when a game is selected. */
+  .app-header {
+    grid-template-columns: clamp(88px, 100vw - 1180px, 200px) minmax(0, 1fr) auto;
+    column-gap: 24px;
+    padding-inline: 24px;
+  }
+
+  .app-header__date {
+    min-width: 0;
+  }
+
+  .app-header__actions {
+    gap: 6px;
   }
 }

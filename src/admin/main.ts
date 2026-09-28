@@ -169,17 +169,11 @@ function renderEditor(id: string) {
   const sel = (name: string, options: [string, string][], current: string) =>
     `<select name="${name}" id="f-${name}">${options.map(([v, l]) => `<option value="${v}"${v === current ? " selected" : ""}>${l}</option>`).join("")}</select>`;
 
-  editor.innerHTML = `
-    <form class="admin-form" novalidate>
-      <header class="admin-form__head">
-        <img alt="" src="${escapeHtml(g.coverUrl)}">
-        <div>
-          <h2>${escapeHtml(g.title)}</h2>
-          <p>${escapeHtml(id)} · ${escapeHtml(g.kind)} · ${escapeHtml(g.firstReleaseDate ?? g.vagueRelease?.label ?? "TBA")}${released(g) ? "" : " · not released yet"}</p>
-          ${conflict ? `<p class="admin-warning">Exclusivity conflict: ${escapeHtml(conflict)}</p>` : ""}
-        </div>
-      </header>
-
+  // Free updates never have scores: no OpenCritic, Metacritic or Backloggd sections.
+  const scoreFieldsets =
+    g.kind === "free-update"
+      ? ""
+      : `
       <fieldset>
         <legend>OpenCritic <a href="${searchUrl.opencritic(g.title)}" target="_blank" rel="noopener">Find on OpenCritic ↗</a>${g.links.opencritic ? ` <a href="${escapeHtml(g.links.opencritic)}" target="_blank" rel="noopener">Open page ↗</a>` : ""}</legend>
         <div class="admin-grid">
@@ -205,8 +199,20 @@ function renderEditor(id: string) {
           ${field("Rating (0–5)", "backloggd.rating", bl.rating, { type: "number", min: "0", max: "5", step: "0.1" })}
           ${field("Ratings", "backloggd.count", bl.count, { type: "number", min: "0", step: "1" })}
         </div>
-      </fieldset>
+      </fieldset>`;
 
+  editor.innerHTML = `
+    <form class="admin-form" novalidate>
+      <header class="admin-form__head">
+        <img alt="" src="${escapeHtml(g.coverUrl)}">
+        <div>
+          <h2>${escapeHtml(g.title)}</h2>
+          <p>${escapeHtml(id)} · ${escapeHtml(g.kind)} · ${escapeHtml(g.firstReleaseDate ?? g.vagueRelease?.label ?? "TBA")}${released(g) ? "" : " · not released yet"}</p>
+          ${conflict ? `<p class="admin-warning">Exclusivity conflict: ${escapeHtml(conflict)}</p>` : ""}
+        </div>
+      </header>
+
+      ${scoreFieldsets}
       <fieldset>
         <legend>Platforms</legend>
         <div class="admin-grid">
@@ -273,11 +279,15 @@ function fromForm(form: HTMLFormElement, previous: Override, title: string): Ove
   };
 
   const o: Override = { ...previous };
-  o.opencriticId = num("opencriticId");
-  o.metacritic = clean({ critic: num("metacritic.critic"), criticCount: num("metacritic.criticCount"), user: num("metacritic.user"), userCount: num("metacritic.userCount") });
-  o.backloggd = clean({ rating: num("backloggd.rating"), count: num("backloggd.count") });
-  const managedLinks = {
-    metacritic: text("links.metacritic"),
+  // A free update's form has no score sections: whatever the override already holds stays.
+  const hasScores = form.elements.namedItem("opencriticId") !== null;
+  if (hasScores) {
+    o.opencriticId = num("opencriticId");
+    o.metacritic = clean({ critic: num("metacritic.critic"), criticCount: num("metacritic.criticCount"), user: num("metacritic.user"), userCount: num("metacritic.userCount") });
+    o.backloggd = clean({ rating: num("backloggd.rating"), count: num("backloggd.count") });
+  }
+  const managedLinks: Record<string, string | undefined> = {
+    ...(hasScores && { metacritic: text("links.metacritic") }),
     wikipedia: text("links.wikipedia"),
     nintendoWiki: text("links.nintendoWiki"),
     nintendoStore: text("links.nintendoStore"),

@@ -73,3 +73,16 @@
     0 0 60px 14px color-mix(in srgb, var(--free-update) 38%, transparent),
     var(--card-shadow-hover);
 }
+
+/* Same for DLC: hover / selection keep the purple border; selected, an outer glow in the same purple. */
+.tl-item:hover .card--dlc,
+.card--dlc.is-selected {
+  border-color: color-mix(in srgb, var(--dlc) 55%, var(--border));
+}
+
+.card--dlc.is-selected {
+  box-shadow:
+    0 0 18px 4px color-mix(in srgb, var(--dlc) 65%, transparent),
+    0 0 60px 14px color-mix(in srgb, var(--dlc) 38%, transparent),
+    var(--card-shadow-hover);
+}
