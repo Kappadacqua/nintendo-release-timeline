@@ -3,7 +3,7 @@ import { hideCard, revealCard } from "../cards/appear";
 import { MORPH_SECONDS, morphParts } from "../cards/compact";
 import { type Anchor, collapseCard, expandCard } from "../cards/expand";
 import { type Card, cardWidth, COVER_CARD_WIDTH, createCard } from "../cards/card";
-import { assignLanes, type Lane } from "../cards/layout";
+import { assignLanes, CARD_HEIGHT, cardHeight, type Lane } from "../cards/layout";
 import { currentDelay } from "../history";
 import { news } from "../news";
 import type { Game } from "../types";
@@ -27,6 +27,8 @@ interface Item {
   games?: Game[];
   x: number;
   width: number;
+  /** Estimated card height, so stacked cards clear taller ones in front. */
+  height: number;
   lane: Lane;
   /** Created lazily the first time the item comes near the viewport. */
   node?: {
@@ -574,11 +576,10 @@ export class Timeline {
 
   /** Scales cards down so they fit between the top bar and the minimap on short windows. */
   private fitCards() {
-    const maxLevel = Math.max(0, ...this.items.map((i) => i.lane.level));
     // The label band (cardOffset) never shrinks; only cards and stacking do.
     const room = Math.min(this.lineY, this.height - TIMELINE.minimapBandPx - this.lineY) - TIMELINE.cardOffset - 12;
     const tallest = this.zoom !== "day" ? TIMELINE.coverCardMaxHeight : this.compact ? TIMELINE.compactCardMaxHeight : TIMELINE.cardMaxHeight;
-    const need = tallest + maxLevel * TIMELINE.stackStepY;
+    const need = Math.max(tallest, ...this.items.map((i) => i.lane.extra + i.height));
     this.cardScale = Math.max(TIMELINE.minCardScale, Math.min(1, room / need));
     this.el.style.setProperty("--card-scale", this.cardScale.toFixed(3));
     for (const item of this.items) if (item.node) this.drawStub(item.node);
@@ -591,6 +592,18 @@ export class Timeline {
   /** Layout width of a game's card: covers only when zoomed out, else full or compact. */
   private widthOf(game: Game) {
     return this.zoom !== "day" ? COVER_CARD_WIDTH : cardWidth(game, this.compact);
+  }
+
+  /** Layout height of a card (or group, with `games`), for stacking behind taller ones. */
+  private heightOf(game: Game, games?: Game[], compact = this.compact) {
+    if (this.zoom !== "day") return TIMELINE.coverCardMaxHeight;
+    if (games) return CARD_HEIGHT.group;
+    return cardHeight(game, compact, parseDay(game.firstReleaseDate!) > this.todayDay);
+  }
+
+  /** Stacking steps for `assignLanes`. */
+  private stack() {
+    return { stepX: TIMELINE.stackStepX, stepY: TIMELINE.stackStepY };
   }
 
   private groupWidth() {
@@ -647,20 +660,20 @@ export class Timeline {
       if (game.firstReleaseDate) byDay.set(game.firstReleaseDate, [...(byDay.get(game.firstReleaseDate) ?? []), game]);
     }
     const placed = [...byDay.entries()]
-      .flatMap(([day, list]): { game: Game; games?: Game[]; x: number; width: number }[] => {
+      .flatMap(([day, list]): { game: Game; games?: Game[]; x: number; width: number; height: number }[] => {
         const x = this.dayX(parseDay(day));
         // Free updates never share a group with the day's games: each set groups on its own.
         const sets = [list.filter((g) => g.kind !== "free-update"), list.filter((g) => g.kind === "free-update")];
         return sets.flatMap((set) => {
           if (this.group && set.length >= GROUP_MIN_GAMES) {
             const sorted = [...set].sort((a, b) => a.title.localeCompare(b.title));
-            return [{ game: sorted[0], games: sorted, x, width: this.groupWidth() }];
+            return [{ game: sorted[0], games: sorted, x, width: this.groupWidth(), height: this.heightOf(sorted[0], sorted) }];
           }
-          return set.map((game) => ({ game, x, width: this.widthOf(game) }));
+          return set.map((game) => ({ game, x, width: this.widthOf(game), height: this.heightOf(game) }));
         });
       })
       .sort((a, b) => a.x - b.x);
-    const lanes = assignLanes(placed, TIMELINE.laneGap, TIMELINE.maxShift);
+    const lanes = assignLanes(placed, TIMELINE.laneGap, TIMELINE.maxShift, this.stack());
     return placed.map((p, i) => ({ ...p, lane: lanes[i], inRange: false, revealed: false }));
   }
 
@@ -700,7 +713,7 @@ export class Timeline {
         card,
         item.games,
         this.todayDay,
-        () => ({ side: item.lane.side, extra: item.lane.level * TIMELINE.stackStepY }),
+        () => ({ side: item.lane.side, extra: item.lane.extra }),
       );
     }
     item.node = node;
@@ -726,7 +739,7 @@ export class Timeline {
     node.dir = dir;
     node.group.style.top = `${dir * TIMELINE.cardOffset}px`;
 
-    const extra = level * TIMELINE.stackStepY;
+    const extra = item.lane.extra;
     node.restPath.setAttribute("d", extra > 0 ? `M${node.targetX} 0 V${dir * extra}` : "");
 
     const el = node.card.el;
@@ -751,9 +764,14 @@ export class Timeline {
     }
     const animate = this.ready && !matchMedia("(prefers-reduced-motion: reduce)").matches;
     const lanes = assignLanes(
-      this.items.map((i) => ({ x: i.x, width: i.games ? GROUP_WIDTH : cardWidth(i.game, compact) })),
+      this.items.map((i) => ({
+        x: i.x,
+        width: i.games ? GROUP_WIDTH : cardWidth(i.game, compact),
+        height: this.heightOf(i.game, i.games, compact),
+      })),
       TIMELINE.laneGap,
       TIMELINE.maxShift,
+      this.stack(),
     );
     const visible = this.items.filter((i) => i.node && !i.node.root.hidden);
     const before = new Map(visible.map((i) => [i, i.node!.card.el.getBoundingClientRect()]));
@@ -768,6 +786,7 @@ export class Timeline {
         this.el.classList.toggle("is-compact", compact);
         this.items.forEach((item, k) => {
           item.width = item.games ? GROUP_WIDTH : cardWidth(item.game, compact);
+          item.height = this.heightOf(item.game, item.games, compact);
           item.lane = lanes[k];
           if (item.node) this.placeNode(item);
         });

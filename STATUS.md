@@ -1,6 +1,6 @@
 # Stato del progetto
 
-Aggiornato: 2026-09-28 — Correzioni `docs/tasks/fixes-2.md`, task 6 (smistamento gruppi 7, 10, 12): coda completata
+Aggiornato: 2026-09-28 — Correzioni `docs/tasks/fixes-3.md`, task 1 (collisioni delle card degli aggiornamenti)
 
 ## Ultimo checkpoint
 
@@ -23,6 +23,7 @@ Nessuno.
 
 Dettagli completi nelle versioni precedenti di questo file (`git show 58d0ac7:STATUS.md`).
 
+- fixes-3 task 1 — Compact: Orbitals (3 set 2026) impilata dietro Pikmin 3 Deluxe ne sporge di una striscia piena (56 px, come tra due card normali) invece di restarne coperta. Full: una card impilata dietro una card più alta (gioco uscito con i voti davanti a un aggiornamento o a un gioco in uscita) si sposta più in fuori allo stesso modo. Pile tra card della stessa altezza invariate; su finestre basse le card si rimpiccioliscono quanto serve a far stare le pile più alte.
 - fixes-2 task 6 — Rankings, ordinando per "Critics average" o "Users average": nella pillola, sotto il numero, "1 of 2 sources" in piccolo per i giochi con una sola fonte sopra soglia (nessuna riga per quelli con due); etichette e suggerimenti di DLC / Switch 2 Edition / Exclusives only invariati. Timeline: filtri salvati ricaricati come prima. Nessun altro cambio visivo (resto solo pipeline dati e avvisi di `data:validate`).
 - fixes-2 task 5 — Nessun cambio visivo atteso per il testo bianco (badge, nastri DLC, "Out today", tasti delle scorciatoie, pulsanti attivi, date sul canvas nei due temi). Ombre leggermente uniformate: pomello degli interruttori, segmento attivo del menu View, miniatura nell'header, copertine del gruppo chiuso. Velo dietro scorciatoie (?) e ricerca invariato. Admin: "Saved" verde (nel tema scuro ora verde chiaro). Con reduced motion attivo nel sistema: il pomello degli interruttori scatta senza scorrere; in presentazione (P) nessuna barra in basso, al suo posto "3 / 20" sopra la minimappa a destra, aggiornato a ogni gioco e fermo in pausa.
 - fixes-2 task 4 — Admin: campo "Developer" nel riquadro di un gioco (segnaposto = sviluppatore IGDB); salvando "Nintendo EPD" su DK Challenge il gioco passa a quello studio in `/studios.html`; svuotare il campo torna allo sviluppatore IGDB.
@@ -46,12 +47,13 @@ Dettagli completi nelle versioni precedenti di questo file (`git show 58d0ac7:ST
 2. **Dati manuali mancanti** — Metacritic e Backloggd da compilare dal pannello admin: elenco in `docs/admin-todo.md`.
 3. **"What's new"** — mai verificato con due snapshot reali; un nuovo aggiornamento gratuito ("Free update · out <data>") non è verificabile finché non si aggiunge un titolo a `data/free-updates.json`.
 4. **`data/free-updates-seen.json`** — va tenuto nel repo: se cancellato, la build tratta tutte le voci come già note (nessuna novità).
-5. **Due gruppi nello stesso giorno** — stessa x, separati dalle corsie; ordine da tastiera corretto (fixes-2 task 1), passaggio tra ventagli da verificare nel browser.
-6. **Studios: giochi senza studio** — 3 giochi first party senza sviluppatore IGDB, più "DK Challenge" e "Ocarina of Time" (sviluppatore "Nintendo", nascosto). Da correggere dal pannello admin (campo "Developer"), elenco in `docs/admin-todo.md`.
-7. **Studios: ordine** — ricalcolato sul gioco *mostrato*: studi senza gioco Switch 2 o con gioco senza data finiscono nel gruppo finale alfabetico.
-8. **Studios: gioco fissato alla build** — `studios.json` ha un solo gioco per studio: quando esce, la pagina lo mostra come uscito finché non si rifà `data:build`. Da valutare: scrivere tutti i giochi Switch 2 e scegliere nella pagina.
-9. **"Exclusives only" senza effetto sui dati attuali** — tutti gli 84 elementi sono esclusivi o solo Switch + telefoni; 3 giochi (Putty World, Bit Boy!! Arcade 2, Chit Chat Party!) non hanno `onOtherConsoles`, passano perché `exclusive`.
-10. **Problemi di gravità bassa** — 28 smistati in `docs/review/triage.md`: 16 corretti (i 6 gruppi "fare"), 12 aperti nei gruppi "rimandare" (4, 6, 8, 9, 11, 13) e "ignorare" (5).
+5. **Altezze stimate** — le pile usano altezze stimate per tipo di card (`CARD_HEIGHT` in `src/cards/layout.ts`), non misurate: titoli su 3 righe o badge su più righe possono sporgere qualche px in più o in meno.
+6. **Due gruppi nello stesso giorno** — stessa x, separati dalle corsie; ordine da tastiera corretto (fixes-2 task 1), passaggio tra ventagli da verificare nel browser.
+7. **Studios: giochi senza studio** — 3 giochi first party senza sviluppatore IGDB, più "DK Challenge" e "Ocarina of Time" (sviluppatore "Nintendo", nascosto). Da correggere dal pannello admin (campo "Developer"), elenco in `docs/admin-todo.md`.
+8. **Studios: ordine** — ricalcolato sul gioco *mostrato*: studi senza gioco Switch 2 o con gioco senza data finiscono nel gruppo finale alfabetico.
+9. **Studios: gioco fissato alla build** — `studios.json` ha un solo gioco per studio: quando esce, la pagina lo mostra come uscito finché non si rifà `data:build`. Da valutare: scrivere tutti i giochi Switch 2 e scegliere nella pagina.
+10. **"Exclusives only" senza effetto sui dati attuali** — tutti gli 84 elementi sono esclusivi o solo Switch + telefoni; 3 giochi (Putty World, Bit Boy!! Arcade 2, Chit Chat Party!) non hanno `onOtherConsoles`, passano perché `exclusive`.
+11. **Problemi di gravità bassa** — 28 smistati in `docs/review/triage.md`: 16 corretti (i 6 gruppi "fare"), 12 aperti nei gruppi "rimandare" (4, 6, 8, 9, 11, 13) e "ignorare" (5).
 
 ## Prossimi task (in ordine)
 

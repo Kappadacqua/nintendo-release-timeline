@@ -3,7 +3,7 @@
 Esegui un solo task per volta, il primo non spuntato. A fine task: typecheck, npm test, commit, aggiorna STATUS.md, spunta il task ([x]) nello stesso commit, report di CLAUDE.md.
 Regole: correggi solo i problemi indicati; altri problemi vanno nel report alla voce "Aperto". Se la logica è testabile, aggiungi un test. Non eseguire data:fetch*, niente git push, non toccare wip/perf.
 
-## [ ] Task 1 — Collisioni delle card degli aggiornamenti
+## [x] Task 1 — Collisioni delle card degli aggiornamenti
 In modalità Compact, la card di Pikmin 3 Deluxe (aggiornamento gratuito, 31 agosto 2026) copre quella di Orbitals (gioco, 3 settembre 2026). Le card compatte degli aggiornamenti hanno righe in più ("Originally released", "Worldwide") ma il calcolo delle collisioni usa le misure standard.
 File: src/cards/layout.ts, src/timeline/timeline.ts (solo il calcolo delle collisioni, trovalo con grep), src/styles/compact.css se serve.
 Atteso: il calcolo usa le dimensioni reali di ogni tipo di card, in modalità Full e Compact. Nessuna sovrapposizione.
