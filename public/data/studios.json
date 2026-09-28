@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-27T17:31:41.062Z",
+  "generatedAt": "2026-09-28T16:22:27.317Z",
   "studios": [
     {
       "name": "Monolith Soft",
@@ -365,39 +365,52 @@
       "url": null,
       "category": "third-party",
       "game": null,
-      "hasSwitch2Game": true
+      "hasSwitch2Game": true,
+      "tbaGame": {
+        "id": "igdb:417170",
+        "title": "Onyx: The Dark Grip",
+        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocvcg.jpg"
+      }
     },
     {
       "name": "Bplus",
       "url": null,
       "category": "third-party",
       "game": null,
-      "hasSwitch2Game": true
+      "hasSwitch2Game": true,
+      "tbaGame": {
+        "id": "manual:bit-boy-arcade-2",
+        "title": "Bit Boy!! Arcade 2",
+        "coverUrl": "/covers/placeholder.svg"
+      }
     },
     {
       "name": "FromSoftware",
       "url": null,
       "category": "partner",
       "game": null,
-      "hasSwitch2Game": true
+      "hasSwitch2Game": true,
+      "tbaGame": {
+        "id": "igdb:338104",
+        "title": "The Duskbloods",
+        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocqn8.jpg"
+      }
     },
     {
       "name": "GungHo Online Entertainment",
       "url": null,
       "category": "third-party",
       "game": null,
-      "hasSwitch2Game": true
+      "hasSwitch2Game": true,
+      "tbaGame": {
+        "id": "manual:chit-chat-party",
+        "title": "Chit Chat Party!",
+        "coverUrl": "/covers/placeholder.svg"
+      }
     },
     {
       "name": "Next Level Games",
       "url": "https://nintendo.fandom.com/wiki/Next_Level_Games",
-      "category": "first-party",
-      "game": null,
-      "hasSwitch2Game": false
-    },
-    {
-      "name": "Nintendo Entertainment Planning & Development",
-      "url": "https://nintendo.fandom.com/wiki/Nintendo_Entertainment_Planning_%26_Development",
       "category": "first-party",
       "game": null,
       "hasSwitch2Game": false
@@ -421,7 +434,12 @@
       "url": null,
       "category": "third-party",
       "game": null,
-      "hasSwitch2Game": true
+      "hasSwitch2Game": true,
+      "tbaGame": {
+        "id": "igdb:339137",
+        "title": "Mouse Work",
+        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co9n48.jpg"
+      }
     },
     {
       "name": "Retro Studios",

@@ -101,7 +101,17 @@ export function buildStudios(games: Game[], info: StudioGameInfo, today: string)
     const switch2 = list.filter(info.onSwitch2);
     const hasSwitch2Game = switch2.length > 0;
     const switch1 = hasSwitch2Game ? null : latestGame(list.filter(info.onSwitch1), today);
-    return { name, url, category, game: shownGame(switch2, today), hasSwitch2Game, ...(switch1 && { latestSwitch1Game: switch1 }) };
+    const game = shownGame(switch2, today);
+    const tba = hasSwitch2Game && !game ? tbaGame(switch2) : null;
+    return {
+      name,
+      url,
+      category,
+      game,
+      hasSwitch2Game,
+      ...(switch1 && { latestSwitch1Game: switch1 }),
+      ...(tba && { tbaGame: tba }),
+    };
   };
   const rest: Studio[] = [];
   for (const o of others.values()) {
@@ -141,6 +151,12 @@ function shownGame(list: Game[], today: string): StudioGame | null {
   const sorted = dated(list);
   const g = sorted.find((g) => g.firstReleaseDate! >= today) ?? sorted.at(-1);
   return g ? toStudioGame(g, today) : null;
+}
+
+/** Without dated games: the first undated one by title. */
+function tbaGame(list: Game[]): Studio["tbaGame"] | null {
+  const g = list.filter((g) => !g.firstReleaseDate).sort((a, b) => a.title.localeCompare(b.title))[0];
+  return g ? { id: g.id, title: g.title, coverUrl: g.coverUrl } : null;
 }
 
 /** The game with the latest precise date. */

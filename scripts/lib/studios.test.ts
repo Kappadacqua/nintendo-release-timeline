@@ -141,6 +141,12 @@ describe("buildStudios: shown game", () => {
     expect(byName([game("TBA", "EPD", null)], "EPD")).toMatchObject({ game: null, hasSwitch2Game: true });
   });
 
+  it("gives an undated Switch 2 game to a studio without a dated one", () => {
+    const games = [game("TBA b", "EPD", null), game("TBA a", "EPD", null)];
+    expect(byName(games, "EPD")).toMatchObject({ game: null, tbaGame: { title: "TBA a" } });
+    expect(byName([...games, game("Dated", "EPD", "2025-07-01")], "EPD")?.tbaGame).toBeUndefined();
+  });
+
   it("gives the latest Switch 1 game to a studio without a Switch 2 game", () => {
     const games = [game("S1 old", "EPD", "2025-01-01", { s1: true, s2: false }), game("S1 new", "EPD", "2025-08-01", { s1: true, s2: false })];
     expect(byName(games, "EPD")).toMatchObject({ hasSwitch2Game: false, latestSwitch1Game: { title: "S1 new" } });

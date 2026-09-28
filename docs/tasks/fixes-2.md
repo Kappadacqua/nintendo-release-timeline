@@ -15,7 +15,7 @@ File: src/cards/card.ts, src/styles/card.css, src/filters.ts.
 - La riga "Worldwide · Jun 12, 2025" deve stare unita: oggi "Worldwide" è a sinistra e "· Jun 12, 2025" a destra.
 - Nel menu filtri della timeline "Exclusives only" risulta attivo ma il contatore dice "84 games" come se nessun filtro fosse attivo. Verifica se il filtro funziona e se lo stato mostrato è coerente; correggi ciò che non lo è.
 
-## [ ] Task 3 — Pagina Studios
+## [x] Task 3 — Pagina Studios
 File: src/studios/main.ts, src/styles/studios.css, data/studios-overrides.json.
 - Studio con gioco Switch 2 senza data (es. FromSoftware / The Duskbloods): mostra copertina e titolo del gioco con "Release date TBA", non solo il testo.
 - La riga "Latest: … · Switch 1" non deve tagliare " · Switch 1": se serve tronca il titolo, non la piattaforma.

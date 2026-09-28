@@ -103,6 +103,8 @@ export interface Studio {
   hasSwitch2Game: boolean;
   /** Only without a Switch 2 game: the Switch 1 game of games.json with the latest date, if any. */
   latestSwitch1Game?: StudioGame;
+  /** Only with a Switch 2 game but no dated one: an undated Switch 2 game ("Release date TBA"). */
+  tbaGame?: Pick<StudioGame, "id" | "title" | "coverUrl">;
 }
 
 export interface StudiosFile {

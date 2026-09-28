@@ -1,6 +1,6 @@
 # Stato del progetto
 
-Aggiornato: 2026-09-27 — Correzioni `docs/tasks/fixes-2.md`, task 2 (card aggiornamenti, filtro esclusive)
+Aggiornato: 2026-09-28 — Correzioni `docs/tasks/fixes-2.md`, task 3 (pagina Studios)
 
 ## Ultimo checkpoint
 
@@ -23,6 +23,7 @@ Nessuno.
 
 Dettagli completi nelle versioni precedenti di questo file (`git show 58d0ac7:STATUS.md`).
 
+- fixes-2 task 3 — Studios: FromSoftware mostra copertina e titolo di The Duskbloods con "Release date TBA" (anche Bloober Team, Nitrome; Bplus e GungHo con copertina segnaposto, visibili con le terze parti); "Latest: … · Switch 1" tronca il titolo e lascia " · Switch 1" (provare una card stretta); "Nintendo Entertainment Planning & Development" non compare più (39 studi con terze parti).
 - fixes-2 task 2 — Card di un aggiornamento gratuito: "Worldwide · Jun 12, 2025" unito a sinistra. Filtri: con "Exclusives only" attivo il pulsante dice "84 of 84" (non "84 games") e ha il pallino; il filtro oggi non nasconde nulla perché nei dati nessun gioco è su altre console.
 - fixes-2 task 1 — Gruppi del 5 giugno 2025: PagGiù da Shine Post → primo aggiornamento (ARMS…), PagSu simmetrico; card selezionata del ventaglio centrata sotto l'indicatore anche per gli ultimi giochi e dopo passaggi rapidi tra i due gruppi; pallino diviso a metà (colore giochi / verde) sulla linea e nella minimappa, anche "upcoming"; card "12 free updates · Jun 5, 2025" su una riga (gruppo largo 240 px, mese abbreviato).
 

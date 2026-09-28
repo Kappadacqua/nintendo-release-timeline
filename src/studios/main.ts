@@ -58,16 +58,20 @@ function formatDate(iso: string) {
 
 // ---------- Rendering ----------
 
+function coverImg(url: string) {
+  const cover = el("img", "studio-game__cover");
+  cover.src = url;
+  cover.alt = "";
+  cover.loading = "lazy";
+  cover.decoding = "async";
+  return cover;
+}
+
 function gameBlock(game: StudioGame, today: number) {
   const days = parseDay(game.date) - today;
   const block = el("div", `studio-game${days >= 0 ? " is-upcoming" : ""}`);
 
-  const cover = el("img", "studio-game__cover");
-  cover.src = game.coverUrl;
-  cover.alt = "";
-  cover.loading = "lazy";
-  cover.decoding = "async";
-
+  const cover = coverImg(game.coverUrl);
   const info = el("div", "studio-game__info");
   const date = el("time", "studio-game__date", formatDate(game.date));
   date.dateTime = game.date;
@@ -80,12 +84,29 @@ function gameBlock(game: StudioGame, today: number) {
   return block;
 }
 
+/** A Switch 2 game without a precise date: cover and title, "Release date TBA". */
+function tbaBlock(game: NonNullable<Studio["tbaGame"]>) {
+  const block = el("div", "studio-game is-tba");
+  const info = el("div", "studio-game__info");
+  info.append(el("h3", "studio-game__title", game.title), el("p", "studio-game__status", "Release date TBA"));
+  block.append(coverImg(game.coverUrl), info);
+  return block;
+}
+
 /** No Switch 2 game in the dataset, or one without a precise date. */
 function noGameBlock(studio: Studio) {
+  if (studio.hasSwitch2Game && studio.tbaGame) return tbaBlock(studio.tbaGame);
   const block = el("div", "studio-none");
   block.append(el("p", "studio-none__text", studio.hasSwitch2Game ? "Release date TBA" : "No Switch 2 game yet"));
   if (!studio.hasSwitch2Game && studio.latestSwitch1Game) {
-    block.append(el("p", "studio-none__latest", `Latest: ${studio.latestSwitch1Game.title} · Switch 1`));
+    // Only the title is cut: " · Switch 1" always stays visible.
+    const latest = el("p", "studio-none__latest");
+    latest.title = studio.latestSwitch1Game.title;
+    latest.append(
+      el("span", "studio-none__latest-title", `Latest: ${studio.latestSwitch1Game.title}`),
+      el("span", "studio-none__latest-platform", " · Switch 1"),
+    );
+    block.append(latest);
   }
   return block;
 }
