@@ -14,6 +14,6 @@ Atteso: il calcolo usa le dimensioni reali di ogni tipo di card, in modalità Fu
 File: src/styles/selection.css (o il file che gestisce il bagliore di selezione), src/styles/header.css.
 Nel report elenca cosa controllare nel browser.
 
-## [ ] Task 3 — Aggiornamenti gratuiti nel pannello admin
+## [x] Task 3 — Aggiornamenti gratuiti nel pannello admin
 Il filtro "Metacritic / Backloggd" del pannello admin elenca 64 elementi invece di 47: include i 17 aggiornamenti gratuiti come se dovessero avere dei voti. Gli aggiornamenti vanno esclusi da tutti i controlli sui voti (OpenCritic, Metacritic, Backloggd), ma restano nei controlli sui link.
 File: src/admin/main.ts.

@@ -20,13 +20,14 @@ interface Report {
   exclusivityConflicts?: { id: string; issue: string }[];
 }
 
-/** What can be missing, and how to tell. Scores only matter once a game is out. */
+/** What can be missing, and how to tell. Scores only matter once a game is out; free updates never have any. */
 const today = new Date().toISOString().slice(0, 10);
 const released = (g: Game) => !!g.firstReleaseDate && g.firstReleaseDate <= today;
+const scored = (g: Game) => released(g) && g.kind !== "free-update";
 const GAPS: { key: string; label: string; missing: (g: Game, conflicts: Set<string>) => boolean }[] = [
-  { key: "opencritic", label: "OpenCritic", missing: (g) => released(g) && !g.scores.critic.opencritic },
-  { key: "metacritic", label: "Metacritic", missing: (g) => released(g) && (!g.scores.critic.metacritic || !g.scores.user.metacritic) },
-  { key: "backloggd", label: "Backloggd", missing: (g) => released(g) && !g.scores.user.backloggd },
+  { key: "opencritic", label: "OpenCritic", missing: (g) => scored(g) && !g.scores.critic.opencritic },
+  { key: "metacritic", label: "Metacritic", missing: (g) => scored(g) && (!g.scores.critic.metacritic || !g.scores.user.metacritic) },
+  { key: "backloggd", label: "Backloggd", missing: (g) => scored(g) && !g.scores.user.backloggd },
   { key: "wikipedia", label: "Wikipedia", missing: (g) => !g.links.wikipedia },
   { key: "nintendoWiki", label: "Nintendo Wiki", missing: (g) => !g.links.nintendoWiki },
   { key: "nintendoStore", label: "Nintendo Store", missing: (g) => !g.links.nintendoStore },
