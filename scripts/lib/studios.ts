@@ -83,7 +83,8 @@ export function buildStudios(games: Game[], info: StudioGameInfo, today: string)
     if (studio) {
       if (studio.shown) gamesOf.set(studio.title, [...(gamesOf.get(studio.title) ?? []), g]);
       else {
-        // Nobody shows these games: data:validate lists them, to fix with a game `developer` override.
+        // Nobody shows these games: data:validate lists them, to fix with a `developer` override
+        // (games.<id> in data/overrides.json, or the admin panel).
         const key = `${studio.title} (${studio.hidden ? "hidden" : "closed"} studio)`;
         unmatched.set(key, [...(unmatched.get(key) ?? []), g.title]);
       }

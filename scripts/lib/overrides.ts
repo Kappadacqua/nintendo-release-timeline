@@ -9,6 +9,8 @@ export interface Override {
   include?: boolean;
   exclusivity?: Game["exclusivity"];
   alsoOnSwitch1?: boolean;
+  /** Replaces IGDB's developer (it also picks the studio on the Studios page). */
+  developer?: string;
   /** Forces the OpenCritic match when the title search gets it wrong. */
   opencriticId?: number;
   metacritic?: { critic?: number; criticCount?: number; user?: number; userCount?: number };
@@ -103,6 +105,7 @@ export function applyOverride(game: Game, o: Override | undefined): Game {
   const out: Game = { ...game, scores: { critic: { ...game.scores.critic }, user: { ...game.scores.user } } };
   if (o.exclusivity !== undefined) out.exclusivity = o.exclusivity;
   if (o.alsoOnSwitch1 !== undefined) out.alsoOnSwitch1 = o.alsoOnSwitch1;
+  if (o.developer !== undefined) out.developer = o.developer;
   if (o.metacritic) {
     out.scores.critic.metacritic = score(o.metacritic.critic, 100, o.metacritic.criticCount);
     out.scores.user.metacritic = score(o.metacritic.user, 10, o.metacritic.userCount);

@@ -15,6 +15,7 @@ const GAME_KEYS = new Set([
   "include",
   "exclusivity",
   "alsoOnSwitch1",
+  "developer",
   "opencriticId",
   "metacritic",
   "backloggd",
@@ -44,6 +45,7 @@ export function validateGameOverride(id: string, o: Json): string[] {
   if (o._title !== undefined && typeof o._title !== "string") errors.push(`${at("_title")}: expected text`);
   if (o.include !== undefined && typeof o.include !== "boolean") errors.push(`${at("include")}: expected true or false`);
   if (o.alsoOnSwitch1 !== undefined && typeof o.alsoOnSwitch1 !== "boolean") errors.push(`${at("alsoOnSwitch1")}: expected true or false`);
+  if (o.developer !== undefined && !(typeof o.developer === "string" && o.developer.trim())) errors.push(`${at("developer")}: expected a studio name`);
   if (o.exclusivity !== undefined && !["exclusive", "timed", null].includes(o.exclusivity as string | null)) {
     errors.push(`${at("exclusivity")}: expected "exclusive", "timed" or null`);
   }

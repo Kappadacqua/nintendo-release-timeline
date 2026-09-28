@@ -21,7 +21,7 @@ File: src/studios/main.ts, src/styles/studios.css, data/studios-overrides.json.
 - La riga "Latest: … · Switch 1" non deve tagliare " · Switch 1": se serve tronca il titolo, non la piattaforma.
 - Nascondi "Nintendo Entertainment Planning & Development" (hidden: true, nota: "divisione che raggruppa i team EPD").
 
-## [ ] Task 4 — Sviluppatore nelle correzioni dei giochi
+## [x] Task 4 — Sviluppatore nelle correzioni dei giochi
 File: scripts/lib/overrides-schema.ts, scripts/lib/overrides.ts, scripts/lib/build.ts (solo dove si applicano gli override), src/admin/main.ts, scripts/lib/studios.ts (commento alla riga ~86).
 - Aggiungi il campo developer alle correzioni dei giochi IGDB (games.<id> in data/overrides.json): se presente, sostituisce lo sviluppatore IGDB.
 - Aggiungi il campo "Developer" al pannello admin.

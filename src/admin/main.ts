@@ -14,6 +14,7 @@ type Override = Record<string, unknown> & {
   links?: Record<string, string>;
   exclusivity?: Game["exclusivity"];
   alsoOnSwitch1?: boolean;
+  developer?: string;
 };
 interface Report {
   exclusivityConflicts?: { id: string; issue: string }[];
@@ -231,6 +232,11 @@ function renderEditor(id: string) {
       </fieldset>
 
       <fieldset>
+        <legend>Developer <small>(leave empty to keep the automatic one; it picks the studio on the Studios page)</small></legend>
+        ${field("Developer", "developer", o.developer, { type: "text" }, g.developer ?? "none found")}
+      </fieldset>
+
+      <fieldset>
         <legend>Links <small>(leave empty to keep the automatic one)</small></legend>
         ${field("Wikipedia", "links.wikipedia", links.wikipedia, { type: "url" }, g.links.wikipedia ?? "none found")}
         ${field("Nintendo Wiki", "links.nintendoWiki", links.nintendoWiki, { type: "url" }, g.links.nintendoWiki ?? "none found")}
@@ -281,6 +287,7 @@ function fromForm(form: HTMLFormElement, previous: Override, title: string): Ove
   o.exclusivity = ex === "" ? undefined : ex === "null" ? null : (ex as Game["exclusivity"]);
   const s1 = String(data.get("alsoOnSwitch1"));
   o.alsoOnSwitch1 = s1 === "" ? undefined : s1 === "true";
+  o.developer = text("developer");
   o._title ??= title; // a reminder in overrides.json; ignored by the scripts
   for (const k of Object.keys(o)) if (o[k] === undefined) delete o[k];
   return o;

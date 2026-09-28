@@ -120,7 +120,7 @@ User score. Admin panel, or `games.<id>.backloggd` in `data/overrides.json`.
 
 ## Developer missing or "Nintendo" (14)
 
-For first-party games the developer decides the studio on the Studios page ("Nintendo" is a hidden studio, so its games go to no studio). Upcoming and TBA games are included. See the note below the table: there is no way yet to override it for IGDB games.
+For first-party games the developer decides the studio on the Studios page ("Nintendo" is a hidden studio, so its games go to no studio). Upcoming and TBA games are included. Fix it from the admin panel ("Developer" field): see the note below the table.
 
 | Title | Type | Release | First party | Developer now | Id |
 |---|---|---|---|---|---|
@@ -139,4 +139,4 @@ For first-party games the developer decides the studio on the Studios page ("Nin
 | Chillin' by the Fire | Game | 2025-07-31 | no | — | `igdb:358531` |
 | Survival Kids | Game | 2025-06-05 | no | — | `igdb:338087` |
 
-**Note — no override for IGDB games yet.** `developer` can be set only on `manualGames` entries; `games.<id>` in `data/overrides.json` does not accept it (`scripts/lib/overrides-schema.ts`), and the admin panel has no field for it. The 5 first-party games above (DK Challenge, Nintendo Switch Sports Resort, The Legend of Zelda: Ocarina of Time, Pikmin 4: Nintendo Switch 2 Edition + Dandori Academy, Hyrule Warriors: Age of Calamity - Definitive Edition) stay out of the Studios page until a code task adds a `developer` override. The third-party ones only affect the developer line on the card.
+**Note — how to fix it.** Open the game in the admin panel and fill "Developer" (saved as `developer` in `games.<id>` of `data/overrides.json`, it replaces the IGDB one). For the 5 first-party games above (DK Challenge, Nintendo Switch Sports Resort, The Legend of Zelda: Ocarina of Time, Pikmin 4: Nintendo Switch 2 Edition + Dandori Academy, Hyrule Warriors: Age of Calamity - Definitive Edition) use the studio name as on the Studios page, so they join that studio; until then they stay out of it. The third-party ones only affect the developer line on the card.
