@@ -29,6 +29,24 @@ export const TIMELINE = {
   /** Inertia ends (and snaps) once it slows below this speed (px/ms). */
   flingStopVelocity: 0.08,
 
+  /** Wheel momentum: this many notches within `wheelFlingWindowMs` start a fling… */
+  wheelFlingNotches: 3,
+  wheelFlingWindowMs: 150,
+  /** …at `wheelFlingGain` units (days, weeks, months) per second for each notch per second… */
+  wheelFlingGain: 1.5,
+  /** …plus this fraction more for each notch per second above the threshold rate (faster spin, longer fling). */
+  wheelFlingAccel: 0.05,
+  /** Speed kept per 60fps frame while a wheel fling slows down (same as a drag's `flingFriction`). */
+  wheelFlingFriction: 0.94,
+  /** A wheel fling never coasts further than this many days (about 3 months, at any zoom). */
+  wheelFlingMaxDays: 91,
+  /** A wheel fling that would stop within this many units of a release lands on it. */
+  wheelMagnetUnits: 2,
+  /** After a trackpad-like event (small delta), wheel events never fling for this long. */
+  wheelTrackpadHoldMs: 400,
+  /** Reduced motion: each notch of a quick burst moves this many days (1 unit at Week / Month). */
+  wheelReducedRapidDays: 7,
+
   /** Distance from the line to the nearest card: the band for day numbers and months, never scaled. */
   cardOffset: 64,
   /** Stacked cards: each extra level moves this far out and sideways. */

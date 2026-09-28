@@ -1,6 +1,6 @@
 # Stato del progetto
 
-Aggiornato: 2026-09-28 — Ritocchi finali: bordo DLC selezionato, spazio nell'header, sezioni voti nascoste per gli aggiornamenti nell'admin
+Aggiornato: 2026-09-28 — Slancio della rotella del mouse
 
 ## Ultimo checkpoint
 
@@ -23,6 +23,7 @@ Nessuno.
 
 Dettagli completi nelle versioni precedenti di questo file (`git show 58d0ac7:STATUS.md`).
 
+- Slancio della rotella (`wheel-fling.ts`, parametri `wheel*` in `config.ts`) — Mouse: 1–2 scatti con pausa = un giorno per scatto come prima; ≥3 scatti rapidi = slancio, più lungo girando più veloce (al massimo ~3 mesi di corsa dopo l'ultimo scatto), frenata morbida che termina su un giorno o su un'uscita entro 2 giorni (con filtri attivi solo le uscite visibili); uno scatto contrario, un clic o un tasto fermano lo slancio (il clic non seleziona la card). Week/Month: stessa cosa in settimane/mesi (magnete entro 2 settimane/2 mesi). Trackpad: nessuno slancio, scorrimento come prima. Reduced motion: niente slancio, scatti rapidi = una settimana ciascuno (Day). Shift + rotella invariato. `?debug=wheel` stampa anche l'azione di ogni scatto.
 - Ritocchi finali — DLC (es. un'espansione con nastro "DLC"): al passaggio del mouse e selezionata tiene il bordo viola, selezionata ha un bagliore viola al posto dell'anello rosso, nei due temi e anche da Week/Month. Header: sotto 1660 px (non più 1440) "NRT" con pallino, ben staccato dalla data, tutto su una riga fino a 1280 px; la data sta al centro dello spazio tra titolo e pulsanti (al centro della pagina non c'è posto) e non si sposta selezionando un gioco (il nome del gioco selezionato si tronca prima); da 1660 px il nome intero senza toccare "2026". Controllare 1280, 1500, 1501 (compare "What's new" per esteso), 1659, 1660 e Rankings/Studios. Admin: aprendo un aggiornamento gratuito niente sezioni OpenCritic, Metacritic e Backloggd; salvandolo gli altri campi si salvano come prima e i voti/link Metacritic già presenti nell'override restano.
 - fixes-3 task 3 — Admin (`/admin.html`): il filtro predefinito "Metacritic / Backloggd" elenca 47 elementi (non 64), nessun aggiornamento gratuito; anche il filtro OpenCritic non li elenca. I filtri Wikipedia / Nintendo Wiki / Nintendo Store li includono ancora quando manca il link.
 - fixes-3 task 2 — Aggiornamento gratuito selezionato (es. Pikmin 3 Deluxe): bordo verde invariato, bagliore esterno verde al posto dell'anello rosso; al passaggio del mouse il bordo resta verde; anche nel ventaglio del 5 giugno 2025 e nei due temi. Header: sotto 1440 px di larghezza il titolo diventa pallino rosso + "NRT" su una riga (provare 1280 e 1439 px), da 1440 in su "Nintendo Release Timeline" su una riga; stesso comportamento in Rankings e Studios.
@@ -57,6 +58,7 @@ Dettagli completi nelle versioni precedenti di questo file (`git show 58d0ac7:ST
 9. **Studios: gioco fissato alla build** — `studios.json` ha un solo gioco per studio: quando esce, la pagina lo mostra come uscito finché non si rifà `data:build`. Da valutare: scrivere tutti i giochi Switch 2 e scegliere nella pagina.
 10. **"Exclusives only" senza effetto sui dati attuali** — tutti gli 84 elementi sono esclusivi o solo Switch + telefoni; 3 giochi (Putty World, Bit Boy!! Arcade 2, Chit Chat Party!) non hanno `onOtherConsoles`, passano perché `exclusive`.
 11. **Problemi di gravità bassa** — 28 smistati in `docs/review/triage.md`: 16 corretti (i 6 gruppi "fare"), 12 aperti nei gruppi "rimandare" (4, 6, 8, 9, 11, 13) e "ignorare" (5).
+12. **Rotella: riconoscimento del trackpad euristico** — un evento con delta piccolo (< 40 px) blocca lo slancio per 400 ms; un trackpad che mandasse subito eventi grandi (fase di inerzia di macOS) verrebbe trattato come rotella e potrebbe dare slancio. Da provare su trackpad reali.
 
 ## Prossimi task (in ordine)
 

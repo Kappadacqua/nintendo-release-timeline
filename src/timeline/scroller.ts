@@ -1,4 +1,5 @@
 import { TIMELINE } from "./config";
+import { restPoint, WheelFling } from "./wheel-fling";
 
 const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
 
@@ -21,6 +22,8 @@ export class Scroller {
   private velocity = 0;
   /** A long jump (Home, End, minimap, search…) is a timed glide, never longer than `maxGlideMs`. */
   private glide: { from: number; to: number; start: number; duration: number } | null = null;
+  /** Wheel fling: `current` slows down toward `target` with `wheelFlingFriction` (lands exactly on it). */
+  private coasting = false;
 
   constructor(private onChange: (x: number) => void) {}
 
@@ -41,6 +44,7 @@ export class Scroller {
   scrollTo(x: number) {
     if (!Number.isFinite(x)) return;
     this.velocity = 0;
+    this.coasting = false;
     const to = this.clamp(this.snap(this.clamp(x)));
     // Reduced motion: no glide, just go there.
     if (reducedMotion.matches) return this.jumpTo(to);
@@ -78,21 +82,48 @@ export class Scroller {
     this.start();
   }
 
-  /** Inertia in progress? (a click during it stops it instead of selecting). */
-  get gliding() {
-    return this.velocity !== 0;
+  /**
+   * Wheel fling: coast to `x` (already snapped: a day or a release), slowing down with
+   * `wheelFlingFriction` all the way, so it lands softly exactly there.
+   */
+  coast(x: number) {
+    if (!Number.isFinite(x)) return;
+    this.velocity = 0;
+    this.glide = null;
+    this.target = this.clamp(x);
+    this.coasting = true;
+    this.start();
   }
 
-  /** Stops inertia where it is and rests on the nearest snap point. */
+  /** Direction of the wheel fling in progress (+1 / -1), 0 if none or only its slow landing is left. */
+  get coastDirection() {
+    if (!this.coasting) return 0;
+    const remaining = this.target - this.current;
+    const speed = (Math.abs(remaining) * -Math.log(TIMELINE.wheelFlingFriction)) / (1000 / 60);
+    return speed < TIMELINE.flingStopVelocity ? 0 : Math.sign(remaining);
+  }
+
+  /** Inertia in progress? (a click during it stops it instead of selecting). */
+  get gliding() {
+    return this.velocity !== 0 || this.coastDirection !== 0;
+  }
+
+  /** Stops inertia where it is and rests on the nearest snap point (a wheel fling's slow landing is left to end). */
   halt() {
-    if (!this.velocity) return;
+    if (!this.velocity && !this.coastDirection) return;
     this.velocity = 0;
+    this.coasting = false;
     this.scrollTo(this.current);
+  }
+
+  get bounds() {
+    return { min: this.min, max: this.max };
   }
 
   /** Move instantly (no easing), e.g. while dragging or on first render. */
   jumpTo(x: number) {
     this.velocity = 0;
+    this.coasting = false;
     this.glide = null;
     this.target = this.current = this.clamp(x);
     this.stop();
@@ -153,11 +184,14 @@ export class Scroller {
       }
       return;
     }
-    // Frame-rate independent exponential easing.
-    const k = 1 - Math.pow(1 - TIMELINE.smoothing, dt / (1000 / 60));
+    // Frame-rate independent exponential easing (a wheel fling: the remaining distance
+    // shrinks like the speed of a drag's inertia, so it slows down the same way).
+    const keep = this.coasting ? TIMELINE.wheelFlingFriction : 1 - TIMELINE.smoothing;
+    const k = 1 - Math.pow(keep, dt / (1000 / 60));
     this.current += (this.target - this.current) * k;
     if (Math.abs(this.target - this.current) < 0.25) {
       this.current = this.target;
+      this.coasting = false;
       this.frame = 0;
     } else {
       this.frame = requestAnimationFrame(this.tick);
@@ -188,6 +222,12 @@ export function bindScrollInput(
   scroller: Scroller,
   opts: {
     dayPx: number;
+    /** Days in one unit of the zoom level (1, 7, about 30): a wheel fling moves in these units. */
+    unitDays: number;
+    /** World x of the releases shown (active filters): a wheel fling may land on them. */
+    magnets: () => readonly number[];
+    /** A wheel fling starts or speeds up. */
+    onWheelFling: () => void;
     /** Move by whole days (wheel notch, trackpad, arrows). */
     onDayStep: (days: number) => void;
     onToday: () => void;
@@ -213,6 +253,30 @@ export function bindScrollInput(
   // When the page is busy, browsers merge several notches into one event with the
   // deltas summed, so an event is worth as many days as notches it contains.
   // Trackpads send many small deltas, which add up to `trackpadDayPx` per day.
+  // Quick bursts of notches fling (wheel-fling.ts); trackpads keep the plain behavior.
+  const unitPx = opts.dayPx * opts.unitDays;
+  const wheelFling = new WheelFling();
+  const flingWheel = (velocity: number) => {
+    opts.onWheelFling();
+    // A fling already under way never slows down when the notches do.
+    const ongoing =
+      scroller.coastDirection === Math.sign(velocity)
+        ? ((scroller.target - scroller.current) * -Math.log(TIMELINE.wheelFlingFriction)) / (1000 / 60)
+        : 0;
+    const v = velocity * unitPx;
+    const { min, max } = scroller.bounds;
+    scroller.coast(
+      restPoint(scroller.current, Math.abs(ongoing) > Math.abs(v) ? ongoing : v, {
+        friction: TIMELINE.wheelFlingFriction,
+        maxPx: TIMELINE.wheelFlingMaxDays * opts.dayPx,
+        min,
+        max,
+        snap: scroller.snap,
+        magnets: opts.magnets(),
+        magnetPx: TIMELINE.wheelMagnetUnits * unitPx,
+      }),
+    );
+  };
   let wheelAcc = 0;
   let zoomAcc = 0;
   let lastZoom = 0;
@@ -241,11 +305,27 @@ export function bindScrollInput(
       // Shift + wheel: a month per notch (ITERATION-4 §8); trackpads need a longer swipe for it.
       const step = e.shiftKey ? opts.onMonthStep : opts.onDayStep;
       const unit = e.shiftKey ? TIMELINE.trackpadMonthPx : TIMELINE.trackpadDayPx;
-      if (notches) {
+      if (notches && e.shiftKey) {
         wheelAcc = 0;
         step(Math.sign(delta) * notches);
         return;
       }
+      if (notches) {
+        wheelAcc = 0;
+        const action = wheelFling.notch(e.timeStamp, delta > 0 ? 1 : -1, notches, {
+          flying: scroller.coastDirection,
+          reduced: reducedMotion.matches,
+        });
+        if (debugWheel) console.log("[wheel]", action);
+        if (action.kind === "brake") scroller.halt();
+        else if (action.kind === "fling") flingWheel(action.velocity);
+        else if (action.rapid) step(action.units * Math.max(1, Math.round(TIMELINE.wheelReducedRapidDays / opts.unitDays)));
+        // A slower notch during a fling pushes its landing one unit further, at the same pace.
+        else if (scroller.coastDirection === Math.sign(action.units)) scroller.coast(scroller.snap(scroller.target + action.units * unitPx));
+        else step(action.units);
+        return;
+      }
+      wheelFling.trackpad(e.timeStamp);
       if (Math.sign(delta) !== Math.sign(wheelAcc)) wheelAcc = 0;
       wheelAcc += delta;
       const steps = Math.trunc(wheelAcc / unit);
@@ -272,6 +352,7 @@ export function bindScrollInput(
     // A press during inertia stops it, and does not count as a click on a card.
     suppressClick = scroller.gliding;
     scroller.halt();
+    wheelFling.reset();
     pressed = true;
     dragging = false;
     startX = lastX = e.clientX;
@@ -328,6 +409,9 @@ export function bindScrollInput(
     if ((e.ctrlKey || e.metaKey || e.altKey) && !e.getModifierState("AltGraph")) return;
     const t = e.target instanceof HTMLElement ? e.target : null;
     if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName) || t.closest("dialog"))) return;
+    // Any key stops a wheel fling where it is (arrows then step from there).
+    scroller.halt();
+    wheelFling.reset();
 
     const days = e.shiftKey ? opts.largeStep : 1;
     if (e.key === "ArrowRight") opts.onDayStep(days);

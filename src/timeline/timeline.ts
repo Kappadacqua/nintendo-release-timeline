@@ -238,6 +238,9 @@ export class Timeline {
     this.scroller.maxFlingPx = TIMELINE.flingMaxDays * this.dayPx;
     const unbindKeys = bindScrollInput(this.el, this.scroller, {
       dayPx: this.dayPx,
+      unitDays: this.zoom === "day" ? 1 : this.zoom === "week" ? 7 : 30.44,
+      magnets: () => this.items.map((item) => item.x),
+      onWheelFling: () => this.deselect(),
       largeStep: ZOOM[this.zoom].largeStep,
       // Wheel notch, arrow: a day, a week or a month depending on the zoom level.
       onDayStep: (units) => {
