@@ -1,0 +1,26 @@
+/* ---------- Seasonal background (docs/tasks/seasons.md) ---------- */
+
+/* One canvas behind line and cards; colours are read by src/seasons/background.ts. */
+.seasons {
+  position: fixed;
+  z-index: -1; /* like the game backdrop: above the page background, below everything else */
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  /* Own compositor layer: redrawing it never repaints the page, and scrolling never repaints it. */
+  will-change: opacity;
+  transition: opacity var(--season-fade-in) ease;
+}
+
+/* Fast scrolling, a game selected, or switched off. */
+.seasons.is-hidden {
+  opacity: 0;
+  transition-duration: var(--season-fade-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .seasons {
+    transition: none;
+  }
+}

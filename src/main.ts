@@ -4,6 +4,7 @@ import { loadGames } from "./games";
 import { news } from "./news";
 import { Search } from "./search";
 import { Presentation } from "./presentation";
+import { SeasonalBackground } from "./seasons/background";
 import { initTheme } from "./theme/theme";
 import { Timeline } from "./timeline/timeline";
 import { ZOOM_LEVELS, type ZoomLevel } from "./timeline/zoom";
@@ -166,6 +167,12 @@ Promise.all([loadGames(), loadChanges()])
     );
     openSearch = () => search.open();
     document.querySelector(".search-toggle")!.addEventListener("click", openSearch);
+
+    // Seasonal background (docs/tasks/seasons.md): follows whichever timeline is current.
+    new SeasonalBackground(() => {
+      const state = timeline.getState();
+      return { day: state.day ?? null, selected: state.selectedId !== null };
+    });
 
     if (import.meta.env.DEV) devTools(() => timeline);
   })

@@ -1,6 +1,6 @@
 # Stato del progetto
 
-Aggiornato: 2026-09-28 — Rotella a marce
+Aggiornato: 2026-09-29 — Sfondo stagionale (seasons task 1)
 
 ## Ultimo checkpoint
 
@@ -22,6 +22,8 @@ Nessuno.
 ## Da verificare nel browser (Architetto)
 
 Dettagli completi nelle versioni precedenti di questo file (`git show 58d0ac7:STATUS.md`).
+
+- seasons task 1 — Sfondo stagionale (`src/seasons/`, `seasons.css`, token `--season-*`): all'apertura (settembre) foglie d'autunno in toni caldi che cadono ondeggiando, compaiono gradualmente in ~2 s, dietro linea e card, a bassa opacità. Scorrendo fino a dicembre–febbraio fiocchi lenti con leggera deriva (azzurro-grigi nel tema chiaro, quasi bianchi nello scuro), marzo–maggio petali rosa in diagonale che ruotano, giugno–agosto bolle che salgono: al cambio di mese le particelle vecchie finiscono il percorso, le nuove sfumano dentro. Rotella in marcia 2+, trascinamento rapido, salti lunghi (Home/End, minimappa, ricerca): lo sfondo sparisce in ~200 ms e torna ~500 ms dopo l'arresto; scatti singoli e frecce non lo nascondono. Gioco selezionato: sfondo stagionale nascosto, torna deselezionando. Cambio tema: colori aggiornati subito. Zona TBA: resta la stagione precedente. Reduced motion: particelle ferme (l'interruttore arriva col task 2). 20 particelle a 1280×720, 28 a 1920×1080, 40 da 2560×1440.
 
 - Rotella a marce (`wheel-fling.ts`, parametri `wheelGear*` in `config.ts`; sostituisce lo slancio precedente) — Mouse, Day: scatti isolati o rotazione rapida breve (< 300 ms) = un giorno per scatto, nessuna inerzia (3 scatti → 3, 4 scatti → 4); rotazione continua 300–800 ms = 3 giorni per scatto e al massimo 7 di inerzia; oltre 800 ms = 7 per scatto e al massimo 30 di inerzia; rallentando (scatti a più di 100 ms) la marcia scende, dopo una pausa ≥ 150 ms si riparte da marcia 1. Una rotazione continua, scatti + inerzia, non supera mai 91 giorni (25 scatti rapidi: prima 145). Atterraggio magnetico su un'uscita entro 2 giorni solo con inerzia (marce 2–3), mai oltre il limite né prima dell'ultimo scatto; scatto opposto, clic o tasto fermano la corsa. Week/Month: stesse marce in settimane/mesi, limite 13 settimane / 3 mesi. Trackpad: invariato (sempre marcia 1). Reduced motion: marce senza inerzia, spostamento immediato. Shift + rotella invariato. `?debug=wheel` stampa marcia e distanze di ogni scatto.
 - Ritocchi finali — DLC (es. un'espansione con nastro "DLC"): al passaggio del mouse e selezionata tiene il bordo viola, selezionata ha un bagliore viola al posto dell'anello rosso, nei due temi e anche da Week/Month. Header: sotto 1660 px (non più 1440) "NRT" con pallino, ben staccato dalla data, tutto su una riga fino a 1280 px; la data sta al centro dello spazio tra titolo e pulsanti (al centro della pagina non c'è posto) e non si sposta selezionando un gioco (il nome del gioco selezionato si tronca prima); da 1660 px il nome intero senza toccare "2026". Controllare 1280, 1500, 1501 (compare "What's new" per esteso), 1659, 1660 e Rankings/Studios. Admin: aprendo un aggiornamento gratuito niente sezioni OpenCritic, Metacritic e Backloggd; salvandolo gli altri campi si salvano come prima e i voti/link Metacritic già presenti nell'override restano.
@@ -59,6 +61,7 @@ Dettagli completi nelle versioni precedenti di questo file (`git show 58d0ac7:ST
 10. **"Exclusives only" senza effetto sui dati attuali** — tutti gli 84 elementi sono esclusivi o solo Switch + telefoni; 3 giochi (Putty World, Bit Boy!! Arcade 2, Chit Chat Party!) non hanno `onOtherConsoles`, passano perché `exclusive`.
 11. **Problemi di gravità bassa** — 28 smistati in `docs/review/triage.md`: 16 corretti (i 6 gruppi "fare"), 12 aperti nei gruppi "rimandare" (4, 6, 8, 9, 11, 13) e "ignorare" (5).
 12. **Rotella: riconoscimento del trackpad euristico** — un evento con delta piccolo (< 40 px) tiene la rotella in marcia 1 per 400 ms; un trackpad che mandasse subito eventi grandi (fase di inerzia di macOS) verrebbe trattato come rotella e potrebbe salire di marcia. Da provare su trackpad reali.
+14. **Sfondo stagionale: fps misurati solo in headless** — Chrome headless con GPU (GTX 1070), 1920×1080, build di produzione: 60 fps a riposo e in ogni scorrimento con sfondo acceso e spento; da confermare su un monitor reale e in 4K (densità limitata a 1.5).
 13. **Rotella in Month** — il limite di 91 giorni vale per ogni rotazione continua anche in Month: al massimo 3 mesi, quindi le marce 2–3 lì contano poco.
 
 ## Prossimi task (in ordine)

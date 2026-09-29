@@ -84,3 +84,23 @@ export const TIMELINE = {
   /** Cards never shrink below this scale on short windows. */
   minCardScale: 0.55,
 };
+
+/** Seasonal background (docs/tasks/seasons.md): timings, density and what counts as fast scrolling. */
+export const SEASONS = {
+  /** New particles of a season reach their full number over this long after it starts. */
+  rampMs: 2000,
+  /** A new particle fades in over this long (it never pops up). */
+  fadeInMs: 800,
+  /** After fast scrolling the background comes back this long after the timeline stopped (fades: tokens.css). */
+  restMs: 500,
+  /** Particles at the smallest and largest window area. */
+  minParticles: 20,
+  maxParticles: 40,
+  /** Window areas (px²) of those counts: 1280 × 720 and 2560 × 1440. */
+  minArea: 1280 * 720,
+  maxArea: 2560 * 1440,
+  /** Canvas pixel density cap. */
+  maxDpr: 1.5,
+  /** A drag faster than this (screen px/ms) counts as fast scrolling; so does a jump longer than the window. */
+  fastDragPxPerMs: 1.2,
+} as const;

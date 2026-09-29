@@ -1,7 +1,20 @@
-import { TIMELINE } from "./config";
+import { SEASONS, TIMELINE } from "./config";
 import { restPoint, WheelFling, type WheelAction } from "./wheel-fling";
 
 const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+
+/** Scroll activity for the rest of the page (the seasonal background): every move, and fast ones. */
+export interface ScrollActivity {
+  moved(): void;
+  /** Wheel gear 2+, a quick drag, a jump longer than the window. */
+  fast(): void;
+}
+const activity = new Set<ScrollActivity>();
+export function onScrollActivity(listener: ScrollActivity) {
+  activity.add(listener);
+  return () => activity.delete(listener);
+}
+const reportFast = () => activity.forEach((l) => l.fast());
 
 /**
  * Horizontal camera: `current` eases toward `target` for smooth, lightly inertial
@@ -25,7 +38,14 @@ export class Scroller {
   /** Wheel fling: `current` slows down toward `target` with `wheelFlingFriction` (lands exactly on it). */
   private coasting = false;
 
-  constructor(private onChange: (x: number) => void) {}
+  private onChange: (x: number) => void;
+
+  constructor(onChange: (x: number) => void) {
+    this.onChange = (x) => {
+      activity.forEach((l) => l.moved());
+      onChange(x);
+    };
+  }
 
   setBounds(min: number, max: number) {
     this.min = min;
@@ -46,11 +66,12 @@ export class Scroller {
     this.velocity = 0;
     this.coasting = false;
     const to = this.clamp(this.snap(this.clamp(x)));
+    const distance = Math.abs(to - this.current);
+    if (distance > innerWidth) reportFast();
     // Reduced motion: no glide, just go there.
     if (reducedMotion.matches) return this.jumpTo(to);
     this.target = to;
     // Short steps (wheel, arrows) chase the target; long jumps glide in bounded time.
-    const distance = Math.abs(to - this.current);
     this.glide =
       distance > TIMELINE.glideMinPx
         ? { from: this.current, to, start: performance.now(), duration: Math.min(TIMELINE.maxGlideMs, 250 + distance * 0.12) }
@@ -331,6 +352,7 @@ export function bindScrollInput(
           maxUnits: Math.max(1, Math.round(TIMELINE.wheelFlingMaxDays / opts.unitDays)),
         });
         if (debugWheel) console.log("[wheel]", action);
+        if (action.kind === "move" && action.gear >= 2) reportFast();
         if (action.kind === "brake") scroller.halt();
         else spinWheel(action, step);
         return;
@@ -382,6 +404,7 @@ export function bindScrollInput(
     const dx = e.clientX - lastX;
     const dt = Math.max(1, e.timeStamp - lastT);
     velocity = 0.8 * (-dx / dt) + 0.2 * velocity;
+    if (Math.abs(velocity) > SEASONS.fastDragPxPerMs) reportFast();
     lastX = e.clientX;
     lastT = e.timeStamp;
     scroller.jumpTo(scroller.current - dx);
