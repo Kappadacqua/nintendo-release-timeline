@@ -142,7 +142,7 @@ Da modificare:
 
 ---
 
-- [ ] **Task 5 — Stessa larghezza e allineamento per Rankings e Studios**
+- [x] **Task 5 — Stessa larghezza e allineamento per Rankings e Studios**
 
 **File**
 - Da cui partire: `src/styles/rankings.css`, `src/styles/studios.css`, `src/styles/tokens.css`.

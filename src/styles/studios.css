@@ -2,12 +2,15 @@
 
 .studios-main {
   overflow-y: auto;
+  /* Same room for the scrollbar on both pages, scrolling or not: the headings never shift. */
+  scrollbar-gutter: stable;
 }
 
+/* Same width, padding and heading spacing as the Rankings page. */
 .studios {
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 32px 32px 48px;
+  width: min(var(--page-max), 100% - 64px);
+  margin-inline: auto;
+  padding: 32px 0 48px;
 }
 
 .studios__head {

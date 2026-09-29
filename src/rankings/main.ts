@@ -153,6 +153,7 @@ function row(entry: Ranked, position: number, sort: SortKey) {
 
   const info = el("div", "rank-row__info");
   const title = el("h2", "rank-row__title", game.title);
+  title.title = game.title;
   const meta = el("p", "rank-row__meta");
   if (game.kind === "dlc") meta.append(el("span", "badge badge--dlc", "DLC"));
   if (game.kind === "switch2-edition") meta.append(el("span", "badge badge--s2", "Switch 2 Edition"));
