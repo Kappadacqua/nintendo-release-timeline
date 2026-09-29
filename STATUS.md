@@ -1,6 +1,6 @@
 # Stato del progetto
 
-Aggiornato: 2026-09-29 — Sfondo stagionale, iterazione 2
+Aggiornato: 2026-09-29 — Sfondo stagionale, particelle fuori dalla linea
 
 ## Ultimo checkpoint
 
@@ -23,6 +23,7 @@ Nessuno.
 
 Dettagli completi nelle versioni precedenti di questo file (`git show 58d0ac7:STATUS.md`).
 
+- seasons — particelle fuori dalla linea: il canvas era già dietro a tutto (verificato riempiendolo di verde: header, linea e card restano sopra), ma un contorno sottile che passa dietro la linea sembrava davanti. Ora le particelle sfumano via (bordi morbidi di 24 px, `bandFeatherPx` in `config.ts`) nella fascia della linea: tacche, numeri dei giorni e mesi. Controllare anche in Week/Month, dopo un cambio di zoom o di filtri e ridimensionando la finestra (la fascia segue la linea).
 - seasons iterazione 2 — Particelle ancora più grandi (bolle fino a ~76 px di diametro, foglie ~45–70 px, fiocchi ~15–30 px) e più dettagliate: autunno foglia d'acero a tre lobi con dentelli, picciolo e nervature; primavera petali con la tacca in punta e, circa 1 su 10, un fiore di ciliegio intero (5 petali, centro e stami) più lento e che ruota piano; inverno fiocchi a sei raggi con rametti e esagono centrale; estate bolle con due riflessi. Colori attenuati (meno saturi, opacità 0.35 nel tema chiaro, 0.34 nello scuro): controllare che restino visibili ma discreti in entrambi i temi. I fiocchi scendono un po' più lenti di prima.
 - seasons iterazione 1 — Particelle grandi il doppio, solo contorni (bolle con riflesso ad arco, petali ed ellissi vuote, foglie col contorno e la nervatura, fiocchi a sei raggi con un anellino), un colore per stagione (autunno arancio, inverno azzurro-grigio / quasi bianco nello scuro, primavera rosa, estate azzurro); opacità un po' più alta (0.5 chiaro, 0.4 scuro) perché i contorni hanno meno "inchiostro". Cambio stagione (es. da fine novembre a dicembre con le frecce): le foglie sfumano via in ~0,5 s, poi i fiocchi compaiono in ~2 s, mai due stagioni insieme; andando avanti e indietro sul confine le particelle in uscita non ricompaiono di colpo. Le voci del task 1 qui sotto valgono ancora, tranne colori e transizione.
 - seasons task 1 — Sfondo stagionale (`src/seasons/`, `seasons.css`, token `--season-*`): all'apertura (settembre) foglie d'autunno in toni caldi che cadono ondeggiando, compaiono gradualmente in ~2 s, dietro linea e card, a bassa opacità. Scorrendo fino a dicembre–febbraio fiocchi lenti con leggera deriva (azzurro-grigi nel tema chiaro, quasi bianchi nello scuro), marzo–maggio petali rosa in diagonale che ruotano, giugno–agosto bolle che salgono: al cambio di mese le particelle vecchie finiscono il percorso, le nuove sfumano dentro. Rotella in marcia 2+, trascinamento rapido, salti lunghi (Home/End, minimappa, ricerca): lo sfondo sparisce in ~200 ms e torna ~500 ms dopo l'arresto; scatti singoli e frecce non lo nascondono. Gioco selezionato: sfondo stagionale nascosto, torna deselezionando. Cambio tema: colori aggiornati subito. Zona TBA: resta la stagione precedente. Reduced motion: particelle ferme (l'interruttore arriva col task 2). 20 particelle a 1280×720, 28 a 1920×1080, 40 da 2560×1440.

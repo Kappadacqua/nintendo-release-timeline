@@ -35,6 +35,8 @@ export class SeasonalBackground {
   /** Season of the still canvas drawn with reduced motion. */
   private stillSeason: Season | null = null;
   private readonly cleanup: (() => void)[] = [];
+  /** The band of the line (ticks, day numbers, months), in window y: particles never cross it. */
+  private band: { el: HTMLElement; top: number; bottom: number } | null = null;
 
   constructor(private probe: TimelineProbe) {
     const canvas = (this.canvas = document.createElement("canvas"));
@@ -86,6 +88,8 @@ export class SeasonalBackground {
 
   /** Reads the timeline and decides whether the background shows and animates. */
   private sync(now = performance.now()) {
+    // A rebuilt timeline (zoom, filters) has a new band.
+    if (!this.band?.el.isConnected) this.readBand();
     const { day, selected } = this.probe();
     if (day !== null && this.season.set(seasonOf(dayToDate(Math.round(day))), now)) {
       // One season at a time: everything on screen starts fading out, the new season follows.
@@ -168,6 +172,36 @@ export class SeasonalBackground {
       drawParticle(ctx, p, this.palette);
     }
     ctx.globalAlpha = 1;
+    this.clearBand();
+  }
+
+  /**
+   * Particles fade out across the band of the line, with soft edges: behind the thin line
+   * and its labels they would look as if they crossed it in front.
+   */
+  private clearBand() {
+    if (!this.band) return;
+    const { ctx } = this;
+    const f = SEASONS.bandFeatherPx;
+    const top = this.band.top - f;
+    const height = this.band.bottom - this.band.top + 2 * f;
+    const mask = ctx.createLinearGradient(0, top, 0, top + height);
+    const edge = f / height;
+    mask.addColorStop(0, "rgb(0 0 0 / 0)");
+    mask.addColorStop(edge, "#000");
+    mask.addColorStop(1 - edge, "#000");
+    mask.addColorStop(1, "rgb(0 0 0 / 0)");
+    ctx.globalCompositeOperation = "destination-out";
+    ctx.fillStyle = mask;
+    ctx.fillRect(0, top, this.width, height);
+    ctx.globalCompositeOperation = "source-over";
+  }
+
+  private readBand() {
+    const el = document.querySelector<HTMLElement>(".timeline__band");
+    if (!el) return (this.band = null);
+    const rect = el.getBoundingClientRect();
+    this.band = rect.height ? { el, top: rect.top, bottom: rect.bottom } : null;
   }
 
   /** Reduced motion: the full number of the current season's particles, still. */
@@ -188,6 +222,11 @@ export class SeasonalBackground {
     this.canvas.height = Math.round(this.height * dpr);
     this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     this.max = particleCount(this.width, this.height);
+    // The timeline moves its line on the same resize: read it once that is done.
+    requestAnimationFrame(() => {
+      this.readBand();
+      this.redraw();
+    });
     this.redraw();
   }
 

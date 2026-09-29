@@ -105,6 +105,8 @@ export const SEASONS = {
   blossomChance: 0.1,
   /** Canvas pixel density cap. */
   maxDpr: 1.5,
+  /** Particles fade out over this many px on each side of the line's band. */
+  bandFeatherPx: 24,
   /** A drag faster than this (screen px/ms) counts as fast scrolling; so does a jump longer than the window. */
   fastDragPxPerMs: 1.2,
 } as const;
