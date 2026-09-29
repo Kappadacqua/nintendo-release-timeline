@@ -1,7 +1,7 @@
 /* ---------- Out today (ITERATION-2 §5) ---------- */
 
 .badge--out-today {
-  background: var(--accent);
+  background: var(--accent-fill);
   color: var(--on-accent);
   box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 30%, transparent);
 }

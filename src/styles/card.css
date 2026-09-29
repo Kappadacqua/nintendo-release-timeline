@@ -81,13 +81,13 @@
 }
 
 .badge--accent {
-  background: var(--accent);
+  background: var(--accent-fill);
   color: var(--on-accent);
 }
 
 .badge--accent-soft {
   background: color-mix(in srgb, var(--accent) 16%, transparent);
-  color: var(--accent);
+  color: var(--accent-text);
 }
 
 .badge--s2 {
@@ -96,8 +96,8 @@
 }
 
 .badge--free-update {
-  background: var(--free-update);
-  color: var(--bg);
+  background: var(--free-update-fill);
+  color: var(--on-accent);
 }
 
 /* Free update: one worldwide date instead of the three flags, and the original year. */

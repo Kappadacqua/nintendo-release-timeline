@@ -89,6 +89,7 @@ interface Palette {
   tick: string;
   label: string;
   accent: string;
+  accentFill: string;
   onAccent: string;
   font: string;
 }
@@ -961,6 +962,7 @@ export class Timeline {
       tick: v("--tick"),
       label: v("--text-muted"),
       accent: v("--accent"),
+      accentFill: v("--accent-fill"),
       onAccent: v("--on-accent"),
       font: getComputedStyle(document.body).fontFamily,
     };

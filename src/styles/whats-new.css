@@ -5,8 +5,8 @@
   align-items: center;
   gap: 4px;
   padding-left: 2px;
-  background: var(--news);
-  color: var(--news-text);
+  background: var(--news-fill);
+  color: var(--on-accent);
 }
 
 .badge__bang {
@@ -15,8 +15,8 @@
   width: 13px;
   height: 13px;
   border-radius: 50%;
-  background: var(--news-text);
-  color: var(--news);
+  background: var(--on-accent);
+  color: var(--news-fill);
   font-size: 9.5px;
   font-weight: 900;
   line-height: 1;
@@ -69,16 +69,16 @@
 }
 
 .whats-new__toggle.has-news .whats-new__icon {
-  background: var(--news);
-  color: var(--news-text);
+  background: var(--news-fill);
+  color: var(--on-accent);
 }
 
 .whats-new__count {
   min-width: 20px;
   padding: 1px 6px;
   border-radius: 999px;
-  background: var(--news);
-  color: var(--news-text);
+  background: var(--news-fill);
+  color: var(--on-accent);
   font-size: 12px;
   text-align: center;
 }
@@ -126,7 +126,7 @@
   border: 0;
   border-radius: 999px;
   background: color-mix(in srgb, var(--news) 14%, transparent);
-  color: var(--news);
+  color: var(--news-text-soft);
   font: 800 12px var(--font);
   cursor: pointer;
 }

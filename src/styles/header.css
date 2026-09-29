@@ -170,7 +170,7 @@ main {
 }
 
 .app-nav__link[aria-current="page"] {
-  background: var(--accent);
+  background: var(--accent-fill);
   color: var(--on-accent);
 }
 

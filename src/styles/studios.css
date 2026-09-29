@@ -130,13 +130,13 @@
 }
 
 .studio-badge--first-party {
-  background: var(--accent);
+  background: var(--accent-fill);
   color: var(--on-accent);
 }
 
 .studio-badge--partner {
   background: color-mix(in srgb, var(--accent) 16%, transparent);
-  color: var(--accent);
+  color: var(--accent-text);
 }
 
 .studio-badge--third-party {

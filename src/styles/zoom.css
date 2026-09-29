@@ -126,7 +126,7 @@
 }
 
 .zoom-control button[aria-pressed="true"] {
-  background: var(--accent);
+  background: var(--accent-fill);
   color: var(--on-accent);
 }
 

@@ -6,6 +6,8 @@ export interface TickPalette {
   tick: string;
   label: string;
   accent: string;
+  /** The pill under the playhead: a fill with text on it. */
+  accentFill: string;
   onAccent: string;
   font: string;
 }
@@ -98,6 +100,7 @@ export function drawTicks(v: TickView) {
     ctx.fillRect(x - 1.5, y - 16, 3, 32);
     ctx.font = `900 14px ${palette.font}`;
     ctx.beginPath();
+    ctx.fillStyle = palette.accentFill;
     ctx.roundRect(x - pillW / 2, y + 22, pillW, 22, 11);
     ctx.fill();
     ctx.fillStyle = palette.onAccent;

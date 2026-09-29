@@ -43,10 +43,19 @@
   --card-free-update: #f6fcf8;
   /* What's new: badges, dots and panel accents (ITERATION-3 §4). */
   --news: #0a7cff;
-  --news-text: #fff;
+  /* Blue text on a light blue tint ("Mark all as seen"). */
+  --news-text-soft: #0066d6;
   /* Delays: badge tint and text (ITERATION-3 §3), also the "delayed" type in What's new. */
   --delayed: #f5a623;
-  --delayed-text: #b36b00;
+  --delayed-text: #8a5200;
+  /* Fills with text on them (--on-accent): darker than the base colours, at least 4.5:1 (WCAG AA).
+     Lines, dots, borders, glows and rings keep the base colours. */
+  --accent-fill: #e60012;
+  --dlc-fill: #7c3aed;
+  --news-fill: #0066d6;
+  --free-update-fill: #0b7d45;
+  /* Accent text on a 16 % accent tint (Partner, Timed exclusive). */
+  --accent-text: #b8000e;
   --card-shadow: 0 4px 16px rgb(0 0 0 / 0.07);
   --card-shadow-hover: 0 10px 28px rgb(0 0 0 / 0.14);
   /* Small shadows: switch knobs and segments (sm), covers and thumbnails (md). */
@@ -94,6 +103,12 @@
   --card-free-update: #121a15;
     --news: #3d95ff;
     --delayed-text: #ffc15e;
+    --news-text-soft: #3d95ff;
+    --accent-fill: #cc2433;
+    --dlc-fill: #6d4bd8;
+    --news-fill: #2466cc;
+    --free-update-fill: #1d7a4a;
+    --accent-text: #ff4d5a;
     --card-shadow: 0 4px 16px rgb(0 0 0 / 0.5);
     --card-shadow-hover: 0 10px 28px rgb(0 0 0 / 0.7);
     --success: #3ddc84;
@@ -128,6 +143,12 @@
   --card-free-update: #121a15;
   --news: #3d95ff;
   --delayed-text: #ffc15e;
+  --news-text-soft: #3d95ff;
+  --accent-fill: #cc2433;
+  --dlc-fill: #6d4bd8;
+  --news-fill: #2466cc;
+  --free-update-fill: #1d7a4a;
+  --accent-text: #ff4d5a;
   --card-shadow: 0 4px 16px rgb(0 0 0 / 0.5);
   --card-shadow-hover: 0 10px 28px rgb(0 0 0 / 0.7);
   --success: #3ddc84;

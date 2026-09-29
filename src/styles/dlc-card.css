@@ -32,7 +32,7 @@
   width: 92px;
   padding: 2px 0;
   transform: rotate(45deg);
-  background: var(--dlc);
+  background: var(--dlc-fill);
   color: var(--on-accent);
   font-size: 10px;
   font-weight: 900;

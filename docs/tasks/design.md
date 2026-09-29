@@ -99,7 +99,7 @@ Fonte: audit del Web Designer su `docs/design-tokens.md` e sulle pagine nel brow
 
 ---
 
-- [ ] **Task 4 — Contrasto dei badge e dei riempimenti con testo (WCAG AA)**
+- [x] **Task 4 — Contrasto dei badge e dei riempimenti con testo (WCAG AA)**
 
 **File**
 - Da cui partire: `src/styles/tokens.css`, `src/styles/card.css` (badge, righe 93-101), `src/styles/dlc-card.css` (nastro), `src/styles/selection.css` (`.card-button`), `src/styles/studios.css` (badge studio), `src/styles/rankings.css` (`badge--dlc`), `src/styles/whats-new.css`, `src/styles/out-today.css`, `src/styles/header.css` (navigazione attiva), `src/styles/zoom.css`, `src/timeline/ticks.ts` e `readPalette()` in `src/timeline/timeline.ts` (pillola sotto l'indicatore).
