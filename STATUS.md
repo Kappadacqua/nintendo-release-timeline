@@ -1,6 +1,6 @@
 # Stato del progetto
 
-Aggiornato: 2026-09-29 — Sfondo stagionale, task 2 (impostazioni e accessibilità); coda `seasons.md` completata
+Aggiornato: 2026-09-29 — Coda `design.md`, task 1 (ordine sfondo stagionale / sfondo del gioco)
 
 ## Ultimo checkpoint
 
@@ -23,6 +23,7 @@ Nessuno.
 
 Dettagli completi nelle versioni precedenti di questo file (`git show 58d0ac7:STATUS.md`).
 
+- design task 1 — Canvas `.seasons` aggiunto con `append` (non più `prepend`): resta sempre dopo `.backdrop` nel DOM, quindi le particelle stanno sopra il velo dello sfondo del gioco e sotto tutto il contenuto. Tema chiaro: le foglie hanno la stessa intensità prima e dopo Day → Month → Day (e dopo filtri o raggruppamento). Scomparsa con gioco selezionato, scorrimento veloce e reduced motion invariati.
 - design-tokens — `docs/design-tokens.md`: design system attuale (temi, colori, tipi, tipografia, movimento, livelli, stati, incoerenze), solo documentazione. Da confermare nel browser: l'ordine sfondo stagionale / velo dello sfondo del gioco si inverte dopo un cambio di zoom o filtri (§10).
 - seasons task 2 — Menu View: interruttore "Seasonal background" sotto "Group same-day releases" (più vicino a quello), acceso di default; spento → lo sfondo sfuma via e l'animazione si ferma; la scelta resta dopo il ricaricamento. Con reduced motion attivo nel sistema e nessuna scelta salvata: spento di default, il suggerimento dice "Still…"; acceso → particelle ferme, ridisegnate solo al cambio di stagione, tema o finestra. Impostazioni salvate prima di questo task: l'interruttore segue reduced motion finché non lo si tocca. Week/Month: sfondo visibile come in Day. Presentazione (P): sfondo nascosto perché c'è sempre un gioco selezionato, torna all'uscita. Pannello "?": sezione "Seasonal background" con le quattro stagioni. SPEC §15.
 - seasons — particelle fuori dalla linea: il canvas era già dietro a tutto (verificato riempiendolo di verde: header, linea e card restano sopra), ma un contorno sottile che passa dietro la linea sembrava davanti. Ora le particelle sfumano via (bordi morbidi di 24 px, `bandFeatherPx` in `config.ts`) nella fascia della linea: tacche, numeri dei giorni e mesi. Controllare anche in Week/Month, dopo un cambio di zoom o di filtri e ridimensionando la finestra (la fascia segue la linea).

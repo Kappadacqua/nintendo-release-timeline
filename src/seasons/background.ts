@@ -45,7 +45,8 @@ export class SeasonalBackground {
     const canvas = (this.canvas = document.createElement("canvas"));
     canvas.className = "seasons is-hidden";
     canvas.setAttribute("aria-hidden", "true");
-    document.body.prepend(canvas);
+    // After .backdrop (prepended on every rebuild): same z-index, so DOM order keeps the particles above it.
+    document.body.append(canvas);
     this.ctx = canvas.getContext("2d")!;
     this.readPalette();
     this.resize();
