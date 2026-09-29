@@ -36,7 +36,11 @@
           <a class="app-nav__link" href="studios.html">Studios</a>
         </nav>
         <button class="icon-button theme-toggle" type="button" aria-label="Toggle theme">
-          <span class="theme-toggle__icon" aria-hidden="true"></span>
+          <span class="theme-toggle__icon" aria-hidden="true">
+            <!-- Sun in light theme, crescent moon in dark theme: the icon shows the current theme. -->
+            <svg class="theme-toggle__sun" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="5" fill="currentColor" /><path d="M20.5 12L23 12M18.01 18.01L19.78 19.78M12 20.5L12 23M5.99 18.01L4.22 19.78M3.5 12L1 12M5.99 5.99L4.22 4.22M12 3.5L12 1M18.01 5.99L19.78 4.22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>
+            <svg class="theme-toggle__moon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.98 0.04A12 12 0 1 1 3.02 19.96A12 12 0 0 0 12.98 0.04Z" fill="currentColor" /></svg>
+          </span>
         </button>
       </div>
     </header>

@@ -167,7 +167,7 @@ Da modificare:
 
 ---
 
-- [ ] **Task 6 — Icona del tema chiaro riconoscibile (sole)**
+- [x] **Task 6 — Icona del tema chiaro riconoscibile (sole)**
 
 **File**
 - Da cui partire: il pulsante del tema nell'header (markup in `index.html`, `rankings.html` e `studios.html`, oppure dove viene generato), `src/styles/header.css:122-125`.

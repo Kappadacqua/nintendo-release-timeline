@@ -110,18 +110,21 @@
   outline-offset: 2px;
 }
 
-/* Sun in light theme, crescent moon in dark theme — pure CSS. */
+/* Sun in light theme, crescent moon in dark theme (inline SVGs in the markup). */
 .theme-toggle__icon {
+  display: grid;
   width: 18px;
   height: 18px;
-  border-radius: 50%;
-  background: var(--text);
-  box-shadow: none;
+  color: var(--text);
 }
 
-:root[data-theme="dark"] .theme-toggle__icon {
-  background: transparent;
-  box-shadow: inset -6px -3px 0 0 var(--text);
+.theme-toggle__moon,
+:root[data-theme="dark"] .theme-toggle__sun {
+  display: none;
+}
+
+:root[data-theme="dark"] .theme-toggle__moon {
+  display: block;
 }
 
 .app-footer {
