@@ -5,7 +5,7 @@ Regole: altri problemi vanno nel report alla voce "Aperto". Non eseguire data:fe
 
 ## Decisioni (valgono per tutta la coda)
 - Stagione dal giorno sotto l'indicatore, a mesi interi: inverno dic–feb, primavera mar–mag, estate giu–ago, autunno set–nov. La stagione vale per tutto lo schermo.
-- Particelle disegnate con forme semplici su un unico canvas, niente immagini, solo contorni (vuote) e un colore per stagione: estate bolle che salgono; primavera petali in diagonale che ruotano; autunno foglie che cadono ondeggiando, toni caldi; inverno fiocchi lenti con leggera deriva.
+- Particelle disegnate con forme semplici su un unico canvas, niente immagini, solo contorni (vuote) e un colore per stagione: estate bolle che salgono; primavera petali in diagonale che ruotano e, ogni tanto (~1 su 10), un fiore di ciliegio intero; autunno foglie d'acero che cadono ondeggiando, toni caldi; inverno fiocchi a sei raggi, lenti con leggera deriva. Forme grandi e dettagliate ma minimali, colori attenuati.
 - 20–40 particelle in base all'area della finestra, bassa opacità, dietro linea e card.
 - Colori per tema (uno per stagione): nel tema chiaro colori più scuri o saturi dove serve (es. neve azzurro-grigia), nel tema scuro più chiari. Token in tokens.css.
 - Cambio stagione: una sola stagione per volta. Le particelle esistenti sfumano via in ~500 ms (senza nuove nascite), poi quelle nuove compaiono gradualmente (circa 2 s). (Iterazione 1: prima finivano il loro percorso.)

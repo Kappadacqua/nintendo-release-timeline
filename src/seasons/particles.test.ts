@@ -35,6 +35,15 @@ describe("particles", () => {
     }
   });
 
+  it("now and then a spring particle is a whole cherry blossom", () => {
+    const rand = seeded(11);
+    const spring = Array.from({ length: 400 }, () => spawnParticle("spring", W, H, 0, true, rand));
+    const share = spring.filter((p) => p.blossom).length / spring.length;
+    expect(share).toBeGreaterThan(SEASONS.blossomChance / 2);
+    expect(share).toBeLessThan(SEASONS.blossomChance * 2);
+    expect(spawnParticle("autumn", W, H, 0, true, rand).blossom).toBeFalsy();
+  });
+
   it("a season arriving appears anywhere on screen", () => {
     const rand = seeded(3);
     for (const season of ["winter", "spring", "summer", "autumn"] as const) {
@@ -56,7 +65,11 @@ describe("particles", () => {
   });
 
   it("winter is the slowest to cross the window", () => {
-    expect(lifetime("winter").t).toBeGreaterThan(lifetime("autumn").t);
+    const average = (season: Season) => {
+      const seeds = Array.from({ length: 20 }, (_, i) => i + 1);
+      return seeds.reduce((sum, seed) => sum + lifetime(season, seeded(seed)).t, 0) / seeds.length;
+    };
+    expect(average("winter")).toBeGreaterThan(average("autumn"));
   });
 
   it("fades in over fadeInMs from birth", () => {

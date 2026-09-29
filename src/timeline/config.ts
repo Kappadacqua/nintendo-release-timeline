@@ -101,6 +101,8 @@ export const SEASONS = {
   /** Window areas (px²) of those counts: 1280 × 720 and 2560 × 1440. */
   minArea: 1280 * 720,
   maxArea: 2560 * 1440,
+  /** Spring: share of particles that are a whole cherry blossom instead of a petal. */
+  blossomChance: 0.1,
   /** Canvas pixel density cap. */
   maxDpr: 1.5,
   /** A drag faster than this (screen px/ms) counts as fast scrolling; so does a jump longer than the window. */

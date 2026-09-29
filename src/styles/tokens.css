@@ -60,11 +60,11 @@
   /* Positive feedback (admin panel). */
   --success: #1a8f3c;
   /* Seasonal background (docs/tasks/seasons.md): one outline colour per season, its opacity, fades. */
-  --season-alpha: 0.5;
-  --season-winter: #7f9bb8;
-  --season-spring: #e0789c;
-  --season-summer: #2f9fd6;
-  --season-autumn: #d2602a;
+  --season-alpha: 0.35;
+  --season-winter: #8d9fb2;
+  --season-spring: #cf97aa;
+  --season-summer: #72a6c2;
+  --season-autumn: #c48a62;
   --season-fade-in: 0.6s;
   --season-fade-out: 0.2s;
 
@@ -97,11 +97,11 @@
     --card-shadow: 0 4px 16px rgb(0 0 0 / 0.5);
     --card-shadow-hover: 0 10px 28px rgb(0 0 0 / 0.7);
     --success: #3ddc84;
-    --season-alpha: 0.4;
-    --season-winter: #e6f0fa;
-    --season-spring: #ffc2d6;
-    --season-summer: #8fd8ff;
-    --season-autumn: #ff9a5c;
+    --season-alpha: 0.34;
+    --season-winter: #d3dce5;
+    --season-spring: #e6c3cf;
+    --season-summer: #a9cde0;
+    --season-autumn: #dcae8c;
     color-scheme: dark;
   }
 }
@@ -131,11 +131,11 @@
   --card-shadow: 0 4px 16px rgb(0 0 0 / 0.5);
   --card-shadow-hover: 0 10px 28px rgb(0 0 0 / 0.7);
   --success: #3ddc84;
-  --season-alpha: 0.4;
-  --season-winter: #e6f0fa;
-  --season-spring: #ffc2d6;
-  --season-summer: #8fd8ff;
-  --season-autumn: #ff9a5c;
+  --season-alpha: 0.34;
+  --season-winter: #d3dce5;
+  --season-spring: #e6c3cf;
+  --season-summer: #a9cde0;
+  --season-autumn: #dcae8c;
   color-scheme: dark;
 }
 
