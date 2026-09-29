@@ -87,10 +87,12 @@ export const TIMELINE = {
 
 /** Seasonal background (docs/tasks/seasons.md): timings, density and what counts as fast scrolling. */
 export const SEASONS = {
-  /** New particles of a season reach their full number over this long after it starts. */
+  /** New particles of a season reach their full number over this long after they start. */
   rampMs: 2000,
   /** A new particle fades in over this long (it never pops up). */
   fadeInMs: 800,
+  /** At a season change the old season's particles fade out over this long; the new one starts after. */
+  leaveMs: 500,
   /** After fast scrolling the background comes back this long after the timeline stopped (fades: tokens.css). */
   restMs: 500,
   /** Particles at the smallest and largest window area. */

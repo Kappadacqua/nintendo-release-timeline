@@ -21,24 +21,25 @@ export function particleCount(width: number, height: number) {
 }
 
 /**
- * The season on screen. After a change, particles of the old one only finish their path
- * (no new births) and the new one's appear gradually: its target number ramps up over `rampMs`.
+ * The season on screen, one at a time. After a change the old one's particles fade out over
+ * `leaveMs` (see `leaveFade`); then the new one's appear gradually, their target number ramping
+ * up over `rampMs`. The very first season starts at once.
  */
 export class SeasonState {
   season: Season | null = null;
-  private changedAt = -Infinity;
+  private rampFrom = -Infinity;
 
   /** True when the season changed. */
   set(season: Season, now: number) {
     if (season === this.season) return false;
+    this.rampFrom = this.season === null ? now : now + SEASONS.leaveMs;
     this.season = season;
-    this.changedAt = now;
     return true;
   }
 
   /** How many particles of the current season should be alive at `now`, out of `max`. */
   target(max: number, now: number) {
-    const t = Math.min(1, Math.max(0, (now - this.changedAt) / SEASONS.rampMs));
+    const t = Math.min(1, Math.max(0, (now - this.rampFrom) / SEASONS.rampMs));
     return Math.floor(max * t);
   }
 
@@ -46,6 +47,12 @@ export class SeasonState {
   mayBirth(season: Season, alive: number, max: number, now: number) {
     return season === this.season && alive < this.target(max, now);
   }
+}
+
+/** Opacity of a particle of an old season that started leaving at `leftAt`: 1 → 0 over `leaveMs`. */
+export function leaveFade(leftAt: number | undefined, now: number) {
+  if (leftAt === undefined) return 1;
+  return Math.max(0, 1 - (now - leftAt) / SEASONS.leaveMs);
 }
 
 /**

@@ -2,7 +2,8 @@ import { SEASONS } from "../timeline/config";
 import type { Season } from "./season";
 
 /**
- * Seasonal particles (no DOM): simple shapes drawn on one canvas, no images.
+ * Seasonal particles (no DOM): simple hollow shapes (outlines only), one colour per season,
+ * drawn on one canvas, no images.
  * Speeds in px/s. Summer bubbles rise, spring petals drift diagonally while turning,
  * autumn leaves fall swaying, winter flakes fall slowly with a light drift.
  */
@@ -22,13 +23,14 @@ export interface Particle {
   phase: number;
   freq: number;
   sway: number;
-  /** Which colour of the season's palette. */
-  tone: number;
   /** When it was born (ms): it fades in over `SEASONS.fadeInMs`. */
   born: number;
+  /** Its season is over: fading out since then (ms), see `leaveFade`. */
+  leftAt?: number;
 }
 
-export type Palette = Record<Season, string[]>;
+/** One colour per season. */
+export type Palette = Record<Season, string>;
 
 const between = (rand: () => number, lo: number, hi: number) => lo + (hi - lo) * rand();
 
@@ -49,20 +51,19 @@ export function spawnParticle(season: Season, width: number, height: number, now
     phase: between(rand, 0, Math.PI * 2),
     freq: 0,
     sway: 0,
-    tone: Math.floor(rand() * 3),
     born: now,
   };
   switch (season) {
     case "summer":
-      p.size = between(rand, 4, 13);
+      p.size = between(rand, 8, 26);
       // Small bubbles rise faster.
-      p.vy = -between(rand, 18, 30) - (13 - p.size) * 1.5;
+      p.vy = -between(rand, 18, 30) - (26 - p.size) * 0.75;
       p.freq = between(rand, 0.8, 1.6);
       p.sway = between(rand, 6, 14);
       if (!anywhere) p.y = height + p.size;
       break;
     case "spring":
-      p.size = between(rand, 5, 9);
+      p.size = between(rand, 10, 18);
       p.vx = between(rand, 22, 40);
       p.vy = between(rand, 18, 30);
       p.spin = between(rand, 0.8, 2) * (rand() < 0.5 ? -1 : 1);
@@ -80,7 +81,7 @@ export function spawnParticle(season: Season, width: number, height: number, now
       }
       break;
     case "autumn":
-      p.size = between(rand, 7, 12);
+      p.size = between(rand, 14, 24);
       p.vx = between(rand, -4, 8);
       p.vy = between(rand, 18, 32);
       p.freq = between(rand, 0.8, 1.4);
@@ -91,9 +92,9 @@ export function spawnParticle(season: Season, width: number, height: number, now
       }
       break;
     case "winter":
-      p.size = between(rand, 1.5, 4);
+      p.size = between(rand, 3, 8);
       // Bigger (closer) flakes fall a little faster.
-      p.vy = between(rand, 9, 14) + p.size * 2.5;
+      p.vy = between(rand, 9, 14) + p.size * 1.25;
       p.vx = between(rand, 2, 8);
       p.freq = between(rand, 0.3, 0.7);
       p.sway = between(rand, 4, 9);
@@ -132,66 +133,54 @@ export function fadeIn(p: Particle, now: number) {
   return Math.min(1, Math.max(0, (now - p.born) / SEASONS.fadeInMs));
 }
 
-/** Draws a particle; the caller sets `globalAlpha`. */
+/** Outline width (px) of every particle. */
+const LINE = 1.5;
+
+/** Draws a particle's outline; the caller sets `globalAlpha`. */
 export function drawParticle(ctx: CanvasRenderingContext2D, p: Particle, palette: Palette) {
-  const colors = palette[p.season];
-  const color = colors[p.tone % colors.length];
-  ctx.fillStyle = ctx.strokeStyle = color;
+  ctx.strokeStyle = palette[p.season];
+  ctx.lineWidth = LINE;
+  ctx.beginPath();
   switch (p.season) {
     case "summer": {
-      ctx.beginPath();
       ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-      ctx.lineWidth = 1.2;
-      ctx.stroke();
-      // Glint on the upper left.
-      ctx.beginPath();
-      ctx.arc(p.x - p.size * 0.35, p.y - p.size * 0.35, Math.max(1, p.size * 0.18), 0, Math.PI * 2);
-      ctx.fill();
+      // Glint: a short arc inside, on the upper left.
+      ctx.moveTo(p.x + Math.cos(Math.PI * 1.1) * p.size * 0.65, p.y + Math.sin(Math.PI * 1.1) * p.size * 0.65);
+      ctx.arc(p.x, p.y, p.size * 0.65, Math.PI * 1.1, Math.PI * 1.4);
       break;
     }
     case "spring": {
       // Turning in 3D: the petal narrows and widens as it spins.
       const turn = 0.35 + 0.65 * Math.abs(Math.cos(p.angle * 1.3));
-      ctx.save();
-      ctx.translate(p.x, p.y);
-      ctx.rotate(p.angle);
-      ctx.beginPath();
-      ctx.ellipse(0, 0, p.size, p.size * 0.55 * turn, 0, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.restore();
+      ctx.ellipse(p.x, p.y, p.size, p.size * 0.55 * turn, p.angle, 0, Math.PI * 2);
       break;
     }
     case "autumn": {
       const s = p.size;
-      ctx.save();
-      ctx.translate(p.x, p.y);
-      ctx.rotate(p.angle);
-      ctx.beginPath();
-      ctx.moveTo(-s, 0);
-      ctx.quadraticCurveTo(0, -s * 0.65, s, 0);
-      ctx.quadraticCurveTo(0, s * 0.65, -s, 0);
-      ctx.fill();
-      ctx.restore();
+      const cos = Math.cos(p.angle);
+      const sin = Math.sin(p.angle);
+      // Leaf outline and midrib, in the leaf's own frame rotated by `angle`.
+      const pt = (x: number, y: number): [number, number] => [p.x + x * cos - y * sin, p.y + x * sin + y * cos];
+      ctx.moveTo(...pt(-s, 0));
+      ctx.quadraticCurveTo(...pt(0, -s * 0.65), ...pt(s, 0));
+      ctx.quadraticCurveTo(...pt(0, s * 0.65), ...pt(-s, 0));
+      ctx.lineTo(...pt(s, 0));
       break;
     }
     case "winter": {
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-      ctx.fill();
-      // Bigger flakes get six thin arms.
-      if (p.size > 3) {
-        ctx.lineWidth = 0.8;
-        ctx.beginPath();
-        for (let i = 0; i < 3; i++) {
-          const a = p.angle + (i * Math.PI) / 3;
-          const dx = Math.cos(a) * p.size * 2;
-          const dy = Math.sin(a) * p.size * 2;
-          ctx.moveTo(p.x - dx, p.y - dy);
-          ctx.lineTo(p.x + dx, p.y + dy);
-        }
-        ctx.stroke();
+      // Six arms with a small ring in the middle.
+      const r = p.size * 0.3;
+      ctx.moveTo(p.x + r, p.y);
+      ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+      for (let i = 0; i < 3; i++) {
+        const a = p.angle + (i * Math.PI) / 3;
+        const dx = Math.cos(a) * p.size;
+        const dy = Math.sin(a) * p.size;
+        ctx.moveTo(p.x - dx, p.y - dy);
+        ctx.lineTo(p.x + dx, p.y + dy);
       }
       break;
     }
   }
+  ctx.stroke();
 }

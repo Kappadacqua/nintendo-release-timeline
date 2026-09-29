@@ -5,10 +5,10 @@ Regole: altri problemi vanno nel report alla voce "Aperto". Non eseguire data:fe
 
 ## Decisioni (valgono per tutta la coda)
 - Stagione dal giorno sotto l'indicatore, a mesi interi: inverno dic–feb, primavera mar–mag, estate giu–ago, autunno set–nov. La stagione vale per tutto lo schermo.
-- Particelle disegnate con forme semplici su un unico canvas, niente immagini: estate bolle che salgono; primavera petali in diagonale che ruotano; autunno foglie che cadono ondeggiando, toni caldi; inverno fiocchi lenti con leggera deriva.
+- Particelle disegnate con forme semplici su un unico canvas, niente immagini, solo contorni (vuote) e un colore per stagione: estate bolle che salgono; primavera petali in diagonale che ruotano; autunno foglie che cadono ondeggiando, toni caldi; inverno fiocchi lenti con leggera deriva.
 - 20–40 particelle in base all'area della finestra, bassa opacità, dietro linea e card.
-- Colori per tema: nel tema chiaro colori più scuri o saturi dove serve (es. neve azzurro-grigia), nel tema scuro più chiari. Token in tokens.css.
-- Cambio stagione: le particelle esistenti finiscono il loro percorso senza nuove nascite, quelle nuove compaiono gradualmente (circa 2 s).
+- Colori per tema (uno per stagione): nel tema chiaro colori più scuri o saturi dove serve (es. neve azzurro-grigia), nel tema scuro più chiari. Token in tokens.css.
+- Cambio stagione: una sola stagione per volta. Le particelle esistenti sfumano via in ~500 ms (senza nuove nascite), poi quelle nuove compaiono gradualmente (circa 2 s). (Iterazione 1: prima finivano il loro percorso.)
 - Scorrimento veloce (rotella dalla marcia 2 in su, trascinamento rapido, salti lunghi): lo sfondo sfuma via in ~200 ms e ricompare ~500 ms dopo che la timeline si è fermata.
 - Con un gioco selezionato lo sfondo stagionale è nascosto (c'è già lo sfondo del gioco).
 - Prestazioni: densità del canvas al massimo 1.5, animazione ferma se la scheda non è visibile o lo sfondo è spento, nessun filtro blur.

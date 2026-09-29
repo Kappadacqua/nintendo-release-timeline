@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { SEASONS } from "../timeline/config";
 import { parseDay, dayToDate } from "../timeline/dates";
-import { backgroundShown, particleCount, ScrollGate, seasonOf, SeasonState } from "./season";
+import { backgroundShown, leaveFade, particleCount, ScrollGate, seasonOf, SeasonState } from "./season";
 
 const season = (iso: string) => seasonOf(dayToDate(parseDay(iso)));
 
@@ -58,17 +58,45 @@ describe("SeasonState", () => {
     expect(s.target(30, 5000)).toBe(30);
   });
 
-  it("after a change the old season's particles are never reborn, the new one's appear gradually", () => {
+  it("after a change the old season's particles are never reborn, the new one's start once they are gone", () => {
     const s = new SeasonState();
     s.set("summer", 0);
     expect(s.mayBirth("summer", 10, 30, 10_000)).toBe(true);
     s.set("autumn", 10_000);
+    const from = 10_000 + SEASONS.leaveMs;
     expect(s.mayBirth("summer", 0, 30, 10_001)).toBe(false);
-    expect(s.mayBirth("autumn", 0, 30, 10_000)).toBe(false);
-    expect(s.mayBirth("autumn", 0, 30, 10_000 + SEASONS.rampMs / 2)).toBe(true);
-    expect(s.mayBirth("autumn", 15, 30, 10_000 + SEASONS.rampMs / 2)).toBe(false);
-    expect(s.mayBirth("autumn", 29, 30, 10_000 + SEASONS.rampMs)).toBe(true);
-    expect(s.mayBirth("autumn", 30, 30, 10_000 + SEASONS.rampMs)).toBe(false);
+    // Nothing new while the old season fades out.
+    expect(s.mayBirth("autumn", 0, 30, from - 1)).toBe(false);
+    expect(s.target(30, from)).toBe(0);
+    expect(s.mayBirth("autumn", 0, 30, from + SEASONS.rampMs / 2)).toBe(true);
+    expect(s.mayBirth("autumn", 15, 30, from + SEASONS.rampMs / 2)).toBe(false);
+    expect(s.mayBirth("autumn", 29, 30, from + SEASONS.rampMs)).toBe(true);
+    expect(s.mayBirth("autumn", 30, 30, from + SEASONS.rampMs)).toBe(false);
+  });
+
+  it("the first season does not wait", () => {
+    const s = new SeasonState();
+    s.set("winter", 0);
+    expect(s.target(40, SEASONS.rampMs)).toBe(40);
+  });
+});
+
+describe("leaveFade", () => {
+  it("is 1 for a particle of the current season", () => expect(leaveFade(undefined, 5000)).toBe(1));
+
+  it("fades an old season's particle to 0 over leaveMs", () => {
+    expect(leaveFade(1000, 1000)).toBe(1);
+    expect(leaveFade(1000, 1000 + SEASONS.leaveMs / 2)).toBeCloseTo(0.5);
+    expect(leaveFade(1000, 1000 + SEASONS.leaveMs)).toBe(0);
+    expect(leaveFade(1000, 1000 + SEASONS.leaveMs * 3)).toBe(0);
+  });
+
+  it("old particles are gone before the new season's first birth", () => {
+    const s = new SeasonState();
+    s.set("spring", 0);
+    s.set("summer", 1000);
+    const firstBirth = Array.from({ length: 5000 }, (_, i) => 1000 + i).find((t) => s.mayBirth("summer", 0, 40, t))!;
+    expect(leaveFade(1000, firstBirth)).toBe(0);
   });
 });
 

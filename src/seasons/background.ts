@@ -2,7 +2,7 @@ import { SEASONS } from "../timeline/config";
 import { dayToDate } from "../timeline/dates";
 import { onScrollActivity } from "../timeline/scroller";
 import { drawParticle, fadeIn, isGone, spawnParticle, stepParticle, type Palette, type Particle } from "./particles";
-import { backgroundShown, particleCount, ScrollGate, seasonOf, SeasonState, type Season } from "./season";
+import { backgroundShown, leaveFade, particleCount, ScrollGate, seasonOf, SeasonState, type Season } from "./season";
 
 const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
 const systemDark = matchMedia("(prefers-color-scheme: dark)");
@@ -22,7 +22,7 @@ export class SeasonalBackground {
   private readonly season = new SeasonState();
   private readonly gate = new ScrollGate();
   private particles: Particle[] = [];
-  private palette: Palette = { winter: [], spring: [], summer: [], autumn: [] };
+  private palette: Palette = { winter: "", spring: "", summer: "", autumn: "" };
   private alpha = 0.3;
   private width = 0;
   private height = 0;
@@ -87,7 +87,10 @@ export class SeasonalBackground {
   /** Reads the timeline and decides whether the background shows and animates. */
   private sync(now = performance.now()) {
     const { day, selected } = this.probe();
-    if (day !== null) this.season.set(seasonOf(dayToDate(Math.round(day))), now);
+    if (day !== null && this.season.set(seasonOf(dayToDate(Math.round(day))), now)) {
+      // One season at a time: everything on screen starts fading out, the new season follows.
+      for (const p of this.particles) p.leftAt ??= now;
+    }
     const scrolling = !this.gate.shown(now);
     const shown =
       this.season.season !== null && backgroundShown({ enabled: this.enabled, selected, pageVisible: !document.hidden, scrolling });
@@ -132,19 +135,21 @@ export class SeasonalBackground {
     this.frame = requestAnimationFrame(this.tick);
   };
 
-  /** Moves every particle; the current season's are reborn at the edge, the old season's just leave. */
+  /** Moves every particle; the current season's are reborn at the edge, an old season's fade out. */
   private step(dt: number, now: number) {
     const season = this.season.season!;
     const t = now / 1000;
     let alive = 0;
     let reborn = 0;
     this.particles = this.particles.filter((p) => {
+      if (leaveFade(p.leftAt, now) <= 0) return false;
       stepParticle(p, dt, t);
+      const current = p.season === season && p.leftAt === undefined;
       if (isGone(p, this.width, this.height)) {
-        if (p.season === season) reborn++;
+        if (current) reborn++;
         return false;
       }
-      if (p.season === season) alive++;
+      if (current) alive++;
       return true;
     });
     // Reborn ones enter from the edge; a season arriving appears anywhere, fading in.
@@ -159,7 +164,7 @@ export class SeasonalBackground {
     const { ctx } = this;
     ctx.clearRect(0, 0, this.width, this.height);
     for (const p of this.particles) {
-      ctx.globalAlpha = this.alpha * fadeIn(p, now);
+      ctx.globalAlpha = this.alpha * fadeIn(p, now) * leaveFade(p.leftAt, now);
       drawParticle(ctx, p, this.palette);
     }
     ctx.globalAlpha = 1;
@@ -168,7 +173,7 @@ export class SeasonalBackground {
   /** Reduced motion: the full number of the current season's particles, still. */
   private drawStill(now: number) {
     const season = this.season.season!;
-    const current = this.particles.filter((p) => p.season === season);
+    const current = this.particles.filter((p) => p.season === season && p.leftAt === undefined);
     while (current.length < this.max) current.push(spawnParticle(season, this.width, this.height, now - SEASONS.fadeInMs, true));
     this.particles = current.slice(0, this.max);
     this.stillSeason = season;
@@ -186,11 +191,11 @@ export class SeasonalBackground {
     this.redraw();
   }
 
-  /** Colours from tokens.css (`--season-<name>-1…3`, `--season-alpha`), per theme. */
+  /** Colours from tokens.css (`--season-<name>`, `--season-alpha`), per theme. */
   private readPalette() {
     const style = getComputedStyle(document.documentElement);
     for (const name of SEASON_NAMES) {
-      this.palette[name] = [1, 2, 3].map((i) => style.getPropertyValue(`--season-${name}-${i}`).trim()).filter(Boolean);
+      this.palette[name] = style.getPropertyValue(`--season-${name}`).trim();
     }
     this.alpha = Number.parseFloat(style.getPropertyValue("--season-alpha")) || 0.3;
     this.redraw();
