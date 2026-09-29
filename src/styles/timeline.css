@@ -94,6 +94,14 @@
     color-mix(in srgb, var(--accent) 45%, transparent) 88%,
     transparent
   );
+  /* Broken around the day pill (--pill-top / --pill-bottom, set from ticks.ts), so it never crosses the number. */
+  mask-image: linear-gradient(
+    to bottom,
+    #000 calc(var(--pill-top) - 3px),
+    transparent calc(var(--pill-top) - 3px),
+    transparent calc(var(--pill-bottom) + 3px),
+    #000 calc(var(--pill-bottom) + 3px)
+  );
   pointer-events: none;
 }
 

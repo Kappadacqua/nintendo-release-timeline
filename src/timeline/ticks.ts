@@ -29,6 +29,9 @@ export interface TickView {
   palette: TickPalette;
 }
 
+/** The playhead pill, in px below the line: its top edge and height (also used to break the playhead line). */
+export const PILL = { top: 22, height: 22 };
+
 const monthShort = (date: Date) => MONTHS[date.getUTCMonth()].slice(0, 3).toUpperCase();
 
 /**
@@ -101,11 +104,11 @@ export function drawTicks(v: TickView) {
     ctx.font = `900 14px ${palette.font}`;
     ctx.beginPath();
     ctx.fillStyle = palette.accentFill;
-    ctx.roundRect(x - pillW / 2, y + 22, pillW, 22, 11);
+    ctx.roundRect(x - pillW / 2, y + PILL.top, pillW, PILL.height, PILL.height / 2);
     ctx.fill();
     ctx.fillStyle = palette.onAccent;
     ctx.textBaseline = "middle";
-    ctx.fillText(label, x, y + 33.5);
+    ctx.fillText(label, x, y + PILL.top + PILL.height / 2 + 0.5);
     ctx.textBaseline = "top";
   }
   ctx.globalAlpha = 1;

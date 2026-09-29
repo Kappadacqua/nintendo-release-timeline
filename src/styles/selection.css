@@ -96,7 +96,8 @@
 }
 
 .card-button:hover {
-  filter: brightness(1.1);
+  /* Darker, not lighter: white text stays above 4.5:1 on the red. */
+  filter: brightness(0.9);
 }
 
 .card-button.is-disabled {

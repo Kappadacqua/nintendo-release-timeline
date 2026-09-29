@@ -62,6 +62,12 @@ describe("text contrast on fills (tokens.css)", () => {
       expect(contrast(t("--on-accent"), t(fill))).toBeGreaterThanOrEqual(4.5);
     });
 
+    // Card buttons on hover: filter: brightness(0.9) on the fill.
+    it(`${theme}: --on-accent on --accent-fill at brightness 0.9 ≥ 4.5`, () => {
+      const hovered = t("--accent-fill").map((v) => v * 0.9) as Rgb;
+      expect(contrast(t("--on-accent"), hovered)).toBeGreaterThanOrEqual(4.5);
+    });
+
     // Tinted badges sit on a card or panel (--card).
     it.each([
       ["--accent-text", "--accent", 0.16],

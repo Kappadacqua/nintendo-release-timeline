@@ -16,7 +16,7 @@ import { Backdrop } from "./backdrop";
 import { SiteTitle } from "./site-title";
 import { createGroupStack, Fan, GROUP_COVER_WIDTH, GROUP_MIN_GAMES, GROUP_WIDTH } from "./group";
 import { mixesKinds, orderStops } from "./same-day";
-import { drawTicks } from "./ticks";
+import { drawTicks, PILL } from "./ticks";
 import { addUnits, isoWeek, nextZoom, snapDay, ZOOM, type ZoomLevel } from "./zoom";
 import { createTbaBlockNode, layoutTba, TBA_LAYOUT, type TbaBlock } from "./tba";
 
@@ -995,6 +995,9 @@ export class Timeline {
     // From above the tallest tick to below the month labels.
     this.band.style.top = `${this.lineY - 34}px`;
     this.band.style.height = `${34 + TIMELINE.cardOffset + 2}px`;
+    // Where the playhead pill sits: the playhead line breaks there (timeline.css).
+    this.stage.style.setProperty("--pill-top", `${this.lineY + PILL.top}px`);
+    this.stage.style.setProperty("--pill-bottom", `${this.lineY + PILL.top + PILL.height}px`);
     this.fitCards();
     this.scroller.setBounds(0, this.worldEnd);
   }

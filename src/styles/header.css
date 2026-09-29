@@ -127,6 +127,17 @@
   display: block;
 }
 
+/* System dark and no theme attribute yet (first paint): the moon too. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-toggle__sun {
+    display: none;
+  }
+
+  :root:not([data-theme="light"]) .theme-toggle__moon {
+    display: block;
+  }
+}
+
 .app-footer {
   padding: 8px 32px;
   border-top: 1px solid var(--border);

@@ -1,6 +1,6 @@
 # Stato del progetto
 
-Aggiornato: 2026-09-29 — Coda `design.md`, task 6 (icona del sole); coda `design.md` completata
+Aggiornato: 2026-09-29 — Coda `design2.md`, task 1 (icona del tema all'avvio, indicatore sopra la pillola, hover dei pulsanti della card)
 
 ## Ultimo checkpoint
 
@@ -23,6 +23,7 @@ Nessuno.
 
 Dettagli completi nelle versioni precedenti di questo file (`git show 58d0ac7:STATUS.md`).
 
+- design2 task 1 — Tema scuro con un gioco selezionato: la linea verticale dell'indicatore si interrompe 3 px sopra e sotto la pillola del giorno e non attraversa più il numero (Day, Week, Month, entrambi i temi; sfumatura della linea invariata). `localStorage.removeItem('theme')` + ricarica con il sistema scuro: luna dal primo paint. Pulsanti della card: in hover si scuriscono (`brightness(0.9)`) invece di schiarirsi.
 - design task 6 — Pulsante del tema: nel tema chiaro un sole (disco pieno con 8 raggi), nello scuro la luna di prima (ora in SVG, stessa forma). Controllare cambio tema su timeline, Rankings e Studios: icona corretta e rotazione al clic invariata.
 - design task 5 — Rankings e Studios larghe uguali: `min(1200px, 100% − 64px)` (token `--page-max`), padding 32 px sopra e 48 px sotto, testata con 20 px sotto (valori di Rankings, già uguali in Studios); spazio della barra di scorrimento sempre riservato (`scrollbar-gutter: stable`). A 1920, 1440 e 1280 px alternando le due pagine il titolo non si sposta. Rankings più larga (prima 960 px): "Super Mario Bros. Wonder: Nintendo Switch 2 Edition + …" più leggibile, nome completo al passaggio del mouse. Studios: 3 colonne.
 - design task 4 — Testo su riempimenti colorati ≥ 4.5:1: nuovi token `--accent-fill`, `--dlc-fill`, `--news-fill`, `--free-update-fill` (solo dove c'è testo sopra), `--accent-text`, `--news-text-soft`; `--delayed-text` chiaro `#8a5200`; `--news-text` tolto (sostituito da `--on-accent`). Nel tema scuro badge Exclusive/Out today, pulsanti della card, navigazione attiva, zoom, anni di Rankings, First party, "Today", pillola sotto l'indicatore e chiudi delle scorciatoie sono di un rosso più scuro (`#cc2433`); nastro e badge DLC viola più scuro; badge e pulsante di What's new blu più scuro in entrambi i temi; "Free update" verde scuro con testo bianco (prima testo del colore della pagina). Partner, Timed exclusive e "Mark all as seen" con testo più scuro nel chiaro, "Delayed" marrone nel chiaro. Linee, pallini, bordi e anelli invariati. Controllare timeline, Rankings, Studios e admin in entrambi i temi. `tests/contrast.test.ts`.
