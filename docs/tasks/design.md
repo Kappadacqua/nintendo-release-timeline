@@ -70,7 +70,7 @@ Fonte: audit del Web Designer su `docs/design-tokens.md` e sulle pagine nel brow
 
 ---
 
-- [ ] **Task 3 — Palette e opacità delle stagioni bilanciate tra i temi**
+- [x] **Task 3 — Palette e opacità delle stagioni bilanciate tra i temi**
 
 **File**
 - Da cui partire: `src/styles/tokens.css` (token `--season-*`, `--season-alpha`, nei tre blocchi).
