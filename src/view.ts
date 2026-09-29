@@ -3,26 +3,52 @@ export interface ViewSettings {
   cardStyle: "full" | "compact";
   /** Same-day releases as one group (ITERATION-4 §4). */
   groupSameDay: boolean;
+  /** Seasonal background (SPEC §15): on by default, off by default with reduced motion. */
+  seasonalBackground: boolean;
 }
 
-const DEFAULTS: ViewSettings = { cardStyle: "full", groupSameDay: true };
 const STORAGE_KEY = "view";
+const reducedMotion = () => typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/**
+ * Settings from what was saved, with defaults for anything missing or invalid. The seasonal
+ * background counts as chosen only once the user switched it: until then it follows the
+ * reduced-motion preference.
+ */
+export function resolveView(saved: unknown, reduced: boolean): { view: ViewSettings; seasonalChosen: boolean } {
+  const s = (saved && typeof saved === "object" ? saved : {}) as Partial<ViewSettings>;
+  const seasonalChosen = typeof s.seasonalBackground === "boolean";
+  return {
+    view: {
+      cardStyle: s.cardStyle === "full" || s.cardStyle === "compact" ? s.cardStyle : "full",
+      groupSameDay: typeof s.groupSameDay === "boolean" ? s.groupSameDay : true,
+      seasonalBackground: seasonalChosen ? s.seasonalBackground! : !reduced,
+    },
+    seasonalChosen,
+  };
+}
+
+/** Whether the user ever switched the seasonal background (only then is it saved). */
+let seasonalChosen = false;
 
 export function loadView(): ViewSettings {
+  let saved: unknown = {};
   try {
-    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "{}") as Partial<ViewSettings>;
-    const view = { ...DEFAULTS, ...saved };
-    if (view.cardStyle !== "full" && view.cardStyle !== "compact") view.cardStyle = DEFAULTS.cardStyle;
-    if (typeof view.groupSameDay !== "boolean") view.groupSameDay = DEFAULTS.groupSameDay;
-    return view;
+    saved = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "{}");
   } catch {
-    return { ...DEFAULTS };
+    // Storage unavailable or corrupt: defaults.
   }
+  const resolved = resolveView(saved, reducedMotion());
+  seasonalChosen = resolved.seasonalChosen;
+  return resolved.view;
 }
 
 function saveView(v: ViewSettings) {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(v));
+    const stored: Partial<ViewSettings> = { ...v };
+    // Not chosen yet: it keeps following the reduced-motion preference.
+    if (!seasonalChosen) delete stored.seasonalBackground;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(stored));
   } catch {
     // Storage unavailable: the choice lasts for this visit only.
   }
@@ -77,6 +103,13 @@ export class ViewMenu {
     this.panel.setAttribute("aria-label", "View settings");
     for (const choice of CHOICES) this.panel.append(this.segmented(choice));
     this.panel.append(this.toggle("groupSameDay", "Group same-day releases", "3 or more games on one day become one group"));
+    this.panel.append(
+      this.toggle(
+        "seasonalBackground",
+        "Seasonal background",
+        reducedMotion() ? "Still snow, blossoms, bubbles or leaves for the season on screen" : "Snow, blossoms, bubbles or leaves for the season on screen",
+      ),
+    );
     for (const action of actions) {
       const b = document.createElement("button");
       b.type = "button";
@@ -142,7 +175,7 @@ export class ViewMenu {
   }
 
   /** An on / off setting, drawn like the filter switches. */
-  private toggle(key: "groupSameDay", label: string, hint: string) {
+  private toggle(key: "groupSameDay" | "seasonalBackground", label: string, hint: string) {
     const row = document.createElement("label");
     row.className = "filters__option view-menu__toggle-row";
     row.innerHTML = `<input type="checkbox"><span class="filters__switch" aria-hidden="true"></span><span><strong></strong><small></small></span>`;
@@ -152,6 +185,7 @@ export class ViewMenu {
     row.querySelector("small")!.textContent = hint;
     input.addEventListener("change", () => {
       this.view = { ...this.view, [key]: input.checked };
+      if (key === "seasonalBackground") seasonalChosen = true;
       saveView(this.view);
       this.onChange(this.view, key);
     });

@@ -27,7 +27,6 @@ export class SeasonalBackground {
   private width = 0;
   private height = 0;
   private max: number = SEASONS.minParticles;
-  private enabled = true;
   private shown = false;
   private frame = 0;
   private last = 0;
@@ -38,7 +37,11 @@ export class SeasonalBackground {
   /** The band of the line (ticks, day numbers, months), in window y: particles never cross it. */
   private band: { el: HTMLElement; top: number; bottom: number } | null = null;
 
-  constructor(private probe: TimelineProbe) {
+  constructor(
+    private probe: TimelineProbe,
+    /** The View menu setting (off by default with reduced motion). */
+    private enabled = true,
+  ) {
     const canvas = (this.canvas = document.createElement("canvas"));
     canvas.className = "seasons is-hidden";
     canvas.setAttribute("aria-hidden", "true");

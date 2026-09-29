@@ -142,6 +142,12 @@ Promise.all([loadGames(), loadChanges()])
     };
     togglePresentation = () => (presentation.isActive ? presentation.stop() : startPresentation());
 
+    // Seasonal background (SPEC §15): follows whichever timeline is current, in every zoom level.
+    const seasons = new SeasonalBackground(() => {
+      const state = timeline.getState();
+      return { day: state.day ?? null, selected: state.selectedId !== null };
+    }, view.seasonalBackground);
+
     new ViewMenu(
       document.querySelector<HTMLElement>(".app-header__actions")!,
       view,
@@ -149,6 +155,7 @@ Promise.all([loadGames(), loadChanges()])
         view = next;
         if (changed === "cardStyle") timeline.setCompact(view.cardStyle === "compact");
         if (changed === "groupSameDay") rebuild();
+        if (changed === "seasonalBackground") seasons.setEnabled(view.seasonalBackground);
       },
       [{ label: "Start presentation", key: "P", run: startPresentation }],
     );
@@ -168,11 +175,6 @@ Promise.all([loadGames(), loadChanges()])
     openSearch = () => search.open();
     document.querySelector(".search-toggle")!.addEventListener("click", openSearch);
 
-    // Seasonal background (docs/tasks/seasons.md): follows whichever timeline is current.
-    new SeasonalBackground(() => {
-      const state = timeline.getState();
-      return { day: state.day ?? null, selected: state.selectedId !== null };
-    });
 
     if (import.meta.env.DEV) devTools(() => timeline);
   })

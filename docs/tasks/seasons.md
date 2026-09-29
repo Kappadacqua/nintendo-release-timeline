@@ -18,7 +18,7 @@ File: nuovi src/seasons/season.ts (logica pura: stagione da una data, stato di t
 Atteso: tutte le decisioni sopra.
 Verifica: typecheck, npm test (stagione da data, transizioni, regole di comparsa/scomparsa), build. Misura anche gli fps: con lo sfondo attivo, a riposo e durante uno scorrimento, non devono scendere rispetto a quando è spento. Riporta i numeri nel report.
 
-## [ ] Task 2 — Impostazioni e accessibilità
+## [x] Task 2 — Impostazioni e accessibilità
 File: src/view.ts, src/seasons/background.ts, src/styles/view-menu.css, index.html (pannello di aiuto), docs/SPEC.md.
 Atteso:
 - Interruttore "Seasonal background" nel menu View, acceso di default, salvato nel browser.

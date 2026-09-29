@@ -110,3 +110,8 @@
   color: var(--text-muted);
 }
 
+
+/* Two switches in a row (grouping, seasonal background): closer together. */
+.view-menu__toggle-row + .view-menu__toggle-row {
+  margin-top: 4px;
+}

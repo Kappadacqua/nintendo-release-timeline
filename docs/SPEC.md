@@ -428,7 +428,7 @@ Nell'header, a destra: **What's new**, **View**, **filtri**, **ricerca**, **?**,
 
 ### Menu "View"
 
-Pannello simile a quello dei filtri: **Card style** (Full / Compact), **Group same-day releases** (acceso di default), **Start presentation** (P). Le scelte restano nel browser (`localStorage`, `view`); il livello di zoom no (la pagina si apre a Day).
+Pannello simile a quello dei filtri: **Card style** (Full / Compact), **Group same-day releases** (acceso di default), **Seasonal background** (§15), **Start presentation** (P). Le scelte restano nel browser (`localStorage`, `view`); il livello di zoom no (la pagina si apre a Day).
 
 ### Novità ("What's new")
 
@@ -566,3 +566,23 @@ Pagina `studios.html` (`src/studios/main.ts`, `src/styles/studios.css`), inclusa
 - **Ordine**: prima gli studi con un gioco in uscita (data più vicina prima), poi quelli con un gioco uscito (più recente prima), infine quelli senza gioco Switch 2 datato (alfabetico).
 - First party e Partner sempre visibili; interruttore **"Show third-party studios"**, spento di default, salvato nel browser (`localStorage`, chiave `studios-show-third-party`). Contatore "N studios" degli studi visibili.
 - Comparsa delle card con breve dissolvenza, e dissolvenza al cambio dell'interruttore (niente animazione con `prefers-reduced-motion`).
+
+## 15. Sfondo stagionale
+
+**Stato: fatto** (coda in `docs/tasks/seasons.md`).
+
+Particelle animate dietro linea e card (`src/seasons/`: `season.ts` logica pura, `particles.ts` forme e fisica, `background.ts` canvas e ciclo; `src/styles/seasons.css`; costanti `SEASONS` in `src/timeline/config.ts`).
+
+- **Stagione** dal giorno sotto l'indicatore, a mesi interi: inverno dic–feb, primavera mar–mag, estate giu–ago, autunno set–nov. Vale per tutto lo schermo; nella zona TBA resta l'ultima.
+- **Forme**: solo contorni, un colore per stagione, niente immagini, un unico canvas. Estate: bolle con riflessi che salgono. Primavera: petali con la tacca in punta che scendono in diagonale ruotando e, circa 1 su 10 (`blossomChance`), un fiore di ciliegio intero più lento. Autunno: foglie d'acero che cadono ondeggiando. Inverno: fiocchi a sei raggi, lenti, con leggera deriva.
+- **Quantità**: 20–40 particelle secondo l'area della finestra (20 fino a 1280×720, 40 da 2560×1440).
+- **Colori**: token `--season-<stagione>` e `--season-alpha` in `tokens.css`, attenuati; nel tema chiaro più scuri (es. neve azzurro-grigia), nello scuro più chiari.
+- **Livelli**: dietro tutto (`z-index: -1`, come lo sfondo del gioco). Le particelle sfumano via nella fascia della linea (tacche, numeri, mesi; bordi morbidi di `bandFeatherPx`), così non sembrano attraversarla.
+- **Cambio stagione**: una sola stagione per volta; le particelle vecchie sfumano via in ~500 ms (`leaveMs`), poi le nuove compaiono gradualmente in ~2 s (`rampMs`), ognuna con una dissolvenza.
+- **Scorrimento veloce** (rotella dalla marcia 2, trascinamento oltre `fastDragPxPerMs`, salto più lungo della finestra): lo sfondo sfuma via in ~200 ms e ricompare ~500 ms (`restMs`) dopo l'ultimo movimento.
+- **Gioco selezionato**: sfondo stagionale nascosto (c'è lo sfondo del gioco). In presentazione un gioco è sempre selezionato, quindi resta nascosto e torna a fine presentazione.
+- **Zoom**: uguale in Day, Week e Month (segue la timeline corrente anche dopo cambi di zoom e filtri).
+- **Menu View**: interruttore **"Seasonal background"**, acceso di default, salvato nel browser (chiave `view`, campo `seasonalBackground`, scritto solo dopo una scelta esplicita).
+- **Reduced motion**: spento di default; se l'utente lo accende, particelle ferme (decorazione statica, ridisegnata solo al cambio di stagione, tema o finestra).
+- **Prestazioni**: densità del canvas al massimo 1.5, nessun filtro blur; animazione ferma con sfondo spento o nascosto e con la scheda non visibile. Misurato (Chrome headless con GPU, 1920×1080, build di produzione): 60 fps a riposo e durante lo scorrimento, come a sfondo spento.
+- **Aiuto**: sezione "Seasonal background" nel pannello delle scorciatoie (?).

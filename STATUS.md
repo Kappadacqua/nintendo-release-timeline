@@ -1,6 +1,6 @@
 # Stato del progetto
 
-Aggiornato: 2026-09-29 — Sfondo stagionale, particelle fuori dalla linea
+Aggiornato: 2026-09-29 — Sfondo stagionale, task 2 (impostazioni e accessibilità); coda `seasons.md` completata
 
 ## Ultimo checkpoint
 
@@ -23,6 +23,7 @@ Nessuno.
 
 Dettagli completi nelle versioni precedenti di questo file (`git show 58d0ac7:STATUS.md`).
 
+- seasons task 2 — Menu View: interruttore "Seasonal background" sotto "Group same-day releases" (più vicino a quello), acceso di default; spento → lo sfondo sfuma via e l'animazione si ferma; la scelta resta dopo il ricaricamento. Con reduced motion attivo nel sistema e nessuna scelta salvata: spento di default, il suggerimento dice "Still…"; acceso → particelle ferme, ridisegnate solo al cambio di stagione, tema o finestra. Impostazioni salvate prima di questo task: l'interruttore segue reduced motion finché non lo si tocca. Week/Month: sfondo visibile come in Day. Presentazione (P): sfondo nascosto perché c'è sempre un gioco selezionato, torna all'uscita. Pannello "?": sezione "Seasonal background" con le quattro stagioni. SPEC §15.
 - seasons — particelle fuori dalla linea: il canvas era già dietro a tutto (verificato riempiendolo di verde: header, linea e card restano sopra), ma un contorno sottile che passa dietro la linea sembrava davanti. Ora le particelle sfumano via (bordi morbidi di 24 px, `bandFeatherPx` in `config.ts`) nella fascia della linea: tacche, numeri dei giorni e mesi. Controllare anche in Week/Month, dopo un cambio di zoom o di filtri e ridimensionando la finestra (la fascia segue la linea).
 - seasons iterazione 2 — Particelle ancora più grandi (bolle fino a ~76 px di diametro, foglie ~45–70 px, fiocchi ~15–30 px) e più dettagliate: autunno foglia d'acero a tre lobi con dentelli, picciolo e nervature; primavera petali con la tacca in punta e, circa 1 su 10, un fiore di ciliegio intero (5 petali, centro e stami) più lento e che ruota piano; inverno fiocchi a sei raggi con rametti e esagono centrale; estate bolle con due riflessi. Colori attenuati (meno saturi, opacità 0.35 nel tema chiaro, 0.34 nello scuro): controllare che restino visibili ma discreti in entrambi i temi. I fiocchi scendono un po' più lenti di prima.
 - seasons iterazione 1 — Particelle grandi il doppio, solo contorni (bolle con riflesso ad arco, petali ed ellissi vuote, foglie col contorno e la nervatura, fiocchi a sei raggi con un anellino), un colore per stagione (autunno arancio, inverno azzurro-grigio / quasi bianco nello scuro, primavera rosa, estate azzurro); opacità un po' più alta (0.5 chiaro, 0.4 scuro) perché i contorni hanno meno "inchiostro". Cambio stagione (es. da fine novembre a dicembre con le frecce): le foglie sfumano via in ~0,5 s, poi i fiocchi compaiono in ~2 s, mai due stagioni insieme; andando avanti e indietro sul confine le particelle in uscita non ricompaiono di colpo. Le voci del task 1 qui sotto valgono ancora, tranne colori e transizione.
@@ -64,6 +65,7 @@ Dettagli completi nelle versioni precedenti di questo file (`git show 58d0ac7:ST
 10. **"Exclusives only" senza effetto sui dati attuali** — tutti gli 84 elementi sono esclusivi o solo Switch + telefoni; 3 giochi (Putty World, Bit Boy!! Arcade 2, Chit Chat Party!) non hanno `onOtherConsoles`, passano perché `exclusive`.
 11. **Problemi di gravità bassa** — 28 smistati in `docs/review/triage.md`: 16 corretti (i 6 gruppi "fare"), 12 aperti nei gruppi "rimandare" (4, 6, 8, 9, 11, 13) e "ignorare" (5).
 12. **Rotella: riconoscimento del trackpad euristico** — un evento con delta piccolo (< 40 px) tiene la rotella in marcia 1 per 400 ms; un trackpad che mandasse subito eventi grandi (fase di inerzia di macOS) verrebbe trattato come rotella e potrebbe salire di marcia. Da provare su trackpad reali.
+15. **Sfondo stagionale in presentazione** — resta sempre nascosto (un gioco è sempre selezionato, SPEC §15). Se lo si vuole visibile, serve una regola diversa (es. nasconderlo solo quando il gioco ha davvero un'immagine di sfondo).
 14. **Sfondo stagionale: fps misurati solo in headless** — Chrome headless con GPU (GTX 1070), 1920×1080, build di produzione: 60 fps a riposo e in ogni scorrimento con sfondo acceso e spento; da confermare su un monitor reale e in 4K (densità limitata a 1.5).
 13. **Rotella in Month** — il limite di 91 giorni vale per ogni rotazione continua anche in Month: al massimo 3 mesi, quindi le marce 2–3 lì contano poco.
 
