@@ -44,7 +44,7 @@ Fonte: verifica nel browser del Web Designer (2026-09-29) sui risultati di `docs
 
 ---
 
-- [ ] **Task 2 — Aggiornare `docs/design-tokens.md` dopo le code design e design-2**
+- [x] **Task 2 — Aggiornare `docs/design-tokens.md` dopo le code design e design-2**
 
 **File**
 - Da cui partire: `docs/design-tokens.md`, `src/styles/tokens.css`, il diff delle code `design` e `design-2`.

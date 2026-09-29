@@ -4,6 +4,8 @@ Fotografia del sistema visivo di `main` al 2026-09-29, ricavata leggendo il codi
 
 Percorsi relativi alla root; `file:riga` si riferisce allo stato di questo commit.
 
+**Aggiornato** (2026-09-29) dopo le code `docs/tasks/design.md` e `docs/tasks/design2.md`: token dei riempimenti con testo (WCAG AA), palette delle stagioni, velo delle card non selezionate, ordine sfondo stagionale / sfondo del gioco, larghezza di Rankings e Studios, icona del tema, interruzione dell'indicatore sulla pillola. I `file:riga` delle parti non toccate da quelle code possono essere spostati di qualche riga.
+
 ---
 
 ## 1. Temi
@@ -14,23 +16,23 @@ Percorsi relativi alla root; `file:riga` si riferisce allo stato di questo commi
 
 | Livello | Cosa fa | Dove |
 |---|---|---|
-| Variabili CSS | Tutti i colori di tema sono custom property su `:root`. Il tema chiaro è il valore di base. | `src/styles/tokens.css:3-72` |
-| Tema scuro di sistema | `@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { … } }` | `src/styles/tokens.css:74-107` |
-| Tema scuro scelto | `:root[data-theme="dark"] { … }`, stesso elenco del blocco sopra (duplicato a mano). | `src/styles/tokens.css:109-140` |
+| Variabili CSS | Tutti i colori di tema sono custom property su `:root`. Il tema chiaro è il valore di base. | `src/styles/tokens.css:3-84` |
+| Tema scuro di sistema | `@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { … } }` | `src/styles/tokens.css:86-125` |
+| Tema scuro scelto | `:root[data-theme="dark"] { … }`, stesso elenco del blocco sopra (duplicato a mano). | `src/styles/tokens.css:127-164` |
 | Attributo | `data-theme="light" \| "dark"` su `<html>`. Nessuna classe. | — |
 | Prima del paint | Script inline che legge `localStorage.theme` e imposta `data-theme` solo se c'è una scelta salvata. | `index.html:18-24`, `rankings.html:18-24`, `studios.html:18-24`, `admin.html:11-16` |
 | Runtime | `initTheme()`: all'avvio imposta **sempre** `data-theme` (scelta salvata, altrimenti sistema); segue il sistema finché l'utente non preme il pulsante; il clic salva in `localStorage` e ruota l'icona con GSAP. | `src/theme/theme.ts` |
-| `color-scheme` | `light` / `dark` nei tre blocchi, quindi anche controlli nativi e scrollbar cambiano. | `tokens.css:71,105,139` |
+| `color-scheme` | `light` / `dark` nei tre blocchi, quindi anche controlli nativi e scrollbar cambiano. | `tokens.css:83,123,163` |
 
 **File che ridefiniscono valori per tema** (oltre a `tokens.css`):
 
 - `src/styles/backdrop.css:37-53` — `--backdrop-veil` (0.45 chiaro, 0.06 scuro), con la stessa doppia regola media + attributo.
 - `src/styles/groups.css:80-92` — filtro delle card non selezionate nel ventaglio (`brightness(0.95)` chiaro, `0.7` scuro), stessa doppia regola.
-- `src/styles/header.css:122-125` — icona luna: solo `:root[data-theme="dark"]` (funziona perché `initTheme` imposta sempre l'attributo).
+- `src/styles/header.css:114-140` — icona del tema: sole nel chiaro, luna nello scuro (due SVG inline nel pulsante), con la stessa doppia regola media + attributo, quindi luna corretta anche al primo paint prima di `initTheme`.
 
 **Chi legge i colori da JS** (e quindi si aggiorna al cambio tema):
 
-- Canvas della timeline: `readPalette()` in `src/timeline/timeline.ts:955-967` legge `--timeline`, `--month-band`, `--tick`, `--text-muted`, `--accent`, `--on-accent` e la `font-family` del body; un `MutationObserver` su `data-theme` ridisegna (`timeline.ts:969-975`).
+- Canvas della timeline: `readPalette()` in `src/timeline/timeline.ts:956-969` legge `--timeline`, `--month-band`, `--tick`, `--text-muted`, `--accent` (tacca dell'indicatore), `--accent-fill` (pillola del giorno), `--on-accent` e la `font-family` del body; un `MutationObserver` su `data-theme` ridisegna.
 - Canvas stagionale: `readPalette()` in `src/seasons/background.ts:236-244` legge `--season-*` e `--season-alpha`; si aggiorna al cambio di `prefers-color-scheme` e di `data-theme`.
 
 **Pagine:** timeline, Rankings e Studios chiamano `initTheme` e hanno il pulsante. **Admin no**: nessun pulsante e nessun `initTheme`, quindi segue la scelta salvata (script inline) o il sistema tramite il blocco `@media`.
@@ -47,7 +49,9 @@ Percorsi relativi alla root; `file:riga` si riferisce allo stato di questo commi
 |---|---|---|---|
 | `--red` | `#e60012` | = | Base di `--accent`/`--timeline` chiari, coriandoli |
 | `--red-soft` | `#ff4d5a` | = | Base di `--accent`/`--timeline` scuri, coriandoli |
-| `--accent` | `#e60012` (`--red`) | `#ff4d5a` (`--red-soft`) | Colore d'azione: selezione, focus, pulsanti attivi, badge "Exclusive", mese nell'header, indicatore |
+| `--accent` | `#e60012` (`--red`) | `#ff4d5a` (`--red-soft`) | Colore d'azione: selezione, focus, bordi e bagliori, mese nell'header, indicatore. **Non** come fondo sotto un testo: lì c'è `--accent-fill` |
+| `--accent-fill` | `#e60012` | `#cc2433` | Riempimento con testo `--on-accent` sopra (≥ 4.5:1): badge "Exclusive" e "Out today", pulsanti della card, navigazione attiva, zoom e anni di Rankings attivi, First party, chiudi delle scorciatoie, "Today", pillola sotto l'indicatore, chip e Salva dell'admin |
+| `--accent-text` | `#b8000e` | `#ff4d5a` | Testo su `--accent` al 16 %: "Timed exclusive", badge Partner |
 | `--timeline` | `#e60012` | `#ff4d5a` | Linea sul canvas, pallini dei giochi, baseline della minimappa |
 | `--bg` | `#ffffff` | `#0b0b0d` | Sfondo della pagina, velo dello sfondo del gioco, testo su fondo `--text` |
 | `--surface` | `#f5f5f7` | `#17171b` | Pulsanti, pillole, hover delle righe nei menu |
@@ -64,13 +68,16 @@ Percorsi relativi alla root; `file:riga` si riferisce allo stato di questo commi
 | `--card-free-update` | `#f6fcf8` | `#121a15` | Sfondo card e gruppi di aggiornamenti gratuiti |
 | `--joycon-left` | `#00b8e6` | `#2ccfff` | Switch 2 Edition, metà sinistra |
 | `--joycon-right` | `#ff3b4e` | `#ff5a69` | Switch 2 Edition, metà destra |
-| `--dlc` | `#7c3aed` | `#a98bff` | DLC: pallini, nastro, bordo, bagliore |
-| `--free-update` | `#0f9d58` | `#3ddc84` | Aggiornamenti gratuiti: pallini, badge, bordo, bagliore |
-| `--news` | `#0a7cff` | `#3d95ff` | "What's new": badge, pallini, pulsante |
-| `--news-text` | `#fff` | = | Testo su `--news` |
+| `--dlc` | `#7c3aed` | `#a98bff` | DLC: pallini, bordo, bagliore |
+| `--dlc-fill` | `#7c3aed` | `#6d4bd8` | Nastro "DLC" e badge DLC di Rankings (testo `--on-accent`) |
+| `--free-update` | `#0f9d58` | `#3ddc84` | Aggiornamenti gratuiti: pallini, bordo, bagliore, numero del gruppo |
+| `--free-update-fill` | `#0b7d45` | `#1d7a4a` | Badge "Free update" (testo `--on-accent`) |
+| `--news` | `#0a7cff` | `#3d95ff` | "What's new": pallini, bordo in hover, tinta di "Mark all as seen", tipo di novità |
+| `--news-fill` | `#0066d6` | `#2466cc` | Badge "New", cerchietto "!" (in negativo), icona e numero del pulsante "What's new" (testo `--on-accent`) |
+| `--news-text-soft` | `#0066d6` | `#3d95ff` | Testo di "Mark all as seen" su `--news` al 14 % |
 | `--delayed` | `#f5a623` | = | Tinta del badge "Delayed" (al 22%) |
-| `--delayed-text` | `#b36b00` | `#ffc15e` | Testo "Delayed" |
-| `--on-accent` | `#fff` | = | Testo e segni su riempimenti colorati |
+| `--delayed-text` | `#8a5200` | `#ffc15e` | Testo "Delayed" |
+| `--on-accent` | `#fff` | = | Testo e segni su tutti i riempimenti colorati (`*-fill`), anche "Free update" |
 | `--switch-knob` | `#fff` | = | Pomello degli interruttori |
 | `--success` | `#1a8f3c` | `#3ddc84` | "Saved" nel pannello admin |
 | `--overlay` | `rgb(0 0 0 / 0.35)` | = | Velo dietro i dialoghi (scorciatoie, ricerca) |
@@ -83,17 +90,19 @@ Percorsi relativi alla root; `file:riga` si riferisce allo stato di questo commi
 | `--score-fair` | `#4aa1ce` | = | Fascia voto "Fair" |
 | `--score-weak` | `#80b06a` | = | Fascia voto "Weak" |
 | `--score-none` | `#9a9aa3` | = | Nessun voto |
-| `--season-winter` | `#8d9fb2` | `#d3dce5` | Fiocchi |
-| `--season-spring` | `#cf97aa` | `#e6c3cf` | Petali, fiori di ciliegio |
-| `--season-summer` | `#72a6c2` | `#a9cde0` | Bolle |
-| `--season-autumn` | `#c48a62` | `#dcae8c` | Foglie d'acero |
-| `--season-alpha` | `0.35` | `0.34` | Opacità delle particelle (`globalAlpha`) |
+| `--season-winter` | `#6f8499` | `#d3dce5` | Fiocchi |
+| `--season-spring` | `#c07890` | `#e6c3cf` | Petali, fiori di ciliegio |
+| `--season-summer` | `#4f8fb0` | `#a9cde0` | Bolle |
+| `--season-autumn` | `#b36d3f` | `#dcae8c` | Foglie d'acero |
+| `--season-alpha` | `0.40` | `0.28` | Opacità delle particelle (`globalAlpha`); contrasto particella/sfondo ~1.6 chiaro, ~1.8–2.1 scuro |
 | `--backdrop-veil` | `0.45` | `0.06` | Opacità del velo `--bg` sopra lo sfondo del gioco (`backdrop.css`) |
 | `--backdrop-blur` | `28px` | = | Sfocatura dello sfondo del gioco (`backdrop.css`) |
 | `--backdrop-blur-cover` | `70px` | = | Sfocatura quando lo sfondo è la copertina IGDB (`backdrop.css`) |
 | `--backdrop-opacity` | `1` | = | Opacità del livello visibile (`backdrop.css`) |
 
-Non sono colori ma stanno in `tokens.css`: `--font`, `--radius-*`, `--season-fade-in` / `--season-fade-out` (vedi §4-6).
+Non sono colori ma stanno in `tokens.css`: `--font`, `--radius-*`, `--page-max` (1200px, larghezza del contenuto di Rankings e Studios: `min(var(--page-max), 100% − 64px)`), `--season-fade-in` / `--season-fade-out` (vedi §4-6).
+
+**Regola dei riempimenti:** i token di base (`--accent`, `--dlc`, `--news`, `--free-update`) valgono per linee, pallini, bordi, bagliori e anelli; dove c'è testo sopra un riempimento si usa il `*-fill` corrispondente con testo `--on-accent`. `tests/contrast.test.ts` controlla che ogni coppia sia ≥ 4.5:1 in entrambi i temi (anche `--accent-fill` con `brightness(0.9)`, l'hover dei pulsanti della card) e che i due blocchi scuri coincidano.
 
 **Custom property impostate da JS o per componente** (non sono token di tema):
 
@@ -104,6 +113,7 @@ Non sono colori ma stanno in `tokens.css`: `--font`, `--radius-*`, `--season-fad
 | `--i` | `group.ts:60` | Indice della copertina nel gruppo chiuso (ventaglio) |
 | `--dot` | `dots.css` | Colore del pallino per tipo |
 | `--ring` | `card.css:175-194` | Colore della fascia voto in cerchietto, sparkline, pillole di Rankings |
+| `--pill-top`, `--pill-bottom` | `timeline.ts:999-1000` (su `.timeline__stage`, da `PILL` in `ticks.ts:33`) | Bordi della pillola del giorno: la linea dell'indicatore si interrompe lì |
 
 ### 2.2 Colori derivati con `color-mix`
 
@@ -116,7 +126,7 @@ Molti colori non sono token ma miscele di un token. I più visibili, calcolati:
 | `color-mix(--dlc 55%, --border)` | `#a985ea` | `#7160a3` | Bordo card DLC (`dlc-card.css:5`) |
 | `color-mix(--free-update 55%, --border)` | `#6dbb98` | `#358d60` | Bordo card/gruppo aggiornamento gratuito (`dlc-card.css:11`, `groups.css:10`) |
 
-Miscele con `transparent` (equivalenti a un rgba del token): `--accent` al 10 % (fascia "upcoming"), 12 % (risultato di ricerca attivo, righe della TBA nella minimappa), 14 % (lacune admin), 16 % (badge "Timed exclusive", badge studio partner), 18 % (barra della presentazione), 30-75 % (bagliori); `--news` al 14 % e 60 %; `--delayed` al 22 %; `--text` al 6 % (riquadro della minimappa); `--bg` all'80 % (`.timeline__band`) e 85 % (minimappa, controllo zoom, footer su sfondo); `--surface` al 70 % (zona TBA).
+Miscele con `transparent` (equivalenti a un rgba del token): `--accent` al 10 % (fascia "upcoming"), 12 % (risultato di ricerca attivo, righe della TBA nella minimappa), 14 % (lacune admin), 16 % (badge "Timed exclusive", badge studio partner), 18 % (barra della presentazione), 30-75 % (bagliori); `--news` al 14 % (fondo di "Mark all as seen") e 60 %; `--delayed` al 22 %; `--text` al 6 % (riquadro della minimappa); `--bg` all'80 % (`.timeline__band`) e 85 % (minimappa, controllo zoom, footer su sfondo); `--surface` al 70 % (zona TBA).
 
 ### 2.3 Colori scritti a mano, fuori dai token
 
@@ -128,6 +138,7 @@ Miscele con `transparent` (equivalenti a un rgba del token): `--accent` al 10 % 
 | `#fff`, `#b22234`, `#3c3b6e` | `src/cards/flags.ts:20-22` | Bandiera USA |
 | `%23e60012` + `white` | `index.html:10`, `rankings.html:10`, `studios.html:10` | Favicon SVG inline (rosso fisso, anche in tema scuro; admin senza favicon) |
 | `#000`, `transparent` | `src/styles/selection-extras.css:13-14` | Maschera della `.timeline__band` (non visibile come colore) |
+| `#000`, `transparent` | `src/styles/timeline.css:98-104` | Maschera dell'indicatore, interrotto 3 px sopra e sotto la pillola (non visibile come colore) |
 | `#000`, `rgb(0 0 0 / 0)` | `src/seasons/background.ts:193-196` | Maschera `destination-out` che sfuma le particelle sulla fascia della linea (non visibile come colore) |
 
 Opacità scritte a mano che agiscono come colore:
@@ -139,7 +150,8 @@ Opacità scritte a mano che agiscono come colore:
 | `globalAlpha 0.55` | `src/timeline/ticks.ts:55` | Tacche e numeri dei giorni futuri |
 | `opacity 0.85` / `0.7` | `src/styles/delays.css:29,43` | Fantasma e arco della data originale |
 | `opacity 0.55` | `src/styles/whats-new.css:188` | Voce disabilitata di "What's new" |
-| `filter: opacity(0.5)` | `src/styles/selection.css:11` | Card non selezionate |
+| velo `--bg` a `opacity 0.5` | `src/styles/selection.css:12-26` | Card non selezionate (la card resta opaca) |
+| `filter: brightness(0.9)` | `src/styles/selection.css:100` | Hover dei pulsanti della card |
 | `saturate(1.25)` / `saturate(1.4)` | `src/styles/backdrop.css:15,21` | Sfondo del gioco / copertina |
 
 ---
@@ -153,8 +165,8 @@ Opacità scritte a mano che agiscono come colore:
 | **Classe** | `card--game` | `card--switch2-edition` | `card--dlc` | `card--free-update` |
 | **Bordo** | 1px `--border`; uscita futura: tratteggiato | 2px trasparente su gradiente 90° `--joycon-left` 0-35 % → `--joycon-right` 65-100 % (`switch2-edition.css`) | 2px `mix(--dlc 55%, --border)` | 2px `mix(--free-update 55%, --border)` |
 | **Sfondo** | `--card` | `--card` (padding-box) | `--card-dlc` | `--card-free-update` |
-| **Forma** | card piena, padding 12 | come Game | più bassa: padding 10/12, copertina 56×75, titolo 13.5 px su 2 righe, `overflow: hidden` | come Game, data unica "Worldwide" al posto delle tre bandiere |
-| **Badge / segno** | "Exclusive" (`--accent` pieno), "Timed exclusive" (`--accent` 16 %) | "Switch 2 Edition": fondo `--text`, testo `--bg` | nastro "DLC" a 45° in alto a destra: fondo `--dlc`, testo `--on-accent`, 10 px/900, spaziatura 0.12em (`dlc-card.css:26`). In Rankings `badge--dlc`: fondo `--dlc`, testo `--on-accent` | "Free update": fondo `--free-update`, testo `--bg` |
+| **Forma** | card piena, padding 12 | come Game | più bassa: padding 10/12, copertina 56×75, titolo 13.5 px su 2 righe, `overflow: clip` con `overflow-clip-margin: 2px` (il nastro è tagliato sul bordo esterno, così il velo di attenuazione copre anche il bordo) | come Game, data unica "Worldwide" al posto delle tre bandiere |
+| **Badge / segno** | "Exclusive" (`--accent-fill`, testo `--on-accent`), "Timed exclusive" (`--accent` 16 %, testo `--accent-text`) | "Switch 2 Edition": fondo `--text`, testo `--bg` | nastro "DLC" a 45° in alto a destra: fondo `--dlc-fill`, testo `--on-accent`, 10 px/900, spaziatura 0.12em (`dlc-card.css:28`). In Rankings `badge--dlc`: fondo `--dlc-fill`, testo `--on-accent` | "Free update": fondo `--free-update-fill`, testo `--on-accent` |
 | **Hover** | bordo `mix(--accent 45%, --border)`, `--card-shadow-hover` | bordo resta trasparente (gradiente visibile), ombra hover | bordo resta viola, ombra hover | bordo resta verde, ombra hover |
 | **Selezionato** | bordo `--accent` + anello `0 0 0 3px --accent` + bagliore `0 0 18px 4px` accent 65 % + `0 0 60px 14px` accent 38 % + ombra hover (`selection.css:14-21`) | niente anello; quattro bagliori laterali: `∓16px 0 30px 2px` Joy-Con 80 %, `∓30px 0 70px 10px` Joy-Con 40 %, sinistro a sinistra e destro a destra (`selection-extras.css:33-40`) | niente anello; bagliore `18px 4px` `--dlc` 65 % + `60px 14px` `--dlc` 38 % (`selection-extras.css:83-88`) | niente anello; bagliore uguale in `--free-update` (`selection-extras.css:70-75`) |
 | **Pallino sulla linea** | pieno `--timeline` 12 px (bordo 3 px); futuro: anello con centro `--bg` | diviso a metà sinistro/destro, anche come anello | `--dlc`, **quadrato** (raggio 3 px) | `--free-update`, tondo |
@@ -162,10 +174,10 @@ Opacità scritte a mano che agiscono come colore:
 
 Varianti comuni a tutti i tipi:
 
-- **Non selezionata con una selezione attiva:** `filter: opacity(0.5)` (`selection.css:10`). Nel ventaglio aperto invece `saturate(0.5) brightness(0.95)` chiaro / `brightness(0.7)` scuro, senza trasparenza (`groups.css:80-92`).
-- **Out today:** badge `--accent` pieno con alone `0 0 0 2px` accent 30 % e "★"; card che pulsa tra `0 0 0 1px` accent 35 % + `0 0 10px` accent 20 % e `0 0 0 2px` accent 75 % + `0 0 30px` accent 55 % (`out-today.css`).
-- **Rinviato:** badge con fondo `--delayed` 22 %, testo `--delayed-text`; fantasma della data originale tratteggiato `--text-muted`.
-- **Novità:** badge `--news` con cerchietto "!" invertito; nella minimappa pallino 11 px `--news` con alone.
+- **Non selezionata con una selezione attiva:** la card resta **opaca**; sopra c'è un velo `.card::after` in `--bg` a `opacity 0.5` (`inset: -2px`, raggio `--radius-md` + 2, `z-index` 10 sopra tutto il contenuto, nastro DLC compreso; `isolation: isolate` sulla card; transizione `opacity 0.3s ease`, nessuna con reduced motion) (`selection.css:1-32`). Due card sovrapposte non si vedono più l'una attraverso l'altra. Nel ventaglio aperto il velo non c'è: resta `saturate(0.5) brightness(0.95)` chiaro / `brightness(0.7)` scuro (`groups.css:80-92`).
+- **Out today:** badge `--accent-fill` con alone `0 0 0 2px` accent 30 % e "★"; card che pulsa tra `0 0 0 1px` accent 35 % + `0 0 10px` accent 20 % e `0 0 0 2px` accent 75 % + `0 0 30px` accent 55 % (`out-today.css`).
+- **Rinviato:** badge con fondo `--delayed` 22 %, testo `--delayed-text` (`#8a5200` nel chiaro); fantasma della data originale tratteggiato `--text-muted`.
+- **Novità:** badge `--news-fill` con cerchietto "!" invertito (fondo `--on-accent`, "!" `--news-fill`); nella minimappa pallino 11 px `--news` con alone.
 - **Gruppo dello stesso giorno:** card normale con copertine a ventaglio; se sono solo aggiornamenti gratuiti bordo e fondo verdi e numero in `--free-update` (`groups.css:9-20`). Pallino 18 px (bordo 4); giorno misto giochi + aggiornamenti: pallino diviso `--timeline` / `--free-update` (`dots.css:47-58`).
 - **Fascia voto** (`--ring`): cerchietto 44 px, tratto 4, traccia `--surface-2`; numero 14 px/900 nel colore della fascia.
 
@@ -175,8 +187,8 @@ Solo il badge cambia; la card dello studio è identica per tutti (bordo `--borde
 
 | Tipo | Classe | Fondo badge | Testo badge |
 |---|---|---|---|
-| First party | `studio-badge--first-party` | `--accent` | `--on-accent` |
-| Partner | `studio-badge--partner` | `--accent` 16 % | `--accent` |
+| First party | `studio-badge--first-party` | `--accent-fill` | `--on-accent` |
+| Partner | `studio-badge--partner` | `--accent` 16 % | `--accent-text` |
 | Terze parti | `studio-badge--third-party` | `--surface-2` (badge di base) | `--text-muted` |
 
 Stato del gioco mostrato: "Upcoming" in `--accent` (`studios.css:193`), altrimenti `--text-muted`. Blocco "No Switch 2 game yet": bordo tratteggiato `--border`.
@@ -213,7 +225,7 @@ Stato del gioco mostrato: "Upcoming" in `--accent` (`studios.css:193`), altrimen
 | 9.5 | 2 | Numero di recensioni, "!" del badge novità |
 | 9 | 3 | Mesi e "TBA" della minimappa, "1 of 2 sources" |
 
-Sul canvas della timeline (`src/timeline/ticks.ts`): numeri dei giorni / settimane **700 11px**, mesi **800 13px**, pillola sotto l'indicatore **900 14px** (testo `--on-accent` su `--accent`).
+Sul canvas della timeline (`src/timeline/ticks.ts`): numeri dei giorni / settimane **700 11px**, mesi **800 13px**, pillola sotto l'indicatore **900 14px** (testo `--on-accent` su `--accent-fill`; posizione e misure in `PILL`, `ticks.ts:33`: 22 px sotto la linea, alta 22).
 
 **Line-height:** di default `normal` di Nunito. Valori espliciti: 1 (icone, "TBA", minimappa), 1.1 (media Rankings), 1.15 (header), 1.2 (nome gioco nell'header, fonte voto), 1.25 (titoli di card, riga Rankings, studio, anteprima minimappa, etichetta zoom), 1.3 (titolo gioco in Studios), 1.35 (meta card), 1.4 (`kbd`), 1.45 (riassunto).
 
@@ -238,7 +250,7 @@ Nessun token di spaziatura: i valori sono sparsi. Quelli ricorrenti:
 | 12 | Padding card, gap copertina ↔ testo, gap delle righe nei menu |
 | 14, 16 | Padding pannelli (View 12/14), gap e padding di Rankings/Studios |
 | 20, 24 | Gap tra card nella zona TBA (20), padding dialoghi e zona TBA (24) |
-| 32 | Margine laterale della pagina: header, footer, minimappa, controllo zoom, Rankings/Studios; 24 sotto 1660 px (solo header) |
+| 32 | Margine laterale della pagina: header, footer, minimappa, controllo zoom; 24 sotto 1660 px (solo header). Rankings e Studios: contenuto largo `min(--page-max 1200px, 100% − 64px)`, padding 32 sopra e 48 sotto, testata con 20 sotto, `scrollbar-gutter: stable` (i titoli delle due pagine allineati) |
 
 Costanti di layout della timeline (`src/timeline/config.ts`): `cardOffset` 64 (distanza linea ↔ prima card, fascia di numeri e mesi), `stackStepY` 56 / `stackStepX` 22 (pile), `laneGap` 16, `tbaGapPx` 240, `minimapBandPx` 64, `minCardScale` 0.55. Larghezze: gruppo 240 (`group.ts:13`), card solo copertina 74 (`card.ts:14`).
 
@@ -252,7 +264,7 @@ Costanti di layout della timeline (`src/timeline/config.ts`): `cardOffset` 64 (d
 | (fisso) | 999px | Tutte le pillole: pulsanti, navigazione, badge, segmenti, interruttori |
 | (fisso) | 50% | Pallini, pulsanti tondi 44 px |
 
-Raggi fuori scala: 1px (coriandoli, "Today" minimappa), 1.5px (bandiere, pallino DLC minimappa), 2px (focus del link studio), 3px (pallino DLC), 4px (miniature ricerca e admin), 5px (miniature "What's new" e anteprima), 6px (miniatura header, `kbd`, TBA minimappa), 7px (riquadro minimappa), 11px (pillola sul canvas, `ticks.ts:102`), 12px (minimappa).
+Raggi fuori scala: 1px (coriandoli, "Today" minimappa), 1.5px (bandiere, pallino DLC minimappa), 2px (focus del link studio), 3px (pallino DLC), 4px (miniature ricerca e admin), 5px (miniature "What's new" e anteprima), 6px (miniatura header, `kbd`, TBA minimappa), 7px (riquadro minimappa), 11px (pillola sul canvas, `PILL.height / 2`, `ticks.ts:107`), 12px (minimappa).
 
 ### 5.3 Ombre
 
@@ -277,7 +289,7 @@ Raggi fuori scala: 1px (coriandoli, "Today" minimappa), 1.5px (bandiere, pallino
 | Oggi | anello `--bg` 3px, pulsazione fino a scala 3.2 | `timeline.css:109-138` |
 | Sfocatura sfondo gioco | 28px (70px per la copertina), bordi fuori di 80px | `backdrop.css:13-21` |
 | Vetro | `backdrop-filter: blur(8px)` su minimappa e controllo zoom | `minimap.css:14`, `zoom.css:111` |
-| Indicatore | gradiente verticale `--accent` 45 % tra il 12 % e l'88 % | `timeline.css:90-96` |
+| Indicatore | gradiente verticale `--accent` 45 % tra il 12 % e l'88 %, interrotto da una `mask-image` da 3 px sopra a 3 px sotto la pillola del giorno (`--pill-top` / `--pill-bottom`) | `timeline.css:84-106` |
 
 ---
 
@@ -290,7 +302,8 @@ Raggi fuori scala: 1px (coriandoli, "Today" minimappa), 1.5px (bandiere, pallino
 | 0.3s ease | background, color | Cambio tema della pagina | `base.css:192` | invariata |
 | 0.3s ease | opacity, transform (±6px) | Titolo del sito ↔ gioco selezionato | `header.css:43` | solo opacity |
 | 0.2s ease | background, color | Link di navigazione | `header.css:163` | nessuna |
-| 0.2s ease / 0.3s ease | box-shadow, border-color / filter | Hover e selezione card | `card.css:11`, `selection.css:4` | nessuna (`compact.css:40`) |
+| 0.2s ease | box-shadow, border-color | Hover e selezione card | `card.css:11`, `selection.css:5` | nessuna (`compact.css:40`) |
+| 0.3s ease | opacity | Velo delle card non selezionate | `selection.css:21` | nessuna (`selection.css:28`) |
 | 0.35s ease | width, margin-left | Card piena ↔ compatta | `compact.css:8-15` | nessuna |
 | 0.35s ease | transform | Scala delle card durante il cambio stile | `compact.css:37` | nessuna regola |
 | 0.4s ease | opacity | Dissolvenza tra sfondi del gioco | `backdrop.css:17` | nessuna |
@@ -351,7 +364,7 @@ Raggi fuori scala: 1px (coriandoli, "Today" minimappa), 1.5px (bandiere, pallino
 
 ### 6.5 `prefers-reduced-motion`
 
-- **CSS** (`@media (prefers-reduced-motion: reduce)`): `header.css:177`, `timeline.css:140`, `backdrop.css:55`, `seasons.css:22`, `out-today.css:50`, `filters.css:120`, `compact.css:40`, `groups.css:112`, `presentation.css:123`.
+- **CSS** (`@media (prefers-reduced-motion: reduce)`): `header.css:191`, `selection.css:28`, `timeline.css:140`, `backdrop.css:55`, `seasons.css:22`, `out-today.css:50`, `filters.css:120`, `compact.css:40`, `groups.css:112`, `presentation.css:123`.
 - **JS** (`matchMedia`): `theme.ts`, `appear.ts`, `expand.ts`, `compact.ts`, `header.ts`, `group.ts`, `scroller.ts` (salti immediati, niente inerzia), `timeline.ts:768` (niente animazione al cambio stile), `zoom-control.ts`, `presentation.ts` (contatore al posto della barra), `rankings/main.ts`, `studios/main.ts`, `seasons/background.ts` (particelle ferme), `view.ts` (sfondo stagionale spento per impostazione predefinita).
 - **Senza regola reduced motion:** transizioni di opacità e colore (fascia, footer, indicatore, segmenti, campi di Rankings), trasformazione di scala durante il cambio stile (`compact.css:37`), cambio tema del body. Sono dissolvenze, non movimenti, tranne la scala.
 
@@ -363,12 +376,13 @@ Raggi fuori scala: 1px (coriandoli, "Today" minimappa), 1.5px (bandiere, pallino
 
 | Valore | Elemento | Contesto | File |
 |---|---|---|---|
-| −1 | `.backdrop` (fisso) | radice | `backdrop.css:5` |
-| −1 | `.seasons` canvas (fisso) | radice | `seasons.css:6` |
+| −1 | `.backdrop` (fisso), aggiunto con `prepend` | radice | `backdrop.css:5` |
+| −1 | `.seasons` canvas (fisso), aggiunto con `append`: sempre dopo `.backdrop` | radice | `seasons.css:6`, `background.ts:49` |
 | 1 | Pallino novità nella minimappa | minimappa | `whats-new.css:27` |
 | 2 | Anteprima della minimappa | minimappa | `minimap-preview.css:13` |
 | 2 | Card selezionata nella zona TBA | blocco TBA | `selection.css:28` |
-| 5 | Etichetta del titolo (Week/Month) | card | `zoom.css:42` |
+| 5 | Etichetta del titolo (Week/Month) | card (`isolation: isolate`) | `zoom.css:42` |
+| 10 | Velo delle card non selezionate (`.card::after`) | card (`isolation: isolate`) | `selection.css:15` |
 | `10 − livello` (inline) | `.tl-item` nelle pile | `.timeline__world` | `timeline.ts:736` |
 | n (inline) | Copertine del gruppo chiuso | card gruppo | `group.ts:61` |
 | 20 | Pallino "oggi" | `.timeline__world` | `timeline.css:103` |
@@ -392,21 +406,21 @@ Raggi fuori scala: 1px (coriandoli, "Today" minimappa), 1.5px (bandiere, pallino
 ### 7.2 Ordine di sovrapposizione della timeline (dal basso)
 
 1. Sfondo del `body` (`--bg`), propagato alla radice.
-2. **Livello −1**, nell'ordine del DOM (entrambi aggiunti con `prepend` al `body`):
-   - canvas stagionale `.seasons`;
-   - `.backdrop`: due livelli con l'immagine del gioco (visibili solo con un gioco selezionato che ha uno sfondo) e **sopra, sempre presente, il velo `::after` in `--bg`** all'opacità di `--backdrop-veil` (0.45 chiaro, 0.06 scuro). Vedi §10 per l'ordine che si inverte.
+2. **Livello −1**, nell'ordine del DOM:
+   - `.backdrop` (aggiunto con `prepend` al `body`, anche a ogni ricostruzione della timeline): due livelli con l'immagine del gioco (visibili solo con un gioco selezionato che ha uno sfondo) e **sopra, sempre presente, il velo `::after` in `--bg`** all'opacità di `--backdrop-veil` (0.45 chiaro, 0.06 scuro);
+   - canvas stagionale `.seasons` (aggiunto con `append` al `body`, `background.ts:49`): a parità di z-index conta l'ordine del DOM, quindi sta **sempre sopra** `.backdrop` e il suo velo, all'avvio e dopo zoom, filtri o raggruppamento.
 3. Header (non posizionato, nel flusso).
 4. Dentro `main` → `.timeline` → `.timeline__stage`, nell'ordine del DOM (`timeline.ts:227`):
    1. `.timeline__band`: fascia `--bg` 80 % dietro la linea, visibile solo con sfondo del gioco;
    2. `.timeline__canvas`: fasce dei mesi, linea, tacche, numeri, pillola;
-   3. `.timeline__playhead`: indicatore verticale;
+   3. `.timeline__playhead`: indicatore verticale, interrotto sulla pillola del giorno (maschera, §5.4) così non attraversa il numero;
    4. `.timeline__world`: pallino oggi, fantasmi dei rinvii, voci (connettore, pallino, card).
 5. Minimappa (30), controllo zoom (35).
 6. Pannelli dei menu (60).
 7. Barra/contatore/avviso della presentazione (90-91).
 8. Dialoghi (top layer).
 
-**Per il canvas stagionale:** oggi sta al livello −1, sotto l'header e sotto tutta la timeline; attraversa anche l'header e il footer (è `position: fixed; inset: 0`). Le particelle sfumano via nella fascia della linea (`.timeline__band` letta da `background.ts:203`, bordi `bandFeatherPx` 24).
+**Per il canvas stagionale:** sta al livello −1, sopra lo sfondo del gioco e sotto l'header e tutta la timeline; attraversa anche l'header e il footer (è `position: fixed; inset: 0`). Le particelle sfumano via nella fascia della linea (`.timeline__band` letta da `background.ts:203`, bordi `bandFeatherPx` 24).
 
 ---
 
@@ -450,12 +464,12 @@ Regola unica: `:focus-visible { outline: 3px solid var(--accent); outline-offset
 |---|---|
 | Riposo | bordo `--border`, `--card-shadow` |
 | Hover | voce sopra le altre (z 25), bordo `mix(--accent 45%)` (tranne tipi colorati, §3.1), `--card-shadow-hover` |
-| Selezionata | §3.1; scala 1.05; contenuto extra; voce a z 40; le altre card a opacità 0.5 |
+| Selezionata | §3.1; scala 1.05; contenuto extra; voce a z 40; le altre card opache con il velo `--bg` al 50 % (§3.1) |
 | In uscita | bordo tratteggiato (solo Game, vedi §10), fascia `--accent` 10 % con "Upcoming" |
 | Week/Month | solo copertina; in hover etichetta scura (`--text` / `--bg`) sopra o sotto |
 | Trascinamento | cursore `grabbing` |
 
-**Pulsanti nella card** (`.card-button`, `selection.css:61-87`): pillola `--accent` piena, testo `--on-accent`; hover `filter: brightness(1.1)`; disabilitato `.is-disabled` + `aria-disabled`: bordo `--border`, fondo `--surface-2`, testo `--text-muted`, cursore `not-allowed`.
+**Pulsanti nella card** (`.card-button`, `selection.css:81-108`): pillola `--accent-fill` piena (anche il bordo), testo `--on-accent`; hover `filter: brightness(0.9)` (si scurisce: 5.74:1 chiaro, 6.41:1 scuro); disabilitato `.is-disabled` + `aria-disabled`: bordo `--border`, fondo `--surface-2`, testo `--text-muted`, cursore `not-allowed`.
 
 ### 9.3 Bottoni e controlli
 
@@ -463,17 +477,18 @@ Regola unica: `:focus-visible { outline: 3px solid var(--accent); outline-offset
 |---|---|---|---|---|
 | Pulsante tondo 44px (`.icon-button`) | `--surface`, bordo `--border` | bordo `--accent` | — | — |
 | Pillole dell'header (Filters, View, 44px) | `--surface`, bordo `--border` | bordo `--accent` | Filters con filtri attivi: pallino `--accent` 8px | — |
-| "What's new" (44px) | come sopra | bordo **`--news`** | con novità: icona `--news` + numero `--news` | — |
-| Navigazione (`.app-nav__link`) | testo `--text-muted` | testo `--text` | pagina corrente: `--accent` pieno, `--on-accent` | — |
-| Controllo zoom / anni di Rankings | testo `--text-muted`, trasparente | testo `--text` | `aria-pressed`: `--accent` pieno | — |
+| "What's new" (44px) | come sopra | bordo **`--news`** | con novità: icona `--news-fill` + numero `--news-fill`, testo `--on-accent` | — |
+| Navigazione (`.app-nav__link`) | testo `--text-muted` | testo `--text` | pagina corrente: `--accent-fill` pieno, `--on-accent` | — |
+| Controllo zoom / anni di Rankings | testo `--text-muted`, trasparente | testo `--text` | `aria-pressed`: `--accent-fill` pieno | — |
 | Segmenti del menu View | testo `--text-muted` su `--surface-2` | — | selezionato: fondo `--card`, testo `--text`, `--shadow-sm` | — |
 | Interruttore | fondo `--surface-2`, pomello bianco | riga `--surface` | acceso: fondo `--accent`, pomello +16px | — |
 | "Start presentation" (`.view-menu__action`) | `--surface`, bordo `--border` | bordo `--accent` | — | — |
-| Chiudi (dialogo scorciatoie) | `--accent` pieno | nessuno | — | — |
-| "Mark all as seen" | `--news` 14 %, testo `--news` | nessuno | — | fondo `--surface`, testo `--text-muted`, cursore normale |
+| Chiudi (dialogo scorciatoie) | `--accent-fill` pieno | nessuno | — | — |
+| "Mark all as seen" | `--news` 14 %, testo `--news-text-soft` | nessuno | — | fondo `--surface`, testo `--text-muted`, cursore normale |
 | Campi e "Reset" di Rankings (34px) | `--surface`, bordo `--border` | bordo **`--text-muted`** | — | — |
-| Chip admin | `--surface`, bordo `--border` | nessuno | `aria-pressed`: `--accent` pieno | — |
-| Salva / Rimuovi (admin) | `--accent` pieno / contorno `--accent` | nessuno | — | — |
+| Chip admin | `--surface`, bordo `--border` | nessuno | `aria-pressed`: `--accent-fill` pieno (anche il bordo) | — |
+| Salva / Rimuovi (admin) | `--accent-fill` pieno (anche il bordo) / contorno `--accent` | nessuno | — | — |
+| Tema (`.theme-toggle`, 44px) | `.icon-button`; icona sole (chiaro) o luna (scuro), 18px `--text` | bordo `--accent` | clic: rotazione −90° → 0 (GSAP) | — |
 
 ### 9.4 Menu e liste
 
@@ -489,10 +504,9 @@ Regola unica: `:focus-visible { outline: 3px solid var(--accent); outline-offset
 
 ## 10. Incoerenze
 
-**Ordine tra sfondo stagionale e velo dello sfondo del gioco**
+**Header sopra lo sfondo del gioco nel tema scuro**
 
-- `.seasons` e `.backdrop` hanno entrambi `z-index: -1` e sono aggiunti con `prepend` al `body`: conta l'ordine del DOM. All'avvio la timeline (con il suo `Backdrop`) è creata prima dello sfondo stagionale, quindi il velo `--bg` del backdrop sta **sopra** le particelle. Ogni ricostruzione della timeline (cambio di zoom `main.ts:111`, filtri o raggruppamento `main.ts:123-130`) distrugge il backdrop e ne aggiunge uno nuovo in cima al `body`: da quel momento il velo sta **sotto** le particelle.
-- Il velo `.backdrop::after` è sempre presente, anche senza un gioco selezionato: nel tema chiaro copre le particelle con un bianco al 45 % finché non si cambia zoom o filtri; nello scuro al 6 %. L'opacità reale delle particelle quindi cambia dopo il primo cambio di zoom/filtri, più nel tema chiaro.
+- Con `--backdrop-veil` 0.06 il mese in `--accent` e i testi dell'header hanno poco contrasto su sfondi chiari (es. Pokémon Pokopia: Bubbly Basin). Dipende dal gruppo 4 (`backdrop.css`, in conflitto con `wip/perf`).
 
 **Valori quasi uguali**
 
@@ -502,9 +516,8 @@ Regola unica: `:focus-visible { outline: 3px solid var(--accent); outline-offset
 | `--success` scuro `#3ddc84` = `--free-update` scuro `#3ddc84`; nel chiaro `#1a8f3c` / `#0f9d58` | `tokens.css` | Uguali nello scuro, diversi nel chiaro |
 | `--dlc` `#7c3aed` / `--score-strong` `#9d3ef0` | `tokens.css:36,15` | Due viola vicini con significati diversi (tipo di voce vs fascia di voto) nella stessa card |
 | `--joycon-right` `#ff3b4e` / `#ff5a69` vs `--accent` `#e60012` / `#ff4d5a` | `tokens.css` | Nello scuro il Joy-Con destro e il rosso d'accento sono quasi uguali |
-| `--news-text`, `--on-accent`, `--switch-knob` | `tokens.css:46,58,59` | Tutti `#fff` in entrambi i temi |
-| `--season-alpha` 0.35 / 0.34 | `tokens.css:63,100` | Differenza impercettibile |
-| Testo su riempimento colorato: `--on-accent` (DLC, accent) vs `--bg` (badge "Free update", "Switch 2 Edition") | `card.css:93-101` | Nel tema scuro il badge verde ha il testo quasi nero, quello viola bianco |
+| `--on-accent`, `--switch-knob` | `tokens.css` | Entrambi `#fff` in entrambi i temi |
+| `--accent-fill` chiaro = `--accent` chiaro `#e60012`; `--dlc-fill` chiaro = `--dlc` chiaro `#7c3aed`; `--news-text-soft` = `--news-fill` nel chiaro, = `--news` nello scuro | `tokens.css` | Token distinti con lo stesso valore in un tema: differiscono solo nell'altro |
 | Miniature: 32×44 r4 (ricerca), 34×45 r5 ("What's new"), 34×46 r6 (header), 34×46 r4 (admin), 36×48 r5 (anteprima) | `search.css:102`, `whats-new.css:206`, `header.css:66`, `admin.css:139`, `minimap-preview.css:40` | Cinque varianti per la stessa cosa |
 | Copertine: 72×96 (card), 64×86 (Week/Month), 66×88 (gruppo), 60×80 (Studios), 48×64 (Rankings), 56×75 (DLC) | vari | Proporzioni simili ma non uguali (3:4 circa) |
 | Raggi fuori scala: 4, 5, 6, 7, 12px accanto a `--radius-sm` 8 e `--radius-md` 14 | §5.2 | Minimappa 12px ≈ né sm né md |
@@ -522,7 +535,7 @@ Regola unica: `:focus-visible { outline: 3px solid var(--accent); outline-offset
 - Nessun token è del tutto inutilizzato.
 - `--red` e `--red-soft` servono solo come base di `--accent`/`--timeline` e nei coriandoli.
 - `--backdrop-opacity` vale sempre 1 e non ha varianti.
-- `--delayed`, `--news-text`, `--on-accent`, `--switch-knob`, `--overlay`, `--shadow-sm`, `--shadow-md` e tutti i `--score-*` non hanno varianti scure: stessi valori nei due temi.
+- `--delayed`, `--on-accent`, `--switch-knob`, `--overlay`, `--shadow-sm`, `--shadow-md` e tutti i `--score-*` non hanno varianti scure: stessi valori nei due temi.
 - I token dello sfondo del gioco (`--backdrop-*`) stanno in `backdrop.css`, non in `tokens.css`.
 
 **Colori senza token**
@@ -533,8 +546,8 @@ Regola unica: `:focus-visible { outline: 3px solid var(--accent); outline-offset
 
 **Regole duplicate o in conflitto**
 
-- Il tema scuro è scritto due volte a mano (`tokens.css:74-107` e `109-140`) e l'indentazione del primo blocco è irregolare. Stessa doppia regola in `backdrop.css` e `groups.css`, mentre l'icona luna (`header.css:122`) usa solo l'attributo. Qualsiasi nuovo token scuro va aggiunto in tutti e due i posti.
-- La `transition` di `.card` è dichiarata in quattro punti (`card.css:11`, `selection.css:4`, `compact.css:8`, `groups-fan.css:17`), ognuno sovrascrive il precedente.
+- Il tema scuro è scritto due volte a mano (`tokens.css:86-125` e `127-164`) e l'indentazione del primo blocco è irregolare. Stessa doppia regola in `backdrop.css`, `groups.css` e `header.css` (icona del tema). Qualsiasi nuovo token scuro va aggiunto in tutti e due i posti (`tests/contrast.test.ts` controlla che coincidano per i token dei riempimenti).
+- La `transition` di `.card` è dichiarata in quattro punti (`card.css:11`, `selection.css:5`, `compact.css:8`, `groups-fan.css:17`), ognuno sovrascrive il precedente.
 - `.minimap.is-scrubbing` è dichiarato due volte (`minimap.css:19`, `minimap-preview.css:7`).
 - **Bordo tratteggiato delle uscite future solo per i giochi normali:** `.card--upcoming { border-style: dashed }` (`card.css:262`) viene sovrascritto dalla scorciatoia `border: 2px solid …` di DLC, aggiornamenti gratuiti e Switch 2 Edition (stessa specificità, file successivi). Una DLC in uscita ha il bordo pieno.
 - Controllo zoom e anni di Rankings hanno stili identici copiati (`zoom.css:114-131`, `rankings.css:121-138`); i segmenti del menu View sono un terzo modello diverso.
