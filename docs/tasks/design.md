@@ -38,7 +38,7 @@ Fonte: audit del Web Designer su `docs/design-tokens.md` e sulle pagine nel brow
 
 ---
 
-- [ ] **Task 2 — Card non selezionate attenuate senza trasparenza**
+- [x] **Task 2 — Card non selezionate attenuate senza trasparenza**
 
 **File**
 - Da cui partire: `src/styles/selection.css` (regola `filter: opacity(0.5)`, righe 10-11), `src/styles/card.css`, `src/styles/dlc-card.css` (il nastro DLC usa già uno pseudo-elemento?).

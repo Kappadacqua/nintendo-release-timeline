@@ -4,7 +4,9 @@
   padding: 10px 12px;
   border: 2px solid color-mix(in srgb, var(--dlc) 55%, var(--border));
   background: var(--card-dlc);
-  overflow: hidden;
+  /* Clip the ribbon at the border's outer edge, so the dimming veil (inset -2px) covers the border too. */
+  overflow: clip;
+  overflow-clip-margin: 2px;
 }
 
 .card--free-update {
