@@ -271,7 +271,9 @@ async function fetchLinks(selected: Selected[], candidates: Map<number, IgdbGame
   const links = { ...emptyLinks(), ...readJson<Partial<LinksCache>>(PATHS.linksCache, {}) };
   const bases = selected.flatMap((s) => baseOf(s, candidates) ?? []);
   const slugs = [...new Set([...selected.flatMap((s) => s.slug ?? []), ...bases.flatMap((b) => b.slug ?? [])])];
-  const titles = [...new Set([...selected.map((s) => s.game.title), ...bases.map((b) => b.title)])];
+  // Nintendo Wiki: own title, then the base game's shorter titles; nothing to look up for the TBA zone.
+  const dated = selected.filter((s) => s.game.firstReleaseDate);
+  const titles = [...new Set([...dated.flatMap((s) => titleVariants(s.game.title)), ...bases.map((b) => b.title)])];
   const baseTitles = [...new Set(bases.map((b) => b.title))];
 
   const refresh = async (

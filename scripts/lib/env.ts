@@ -10,6 +10,7 @@ export const PATHS = {
   overrides: `${ROOT}data/overrides.json`,
   history: `${ROOT}data/exclusivity-history.json`,
   report: `${ROOT}data/fetch-report.json`,
+  manualTodo: `${ROOT}data/manual-todo.md`,
   opencriticCache: `${ROOT}data/cache/opencritic.json`,
   metacriticCache: `${ROOT}data/cache/metacritic.json`,
   igdbCache: `${ROOT}data/cache/igdb.json`,

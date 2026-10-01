@@ -121,43 +121,56 @@ interface FandomQuery {
   query?: {
     normalized?: { from: string; to: string }[];
     redirects?: { from: string; to: string }[];
-    pages?: { title: string; missing?: boolean }[];
+    pages?: { title: string; missing?: boolean; categories?: { title: string }[] }[];
     search?: { title: string }[];
   };
 }
 
+/** Every game page on Nintendo Wiki is in this category; series, characters and disambiguation pages are not. */
+const GAME_CATEGORY = "Category:Game articles";
+
 /**
  * Nintendo Wiki (nintendo.fandom.com) page per game title: exact title (or a redirect
- * the wiki defines), else a search accepted only on a normalized-title match.
- * When in doubt there is no link.
+ * the wiki defines), else a search accepted only on a normalized-title match. Only game
+ * pages count (a redirect to a series or a disambiguation page is no link). When in doubt
+ * there is no link.
  */
 export async function nintendoWikiByTitle(titles: string[], userAgent: string): Promise<Map<string, string>> {
   const out = new Map<string, string>();
   const throttle = new Throttle(250);
   const headers = { "User-Agent": userAgent };
-  const missing: string[] = [];
 
-  for (let i = 0; i < titles.length; i += 50) {
-    const batch = titles.slice(i, i + 50);
-    const params = new URLSearchParams({
-      action: "query",
-      format: "json",
-      formatversion: "2",
-      redirects: "1",
-      titles: batch.join("|"),
-    });
-    const res = await fetchJson<FandomQuery>(`${FANDOM_API}?${params}`, { headers, throttle, label: "Nintendo Wiki titles" });
-    const q = res.query ?? {};
-    const follow = (t: string, list?: { from: string; to: string }[]) => list?.find((x) => x.from === t)?.to ?? t;
-    const found = new Set((q.pages ?? []).filter((p) => !p.missing).map((p) => p.title));
-    for (const title of batch) {
-      const page = follow(follow(title, q.normalized), q.redirects);
-      if (found.has(page)) out.set(title, fandomUrl(page));
-      else missing.push(title);
+  /** Input title → page title, for the titles whose page (redirects followed) is a game page. */
+  const gamePages = async (list: string[]) => {
+    const found = new Map<string, string>();
+    for (let i = 0; i < list.length; i += 50) {
+      const batch = list.slice(i, i + 50);
+      const params = new URLSearchParams({
+        action: "query",
+        format: "json",
+        formatversion: "2",
+        redirects: "1",
+        prop: "categories",
+        clcategories: GAME_CATEGORY,
+        cllimit: "max",
+        titles: batch.join("|"),
+      });
+      const res = await fetchJson<FandomQuery>(`${FANDOM_API}?${params}`, { headers, throttle, label: "Nintendo Wiki titles" });
+      const q = res.query ?? {};
+      const follow = (t: string, l?: { from: string; to: string }[]) => l?.find((x) => x.from === t)?.to ?? t;
+      const games = new Set((q.pages ?? []).filter((p) => !p.missing && p.categories?.length).map((p) => p.title));
+      for (const title of batch) {
+        const page = follow(follow(title, q.normalized), q.redirects);
+        if (games.has(page)) found.set(title, page);
+      }
     }
-  }
+    return found;
+  };
 
-  for (const title of missing) {
+  for (const [title, page] of await gamePages(titles)) out.set(title, fandomUrl(page));
+
+  const hits = new Map<string, string>();
+  for (const title of titles.filter((t) => !out.has(t))) {
     const params = new URLSearchParams({
       action: "query",
       format: "json",
@@ -168,7 +181,8 @@ export async function nintendoWikiByTitle(titles: string[], userAgent: string): 
     });
     const res = await fetchJson<FandomQuery>(`${FANDOM_API}?${params}`, { headers, throttle, label: "Nintendo Wiki search" });
     const hit = (res.query?.search ?? []).find((s) => sameTitle(s.title, title));
-    if (hit) out.set(title, fandomUrl(hit.title));
+    if (hit) hits.set(hit.title, title);
   }
+  for (const [hit, page] of await gamePages([...hits.keys()])) out.set(hits.get(hit)!, fandomUrl(page));
   return out;
 }

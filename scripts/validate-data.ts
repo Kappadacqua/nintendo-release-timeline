@@ -4,12 +4,14 @@
  * unmatched games.
  *
  *   --stubs   also print an overrides snippet for the missing manual scores
+ *   --todo    write data/manual-todo.md: released games without a link, a URL field each
  */
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import type { Game, GamesFile } from "../src/types";
 import { localToday } from "./lib/build";
 import { PATHS } from "./lib/env";
 import { type GameGaps, gapsOf } from "./lib/gaps";
+import { manualTodo } from "./lib/manual-todo";
 import { loadMetacriticCache } from "./lib/metacritic";
 import { loadOverrides } from "./lib/overrides";
 import type { FetchReport } from "./lib/report";
@@ -52,6 +54,12 @@ section(
   gaps.links.map((g) => `${label(g)} — ${g.gaps.map((x) => x.source).join(", ")}`),
   'Add them in the admin panel (npm run dev → /admin) or under games.<id>.links in data/overrides.json; no page at all: "absent": { "wikipedia": { "status": "none" } }.',
 );
+if (process.argv.includes("--todo")) {
+  const path = PATHS.manualTodo;
+  const released = gaps.links.filter((g) => g.date! <= today);
+  writeFileSync(path, manualTodo(released, today, existsSync(path) ? readFileSync(path, "utf8") : ""));
+  console.log(dim(`\nWrote data/manual-todo.md (${released.length} released game(s) without a link).`));
+}
 if (gaps.backloggdMissing) {
   console.log(dim(`\nBackloggd is optional and entered by hand (backloggd.com blocks scripts with a bot challenge): ${gaps.backloggdMissing} released game(s) without a value, not counted. Admin panel, filter "Backloggd".`));
 }

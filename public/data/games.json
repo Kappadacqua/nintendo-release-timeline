@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-01T20:13:53.953Z",
+  "generatedAt": "2026-10-01T20:18:31.625Z",
   "games": [
     {
       "id": "free-update:arms",
@@ -524,7 +524,7 @@
         "backloggd": "https://backloggd.com/games/puyo-puyo-tetris-2s/",
         "opencritic": "https://opencritic.com/game/18667/puyo-puyo-tetris-2s",
         "metacritic": "https://www.metacritic.com/game/puyo-puyo-tetris-2s/",
-        "wikipedia": "https://en.wikipedia.org/wiki/Puyo_Puyo_Tetris_2S",
+        "wikipedia": "https://en.wikipedia.org/wiki/Puyo_Puyo_Tetris_2",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Puyo_Puyo_Tetris_2S",
         "nintendoStore": "https://www.nintendo.com/us/store/products/puyo-puyo-tetris-2s-switch-2/"
       }
@@ -563,7 +563,7 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/shine-post-be-your-idol/",
-        "wikipedia": "https://en.wikipedia.org/wiki/Shine_Post:_Be_Your_Idol!"
+        "wikipedia": "https://en.wikipedia.org/wiki/Shine_Post"
       }
     },
     {
@@ -696,7 +696,6 @@
         "opencritic": "https://opencritic.com/game/18654/survival-kids",
         "metacritic": "https://www.metacritic.com/game/survival-kids/",
         "wikipedia": "https://en.wikipedia.org/wiki/Survival_Kids_(2025_video_game)",
-        "nintendoWiki": "https://nintendo.fandom.com/wiki/Survival_Kids",
         "nintendoStore": "https://www.nintendo.it/-/-2807680.html"
       }
     },
@@ -1305,7 +1304,7 @@
         "opencritic": "https://opencritic.com/game/19306/donkey-kong-bananza-dk-island-emerald-rush",
         "metacritic": "https://www.metacritic.com/game/donkey-kong-bananza-dk-island-and-emerald-rush/",
         "wikipedia": "https://en.wikipedia.org/wiki/Donkey_Kong_Bananza",
-        "nintendoWiki": "https://nintendo.fandom.com/wiki/Donkey_Kong_Bananza%3A_DK_Island_%26_Emerald_Rush",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Donkey_Kong_Bananza",
         "nintendoStore": "https://www.nintendo.com/us/store/products/donkey-kong-bananza-dk-island-and-emerald-rush-70050000062442-switch-2/"
       }
     },
@@ -1690,7 +1689,7 @@
         "backloggd": "https://backloggd.com/games/metroid-prime-4-beyond/",
         "opencritic": "https://opencritic.com/game/16868/metroid-prime-4-beyond",
         "metacritic": "https://www.metacritic.com/game/metroid-prime-4-beyond/",
-        "wikipedia": "https://en.wikipedia.org/wiki/Metroid_Prime_4:_Beyond",
+        "wikipedia": "https://en.wikipedia.org/wiki/Metroid_Prime_4%3A_Beyond",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Metroid_Prime_4%3A_Beyond",
         "nintendoStore": "https://www.nintendo.com/us/store/products/metroid-prime-4-beyond-switch/"
       }
@@ -1839,7 +1838,7 @@
         "backloggd": "https://backloggd.com/games/animal-crossing-new-horizons-nintendo-switch-2-edition/",
         "opencritic": "https://opencritic.com/game/19943/animal-crossing-new-horizons-nintendo-switch-2-edition",
         "metacritic": "https://www.metacritic.com/game/animal-crossing-new-horizons/",
-        "wikipedia": "https://en.wikipedia.org/wiki/Animal_Crossing%3A_New_Horizons",
+        "wikipedia": "https://en.wikipedia.org/wiki/Animal_Crossing:_New_Horizons",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Animal_Crossing%3A_New_Horizons",
         "nintendoStore": "https://www.nintendo.com/us/store/products/animal-crossing-new-horizons-nintendo-switch-2-edition-switch-2/"
       }
@@ -2142,7 +2141,7 @@
         "backloggd": "https://backloggd.com/games/super-mario-bros-wonder-nintendo-switch-2-edition-plus-meetup-in-bellabel-park/",
         "opencritic": "https://opencritic.com/game/20256/super-mario-bros-wonder-nintendo-switch-2-edition-meetup-in-bellabel-park",
         "metacritic": "https://www.metacritic.com/game/super-mario-bros-wonder-nintendo-switch-2-edition/",
-        "wikipedia": "https://en.wikipedia.org/wiki/Super_Mario_Bros._Wonder_%E2%80%93_Nintendo_Switch_2_Edition_%2B_Meetup_in_Bellabel_Park",
+        "wikipedia": "https://en.wikipedia.org/wiki/Super_Mario_Bros._Wonder",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Super_Mario_Bros._Wonder",
         "nintendoStore": "https://www.nintendo.com/us/store/products/super-mario-bros-wonder-nintendo-switch-2-edition-plus-meetup-in-bellabel-park-upgrade-pack-switch-2/"
       }
@@ -3142,7 +3141,7 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/the-legend-of-zelda-ocarina-of-time--1/",
-        "wikipedia": "https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Ocarina_of_Time_(2026_video_game)",
+        "wikipedia": "https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Ocarina_of_Time",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/The_Legend_of_Zelda%3A_Ocarina_of_Time",
         "nintendoStore": "https://www.nintendo.com/us/store/products/the-legend-of-zelda-ocarina-of-time-switch-2/"
       }
@@ -3298,6 +3297,7 @@
       "links": {
         "backloggd": "https://backloggd.com/games/hyrule-warriors-age-of-calamity-definitive-edition/",
         "wikipedia": "https://en.wikipedia.org/wiki/Hyrule_Warriors%3A_Age_of_Calamity",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Hyrule_Warriors%3A_Age_of_Calamity",
         "nintendoStore": "https://www.nintendo.com/us/store/products/hyrule-warriors-age-of-calamity-definitive-edition-switch-2/"
       }
     },

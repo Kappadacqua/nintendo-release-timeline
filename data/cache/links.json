@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-01T20:13:53.908Z",
+  "fetchedAt": "2026-10-01T20:18:31.584Z",
   "wikipediaBySlug": {
     "pokemon-champions": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Champions",
     "mario-kart-world": "https://en.wikipedia.org/wiki/Mario_Kart_World",
@@ -90,7 +90,6 @@
     "Splatoon Raiders": "https://nintendo.fandom.com/wiki/Splatoon_Raiders",
     "Pokémon Friends": "https://nintendo.fandom.com/wiki/Pok%C3%A9mon_Friends",
     "Mario Tennis Fever": "https://nintendo.fandom.com/wiki/Mario_Tennis_Fever",
-    "Donkey Kong Bananza: DK Island & Emerald Rush": "https://nintendo.fandom.com/wiki/Donkey_Kong_Bananza%3A_DK_Island_%26_Emerald_Rush",
     "Pokémon Pokopia": "https://nintendo.fandom.com/wiki/Pok%C3%A9mon_Pokopia",
     "Fire Emblem: Fortune's Weave": "https://nintendo.fandom.com/wiki/Fire_Emblem%3A_Fortune's_Weave",
     "Super Mario Galaxy": "https://nintendo.fandom.com/wiki/Super_Mario_Galaxy",
@@ -108,7 +107,6 @@
     "Kirby and the World Beyond": "https://nintendo.fandom.com/wiki/Kirby_and_the_World_Beyond",
     "Puyo Puyo Tetris 2S": "https://nintendo.fandom.com/wiki/Puyo_Puyo_Tetris_2S",
     "Fast Fusion": "https://nintendo.fandom.com/wiki/FAST_Fusion",
-    "Survival Kids": "https://nintendo.fandom.com/wiki/Survival_Kids",
     "Orbitals": "https://nintendo.fandom.com/wiki/Orbitals",
     "Super Mario Party Jamboree": "https://nintendo.fandom.com/wiki/Super_Mario_Party_Jamboree",
     "The Legend of Zelda: Breath of the Wild": "https://nintendo.fandom.com/wiki/The_Legend_of_Zelda%3A_Breath_of_the_Wild",
@@ -120,7 +118,9 @@
     "Xenoblade Chronicles: Definitive Edition": "https://nintendo.fandom.com/wiki/Xenoblade_Chronicles%3A_Definitive_Edition",
     "Xenoblade Chronicles 2": "https://nintendo.fandom.com/wiki/Xenoblade_Chronicles_2",
     "Xenoblade Chronicles 3": "https://nintendo.fandom.com/wiki/Xenoblade_Chronicles_3",
-    "Pikmin 4": "https://nintendo.fandom.com/wiki/Pikmin_4"
+    "Pikmin 4": "https://nintendo.fandom.com/wiki/Pikmin_4",
+    "Xenoblade Chronicles": "https://nintendo.fandom.com/wiki/Xenoblade_Chronicles",
+    "Hyrule Warriors: Age of Calamity": "https://nintendo.fandom.com/wiki/Hyrule_Warriors%3A_Age_of_Calamity"
   },
   "eshopEuBySlug": {
     "nintendo-switch-2-welcome-tour": "2789271",

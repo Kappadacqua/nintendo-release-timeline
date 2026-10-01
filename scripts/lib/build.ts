@@ -212,6 +212,12 @@ export function buildGames(): BuildResult {
   };
 
   const catalog = new Map((oc.catalog?.games ?? []).map((g) => [g.id, g]));
+  const igdbBySlug = new Map([...candidates.values()].map((g) => [g.slug, g]));
+  // Labels of the failed lookups in data:fetch (fetchLinks): "Wikipedia (…): …", "Nintendo Wiki: …".
+  const lookupFailed = {
+    wikipedia: report.linkErrors.some((e) => e.startsWith("Wikipedia")),
+    nintendoWiki: report.linkErrors.some((e) => e.startsWith("Nintendo Wiki")),
+  };
   const kept: Selected[] = [];
   for (const entry of selected) {
     const { game, forced } = entry;
@@ -274,26 +280,29 @@ export function buildGames(): BuildResult {
 
     // --- Reference links: own pages, else (DLC / Switch 2 Edition) the base game's, else the last known.
     const wikiPage = wikiPageById.get(game.id);
+    const igdbGame = game.id.startsWith("igdb:") ? candidates.get(Number(game.id.slice(5))) : undefined;
     const own = {
       wikipedia:
+        igdbWikipedia(igdbGame) ||
         (entry.slug && links.wikipediaBySlug[entry.slug]) ||
         (wikiPage ? wikipediaUrl(wikiPage) : undefined) ||
         titleVariants(game.title).map((t) => links.wikipediaByTitle[t]).find(Boolean),
-      nintendoWiki: links.nintendoWikiByTitle[game.title],
+      nintendoWiki: titleVariants(game.title).map((t) => links.nintendoWikiByTitle[t]).find(Boolean),
     };
     const base = baseOf(entry, candidates);
     const fallback = base
       ? {
-          wikipedia: (base.slug && links.wikipediaBySlug[base.slug]) || links.wikipediaByTitle[base.title],
+          wikipedia: igdbWikipedia(base.slug ? igdbBySlug.get(base.slug) : undefined) || (base.slug && links.wikipediaBySlug[base.slug]) || links.wikipediaByTitle[base.title],
           nintendoWiki: links.nintendoWikiByTitle[base.title],
         }
       : {};
     for (const key of ["wikipedia", "nintendoWiki"] as const) {
-      const url = own[key] || fallback[key] || before?.links[key];
+      // The last known link only when this source's lookup failed: a page found no more is no link.
+      const url = own[key] || fallback[key] || (lookupFailed[key] ? before?.links[key] : undefined);
       if (url) game.links[key] = url;
     }
     // Nintendo Store: chosen region, then fallback regions; DLC / editions then the base game's page.
-    const ownStore = storePages(game.id.startsWith("igdb:") ? candidates.get(Number(game.id.slice(5))) : undefined, links, settings);
+    const ownStore = storePages(igdbGame, links, settings);
     const baseStore = entry.baseId !== undefined ? storePages(candidates.get(entry.baseId), links, settings) : {};
     const store = regions.map((r) => ownStore[r]).find(Boolean) ?? regions.map((r) => baseStore[r]).find(Boolean);
     if (store) game.links.nintendoStore = store;
@@ -350,6 +359,10 @@ export function buildGames(): BuildResult {
   writeJson(PATHS.report, report);
   return { games, report };
 }
+
+/** English Wikipedia article listed on the IGDB game page ("websites"), checked before Wikidata. */
+const igdbWikipedia = (g: IgdbGame | undefined) =>
+  (g?.websites ?? []).map((w) => w.url ?? "").find((u) => /^https:\/\/en\.wikipedia\.org\/wiki\/./.test(u));
 
 /** Marks a score taken from the base game's page (found with a shorter title). */
 const inherit = (s: Score | null, from: string | undefined): Score | null => (s && from ? { ...s, inheritedFrom: from } : s);
