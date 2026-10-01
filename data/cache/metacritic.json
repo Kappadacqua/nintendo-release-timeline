@@ -519,8 +519,9 @@
     "igdb:405468": {
       "slug": "derby-stallion-2",
       "url": "https://www.metacritic.com/game/derby-stallion-2/",
-      "checkedAt": "2026-10-01T19:58:02.567Z",
-      "status": "not-found"
+      "checkedAt": "2026-10-01T20:10:27.775Z",
+      "status": "gone",
+      "httpStatus": 410
     },
     "igdb:338093": {
       "slug": "fast-fusion",
@@ -537,8 +538,9 @@
     "igdb:217964": {
       "slug": "shine-post-be-your-idol",
       "url": "https://www.metacritic.com/game/shine-post-be-your-idol/",
-      "checkedAt": "2026-10-01T19:58:16.848Z",
-      "status": "not-found"
+      "checkedAt": "2026-10-01T20:10:34.429Z",
+      "status": "gone",
+      "httpStatus": 410
     },
     "igdb:338087": {
       "slug": "survival-kids",

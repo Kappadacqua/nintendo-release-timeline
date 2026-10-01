@@ -28,7 +28,7 @@ export interface Gaps {
   scores: GameGaps[];
   /** Dated games (not the TBA zone) without a Wikipedia, Nintendo Wiki or Nintendo Store link. */
   links: GameGaps[];
-  /** Values skipped because the override confirms there is none, per source. */
+  /** Values skipped because there is none for sure (override, or a page Metacritic removed), per source. */
   confirmedNone: Partial<Record<AbsentSource, number>>;
 }
 
@@ -48,8 +48,12 @@ export function gapsOf(games: Game[], overrides: Record<string, Override>, mc: M
       const gaps: Gap[] = [];
       const missingCritic = !g.scores.critic.metacritic;
       const missingUser = !g.scores.user.metacritic;
-      if ((missingCritic || missingUser) && !confirmed(o, "metacritic")) {
-        const page = mc.games[g.id];
+      const page = mc.games[g.id];
+      if (!g.scores.critic.opencritic) confirmed(o, "opencritic");
+      if (page?.status === "gone" && (missingCritic || missingUser)) {
+        // HTTP 410: Metacritic removed the page, as final as a confirmed absence.
+        out.confirmedNone.metacritic = (out.confirmedNone.metacritic ?? 0) + 1;
+      } else if ((missingCritic || missingUser) && !confirmed(o, "metacritic")) {
         const pageState: GapState | null = !page
           ? "not looked up"
           : page.status === "not-found"

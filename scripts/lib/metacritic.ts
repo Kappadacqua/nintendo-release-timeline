@@ -43,8 +43,13 @@ export interface MetacriticScores {
 export interface MetacriticEntry extends Partial<MetacriticScores> {
   /** Slug looked up: made from the title, or from links.metacritic. */
   slug: string;
-  /** ok: page read; not-found: no page at this slug; mismatch: the page is another game. */
-  status: "ok" | "not-found" | "mismatch";
+  /**
+   * ok: page read; not-found: no page (404) for the title, its shorter titles and a search;
+   * gone: Metacritic removed the page (410), never looked up again; mismatch: the page is another game.
+   */
+  status: "ok" | "not-found" | "gone" | "mismatch";
+  /** not-found / gone: the HTTP status of the title's page (404 or 410). */
+  httpStatus?: number;
   checkedAt: string;
   /** Page read (found by search when the slug had no page); reused by later runs. */
   url: string;
@@ -213,12 +218,16 @@ export function parseSearchResults(html: string) {
 
 /**
  * Whether a game's page is due again: a new slug always; a page found daily for the
- * first 60 days after release, then weekly; a missing page after 3 days (14 once old).
+ * first 60 days after release, then weekly; a missing page (404) after 3 days, 30 once the
+ * game is a month old; another game's page after 3 days, then 14; a removed page (410) never.
  */
 export function isDue(entry: MetacriticEntry | undefined, slug: string, daysSinceRelease: number, now = Date.now()) {
   if (!entry || entry.slug !== slug) return true;
+  if (entry.status === "gone") return false;
   const age = now - Date.parse(entry.checkedAt);
-  const maxDays = entry.status === "ok" ? (daysSinceRelease < 60 ? 1 : 7) : daysSinceRelease < 30 ? 3 : 14;
+  const recent = daysSinceRelease < 30;
+  const maxDays =
+    entry.status === "ok" ? (daysSinceRelease < 60 ? 1 : 7) : recent ? 3 : entry.status === "not-found" ? 30 : 14;
   // A little slack so a daily run at a slightly earlier time still refreshes.
   return age >= maxDays * DAY_MS - 2 * 3_600_000;
 }
@@ -254,8 +263,9 @@ export async function fetchMetacritic(
     })
     .filter((t) => {
       const entry = cache.games[t.game.id];
-      // Missed before the base game's shorter titles were tried: due now.
-      const untried = !t.forced && entry?.status === "not-found" && (entry.titlesTried ?? 1) < titleVariants(t.game.title).length;
+      // Missed before the base game's shorter titles were tried, or before 404 and 410 were told apart: due now.
+      const untried =
+        entry?.status === "not-found" && (entry.httpStatus === undefined || (!t.forced && (entry.titlesTried ?? 1) < titleVariants(t.game.title).length));
       return t.slug && (untried || isDue(entry, t.slug, t.age, now));
     })
     .sort((a, b) => Number(a.game.id in cache.games) - Number(b.game.id in cache.games) || a.age - b.age);
@@ -276,14 +286,19 @@ export async function fetchMetacritic(
       if (status.requestsUsed >= budget) throw new OutOfBudget();
       status.requestsUsed++;
       if (sent++) await sleep(DELAY_MS[0] + Math.random() * (DELAY_MS[1] - DELAY_MS[0]));
-      return fetchText(target, { headers: HEADERS, label: `Metacritic ${new URL(target).pathname}` }, 2);
+      // 5xx and timeouts: 2 retries with backoff; a 429 stops the run at once (below).
+      return fetchText(target, { headers: HEADERS, label: `Metacritic ${new URL(target).pathname}`, retry429: false }, 2);
     };
+    /** HTTP status of the first missing page (the full title's): 410 = removed for good. */
+    let missing: number | undefined;
     /** The page at `target`, else (404 / 410) a search for `title`, exact name only; null = no page. */
     const pageFor = async (target: string, title: string) => {
       try {
         return { url: target, html: await get(target) };
       } catch (err) {
-        if (forced || !isGone(err)) throw err;
+        if (!isGone(err)) throw err;
+        missing ??= (err as HttpError).status;
+        if (forced) return null;
       }
       const hits = parseSearchResults(await get(`https://www.metacritic.com/search/${encodeURIComponent(title)}/?category=13`));
       const hit = hits.find((h) => sameName(h.name, title));
@@ -296,7 +311,7 @@ export async function fetchMetacritic(
       const known = previous?.slug === slug && previous.status === "ok" ? previous : undefined;
       let found: { url: string; html: string } | null = null;
       let title = known?.matchedTitle ?? game.title;
-      if (known) found = { url: known.url, html: await get(known.url) };
+      if (known) found = await pageFor(known.url, known.matchedTitle ?? game.title);
       else {
         // Full title first, then the base game's shorter titles (SPEC §4.3).
         for (const candidate of forced ? [game.title] : titleVariants(game.title)) {
@@ -309,7 +324,14 @@ export async function fetchMetacritic(
       }
       if (!found) {
         const titlesTried = forced ? 1 : titleVariants(game.title).length;
-        cache.games[game.id] = { slug, url: `${BASE}${slug}/`, checkedAt, status: "not-found", ...(titlesTried > 1 ? { titlesTried } : {}) };
+        cache.games[game.id] = {
+          slug,
+          url: `${BASE}${slug}/`,
+          checkedAt,
+          status: missing === 410 ? "gone" : "not-found",
+          httpStatus: missing ?? 404,
+          ...(titlesTried > 1 ? { titlesTried } : {}),
+        };
         continue;
       }
       const { url, html } = found;
@@ -324,10 +346,6 @@ export async function fetchMetacritic(
       if (err instanceof OutOfBudget) {
         status.budgetExhausted = true;
         break;
-      }
-      if (isGone(err)) {
-        cache.games[game.id] = { slug, url: `${BASE}${slug}/`, checkedAt, status: "not-found" };
-        continue;
       }
       status.errors.push(`${game.title}: ${(err as Error).message}`);
       layoutErrors = err instanceof LayoutError ? layoutErrors + 1 : 0;

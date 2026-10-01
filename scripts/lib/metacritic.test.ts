@@ -91,11 +91,18 @@ describe("isDue", () => {
     expect(isDue(entry("ok", 7), "hades-ii", 90, now)).toBe(true);
   });
 
-  it("retries a missing page after 3 days, 14 once the game is old", () => {
+  it("retries a missing page (404) after 3 days, 30 once the game is a month old", () => {
     expect(isDue(entry("not-found", 2), "hades-ii", 10, now)).toBe(false);
     expect(isDue(entry("not-found", 3), "hades-ii", 10, now)).toBe(true);
+    expect(isDue(entry("not-found", 14), "hades-ii", 60, now)).toBe(false);
+    expect(isDue(entry("not-found", 30), "hades-ii", 60, now)).toBe(true);
     expect(isDue(entry("mismatch", 10), "hades-ii", 60, now)).toBe(false);
     expect(isDue(entry("mismatch", 14), "hades-ii", 60, now)).toBe(true);
+  });
+
+  it("never retries a page Metacritic removed (410), unless the slug changes", () => {
+    expect(isDue(entry("gone", 365), "hades-ii", 400, now)).toBe(false);
+    expect(isDue(entry("gone", 365), "hades-2", 400, now)).toBe(true);
   });
 });
 

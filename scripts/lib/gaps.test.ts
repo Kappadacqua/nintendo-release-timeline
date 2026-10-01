@@ -34,6 +34,14 @@ describe("gapsOf", () => {
     expect(confirmedNone).toEqual({ metacritic: 1, backloggd: 1, wikipedia: 1, nintendoWiki: 1, nintendoStore: 1 });
   });
 
+  it("treats a page Metacritic removed (410) as confirmed absent", () => {
+    const game = makeGame({ id: "igdb:1", title: "Derby Stallion 2", firstReleaseDate: "2026-09-24" });
+    const cache = mc({ "igdb:1": { slug: "derby-stallion-2", url: "", status: "gone", httpStatus: 410, checkedAt } });
+    const { scores, confirmedNone } = gapsOf([game], {}, cache, today);
+    expect(scores[0].gaps.map((x) => x.source)).toEqual(["Backloggd"]);
+    expect(confirmedNone.metacritic).toBe(1);
+  });
+
   it("skips games not out yet, and the TBA zone for links", () => {
     const upcoming = makeGame({ id: "igdb:1", title: "Upcoming", firstReleaseDate: "2026-12-01" });
     const tba = makeGame({ id: "igdb:2", title: "TBA", firstReleaseDate: null, vagueRelease: { year: 2027, label: "2027" } });
