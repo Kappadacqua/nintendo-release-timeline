@@ -3,7 +3,7 @@ import type { FetchStatus } from "./cache";
 import { readJson, writeJson } from "./cache";
 import { intEnv } from "./env";
 import { fetchText, HttpError } from "./http";
-import type { OverridesFile } from "./overrides";
+import { isAbsent, type OverridesFile } from "./overrides";
 
 /**
  * Metacritic has no API: scores are read from the public game page (inspired by
@@ -34,6 +34,9 @@ export interface MetacriticScores {
   criticCount: number | null;
   user: number | null;
   userCount: number | null;
+  /** "tbd" on the page: too few reviews for a score yet (not the same as no score at all). */
+  criticTbd?: boolean;
+  userTbd?: boolean;
 }
 
 export interface MetacriticEntry extends Partial<MetacriticScores> {
@@ -143,6 +146,7 @@ export function parseMetacriticPage(html: string): MetacriticScores {
   if (platform) {
     const card = cards.get(platform)!;
     Object.assign(out, { platform, critic: card.score, criticCount: card.count });
+    if (card.label && card.score === null) out.criticTbd = true;
   }
 
   const users = section(html, 'data-testid="user-reviews"', "</section>");
@@ -151,6 +155,8 @@ export function parseMetacriticPage(html: string): MetacriticScores {
     out.user = toScore(USER_SCORE.exec(users)?.[1]);
     out.userCount = toInt(/Based on ([\d,]+) User Ratings?/.exec(users)?.[1]);
   }
+  // While "tbd" the section has no platform link, so it is read on its own.
+  if (out.user === null && USER_SCORE.exec(users)?.[1]?.toLowerCase() === "tbd") out.userTbd = true;
   return out;
 }
 
@@ -230,6 +236,8 @@ export async function fetchMetacritic(
 
   const todo = games
     .filter((g) => g.kind !== "free-update" && g.firstReleaseDate && g.firstReleaseDate <= today)
+    // Confirmed by hand: no Metacritic page, not looked up again.
+    .filter((g) => !isAbsent(overridesFile.games[g.id], "metacritic"))
     .map((g) => {
       const forced = slugFromUrl(overridesFile.games[g.id]?.links?.metacritic ?? g.links.metacritic);
       return { game: g, slug: forced ?? slugify(g.title), forced: forced !== null, age: daysSince(g.firstReleaseDate!) };

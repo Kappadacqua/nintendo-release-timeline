@@ -1,6 +1,18 @@
 import { existsSync, readFileSync } from "node:fs";
 import type { Game, Score } from "../../src/types";
 
+/** Sources that can be marked as confirmed absent (`absent` in an override). */
+export const ABSENT_SOURCES = ["metacritic", "opencritic", "backloggd", "wikipedia", "nintendoWiki", "nintendoStore"] as const;
+export type AbsentSource = (typeof ABSENT_SOURCES)[number];
+
+/** "Checked by hand: this game has no page there." Not listed as missing, not looked up again. */
+export interface Absent {
+  status: "none";
+  reason?: string;
+  /** "YYYY-MM-DD" */
+  checkedAt?: string;
+}
+
 /** One entry of data/overrides.json (SPEC §4), keyed by "igdb:<id>". */
 export interface Override {
   /** Free-form reminder of which game this is; ignored by the scripts. */
@@ -18,7 +30,12 @@ export interface Override {
   links?: Game["links"];
   /** Fixes single regional dates ("YYYY-MM-DD", or null for TBA) when IGDB is wrong or incomplete. */
   releaseDates?: Game["releaseDates"];
+  /** Sources confirmed absent (no page, no score): the report skips them, the fetch stops looking. */
+  absent?: Partial<Record<AbsentSource, Absent>>;
 }
+
+/** The source is marked `{ "status": "none" }` in the override. */
+export const isAbsent = (o: Override | undefined, source: AbsentSource) => o?.absent?.[source]?.status === "none";
 
 /** A game missing from IGDB, written by hand. Scores and links still come from `games["manual:…"]`. */
 export interface ManualGame {

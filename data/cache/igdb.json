@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-09-27T07:20:05.426Z",
+  "fetchedAt": "2026-10-01T19:56:37.458Z",
   "firstPartyIds": [
     164,
     408,
@@ -2940,7 +2940,8 @@
     325078,
     306450,
     306046,
-    325075
+    325075,
+    49160
   ],
   "games": [
     {
@@ -16783,15 +16784,15 @@
           "width": 1920
         },
         {
-          "id": 376540,
+          "id": 376521,
           "height": 1080,
-          "image_id": "sc82jg",
+          "image_id": "sc82ix",
           "width": 1920
         },
         {
-          "id": 376541,
+          "id": 376540,
           "height": 1080,
-          "image_id": "sc82jh",
+          "image_id": "sc82jg",
           "width": 1920
         },
         {
@@ -16801,9 +16802,9 @@
           "width": 1920
         },
         {
-          "id": 376521,
+          "id": 376541,
           "height": 1080,
-          "image_id": "sc82ix",
+          "image_id": "sc82jh",
           "width": 1920
         }
       ],
@@ -20505,6 +20506,12 @@
           "width": 1920
         },
         {
+          "id": 398248,
+          "height": 1080,
+          "image_id": "sc8jag",
+          "width": 1920
+        },
+        {
           "id": 398246,
           "height": 1080,
           "image_id": "sc8jae",
@@ -20514,12 +20521,6 @@
           "id": 398247,
           "height": 1080,
           "image_id": "sc8jaf",
-          "width": 1920
-        },
-        {
-          "id": 398248,
-          "height": 1080,
-          "image_id": "sc8jag",
           "width": 1920
         },
         {
@@ -25377,7 +25378,35 @@
       ],
       "release_dates": [
         {
-          "id": 157761,
+          "id": 969036,
+          "date": 1562889600,
+          "platform": 130,
+          "y": 2019,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 2,
+            "region": "north_america"
+          }
+        },
+        {
+          "id": 969037,
+          "date": 1562889600,
+          "platform": 130,
+          "y": 2019,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 1,
+            "region": "europe"
+          }
+        },
+        {
+          "id": 969038,
           "date": 1545264000,
           "platform": 130,
           "y": 2018,
@@ -25391,49 +25420,7 @@
           }
         },
         {
-          "id": 165058,
-          "date": 1562889600,
-          "platform": 130,
-          "y": 2019,
-          "date_format": {
-            "id": 0,
-            "format": "YYYYMMDD"
-          },
-          "release_region": {
-            "id": 1,
-            "region": "europe"
-          }
-        },
-        {
-          "id": 165099,
-          "date": 1562889600,
-          "platform": 48,
-          "y": 2019,
-          "date_format": {
-            "id": 0,
-            "format": "YYYYMMDD"
-          },
-          "release_region": {
-            "id": 1,
-            "region": "europe"
-          }
-        },
-        {
-          "id": 165098,
-          "date": 1562889600,
-          "platform": 48,
-          "y": 2019,
-          "date_format": {
-            "id": 0,
-            "format": "YYYYMMDD"
-          },
-          "release_region": {
-            "id": 2,
-            "region": "north_america"
-          }
-        },
-        {
-          "id": 179903,
+          "id": 969039,
           "date": 1575936000,
           "platform": 6,
           "y": 2019,
@@ -25447,7 +25434,7 @@
           }
         },
         {
-          "id": 157762,
+          "id": 969040,
           "date": 1545264000,
           "platform": 48,
           "y": 2018,
@@ -25461,7 +25448,35 @@
           }
         },
         {
-          "id": 241412,
+          "id": 969041,
+          "date": 1562889600,
+          "platform": 48,
+          "y": 2019,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 2,
+            "region": "north_america"
+          }
+        },
+        {
+          "id": 969042,
+          "date": 1562889600,
+          "platform": 48,
+          "y": 2019,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 1,
+            "region": "europe"
+          }
+        },
+        {
+          "id": 969043,
           "date": 1620086400,
           "platform": 49,
           "y": 2021,
@@ -25472,20 +25487,6 @@
           "release_region": {
             "id": 8,
             "region": "worldwide"
-          }
-        },
-        {
-          "id": 165059,
-          "date": 1562889600,
-          "platform": 130,
-          "y": 2019,
-          "date_format": {
-            "id": 0,
-            "format": "YYYYMMDD"
-          },
-          "release_region": {
-            "id": 2,
-            "region": "north_america"
           }
         }
       ],
@@ -25878,15 +25879,15 @@
           "width": 392
         },
         {
-          "id": 135008,
-          "height": 696,
-          "image_id": "wf22thksknjndfjrf0wd",
-          "width": 392
-        },
-        {
           "id": 135010,
           "height": 696,
           "image_id": "jkzwdvm0wihy7orrt7j1",
+          "width": 392
+        },
+        {
+          "id": 135008,
+          "height": 696,
+          "image_id": "wf22thksknjndfjrf0wd",
           "width": 392
         },
         {
@@ -47124,18 +47125,6 @@
       ],
       "screenshots": [
         {
-          "id": 1497185,
-          "height": 502,
-          "image_id": "scw38h",
-          "width": 891
-        },
-        {
-          "id": 1497186,
-          "height": 710,
-          "image_id": "scw38i",
-          "width": 1175
-        },
-        {
           "id": 1497181,
           "height": 534,
           "image_id": "scw38d",
@@ -47164,6 +47153,18 @@
           "height": 530,
           "image_id": "scw38j",
           "width": 950
+        },
+        {
+          "id": 1497185,
+          "height": 502,
+          "image_id": "scw38h",
+          "width": 891
+        },
+        {
+          "id": 1497186,
+          "height": 710,
+          "image_id": "scw38i",
+          "width": 1175
         }
       ],
       "slug": "super-mario-party-jamboree-nintendo-switch-2-edition-plus-jamboree-tv",
@@ -51716,6 +51717,14 @@
     {
       "id": 366896,
       "artworks": [
+        {
+          "id": 312236,
+          "alpha_channel": false,
+          "height": 620,
+          "image_id": "ar6ox8",
+          "width": 1920,
+          "artwork_type": 2
+        },
         {
           "id": 297415,
           "alpha_channel": false,
@@ -74519,6 +74528,119 @@
       }
     },
     {
+      "id": 316195,
+      "artworks": [
+        {
+          "id": 145202,
+          "alpha_channel": false,
+          "height": 1080,
+          "image_id": "ar341e",
+          "width": 1920,
+          "artwork_type": 1
+        }
+      ],
+      "cover": {
+        "id": 411888,
+        "image_id": "co8ttc"
+      },
+      "first_release_date": 1726099200,
+      "genres": [
+        {
+          "id": 12,
+          "name": "Role-playing (RPG)"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 407878,
+          "company": {
+            "id": 2837,
+            "name": "D4 Enterprise"
+          },
+          "developer": false,
+          "publisher": true
+        }
+      ],
+      "name": "Eggconsole Dragon Slayer: The Legend of Heroes PC-8801mkIISR",
+      "parent_game": {
+        "id": 5579,
+        "name": "Dragon Slayer: The Legend of Heroes"
+      },
+      "platforms": [
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 953278,
+          "date": 1726099200,
+          "platform": 130,
+          "y": 2024,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 1396844,
+          "height": 720,
+          "image_id": "sctxt8",
+          "width": 1280
+        },
+        {
+          "id": 1396849,
+          "height": 720,
+          "image_id": "sctxtd",
+          "width": 1280
+        },
+        {
+          "id": 1396843,
+          "height": 720,
+          "image_id": "sctxt7",
+          "width": 1280
+        },
+        {
+          "id": 1396846,
+          "height": 720,
+          "image_id": "sctxta",
+          "width": 1280
+        },
+        {
+          "id": 1396847,
+          "height": 720,
+          "image_id": "sctxtb",
+          "width": 1280
+        },
+        {
+          "id": 1396851,
+          "height": 720,
+          "image_id": "sctxtf",
+          "width": 1280
+        }
+      ],
+      "slug": "eggconsole-dragon-slayer-the-legend-of-heroes-pc-8801mkiisr",
+      "summary": "Falcom's Dragon Slayer VI is the series' first command-type RPG! As Prince Selios of the Farlane Kingdom, defeat the evil Akdam!",
+      "websites": [
+        {
+          "id": 772105,
+          "url": "https://www.nintendo.com/us/store/products/eggconsole-dragon-slayer-the-legend-of-heroes-pc-8801mkiisr-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 11,
+        "type": "Port"
+      }
+    },
+    {
       "id": 194419,
       "cover": {
         "id": 213121,
@@ -88579,179 +88701,6 @@
           "type": {
             "id": 24,
             "type": "Nintendo"
-          }
-        }
-      ],
-      "game_type": {
-        "id": 0,
-        "type": "Main Game"
-      }
-    },
-    {
-      "id": 388239,
-      "artworks": [
-        {
-          "id": 272233,
-          "alpha_channel": false,
-          "height": 1348,
-          "image_id": "ar5u21",
-          "width": 2000,
-          "artwork_type": 2
-        },
-        {
-          "id": 272234,
-          "alpha_channel": true,
-          "height": 556,
-          "image_id": "ar5u22",
-          "width": 654,
-          "artwork_type": 7
-        },
-        {
-          "id": 272232,
-          "alpha_channel": false,
-          "height": 1024,
-          "image_id": "ar5u20",
-          "width": 1024,
-          "artwork_type": 11
-        }
-      ],
-      "cover": {
-        "id": 561428,
-        "image_id": "coc178"
-      },
-      "first_release_date": 1780531200,
-      "genres": [
-        {
-          "id": 13,
-          "name": "Simulator"
-        }
-      ],
-      "involved_companies": [
-        {
-          "id": 384715,
-          "company": {
-            "id": 1221,
-            "name": "Artdink"
-          },
-          "developer": true,
-          "publisher": true
-        }
-      ],
-      "name": "A-Train 9 Evolution",
-      "platforms": [
-        130
-      ],
-      "release_dates": [
-        {
-          "id": 867164,
-          "date": 1780531200,
-          "platform": 130,
-          "y": 2026,
-          "date_format": {
-            "id": 0,
-            "format": "YYYYMMDD"
-          },
-          "release_region": {
-            "id": 5,
-            "region": "japan"
-          }
-        }
-      ],
-      "screenshots": [
-        {
-          "id": 1753991,
-          "height": 1080,
-          "image_id": "sc11ldz",
-          "width": 1920
-        },
-        {
-          "id": 1753992,
-          "height": 1080,
-          "image_id": "sc11le0",
-          "width": 1920
-        },
-        {
-          "id": 1753990,
-          "height": 1080,
-          "image_id": "sc11ldy",
-          "width": 1920
-        },
-        {
-          "id": 1753993,
-          "height": 1080,
-          "image_id": "sc11le1",
-          "width": 1920
-        },
-        {
-          "id": 1753994,
-          "height": 1080,
-          "image_id": "sc11le2",
-          "width": 1920
-        },
-        {
-          "id": 1753995,
-          "height": 1080,
-          "image_id": "sc11le3",
-          "width": 1920
-        },
-        {
-          "id": 1753996,
-          "height": 1080,
-          "image_id": "sc11le4",
-          "width": 1920
-        },
-        {
-          "id": 1753997,
-          "height": 1080,
-          "image_id": "sc11le5",
-          "width": 1920
-        },
-        {
-          "id": 1753998,
-          "height": 1080,
-          "image_id": "sc11le6",
-          "width": 1920
-        },
-        {
-          "id": 1753999,
-          "height": 1080,
-          "image_id": "sc11le7",
-          "width": 1920
-        },
-        {
-          "id": 1754000,
-          "height": 1080,
-          "image_id": "sc11le8",
-          "width": 1920
-        },
-        {
-          "id": 1754001,
-          "height": 548,
-          "image_id": "sc11le9",
-          "width": 1950
-        },
-        {
-          "id": 1754002,
-          "height": 1080,
-          "image_id": "sc11lea",
-          "width": 1920
-        },
-        {
-          "id": 1754003,
-          "height": 1080,
-          "image_id": "sc11leb",
-          "width": 1920
-        }
-      ],
-      "slug": "a-train-9-evolution",
-      "summary": "The evolved scenery depicts a new city.\n\nThe railroad connects cities and transports people. In connected cities, people gather, and the cities grow even larger… In A-Train 9, you can realistically experience the joy of urban development.\n\nA-Train 9 Evolution is not a mere port of A-Train 9—the user interface and graphics have been completely revamped. Furthermore, the addition of new buildings, including greenery-covered buildings, allows for modern urban vistas.",
-      "websites": [
-        {
-          "id": 1000820,
-          "url": "https://www.atrain.jp/title/a9evo/",
-          "type": {
-            "id": 1,
-            "type": "Official Website"
           }
         }
       ],

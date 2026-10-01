@@ -9,6 +9,8 @@ import { existsSync, readFileSync } from "node:fs";
 import type { Game, GamesFile } from "../src/types";
 import { localToday } from "./lib/build";
 import { PATHS } from "./lib/env";
+import { type GameGaps, gapsOf } from "./lib/gaps";
+import { loadMetacriticCache } from "./lib/metacritic";
 import { loadOverrides } from "./lib/overrides";
 import type { FetchReport } from "./lib/report";
 
@@ -36,36 +38,22 @@ const report: FetchReport | null = existsSync(PATHS.report)
 console.log(`${games.length} games in games.json${report ? `, fetched ${report.generatedAt.slice(0, 16).replace("T", " ")}` : ""}`);
 if (!report) console.log(dim("No data/fetch-report.json: run `npm run data:fetch` for conflict checks."));
 
-// --- Manual scores (SPEC §4): only released games can have them (free updates have none).
-const released = games.filter((g) => g.kind !== "free-update" && g.firstReleaseDate && g.firstReleaseDate <= today);
-const missing = released
-  .map((g) => {
-    const gaps = [
-      !g.scores.critic.metacritic && "Metacritic critic",
-      !g.scores.user.metacritic && "Metacritic user",
-      !g.scores.user.backloggd && "Backloggd",
-    ].filter(Boolean) as string[];
-    return { g, gaps };
-  })
-  .filter((m) => m.gaps.length);
+// --- Missing scores and links (SPEC §4), with the reason. Sources marked
+// "absent": { "<source>": { "status": "none" } } in the overrides are left out, and so is the TBA zone.
+const gaps = gapsOf(games, overrides, loadMetacriticCache(PATHS.metacriticCache), today);
+const gapList = (g: GameGaps) => g.gaps.map((x) => `${x.source} ${dim(`(${x.state})`)}`).join(", ");
 section(
-  "Released games missing Metacritic or Backloggd",
-  missing.map(({ g, gaps }) => `${label(g)} ${dim(g.firstReleaseDate!)} — ${gaps.join(", ")}`),
-  "Metacritic is read by data:fetch (see the Metacritic sections below); Backloggd and the gaps go under games.<id>.metacritic / .backloggd in data/overrides.json.",
+  "Released games missing a Metacritic or Backloggd score",
+  gaps.scores.map((g) => `${label(g)} ${dim(g.date ?? "")} — ${gapList(g)}`),
+  "not looked up: run data:fetch-metacritic · no page found: set links.metacritic in the admin panel · tbd: too few reviews yet, wait · none for real: \"absent\": { \"metacritic\": { \"status\": \"none\" } } in data/overrides.json.",
 );
-
-// --- Reference links (ITERATION-2 §7): overridable with links.wikipedia / links.nintendoWiki.
-const noLinks = games
-  .map((g) => ({
-    g,
-    gaps: [!g.links.wikipedia && "Wikipedia", !g.links.nintendoWiki && "Nintendo Wiki", !g.links.nintendoStore && "Nintendo Store"].filter(Boolean) as string[],
-  }))
-  .filter((m) => m.gaps.length);
 section(
   "Games without a Wikipedia, Nintendo Wiki or Nintendo Store link",
-  noLinks.map(({ g, gaps }) => `${label(g)} — ${gaps.join(", ")}`),
-  "Add them in the admin panel (npm run dev → /admin) or under games.<id>.links in data/overrides.json.",
+  gaps.links.map((g) => `${label(g)} — ${g.gaps.map((x) => x.source).join(", ")}`),
+  'Add them in the admin panel (npm run dev → /admin) or under games.<id>.links in data/overrides.json; no page at all: "absent": { "wikipedia": { "status": "none" } }.',
 );
+const none = Object.entries(gaps.confirmedNone);
+if (none.length) console.log(dim(`\nConfirmed absent in data/overrides.json, not listed: ${none.map(([k, n]) => `${k} ${n}`).join(", ")}.`));
 
 // --- Free updates (data/free-updates.json): the cover comes from IGDB.
 section(
@@ -187,16 +175,16 @@ if (tba.length) {
   for (const g of tba) console.log(`  - ${label(g)} ${dim(g.vagueRelease?.label ?? "TBA")}`);
 }
 
-if (process.argv.includes("--stubs") && missing.length) {
+if (process.argv.includes("--stubs") && gaps.scores.length) {
   // Only the blocks with gaps, pre-filled with what overrides.json already has.
   const stubs: Record<string, object> = {};
-  for (const { g, gaps } of missing) {
+  for (const g of gaps.scores) {
     const o = overrides[g.id] ?? {};
     const stub: Record<string, unknown> = { _title: g.title };
-    if (gaps.some((x) => x.startsWith("Metacritic"))) {
+    if (g.gaps.some((x) => x.source.startsWith("Metacritic"))) {
       stub.metacritic = { critic: null, criticCount: null, user: null, userCount: null, ...o.metacritic };
     }
-    if (gaps.includes("Backloggd")) stub.backloggd = { rating: null, count: null, ...o.backloggd };
+    if (g.gaps.some((x) => x.source === "Backloggd")) stub.backloggd = { rating: null, count: null, ...o.backloggd };
     stubs[g.id] = stub;
   }
   console.log(`\n${bold("Overrides stubs")} ${dim("(fill in the numbers and merge into data/overrides.json)")}`);

@@ -21,7 +21,9 @@ const GAME_KEYS = new Set([
   "backloggd",
   "links",
   "releaseDates",
+  "absent",
 ]);
+const ABSENT_KEYS = new Set(["metacritic", "opencritic", "backloggd", "wikipedia", "nintendoWiki", "nintendoStore"]);
 const LINK_KEYS = new Set(["opencritic", "metacritic", "backloggd", "wikipedia", "nintendoWiki", "nintendoStore"]);
 
 function number(errors: string[], where: string, v: Json, min: number, max: number, integer = false) {
@@ -89,6 +91,23 @@ export function validateGameOverride(id: string, o: Json): string[] {
         if (!["JP", "EU", "NA"].includes(key)) errors.push(`${at(`releaseDates.${key}`)}: expected JP, EU or NA`);
         else if (value !== null && !(typeof value === "string" && DATE.test(value))) {
           errors.push(`${at(`releaseDates.${key}`)}: expected "YYYY-MM-DD" or null`);
+        }
+      }
+    }
+  }
+  if (o.absent !== undefined) {
+    if (!isObject(o.absent)) errors.push(`${at("absent")}: expected an object`);
+    else {
+      for (const [key, value] of Object.entries(o.absent)) {
+        const where = at(`absent.${key}`);
+        if (!ABSENT_KEYS.has(key)) errors.push(`${where}: unknown source`);
+        else if (!isObject(value) || value.status !== "none") errors.push(`${where}: expected { "status": "none", "reason": "…", "checkedAt": "YYYY-MM-DD" }`);
+        else {
+          for (const k of Object.keys(value)) if (!["status", "reason", "checkedAt"].includes(k)) errors.push(`${where}.${k}: unknown field`);
+          if (value.reason !== undefined && typeof value.reason !== "string") errors.push(`${where}.reason: expected text`);
+          if (value.checkedAt !== undefined && !(typeof value.checkedAt === "string" && DATE.test(value.checkedAt))) {
+            errors.push(`${where}.checkedAt: expected "YYYY-MM-DD"`);
+          }
         }
       }
     }

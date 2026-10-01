@@ -54,7 +54,8 @@ describe("parseMetacriticPage", () => {
 
   it("reads tbd / null scores as no score", () => {
     const html = page({ cards: card("nintendo-switch-2", "tbd", 3), users: users("nintendo-switch-2", "null", "2") });
-    expect(parseMetacriticPage(html)).toMatchObject({ critic: null, criticCount: 3, user: null, userCount: 2 });
+    expect(parseMetacriticPage(html)).toMatchObject({ critic: null, criticCount: 3, user: null, userCount: 2, criticTbd: true });
+    expect(parseMetacriticPage(html).userTbd).toBeUndefined(); // "null" is no score, not tbd
   });
 });
 
@@ -105,13 +106,14 @@ const tbdCard = (platform: string) =>
 describe("pages without enough reviews", () => {
   it("read the tbd card as no Metascore, on its platform", () => {
     const html = page({ name: "DK Challenge", cards: tbdCard("nintendo-switch-2"), users: users("nintendo-switch-2", "5.8", "4") });
-    expect(parseMetacriticPage(html)).toMatchObject({ platform: "nintendo-switch-2", critic: null, criticCount: null, user: 5.8, userCount: 4 });
+    expect(parseMetacriticPage(html)).toMatchObject({ platform: "nintendo-switch-2", critic: null, criticCount: null, user: 5.8, userCount: 4, criticTbd: true });
+    expect(parseMetacriticPage(html).userTbd).toBeUndefined();
     expect(layoutIssue(html)).toBeNull();
   });
 
   it("accept a TBD user score without a platform link", () => {
     const html = page({ cards: tbdCard("nintendo-switch-2"), users: '<div aria-label="User score TBD"></div>' });
-    expect(parseMetacriticPage(html)).toMatchObject({ user: null, userCount: null });
+    expect(parseMetacriticPage(html)).toMatchObject({ user: null, userCount: null, userTbd: true });
     expect(layoutIssue(html)).toBeNull();
   });
 });

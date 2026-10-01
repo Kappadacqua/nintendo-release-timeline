@@ -491,6 +491,42 @@
       "criticCount": 25,
       "user": 6.1,
       "userCount": 10
+    },
+    "igdb:405468": {
+      "slug": "derby-stallion-2",
+      "url": "https://www.metacritic.com/game/derby-stallion-2/",
+      "checkedAt": "2026-10-01T19:58:02.567Z",
+      "status": "not-found"
+    },
+    "igdb:338093": {
+      "slug": "fast-fusion",
+      "url": "https://www.metacritic.com/game/fast-fusion/",
+      "checkedAt": "2026-10-01T19:58:10.265Z",
+      "status": "ok",
+      "name": "FAST Fusion",
+      "platform": "nintendo-switch-2",
+      "critic": 80,
+      "criticCount": 32,
+      "user": 7.4,
+      "userCount": 94
+    },
+    "igdb:217964": {
+      "slug": "shine-post-be-your-idol",
+      "url": "https://www.metacritic.com/game/shine-post-be-your-idol/",
+      "checkedAt": "2026-10-01T19:58:16.848Z",
+      "status": "not-found"
+    },
+    "igdb:338087": {
+      "slug": "survival-kids",
+      "url": "https://www.metacritic.com/game/survival-kids/",
+      "checkedAt": "2026-10-01T19:58:27.353Z",
+      "status": "ok",
+      "name": "Survival Kids",
+      "platform": "nintendo-switch-2",
+      "critic": 62,
+      "criticCount": 27,
+      "user": 5.6,
+      "userCount": 10
     }
   }
 }

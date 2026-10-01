@@ -7,7 +7,7 @@ import { type IgdbGame, PLATFORM } from "./igdb";
 import { baseTitleOfEdition, wikipediaUrl } from "./links";
 import { loadMetacriticCache } from "./metacritic";
 import { loadOpenCriticCache } from "./opencritic";
-import { applyOverride, loadOverrides, manualToGame, type OverridesFile, score } from "./overrides";
+import { applyOverride, isAbsent, loadOverrides, manualToGame, type OverridesFile, score } from "./overrides";
 import type { FetchReport } from "./report";
 import { addHistory, changesOf, readSnapshots } from "./snapshots";
 import { buildStudios, isNintendoPublisher } from "./studios";
@@ -235,7 +235,7 @@ export function buildGames(): BuildResult {
       }
       game.links.opencritic = listed?.url ?? details?.url ?? `https://opencritic.com/game/${opencriticId}`;
     }
-    if (!opencriticId && released && checked && !needsReviewPage) report.opencritic.unmatched.push({ id: game.id, title: game.title });
+    if (!opencriticId && released && checked && !needsReviewPage && !isAbsent(overrides[game.id], "opencritic")) report.opencritic.unmatched.push({ id: game.id, title: game.title });
     // Never replace a score with null just because it could not be checked.
     const before = previous.get(game.id);
     if (released && !scoreKnown && before?.scores.critic.opencritic && !game.scores.critic.opencritic) {
@@ -249,7 +249,8 @@ export function buildGames(): BuildResult {
         report.excludedWithoutReviewPage.push(item);
         continue;
       }
-      report.unverifiedReviewPage.push(item);
+      // TBA zone: never looked up (nothing to review yet), so not worth listing.
+      if (game.firstReleaseDate) report.unverifiedReviewPage.push(item);
     }
 
     // --- Metacritic, from the cache only (overrides.json still wins, field by field).
@@ -258,6 +259,8 @@ export function buildGames(): BuildResult {
       game.scores.critic.metacritic = score(page.critic ?? undefined, 100, page.criticCount);
       game.scores.user.metacritic = score(page.user ?? undefined, 10, page.userCount);
       game.links.metacritic = page.url;
+    } else if (isAbsent(overrides[game.id], "metacritic")) {
+      // Confirmed by hand: no page, nothing to report.
     } else if (released && page?.status === "not-found") {
       report.metacritic!.notFound.push({ id: game.id, title: game.title, slug: page.slug });
     } else if (released && page?.status === "mismatch") {

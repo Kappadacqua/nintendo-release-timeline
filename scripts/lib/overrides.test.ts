@@ -38,3 +38,15 @@ describe("metacritic override", () => {
     expect(out.scores.user.metacritic?.value).toBe(8.9);
   });
 });
+
+describe("absent override", () => {
+  it("accepts a confirmed absence per source", () => {
+    expect(validateGameOverride("igdb:405468", { absent: { metacritic: { status: "none", reason: "HTTP 410", checkedAt: "2026-10-01" } } })).toEqual([]);
+  });
+
+  it("rejects unknown sources, statuses and dates", () => {
+    expect(validateGameOverride("igdb:1", { absent: { ign: { status: "none" } } })).toHaveLength(1);
+    expect(validateGameOverride("igdb:1", { absent: { metacritic: { status: "missing" } } })).toHaveLength(1);
+    expect(validateGameOverride("igdb:1", { absent: { metacritic: { status: "none", checkedAt: "1 Oct" } } })).toHaveLength(1);
+  });
+});

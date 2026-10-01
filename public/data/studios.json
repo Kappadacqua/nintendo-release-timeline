@@ -1,19 +1,6 @@
 {
-  "generatedAt": "2026-10-01T19:37:56.558Z",
+  "generatedAt": "2026-10-01T19:58:34.833Z",
   "studios": [
-    {
-      "name": "Monolith Soft",
-      "url": "https://nintendo.fandom.com/wiki/Monolith_Soft",
-      "category": "first-party",
-      "game": {
-        "id": "igdb:405448",
-        "title": "Xenoblade Chronicles 3: Nintendo Switch 2 Edition",
-        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc7ms.jpg",
-        "date": "2026-12-03",
-        "status": "upcoming"
-      },
-      "hasSwitch2Game": true
-    },
     {
       "name": "MercurySteam",
       "url": null,
@@ -347,20 +334,6 @@
       "hasSwitch2Game": false
     },
     {
-      "name": "Artdink",
-      "url": null,
-      "category": "third-party",
-      "game": null,
-      "hasSwitch2Game": false,
-      "latestSwitch1Game": {
-        "id": "igdb:388239",
-        "title": "A-Train 9 Evolution",
-        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc178.jpg",
-        "date": "2026-06-04",
-        "status": "released"
-      }
-    },
-    {
       "name": "Bloober Team",
       "url": null,
       "category": "third-party",
@@ -406,6 +379,18 @@
         "id": "manual:chit-chat-party",
         "title": "Chit Chat Party!",
         "coverUrl": "/covers/placeholder.svg"
+      }
+    },
+    {
+      "name": "Monolith Soft",
+      "url": "https://nintendo.fandom.com/wiki/Monolith_Soft",
+      "category": "first-party",
+      "game": null,
+      "hasSwitch2Game": true,
+      "tbaGame": {
+        "id": "igdb:405450",
+        "title": "Xenoblade Genesis",
+        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc8ai.jpg"
       }
     },
     {

@@ -12,7 +12,7 @@ import { Igdb, type IgdbGame, PLATFORM } from "./lib/igdb";
 import { emptyMetacriticStatus, fetchMetacritic } from "./lib/metacritic";
 import { nintendoWikiByTitle, type WikidataLinks, wikidataBySlug, wikipediaByTitle } from "./lib/links";
 import { OpenCritic } from "./lib/opencritic";
-import { loadOverrides, type OverridesFile } from "./lib/overrides";
+import { isAbsent, loadOverrides, type OverridesFile } from "./lib/overrides";
 import { snapshotOf, writeSnapshot } from "./lib/snapshots";
 import { sameTitle } from "./lib/transform";
 import { cleanWikiTitle, fetchSwitch2OnlyGames } from "./lib/wikipedia";
@@ -126,7 +126,11 @@ async function main() {
 
   // Links first: Wikidata also knows OpenCritic ids, which saves searches.
   const links = await fetchLinks(selected, candidates, userAgent, status);
-  await fetchOpenCritic(selected, knownOpenCriticIds(selected, links, overridesFile), status);
+  await fetchOpenCritic(
+    selected.filter((s) => !isAbsent(overridesFile.games[s.game.id], "opencritic")),
+    knownOpenCriticIds(selected, links, overridesFile),
+    status,
+  );
   // Metacritic only enriches the games selected above; it never adds any.
   if (env("METACRITIC_DISABLED")) log("METACRITIC_DISABLED set: skipping Metacritic (the cache is still used by the build).");
   else await fetchMetacritic(selected.map((s) => s.game), overridesFile, PATHS.metacriticCache, status.metacritic!, log);

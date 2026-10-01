@@ -55,7 +55,9 @@
    "firstReleaseDate": "2025-06-05",
    "vague": null,
    "scores": {
-    "opencritic": 81
+    "opencritic": 81,
+    "metacritic": 80,
+    "metacriticUser": 74
    }
   },
   "free-update:game-builder-garage": {
@@ -190,7 +192,9 @@
    "firstReleaseDate": "2025-06-05",
    "vague": null,
    "scores": {
-    "opencritic": 62
+    "opencritic": 62,
+    "metacritic": 62,
+    "metacriticUser": 56
    }
   },
   "igdb:338072": {
@@ -661,17 +665,6 @@
     "metacriticUser": 83
    }
   },
-  "igdb:388239": {
-   "title": "A-Train 9 Evolution",
-   "releaseDates": {
-    "JP": "2026-06-04",
-    "EU": null,
-    "NA": null
-   },
-   "firstReleaseDate": "2026-06-04",
-   "vague": null,
-   "scores": {}
-  },
   "igdb:405439": {
    "title": "DK Challenge",
    "releaseDates": {
@@ -684,17 +677,6 @@
    "scores": {
     "metacriticUser": 58
    }
-  },
-  "igdb:405446": {
-   "title": "Xenoblade Chronicles: Definitive Edition - Nintendo Switch 2 Edition",
-   "releaseDates": {
-    "JP": "2026-06-09",
-    "EU": "2026-06-09",
-    "NA": "2026-06-09"
-   },
-   "firstReleaseDate": "2026-06-09",
-   "vague": null,
-   "scores": {}
   },
   "igdb:400709": {
    "title": "Star Fox",
@@ -750,20 +732,6 @@
     "opencritic": 81,
     "metacritic": 82,
     "metacriticUser": 93
-   }
-  },
-  "igdb:405447": {
-   "title": "Xenoblade Chronicles 2: Nintendo Switch 2 Edition",
-   "releaseDates": {
-    "JP": "2026-07-30",
-    "EU": "2026-07-30",
-    "NA": "2026-07-30"
-   },
-   "firstReleaseDate": "2026-07-30",
-   "vague": null,
-   "scores": {
-    "metacritic": 86,
-    "metacriticUser": 89
    }
   },
   "igdb:405436": {
@@ -863,28 +831,6 @@
     "NA": "2026-11-05"
    },
    "firstReleaseDate": "2026-11-05",
-   "vague": null,
-   "scores": {}
-  },
-  "igdb:417169": {
-   "title": "Pikmin 4: Nintendo Switch 2 Edition + Dandori Academy",
-   "releaseDates": {
-    "JP": "2026-11-12",
-    "EU": "2026-11-12",
-    "NA": "2026-11-12"
-   },
-   "firstReleaseDate": "2026-11-12",
-   "vague": null,
-   "scores": {}
-  },
-  "igdb:405448": {
-   "title": "Xenoblade Chronicles 3: Nintendo Switch 2 Edition",
-   "releaseDates": {
-    "JP": "2026-12-03",
-    "EU": "2026-12-03",
-    "NA": "2026-12-03"
-   },
-   "firstReleaseDate": "2026-12-03",
    "vague": null,
    "scores": {}
   },

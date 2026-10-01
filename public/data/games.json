@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-01T19:37:56.558Z",
+  "generatedAt": "2026-10-01T19:58:34.833Z",
   "games": [
     {
       "id": "free-update:arms",
@@ -185,16 +185,27 @@
             "normalized": 81,
             "count": 19
           },
-          "metacritic": null
+          "metacritic": {
+            "value": 80,
+            "scale": 100,
+            "normalized": 80,
+            "count": 32
+          }
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 7.4,
+            "scale": 10,
+            "normalized": 74,
+            "count": 94
+          },
           "backloggd": null
         }
       },
       "links": {
         "backloggd": "https://backloggd.com/games/fast-fusion/",
         "opencritic": "https://opencritic.com/game/18663/fast-fusion",
+        "metacritic": "https://www.metacritic.com/game/fast-fusion/",
         "wikipedia": "https://en.wikipedia.org/wiki/Fast_Fusion",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/FAST_Fusion",
         "nintendoStore": "https://www.nintendo.com/us/store/products/fast-fusion-switch-2/"
@@ -663,16 +674,27 @@
             "normalized": 62,
             "count": 20
           },
-          "metacritic": null
+          "metacritic": {
+            "value": 62,
+            "scale": 100,
+            "normalized": 62,
+            "count": 27
+          }
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 5.6,
+            "scale": 10,
+            "normalized": 56,
+            "count": 10
+          },
           "backloggd": null
         }
       },
       "links": {
         "backloggd": "https://backloggd.com/games/survival-kids--1/",
         "opencritic": "https://opencritic.com/game/18654/survival-kids",
+        "metacritic": "https://www.metacritic.com/game/survival-kids/",
         "wikipedia": "https://en.wikipedia.org/wiki/Survival_Kids_(2025_video_game)",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Survival_Kids",
         "nintendoStore": "https://www.nintendo.it/-/-2807680.html"
@@ -1025,7 +1047,7 @@
       "title": "Super Mario Party Jamboree: Nintendo Switch 2 Edition + Jamboree TV",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co9m77.jpg",
       "summary": "Super Mario Party Jamboree is getting even more minigames and an upgrade on Nintendo Switch 2! The upgrade expands on the base game and adds Nintendo Switch 2 gameplay features, such as mouse controls, enhanced rumble, sound recognition, and modes that use a camera accessory (sold separately).",
-      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/scw38h.jpg",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/scw38d.jpg",
       "developer": "Nintendo Cube",
       "genres": [
         "Platform",
@@ -1113,6 +1135,7 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/chillin-by-the-fire/",
+        "opencritic": "https://opencritic.com/game/19034/chillin-by-the-fire",
         "metacritic": "https://www.metacritic.com/game/chillin-by-the-fire/",
         "wikipedia": "https://en.wikipedia.org/wiki/Chillin'_by_the_Fire",
         "nintendoStore": "https://www.nintendo.com/us/store/products/chillin-by-the-fire-switch-2/"
@@ -2374,42 +2397,6 @@
       }
     },
     {
-      "id": "igdb:388239",
-      "kind": "game",
-      "title": "A-Train 9 Evolution",
-      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc178.jpg",
-      "summary": "The evolved scenery depicts a new city.\n\nThe railroad connects cities and transports people. In connected cities, people gather, and the cities grow even larger… In A-Train 9, you can realistically experience the joy of urban development.\n\nA-Train 9 Evolution is not a mere port of A-Train 9—the user interface and graphics have been completely revamped. Furthermore, the addition of new buildings, including greenery-covered buildings, allows for modern urban vistas.",
-      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar5u21.jpg",
-      "developer": "Artdink",
-      "genres": [
-        "Simulator"
-      ],
-      "releaseDates": {
-        "JP": "2026-06-04",
-        "EU": null,
-        "NA": null
-      },
-      "firstReleaseDate": "2026-06-04",
-      "exclusivity": "exclusive",
-      "firstParty": false,
-      "alsoOnSwitch1": false,
-      "onOtherConsoles": false,
-      "scores": {
-        "critic": {
-          "opencritic": null,
-          "metacritic": null
-        },
-        "user": {
-          "metacritic": null,
-          "backloggd": null
-        }
-      },
-      "links": {
-        "backloggd": "https://backloggd.com/games/a-train-9-evolution/",
-        "wikipedia": "https://en.wikipedia.org/wiki/A-Train_9_Evolution"
-      }
-    },
-    {
       "id": "igdb:405439",
       "kind": "game",
       "title": "DK Challenge",
@@ -2448,44 +2435,6 @@
       "links": {
         "backloggd": "https://backloggd.com/games/dk-challenge/",
         "metacritic": "https://www.metacritic.com/game/dk-challenge/"
-      }
-    },
-    {
-      "id": "igdb:405446",
-      "kind": "switch2-edition",
-      "title": "Xenoblade Chronicles: Definitive Edition - Nintendo Switch 2 Edition",
-      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc7me.jpg",
-      "summary": "Xenoblade Chronicles: Definitive Edition - Nintendo Switch 2 Edition includes the additions and enhancements from the Definitive Edition, along with even more made possible by the power of the Nintendo Switch 2 system - including added features, a smoother frame rate, 4K resolution in TV mode, and full HD in handheld mode.",
-      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/sc13r3a.jpg",
-      "developer": "Monolith Soft",
-      "genres": [
-        "RPG"
-      ],
-      "releaseDates": {
-        "JP": "2026-06-09",
-        "EU": "2026-06-09",
-        "NA": "2026-06-09"
-      },
-      "firstReleaseDate": "2026-06-09",
-      "exclusivity": "exclusive",
-      "firstParty": true,
-      "alsoOnSwitch1": false,
-      "onOtherConsoles": false,
-      "scores": {
-        "critic": {
-          "opencritic": null,
-          "metacritic": null
-        },
-        "user": {
-          "metacritic": null,
-          "backloggd": null
-        }
-      },
-      "links": {
-        "backloggd": "https://backloggd.com/games/xenoblade-chronicles-definitive-edition-nintendo-switch-2-edition/",
-        "wikipedia": "https://en.wikipedia.org/wiki/Xenoblade_Chronicles:_Definitive_Edition",
-        "nintendoWiki": "https://nintendo.fandom.com/wiki/Xenoblade_Chronicles%3A_Definitive_Edition",
-        "nintendoStore": "https://www.nintendo.com/us/store/products/xenoblade-chronicles-definitive-edition-nintendo-switch-2-edition-switch-2/"
       }
     },
     {
@@ -2695,56 +2644,6 @@
       }
     },
     {
-      "id": "igdb:405447",
-      "kind": "switch2-edition",
-      "title": "Xenoblade Chronicles 2: Nintendo Switch 2 Edition",
-      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc7mr.jpg",
-      "summary": "Command a group of Blades and lead them to countless strategic victories as you search for the fabled paradise Pyra calls home. This journey has been enhanced with 4K* resolution in TV mode, and full HD in handheld mode, at 60 frames per second—and with smoother and sharper cutscenes.",
-      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/sc13r38.jpg",
-      "developer": "Monolith Soft",
-      "genres": [
-        "RPG",
-        "Adventure"
-      ],
-      "releaseDates": {
-        "JP": "2026-07-30",
-        "EU": "2026-07-30",
-        "NA": "2026-07-30"
-      },
-      "firstReleaseDate": "2026-07-30",
-      "exclusivity": "exclusive",
-      "firstParty": true,
-      "alsoOnSwitch1": false,
-      "onOtherConsoles": false,
-      "scores": {
-        "critic": {
-          "opencritic": null,
-          "metacritic": {
-            "value": 86,
-            "scale": 100,
-            "normalized": 86,
-            "count": 19
-          }
-        },
-        "user": {
-          "metacritic": {
-            "value": 8.9,
-            "scale": 10,
-            "normalized": 89,
-            "count": 112
-          },
-          "backloggd": null
-        }
-      },
-      "links": {
-        "backloggd": "https://backloggd.com/games/xenoblade-chronicles-2-nintendo-switch-2-edition/",
-        "metacritic": "https://www.metacritic.com/game/xenoblade-chronicles-2-nintendo-switch-2-edition/",
-        "wikipedia": "https://en.wikipedia.org/wiki/Xenoblade_Chronicles_2",
-        "nintendoWiki": "https://nintendo.fandom.com/wiki/Xenoblade_Chronicles_2",
-        "nintendoStore": "https://www.nintendo.com/us/store/products/xenoblade-chronicles-2-nintendo-switch-2-edition-switch-2/"
-      }
-    },
-    {
       "id": "igdb:405436",
       "kind": "dlc",
       "title": "Pokémon Pokopia: Bubbly Basin",
@@ -2904,7 +2803,7 @@
             "value": 82,
             "scale": 100,
             "normalized": 82,
-            "count": 46
+            "count": 47
           },
           "metacritic": {
             "value": 81,
@@ -2938,7 +2837,7 @@
       "title": "Fire Emblem: Fortune's Weave",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc7ma.jpg",
       "summary": "Fire Emblem: Fortune's Weave is a turn-based strategy RPG centered around the Heroic Games, a tournament where warriors with different motivations compete for a chance to have their greatest wish granted by the Divine Sovereign. The game builds on the tactical foundation of previous Fire Emblem titles, featuring turn-based combat with combat arts, gambits, and crests. A new mechanic called Blaze Arts lets units spend health to perform powerful special abilities on the battlefield.\nThe game appears to be set in the same world as Fire Emblem: Three Houses, though in a different era, and follows characters like Cai, who enters the tournament to save his father's life.",
-      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/sc104g4.jpg",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar6ox8.jpg",
       "developer": "Intelligent Systems",
       "genres": [
         "RPG",
@@ -2960,7 +2859,7 @@
             "value": 89,
             "scale": 100,
             "normalized": 89,
-            "count": 36
+            "count": 39
           },
           "metacritic": {
             "value": 89,
@@ -3096,83 +2995,6 @@
         "wikipedia": "https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Ocarina_of_Time_(2026_video_game)",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/The_Legend_of_Zelda%3A_Ocarina_of_Time",
         "nintendoStore": "https://www.nintendo.com/us/store/products/the-legend-of-zelda-ocarina-of-time-switch-2/"
-      }
-    },
-    {
-      "id": "igdb:417169",
-      "kind": "switch2-edition",
-      "title": "Pikmin 4: Nintendo Switch 2 Edition + Dandori Academy",
-      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocv9m.jpg",
-      "summary": "Give Oatchi commands using your voice and put your Dandori skills to the test in Pikmin 4 – Nintendo Switch 2 Edition + Dandori Academy.",
-      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/sc154em.jpg",
-      "developer": null,
-      "genres": [
-        "Adventure"
-      ],
-      "releaseDates": {
-        "JP": "2026-11-12",
-        "EU": "2026-11-12",
-        "NA": "2026-11-12"
-      },
-      "firstReleaseDate": "2026-11-12",
-      "exclusivity": "exclusive",
-      "firstParty": true,
-      "alsoOnSwitch1": false,
-      "onOtherConsoles": false,
-      "scores": {
-        "critic": {
-          "opencritic": null,
-          "metacritic": null
-        },
-        "user": {
-          "metacritic": null,
-          "backloggd": null
-        }
-      },
-      "links": {
-        "backloggd": "https://backloggd.com/games/pikmin-4-nintendo-switch-2-edition-plus-dandori-academy/",
-        "wikipedia": "https://en.wikipedia.org/wiki/Pikmin_4",
-        "nintendoWiki": "https://nintendo.fandom.com/wiki/Pikmin_4",
-        "nintendoStore": "https://www.nintendo.com/us/store/products/pikmin-4-nintendo-switch-2-edition-plus-dandori-academy-switch-2/"
-      }
-    },
-    {
-      "id": "igdb:405448",
-      "kind": "switch2-edition",
-      "title": "Xenoblade Chronicles 3: Nintendo Switch 2 Edition",
-      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc7ms.jpg",
-      "summary": "Traverse massive, fantastical landscapes and master seamless real-time RPG combat that has all been enhanced to run at 4K* resolution in TV mode, and full HD in handheld mode, at 60 frames per second with smoother and sharper cutscenes.",
-      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/sc13r2t.jpg",
-      "developer": "Monolith Soft",
-      "genres": [
-        "RPG",
-        "Adventure"
-      ],
-      "releaseDates": {
-        "JP": "2026-12-03",
-        "EU": "2026-12-03",
-        "NA": "2026-12-03"
-      },
-      "firstReleaseDate": "2026-12-03",
-      "exclusivity": "exclusive",
-      "firstParty": true,
-      "alsoOnSwitch1": false,
-      "onOtherConsoles": false,
-      "scores": {
-        "critic": {
-          "opencritic": null,
-          "metacritic": null
-        },
-        "user": {
-          "metacritic": null,
-          "backloggd": null
-        }
-      },
-      "links": {
-        "backloggd": "https://backloggd.com/games/xenoblade-chronicles-3-nintendo-switch-2-edition/",
-        "wikipedia": "https://en.wikipedia.org/wiki/Xenoblade_Chronicles_3",
-        "nintendoWiki": "https://nintendo.fandom.com/wiki/Xenoblade_Chronicles_3",
-        "nintendoStore": "https://www.nintendo.com/us/store/products/xenoblade-chronicles-3-nintendo-switch-2-edition-switch-2/"
       }
     },
     {
