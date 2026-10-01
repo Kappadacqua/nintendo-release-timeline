@@ -193,6 +193,8 @@ export function buildGames(): BuildResult {
       errors: status?.opencritic.errors ?? [],
       keptPrevious: [],
       catalogSize: status?.opencritic.catalogSize ?? oc.catalog?.games.length ?? 0,
+      stoppedBecause: status?.opencritic.stoppedBecause ?? null,
+      queued: status?.opencritic.queued ?? 0,
     },
     metacritic: {
       enabled: status?.metacritic?.enabled ?? false,

@@ -14,7 +14,14 @@
     },
     "igdb:405439": {
       "_title": "DK Challenge",
-      "exclusivity": "exclusive"
+      "exclusivity": "exclusive",
+      "absent": {
+        "opencritic": {
+          "status": "none",
+          "reason": "OpenCritic search: no match for the title (last try 2026-09-26)",
+          "checkedAt": "2026-10-01"
+        }
+      }
     },
     "igdb:405436": {
       "_title": "Pokémon Pokopia: Bubbly Basin",
@@ -46,6 +53,36 @@
     "igdb:338071": {
       "opencriticId": 18963,
       "_title": "Super Mario Party Jamboree: Nintendo Switch 2 Edition + Jamboree TV"
+    },
+    "igdb:386785": {
+      "_title": "Pool Room Billiard",
+      "absent": {
+        "opencritic": {
+          "status": "none",
+          "reason": "OpenCritic search: no match for the title (last try 2026-09-26)",
+          "checkedAt": "2026-10-01"
+        }
+      }
+    },
+    "igdb:399617": {
+      "_title": "Card&Casino",
+      "absent": {
+        "opencritic": {
+          "status": "none",
+          "reason": "OpenCritic search: no match for the title (last try 2026-09-26)",
+          "checkedAt": "2026-10-01"
+        }
+      }
+    },
+    "igdb:405468": {
+      "_title": "Derby Stallion 2",
+      "absent": {
+        "opencritic": {
+          "status": "none",
+          "reason": "OpenCritic search: no match for the title (last try 2026-10-01)",
+          "checkedAt": "2026-10-01"
+        }
+      }
     }
   },
   "wikipedia": {

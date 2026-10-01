@@ -154,7 +154,8 @@ if (report) {
     console.log(dim(`\n${report.metacritic.unchecked} released game(s) not looked up on Metacritic yet: run \`npm run data:fetch-metacritic\`.`));
   }
   if (report.opencritic.budgetExhausted) {
-    console.log(dim("\nOpenCritic daily budget reached during the last fetch: some scores are stale or missing."));
+    const queued = report.opencritic.queued ?? 0;
+    console.log(dim(`\nOpenCritic budget exhausted${report.opencritic.stoppedBecause ? ` (${report.opencritic.stoppedBecause})` : ""}, ${queued} game(s) in queue for the next run.`));
   }
 }
 

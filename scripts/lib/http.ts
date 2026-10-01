@@ -26,7 +26,12 @@ const TIMEOUT_MS = 30_000;
 /** Longest wait accepted from a Retry-After header. */
 const MAX_RETRY_WAIT_MS = 60_000;
 
-type Init = RequestInit & { throttle?: Throttle; label?: string };
+type Init = RequestInit & {
+  throttle?: Throttle;
+  label?: string;
+  /** false: a 429 fails at once (a daily quota, where waiting a few seconds does not help). */
+  retry429?: boolean;
+};
 
 /** fetchText + JSON. */
 export async function fetchJson<T>(url: string, init: Init = {}, retries = 4): Promise<T> {
@@ -43,7 +48,7 @@ export async function fetchJson<T>(url: string, init: Init = {}, retries = 4): P
  * exponential backoff. Every error message starts with the label.
  */
 export async function fetchText(url: string, init: Init = {}, retries = 4): Promise<string> {
-  const { throttle, label = url, ...request } = init;
+  const { throttle, label = url, retry429 = true, ...request } = init;
   const backoff = (attempt: number) => sleep(1000 * 2 ** attempt);
   for (let attempt = 0; ; attempt++) {
     await throttle?.wait();
@@ -60,7 +65,7 @@ export async function fetchText(url: string, init: Init = {}, retries = 4): Prom
     }
     if (res.ok) return res.text();
 
-    const retryable = res.status === 429 || res.status >= 500;
+    const retryable = (res.status === 429 && retry429) || res.status >= 500;
     if (retryable && attempt < retries) {
       const retryAfter = Number(res.headers.get("retry-after"));
       if (Number.isFinite(retryAfter) && retryAfter > 0) await sleep(Math.min(retryAfter * 1000, MAX_RETRY_WAIT_MS));

@@ -48,6 +48,8 @@ export interface FetchStatus {
     stoppedBecause: string | null;
     errors: string[];
     catalogSize: number;
+    /** Games never looked up because the budget ran out: first in line next run. */
+    queued?: number;
   };
   /** Metacritic pages read by data:fetch / data:fetch-metacritic (absent before the first run). */
   metacritic?: {

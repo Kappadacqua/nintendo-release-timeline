@@ -45,6 +45,7 @@ async function main() {
       stoppedBecause: null,
       errors: [],
       catalogSize: 0,
+      queued: 0,
     },
     metacritic: emptyMetacriticStatus(),
     linkErrors: [],
@@ -205,53 +206,60 @@ async function fetchOpenCritic(selected: Selected[], known: Map<string, number>,
     searches: intEnv("OPENCRITIC_MAX_SEARCHES", 20),
     requests: intEnv("OPENCRITIC_MAX_REQUESTS", 150),
   });
-  const fail = (what: string, err: unknown, during: "search" | "request") => {
+  const fail = (what: string, err: unknown) => {
+    if (err instanceof HttpError && err.status === 429) {
+      // Daily quota: stop every OpenCritic call of this run. Not a problem of this game: the
+      // games left are queued for the next run (the cache keeps serving the build).
+      oc.goOffline(`RapidAPI daily quota reached (${/\/game\/search/.test(err.message) ? "searches" : "requests"})`);
+      return;
+    }
     status.opencritic.errors.push(`${what}: ${(err as Error).message}`);
-    if (!(err instanceof HttpError) || ![401, 403, 429].includes(err.status)) return;
-    // Out of quota or bad key: stop calling (the cache keeps serving the build).
-    if (err.status === 429 && during === "search") oc.stopSearches("daily search quota reached");
-    else oc.goOffline(err.status === 429 ? "RapidAPI daily request quota reached" : `API key rejected (HTTP ${err.status})`);
+    if (err instanceof HttpError && [401, 403].includes(err.status)) oc.goOffline(`API key rejected (HTTP ${err.status})`);
   };
 
   try {
     status.opencritic.catalogSize = await oc.loadCatalog(intEnv("OPENCRITIC_CATALOG_DAYS", 3));
     log(`OpenCritic catalog: ${status.opencritic.catalogSize} Switch 2 games`);
   } catch (err) {
-    fail("Switch 2 catalog", err, "request");
+    fail("Switch 2 catalog", err);
   }
 
-  // Released games newest first, then upcoming ones soonest first; TBA games have nothing to fetch.
+  // Released games newest first, then upcoming ones soonest first.
   const priority = (g: Game) => {
     const days = daysSince(g.firstReleaseDate!);
     return days >= 0 ? days : 1_000_000 - days;
   };
-  // Games never looked up go first: otherwise the daily search quota is spent every day
-  // on retries of recent games and older ones never get their turn.
+  // Queue: (a) games never looked up, (b) recent releases, (c) refreshes of known pages.
+  // Otherwise the daily search quota is spent every day on retries and new games never get
+  // their turn. TBA games and DLC not out yet have nothing to look up.
   const dated = games
-    .filter((g) => g.firstReleaseDate)
+    .filter((g) => g.firstReleaseDate && !(g.kind === "dlc" && g.firstReleaseDate > today))
     .sort((a, b) => Number(oc.hasMatch(a.id)) - Number(oc.hasMatch(b.id)) || priority(a) - priority(b));
   for (const game of dated) {
     const released = game.firstReleaseDate! <= today;
     const age = released ? daysSince(game.firstReleaseDate!) : -1;
     let id: number | null | undefined;
     try {
-      id = await oc.resolveId(game.id, game.title, age >= 0 && age < 30 ? 3 : 14, known.get(game.id));
+      // A miss is retried after 30 days (the free Switch 2 catalog still catches it earlier).
+      id = await oc.resolveId(game.id, game.title, 30, known.get(game.id));
     } catch (err) {
-      fail(game.title, err, "search");
+      fail(game.title, err);
     }
     if (!id || !released) continue;
     try {
       await oc.game(id, age < 45 ? 1 : 14);
     } catch (err) {
-      fail(game.title, err, "request");
+      fail(game.title, err);
     }
   }
+  // Never looked up because the budget ran out: first in line next run.
+  status.opencritic.queued = dated.filter((g) => !oc.hasMatch(g.id)).length;
   oc.save();
   Object.assign(status.opencritic, {
     searchesUsed: oc.used.searches,
     requestsUsed: oc.used.requests,
     budgetExhausted: oc.budgetExhausted || oc.offlineReason !== null,
-    stoppedBecause: oc.offlineReason ?? oc.searchesStopped,
+    stoppedBecause: oc.offlineReason,
   });
 }
 

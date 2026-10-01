@@ -112,6 +112,8 @@ export class OpenCritic {
       headers: { "x-rapidapi-key": this.apiKey, "x-rapidapi-host": HOST },
       throttle: this.throttle,
       label: `OpenCritic ${path}`,
+      // RapidAPI's 429 is the daily quota: retrying only spends more of it.
+      retry429: false,
     });
   }
 
@@ -169,20 +171,13 @@ export class OpenCritic {
     this.offlineReason ??= reason;
   }
 
-  /** Searches have their own, smaller daily quota: running out of it must not stop plain requests. */
-  stopSearches(reason: string) {
-    this.budget.searches = this.used.searches;
-    this.searchesStopped ??= reason;
-  }
-
-  searchesStopped: string | null = null;
-
   /** Why calls were stopped early (quota, key), if they were. */
   offlineReason: string | null = null;
 
   /**
-   * OpenCritic id for an IGDB game from the cache or a new search (misses are
-   * retried after `retryMissAfterDays`). null = no page; undefined = unknown (budget spent).
+   * OpenCritic id for an IGDB game from the cache or a new search. A found id is never searched
+   * again; a miss (searchedAt = last try) only after `retryMissAfterDays`, unless the Switch 2
+   * catalog lists the title. null = no page; undefined = unknown (budget spent).
    */
   async resolveId(igdbId: string, title: string, retryMissAfterDays: number, knownId?: number): Promise<number | null | undefined> {
     // Forced in overrides.json or from Wikidata: wins over any title match.
