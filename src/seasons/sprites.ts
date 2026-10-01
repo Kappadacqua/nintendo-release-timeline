@@ -31,52 +31,238 @@ type Point = [number, number];
 /** `[x, y]` turned by `a` (rad) and moved by `dx`, `dy`. */
 const turn = ([x, y]: Point, a: number, dx = 0, dy = 0): Point => [x * Math.cos(a) - y * Math.sin(a) + dx, x * Math.sin(a) + y * Math.cos(a) + dy];
 
-/**
- * Right half of a maple leaf (x ≥ 0), from the top tip to the stem, for a leaf of half
- * height 1 pointing up: three lobes with a few teeth. The left half is its mirror image.
- */
-const MAPLE: readonly Point[] = [
-  [0, -1],
-  [0.1, -0.74],
-  [0.22, -0.8],
-  [0.17, -0.56],
-  [0.14, -0.36],
-  [0.5, -0.6],
-  [0.52, -0.5],
-  [0.9, -0.52],
-  [0.74, -0.32],
-  [0.86, -0.22],
-  [0.6, -0.1],
-  [0.4, -0.02],
-  [0.62, 0.26],
-  [0.36, 0.2],
-  [0.24, 0.3],
-  [0.05, 0.42],
-];
-/** Where the veins of the maple leaf end: top, side and lower lobes (right half). */
-const MAPLE_VEINS: readonly Point[] = [
-  [0, -0.82],
-  [0.74, -0.44],
-  [0.48, 0.18],
-];
+/** Path commands recorded in leaf units, so the drawing can be measured and centred first. */
+type Command = { move: Point } | { line: Point } | { quad: [Point, Point] };
 
-function leaf(s: number): Shape {
-  const outline = new Path2D();
-  outline.moveTo(0, -s);
-  for (const [x, y] of MAPLE) outline.lineTo(x * s, y * s);
-  for (let i = MAPLE.length - 1; i >= 0; i--) outline.lineTo(-MAPLE[i][0] * s, MAPLE[i][1] * s);
-  outline.closePath();
-  // Stem and veins, from the base of the blade.
-  const veins = new Path2D();
-  veins.moveTo(0, 0.85 * s);
-  veins.lineTo(0, 0.3 * s);
-  for (const [x, y] of MAPLE_VEINS) {
-    for (const side of x ? [1, -1] : [1]) {
-      veins.moveTo(0, 0.3 * s);
-      veins.lineTo(side * x * s, y * s);
-    }
+/**
+ * Pen of a leaf (docs/tasks/seasons-art.md task 3), in units of the leaf length L with the base of
+ * the blade at the origin and the tip up. Every point is moved by ± `SEASONS.leaves.jitter` and the
+ * whole leaf is bent sideways a little (`x += bend · y²`), so no two variants match.
+ */
+class LeafPen {
+  readonly outline: Command[] = [];
+  readonly veins: Command[] = [];
+  constructor(
+    private rand: () => number,
+    private bend: number,
+  ) {}
+
+  /** A control point: jittered, then bent. */
+  at([x, y]: Point): Point {
+    const j = SEASONS.leaves.jitter;
+    const jx = x * (1 + (this.rand() * 2 - 1) * j);
+    const jy = y * (1 + (this.rand() * 2 - 1) * j);
+    return [jx + this.bend * jy * jy, jy];
   }
-  return { outline, veins, fill: true, extent: s };
+
+  /** A curved stem `length` long hanging from the base of the blade (`from`). */
+  stem(length: number, from: Point = [0, 0]) {
+    const side = this.rand() < 0.5 ? -1 : 1;
+    const sway = 0.15 + 0.15 * this.rand();
+    const [x, y] = from;
+    this.veins.push({ move: [x, y] }, { quad: [[x + side * sway * length, y + length * 0.5], [x + side * sway * 0.3 * length, y + length]] });
+  }
+
+  /** A curved vein from `a` to `b`, bowed through `c`. */
+  vein(a: Point, c: Point, b: Point) {
+    this.veins.push({ move: this.at(a) }, { quad: [this.at(c), this.at(b)] });
+  }
+
+  /** The shape, `length` px long and centred on its bounding box. */
+  shape(length: number): Shape {
+    const all = [...this.outline, ...this.veins].flatMap((c) => ("move" in c ? [c.move] : "line" in c ? [c.line] : c.quad));
+    const xs = all.map(([x]) => x);
+    const ys = all.map(([, y]) => y);
+    const cx = (Math.min(...xs) + Math.max(...xs)) / 2;
+    const cy = (Math.min(...ys) + Math.max(...ys)) / 2;
+    const half = Math.max(Math.max(...xs) - cx, Math.max(...ys) - cy);
+    const px = ([x, y]: Point): Point => [(x - cx) * length, (y - cy) * length];
+    const draw = (commands: Command[]) => {
+      const path = new Path2D();
+      for (const c of commands) {
+        if ("move" in c) path.moveTo(...px(c.move));
+        else if ("line" in c) path.lineTo(...px(c.line));
+        else path.quadraticCurveTo(...px(c.quad[0]), ...px(c.quad[1]));
+      }
+      return path;
+    };
+    const outline = draw(this.outline);
+    outline.closePath();
+    return { outline, veins: draw(this.veins), fill: true, extent: half * length };
+  }
+}
+
+/** A point `r` from the origin in the direction `deg` degrees from straight up (clockwise). */
+const polar = (deg: number, r: number): Point => [r * Math.sin((deg * Math.PI) / 180), -r * Math.cos((deg * Math.PI) / 180)];
+const mix = (a: Point, b: Point, t: number): Point => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t];
+
+/** A new leaf pen with a random bend. */
+const leafPen = (rand: () => number) => new LeafPen(rand, (rand() * 2 - 1) * 0.18);
+
+/**
+ * Irregular five-lobed maple: middle lobe 0.5 L, upper lobes at ±40° 0.42 L, lower lobes at ±85°
+ * 0.26 L, 2–3 teeth per lobe, rounded sinuses, stem 0.28 L.
+ */
+function maple(s: number, rand: () => number): Shape {
+  const pen = leafPen(rand);
+  const lobes = [
+    { deg: -85, len: 0.26 },
+    { deg: -40, len: 0.42 },
+    { deg: 0, len: 0.5 },
+    { deg: 40, len: 0.42 },
+    { deg: 85, len: 0.26 },
+  ];
+  /** Points from `from` to `to` along one edge of a lobe, with `n` teeth pointing `out`. */
+  const edge = (from: Point, to: Point, n: number, out: Point, size: number) => {
+    const points: Point[] = [];
+    for (let i = 0; i < n; i++) {
+      const t = (i + 0.6 + (rand() - 0.5) * 0.3) / (n + 0.6);
+      const [x, y] = mix(from, to, t);
+      const [bx, by] = mix(from, to, t + 0.04);
+      // Up the edge, out to the point of the tooth, back in just past it.
+      points.push(mix(from, to, t - 0.1), [x + out[0] * size, y + out[1] * size], [bx - out[0] * size * 0.3, by - out[1] * size * 0.3]);
+    }
+    return points;
+  };
+  const shoulders = lobes.map(({ deg, len }, i) => {
+    const before = i ? (deg - lobes[i - 1].deg) / 2 : 25;
+    const after = i < lobes.length - 1 ? (lobes[i + 1].deg - deg) / 2 : 25;
+    const r = Math.min(0.24, 0.6 * len);
+    return [polar(deg - Math.min(before, 25) * 0.85, r), polar(deg + Math.min(after, 25) * 0.85, r)];
+  });
+  pen.outline.push({ move: pen.at(shoulders[0][0]) });
+  lobes.forEach(({ deg, len }, i) => {
+    const tip = polar(deg, len);
+    const teeth = 2 + (rand() < 0.5 ? 1 : 0);
+    const left = rand() < 0.5 ? Math.floor(teeth / 2) : Math.ceil(teeth / 2);
+    const size = 0.09 * len;
+    const [l, r] = shoulders[i];
+    const points = [
+      ...edge(l, tip, left, polar(deg - 90, 1), size),
+      tip,
+      ...edge(r, tip, teeth - left, polar(deg + 90, 1), size).reverse(),
+      r,
+    ];
+    for (const p of points) pen.outline.push({ line: pen.at(p) });
+    // Rounded sinus to the next lobe (the last one goes round the base, where the stem is).
+    const next = shoulders[i + 1]?.[0] ?? shoulders[0][0];
+    const sinus = i < lobes.length - 1 ? polar((deg + lobes[i + 1].deg) / 2, 0.13) : ([0, 0] as Point);
+    pen.outline.push({ quad: [pen.at(sinus), pen.at(next)] });
+  });
+  // A vein to every lobe, a side vein off each upper one.
+  for (const { deg, len } of lobes) pen.vein([0, 0.02], polar(deg, len * 0.45), polar(deg + (rand() - 0.5) * 6, len * 0.85));
+  for (const side of [-1, 1]) pen.vein(polar(side * 40, 0.16), polar(side * 44, 0.22), polar(side * 50, 0.28));
+  pen.stem(0.28, [0, 0.03]);
+  return pen.shape(s * 2);
+}
+
+/** One side of a blade from the base to the tip: the anchors, each with the control point before it. */
+type Side = { p: Point; c?: Point }[];
+
+/** Outline of a blade from its right side and its left side, both drawn base → tip on the right. */
+function blade(pen: LeafPen, right: Side, left: Side) {
+  const mirrored = left.map(({ p, c }) => ({ p: [-p[0], p[1]] as Point, c: c && ([-c[0], c[1]] as Point) }));
+  pen.outline.push({ move: pen.at(right[0].p) });
+  for (const { p, c } of right.slice(1)) pen.outline.push(c ? { quad: [pen.at(c), pen.at(p)] } : { line: pen.at(p) });
+  // Back down the left side: each control point belongs to the segment ending at the anchor.
+  for (let i = mirrored.length - 1; i > 0; i--) {
+    const { c } = mirrored[i];
+    const p = mirrored[i - 1].p;
+    pen.outline.push(c ? { quad: [pen.at(c), pen.at(p)] } : { line: pen.at(p) });
+  }
+}
+
+/** Lobed oak: elongated oval 0.55 L wide, 3–4 rounded lobes per side of alternating depth, stem 0.12 L. */
+function oak(s: number, rand: () => number): Shape {
+  const pen = leafPen(rand);
+  const width = (t: number) => 0.275 * Math.sin(Math.PI * (0.08 + 0.84 * t)) ** 0.7;
+  const lobeTips: Point[] = [];
+  const side = (): Side => {
+    const n = 3 + (rand() < 0.5 ? 1 : 0);
+    const deep = rand() < 0.5 ? 0 : 1;
+    const step = 0.8 / n;
+    const points: Side = [{ p: [0, 0] }];
+    for (let i = 0; i < n; i++) {
+      const ts = 0.1 + i * step;
+      const depth = i % 2 === deep ? 0.55 : 0.3;
+      points.push({ p: [width(ts) * (1 - depth), -ts] });
+      const tl = ts + step / 2;
+      const tip: Point = [width(tl) * 1.4, -tl];
+      lobeTips.push(tip);
+      points.push({ c: tip, p: [width(ts + step) * (1 - (i % 2 === deep ? 0.3 : 0.55)), -(ts + step)] });
+    }
+    points.push({ c: [width(0.97) * 1.1, -1.02], p: [0, -1] });
+    return points;
+  };
+  const right = side();
+  const tipsRight = lobeTips.length;
+  blade(pen, right, side());
+  pen.vein([0, 0], [0, -0.5], [0, -0.9]);
+  lobeTips.forEach(([x, y], i) => {
+    const sign = i < tipsRight ? 1 : -1;
+    pen.vein([0, y + 0.08], [sign * x * 0.3, y + 0.02], [sign * x * 0.55, y - 0.01]);
+  });
+  pen.stem(0.12);
+  return pen.shape(s * 2);
+}
+
+/** Birch: ovate, 0.7 L wide, pointed tip, about 14 small teeth along the edge, stem 0.2 L. */
+function birch(s: number, rand: () => number): Shape {
+  const pen = leafPen(rand);
+  const width = (t: number) => 0.35 * Math.sin(Math.PI * Math.min(1, t) ** 0.75);
+  const side = (): Side => {
+    const n = 6 + Math.floor(rand() * 3);
+    const points: Side = [{ p: [0, 0] }];
+    for (let i = 0; i < n; i++) {
+      const t = 0.08 + ((i + 1) / (n + 1)) * 0.86;
+      // A notch, then a small tooth pointing toward the tip.
+      points.push({ p: [width(t - 0.04) * 0.96, -(t - 0.04)] }, { p: [width(t) + 0.025, -(t + 0.015)] });
+    }
+    points.push({ p: [0, -1] });
+    return points;
+  };
+  blade(pen, side(), side());
+  pen.vein([0, 0], [0, -0.5], [0, -0.9]);
+  for (const t of [0.14, 0.3, 0.46, 0.62]) {
+    for (const sign of [-1, 1]) pen.vein([0, -t], [sign * width(t) * 0.4, -(t + 0.05)], [sign * width(t + 0.12) * 0.72, -(t + 0.12)]);
+  }
+  pen.stem(0.2);
+  return pen.shape(s * 2);
+}
+
+/** Ginkgo: a fan opening ~150°, 1.1 L wide, with a central notch 0.45 L deep, 7 radial veins, stem 0.4 L. */
+function ginkgo(s: number, rand: () => number): Shape {
+  const pen = leafPen(rand);
+  const half = 75;
+  const r = 0.55 / Math.sin((half * Math.PI) / 180);
+  const notch = r - 0.45;
+  const wavy = () => r * (1 + (rand() * 2 - 1) * 0.03);
+  /** The wavy rim from `a` to `b` degrees. */
+  const rim = (a: number, b: number) => {
+    const n = 5;
+    for (let i = 1; i <= n; i++) {
+      const d0 = a + ((b - a) * (i - 1)) / n;
+      const d1 = a + ((b - a) * i) / n;
+      pen.outline.push({ quad: [pen.at(polar((d0 + d1) / 2, wavy() * 1.02)), pen.at(polar(d1, wavy()))] });
+    }
+  };
+  pen.outline.push({ move: [0, 0] }, { quad: [pen.at(polar(-half + 18, r * 0.5)), pen.at(polar(-half, r))] });
+  rim(-half, -6);
+  pen.outline.push(
+    { line: pen.at(polar(-3, notch + 0.05)) },
+    { quad: [pen.at(polar(0, notch - 0.02)), pen.at(polar(3, notch + 0.05))] },
+    { line: pen.at(polar(6, r)) },
+  );
+  rim(6, half);
+  pen.outline.push({ quad: [pen.at(polar(half - 18, r * 0.5)), [0, 0]] });
+  for (let i = 0; i < 7; i++) {
+    const deg = -60 + i * 20;
+    // The middle vein stops at the notch.
+    const end = deg ? r * 0.88 : notch - 0.03;
+    pen.vein(polar(deg * 0.2, 0.04), polar(deg * 0.8, end * 0.5), polar(deg, end));
+  }
+  pen.stem(0.4);
+  return pen.shape(s * 2);
 }
 
 /**
@@ -149,7 +335,7 @@ function bubble(s: number): Shape {
 }
 
 /** Shape builders; `rand` (seeded per variant) is for the shapes that vary. */
-const SHAPES: Record<Kind, (s: number, rand: () => number) => Shape> = { leaf, petal, blossom, flake, bubble };
+const SHAPES: Record<Kind, (s: number, rand: () => number) => Shape> = { maple, oak, birch, ginkgo, petal, blossom, flake, bubble };
 
 /** A sprite and its half size in CSS px (it is drawn centred on the particle). */
 export interface Sprite {

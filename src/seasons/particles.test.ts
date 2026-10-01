@@ -41,7 +41,19 @@ describe("particles", () => {
     const share = spring.filter((p) => p.kind === "blossom").length / spring.length;
     expect(share).toBeGreaterThan(SEASONS.blossomChance / 2);
     expect(share).toBeLessThan(SEASONS.blossomChance * 2);
-    expect(spawnParticle("autumn", W, H, 0, true, rand).kind).toBe("leaf");
+  });
+
+  it("autumn drops four leaf species by their shares, swaying wider than the other seasons", () => {
+    const rand = seeded(17);
+    const autumn = Array.from({ length: 4000 }, () => spawnParticle("autumn", W, H, 0, true, rand));
+    for (const [kind, share] of Object.entries(SEASONS.leaves.shares)) {
+      expect(autumn.filter((p) => p.kind === kind).length / autumn.length, kind).toBeCloseTo(share, 1);
+    }
+    const [lo, hi] = SEASONS.leaves.ampPx;
+    for (const p of autumn) {
+      expect(p.amp).toBeGreaterThanOrEqual(lo);
+      expect(p.amp).toBeLessThanOrEqual(hi);
+    }
   });
 
   it("a season arriving appears anywhere on screen", () => {

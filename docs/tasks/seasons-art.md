@@ -102,7 +102,7 @@ Principi fissi:
 
 ---
 
-- [ ] **Task 3 — Autunno: foglie di quattro specie**
+- [x] **Task 3 — Autunno: foglie di quattro specie**
 
 **File**
 - Partire da: `src/seasons/sprites.ts`, `src/seasons/background.ts`.

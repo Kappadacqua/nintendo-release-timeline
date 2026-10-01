@@ -109,6 +109,16 @@ export const SEASONS = {
   maxArea: 2560 * 1440,
   /** Spring: share of particles that are a whole cherry blossom instead of a petal. */
   blossomChance: 0.1,
+  /**
+   * Autumn (docs/tasks/seasons-art.md task 3): share of each leaf species, a wider and slower
+   * sideways wobble (px at 1080p, s), and how far each control point of a leaf moves (± share).
+   */
+  leaves: {
+    shares: { maple: 0.35, oak: 0.25, birch: 0.25, ginkgo: 0.15 },
+    ampPx: [20, 40],
+    periodS: [5, 9],
+    jitter: 0.08,
+  },
   /** Canvas (and sprite) pixel density cap. */
   maxDpr: 1.5,
   /**
