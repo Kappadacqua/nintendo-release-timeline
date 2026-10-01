@@ -1,7 +1,7 @@
 import { SEASONS } from "../timeline/config";
 import { dayToDate } from "../timeline/dates";
 import { onScrollActivity } from "../timeline/scroller";
-import { fadeIn, isGone, spawnParticle, stepParticle, viewScale, wobbleX, type Palette, type Particle } from "./particles";
+import { fadeIn, Gusts, isGone, spawnParticle, stepParticle, viewScale, wobbleX, type Palette, type Particle } from "./particles";
 import { backgroundShown, particleCount, ScrollGate, SEASON_NAMES, seasonOf, SeasonState, type Season } from "./season";
 import { SpriteCache } from "./sprites";
 
@@ -22,6 +22,7 @@ export class SeasonalBackground {
   private readonly season = new SeasonState();
   private readonly gate = new ScrollGate();
   private particles: Particle[] = [];
+  private readonly gusts = new Gusts(performance.now());
   private palette: Palette = { winter: "", spring: "", summer: "", autumn: "" };
   private readonly sprites = new SpriteCache(this.palette);
   private dpr = 1;
@@ -154,7 +155,7 @@ export class SeasonalBackground {
     const reborn = seasonCounts();
     this.particles = this.particles.filter((p) => {
       if (this.season.weight(p.season, now) <= 0) return false;
-      stepParticle(p, dt);
+      stepParticle(p, dt, p.season === "winter" ? this.gusts.velocity(p.depth, now) : 0);
       if (isGone(p, this.width, this.height)) {
         reborn[p.season]++;
         return false;

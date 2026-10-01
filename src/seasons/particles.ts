@@ -4,7 +4,8 @@ import type { Season } from "./season";
 /**
  * Seasonal particles (no DOM): the motion of each particle; its look is a pre-rendered sprite
  * (`sprites.ts`), one colour per season. Speeds in px/s. Summer bubbles rise, spring petals (now
- * and then a whole cherry blossom) drift diagonally, autumn leaves (four species) and winter flakes fall.
+ * and then a whole cherry blossom) drift diagonally, autumn leaves (four species) and winter snow
+ * (flakes, plates, soft dots, now and then a fir twig) fall, pushed sideways by gusts.
  * No particle ever turns: its tilt is chosen once, and it only moves and wobbles sideways.
  */
 export interface Particle {
@@ -35,10 +36,16 @@ export interface Particle {
   born: number;
 }
 
-export type Kind = "bubble" | "petal" | "blossom" | "maple" | "oak" | "birch" | "ginkgo" | "flake";
+export type Kind = "bubble" | "petal" | "blossom" | "maple" | "oak" | "birch" | "ginkgo" | "dendrite" | "plate" | "dot" | "fir";
 
 /** Rare kinds have fewer sprite variants. */
-export const RARE_KINDS: ReadonlySet<Kind> = new Set(["blossom"]);
+export const RARE_KINDS: ReadonlySet<Kind> = new Set(["blossom", "fir"]);
+
+/** Kinds that only live in some depth bands (the others live in all three). */
+export const KIND_BANDS: Partial<Record<Kind, readonly number[]>> = {
+  dot: [0],
+  fir: [1],
+};
 
 /** Radius or half length (px) of each kind in the middle band at 1080p. */
 export const KIND_SIZE: Record<Kind, number> = {
@@ -50,12 +57,21 @@ export const KIND_SIZE: Record<Kind, number> = {
   oak: 28,
   birch: 28,
   ginkgo: 28,
-  flake: 11,
+  // Winter: diameters 36 and 30 px, a twig 70 px long (middle band only).
+  dendrite: 18,
+  plate: 15,
+  dot: SEASONS.winter.dotRadiusPx[1],
+  fir: 35,
 };
+
+/** Radius or half length (px at 1080p) of a kind in a band; soft dots keep their size in every band. */
+export function kindRadius(kind: Kind, depth: number) {
+  return kind === "dot" ? KIND_SIZE.dot : KIND_SIZE[kind] * SEASONS.bands[depth].size;
+}
 
 /** Every kind a season draws. */
 export const SEASON_KINDS: Record<Season, readonly Kind[]> = {
-  winter: ["flake"],
+  winter: ["dendrite", "plate", "dot", "fir"],
   spring: ["petal", "blossom"],
   summer: ["bubble"],
   autumn: ["maple", "oak", "birch", "ginkgo"],
@@ -72,26 +88,53 @@ export function viewScale(height: number) {
   return Math.min(hi, Math.max(lo, height / SEASONS.viewHeight));
 }
 
-/** Depth band of a new particle, by the band shares. */
-function pickDepth(rand: () => number) {
-  let r = rand();
-  for (let i = 0; i < SEASONS.bands.length - 1; i++) {
-    r -= SEASONS.bands[i].share;
-    if (r < 0) return i;
+/** Share of each kind among a season's new particles. */
+function kindShares(season: Season): Partial<Record<Kind, number>> {
+  switch (season) {
+    case "spring":
+      return { petal: 1 - SEASONS.blossomChance, blossom: SEASONS.blossomChance };
+    case "autumn":
+      return SEASONS.leaves.shares;
+    case "winter":
+      return SEASONS.winter.shares;
+    case "summer":
+      return { bubble: 1 };
   }
-  return SEASONS.bands.length - 1;
 }
 
-/** Kind of a new particle of `season`: a blossom now and then in spring, a leaf species by its share in autumn. */
-function pickKind(season: Season, rand: () => number): Kind {
-  if (season === "spring") return rand() < SEASONS.blossomChance ? "blossom" : "petal";
-  if (season !== "autumn") return SEASON_KINDS[season][0];
-  let r = rand();
-  for (const [kind, share] of Object.entries(SEASONS.leaves.shares) as [Kind, number][]) {
-    r -= share;
-    if (r < 0) return kind;
+/** Index picked by `weights` (not necessarily summing to 1). */
+function pick(weights: readonly number[], rand: () => number) {
+  const sum = weights.reduce((a, b) => a + b, 0);
+  let r = rand() * sum;
+  for (let i = 0; i < weights.length - 1; i++) {
+    r -= weights[i];
+    if (r < 0) return i;
   }
-  return "maple";
+  return weights.length - 1;
+}
+
+/**
+ * Weight of each depth band for a new particle of `kind`. A kind kept to one band fills part of
+ * it; the free kinds share what is left, so the season as a whole keeps the band shares.
+ */
+export function depthWeights(season: Season, kind: Kind): number[] {
+  const allowed = KIND_BANDS[kind];
+  const shares = kindShares(season);
+  return SEASONS.bands.map((band, depth) => {
+    if (allowed) return allowed.includes(depth) ? band.share : 0;
+    let left = band.share;
+    for (const [k, share] of Object.entries(shares) as [Kind, number][]) {
+      const only = KIND_BANDS[k];
+      if (only?.length === 1 && only[0] === depth) left -= share;
+    }
+    return Math.max(0, left);
+  });
+}
+
+/** Kind of a new particle of `season`, by its share. */
+function pickKind(season: Season, rand: () => number): Kind {
+  const entries = Object.entries(kindShares(season)) as [Kind, number][];
+  return entries[pick(entries.map(([, share]) => share), rand)][0];
 }
 
 export function variantCount(kind: Kind) {
@@ -104,13 +147,16 @@ export function variantCount(kind: Kind) {
  */
 export function spawnParticle(season: Season, width: number, height: number, now: number, anywhere: boolean, rand = Math.random): Particle {
   const view = viewScale(height);
-  const depth = pickDepth(rand);
-  const band = SEASONS.bands[depth];
   const kind = pickKind(season, rand);
-  // Leaves sway wider and slower than the other elements.
+  const depth = pick(depthWeights(season, kind), rand);
+  const band = SEASONS.bands[depth];
+  // Leaves (and the fir twig) sway wider than the other elements.
   const wobble: { ampPx: readonly [number, number]; periodS: readonly [number, number] } =
-    season === "autumn" ? SEASONS.leaves : { ampPx: SEASONS.wobbleAmpPx, periodS: SEASONS.wobblePeriodS };
-  const scale = between(rand, 1 - SEASONS.sizeJitter, 1 + SEASONS.sizeJitter);
+    season === "autumn"
+      ? SEASONS.leaves
+      : { ampPx: kind === "fir" ? SEASONS.winter.fir.ampPx : SEASONS.wobbleAmpPx, periodS: SEASONS.wobblePeriodS };
+  // Soft dots take their size from their sprite variant alone.
+  const scale = kind === "dot" ? 1 : between(rand, 1 - SEASONS.sizeJitter, 1 + SEASONS.sizeJitter);
   const tilt = (between(rand, -1, 1) * SEASONS.tiltDeg * Math.PI) / 180;
   const p: Particle = {
     season,
@@ -121,7 +167,7 @@ export function spawnParticle(season: Season, width: number, height: number, now
     y: between(rand, 0, height),
     vx: 0,
     vy: 0,
-    size: KIND_SIZE[kind] * band.size * view * scale,
+    size: kindRadius(kind, depth) * view * scale,
     scale,
     cos: Math.cos(tilt),
     sin: Math.sin(tilt),
@@ -163,6 +209,12 @@ export function spawnParticle(season: Season, width: number, height: number, now
     case "winter":
       p.vy = between(rand, 11.5, 19.5);
       p.vx = between(rand, 2, 8);
+      p.vx *= SEASONS.winter.speed;
+      p.vy *= SEASONS.winter.speed;
+      if (kind === "fir") {
+        p.vx *= SEASONS.winter.fir.speed;
+        p.vy *= SEASONS.winter.fir.speed;
+      }
       if (!anywhere) {
         p.x = between(rand, -width * 0.1, width);
         p.y = -p.size * 2;
@@ -174,9 +226,9 @@ export function spawnParticle(season: Season, width: number, height: number, now
   return p;
 }
 
-/** Moves a particle by `dt` seconds (the wobble is added when drawn, see `wobbleX`). */
-export function stepParticle(p: Particle, dt: number) {
-  p.x += p.vx * dt;
+/** Moves a particle by `dt` seconds, `gust` px/s more sideways (the wobble is added when drawn, see `wobbleX`). */
+export function stepParticle(p: Particle, dt: number, gust = 0) {
+  p.x += (p.vx + gust) * dt;
   p.y += p.vy * dt;
 }
 
@@ -195,4 +247,43 @@ export function isGone(p: Particle, width: number, height: number) {
 /** 0 → 1 over `SEASONS.fadeInMs` from birth. */
 export function fadeIn(p: Particle, now: number) {
   return Math.min(1, Math.max(0, (now - p.born) / SEASONS.fadeInMs));
+}
+
+/**
+ * Winter gusts: now and then (every `SEASONS.winter.gust.everyS`) a sideways push common to every
+ * particle of a band, of random sign, rising and falling over `durationS`. Each band has its own.
+ */
+export class Gusts {
+  private readonly start: number[];
+  private readonly sign: number[];
+
+  constructor(
+    now: number,
+    private rand = Math.random,
+  ) {
+    this.start = SEASONS.bands.map(() => now + this.gap());
+    this.sign = SEASONS.bands.map(() => this.side());
+  }
+
+  /** Extra sideways speed (px/s) of the particles of band `depth` at `now` (ms). */
+  velocity(depth: number, now: number) {
+    const { pxPerS, durationS } = SEASONS.winter.gust;
+    const duration = durationS * 1000;
+    // Past gusts make room for the next one.
+    while (now >= this.start[depth] + duration) {
+      this.start[depth] += this.gap();
+      this.sign[depth] = this.side();
+    }
+    if (now < this.start[depth]) return 0;
+    const u = (now - this.start[depth]) / duration;
+    return this.sign[depth] * pxPerS * Math.sin(Math.PI * u) ** 2;
+  }
+
+  private gap() {
+    return between(this.rand, ...SEASONS.winter.gust.everyS) * 1000;
+  }
+
+  private side() {
+    return this.rand() < 0.5 ? -1 : 1;
+  }
 }

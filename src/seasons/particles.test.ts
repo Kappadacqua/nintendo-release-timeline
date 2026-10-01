@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { SEASONS } from "../timeline/config";
-import { fadeIn, isGone, spawnParticle, stepParticle, viewScale, wobbleX } from "./particles";
+import { fadeIn, Gusts, isGone, spawnParticle, stepParticle, viewScale, wobbleX } from "./particles";
 import type { Season } from "./season";
 
 const W = 1920;
@@ -54,6 +54,49 @@ describe("particles", () => {
       expect(p.amp).toBeGreaterThanOrEqual(lo);
       expect(p.amp).toBeLessThanOrEqual(hi);
     }
+  });
+
+  it("winter mixes flakes, plates, soft dots (far only) and fir twigs (middle only), keeping the band shares", () => {
+    const rand = seeded(19);
+    const winter = Array.from({ length: 6000 }, () => spawnParticle("winter", W, H, 0, true, rand));
+    for (const [kind, share] of Object.entries(SEASONS.winter.shares)) {
+      expect(winter.filter((p) => p.kind === kind).length / winter.length, kind).toBeCloseTo(share, 1);
+    }
+    for (const p of winter) {
+      if (p.kind === "dot") {
+        expect(p.depth).toBe(0);
+        expect(p.size).toBeLessThanOrEqual(SEASONS.winter.dotRadiusPx[1]);
+      }
+      if (p.kind === "fir") {
+        expect(p.depth).toBe(1);
+        expect(p.amp).toBeGreaterThanOrEqual(SEASONS.winter.fir.ampPx[0]);
+      }
+    }
+    SEASONS.bands.forEach((band, depth) => {
+      expect(winter.filter((p) => p.depth === depth).length / winter.length).toBeCloseTo(band.share, 1);
+    });
+  });
+
+  it("winter gusts push a whole band sideways now and then, rising and falling", () => {
+    const { everyS, pxPerS } = SEASONS.winter.gust;
+    const gusts = new Gusts(0, seeded(23));
+    let pushed = 0;
+    let quietRun = 0;
+    let longestQuiet = 0;
+    for (let t = 0; t < 120_000; t += 50) {
+      const v = gusts.velocity(1, t);
+      expect(Math.abs(v)).toBeLessThanOrEqual(pxPerS);
+      if (v !== 0) {
+        pushed++;
+        quietRun = 0;
+      } else longestQuiet = Math.max(longestQuiet, (quietRun += 50));
+    }
+    // Pushed for about durationS out of every everyS.
+    expect(pushed).toBeGreaterThan(0);
+    expect(longestQuiet).toBeLessThanOrEqual(everyS[1] * 1000);
+    // Asking again for the same time gives the same push: one gust for the whole band.
+    const again = new Gusts(0, seeded(23));
+    expect(again.velocity(1, 9000)).toBe(again.velocity(1, 9000));
   });
 
   it("a season arriving appears anywhere on screen", () => {

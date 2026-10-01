@@ -135,7 +135,7 @@ Principi fissi:
 
 ---
 
-- [ ] **Task 4 — Inverno: fiocchi dendritici, lastre, puntini, rametto di abete**
+- [x] **Task 4 — Inverno: fiocchi dendritici, lastre, puntini, rametto di abete**
 
 **File**
 - Partire da: `src/seasons/sprites.ts`, `src/seasons/background.ts`.

@@ -1,5 +1,5 @@
 import { SEASONS } from "../timeline/config";
-import { KIND_SIZE, SEASON_KINDS, variantCount, type Kind, type Palette, type Particle } from "./particles";
+import { kindRadius, SEASON_KINDS, variantCount, type Kind, type Palette, type Particle } from "./particles";
 import type { Season } from "./season";
 
 /**
@@ -25,6 +25,8 @@ interface Shape {
   /** Whether the outline is closed and gets the light fill. */
   fill: boolean;
   extent: number;
+  /** A soft filled dot of this radius instead of strokes. */
+  dot?: number;
 }
 
 type Point = [number, number];
@@ -302,24 +304,88 @@ function blossom(s: number): Shape {
   return { outline, veins, fill: true, extent: s };
 }
 
-/** Six arms, each with a pair of small branches, around a small hexagon (lines only). */
-function flake(s: number): Shape {
+/**
+ * Dendritic flake of radius `s`: six arms with pairs of branches at 60° at 0.35, 0.6 and 0.82 of
+ * the arm, 0.35, 0.25 and 0.15 of it long, each length ± `SEASONS.winter.branchJitter` per
+ * variant. All six arms alike: the six-fold symmetry holds, the variants differ (lines only).
+ */
+function dendrite(s: number, rand: () => number): Shape {
+  const j = SEASONS.winter.branchJitter;
+  const branches = [
+    [0.35, 0.35],
+    [0.6, 0.25],
+    [0.82, 0.15],
+  ].map(([at, length]) => [at * s, length * s * (1 + (rand() * 2 - 1) * j)]);
   const outline = new Path2D();
-  const b = s * 0.3;
+  const spread = Math.PI / 3;
   for (let i = 0; i < 6; i++) {
     const a = (i * Math.PI) / 3;
-    const at = (along: number, across: number) => turn([along, across], a);
-    outline.moveTo(...at(s * 0.2, 0));
-    outline.lineTo(...at(s, 0));
-    outline.moveTo(...at(s * 0.55 + b, b));
-    outline.lineTo(...at(s * 0.55, 0));
-    outline.lineTo(...at(s * 0.55 + b, -b));
-    // Side of the central hexagon.
-    const n = ((i + 1) * Math.PI) / 3;
-    outline.moveTo(Math.cos(a) * s * 0.2, Math.sin(a) * s * 0.2);
-    outline.lineTo(Math.cos(n) * s * 0.2, Math.sin(n) * s * 0.2);
+    outline.moveTo(0, 0);
+    outline.lineTo(...turn([s, 0], a));
+    for (const [at, length] of branches) {
+      outline.moveTo(...turn([at + length * Math.cos(spread), length * Math.sin(spread)], a));
+      outline.lineTo(...turn([at, 0], a));
+      outline.lineTo(...turn([at + length * Math.cos(spread), -length * Math.sin(spread)], a));
+    }
   }
   return { outline, fill: false, extent: s };
+}
+
+/** Hexagonal plate of radius `s`: outer hexagon, inner one at 0.55, six spokes between them, small notches. */
+function plate(s: number, rand: () => number): Shape {
+  const corner = (i: number, r: number): Point => turn([r, 0], (i * Math.PI) / 3);
+  const outline = new Path2D();
+  for (let i = 0; i < 6; i++) outline.lineTo(...corner(i, s));
+  outline.closePath();
+  const veins = new Path2D();
+  const inner = 0.55 * s;
+  veins.moveTo(...corner(0, inner));
+  for (let i = 1; i <= 6; i++) veins.lineTo(...corner(i, inner));
+  // Notches: a short tick in from the middle of each outer side, of one length per variant.
+  const notch = s * (0.12 + 0.08 * rand());
+  const apothem = s * Math.cos(Math.PI / 6);
+  for (let i = 0; i < 6; i++) {
+    veins.moveTo(...corner(i, inner));
+    veins.lineTo(...corner(i, s));
+    const a = ((i + 0.5) * Math.PI) / 3;
+    veins.moveTo(...turn([apothem, 0], a));
+    veins.lineTo(...turn([apothem - notch, 0], a));
+  }
+  return { outline, veins, fill: true, extent: s };
+}
+
+/** Soft dot: a filled circle with no outline, its radius picked per variant. */
+function dot(s: number, rand: () => number): Shape {
+  const [lo, hi] = SEASONS.winter.dotRadiusPx;
+  // `s` is the largest radius at this window size.
+  const r = (s * (lo + (hi - lo) * rand())) / hi;
+  return { outline: new Path2D(), fill: false, extent: s, dot: r };
+}
+
+/**
+ * Fir twig `2s` long, tip up: a curved stem and 7–9 pairs of needles curving down, shorter toward
+ * the tip (lines only).
+ */
+function fir(s: number, rand: () => number): Shape {
+  const bow = (rand() * 2 - 1) * 0.2 * s;
+  /** Point of the stem at `t` (0 base, 1 tip). */
+  const stem = (t: number): Point => [bow * 4 * t * (1 - t), s - 2 * s * t];
+  const outline = new Path2D();
+  outline.moveTo(...stem(0));
+  outline.quadraticCurveTo(bow * 2, 0, ...stem(1));
+  const veins = new Path2D();
+  const pairs = 7 + Math.floor(rand() * 3);
+  for (let i = 0; i < pairs; i++) {
+    const t = 0.1 + (0.85 * i) / pairs;
+    const length = s * (0.5 - 0.32 * (i / (pairs - 1))) * (0.9 + 0.2 * rand());
+    const [x, y] = stem(t);
+    for (const side of [-1, 1]) {
+      // Out and up a little, then drooping down at the end.
+      veins.moveTo(x, y);
+      veins.quadraticCurveTo(x + side * length * 0.55, y - length * 0.3, x + side * length * 0.9, y + length * 0.15);
+    }
+  }
+  return { outline, veins, fill: false, extent: s * 1.05 };
 }
 
 /** A circle with two glints: a short arc inside on the upper left, a smaller one opposite. */
@@ -335,7 +401,7 @@ function bubble(s: number): Shape {
 }
 
 /** Shape builders; `rand` (seeded per variant) is for the shapes that vary. */
-const SHAPES: Record<Kind, (s: number, rand: () => number) => Shape> = { maple, oak, birch, ginkgo, petal, blossom, flake, bubble };
+const SHAPES: Record<Kind, (s: number, rand: () => number) => Shape> = { maple, oak, birch, ginkgo, petal, blossom, dendrite, plate, dot, fir, bubble };
 
 /** A sprite and its half size in CSS px (it is drawn centred on the particle). */
 export interface Sprite {
@@ -353,13 +419,17 @@ function renderSprite(kind: Kind, variant: number, depth: number, color: string,
   const rand = mulberry32(SEASONS.spriteSeed + Object.keys(SHAPES).indexOf(kind) * 97 + variant * 7919);
   const pencilAngle = rand() * Math.PI * 2;
   const pencilPx = style.pencilPx[0] + (style.pencilPx[1] - style.pencilPx[0]) * rand();
-  const shape = SHAPES[kind](KIND_SIZE[kind] * band.size * view, rand);
+  const shape = SHAPES[kind](kindRadius(kind, depth) * view, rand);
   const half = Math.ceil(shape.extent + MARGIN);
   const canvas = document.createElement("canvas");
   canvas.width = canvas.height = Math.ceil(half * 2 * dpr);
   const g = canvas.getContext("2d")!;
   g.setTransform(dpr, 0, 0, dpr, canvas.width / 2, canvas.height / 2);
   g.strokeStyle = g.fillStyle = color;
+  if (shape.dot) {
+    softDot(g, shape.dot);
+    return { canvas, half };
+  }
   g.lineCap = g.lineJoin = "round";
   if (shape.fill) {
     g.globalAlpha = style.fillAlpha;
@@ -378,6 +448,20 @@ function renderSprite(kind: Kind, variant: number, depth: number, color: string,
   g.translate(Math.cos(pencilAngle) * pencilPx, Math.sin(pencilAngle) * pencilPx);
   g.stroke(shape.outline);
   return { canvas, half };
+}
+
+/** A filled dot of radius `r` that fades out toward its edge (the fill colour is already set). */
+function softDot(g: CanvasRenderingContext2D, r: number) {
+  g.beginPath();
+  g.arc(0, 0, r, 0, Math.PI * 2);
+  g.fill();
+  // Only the mask's alpha counts with destination-in: the colour stays the fill's.
+  const mask = g.createRadialGradient(0, 0, 0, 0, 0, r);
+  mask.addColorStop(0.4, "#000");
+  mask.addColorStop(1, "rgb(0 0 0 / 0)");
+  g.globalCompositeOperation = "destination-in";
+  g.fillStyle = mask;
+  g.fillRect(-r, -r, r * 2, r * 2);
 }
 
 /**

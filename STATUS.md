@@ -1,6 +1,6 @@
 # Stato del progetto
 
-Aggiornato: 2026-10-01 — Coda `seasons-art.md`, task 3 (autunno: foglie di quattro specie)
+Aggiornato: 2026-10-01 — Coda `seasons-art.md`, task 4 (inverno: fiocchi, lastre, puntini, rametto di abete)
 
 ## Ultimo checkpoint
 
@@ -23,6 +23,7 @@ Nessuno.
 
 Dettagli completi nelle versioni precedenti di questo file (`git show 58d0ac7:STATUS.md`).
 
+- seasons-art task 4 — Inverno: fiocchi dendritici (45 %, 20 / 36 / 58 px), lastre esagonali (20 %, 17 / 30 / 48 px), puntini morbidi solo nella fascia lontana (30 %, raggio 1,5–3,5 px), rametto di abete solo nella fascia media (5 %, 70 px, × 0,7 più lento, ondeggiamento 25–40 px); quote delle fasce 45 / 35 / 20 mantenute sull'insieme; velocità invernale × 0,9 in tutte le fasce; raffiche ogni 6–12 s, ±20 px/s per 2 s, una per fascia con segno casuale. Dicembre, gennaio e febbraio nei due temi: nevicata fitta ma leggera, fiocchi non scambiabili per testo o pallini della linea; fps ≥ 58.
 - seasons-art task 3 — Autunno: acero a cinque lobi (35 %), quercia lobata (25 %), betulla dentata (25 %), ginkgo a ventaglio (15 %), L 31 / 56 / 90 px per fascia; punti perturbati ±8 %, lembo e picciolo curvi; ondeggiamento A 20–40 px, T 5–9 s; nessuna rotazione. Settembre e ottobre nei due temi a 1920 / 1440 / 1280: quattro sagome distinguibili, nessuna a stampo, foglie vicine mai più evidenti di tacche e numeri; gennaio, aprile, luglio senza foglie residue; fps ≥ 58. Nota: con le misure della coda l'acero risulta più piccolo delle altre (alto ~0.78 L contro ~1.1 L).
 - seasons-art task 2 — Transizione incrociata: al cambio di stagione la nuova sale dopo 300 ms in 2 s (ease-out), la vecchia scende in 1,5 s (ease-in); le particelle vecchie finiscono il percorso sfumando col peso, tetto 1,3 × il numero di particelle. Con le frecce, confini 28→1 di nov/dic, feb/mar, mag/giu, ago/set: ~1 s con entrambe, nessun vuoto; avanti e indietro sul confine: nessun pop; zona TBA: stagione precedente; reduced motion: cambio immediato; fps durante il cambio (≥ 58 a 1080p).
 - seasons-art task 1 — Sfondo stagionale (forme ancora quelle di prima): nessuna particella ruota più (inclinazione fissa ±35°, solo traslazione e ondeggiamento laterale 12–40 px, 4–9 s); tre profondità: lontane piccole, lente e tenui (45 %), medie (35 %), vicine grandi, più veloci e all'intensità di prima (20 %). Sagome in stile disegnato (riempimento tenue, nervature più sottili, secondo tratto sfalsato). Controllare settembre, gennaio, aprile, luglio nei due temi; cambio tema: colori aggiornati subito; reduced motion: particelle ferme; fps a 1080p come prima.
