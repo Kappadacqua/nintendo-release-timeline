@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-01T20:21:09.046Z",
+  "generatedAt": "2026-10-01T20:24:06.188Z",
   "studios": [
     {
       "name": "Nintendo EPD Production Group No. 10",
@@ -9,8 +9,7 @@
         "id": "igdb:417169",
         "title": "Pikmin 4: Nintendo Switch 2 Edition + Dandori Academy",
         "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocv9m.jpg",
-        "date": "2026-11-12",
-        "status": "upcoming"
+        "date": "2026-11-12"
       },
       "hasSwitch2Game": true
     },
@@ -22,8 +21,7 @@
         "id": "igdb:405448",
         "title": "Xenoblade Chronicles 3: Nintendo Switch 2 Edition",
         "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc7ms.jpg",
-        "date": "2026-12-03",
-        "status": "upcoming"
+        "date": "2026-12-03"
       },
       "hasSwitch2Game": true
     },
@@ -35,8 +33,7 @@
         "id": "igdb:408719",
         "title": "Metroid Ravenous",
         "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocvge.jpg",
-        "date": "2027-01-28",
-        "status": "upcoming"
+        "date": "2027-01-28"
       },
       "hasSwitch2Game": true
     },
@@ -48,8 +45,7 @@
         "id": "igdb:417167",
         "title": "Hyrule Warriors: Age of Calamity - Definitive Edition",
         "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocw1y.jpg",
-        "date": "2027-02-25",
-        "status": "upcoming"
+        "date": "2027-02-25"
       },
       "hasSwitch2Game": true
     },
@@ -61,8 +57,7 @@
         "id": "igdb:366896",
         "title": "Fire Emblem: Fortune's Weave",
         "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc7ma.jpg",
-        "date": "2026-09-17",
-        "status": "released"
+        "date": "2026-09-17"
       },
       "hasSwitch2Game": true
     },
@@ -74,8 +69,7 @@
         "id": "igdb:381237",
         "title": "Orbitals",
         "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc9r6.jpg",
-        "date": "2026-09-03",
-        "status": "released"
+        "date": "2026-09-03"
       },
       "hasSwitch2Game": true
     },
@@ -87,8 +81,7 @@
         "id": "igdb:348977",
         "title": "Splatoon Raiders",
         "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobyho.jpg",
-        "date": "2026-07-23",
-        "status": "released"
+        "date": "2026-07-23"
       },
       "hasSwitch2Game": true
     },
@@ -100,8 +93,7 @@
         "id": "igdb:402033",
         "title": "Fitness Boxing 3: Your Personal Trainer - Nintendo Switch 2 Edition",
         "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc7od.jpg",
-        "date": "2026-07-16",
-        "status": "released"
+        "date": "2026-07-16"
       },
       "hasSwitch2Game": true
     },
@@ -113,8 +105,7 @@
         "id": "igdb:400709",
         "title": "Star Fox",
         "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc11a.jpg",
-        "date": "2026-06-25",
-        "status": "released"
+        "date": "2026-06-25"
       },
       "hasSwitch2Game": true
     },
@@ -126,8 +117,7 @@
         "id": "igdb:388431",
         "title": "eFootball Kick-Off!",
         "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coctkp.jpg",
-        "date": "2026-06-03",
-        "status": "released"
+        "date": "2026-06-03"
       },
       "hasSwitch2Game": true
     },
@@ -139,8 +129,7 @@
         "id": "igdb:366883",
         "title": "Yoshi and the Mysterious Book",
         "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobr0r.jpg",
-        "date": "2026-05-21",
-        "status": "released"
+        "date": "2026-05-21"
       },
       "hasSwitch2Game": true
     },
@@ -152,8 +141,7 @@
         "id": "igdb:333568",
         "title": "Pokémon Champions",
         "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co9gu3.jpg",
-        "date": "2026-04-08",
-        "status": "released"
+        "date": "2026-04-08"
       },
       "hasSwitch2Game": true
     },
@@ -165,8 +153,7 @@
         "id": "igdb:366880",
         "title": "Mario Tennis Fever",
         "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coag5n.jpg",
-        "date": "2026-02-12",
-        "status": "released"
+        "date": "2026-02-12"
       },
       "hasSwitch2Game": true
     },
@@ -178,8 +165,7 @@
         "id": "igdb:388428",
         "title": "Tokyo Scramble",
         "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobfsd.jpg",
-        "date": "2026-02-11",
-        "status": "released"
+        "date": "2026-02-11"
       },
       "hasSwitch2Game": true
     },
@@ -191,8 +177,7 @@
         "id": "igdb:37136",
         "title": "Metroid Prime 4: Beyond",
         "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cob9xh.jpg",
-        "date": "2025-12-04",
-        "status": "released"
+        "date": "2025-12-04"
       },
       "hasSwitch2Game": true
     },
@@ -204,8 +189,7 @@
         "id": "igdb:338105",
         "title": "Kirby Air Riders",
         "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coaauz.jpg",
-        "date": "2025-11-20",
-        "status": "released"
+        "date": "2025-11-20"
       },
       "hasSwitch2Game": true
     },
@@ -217,8 +201,7 @@
         "id": "igdb:338085",
         "title": "Hyrule Warriors: Age of Imprisonment",
         "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cob9n1.jpg",
-        "date": "2025-11-06",
-        "status": "released"
+        "date": "2025-11-06"
       },
       "hasSwitch2Game": true
     },
@@ -230,8 +213,7 @@
         "id": "igdb:288327",
         "title": "Pokémon Legends: Z-A",
         "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co9wzc.jpg",
-        "date": "2025-10-16",
-        "status": "released"
+        "date": "2025-10-16"
       },
       "hasSwitch2Game": true
     },
@@ -243,8 +225,7 @@
         "id": "igdb:366900",
         "title": "Super Mario Galaxy 2",
         "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coag5x.jpg",
-        "date": "2025-10-02",
-        "status": "released"
+        "date": "2025-10-02"
       },
       "hasSwitch2Game": true
     },
@@ -256,8 +237,7 @@
         "id": "igdb:338074",
         "title": "Kirby and the Forgotten Land: Nintendo Switch 2 Edition + Star-Crossed World",
         "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co9m76.jpg",
-        "date": "2025-08-28",
-        "status": "released"
+        "date": "2025-08-28"
       },
       "hasSwitch2Game": true
     },
@@ -269,8 +249,7 @@
         "id": "igdb:338071",
         "title": "Super Mario Party Jamboree: Nintendo Switch 2 Edition + Jamboree TV",
         "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co9m77.jpg",
-        "date": "2025-07-24",
-        "status": "released"
+        "date": "2025-07-24"
       },
       "hasSwitch2Game": true
     },
@@ -282,8 +261,7 @@
         "id": "igdb:338106",
         "title": "Donkey Kong Bananza",
         "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobd1q.jpg",
-        "date": "2025-07-17",
-        "status": "released"
+        "date": "2025-07-17"
       },
       "hasSwitch2Game": true
     },
@@ -295,8 +273,7 @@
         "id": "igdb:338073",
         "title": "The Legend of Zelda: Tears of the Kingdom - Nintendo Switch 2 Edition",
         "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coav5n.jpg",
-        "date": "2025-06-05",
-        "status": "released"
+        "date": "2025-06-05"
       },
       "hasSwitch2Game": true
     },
@@ -308,8 +285,7 @@
         "id": "igdb:338067",
         "title": "Mario Kart World",
         "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cob9s9.jpg",
-        "date": "2025-06-05",
-        "status": "released"
+        "date": "2025-06-05"
       },
       "hasSwitch2Game": true
     },
@@ -321,8 +297,7 @@
         "id": "igdb:338091",
         "title": "Puyo Puyo Tetris 2S",
         "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co9mvr.jpg",
-        "date": "2025-06-05",
-        "status": "released"
+        "date": "2025-06-05"
       },
       "hasSwitch2Game": true
     },
@@ -334,8 +309,7 @@
         "id": "igdb:338093",
         "title": "Fast Fusion",
         "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobaub.jpg",
-        "date": "2025-06-05",
-        "status": "released"
+        "date": "2025-06-05"
       },
       "hasSwitch2Game": true
     },
@@ -411,8 +385,7 @@
         "id": "igdb:337036",
         "title": "Tomodachi Life: Living the Dream",
         "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobdqd.jpg",
-        "date": "2026-04-16",
-        "status": "released"
+        "date": "2026-04-16"
       }
     },
     {
@@ -451,8 +424,7 @@
         "id": "igdb:337031",
         "title": "Rhythm Heaven Groove",
         "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobwkn.jpg",
-        "date": "2026-07-02",
-        "status": "released"
+        "date": "2026-07-02"
       }
     },
     {
@@ -465,8 +437,7 @@
         "id": "igdb:356551",
         "title": "Pokémon Friends",
         "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coa5oc.jpg",
-        "date": "2025-07-22",
-        "status": "released"
+        "date": "2025-07-22"
       }
     }
   ]

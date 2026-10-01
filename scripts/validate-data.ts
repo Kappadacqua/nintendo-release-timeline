@@ -10,7 +10,7 @@ import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import type { Game, GamesFile } from "../src/types";
 import { localToday } from "./lib/build";
 import { PATHS } from "./lib/env";
-import { type GameGaps, gapsOf } from "./lib/gaps";
+import { type GameGaps, gapsOf, staleTba } from "./lib/gaps";
 import { manualTodo } from "./lib/manual-todo";
 import { loadMetacriticCache } from "./lib/metacritic";
 import { loadOverrides } from "./lib/overrides";
@@ -178,6 +178,12 @@ section(
     .filter(([id, o]) => !ids.has(id) && o.include !== false)
     .map(([id]) => id),
   "Typo in the id, or the game fell out of the perimeter (date, platform, type).",
+);
+
+section(
+  "TBA entries to review: the year is almost over and there is no date",
+  staleTba(games, today).map((g) => `${label(g)} ${dim(g.vagueRelease!.label)}`),
+  'Delayed or cancelled? Check the news; to hide one: "include": false in data/overrides.json.',
 );
 
 // --- TBA zone, worth a glance for stale IGDB entries.

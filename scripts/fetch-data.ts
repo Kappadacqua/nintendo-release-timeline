@@ -17,6 +17,7 @@ import { snapshotOf, writeSnapshot } from "./lib/snapshots";
 import { titleVariants } from "./lib/title-variants";
 import { sameTitle } from "./lib/transform";
 import { cleanWikiTitle, fetchSwitch2OnlyGames } from "./lib/wikipedia";
+import { localToday } from "./lib/today";
 
 /** Publisher names that make a game first-party (SPEC §3.1). */
 const FIRST_PARTY = [
@@ -28,7 +29,7 @@ const FIRST_PARTY = [
 ];
 
 const DAY_MS = 86_400_000;
-const today = new Date().toISOString().slice(0, 10);
+const today = localToday();
 const daysSince = (iso: string) => Math.floor((Date.parse(today) - Date.parse(iso)) / DAY_MS);
 const log = (...args: unknown[]) => console.log("•", ...args);
 

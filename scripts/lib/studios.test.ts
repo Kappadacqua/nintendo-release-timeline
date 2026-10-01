@@ -129,12 +129,12 @@ describe("buildStudios: shown game", () => {
 
   it("shows the next game out", () => {
     const games = [game("Old", "EPD", "2025-07-01"), game("Far", "EPD", "2027-03-01"), game("Soon", "EPD", "2026-11-01")];
-    expect(byName(games, "EPD")?.game).toMatchObject({ title: "Soon", status: "upcoming" });
+    expect(byName(games, "EPD")?.game).toMatchObject({ title: "Soon" });
   });
 
   it("otherwise shows the latest released one", () => {
     const games = [game("Old", "EPD", "2025-07-01"), game("Recent", "EPD", "2026-05-01"), game("TBA", "EPD", null)];
-    expect(byName(games, "EPD")?.game).toMatchObject({ title: "Recent", status: "released" });
+    expect(byName(games, "EPD")?.game).toMatchObject({ title: "Recent" });
   });
 
   it("shows nothing when every game is TBA", () => {
@@ -164,7 +164,7 @@ describe("buildStudios: shown game", () => {
   // the page counts a game out today as upcoming (days >= 0), and so does the build.
   it("treats a game out on the build day as upcoming, like the page", () => {
     const games = [game("Today", "EPD", TODAY), game("Next", "EPD", "2026-12-01")];
-    expect(byName(games, "EPD")?.game).toMatchObject({ title: "Today", status: "upcoming" });
+    expect(byName(games, "EPD")?.game).toMatchObject({ title: "Today" });
   });
 
   it("orders studios: upcoming soonest first, released latest first, then no game", () => {

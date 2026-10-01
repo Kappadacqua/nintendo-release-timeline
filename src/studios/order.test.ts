@@ -5,7 +5,7 @@ import { relative, shownGame, sortStudios } from "./order";
 
 const today = parseDay("2026-09-27");
 
-const game = (date: string): StudioGame => ({ id: `g:${date}`, title: date, coverUrl: "", date, status: "released" });
+const game = (date: string): StudioGame => ({ id: `g:${date}`, title: date, coverUrl: "", date });
 const studio = (name: string, date: string | null, hasSwitch2Game = true): Studio => ({
   name,
   url: null,

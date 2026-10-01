@@ -5,6 +5,7 @@ import { intEnv } from "./env";
 import { fetchText, HttpError } from "./http";
 import { isAbsent, type OverridesFile } from "./overrides";
 import { titleVariants } from "./title-variants";
+import { localToday } from "./today";
 
 /**
  * Metacritic has no API: scores are read from the public game page (inspired by
@@ -250,7 +251,7 @@ export async function fetchMetacritic(
   // A slug with no page costs up to 3 requests (page, search, page found).
   const budget = intEnv("METACRITIC_MAX_REQUESTS", 150);
   const now = Date.now();
-  const today = new Date(now).toISOString().slice(0, 10);
+  const today = localToday(new Date(now));
   const daysSince = (iso: string) => Math.floor((Date.parse(today) - Date.parse(iso)) / DAY_MS);
 
   const todo = games

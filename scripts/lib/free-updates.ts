@@ -151,13 +151,14 @@ export function freeUpdateGames(
   const result: FreeUpdatesResult = { games: [], duplicates: [], notOnIgdb: [], approximate: [], invalid };
 
   for (const entry of entries) {
+    const id = cache.matches[entry.title];
     const dup = duplicateOf(entry.title, existing);
     if (dup) {
-      result.duplicates.push({ title: entry.title, of: dup.title });
+      // The entry is the very game of that card (same IGDB id): no merge to report, just no second card.
+      if (id == null || dup.id !== `igdb:${id}`) result.duplicates.push({ title: entry.title, of: dup.title });
       continue;
     }
     const date = entry.switch_2_update_date;
-    const id = cache.matches[entry.title];
     const g = id != null ? igdb.get(id) : undefined;
     if (!g) result.notOnIgdb.push(entry.title);
     else if (cache.approximate.includes(entry.title)) result.approximate.push(entry.title);

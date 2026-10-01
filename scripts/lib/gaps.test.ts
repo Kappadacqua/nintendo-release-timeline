@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { makeGame } from "../../src/test-utils";
-import { gapsOf } from "./gaps";
+import { gapsOf, staleTba } from "./gaps";
 import type { MetacriticCache } from "./metacritic";
 
 const today = "2026-10-01";
@@ -63,5 +63,16 @@ describe("gapsOf", () => {
     const { scores, links } = gapsOf([upcoming, tba], {}, mc({}), today);
     expect(scores).toEqual([]);
     expect(links.map((g) => g.id)).toEqual(["igdb:1"]);
+  });
+});
+
+describe("staleTba", () => {
+  const tba = (title: string, year: number, label = String(year)) => makeGame({ title, firstReleaseDate: null, vagueRelease: { year, label } });
+  const games = [tba("Beyond the Dark Nightwatch", 2026), tba("Pokémon Pokopia: Part 2", 2026, "Q4 2026"), tba("Onyx", 2027)];
+
+  it("flags year-only entries from October 1st of that year", () => {
+    expect(staleTba(games, "2026-09-30")).toEqual([]);
+    expect(staleTba(games, "2026-10-01").map((g) => g.title)).toEqual(["Beyond the Dark Nightwatch"]);
+    expect(staleTba(games, "2027-10-02").map((g) => g.title)).toEqual(["Beyond the Dark Nightwatch", "Onyx"]);
   });
 });

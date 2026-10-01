@@ -9,6 +9,7 @@ import { type FetchStatus, readJson, writeJson } from "./lib/cache";
 import { PATHS } from "./lib/env";
 import { emptyMetacriticStatus, fetchMetacritic } from "./lib/metacritic";
 import { snapshotOf, writeSnapshot } from "./lib/snapshots";
+import { localToday } from "./lib/today";
 
 const log = (...args: unknown[]) => console.log("•", ...args);
 
@@ -25,7 +26,7 @@ async function main() {
 
   const { games, report } = buildGames();
   log(`Wrote ${games.length} games to public/data/games.json`);
-  const today = new Date().toISOString().slice(0, 10);
+  const today = localToday();
   writeSnapshot(PATHS.snapshots, snapshotOf(games, today));
   log(`Snapshot saved: data/snapshots/${today}.json`);
   const mc = report.metacritic!;

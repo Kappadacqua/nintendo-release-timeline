@@ -8,6 +8,7 @@ import { baseTitleOfEdition, wikipediaUrl } from "./links";
 import { loadMetacriticCache } from "./metacritic";
 import { loadOpenCriticCache } from "./opencritic";
 import { reducedTitles, titleVariants } from "./title-variants";
+import { localToday } from "./today";
 import { applyOverride, isAbsent, loadOverrides, manualToGame, type OverridesFile, score } from "./overrides";
 import type { FetchReport } from "./report";
 import { addHistory, changesOf, readSnapshots } from "./snapshots";
@@ -130,11 +131,7 @@ export interface Settings {
   };
 }
 
-/** Today in the local time zone, "YYYY-MM-DD", as on the timeline and the Studios page. */
-export const localToday = () => {
-  const now = new Date();
-  return [now.getFullYear(), now.getMonth() + 1, now.getDate()].map((n) => String(n).padStart(2, "0")).join("-");
-};
+export { localToday } from "./today";
 
 const DEFAULT_SETTINGS: Settings = { nintendoStore: { region: "EU", euSite: "www.nintendo.co.uk", fallbackRegions: ["US"] } };
 

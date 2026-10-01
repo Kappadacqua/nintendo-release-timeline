@@ -3,11 +3,12 @@ import { makeGame } from "../../src/test-utils";
 import { PATHS } from "./env";
 import { type FreeUpdateEntry, freeUpdateGames, freeUpdateId } from "./free-updates";
 
-// data/free-updates.json comes from the test; the IGDB cache is empty (no match for any title).
-const file = vi.hoisted(() => ({ entries: [] as unknown[] }));
+// data/free-updates.json comes from the test; the IGDB cache is empty unless a test sets matches.
+const file = vi.hoisted(() => ({ entries: [] as unknown[], matches: {} as Record<string, number> }));
 vi.mock("./cache", async (original) => ({
   ...(await original<typeof import("./cache")>()),
-  readJson: (path: string, fallback: unknown) => (path === PATHS.freeUpdates ? { games: file.entries } : fallback),
+  readJson: (path: string, fallback: unknown) =>
+    path === PATHS.freeUpdates ? { games: file.entries } : path === PATHS.freeUpdatesCache ? { matches: file.matches } : fallback,
 }));
 
 const entry = (title: string): FreeUpdateEntry => ({
@@ -23,6 +24,7 @@ const run = (titles: string[], existing = [makeGame({ title: "Unrelated" })]) =>
 
 beforeEach(() => {
   file.entries = [];
+  file.matches = {};
 });
 
 describe("freeUpdateGames: duplicates", () => {
@@ -37,6 +39,13 @@ describe("freeUpdateGames: duplicates", () => {
     expect(run(["Animal Crossing: New Horizons"], [edition]).duplicates).toEqual([
       { title: "Animal Crossing: New Horizons", of: edition.title },
     ]);
+  });
+
+  it("does not report an entry that is the card's own game (same IGDB id) as a merge", () => {
+    file.matches = { "Pokémon Champions": 333568 };
+    const r = run(["Pokémon Champions"], [makeGame({ id: "igdb:333568", title: "Pokémon Champions" })]);
+    expect(r.duplicates).toEqual([]);
+    expect(r.games).toEqual([]); // still no second card
   });
 
   it("keeps games with a similar but different title", () => {

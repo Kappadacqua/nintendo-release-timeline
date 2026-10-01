@@ -85,3 +85,11 @@ export function gapsOf(games: Game[], overrides: Record<string, Override>, mc: M
 }
 
 const LINK_NAMES = { wikipedia: "Wikipedia", nintendoWiki: "Nintendo Wiki", nintendoStore: "Nintendo Store" } as const;
+
+/**
+ * TBA entries with only a year ("2026") once that year reaches October 1st without a date:
+ * worth a look (slipped to next year? cancelled?). Only listed, never hidden automatically.
+ */
+export function staleTba(games: Game[], today: string) {
+  return games.filter((g) => !g.firstReleaseDate && g.vagueRelease && g.vagueRelease.label === String(g.vagueRelease.year) && today >= `${g.vagueRelease.year}-10-01`);
+}

@@ -142,7 +142,7 @@ export function buildStudios(games: Game[], info: StudioGameInfo, today: string)
     // Only Switch 2 games are shown; Switch 1 games only give "Latest: … · Switch 1" to studios without one.
     const switch2 = list.filter(info.onSwitch2);
     const hasSwitch2Game = switch2.length > 0;
-    const switch1 = hasSwitch2Game ? null : latestGame(list.filter(info.onSwitch1), today);
+    const switch1 = hasSwitch2Game ? null : latestGame(list.filter(info.onSwitch1));
     const game = shownGame(switch2, today);
     const tba = hasSwitch2Game && !game ? tbaGame(switch2) : null;
     return {
@@ -168,7 +168,7 @@ export function buildStudios(games: Game[], info: StudioGameInfo, today: string)
       .filter((s) => byName.get(normalizeStudio(s.title))?.shown)
       .map((s) => toStudio(s.title, s.url, "first-party", gamesOf.get(s.title) ?? [])),
     ...rest,
-  ].sort(byShownGame);
+  ].sort(byShownGame(today));
 
   return {
     studios,
@@ -183,19 +183,14 @@ export function buildStudios(games: Game[], info: StudioGameInfo, today: string)
 const dated = (list: Game[]) =>
   list.filter((g) => g.firstReleaseDate).sort((a, b) => a.firstReleaseDate!.localeCompare(b.firstReleaseDate!));
 
-const toStudioGame = (g: Game, today: string): StudioGame => ({
-  id: g.id,
-  title: g.title,
-  coverUrl: g.coverUrl,
-  date: g.firstReleaseDate!,
-  status: g.firstReleaseDate! >= today ? "upcoming" : "released",
-});
+// No upcoming / released flag: it would go stale after the build, the page works it out from the date.
+const toStudioGame = (g: Game): StudioGame => ({ id: g.id, title: g.title, coverUrl: g.coverUrl, date: g.firstReleaseDate! });
 
 /** The next game out (today included) with a precise date, else the latest released one. */
 function shownGame(list: Game[], today: string): StudioGame | null {
   const sorted = dated(list);
   const g = sorted.find((g) => g.firstReleaseDate! >= today) ?? sorted.at(-1);
-  return g ? toStudioGame(g, today) : null;
+  return g ? toStudioGame(g) : null;
 }
 
 /** Without dated games: the first undated one by title. */
@@ -205,16 +200,16 @@ function tbaGame(list: Game[]): Studio["tbaGame"] | null {
 }
 
 /** The game with the latest precise date. */
-function latestGame(list: Game[], today: string): StudioGame | null {
+function latestGame(list: Game[]): StudioGame | null {
   const g = dated(list).at(-1);
-  return g ? toStudioGame(g, today) : null;
+  return g ? toStudioGame(g) : null;
 }
 
-/** Upcoming first (soonest first), then released (latest first), then no game (alphabetical). */
-function byShownGame(a: Studio, b: Studio) {
-  const rank = (s: Studio) => (s.game?.status === "upcoming" ? 0 : s.game ? 1 : 2);
+/** Upcoming first (soonest first, today included), then released (latest first), then no game (alphabetical). */
+const byShownGame = (today: string) => (a: Studio, b: Studio) => {
+  const rank = (s: Studio) => (s.game && s.game.date >= today ? 0 : s.game ? 1 : 2);
   const ra = rank(a);
   if (ra !== rank(b)) return ra - rank(b);
   if (ra < 2 && a.game!.date !== b.game!.date) return (a.game!.date < b.game!.date ? -1 : 1) * (ra === 0 ? 1 : -1);
   return a.name.localeCompare(b.name);
-}
+};

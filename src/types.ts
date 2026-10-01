@@ -85,8 +85,7 @@ export interface StudioGame {
   id: string;
   title: string;
   coverUrl: string;
-  date: string; // "YYYY-MM-DD"
-  status: "upcoming" | "released";
+  date: string; // "YYYY-MM-DD" — upcoming or released is worked out from it on the page (studios/order.ts)
 }
 
 /**
