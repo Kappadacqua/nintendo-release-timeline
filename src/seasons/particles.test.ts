@@ -35,12 +35,23 @@ describe("particles", () => {
     }
   });
 
-  it("now and then a spring particle is a whole cherry blossom", () => {
+  it("spring mixes petals, blossoms (middle and near), sprigs (middle) and buds (far), keeping the band shares", () => {
     const rand = seeded(11);
-    const spring = Array.from({ length: 400 }, () => spawnParticle("spring", W, H, 0, true, rand));
-    const share = spring.filter((p) => p.kind === "blossom").length / spring.length;
-    expect(share).toBeGreaterThan(SEASONS.blossomChance / 2);
-    expect(share).toBeLessThan(SEASONS.blossomChance * 2);
+    const spring = Array.from({ length: 6000 }, () => spawnParticle("spring", W, H, 0, true, rand));
+    for (const [kind, share] of Object.entries(SEASONS.spring.shares)) {
+      expect(spring.filter((p) => p.kind === kind).length / spring.length, kind).toBeCloseTo(share, 1);
+    }
+    const [lo, hi] = SEASONS.spring.ampPx;
+    for (const p of spring) {
+      if (p.kind === "blossom") expect(p.depth).toBeGreaterThan(0);
+      if (p.kind === "sprig") expect(p.depth).toBe(1);
+      if (p.kind === "bud") expect(p.depth).toBe(0);
+      expect(p.amp).toBeGreaterThanOrEqual(lo);
+      expect(p.amp).toBeLessThanOrEqual(hi);
+    }
+    SEASONS.bands.forEach((band, depth) => {
+      expect(spring.filter((p) => p.depth === depth).length / spring.length).toBeCloseTo(band.share, 1);
+    });
   });
 
   it("autumn drops four leaf species by their shares, swaying wider than the other seasons", () => {

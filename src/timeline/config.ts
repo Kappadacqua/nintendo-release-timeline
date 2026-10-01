@@ -107,8 +107,19 @@ export const SEASONS = {
   /** Window areas (px²) of those counts: 1280 × 720 and 2560 × 1440. */
   minArea: 1280 * 720,
   maxArea: 2560 * 1440,
-  /** Spring: share of particles that are a whole cherry blossom instead of a petal. */
-  blossomChance: 0.1,
+  /**
+   * Spring (docs/tasks/seasons-art.md task 5): share of each element, a wider sideways wobble
+   * (px at 1080p, s), the two fill opacities of a single petal (per variant), the blossom's
+   * slowness, the sprig's branch width (px) and its small flowers (× the blossom's size).
+   */
+  spring: {
+    shares: { petal: 0.55, blossom: 0.15, sprig: 0.1, bud: 0.2 },
+    ampPx: [25, 40],
+    periodS: [5, 8],
+    petalFillAlpha: [0.12, 0.2],
+    blossomSpeed: 0.8,
+    sprig: { branchPx: 1.6, flowerScale: 0.4 },
+  },
   /**
    * Autumn (docs/tasks/seasons-art.md task 3): share of each leaf species, a wider and slower
    * sideways wobble (px at 1080p, s), and how far each control point of a leaf moves (± share).

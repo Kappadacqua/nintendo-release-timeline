@@ -1,5 +1,5 @@
 import { SEASONS } from "../timeline/config";
-import { kindRadius, SEASON_KINDS, variantCount, type Kind, type Palette, type Particle } from "./particles";
+import { KIND_SIZE, kindRadius, SEASON_KINDS, variantCount, type Kind, type Palette, type Particle } from "./particles";
 import type { Season } from "./season";
 
 /**
@@ -24,6 +24,10 @@ interface Shape {
   veins?: Path2D;
   /** Whether the outline is closed and gets the light fill. */
   fill: boolean;
+  /** Opacity of that fill, if not `SEASONS.sprite.fillAlpha`. */
+  fillAlpha?: number;
+  /** An open branch under the outline, drawn `SEASONS.spring.sprig.branchPx` wide. */
+  branch?: Path2D;
   extent: number;
   /** A soft filled dot of this radius instead of strokes. */
   dot?: number;
@@ -267,41 +271,148 @@ function ginkgo(s: number, rand: () => number): Shape {
   return pen.shape(s * 2);
 }
 
+/** A petal form, in units of its length: half width, notch half width (× the width) and depth, skew. */
+interface PetalForm {
+  w: number;
+  notch: number;
+  depth: number;
+  /** Asymmetry: one side wider than the other by ± this share, the tip moved toward it. */
+  skew?: number;
+}
+
+/** Cherry petal: notch at the tip. */
+const CHERRY: PetalForm = { w: 0.42, notch: 0.44, depth: 0.16 };
+
 /**
- * A petal `r` long and `w` · r wide with the cherry notch at its tip, its base at (`dx`, `dy`)
- * and pointing up turned by `a`.
+ * A petal `r` long in `form`, its base at (`dx`, `dy`) and pointing up turned by `a`
+ * (`notch` 0: a plain petal with a pointed tip).
  */
-function petalPath(path: Path2D, r: number, w: number, a = 0, dx = 0, dy = 0) {
+function petalPath(path: Path2D, r: number, form: PetalForm, a = 0, dx = 0, dy = 0) {
   const at = (x: number, y: number) => turn([x * r, y * r], a, dx, dy);
+  const skew = form.skew ?? 0;
+  const left = form.w * (1 - skew);
+  const right = form.w * (1 + skew);
+  const tip = skew * 0.2;
   path.moveTo(...at(0, 0));
-  path.quadraticCurveTo(...at(-w, -0.45), ...at(-0.44 * w, -1));
-  path.lineTo(...at(0, -0.84));
-  path.lineTo(...at(0.44 * w, -1));
-  path.quadraticCurveTo(...at(w, -0.45), ...at(0, 0));
+  path.quadraticCurveTo(...at(-left, -0.45), ...at(tip - form.notch * left, -1));
+  if (form.notch) {
+    path.lineTo(...at(tip, -1 + form.depth));
+    path.lineTo(...at(tip + form.notch * right, -1));
+  }
+  path.quadraticCurveTo(...at(right, -0.45), ...at(0, 0));
   path.closePath();
 }
 
-function petal(s: number): Shape {
-  const outline = new Path2D();
-  // Centred: base below the origin, tip above.
-  petalPath(outline, s, 0.6, 0, 0, s / 2);
-  return { outline, fill: true, extent: s * 0.6 };
+/** The three single-petal silhouettes: narrow notch, wide notch, lopsided. */
+const PETALS: PetalForm[] = [
+  { w: 0.6, notch: 0.2, depth: 0.1 },
+  { w: 0.64, notch: 0.5, depth: 0.2 },
+  { w: 0.58, notch: 0.38, depth: 0.15, skew: 0.25 },
+];
+
+/** A path that starts a new subpath on the circle or ellipse (no line from the previous point). */
+function ellipse(path: Path2D, x: number, y: number, rx: number, ry: number, a = 0) {
+  path.moveTo(...turn([rx, 0], a, x, y));
+  path.ellipse(x, y, rx, ry, a, 0, Math.PI * 2);
 }
 
-/** Five notched petals around a small centre with five stamens. */
-function blossom(s: number): Shape {
+/**
+ * Single petal `2s` long with the notch at its tip: one of three silhouettes and one of two fill
+ * opacities per variant, the width ± 8 %; a faint middle vein.
+ */
+function petal(s: number, rand: () => number, variant: number): Shape {
+  const base = PETALS[variant % PETALS.length];
+  const form = { ...base, w: base.w * (1 + (rand() * 2 - 1) * 0.08) };
   const outline = new Path2D();
-  // Narrower than a single petal, so the five just touch.
-  for (let i = 0; i < 5; i++) petalPath(outline, s, 0.42, (i * Math.PI * 2) / 5);
+  // Centred: base below the origin, tip above.
+  petalPath(outline, s * 2, form, 0, 0, s);
   const veins = new Path2D();
-  veins.moveTo(s * 0.14, 0);
-  veins.arc(0, 0, s * 0.14, 0, Math.PI * 2);
+  veins.moveTo(0, s * 0.85);
+  veins.quadraticCurveTo(s * (rand() - 0.5) * 0.12, s * 0.3, 0, -s * 0.15);
+  const [low, high] = SEASONS.spring.petalFillAlpha;
+  return { outline, veins, fill: true, fillAlpha: variant < PETALS.length ? low : high, extent: s * 1.05 };
+}
+
+/**
+ * Whole cherry blossom of radius `s`: five notched petals (each a little longer or shorter, a
+ * little off its place), a ring at the centre and 8–10 stamens ending in a dot.
+ */
+function blossom(s: number, rand: () => number): Shape {
+  const outline = new Path2D();
+  const turn0 = rand() * Math.PI * 2;
+  // Narrower than a single petal, so the five just touch.
   for (let i = 0; i < 5; i++) {
-    const a = ((i + 0.5) * Math.PI * 2) / 5;
-    veins.moveTo(Math.cos(a) * s * 0.14, Math.sin(a) * s * 0.14);
-    veins.lineTo(Math.cos(a) * s * 0.42, Math.sin(a) * s * 0.42);
+    const a = turn0 + ((i + (rand() - 0.5) * 0.12) * Math.PI * 2) / 5;
+    petalPath(outline, s * (0.9 + 0.1 * rand()), CHERRY, a);
+  }
+  const veins = new Path2D();
+  const ring = s * 0.15;
+  ellipse(veins, 0, 0, ring, ring);
+  const stamens = 8 + Math.floor(rand() * 3);
+  for (let i = 0; i < stamens; i++) {
+    const a = ((i + (rand() - 0.5) * 0.4) * Math.PI * 2) / stamens;
+    const end = s * (0.4 + 0.1 * rand());
+    veins.moveTo(...turn([ring, 0], a));
+    veins.lineTo(...turn([end, 0], a));
+    const [x, y] = turn([end + s * 0.035, 0], a);
+    ellipse(veins, x, y, s * 0.035, s * 0.035);
   }
   return { outline, veins, fill: true, extent: s };
+}
+
+/**
+ * Flowering sprig about `2s` long, tip up: a curved branch (drawn `SEASONS.spring.sprig.branchPx`
+ * wide), 2–3 small blossoms and 2–3 oval buds on short stalks on alternating sides, a bud at the tip.
+ */
+function sprig(s: number, rand: () => number): Shape {
+  const bow = (rand() * 2 - 1) * 0.15 * s;
+  /** Point of the branch at `t` (0 base, 1 tip). */
+  const stem = (t: number): Point => [bow * 4 * t * (1 - t), 0.9 * s - 1.7 * s * t];
+  const branch = new Path2D();
+  branch.moveTo(...stem(0));
+  branch.quadraticCurveTo(bow * 2, 0.05 * s, ...stem(1));
+  // Small flowers: `flowerScale` × a blossom of the middle band.
+  const flower = s * SEASONS.spring.sprig.flowerScale * (KIND_SIZE.blossom / KIND_SIZE.sprig);
+  const outline = new Path2D();
+  const veins = new Path2D();
+  const addBud = (from: Point, a: number) => {
+    const half = flower * 0.5;
+    const [x, y] = turn([0, -(s * 0.05 + half)], a, ...from);
+    veins.moveTo(...from);
+    veins.lineTo(...turn([0, -s * 0.06], a, ...from));
+    ellipse(outline, x, y, flower * 0.3, half, a);
+  };
+  const flowers = 2 + Math.floor(rand() * 2);
+  const items = [...Array<boolean>(flowers).fill(true), ...Array<boolean>(1 + Math.floor(rand() * 2)).fill(false)];
+  // Shuffled along the branch, so no two variants put flowers in the same places.
+  for (let i = items.length - 1; i > 0; i--) {
+    const j = Math.floor(rand() * (i + 1));
+    [items[i], items[j]] = [items[j], items[i]];
+  }
+  const side0 = rand() < 0.5 ? -1 : 1;
+  items.forEach((isFlower, i) => {
+    const t = 0.2 + (0.62 * (i + 0.5)) / items.length;
+    const from = stem(t);
+    const a = (i % 2 ? side0 : -side0) * ((50 + 20 * rand()) * Math.PI) / 180;
+    if (!isFlower) return addBud(from, a);
+    const centre = turn([0, -(s * 0.06 + flower)], a, ...from);
+    veins.moveTo(...from);
+    veins.lineTo(...turn([0, -s * 0.06], a, ...from));
+    const spin = rand() * Math.PI * 2;
+    for (let k = 0; k < 5; k++) petalPath(outline, flower, CHERRY, spin + (k * Math.PI * 2) / 5, ...centre);
+    ellipse(veins, ...centre, flower * 0.2, flower * 0.2);
+  });
+  addBud(stem(1), (rand() - 0.5) * 0.4);
+  return { outline, veins, branch, fill: true, extent: s * 1.1 };
+}
+
+/** Tiny bud (far band only), `2s` long: an ellipse or a plain petal without the notch. */
+function bud(s: number, rand: () => number, variant: number): Shape {
+  const outline = new Path2D();
+  const w = 0.5 + 0.1 * rand();
+  if (variant % 2) ellipse(outline, 0, 0, s * w, s);
+  else petalPath(outline, s * 2, { w: w * 0.9, notch: 0, depth: 0 }, 0, 0, s);
+  return { outline, fill: true, extent: s * 1.05 };
 }
 
 /**
@@ -401,7 +512,21 @@ function bubble(s: number): Shape {
 }
 
 /** Shape builders; `rand` (seeded per variant) is for the shapes that vary. */
-const SHAPES: Record<Kind, (s: number, rand: () => number) => Shape> = { maple, oak, birch, ginkgo, petal, blossom, dendrite, plate, dot, fir, bubble };
+const SHAPES: Record<Kind, (s: number, rand: () => number, variant: number) => Shape> = {
+  maple,
+  oak,
+  birch,
+  ginkgo,
+  petal,
+  blossom,
+  dendrite,
+  plate,
+  dot,
+  fir,
+  bubble,
+  sprig,
+  bud,
+};
 
 /** A sprite and its half size in CSS px (it is drawn centred on the particle). */
 export interface Sprite {
@@ -419,7 +544,7 @@ function renderSprite(kind: Kind, variant: number, depth: number, color: string,
   const rand = mulberry32(SEASONS.spriteSeed + Object.keys(SHAPES).indexOf(kind) * 97 + variant * 7919);
   const pencilAngle = rand() * Math.PI * 2;
   const pencilPx = style.pencilPx[0] + (style.pencilPx[1] - style.pencilPx[0]) * rand();
-  const shape = SHAPES[kind](kindRadius(kind, depth) * view, rand);
+  const shape = SHAPES[kind](kindRadius(kind, depth) * view, rand, variant);
   const half = Math.ceil(shape.extent + MARGIN);
   const canvas = document.createElement("canvas");
   canvas.width = canvas.height = Math.ceil(half * 2 * dpr);
@@ -431,8 +556,12 @@ function renderSprite(kind: Kind, variant: number, depth: number, color: string,
     return { canvas, half };
   }
   g.lineCap = g.lineJoin = "round";
+  if (shape.branch) {
+    g.lineWidth = SEASONS.spring.sprig.branchPx;
+    g.stroke(shape.branch);
+  }
   if (shape.fill) {
-    g.globalAlpha = style.fillAlpha;
+    g.globalAlpha = shape.fillAlpha ?? style.fillAlpha;
     g.fill(shape.outline);
   }
   g.globalAlpha = 1;

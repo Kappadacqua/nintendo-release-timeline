@@ -163,7 +163,7 @@ Principi fissi:
 
 ---
 
-- [ ] **Task 5 — Primavera: petali, fiori, rametti, boccioli (senza rotazione)**
+- [x] **Task 5 — Primavera: petali, fiori, rametti, boccioli (senza rotazione)**
 
 **File**
 - Partire da: `src/seasons/sprites.ts`, `src/seasons/background.ts`.

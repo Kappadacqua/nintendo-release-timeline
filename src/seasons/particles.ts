@@ -3,9 +3,10 @@ import type { Season } from "./season";
 
 /**
  * Seasonal particles (no DOM): the motion of each particle; its look is a pre-rendered sprite
- * (`sprites.ts`), one colour per season. Speeds in px/s. Summer bubbles rise, spring petals (now
- * and then a whole cherry blossom) drift diagonally, autumn leaves (four species) and winter snow
- * (flakes, plates, soft dots, now and then a fir twig) fall, pushed sideways by gusts.
+ * (`sprites.ts`), one colour per season. Speeds in px/s. Summer bubbles rise, spring petals, tiny
+ * buds, whole cherry blossoms and now and then a flowering sprig drift diagonally, autumn leaves
+ * (four species) and winter snow (flakes, plates, soft dots, now and then a fir twig) fall, pushed
+ * sideways by gusts.
  * No particle ever turns: its tilt is chosen once, and it only moves and wobbles sideways.
  */
 export interface Particle {
@@ -36,22 +37,29 @@ export interface Particle {
   born: number;
 }
 
-export type Kind = "bubble" | "petal" | "blossom" | "maple" | "oak" | "birch" | "ginkgo" | "dendrite" | "plate" | "dot" | "fir";
+export type Kind = "bubble" | "petal" | "blossom" | "sprig" | "bud" | "maple" | "oak" | "birch" | "ginkgo" | "dendrite" | "plate" | "dot" | "fir";
 
 /** Rare kinds have fewer sprite variants. */
-export const RARE_KINDS: ReadonlySet<Kind> = new Set(["blossom", "fir"]);
+export const RARE_KINDS: ReadonlySet<Kind> = new Set(["sprig", "fir"]);
 
 /** Kinds that only live in some depth bands (the others live in all three). */
 export const KIND_BANDS: Partial<Record<Kind, readonly number[]>> = {
   dot: [0],
   fir: [1],
+  blossom: [1, 2],
+  sprig: [1],
+  bud: [0],
 };
 
 /** Radius or half length (px) of each kind in the middle band at 1080p. */
 export const KIND_SIZE: Record<Kind, number> = {
   bubble: 26,
-  petal: 20,
-  blossom: 26,
+  // Spring: petals 28 px long, blossoms 60 px across, a sprig 110 px long (middle band);
+  // buds 10 px long in the far band.
+  petal: 14,
+  blossom: 30,
+  sprig: 55,
+  bud: 5 / SEASONS.bands[0].size,
   // Leaves: half of their length L (56 px in the middle band).
   maple: 28,
   oak: 28,
@@ -72,7 +80,7 @@ export function kindRadius(kind: Kind, depth: number) {
 /** Every kind a season draws. */
 export const SEASON_KINDS: Record<Season, readonly Kind[]> = {
   winter: ["dendrite", "plate", "dot", "fir"],
-  spring: ["petal", "blossom"],
+  spring: ["petal", "blossom", "sprig", "bud"],
   summer: ["bubble"],
   autumn: ["maple", "oak", "birch", "ginkgo"],
 };
@@ -92,7 +100,7 @@ export function viewScale(height: number) {
 function kindShares(season: Season): Partial<Record<Kind, number>> {
   switch (season) {
     case "spring":
-      return { petal: 1 - SEASONS.blossomChance, blossom: SEASONS.blossomChance };
+      return SEASONS.spring.shares;
     case "autumn":
       return SEASONS.leaves.shares;
     case "winter":
@@ -114,8 +122,9 @@ function pick(weights: readonly number[], rand: () => number) {
 }
 
 /**
- * Weight of each depth band for a new particle of `kind`. A kind kept to one band fills part of
- * it; the free kinds share what is left, so the season as a whole keeps the band shares.
+ * Weight of each depth band for a new particle of `kind`. A kind kept to some bands fills part of
+ * them, split by the band shares; the free kinds share what is left, so the season as a whole
+ * keeps the band shares.
  */
 export function depthWeights(season: Season, kind: Kind): number[] {
   const allowed = KIND_BANDS[kind];
@@ -125,7 +134,9 @@ export function depthWeights(season: Season, kind: Kind): number[] {
     let left = band.share;
     for (const [k, share] of Object.entries(shares) as [Kind, number][]) {
       const only = KIND_BANDS[k];
-      if (only?.length === 1 && only[0] === depth) left -= share;
+      if (!only?.includes(depth)) continue;
+      const room = only.reduce((sum, d) => sum + SEASONS.bands[d].share, 0);
+      left -= (share * band.share) / room;
     }
     return Math.max(0, left);
   });
@@ -150,11 +161,13 @@ export function spawnParticle(season: Season, width: number, height: number, now
   const kind = pickKind(season, rand);
   const depth = pick(depthWeights(season, kind), rand);
   const band = SEASONS.bands[depth];
-  // Leaves (and the fir twig) sway wider than the other elements.
+  // Leaves, spring elements (and the fir twig) sway wider than the other elements.
   const wobble: { ampPx: readonly [number, number]; periodS: readonly [number, number] } =
     season === "autumn"
       ? SEASONS.leaves
-      : { ampPx: kind === "fir" ? SEASONS.winter.fir.ampPx : SEASONS.wobbleAmpPx, periodS: SEASONS.wobblePeriodS };
+      : season === "spring"
+        ? SEASONS.spring
+        : { ampPx: kind === "fir" ? SEASONS.winter.fir.ampPx : SEASONS.wobbleAmpPx, periodS: SEASONS.wobblePeriodS };
   // Soft dots take their size from their sprite variant alone.
   const scale = kind === "dot" ? 1 : between(rand, 1 - SEASONS.sizeJitter, 1 + SEASONS.sizeJitter);
   const tilt = (between(rand, -1, 1) * SEASONS.tiltDeg * Math.PI) / 180;
@@ -186,7 +199,10 @@ export function spawnParticle(season: Season, width: number, height: number, now
       p.vx = between(rand, 22, 40);
       p.vy = between(rand, 18, 30);
       // A blossom is heavier: it drifts more slowly.
-      if (kind === "blossom") p.vx *= 0.6;
+      if (kind === "blossom") {
+        p.vx *= SEASONS.spring.blossomSpeed;
+        p.vy *= SEASONS.spring.blossomSpeed;
+      }
       if (!anywhere) {
         // From the top edge, or from the left one (the diagonal enters there too).
         if (rand() < 0.6) {
