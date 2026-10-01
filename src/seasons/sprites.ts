@@ -1,5 +1,5 @@
 import { SEASONS } from "../timeline/config";
-import { KIND_SIZE, kindRadius, SEASON_KINDS, variantCount, type Kind, type Palette, type Particle } from "./particles";
+import { CLUSTER_SPAN, KIND_SIZE, kindRadius, SEASON_KINDS, variantCount, type Kind, type Palette, type Particle } from "./particles";
 import type { Season } from "./season";
 
 /**
@@ -31,6 +31,10 @@ interface Shape {
   extent: number;
   /** A soft filled dot of this radius instead of strokes. */
   dot?: number;
+  /** Bubbles `[x, y, r]`: a radial fill each instead of the flat one. */
+  bubbles?: [number, number, number][];
+  /** Small dots filled at the veins' opacity (glints, a starfish's rows). */
+  spots?: Path2D;
 }
 
 type Point = [number, number];
@@ -51,11 +55,13 @@ class LeafPen {
   constructor(
     private rand: () => number,
     private bend: number,
+    /** How far each point moves (± share); shells use less than leaves. */
+    private jitter: number = SEASONS.leaves.jitter,
   ) {}
 
   /** A control point: jittered, then bent. */
   at([x, y]: Point): Point {
-    const j = SEASONS.leaves.jitter;
+    const j = this.jitter;
     const jx = x * (1 + (this.rand() * 2 - 1) * j);
     const jy = y * (1 + (this.rand() * 2 - 1) * j);
     return [jx + this.bend * jy * jy, jy];
@@ -499,16 +505,121 @@ function fir(s: number, rand: () => number): Shape {
   return { outline, veins, fill: false, extent: s * 1.05 };
 }
 
-/** A circle with two glints: a short arc inside on the upper left, a smaller one opposite. */
+/**
+ * A bubble of radius `r` at (`x`, `y`) added to the paths: its circle, a long glint arc inside on
+ * the upper left and (`dot`) a glint dot on the lower right.
+ */
+function addBubble(outline: Path2D, veins: Path2D, spots: Path2D, x: number, y: number, r: number, dot = true) {
+  ellipse(outline, x, y, r, r);
+  const glint = r * 0.7;
+  veins.moveTo(x + Math.cos(Math.PI * 1.05) * glint, y + Math.sin(Math.PI * 1.05) * glint);
+  veins.arc(x, y, glint, Math.PI * 1.05, Math.PI * 1.5);
+  if (dot) ellipse(spots, x + r * 0.45, y + r * 0.45, r * 0.08, r * 0.08);
+}
+
+/** Single bubble of radius `s`, radial fill and two glints. */
 function bubble(s: number): Shape {
   const outline = new Path2D();
-  outline.arc(0, 0, s, 0, Math.PI * 2);
   const veins = new Path2D();
-  veins.moveTo(Math.cos(Math.PI * 1.1) * s * 0.68, Math.sin(Math.PI * 1.1) * s * 0.68);
-  veins.arc(0, 0, s * 0.68, Math.PI * 1.1, Math.PI * 1.45);
-  veins.moveTo(Math.cos(Math.PI * 0.15) * s * 0.72, Math.sin(Math.PI * 0.15) * s * 0.72);
-  veins.arc(0, 0, s * 0.72, Math.PI * 0.15, Math.PI * 0.25);
-  return { outline, veins, fill: true, extent: s };
+  const spots = new Path2D();
+  addBubble(outline, veins, spots, 0, 0, s);
+  return { outline, veins, spots, fill: true, bubbles: [[0, 0, s]], extent: s };
+}
+
+/**
+ * Bubble cluster: 3–5 bubbles of radii `SEASONS.summer.cluster.radii` (× the biggest, `s` /
+ * `CLUSTER_SPAN`) in a column, the biggest on top, each ± `offset` × its radius sideways.
+ */
+function cluster(s: number, rand: () => number): Shape {
+  const { radii, offset } = SEASONS.summer.cluster;
+  const big = s / CLUSTER_SPAN;
+  const count = 3 + Math.floor(rand() * 3);
+  const circles: [number, number, number][] = [];
+  let y = 0;
+  for (const k of radii.slice(0, count)) {
+    const r = big * k;
+    const prev = circles.at(-1);
+    // Just apart from the bubble above.
+    if (prev) y += prev[2] + r + big * 0.08;
+    circles.push([(rand() * 2 - 1) * offset * r, y, r]);
+  }
+  // Centred on the column.
+  const top = -circles[0][2];
+  const bottom = y + circles.at(-1)![2];
+  const shift = (top + bottom) / 2;
+  const outline = new Path2D();
+  const veins = new Path2D();
+  const spots = new Path2D();
+  const bubbles = circles.map(([x, cy, r]): [number, number, number] => [x, cy - shift, r]);
+  // Only the bigger bubbles get the glint dot: on the small ones it would be a speck.
+  for (const [x, cy, r] of bubbles) addBubble(outline, veins, spots, x, cy, r, r >= big * 0.5);
+  const extent = Math.max((bottom - top) / 2, ...bubbles.map(([x, , r]) => Math.abs(x) + r));
+  return { outline, veins, spots, fill: true, bubbles, extent };
+}
+
+/**
+ * Scallop shell `2s` wide, hinge down: 7–9 ribs fanning out from the hinge, a wavy margin with a
+ * crest at the end of each rib, two small ears at the base.
+ */
+function shell(s: number, rand: () => number): Shape {
+  const pen = new LeafPen(rand, 0, 0.03);
+  const ribs = 7 + Math.floor(rand() * 3);
+  const half = 52 + rand() * 8;
+  const r = 1 / Math.sin((half * Math.PI) / 180);
+  const ear = 0.24 + 0.05 * rand();
+  const sector = (2 * half) / ribs;
+  pen.outline.push({ move: [-ear, 0.06] }, { line: [ear, 0.06] }, { line: pen.at([ear * 0.95, -0.06]) }, { line: pen.at(polar(half, 0.32)) });
+  pen.outline.push({ line: pen.at(polar(half, r * 0.97)) });
+  // The margin, right to left: a crest over every rib.
+  for (let i = 0; i < ribs; i++) {
+    const mid = half - sector * (i + 0.5);
+    pen.outline.push({ quad: [pen.at(polar(mid, r * 1.09)), pen.at(polar(mid - sector / 2, r * 0.97))] });
+  }
+  pen.outline.push({ line: pen.at(polar(-half, 0.32)) }, { line: pen.at([-ear * 0.95, -0.06]) });
+  for (let i = 0; i < ribs; i++) {
+    const mid = half - sector * (i + 0.5);
+    pen.vein(polar(mid * 0.5, 0.14), polar(mid, r * 0.5), polar(mid, r * 0.95));
+  }
+  // The hinge line between the ears and the fan.
+  pen.veins.push({ move: [-ear * 0.9, -0.03] }, { line: [ear * 0.9, -0.03] });
+  return pen.shape(s);
+}
+
+/**
+ * Starfish of radius `s`: five tapering arms, each a little longer or shorter and bent a little
+ * to one side, a row of 6–8 dots down the middle of each, shrinking toward the tip.
+ */
+function starfish(s: number, rand: () => number): Shape {
+  const turn0 = (rand() - 0.5) * 20;
+  const arms = Array.from({ length: 5 }, (_, i) => ({
+    deg: turn0 + i * 72 + (rand() - 0.5) * 8,
+    len: 0.9 + 0.1 * rand(),
+    bend: (rand() * 2 - 1) * 9,
+  }));
+  const valley = 0.36;
+  const outline = new Path2D();
+  const spots = new Path2D();
+  const at = (deg: number, r: number) => polar(deg, r * s);
+  arms.forEach(({ deg, len, bend }, i) => {
+    const next = arms[(i + 1) % 5];
+    const nextDeg = next.deg + (i === 4 ? 360 : 0);
+    const before = (deg + arms[(i + 4) % 5].deg - (i === 0 ? 360 : 0)) / 2;
+    const after = (deg + nextDeg) / 2;
+    if (i === 0) outline.moveTo(...at(before, valley));
+    // Up one side of the arm, round its tip, down the other side to the next valley.
+    outline.quadraticCurveTo(...at(deg - 13 + bend * 0.5, 0.6 * len), ...at(deg + bend - 5, 0.94 * len));
+    outline.quadraticCurveTo(...at(deg + bend, 1.04 * len), ...at(deg + bend + 5, 0.94 * len));
+    outline.quadraticCurveTo(...at(deg + 13 + bend * 0.5, 0.6 * len), ...at(after, valley));
+    const dots = 6 + Math.floor(rand() * 3);
+    for (let k = 0; k < dots; k++) {
+      const t = 0.2 + (0.62 * k) / (dots - 1);
+      const [x, y] = at(deg + bend * t * t, t * len);
+      const r = s * (0.034 - 0.014 * t);
+      ellipse(spots, x, y, r, r);
+    }
+  });
+  outline.closePath();
+  return { outline, spots, fill: true, extent: s * 1.05 };
 }
 
 /** Shape builders; `rand` (seeded per variant) is for the shapes that vary. */
@@ -524,6 +635,9 @@ const SHAPES: Record<Kind, (s: number, rand: () => number, variant: number) => S
   dot,
   fir,
   bubble,
+  cluster,
+  shell,
+  starfish,
   sprig,
   bud,
 };
@@ -560,7 +674,8 @@ function renderSprite(kind: Kind, variant: number, depth: number, color: string,
     g.lineWidth = SEASONS.spring.sprig.branchPx;
     g.stroke(shape.branch);
   }
-  if (shape.fill) {
+  if (shape.bubbles) radialFill(g, shape.bubbles, color);
+  else if (shape.fill) {
     g.globalAlpha = shape.fillAlpha ?? style.fillAlpha;
     g.fill(shape.outline);
   }
@@ -572,11 +687,47 @@ function renderSprite(kind: Kind, variant: number, depth: number, color: string,
     g.lineWidth = band.linePx * style.veinWidth;
     g.stroke(shape.veins);
   }
+  if (shape.spots) {
+    g.globalAlpha = style.veinAlpha;
+    g.fill(shape.spots);
+  }
   g.globalAlpha = style.pencilAlpha;
   g.lineWidth = band.linePx;
   g.translate(Math.cos(pencilAngle) * pencilPx, Math.sin(pencilAngle) * pencilPx);
   g.stroke(shape.outline);
   return { canvas, half };
+}
+
+/**
+ * Each bubble filled from almost clear at its centre (a little toward the upper left glint) to
+ * `SEASONS.summer.bubbleFillAlpha[1]` at its edge.
+ */
+function radialFill(g: CanvasRenderingContext2D, bubbles: [number, number, number][], color: string) {
+  const [inner, edge] = SEASONS.summer.bubbleFillAlpha;
+  g.globalAlpha = 1;
+  for (const [x, y, r] of bubbles) {
+    const fill = g.createRadialGradient(x - r * 0.25, y - r * 0.25, 0, x, y, r);
+    fill.addColorStop(0, withAlpha(g, color, inner));
+    fill.addColorStop(0.65, withAlpha(g, color, (inner + edge) / 2));
+    fill.addColorStop(1, withAlpha(g, color, edge));
+    g.fillStyle = fill;
+    g.beginPath();
+    g.arc(x, y, r, 0, Math.PI * 2);
+    g.fill();
+  }
+  g.fillStyle = color;
+}
+
+/** `color` (any CSS colour the canvas accepts) at opacity `a`, for gradient stops. */
+function withAlpha(g: CanvasRenderingContext2D, color: string, a: number) {
+  g.fillStyle = color;
+  // The canvas reads it back as `#rrggbb` (opaque) or `rgba(r, g, b, a)`.
+  const read = String(g.fillStyle);
+  const hex = /^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i.exec(read);
+  if (hex) return `rgb(${hex.slice(1).map((h) => Number.parseInt(h, 16)).join(" ")} / ${a})`;
+  const rgba = /^rgba?\(([^,]+),([^,]+),([^,)]+)(?:,\s*([\d.]+))?\)$/.exec(read);
+  if (rgba) return `rgb(${rgba[1]} ${rgba[2]} ${rgba[3]} / ${a * Number(rgba[4] ?? 1)})`;
+  return color;
 }
 
 /** A filled dot of radius `r` that fades out toward its edge (the fill colour is already set). */

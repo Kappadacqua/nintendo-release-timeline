@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { SEASONS } from "../timeline/config";
-import { fadeIn, Gusts, isGone, spawnParticle, stepParticle, viewScale, wobbleX } from "./particles";
+import { fadeIn, Gusts, isGone, kindRadius, SINKING, spawnParticle, stepParticle, viewScale, wobbleX } from "./particles";
 import type { Season } from "./season";
 
 const W = 1920;
@@ -26,8 +26,10 @@ describe("particles", () => {
   it("reborn particles start outside the edge they enter from", () => {
     const rand = seeded(7);
     for (let i = 0; i < 50; i++) {
-      const bubble = spawnParticle("summer", W, H, 0, false, rand);
-      expect(bubble.y).toBeGreaterThan(H);
+      const sea = spawnParticle("summer", W, H, 0, false, rand);
+      // Bubbles rise from below, shells and starfish sink from above.
+      if (SINKING.has(sea.kind)) expect(sea.y).toBeLessThan(0);
+      else expect(sea.y).toBeGreaterThan(H);
       const flake = spawnParticle("winter", W, H, 0, false, rand);
       expect(flake.y).toBeLessThan(0);
       const petal = spawnParticle("spring", W, H, 0, false, rand);
@@ -52,6 +54,36 @@ describe("particles", () => {
     SEASONS.bands.forEach((band, depth) => {
       expect(spring.filter((p) => p.depth === depth).length / spring.length).toBeCloseTo(band.share, 1);
     });
+  });
+
+  it("summer: bubbles (every band) and clusters rise, shells and starfish (middle and near) sink slowly and sway wider", () => {
+    const rand = seeded(29);
+    const summer = Array.from({ length: 6000 }, () => spawnParticle("summer", W, H, 0, true, rand));
+    for (const [kind, share] of Object.entries(SEASONS.summer.shares)) {
+      expect(summer.filter((p) => p.kind === kind).length / summer.length, kind).toBeCloseTo(share, 1);
+    }
+    const { rise, sink } = SEASONS.summer;
+    for (const p of summer) {
+      const wobble = SINKING.has(p.kind) ? sink : rise;
+      if (p.kind !== "bubble") expect(p.depth, p.kind).toBeGreaterThan(0);
+      expect(p.amp).toBeGreaterThanOrEqual(wobble.ampPx[0]);
+      expect(p.amp).toBeLessThanOrEqual(wobble.ampPx[1]);
+      expect(Math.sign(p.vy)).toBe(SINKING.has(p.kind) ? 1 : -1);
+      // Bubbles stay upright.
+      if (!SINKING.has(p.kind)) expect(p.sin).toBe(0);
+    }
+    SEASONS.bands.forEach((band, depth) => {
+      expect(summer.filter((p) => p.depth === depth).length / summer.length).toBeCloseTo(band.share, 1);
+    });
+    // Sinking is slower than rising.
+    const speed = (sinking: boolean) => {
+      const ps = summer.filter((p) => SINKING.has(p.kind) === sinking && p.depth === 1);
+      return ps.reduce((sum, p) => sum + Math.abs(p.vy), 0) / ps.length;
+    };
+    expect(speed(true)).toBeCloseTo(speed(false) * sink.speed, 0);
+    // Starfish: 64 and 96 px across; a single bubble 31 / 56 / 90.
+    expect([1, 2].map((d) => kindRadius("starfish", d) * 2)).toEqual([64, 96]);
+    expect([0, 1, 2].map((d) => Math.round(kindRadius("bubble", d) * 2))).toEqual([31, 56, 90]);
   });
 
   it("autumn drops four leaf species by their shares, swaying wider than the other seasons", () => {
@@ -125,7 +157,7 @@ describe("particles", () => {
     for (const season of ["summer", "spring", "autumn", "winter"] as const) {
       const { p, t } = lifetime(season);
       expect(t, season).toBeLessThan(600);
-      if (season === "summer") expect(p.y).toBeLessThan(0);
+      if (p.vy < 0) expect(p.y).toBeLessThan(0);
       else expect(p.y > H || p.x > W).toBe(true);
     }
   });

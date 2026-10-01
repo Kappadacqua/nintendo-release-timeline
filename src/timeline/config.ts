@@ -121,6 +121,20 @@ export const SEASONS = {
     sprig: { branchPx: 1.6, flowerScale: 0.4 },
   },
   /**
+   * Summer (docs/tasks/seasons-art.md task 6): share of each element; bubbles and clusters rise
+   * with a quick, narrow wobble, shells and starfish sink (× `sink.speed` the bubbles' speed) with a
+   * slow, wide one (px at 1080p, s). A bubble's radial fill goes from the first opacity at its
+   * centre to the second at its edge; a cluster stacks 3–5 bubbles of these radii (× the biggest),
+   * each ± `offset` × its radius sideways.
+   */
+  summer: {
+    shares: { bubble: 0.55, cluster: 0.2, shell: 0.15, starfish: 0.1 },
+    rise: { ampPx: [10, 28], periodS: [3, 6] },
+    sink: { speed: 0.35, ampPx: [20, 40], periodS: [7, 12] },
+    bubbleFillAlpha: [0.03, 0.22],
+    cluster: { radii: [1, 0.7, 0.5, 0.4, 0.3], offset: 0.6 },
+  },
+  /**
    * Autumn (docs/tasks/seasons-art.md task 3): share of each leaf species, a wider and slower
    * sideways wobble (px at 1080p, s), and how far each control point of a leaf moves (± share).
    */

@@ -190,7 +190,7 @@ Principi fissi:
 
 ---
 
-- [ ] **Task 6 — Estate: mare vivo (bolle, grappoli, conchiglie, stelle marine)**
+- [x] **Task 6 — Estate: mare vivo (bolle, grappoli, conchiglie, stelle marine)**
 
 **File**
 - Partire da: `src/seasons/sprites.ts`, `src/seasons/background.ts`.

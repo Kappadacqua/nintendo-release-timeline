@@ -3,7 +3,8 @@ import type { Season } from "./season";
 
 /**
  * Seasonal particles (no DOM): the motion of each particle; its look is a pre-rendered sprite
- * (`sprites.ts`), one colour per season. Speeds in px/s. Summer bubbles rise, spring petals, tiny
+ * (`sprites.ts`), one colour per season. Speeds in px/s. Summer bubbles and bubble clusters rise
+ * while scallop shells and starfish sink slowly, spring petals, tiny
  * buds, whole cherry blossoms and now and then a flowering sprig drift diagonally, autumn leaves
  * (four species) and winter snow (flakes, plates, soft dots, now and then a fir twig) fall, pushed
  * sideways by gusts.
@@ -37,10 +38,10 @@ export interface Particle {
   born: number;
 }
 
-export type Kind = "bubble" | "petal" | "blossom" | "sprig" | "bud" | "maple" | "oak" | "birch" | "ginkgo" | "dendrite" | "plate" | "dot" | "fir";
+export type Kind = "bubble" | "cluster" | "shell" | "starfish" | "petal" | "blossom" | "sprig" | "bud" | "maple" | "oak" | "birch" | "ginkgo" | "dendrite" | "plate" | "dot" | "fir";
 
 /** Rare kinds have fewer sprite variants. */
-export const RARE_KINDS: ReadonlySet<Kind> = new Set(["sprig", "fir"]);
+export const RARE_KINDS: ReadonlySet<Kind> = new Set(["sprig", "fir", "starfish"]);
 
 /** Kinds that only live in some depth bands (the others live in all three). */
 export const KIND_BANDS: Partial<Record<Kind, readonly number[]>> = {
@@ -49,11 +50,22 @@ export const KIND_BANDS: Partial<Record<Kind, readonly number[]>> = {
   blossom: [1, 2],
   sprig: [1],
   bud: [0],
+  cluster: [1, 2],
+  shell: [1, 2],
+  starfish: [1, 2],
 };
+
+/** Half of the longest side of a bubble cluster, in radii of its biggest bubble (3–5 stacked). */
+export const CLUSTER_SPAN = 3;
 
 /** Radius or half length (px) of each kind in the middle band at 1080p. */
 export const KIND_SIZE: Record<Kind, number> = {
-  bubble: 26,
+  // Summer: bubbles 56 px across, a cluster's biggest bubble 40 px, shells 60 px wide (middle band);
+  // starfish 64 / 96 px across, see `KIND_BAND_SIZE`.
+  bubble: 28,
+  cluster: 20 * CLUSTER_SPAN,
+  shell: 30,
+  starfish: 32,
   // Spring: petals 28 px long, blossoms 60 px across, a sprig 110 px long (middle band);
   // buds 10 px long in the far band.
   petal: 14,
@@ -72,16 +84,25 @@ export const KIND_SIZE: Record<Kind, number> = {
   fir: 35,
 };
 
+/** Kinds whose size per band is not the band's size × the middle one: radius (px at 1080p) per band. */
+const KIND_BAND_SIZE: Partial<Record<Kind, readonly number[]>> = {
+  starfish: [32, 32, 48],
+};
+
 /** Radius or half length (px at 1080p) of a kind in a band; soft dots keep their size in every band. */
 export function kindRadius(kind: Kind, depth: number) {
-  return kind === "dot" ? KIND_SIZE.dot : KIND_SIZE[kind] * SEASONS.bands[depth].size;
+  if (kind === "dot") return KIND_SIZE.dot;
+  return KIND_BAND_SIZE[kind]?.[depth] ?? KIND_SIZE[kind] * SEASONS.bands[depth].size;
 }
+
+/** Summer elements that sink instead of rising. */
+export const SINKING: ReadonlySet<Kind> = new Set(["shell", "starfish"]);
 
 /** Every kind a season draws. */
 export const SEASON_KINDS: Record<Season, readonly Kind[]> = {
   winter: ["dendrite", "plate", "dot", "fir"],
   spring: ["petal", "blossom", "sprig", "bud"],
-  summer: ["bubble"],
+  summer: ["bubble", "cluster", "shell", "starfish"],
   autumn: ["maple", "oak", "birch", "ginkgo"],
 };
 
@@ -106,7 +127,7 @@ function kindShares(season: Season): Partial<Record<Kind, number>> {
     case "winter":
       return SEASONS.winter.shares;
     case "summer":
-      return { bubble: 1 };
+      return SEASONS.summer.shares;
   }
 }
 
@@ -161,16 +182,23 @@ export function spawnParticle(season: Season, width: number, height: number, now
   const kind = pickKind(season, rand);
   const depth = pick(depthWeights(season, kind), rand);
   const band = SEASONS.bands[depth];
-  // Leaves, spring elements (and the fir twig) sway wider than the other elements.
+  // Leaves, spring elements (and the fir twig) sway wider than the other elements; in summer
+  // what rises sways quick and narrow, what sinks slow and wide.
   const wobble: { ampPx: readonly [number, number]; periodS: readonly [number, number] } =
     season === "autumn"
       ? SEASONS.leaves
       : season === "spring"
         ? SEASONS.spring
-        : { ampPx: kind === "fir" ? SEASONS.winter.fir.ampPx : SEASONS.wobbleAmpPx, periodS: SEASONS.wobblePeriodS };
+        : season === "summer"
+          ? SINKING.has(kind)
+            ? SEASONS.summer.sink
+            : SEASONS.summer.rise
+          : { ampPx: kind === "fir" ? SEASONS.winter.fir.ampPx : SEASONS.wobbleAmpPx, periodS: SEASONS.wobblePeriodS };
   // Soft dots take their size from their sprite variant alone.
   const scale = kind === "dot" ? 1 : between(rand, 1 - SEASONS.sizeJitter, 1 + SEASONS.sizeJitter);
-  const tilt = (between(rand, -1, 1) * SEASONS.tiltDeg * Math.PI) / 180;
+  // Bubbles stay upright: their glints keep the light from the upper left, a cluster stays a column.
+  const upright = kind === "bubble" || kind === "cluster";
+  const tilt = upright ? 0 : (between(rand, -1, 1) * SEASONS.tiltDeg * Math.PI) / 180;
   const p: Particle = {
     season,
     kind,
@@ -193,7 +221,11 @@ export function spawnParticle(season: Season, width: number, height: number, now
   switch (season) {
     case "summer":
       p.vy = -between(rand, 18, 30) - between(rand, 0, 12);
-      if (!anywhere) p.y = height + p.size;
+      if (SINKING.has(kind)) {
+        // Shells and starfish sink slowly from the top edge.
+        p.vy *= -SEASONS.summer.sink.speed;
+        if (!anywhere) p.y = -p.size * 2;
+      } else if (!anywhere) p.y = height + p.size;
       break;
     case "spring":
       p.vx = between(rand, 22, 40);
@@ -256,7 +288,8 @@ export function wobbleX(p: Particle, t: number) {
 /** Out of the window for good (past the edge it moves toward)? */
 export function isGone(p: Particle, width: number, height: number) {
   const m = p.size * 3 + 20 + p.amp;
-  if (p.season === "summer") return p.y < -m;
+  // Rising (summer bubbles): gone past the top edge.
+  if (p.vy < 0) return p.y < -m;
   return p.y > height + m || p.x > width + m || p.x < -width * 0.3 - m;
 }
 
