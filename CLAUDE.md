@@ -16,11 +16,12 @@ Sito desktop personale: una timeline orizzontale dei giochi Nintendo usciti dal 
 | Comando | Uso |
 |---|---|
 | `npm run typecheck` | Controllo dei tipi. Da eseguire a fine di ogni task. |
-| `npm test` | Test Vitest (`*.test.ts` accanto ai moduli). Da eseguire a fine task se hai toccato logica coperta dai test (date, tempo relativo della card in `expand.ts`, Rankings, ordine Studios, filtri, gruppi dello stesso giorno, `scripts/lib/studios.ts`, `scripts/lib/free-updates.ts`). I bug noti sono `it.todo` con il riferimento a `docs/review/`: quando li correggi, trasformali in `it`. |
+| `npm test` | Test Vitest (`*.test.ts` accanto ai moduli). Da eseguire a fine task se hai toccato logica coperta dai test (date, tempo relativo della card in `expand.ts`, Rankings, ordine Studios, filtri, gruppi dello stesso giorno, `scripts/lib/studios.ts`, `scripts/lib/free-updates.ts`, `scripts/lib/metacritic.ts`). I bug noti sono `it.todo` con il riferimento a `docs/review/`: quando li correggi, trasformali in `it`. |
 | `npm run build` | Typecheck + build di produzione. Da eseguire a fine task se hai toccato config, entry point o import. |
 | `npm run data:build` | Rigenera `public/data/games.json` da cache + overrides. Nessuna rete. |
 | `npm run data:validate` | Elenca dati mancanti e conflitti. |
 | `npm run data:fetch` | Chiamate API reali con quota limitata. **Non eseguirlo mai se il task non lo chiede esplicitamente.** |
+| `npm run data:fetch-metacritic` | Rete (pagine pubbliche di Metacritic, 3–6 s tra una e l'altra) per i giochi usciti già nel perimetro → `data/cache/metacritic.json`, poi build e snapshot del giorno. Lo fa anche `data:fetch`. **Solo se il task lo chiede esplicitamente.** |
 | `npm run data:fetch-free-updates` | Rete (IGDB, Wikipedia, Nintendo Wiki) per i titoli di `data/free-updates.json` → `data/cache/free-updates.json`. **Solo se il task lo chiede esplicitamente.** |
 | `npm run data:fetch-studios` | Rete (Nintendo Wiki) per gli studi first party → `data/cache/studios.json`. Non sovrascrive una cache con più studi: `npm run data:fetch-studios -- --force` per accettare la lista più corta. **Solo se il task lo chiede esplicitamente.** |
 | `npm run dev` | Il dev server lo tiene acceso l'utente. **Non avviarlo.** La verifica nel browser la fa l'Architetto. |
@@ -58,7 +59,8 @@ Sito desktop personale: una timeline orizzontale dei giochi Nintendo usciti dal 
 **`scripts/`** — pipeline dati
 - `fetch-data.ts` → rete → `data/cache/`. `build-data.ts` + `lib/build.ts` → `public/data/games.json`, `changes.json` e `studios.json`.
 - `fetch-free-updates.ts` → `data/cache/free-updates.json`. `fetch-studios.ts` → `data/cache/studios.json`.
-- `lib/`: `igdb.ts`, `opencritic.ts`, `wikipedia.ts`, `links.ts` (fonti), `transform.ts`, `exclusivity.ts`, `snapshots.ts`, `overrides.ts`, `overrides-schema.ts`, `cache.ts`, `http.ts`, `env.ts` (tutti i percorsi, `PATHS`), `report.ts`.
+- `fetch-metacritic.ts` → `data/cache/metacritic.json` (solo Metacritic, sui giochi della cache IGDB/Wikipedia).
+- `lib/`: `igdb.ts`, `opencritic.ts`, `metacritic.ts` (lettura delle pagine, slug, ricerca), `wikipedia.ts`, `links.ts` (fonti), `transform.ts`, `exclusivity.ts`, `snapshots.ts`, `overrides.ts`, `overrides-schema.ts`, `cache.ts`, `http.ts`, `env.ts` (tutti i percorsi, `PATHS`), `report.ts`.
 - `lib/free-updates.ts` — aggiornamenti gratuiti Switch 2 → voci `free-update`. `lib/fandom.ts` — studi da Nintendo Wiki (API MediaWiki). `lib/studios.ts` — costruzione di `studios.json`.
 - `validate-data.ts`. `vite-admin.ts` — plugin Vite del pannello admin.
 

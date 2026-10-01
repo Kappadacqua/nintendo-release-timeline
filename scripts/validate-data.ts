@@ -1,6 +1,7 @@
 /**
  * npm run data:validate — lists what needs manual work in data/overrides.json:
- * missing Metacritic / Backloggd values, exclusivity conflicts, unmatched games.
+ * missing Metacritic / Backloggd values, Metacritic pages not found, exclusivity conflicts,
+ * unmatched games.
  *
  *   --stubs   also print an overrides snippet for the missing manual scores
  */
@@ -50,7 +51,7 @@ const missing = released
 section(
   "Released games missing Metacritic or Backloggd",
   missing.map(({ g, gaps }) => `${label(g)} ${dim(g.firstReleaseDate!)} — ${gaps.join(", ")}`),
-  "Add them under games.<id>.metacritic / .backloggd in data/overrides.json.",
+  "Metacritic is read by data:fetch (see the Metacritic sections below); Backloggd and the gaps go under games.<id>.metacritic / .backloggd in data/overrides.json.",
 );
 
 // --- Reference links (ITERATION-2 §7): overridable with links.wikipedia / links.nintendoWiki.
@@ -143,13 +144,27 @@ if (report) {
     report.studiosUnusedOverrides ?? [],
     "No Nintendo Wiki page and no game with this developer: if the wiki renamed the page, rename the key in data/studios-overrides.json.",
   );
+  section(
+    "Released games not found on Metacritic",
+    (report.metacritic?.notFound ?? []).map((m) => `${label(m)} ${dim(`tried /game/${m.slug}/`)}`),
+    "If the page exists, set its URL in the admin panel (links.metacritic); the next fetch reads it.",
+  );
+  section(
+    "Metacritic page of another game",
+    (report.metacritic?.mismatched ?? []).map((m) => `${label(m)} ${dim(`/game/${m.slug}/ is "${m.name}"`)}`),
+    "Set the right page URL in the admin panel (links.metacritic): a URL set by hand is always trusted.",
+  );
   section("OpenCritic errors", report.opencritic.errors);
+  section("Metacritic errors", report.metacritic?.errors ?? []);
   section("Wikipedia / Nintendo Wiki errors", report.linkErrors ?? []);
   section(
     "OpenCritic scores kept from the previous fetch",
     (report.opencritic.keptPrevious ?? []).map(label),
     "OpenCritic could not be checked for these; the next successful fetch refreshes them.",
   );
+  if (report.metacritic?.unchecked) {
+    console.log(dim(`\n${report.metacritic.unchecked} released game(s) not looked up on Metacritic yet: run \`npm run data:fetch-metacritic\`.`));
+  }
   if (report.opencritic.budgetExhausted) {
     console.log(dim("\nOpenCritic daily budget reached during the last fetch: some scores are stale or missing."));
   }

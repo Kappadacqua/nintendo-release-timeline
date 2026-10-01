@@ -19,6 +19,20 @@ export interface FetchReport {
     /** Switch 2 games in the cached OpenCritic catalog. */
     catalogSize: number;
   };
+  /** Metacritic pages (data/cache/metacritic.json) of released games. */
+  metacritic?: {
+    enabled: boolean;
+    requestsUsed: number;
+    budgetExhausted: boolean;
+    stoppedBecause: string | null;
+    errors: string[];
+    /** No page at the slug made from the title (candidates for links.metacritic). */
+    notFound: { id: string; title: string; slug: string }[];
+    /** The page at that slug is another game (name on the page given). */
+    mismatched: { id: string; title: string; slug: string; name: string }[];
+    /** Released games never looked up yet. */
+    unchecked: number;
+  };
   /** Wikipedia / Nintendo Wiki lookups that failed (previous links kept). */
   linkErrors: string[];
   /** DLC / Switch 2 Editions left out because no OpenCritic page was found (SPEC §3). */

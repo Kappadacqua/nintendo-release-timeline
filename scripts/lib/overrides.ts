@@ -106,9 +106,10 @@ export function applyOverride(game: Game, o: Override | undefined): Game {
   if (o.exclusivity !== undefined) out.exclusivity = o.exclusivity;
   if (o.alsoOnSwitch1 !== undefined) out.alsoOnSwitch1 = o.alsoOnSwitch1;
   if (o.developer !== undefined) out.developer = o.developer;
+  // Field by field: a manual Metascore alone keeps the user score read from Metacritic.
   if (o.metacritic) {
-    out.scores.critic.metacritic = score(o.metacritic.critic, 100, o.metacritic.criticCount);
-    out.scores.user.metacritic = score(o.metacritic.user, 10, o.metacritic.userCount);
+    out.scores.critic.metacritic = score(o.metacritic.critic, 100, o.metacritic.criticCount) ?? out.scores.critic.metacritic;
+    out.scores.user.metacritic = score(o.metacritic.user, 10, o.metacritic.userCount) ?? out.scores.user.metacritic;
   }
   if (o.backloggd) out.scores.user.backloggd = score(o.backloggd.rating, 5, o.backloggd.count);
   out.links = { ...game.links, ...o.links };

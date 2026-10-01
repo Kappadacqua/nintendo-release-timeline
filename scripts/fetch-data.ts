@@ -1,5 +1,5 @@
 /**
- * npm run data:fetch — queries IGDB, Wikipedia/Wikidata, OpenCritic and Nintendo Wiki,
+ * npm run data:fetch — queries IGDB, Wikipedia/Wikidata, OpenCritic, Metacritic and Nintendo Wiki,
  * saves the raw answers in data/cache/ (ITERATION-3 §1), then runs data:build.
  */
 import type { Game } from "../src/types";
@@ -9,6 +9,7 @@ import { env, intEnv, PATHS, requireEnv } from "./lib/env";
 import { ExclusivityHistory } from "./lib/exclusivity";
 import { HttpError } from "./lib/http";
 import { Igdb, type IgdbGame, PLATFORM } from "./lib/igdb";
+import { emptyMetacriticStatus, fetchMetacritic } from "./lib/metacritic";
 import { nintendoWikiByTitle, type WikidataLinks, wikidataBySlug, wikipediaByTitle } from "./lib/links";
 import { OpenCritic } from "./lib/opencritic";
 import { loadOverrides, type OverridesFile } from "./lib/overrides";
@@ -44,6 +45,7 @@ async function main() {
       errors: [],
       catalogSize: 0,
     },
+    metacritic: emptyMetacriticStatus(),
     linkErrors: [],
   };
 
@@ -125,6 +127,9 @@ async function main() {
   // Links first: Wikidata also knows OpenCritic ids, which saves searches.
   const links = await fetchLinks(selected, candidates, userAgent, status);
   await fetchOpenCritic(selected, knownOpenCriticIds(selected, links, overridesFile), status);
+  // Metacritic only enriches the games selected above; it never adds any.
+  if (env("METACRITIC_DISABLED")) log("METACRITIC_DISABLED set: skipping Metacritic (the cache is still used by the build).");
+  else await fetchMetacritic(selected.map((s) => s.game), overridesFile, PATHS.metacriticCache, status.metacritic!, log);
   writeJson(PATHS.fetchStatus, status);
 
   // --- Build games.json from what is now in the cache.
@@ -144,7 +149,8 @@ async function main() {
 
   // Problems must not scroll by unnoticed.
   const { errors, keptPrevious } = report.opencritic;
-  if (errors.length || keptPrevious.length || status.linkErrors.length) {
+  const mcErrors = status.metacritic?.errors ?? [];
+  if (errors.length || keptPrevious.length || status.linkErrors.length || mcErrors.length) {
     const bar = "!".repeat(72);
     console.error(`\n${bar}`);
     if (errors.length) {
@@ -152,6 +158,11 @@ async function main() {
       console.error(`⚠ OpenCritic: ${errors.length} call(s) failed${stop ? ` — ${stop}` : ""}:`);
       for (const e of errors.slice(0, 5)) console.error(`    ${e}`);
       if (errors.length > 5) console.error(`    … and ${errors.length - 5} more (data/fetch-report.json)`);
+    }
+    if (mcErrors.length) {
+      const stop = status.metacritic?.stoppedBecause;
+      console.error(`⚠ Metacritic: ${mcErrors.length} page(s) failed${stop ? ` — ${stop}` : ""} (previous scores kept):`);
+      for (const e of mcErrors.slice(0, 5)) console.error(`    ${e}`);
     }
     for (const e of status.linkErrors) console.error(`⚠ ${e.slice(0, 200)} — previous links kept`);
     if (keptPrevious.length) {

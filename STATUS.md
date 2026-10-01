@@ -1,6 +1,6 @@
 # Stato del progetto
 
-Aggiornato: 2026-10-01 — Coda `seasons-art.md`, task 4 (inverno: fiocchi, lastre, puntini, rametto di abete)
+Aggiornato: 2026-10-01 — Metacritic automatico (critica e utenti) nella pipeline dati
 
 ## Ultimo checkpoint
 
@@ -22,6 +22,8 @@ Nessuno.
 ## Da verificare nel browser (Architetto)
 
 Dettagli completi nelle versioni precedenti di questo file (`git show 58d0ac7:STATUS.md`).
+
+- Metacritic automatico — `data:fetch` (e il nuovo `data:fetch-metacritic`) legge la pagina Metacritic dei giochi usciti già nel perimetro: Metascore Switch 2 (poi Switch, poi valore generale), user score solo se la piattaforma della pagina è Nintendo. Slug dal titolo, se 404 ricerca con nome identico, oppure l'URL in `links.metacritic` dell'admin (sempre accettato). Un gioco uscito da meno di 60 giorni si aggiorna ogni giorno, poi ogni settimana; massimo 60 pagine per esecuzione (`METACRITIC_MAX_REQUESTS`). I voti manuali in `overrides.json` vincono campo per campo. **Non ancora eseguito sui dati reali**: dopo il primo `npm run data:fetch-metacritic` controllare nella card e in Rankings (ordinamento Metacritic / Metacritic User) alcuni voti contro metacritic.com (es. Donkey Kong Bananza 91 · 8.9), e in `data:validate` le sezioni "not found on Metacritic" / "page of another game".
 
 - seasons-art task 4 — Inverno: fiocchi dendritici (45 %, 20 / 36 / 58 px), lastre esagonali (20 %, 17 / 30 / 48 px), puntini morbidi solo nella fascia lontana (30 %, raggio 1,5–3,5 px), rametto di abete solo nella fascia media (5 %, 70 px, × 0,7 più lento, ondeggiamento 25–40 px); quote delle fasce 45 / 35 / 20 mantenute sull'insieme; velocità invernale × 0,9 in tutte le fasce; raffiche ogni 6–12 s, ±20 px/s per 2 s, una per fascia con segno casuale. Dicembre, gennaio e febbraio nei due temi: nevicata fitta ma leggera, fiocchi non scambiabili per testo o pallini della linea; fps ≥ 58.
 - seasons-art task 3 — Autunno: acero a cinque lobi (35 %), quercia lobata (25 %), betulla dentata (25 %), ginkgo a ventaglio (15 %), L 31 / 56 / 90 px per fascia; punti perturbati ±8 %, lembo e picciolo curvi; ondeggiamento A 20–40 px, T 5–9 s; nessuna rotazione. Settembre e ottobre nei due temi a 1920 / 1440 / 1280: quattro sagome distinguibili, nessuna a stampo, foglie vicine mai più evidenti di tacche e numeri; gennaio, aprile, luglio senza foglie residue; fps ≥ 58. Nota: con le misure della coda l'acero risulta più piccolo delle altre (alto ~0.78 L contro ~1.1 L).
@@ -66,7 +68,7 @@ Dettagli completi nelle versioni precedenti di questo file (`git show 58d0ac7:ST
 ## Problemi noti
 
 1. **Prestazioni solo in 4K** — su 4K a densità 2x lo scorrimento scende a 1–3 fps; su 1080p è fluido (60 fps). **In pausa**: se servirà, partire da `wip/perf`.
-2. **Dati manuali mancanti** — Metacritic e Backloggd da compilare dal pannello admin: elenco in `docs/admin-todo.md`.
+2. **Dati manuali mancanti** — Backloggd da compilare dal pannello admin (elenco in `docs/admin-todo.md`); Metacritic ora arriva da `data:fetch`, a mano solo per pagine non trovate.
 3. **"What's new"** — mai verificato con due snapshot reali; un nuovo aggiornamento gratuito ("Free update · out <data>") non è verificabile finché non si aggiunge un titolo a `data/free-updates.json`.
 4. **`data/free-updates-seen.json`** — va tenuto nel repo: se cancellato, la build tratta tutte le voci come già note (nessuna novità).
 5. **Altezze stimate** — le pile usano altezze stimate per tipo di card (`CARD_HEIGHT` in `src/cards/layout.ts`), non misurate: titoli su 3 righe o badge su più righe possono sporgere qualche px in più o in meno.
@@ -79,6 +81,7 @@ Dettagli completi nelle versioni precedenti di questo file (`git show 58d0ac7:ST
 12. **Rotella: riconoscimento del trackpad euristico** — un evento con delta piccolo (< 40 px) tiene la rotella in marcia 1 per 400 ms; un trackpad che mandasse subito eventi grandi (fase di inerzia di macOS) verrebbe trattato come rotella e potrebbe salire di marcia. Da provare su trackpad reali.
 15. **Sfondo stagionale in presentazione** — resta sempre nascosto (un gioco è sempre selezionato, SPEC §15). Se lo si vuole visibile, serve una regola diversa (es. nasconderlo solo quando il gioco ha davvero un'immagine di sfondo).
 14. **Sfondo stagionale: fps misurati solo in headless** — Chrome headless con GPU (GTX 1070), 1920×1080, build di produzione: 60 fps a riposo e in ogni scorrimento con sfondo acceso e spento; da confermare su un monitor reale e in 4K (densità limitata a 1.5).
+16. **Metacritic senza API** — si leggono le pagine HTML: se Metacritic cambia markup (schede `product-score-card`, sezione `user-reviews`, `aria-label` "Metascore … out of 100") i voti smettono di aggiornarsi ma restano gli ultimi in cache; un 403/429 ferma l'esecuzione. SPEC §4 dice ancora "Niente scraping di Metacritic" (da aggiornare).
 13. **Rotella in Month** — il limite di 91 giorni vale per ogni rotazione continua anche in Month: al massimo 3 mesi, quindi le marce 2–3 lì contano poco.
 
 ## Prossimi task (in ordine)

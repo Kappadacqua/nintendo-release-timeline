@@ -49,6 +49,16 @@ export interface FetchStatus {
     errors: string[];
     catalogSize: number;
   };
+  /** Metacritic pages read by data:fetch / data:fetch-metacritic (absent before the first run). */
+  metacritic?: {
+    enabled: boolean;
+    /** Released games whose page was due this run. */
+    due: number;
+    requestsUsed: number;
+    budgetExhausted: boolean;
+    stoppedBecause: string | null;
+    errors: string[];
+  };
   linkErrors: string[];
 }
 

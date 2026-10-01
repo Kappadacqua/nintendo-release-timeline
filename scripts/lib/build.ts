@@ -5,6 +5,7 @@ import { ExclusivityHistory } from "./exclusivity";
 import { freeUpdateGames, freeUpdatesFirstSeen } from "./free-updates";
 import { type IgdbGame, PLATFORM } from "./igdb";
 import { baseTitleOfEdition, wikipediaUrl } from "./links";
+import { loadMetacriticCache } from "./metacritic";
 import { loadOpenCriticCache } from "./opencritic";
 import { applyOverride, loadOverrides, manualToGame, type OverridesFile, score } from "./overrides";
 import type { FetchReport } from "./report";
@@ -166,6 +167,7 @@ export function buildGames(): BuildResult {
   if (!igdb.games.length) throw new Error("No IGDB data in data/cache/igdb.json: run `npm run data:fetch` first.");
   const overrides = overridesFile.games;
   const oc = loadOpenCriticCache(PATHS.opencriticCache);
+  const mc = loadMetacriticCache(PATHS.metacriticCache);
   const links = { ...emptyLinks(), ...readJson<Partial<LinksCache>>(PATHS.linksCache, {}) };
   const settings: Settings = { ...DEFAULT_SETTINGS, ...readJson<Partial<Settings>>(PATHS.settings, {}) };
   const regions = [settings.nintendoStore.region, ...settings.nintendoStore.fallbackRegions.filter((r) => r !== settings.nintendoStore.region)];
@@ -190,6 +192,16 @@ export function buildGames(): BuildResult {
       errors: status?.opencritic.errors ?? [],
       keptPrevious: [],
       catalogSize: status?.opencritic.catalogSize ?? oc.catalog?.games.length ?? 0,
+    },
+    metacritic: {
+      enabled: status?.metacritic?.enabled ?? false,
+      requestsUsed: status?.metacritic?.requestsUsed ?? 0,
+      budgetExhausted: status?.metacritic?.budgetExhausted ?? false,
+      stoppedBecause: status?.metacritic?.stoppedBecause ?? null,
+      errors: status?.metacritic?.errors ?? [],
+      notFound: [],
+      mismatched: [],
+      unchecked: 0,
     },
     linkErrors: status?.linkErrors ?? [],
     excludedWithoutReviewPage: [],
@@ -240,10 +252,22 @@ export function buildGames(): BuildResult {
       report.unverifiedReviewPage.push(item);
     }
 
+    // --- Metacritic, from the cache only (overrides.json still wins, field by field).
+    const page = mc.games[game.id];
+    if (released && page?.status === "ok") {
+      game.scores.critic.metacritic = score(page.critic ?? undefined, 100, page.criticCount);
+      game.scores.user.metacritic = score(page.user ?? undefined, 10, page.userCount);
+      game.links.metacritic = page.url;
+    } else if (released && page?.status === "not-found") {
+      report.metacritic!.notFound.push({ id: game.id, title: game.title, slug: page.slug });
+    } else if (released && page?.status === "mismatch") {
+      report.metacritic!.mismatched.push({ id: game.id, title: game.title, slug: page.slug, name: page.name ?? "?" });
+    } else if (released && !page) report.metacritic!.unchecked++;
+
     // --- Reference links: own pages, else (DLC / Switch 2 Edition) the base game's, else the last known.
-    const page = wikiPageById.get(game.id);
+    const wikiPage = wikiPageById.get(game.id);
     const own = {
-      wikipedia: (entry.slug && links.wikipediaBySlug[entry.slug]) || (page ? wikipediaUrl(page) : undefined),
+      wikipedia: (entry.slug && links.wikipediaBySlug[entry.slug]) || (wikiPage ? wikipediaUrl(wikiPage) : undefined),
       nintendoWiki: links.nintendoWikiByTitle[game.title],
     };
     const base = baseOf(entry, candidates);

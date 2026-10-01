@@ -1,0 +1,254 @@
+import type { Game } from "../../src/types";
+import type { FetchStatus } from "./cache";
+import { readJson, writeJson } from "./cache";
+import { intEnv } from "./env";
+import { fetchText, HttpError } from "./http";
+import type { OverridesFile } from "./overrides";
+
+/**
+ * Metacritic has no API: scores are read from the public game page (inspired by
+ * scripts/scraper.py). Only games already in the perimeter are looked up, by a slug
+ * made from their title (else a search, exact name only) or taken from links.metacritic
+ * in overrides.json: Metacritic enriches the list, it never adds games to it.
+ */
+
+const BASE = "https://www.metacritic.com/game/";
+const HEADERS = {
+  "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
+  "Accept-Language": "en-US,en;q=0.9",
+};
+/** Random pause between two pages, as a person browsing would make. */
+const DELAY_MS = [3000, 6000] as const;
+const DAY_MS = 86_400_000;
+/** Platforms whose scores are taken, in order of preference. */
+const PLATFORMS = ["nintendo-switch-2", "nintendo-switch"];
+
+export interface MetacriticScores {
+  /** Game name on the page (JSON-LD), to catch a slug that leads to another game. */
+  name: string | null;
+  /** Platform of the Metascore ("nintendo-switch-2"…), null = page-wide value. */
+  platform: string | null;
+  critic: number | null;
+  criticCount: number | null;
+  user: number | null;
+  userCount: number | null;
+}
+
+export interface MetacriticEntry extends Partial<MetacriticScores> {
+  /** Slug looked up: made from the title, or from links.metacritic. */
+  slug: string;
+  /** ok: page read; not-found: no page at this slug; mismatch: the page is another game. */
+  status: "ok" | "not-found" | "mismatch";
+  checkedAt: string;
+  /** Page read (found by search when the slug had no page); reused by later runs. */
+  url: string;
+}
+
+export interface MetacriticCache {
+  /** Game id ("igdb:…" / "manual:…") → last answer. Failed calls leave the previous one. */
+  games: Record<string, MetacriticEntry>;
+}
+
+export const loadMetacriticCache = (path: string) => readJson<MetacriticCache>(path, { games: {} });
+
+/** Metacritic's slug for a title: "Pokémon Legends: Z-A" → "pokemon-legends-z-a". */
+export function slugify(title: string) {
+  return title
+    .toLowerCase()
+    .normalize("NFKD")
+    .replace(/[̀-ͯ]/g, "")
+    .replace(/&/g, "and")
+    .replace(/['’:.,!?()[\]"]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+/** Slug of a metacritic.com/game/<slug>/ URL. */
+export function slugFromUrl(url: string | undefined) {
+  return url ? (/metacritic\.com\/game\/([^/?#]+)/.exec(url)?.[1] ?? null) : null;
+}
+
+/** Title comparison that ignores case, accents and punctuation. */
+export const sameName = (a: string, b: string) => {
+  const norm = (t: string) => slugify(t).replace(/-/g, " ");
+  return norm(a) === norm(b);
+};
+
+const toInt = (s: string | undefined) => (s ? Number(s.replace(/,/g, "")) : null);
+/** "91", "8.9"; "tbd" / "null" (not enough reviews) → null. */
+const toScore = (s: string | undefined) => (s && Number.isFinite(Number(s)) ? Number(s) : null);
+
+/** Text between `marker` and the next `end` (or the end of the page). */
+function section(html: string, marker: string, end?: string) {
+  const start = html.indexOf(marker);
+  if (start < 0) return "";
+  const stop = end ? html.indexOf(end, start + marker.length) : -1;
+  return html.slice(start, stop < 0 ? undefined : stop);
+}
+
+/**
+ * Scores from a game page. The Metascore comes from the per-platform cards ("All Platforms"),
+ * Switch 2 first, else the page-wide JSON-LD value; the user score only exists for the page's
+ * main platform, so it is kept only when that platform is a Nintendo one.
+ */
+export function parseMetacriticPage(html: string): MetacriticScores {
+  const out: MetacriticScores = { name: null, platform: null, critic: null, criticCount: null, user: null, userCount: null };
+
+  for (const [, json] of html.matchAll(/<script type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)) {
+    try {
+      const data = JSON.parse(json) as unknown;
+      for (const item of Array.isArray(data) ? data : [data]) {
+        if (!item || typeof item !== "object") continue;
+        const { name, aggregateRating: rating } = item as { name?: string; aggregateRating?: { ratingValue?: unknown; reviewCount?: unknown } };
+        if (typeof name === "string") out.name ??= name;
+        if (rating) {
+          out.critic = toScore(String(rating.ratingValue ?? ""));
+          out.criticCount = toInt(String(rating.reviewCount ?? "") || undefined);
+        }
+      }
+    } catch {
+      // A broken block: the other sources below still apply.
+    }
+  }
+
+  // <a data-testid="product-score-card" href="…?platform=nintendo-switch-2">…Based on 56 Critic Reviews…Metascore 95 out of 100…</a>
+  const cards = new Map<string, { score: number | null; count: number | null }>();
+  for (const [card] of section(html, 'data-testid="all-platforms"', "</section>").matchAll(/data-testid="product-score-card"[\s\S]*?<\/a>/g)) {
+    const platform = /[?&]platform=([a-z0-9-]+)/.exec(card)?.[1];
+    if (!platform) continue;
+    cards.set(platform, {
+      score: toScore(/aria-label="Metascore ([^ "]+) out of 100"/.exec(card)?.[1]),
+      count: toInt(/Based on ([\d,]+) Critic Reviews?/.exec(card)?.[1]),
+    });
+  }
+  const platform = PLATFORMS.find((p) => cards.has(p));
+  if (platform) {
+    const card = cards.get(platform)!;
+    Object.assign(out, { platform, critic: card.score, criticCount: card.count });
+  }
+
+  const users = section(html, 'data-testid="user-reviews"', "</section>");
+  const userPlatform = /[?&]platform=([a-z0-9-]+)/.exec(users)?.[1];
+  if (userPlatform && PLATFORMS.includes(userPlatform)) {
+    out.user = toScore(/aria-label="User score ([^ "]+) out of 10"/.exec(users)?.[1]);
+    out.userCount = toInt(/Based on ([\d,]+) User Ratings?/.exec(users)?.[1]);
+  }
+  return out;
+}
+
+const decodeEntities = (s: string) =>
+  s.replace(/&(amp|quot|#39|apos|lt|gt);/g, (_, e: string) => ({ amp: "&", quot: '"', "#39": "'", apos: "'", lt: "<", gt: ">" })[e]!);
+
+/** Results of a search page (/search/<title>/?category=13): slug and name of each game. */
+export function parseSearchResults(html: string) {
+  return html
+    .split('data-testid="search-item"')
+    .slice(1)
+    .flatMap((item) => {
+      const slug = /href="\/game\/([^/"]+)\/"/.exec(item)?.[1];
+      const name = /alt="([^"]*)"/.exec(item)?.[1];
+      return slug && name ? [{ slug, name: decodeEntities(name) }] : [];
+    });
+}
+
+/**
+ * Whether a game's page is due again: a new slug always; a page found daily for the
+ * first 60 days after release, then weekly; a missing page after 3 days (14 once old).
+ */
+export function isDue(entry: MetacriticEntry | undefined, slug: string, daysSinceRelease: number, now = Date.now()) {
+  if (!entry || entry.slug !== slug) return true;
+  const age = now - Date.parse(entry.checkedAt);
+  const maxDays = entry.status === "ok" ? (daysSinceRelease < 60 ? 1 : 7) : daysSinceRelease < 30 ? 3 : 14;
+  // A little slack so a daily run at a slightly earlier time still refreshes.
+  return age >= maxDays * DAY_MS - 2 * 3_600_000;
+}
+
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+/**
+ * Reads the Metacritic page of every released game in `games` that is due, newest first
+ * (never-checked ones before all others), into the cache at `cachePath`. Stops at the
+ * per-run budget or as soon as Metacritic blocks the requests (403 / 429).
+ */
+export async function fetchMetacritic(
+  games: Game[],
+  overridesFile: OverridesFile,
+  cachePath: string,
+  status: NonNullable<FetchStatus["metacritic"]>,
+  log: (...args: unknown[]) => void,
+) {
+  const cache = loadMetacriticCache(cachePath);
+  const budget = intEnv("METACRITIC_MAX_REQUESTS", 60);
+  const now = Date.now();
+  const today = new Date(now).toISOString().slice(0, 10);
+  const daysSince = (iso: string) => Math.floor((Date.parse(today) - Date.parse(iso)) / DAY_MS);
+
+  const todo = games
+    .filter((g) => g.kind !== "free-update" && g.firstReleaseDate && g.firstReleaseDate <= today)
+    .map((g) => {
+      const forced = slugFromUrl(overridesFile.games[g.id]?.links?.metacritic ?? g.links.metacritic);
+      return { game: g, slug: forced ?? slugify(g.title), forced: forced !== null, age: daysSince(g.firstReleaseDate!) };
+    })
+    .filter((t) => t.slug && isDue(cache.games[t.game.id], t.slug, t.age, now))
+    .sort((a, b) => Number(a.game.id in cache.games) - Number(b.game.id in cache.games) || a.age - b.age);
+  status.enabled = true;
+  status.due = todo.length;
+
+  for (const { game, slug, forced } of todo) {
+    if (status.requestsUsed >= budget) {
+      status.budgetExhausted = true;
+      break;
+    }
+    status.requestsUsed++;
+    const previous = cache.games[game.id];
+    // A page found by search before: straight there.
+    let url = previous?.slug === slug && previous.status === "ok" ? previous.url : `${BASE}${slug}/`;
+    const checkedAt = new Date().toISOString();
+    const get = async (target: string) => {
+      if (status.requestsUsed > 1) await sleep(DELAY_MS[0] + Math.random() * (DELAY_MS[1] - DELAY_MS[0]));
+      return fetchText(target, { headers: HEADERS, label: `Metacritic ${new URL(target).pathname}` }, 2);
+    };
+    try {
+      let html: string;
+      try {
+        html = await get(url);
+      } catch (err) {
+        if (forced || !(err instanceof HttpError) || err.status !== 404 || status.requestsUsed >= budget) throw err;
+        // The slug differs from the title (often for editions): search, exact name only.
+        status.requestsUsed++;
+        const hits = parseSearchResults(await get(`https://www.metacritic.com/search/${encodeURIComponent(game.title)}/?category=13`));
+        const hit = hits.find((h) => sameName(h.name, game.title));
+        if (!hit) throw err;
+        status.requestsUsed++;
+        url = `${BASE}${hit.slug}/`;
+        html = await get(url);
+      }
+      const page = parseMetacriticPage(html);
+      // A title-made slug can land on an older game of the same name: only a forced slug skips the check.
+      const mismatch = !forced && page.name !== null && !sameName(page.name, game.title);
+      cache.games[game.id] = { slug, url, checkedAt, status: mismatch ? "mismatch" : "ok", ...page };
+    } catch (err) {
+      if (err instanceof HttpError && err.status === 404) {
+        cache.games[game.id] = { slug, url: `${BASE}${slug}/`, checkedAt, status: "not-found" };
+        continue;
+      }
+      status.errors.push(`${game.title}: ${(err as Error).message}`);
+      if (err instanceof HttpError && [403, 429].includes(err.status)) {
+        // Blocked: stop here, the cache keeps serving the build.
+        status.stoppedBecause = `Metacritic answered HTTP ${err.status} (blocked or rate-limited)`;
+        break;
+      }
+    }
+  }
+  writeJson(cachePath, cache);
+  log(`Metacritic: ${status.requestsUsed} of ${status.due} due page(s) read${status.stoppedBecause ? ` — stopped: ${status.stoppedBecause}` : status.budgetExhausted ? " — per-run budget reached, run again later" : ""}`);
+}
+
+export const emptyMetacriticStatus = (): NonNullable<FetchStatus["metacritic"]> => ({
+  enabled: false,
+  due: 0,
+  requestsUsed: 0,
+  budgetExhausted: false,
+  stoppedBecause: null,
+  errors: [],
+});

@@ -20,3 +20,21 @@ describe("developer override", () => {
     expect(validateGameOverride("igdb:405439", { developer: null })).toHaveLength(1);
   });
 });
+
+describe("metacritic override", () => {
+  const read = makeGame({ title: "Donkey Kong Bananza" });
+  read.scores.critic.metacritic = { value: 91, scale: 100, normalized: 91, count: 147 };
+  read.scores.user.metacritic = { value: 8.9, scale: 10, normalized: 89, count: 3268 };
+
+  it("replaces only the fields written by hand", () => {
+    const out = applyOverride(read, { metacritic: { critic: 90, criticCount: 150 } });
+    expect(out.scores.critic.metacritic).toEqual({ value: 90, scale: 100, normalized: 90, count: 150 });
+    expect(out.scores.user.metacritic?.value).toBe(8.9);
+  });
+
+  it("keeps the values read from Metacritic when the override fields are empty", () => {
+    const out = applyOverride(read, { metacritic: { critic: null, user: null } as never });
+    expect(out.scores.critic.metacritic?.value).toBe(91);
+    expect(out.scores.user.metacritic?.value).toBe(8.9);
+  });
+});

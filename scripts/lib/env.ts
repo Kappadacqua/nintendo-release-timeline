@@ -11,6 +11,7 @@ export const PATHS = {
   history: `${ROOT}data/exclusivity-history.json`,
   report: `${ROOT}data/fetch-report.json`,
   opencriticCache: `${ROOT}data/cache/opencritic.json`,
+  metacriticCache: `${ROOT}data/cache/metacritic.json`,
   igdbCache: `${ROOT}data/cache/igdb.json`,
   wikipediaCache: `${ROOT}data/cache/wikipedia.json`,
   linksCache: `${ROOT}data/cache/links.json`,
