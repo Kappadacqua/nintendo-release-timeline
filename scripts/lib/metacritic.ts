@@ -88,6 +88,30 @@ function section(html: string, marker: string, end?: string) {
   return html.slice(start, stop < 0 ? undefined : stop);
 }
 
+// Scored: aria-label="Metascore 95 out of 100"; no score yet: aria-label="Metascore tbd".
+const METASCORE = /aria-label="Metascore ([^ "]+)(?: out of 100)?"/;
+const USER_SCORE = /aria-label="User score ([^ "]+)(?: out of 10)?"/;
+const PLATFORM = /[?&]platform=([a-z0-9-]+)/;
+
+/**
+ * The "All Platforms" cards: <a href="…?platform=…" data-testid="product-score-card"> once
+ * scored, <div to="…?platform=…" data-testid="product-score-card"> while "tbd".
+ */
+function platformCards(html: string) {
+  const all = section(html, 'data-testid="all-platforms"', "</section>");
+  const starts = [...all.matchAll(/<(?:a|div)\b[^>]*data-testid="product-score-card"[^>]*>/g)];
+  return starts.map((m, i) => {
+    const card = all.slice(m.index, starts[i + 1]?.index);
+    const label = METASCORE.exec(card);
+    return {
+      platform: PLATFORM.exec(m[0])?.[1] ?? null,
+      label: label !== null,
+      score: toScore(label?.[1]),
+      count: toInt(/Based on ([\d,]+) Critic Reviews?/.exec(card)?.[1]),
+    };
+  });
+}
+
 /**
  * Scores from a game page. The Metascore comes from the per-platform cards ("All Platforms"),
  * Switch 2 first, else the page-wide JSON-LD value; the user score only exists for the page's
@@ -114,15 +138,7 @@ export function parseMetacriticPage(html: string): MetacriticScores {
   }
 
   // <a data-testid="product-score-card" href="…?platform=nintendo-switch-2">…Based on 56 Critic Reviews…Metascore 95 out of 100…</a>
-  const cards = new Map<string, { score: number | null; count: number | null }>();
-  for (const [card] of section(html, 'data-testid="all-platforms"', "</section>").matchAll(/data-testid="product-score-card"[\s\S]*?<\/a>/g)) {
-    const platform = /[?&]platform=([a-z0-9-]+)/.exec(card)?.[1];
-    if (!platform) continue;
-    cards.set(platform, {
-      score: toScore(/aria-label="Metascore ([^ "]+) out of 100"/.exec(card)?.[1]),
-      count: toInt(/Based on ([\d,]+) Critic Reviews?/.exec(card)?.[1]),
-    });
-  }
+  const cards = new Map(platformCards(html).flatMap((c) => (c.platform ? [[c.platform, c] as const] : [])));
   const platform = PLATFORMS.find((p) => cards.has(p));
   if (platform) {
     const card = cards.get(platform)!;
@@ -130,12 +146,38 @@ export function parseMetacriticPage(html: string): MetacriticScores {
   }
 
   const users = section(html, 'data-testid="user-reviews"', "</section>");
-  const userPlatform = /[?&]platform=([a-z0-9-]+)/.exec(users)?.[1];
+  const userPlatform = PLATFORM.exec(users)?.[1];
   if (userPlatform && PLATFORMS.includes(userPlatform)) {
-    out.user = toScore(/aria-label="User score ([^ "]+) out of 10"/.exec(users)?.[1]);
+    out.user = toScore(USER_SCORE.exec(users)?.[1]);
     out.userCount = toInt(/Based on ([\d,]+) User Ratings?/.exec(users)?.[1]);
   }
   return out;
+}
+
+/** Where the parser looks: named in the error when a page no longer matches. */
+const PARSER = "parseMetacriticPage in scripts/lib/metacritic.ts";
+/** Pages in a row with an unknown layout before the run stops. */
+const MAX_LAYOUT_ERRORS = 3;
+
+/** A page that loads but no longer has the markup the parser reads. */
+export class LayoutError extends Error {}
+
+/**
+ * What the parser expected and did not find, or null. Checked before reading the scores,
+ * so that a Metacritic redesign shows up as an error instead of scores silently gone.
+ */
+export function layoutIssue(html: string): string | null {
+  const missing: string[] = [];
+  if (!/<script type="application\/ld\+json"[^>]*>[\s\S]*?"name"/.test(html)) missing.push("JSON-LD game data");
+  const cards = platformCards(html);
+  if (!html.includes('data-testid="all-platforms"')) missing.push('"All Platforms" section (data-testid="all-platforms")');
+  else if (!cards.length || cards.some((c) => !c.platform || !c.label)) {
+    missing.push('Metascore cards (data-testid="product-score-card" with ?platform=, aria-label "Metascore …")');
+  }
+  const users = section(html, 'data-testid="user-reviews"', "</section>");
+  // No platform link is normal while the user score is "TBD"; no label at all is not.
+  if (users && !USER_SCORE.test(users)) missing.push('user score (data-testid="user-reviews", aria-label "User score …")');
+  return missing.length ? `not found: ${missing.join("; ")}` : null;
 }
 
 const decodeEntities = (s: string) =>
@@ -196,6 +238,7 @@ export async function fetchMetacritic(
     .sort((a, b) => Number(a.game.id in cache.games) - Number(b.game.id in cache.games) || a.age - b.age);
   status.enabled = true;
   status.due = todo.length;
+  let layoutErrors = 0;
 
   for (const { game, slug, forced } of todo) {
     if (status.requestsUsed >= budget) {
@@ -227,6 +270,8 @@ export async function fetchMetacritic(
         url = `${BASE}${hit.slug}/`;
         html = await get(url);
       }
+      const issue = layoutIssue(html);
+      if (issue) throw new LayoutError(`Metacritic page layout not recognized at ${url} — ${issue}. Previous scores kept; update ${PARSER}.`);
       const page = parseMetacriticPage(html);
       // A title-made slug can land on an older game of the same name: only a forced slug skips the check.
       const mismatch = !forced && page.name !== null && !sameName(page.name, game.title);
@@ -237,6 +282,11 @@ export async function fetchMetacritic(
         continue;
       }
       status.errors.push(`${game.title}: ${(err as Error).message}`);
+      layoutErrors = err instanceof LayoutError ? layoutErrors + 1 : 0;
+      if (layoutErrors >= MAX_LAYOUT_ERRORS) {
+        status.stoppedBecause = `Metacritic changed its page layout (${layoutErrors} pages in a row not recognized): update ${PARSER}`;
+        break;
+      }
       if (err instanceof HttpError && [403, 429].includes(err.status)) {
         // Blocked: stop here, the cache keeps serving the build.
         status.stoppedBecause = `Metacritic answered HTTP ${err.status} (blocked or rate-limited)`;

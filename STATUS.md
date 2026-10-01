@@ -81,7 +81,7 @@ Dettagli completi nelle versioni precedenti di questo file (`git show 58d0ac7:ST
 12. **Rotella: riconoscimento del trackpad euristico** — un evento con delta piccolo (< 40 px) tiene la rotella in marcia 1 per 400 ms; un trackpad che mandasse subito eventi grandi (fase di inerzia di macOS) verrebbe trattato come rotella e potrebbe salire di marcia. Da provare su trackpad reali.
 15. **Sfondo stagionale in presentazione** — resta sempre nascosto (un gioco è sempre selezionato, SPEC §15). Se lo si vuole visibile, serve una regola diversa (es. nasconderlo solo quando il gioco ha davvero un'immagine di sfondo).
 14. **Sfondo stagionale: fps misurati solo in headless** — Chrome headless con GPU (GTX 1070), 1920×1080, build di produzione: 60 fps a riposo e in ogni scorrimento con sfondo acceso e spento; da confermare su un monitor reale e in 4K (densità limitata a 1.5).
-16. **Metacritic senza API** — si leggono le pagine HTML: se Metacritic cambia markup (schede `product-score-card`, sezione `user-reviews`, `aria-label` "Metascore … out of 100") i voti smettono di aggiornarsi ma restano gli ultimi in cache; un 403/429 ferma l'esecuzione. Regole in SPEC §4.3.
+16. **Metacritic senza API** — si leggono le pagine HTML: se Metacritic cambia markup (schede `product-score-card`, sezione `user-reviews`, `aria-label` "Metascore … out of 100") il fetch lo dice esplicitamente ("Metacritic page layout not recognized … not found: …", stop dopo 3 pagine di fila) e restano gli ultimi voti in cache; un 403/429 ferma l'esecuzione. Regole in SPEC §4.3.
 13. **Rotella in Month** — il limite di 91 giorni vale per ogni rotazione continua anche in Month: al massimo 3 mesi, quindi le marce 2–3 lì contano poco.
 
 ## Prossimi task (in ordine)

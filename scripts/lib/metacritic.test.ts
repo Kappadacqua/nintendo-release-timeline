@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { isDue, type MetacriticEntry, parseMetacriticPage, parseSearchResults, sameName, slugFromUrl, slugify } from "./metacritic";
+import { isDue, layoutIssue, type MetacriticEntry, parseMetacriticPage, parseSearchResults, sameName, slugFromUrl, slugify } from "./metacritic";
 
 const DAY = 86_400_000;
 
@@ -95,5 +95,37 @@ describe("isDue", () => {
     expect(isDue(entry("not-found", 3), "hades-ii", 10, now)).toBe(true);
     expect(isDue(entry("mismatch", 10), "hades-ii", 60, now)).toBe(false);
     expect(isDue(entry("mismatch", 14), "hades-ii", 60, now)).toBe(true);
+  });
+});
+
+/** A card while the Metascore is "tbd": a <div to="…">, label without "out of 100". */
+const tbdCard = (platform: string) =>
+  `<div to="/game/dk-challenge/critic-reviews/?platform=${platform}" data-testid="product-score-card"><div><span title="Nintendo Switch 2"></span></div><div><div title="Metascore tbd" aria-label="Metascore tbd"><span>tbd</span></div></div></div>`;
+
+describe("pages without enough reviews", () => {
+  it("read the tbd card as no Metascore, on its platform", () => {
+    const html = page({ name: "DK Challenge", cards: tbdCard("nintendo-switch-2"), users: users("nintendo-switch-2", "5.8", "4") });
+    expect(parseMetacriticPage(html)).toMatchObject({ platform: "nintendo-switch-2", critic: null, criticCount: null, user: 5.8, userCount: 4 });
+    expect(layoutIssue(html)).toBeNull();
+  });
+
+  it("accept a TBD user score without a platform link", () => {
+    const html = page({ cards: tbdCard("nintendo-switch-2"), users: '<div aria-label="User score TBD"></div>' });
+    expect(parseMetacriticPage(html)).toMatchObject({ user: null, userCount: null });
+    expect(layoutIssue(html)).toBeNull();
+  });
+});
+
+describe("layoutIssue", () => {
+  it("accepts the current layout", () => {
+    expect(layoutIssue(page({ cards: card("nintendo-switch-2", "95", 56), users: users("nintendo-switch-2", "8.5", "1,850") }))).toBeNull();
+  });
+
+  it("names what a redesigned page no longer has", () => {
+    expect(layoutIssue("<html><body>new design</body></html>")).toBe('not found: JSON-LD game data; "All Platforms" section (data-testid="all-platforms")');
+    const renamedCards = page({ cards: '<a data-testid="score-card" href="?platform=nintendo-switch-2">95</a>' });
+    expect(layoutIssue(renamedCards)).toMatch(/Metascore cards/);
+    const renamedLabel = page({ cards: card("nintendo-switch-2", "95", 56), users: '<a href="?platform=nintendo-switch-2"></a><div aria-label="Users: 8.5"></div>' });
+    expect(layoutIssue(renamedLabel)).toMatch(/user score/);
   });
 });
