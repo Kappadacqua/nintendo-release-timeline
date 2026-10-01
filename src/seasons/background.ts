@@ -1,8 +1,9 @@
 import { SEASONS } from "../timeline/config";
 import { dayToDate } from "../timeline/dates";
 import { onScrollActivity } from "../timeline/scroller";
-import { drawParticle, fadeIn, isGone, spawnParticle, stepParticle, type Palette, type Particle } from "./particles";
+import { fadeIn, isGone, spawnParticle, stepParticle, viewScale, wobbleX, type Palette, type Particle } from "./particles";
 import { backgroundShown, leaveFade, particleCount, ScrollGate, seasonOf, SeasonState, type Season } from "./season";
+import { SpriteCache } from "./sprites";
 
 const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
 const systemDark = matchMedia("(prefers-color-scheme: dark)");
@@ -23,6 +24,8 @@ export class SeasonalBackground {
   private readonly gate = new ScrollGate();
   private particles: Particle[] = [];
   private palette: Palette = { winter: "", spring: "", summer: "", autumn: "" };
+  private readonly sprites = new SpriteCache(this.palette);
+  private dpr = 1;
   private alpha = 0.3;
   private width = 0;
   private height = 0;
@@ -146,12 +149,11 @@ export class SeasonalBackground {
   /** Moves every particle; the current season's are reborn at the edge, an old season's fade out. */
   private step(dt: number, now: number) {
     const season = this.season.season!;
-    const t = now / 1000;
     let alive = 0;
     let reborn = 0;
     this.particles = this.particles.filter((p) => {
       if (leaveFade(p.leftAt, now) <= 0) return false;
-      stepParticle(p, dt, t);
+      stepParticle(p, dt);
       const current = p.season === season && p.leftAt === undefined;
       if (isGone(p, this.width, this.height)) {
         if (current) reborn++;
@@ -170,11 +172,23 @@ export class SeasonalBackground {
 
   private draw(now: number) {
     const { ctx } = this;
+    const { dpr } = this;
+    const t = now / 1000;
     ctx.clearRect(0, 0, this.width, this.height);
-    for (const p of this.particles) {
-      ctx.globalAlpha = this.alpha * fadeIn(p, now) * leaveFade(p.leftAt, now);
-      drawParticle(ctx, p, this.palette);
+    // Far band first, near band last.
+    for (let depth = 0; depth < SEASONS.bands.length; depth++) {
+      const bandAlpha = this.alpha * SEASONS.bands[depth].alpha;
+      for (const p of this.particles) {
+        if (p.depth !== depth) continue;
+        const sprite = this.sprites.get(p);
+        // Fixed tilt and size: the transform never changes over a particle's life.
+        const k = dpr * p.scale;
+        ctx.setTransform(k * p.cos, k * p.sin, -k * p.sin, k * p.cos, dpr * wobbleX(p, t), dpr * p.y);
+        ctx.globalAlpha = bandAlpha * fadeIn(p, now) * leaveFade(p.leftAt, now);
+        ctx.drawImage(sprite.canvas, -sprite.half, -sprite.half, sprite.half * 2, sprite.half * 2);
+      }
     }
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.globalAlpha = 1;
     this.clearBand();
   }
@@ -219,13 +233,14 @@ export class SeasonalBackground {
   }
 
   private resize() {
-    const dpr = Math.min(SEASONS.maxDpr, devicePixelRatio || 1);
+    const dpr = (this.dpr = Math.min(SEASONS.maxDpr, devicePixelRatio || 1));
     this.width = innerWidth;
     this.height = innerHeight;
     this.canvas.width = Math.round(this.width * dpr);
     this.canvas.height = Math.round(this.height * dpr);
     this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     this.max = particleCount(this.width, this.height);
+    this.sprites.setScale(dpr, viewScale(this.height));
     // The timeline moves its line on the same resize: read it once that is done.
     requestAnimationFrame(() => {
       this.readBand();
@@ -241,6 +256,7 @@ export class SeasonalBackground {
       this.palette[name] = style.getPropertyValue(`--season-${name}`).trim();
     }
     this.alpha = Number.parseFloat(style.getPropertyValue("--season-alpha")) || 0.3;
+    this.sprites.setPalette(this.palette);
     this.redraw();
   }
 

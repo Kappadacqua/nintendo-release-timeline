@@ -1,6 +1,6 @@
 # Stato del progetto
 
-Aggiornato: 2026-09-29 — Coda `design2.md`, task 1 (icona del tema all'avvio, indicatore sopra la pillola, hover dei pulsanti della card)
+Aggiornato: 2026-10-01 — Coda `seasons-art.md`, task 1 (sprite pre-renderizzate, fasce di profondità, niente rotazione)
 
 ## Ultimo checkpoint
 
@@ -23,6 +23,7 @@ Nessuno.
 
 Dettagli completi nelle versioni precedenti di questo file (`git show 58d0ac7:STATUS.md`).
 
+- seasons-art task 1 — Sfondo stagionale (forme ancora quelle di prima): nessuna particella ruota più (inclinazione fissa ±35°, solo traslazione e ondeggiamento laterale 12–40 px, 4–9 s); tre profondità: lontane piccole, lente e tenui (45 %), medie (35 %), vicine grandi, più veloci e all'intensità di prima (20 %). Sagome in stile disegnato (riempimento tenue, nervature più sottili, secondo tratto sfalsato). Controllare settembre, gennaio, aprile, luglio nei due temi; cambio tema: colori aggiornati subito; reduced motion: particelle ferme; fps a 1080p come prima.
 - design2 task 1 — Tema scuro con un gioco selezionato: la linea verticale dell'indicatore si interrompe 3 px sopra e sotto la pillola del giorno e non attraversa più il numero (Day, Week, Month, entrambi i temi; sfumatura della linea invariata). `localStorage.removeItem('theme')` + ricarica con il sistema scuro: luna dal primo paint. Pulsanti della card: in hover si scuriscono (`brightness(0.9)`) invece di schiarirsi.
 - design task 6 — Pulsante del tema: nel tema chiaro un sole (disco pieno con 8 raggi), nello scuro la luna di prima (ora in SVG, stessa forma). Controllare cambio tema su timeline, Rankings e Studios: icona corretta e rotazione al clic invariata.
 - design task 5 — Rankings e Studios larghe uguali: `min(1200px, 100% − 64px)` (token `--page-max`), padding 32 px sopra e 48 px sotto, testata con 20 px sotto (valori di Rankings, già uguali in Studios); spazio della barra di scorrimento sempre riservato (`scrollbar-gutter: stable`). A 1920, 1440 e 1280 px alternando le due pagine il titolo non si sposta. Rankings più larga (prima 960 px): "Super Mario Bros. Wonder: Nintendo Switch 2 Edition + …" più leggibile, nome completo al passaggio del mouse. Studios: 3 colonne.

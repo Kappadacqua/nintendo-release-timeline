@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { SEASONS } from "../timeline/config";
-import { fadeIn, isGone, spawnParticle, stepParticle } from "./particles";
+import { fadeIn, isGone, spawnParticle, stepParticle, viewScale, wobbleX } from "./particles";
 import type { Season } from "./season";
 
 const W = 1920;
@@ -17,7 +17,7 @@ function lifetime(season: Season, rand = seeded()) {
   let t = 0;
   while (!isGone(p, W, H) && t < 600) {
     t += 1 / 60;
-    stepParticle(p, 1 / 60, t);
+    stepParticle(p, 1 / 60);
   }
   return { p, t };
 }
@@ -38,10 +38,10 @@ describe("particles", () => {
   it("now and then a spring particle is a whole cherry blossom", () => {
     const rand = seeded(11);
     const spring = Array.from({ length: 400 }, () => spawnParticle("spring", W, H, 0, true, rand));
-    const share = spring.filter((p) => p.blossom).length / spring.length;
+    const share = spring.filter((p) => p.kind === "blossom").length / spring.length;
     expect(share).toBeGreaterThan(SEASONS.blossomChance / 2);
     expect(share).toBeLessThan(SEASONS.blossomChance * 2);
-    expect(spawnParticle("autumn", W, H, 0, true, rand).blossom).toBeFalsy();
+    expect(spawnParticle("autumn", W, H, 0, true, rand).kind).toBe("leaf");
   });
 
   it("a season arriving appears anywhere on screen", () => {
@@ -70,6 +70,47 @@ describe("particles", () => {
       return seeds.reduce((sum, seed) => sum + lifetime(season, seeded(seed)).t, 0) / seeds.length;
     };
     expect(average("winter")).toBeGreaterThan(average("autumn"));
+  });
+
+  it("splits new particles into far, middle and near bands", () => {
+    const rand = seeded(5);
+    const ps = Array.from({ length: 4000 }, () => spawnParticle("autumn", W, H, 0, true, rand));
+    SEASONS.bands.forEach((band, depth) => {
+      const share = ps.filter((p) => p.depth === depth).length / ps.length;
+      expect(share).toBeCloseTo(band.share, 1);
+    });
+    // Near particles are bigger and faster than far ones, on average.
+    const mean = (depth: number, f: (p: (typeof ps)[number]) => number) => {
+      const band = ps.filter((p) => p.depth === depth);
+      return band.reduce((sum, p) => sum + f(p), 0) / band.length;
+    };
+    expect(mean(2, (p) => p.size)).toBeGreaterThan(mean(0, (p) => p.size) * 2);
+    expect(mean(2, (p) => p.vy)).toBeGreaterThan(mean(0, (p) => p.vy) * 2);
+  });
+
+  it("never turns: a fixed tilt within ±tiltDeg, only moving and wobbling", () => {
+    const rand = seeded(9);
+    const limit = Math.cos((SEASONS.tiltDeg * Math.PI) / 180);
+    for (const season of ["winter", "spring", "summer", "autumn"] as const) {
+      const p = spawnParticle(season, W, H, 0, true, rand);
+      expect(p.cos).toBeGreaterThanOrEqual(limit - 1e-9);
+      const { cos, sin } = p;
+      for (let t = 0; t < 10; t += 1 / 60) stepParticle(p, 1 / 60);
+      expect([p.cos, p.sin]).toEqual([cos, sin]);
+    }
+  });
+
+  it("wobbles sideways within its amplitude, scaled with the window height", () => {
+    const rand = seeded(13);
+    const [lo, hi] = SEASONS.wobbleAmpPx;
+    for (let i = 0; i < 50; i++) {
+      const p = spawnParticle("winter", W, 720, 0, true, rand);
+      expect(p.amp).toBeGreaterThanOrEqual(lo * 0.75);
+      expect(p.amp).toBeLessThanOrEqual(hi * 0.75);
+      for (let t = 0; t < 10; t += 0.37) expect(Math.abs(wobbleX(p, t) - p.x)).toBeLessThanOrEqual(p.amp + 1e-9);
+    }
+    expect(viewScale(1080)).toBe(1);
+    expect(viewScale(2160)).toBe(1.25);
   });
 
   it("fades in over fadeInMs from birth", () => {

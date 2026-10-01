@@ -103,8 +103,33 @@ export const SEASONS = {
   maxArea: 2560 * 1440,
   /** Spring: share of particles that are a whole cherry blossom instead of a petal. */
   blossomChance: 0.1,
-  /** Canvas pixel density cap. */
+  /** Canvas (and sprite) pixel density cap. */
   maxDpr: 1.5,
+  /**
+   * Depth bands (docs/tasks/seasons-art.md task 1), far to near: share of new particles, size,
+   * speed and opacity multipliers (opacity × `--season-alpha`), sprite outline width (px).
+   */
+  bands: [
+    { share: 0.45, size: 0.55, speed: 0.6, alpha: 0.55, linePx: 1.2 },
+    { share: 0.35, size: 1, speed: 1, alpha: 0.8, linePx: 1.4 },
+    { share: 0.2, size: 1.6, speed: 1.5, alpha: 1, linePx: 1.6 },
+  ],
+  /** Sideways wobble `x0 + A · sin(2πt / T + φ)`: amplitude A (px at 1080p) and period T (s) ranges. */
+  wobbleAmpPx: [12, 40],
+  wobblePeriodS: [4, 9],
+  /** Fixed tilt of each particle, uniform in ± this many degrees; it never turns. */
+  tiltDeg: 35,
+  /** Each particle is ± this share bigger or smaller than its band's size. */
+  sizeJitter: 0.12,
+  /** Sizes and wobble scale with `innerHeight / viewHeight`, clamped to `viewScale`. */
+  viewHeight: 1080,
+  viewScale: [0.75, 1.25],
+  /** Sprite variants per element type: common types and rare ones. */
+  variants: { common: 6, rare: 3 },
+  /** Seed of the sprite shapes: the same variants on every start. */
+  spriteSeed: 1789,
+  /** Sprite strokes: fill and veins of the outline colour, a second offset "pencil" outline. */
+  sprite: { fillAlpha: 0.16, veinWidth: 0.8, veinAlpha: 0.7, pencilPx: [0.6, 0.8], pencilAlpha: 0.45 },
   /** Particles fade out over this many px on each side of the line's band. */
   bandFeatherPx: 24,
   /** A drag faster than this (screen px/ms) counts as fast scrolling; so does a jump longer than the window. */
