@@ -583,20 +583,27 @@ Pagina `studios.html` (`src/studios/main.ts`, `src/styles/studios.css`), inclusa
 
 ## 15. Sfondo stagionale
 
-**Stato: fatto** (coda in `docs/tasks/seasons.md`).
+**Stato: fatto** (code in `docs/tasks/seasons.md` e `docs/tasks/seasons-art.md`).
 
-Particelle animate dietro linea e card (`src/seasons/`: `season.ts` logica pura, `particles.ts` forme e fisica, `background.ts` canvas e ciclo; `src/styles/seasons.css`; costanti `SEASONS` in `src/timeline/config.ts`).
+Particelle animate dietro linea e card (`src/seasons/`: `season.ts` logica pura, `particles.ts` tipi e movimento, `sprites.ts` disegno delle sagome, `background.ts` canvas e ciclo; `src/styles/seasons.css`; costanti `SEASONS` in `src/timeline/config.ts`).
 
 - **Stagione** dal giorno sotto l'indicatore, a mesi interi: inverno dic–feb, primavera mar–mag, estate giu–ago, autunno set–nov. Vale per tutto lo schermo; nella zona TBA resta l'ultima.
-- **Forme**: solo contorni, un colore per stagione, niente immagini, un unico canvas. Estate: bolle con riflessi che salgono. Primavera: petali con la tacca in punta che scendono in diagonale ruotando e, circa 1 su 10 (`blossomChance`), un fiore di ciliegio intero più lento. Autunno: foglie d'acero che cadono ondeggiando. Inverno: fiocchi a sei raggi, lenti, con leggera deriva.
+- **Stile**: disegno acquerellato, un colore per stagione, niente immagini, un unico canvas. Ogni sagoma ha contorno a tratto arrotondato, riempimento tenue dello stesso colore, nervature più sottili e un secondo tratto sfalsato (effetto matita). Le sagome sono **sprite** disegnate una volta su canvas fuori schermo (6 varianti per i tipi comuni, 3 per i rari, per ognuna delle tre fasce, con seme fisso) e riusate a ogni frame; si ridisegnano al cambio di tema.
+- **Tipi per stagione** (quote in `SEASONS`):
+  - Autunno: foglie di acero a cinque lobi, quercia, betulla, ginkgo, che cadono ondeggiando.
+  - Inverno: fiocchi dendritici, lastre esagonali, puntini morbidi (solo lontani), rametti di abete (rari, più lenti); raffiche laterali comuni a ogni fascia.
+  - Primavera: petali con la tacca, fiori di ciliegio interi (più lenti), rametti fioriti (rari), boccioli e petali minuscoli (solo lontani), in diagonale.
+  - Estate: bolle e grappoli di bolle che salgono; conchiglie a ventaglio e stelle marine che scendono lente.
+- **Nessuna rotazione**: ogni particella ha un'inclinazione fissa scelta alla creazione (± `tiltDeg` 35°; le bolle salgono dritte). Il movimento è solo traslazione più ondeggiamento laterale.
+- **Fasce di profondità** (`SEASONS.bands`), uguali per tutte le stagioni: lontana (45 %, piccola, lenta e tenue), media (35 %), vicina (20 %, grande, più veloce, all'intensità piena di `--season-alpha`). Dimensioni e ampiezze scalano con l'altezza della finestra (`innerHeight / 1080`, tra 0.75 e 1.25).
 - **Quantità**: 20–40 particelle secondo l'area della finestra (20 fino a 1280×720, 40 da 2560×1440).
 - **Colori**: token `--season-<stagione>` e `--season-alpha` in `tokens.css`, attenuati; nel tema chiaro più scuri (es. neve azzurro-grigia), nello scuro più chiari.
 - **Livelli**: dietro tutto (`z-index: -1`, come lo sfondo del gioco). Le particelle sfumano via nella fascia della linea (tacche, numeri, mesi; bordi morbidi di `bandFeatherPx`), così non sembrano attraversarla.
-- **Cambio stagione**: una sola stagione per volta; le particelle vecchie sfumano via in ~500 ms (`leaveMs`), poi le nuove compaiono gradualmente in ~2 s (`rampMs`), ognuna con una dissolvenza.
+- **Cambio stagione** (transizione incrociata): ogni stagione ha un peso tra 0 e 1. La nuova sale a 1 dopo `crossDelayMs` (300 ms) in `crossInMs` (2 s, ease-out); le altre scendono a 0 in `crossOutMs` (1,5 s, ease-in). Le particelle di una stagione sono il numero pieno × il suo peso; quelle in volo finiscono il percorso sfumando col peso. Per circa 1 s si vedono entrambe, senza vuoti; tornando indietro sul confine il peso riparte da dove si trova (nessuna ricomparsa di colpo). Tetto: 1,3 × il numero pieno (`crossCap`). Con reduced motion il cambio è immediato.
 - **Scorrimento veloce** (rotella dalla marcia 2, trascinamento oltre `fastDragPxPerMs`, salto più lungo della finestra): lo sfondo sfuma via in ~200 ms e ricompare ~500 ms (`restMs`) dopo l'ultimo movimento.
 - **Gioco selezionato**: sfondo stagionale nascosto (c'è lo sfondo del gioco). In presentazione un gioco è sempre selezionato, quindi resta nascosto e torna a fine presentazione.
 - **Zoom**: uguale in Day, Week e Month (segue la timeline corrente anche dopo cambi di zoom e filtri).
 - **Menu View**: interruttore **"Seasonal background"**, acceso di default, salvato nel browser (chiave `view`, campo `seasonalBackground`, scritto solo dopo una scelta esplicita).
 - **Reduced motion**: spento di default; se l'utente lo accende, particelle ferme (decorazione statica, ridisegnata solo al cambio di stagione, tema o finestra).
-- **Prestazioni**: densità del canvas al massimo 1.5, nessun filtro blur; animazione ferma con sfondo spento o nascosto e con la scheda non visibile. Misurato (Chrome headless con GPU, 1920×1080, build di produzione): 60 fps a riposo e durante lo scorrimento, come a sfondo spento.
+- **Prestazioni**: densità del canvas al massimo 1.5, nessun filtro blur, sagome pre-renderizzate; animazione ferma con sfondo spento o nascosto e con la scheda non visibile. Misurato il 2026-10-01 (Chrome headless con GPU GTX 1070, build di produzione): a 1920×1080, 60 fps e 95° percentile 16,8 ms in tutte e quattro le stagioni, a riposo, in scorrimento (marce 1–3) e durante i cambi di stagione, come a sfondo spento. A 2560×1440 lo sfondo acceso costa qualche fps (55–60 a riposo, 43–59 in scorrimento, contro 55–60 a sfondo spento): il costo resta anche senza disegnare particelle, quindi dipende dal canvas a tutto schermo e non dalle sagome.
 - **Aiuto**: sezione "Seasonal background" nel pannello delle scorciatoie (?).

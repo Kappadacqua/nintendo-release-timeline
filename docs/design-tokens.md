@@ -33,7 +33,7 @@ Percorsi relativi alla root; `file:riga` si riferisce allo stato di questo commi
 **Chi legge i colori da JS** (e quindi si aggiorna al cambio tema):
 
 - Canvas della timeline: `readPalette()` in `src/timeline/timeline.ts:956-969` legge `--timeline`, `--month-band`, `--tick`, `--text-muted`, `--accent` (tacca dell'indicatore), `--accent-fill` (pillola del giorno), `--on-accent` e la `font-family` del body; un `MutationObserver` su `data-theme` ridisegna.
-- Canvas stagionale: `readPalette()` in `src/seasons/background.ts:236-244` legge `--season-*` e `--season-alpha`; si aggiorna al cambio di `prefers-color-scheme` e di `data-theme`.
+- Canvas stagionale: `readPalette()` in `src/seasons/background.ts:262` legge `--season-*` e `--season-alpha`; si aggiorna al cambio di `prefers-color-scheme` e di `data-theme`, e ridisegna le sprite delle stagioni visibili (`SpriteCache.setPalette`).
 
 **Pagine:** timeline, Rankings e Studios chiamano `initTheme` e hanno il pulsante. **Admin no**: nessun pulsante e nessun `initTheme`, quindi segue la scelta salvata (script inline) o il sistema tramite il blocco `@media`.
 
@@ -90,11 +90,11 @@ Percorsi relativi alla root; `file:riga` si riferisce allo stato di questo commi
 | `--score-fair` | `#4aa1ce` | = | Fascia voto "Fair" |
 | `--score-weak` | `#80b06a` | = | Fascia voto "Weak" |
 | `--score-none` | `#9a9aa3` | = | Nessun voto |
-| `--season-winter` | `#6f8499` | `#d3dce5` | Fiocchi |
-| `--season-spring` | `#c07890` | `#e6c3cf` | Petali, fiori di ciliegio |
-| `--season-summer` | `#4f8fb0` | `#a9cde0` | Bolle |
-| `--season-autumn` | `#b36d3f` | `#dcae8c` | Foglie d'acero |
-| `--season-alpha` | `0.40` | `0.28` | Opacità delle particelle (`globalAlpha`); contrasto particella/sfondo ~1.6 chiaro, ~1.8–2.1 scuro |
+| `--season-winter` | `#6f8499` | `#d3dce5` | Inverno: fiocchi dendritici, lastre esagonali, puntini morbidi, rametti di abete |
+| `--season-spring` | `#c07890` | `#e6c3cf` | Primavera: petali con tacca, fiori di ciliegio, rametti fioriti, boccioli |
+| `--season-summer` | `#4f8fb0` | `#a9cde0` | Estate: bolle, grappoli di bolle, conchiglie a ventaglio, stelle marine |
+| `--season-autumn` | `#b36d3f` | `#dcae8c` | Autunno: foglie di acero, quercia, betulla, ginkgo |
+| `--season-alpha` | `0.40` | `0.28` | Opacità delle particelle (`globalAlpha`), moltiplicata per la fascia di profondità (0.55 / 0.80 / 1.00) e per il peso della stagione nella transizione; contrasto della fascia vicina sullo sfondo ~1.6 chiaro, ~1.8–2.1 scuro |
 | `--backdrop-veil` | `0.45` | `0.06` | Opacità del velo `--bg` sopra lo sfondo del gioco (`backdrop.css`) |
 | `--backdrop-blur` | `28px` | = | Sfocatura dello sfondo del gioco (`backdrop.css`) |
 | `--backdrop-blur-cover` | `70px` | = | Sfocatura quando lo sfondo è la copertina IGDB (`backdrop.css`) |
@@ -139,7 +139,7 @@ Miscele con `transparent` (equivalenti a un rgba del token): `--accent` al 10 % 
 | `%23e60012` + `white` | `index.html:10`, `rankings.html:10`, `studios.html:10` | Favicon SVG inline (rosso fisso, anche in tema scuro; admin senza favicon) |
 | `#000`, `transparent` | `src/styles/selection-extras.css:13-14` | Maschera della `.timeline__band` (non visibile come colore) |
 | `#000`, `transparent` | `src/styles/timeline.css:98-104` | Maschera dell'indicatore, interrotto 3 px sopra e sotto la pillola (non visibile come colore) |
-| `#000`, `rgb(0 0 0 / 0)` | `src/seasons/background.ts:193-196` | Maschera `destination-out` che sfuma le particelle sulla fascia della linea (non visibile come colore) |
+| `#000`, `rgb(0 0 0 / 0)` | `src/seasons/background.ts:216-219` | Maschera `destination-out` che sfuma le particelle sulla fascia della linea (non visibile come colore) |
 
 Opacità scritte a mano che agiscono come colore:
 
@@ -356,10 +356,17 @@ Raggi fuori scala: 1px (coriandoli, "Today" minimappa), 1.5px (bandiere, pallino
 | `smoothing` 0.16 per frame | Inseguimento del bersaglio (rotella, frecce) | `config.ts:18` |
 | `min(600, 250 + 0.12·px)` ms, cubic in-out | Salti lunghi (oltre 300px) | `scroller.ts:77,181` |
 | `flingFriction` / `wheelFlingFriction` 0.94 per frame | Inerzia di trascinamento e rotella | `config.ts:24,46` |
-| `SEASONS.rampMs` 2000 | Particelle della stagione che arrivano al numero pieno | `config.ts:91` |
-| `SEASONS.fadeInMs` 800 | Comparsa di una particella | `config.ts:93` |
-| `SEASONS.leaveMs` 500 | Uscita della stagione precedente | `config.ts:95` |
-| `SEASONS.restMs` 500 | Ritorno dello sfondo dopo lo scorrimento veloce | `config.ts:97` |
+| `SEASONS.fadeInMs` 800 | Comparsa di una particella | `config.ts:91` |
+| `SEASONS.crossDelayMs` 300, `crossInMs` 2000 (ease-out) | Transizione incrociata: il peso della nuova stagione sale a 1 dopo il ritardo | `config.ts:97-98` |
+| `SEASONS.crossOutMs` 1500 (ease-in) | Transizione incrociata: il peso delle altre stagioni scende a 0, senza ritardo | `config.ts:99` |
+| `SEASONS.crossCap` 1.3 | Tetto delle particelle disegnate durante la transizione (× il numero pieno) | `config.ts:101` |
+| `SEASONS.restMs` 500 | Ritorno dello sfondo dopo lo scorrimento veloce | `config.ts:103` |
+| `SEASONS.bands` | Fasce di profondità lontana / media / vicina: quota 45 / 35 / 20 %, dimensione × 0.55 / 1 / 1.6, velocità × 0.6 / 1 / 1.5, opacità × 0.55 / 0.80 / 1, contorno 1.2 / 1.4 / 1.6 px | `config.ts:167` |
+| `SEASONS.wobbleAmpPx` [12, 40], `wobblePeriodS` [4, 9] | Ondeggiamento laterale `x0 + A · sin(2πt / T + φ)` (px a 1080p, s); ogni stagione può allargarlo (`spring`, `summer`, `leaves`, `winter.fir`) | `config.ts:173-174` |
+| `SEASONS.tiltDeg` 35 | Inclinazione fissa di ogni particella (± gradi): nessuna rotazione nel tempo | `config.ts:176` |
+| `SEASONS.sizeJitter` 0.12, `viewHeight` 1080, `viewScale` [0.75, 1.25] | Dimensione ± 12 % nella fascia; dimensioni e ampiezze scalano con `innerHeight / 1080` | `config.ts:178-181` |
+| `SEASONS.variants` 6 / 3, `spriteSeed` 1789, `sprite` | Sprite pre-renderizzate per tipo (comuni / rari) × fascia, con seme fisso; stile del tratto (riempimento 0.16, nervature 0.8 × e 0.7, secondo tratto 0.6–0.8 px a 0.45) | `config.ts:183-187` |
+| `SEASONS.spring`, `summer`, `leaves`, `winter` | Quote dei tipi di ogni stagione e movimenti propri (bolle che salgono, conchiglie e stelle che scendono a × 0.35, raffiche invernali ± 20 px/s per 2 s ogni 6–12 s, rametto di abete × 0.7) | `config.ts:115-153` |
 | `presentationSeconds` 6, `presentationCursorMs` 2500 | Ritmo della presentazione, cursore nascosto | `config.ts:81-83` |
 
 ### 6.5 `prefers-reduced-motion`
@@ -377,7 +384,7 @@ Raggi fuori scala: 1px (coriandoli, "Today" minimappa), 1.5px (bandiere, pallino
 | Valore | Elemento | Contesto | File |
 |---|---|---|---|
 | −1 | `.backdrop` (fisso), aggiunto con `prepend` | radice | `backdrop.css:5` |
-| −1 | `.seasons` canvas (fisso), aggiunto con `append`: sempre dopo `.backdrop` | radice | `seasons.css:6`, `background.ts:49` |
+| −1 | `.seasons` canvas (fisso), aggiunto con `append`: sempre dopo `.backdrop` | radice | `seasons.css:6`, `background.ts:52` |
 | 1 | Pallino novità nella minimappa | minimappa | `whats-new.css:27` |
 | 2 | Anteprima della minimappa | minimappa | `minimap-preview.css:13` |
 | 2 | Card selezionata nella zona TBA | blocco TBA | `selection.css:28` |
@@ -408,7 +415,7 @@ Raggi fuori scala: 1px (coriandoli, "Today" minimappa), 1.5px (bandiere, pallino
 1. Sfondo del `body` (`--bg`), propagato alla radice.
 2. **Livello −1**, nell'ordine del DOM:
    - `.backdrop` (aggiunto con `prepend` al `body`, anche a ogni ricostruzione della timeline): due livelli con l'immagine del gioco (visibili solo con un gioco selezionato che ha uno sfondo) e **sopra, sempre presente, il velo `::after` in `--bg`** all'opacità di `--backdrop-veil` (0.45 chiaro, 0.06 scuro);
-   - canvas stagionale `.seasons` (aggiunto con `append` al `body`, `background.ts:49`): a parità di z-index conta l'ordine del DOM, quindi sta **sempre sopra** `.backdrop` e il suo velo, all'avvio e dopo zoom, filtri o raggruppamento.
+   - canvas stagionale `.seasons` (aggiunto con `append` al `body`, `background.ts:52`): a parità di z-index conta l'ordine del DOM, quindi sta **sempre sopra** `.backdrop` e il suo velo, all'avvio e dopo zoom, filtri o raggruppamento.
 3. Header (non posizionato, nel flusso).
 4. Dentro `main` → `.timeline` → `.timeline__stage`, nell'ordine del DOM (`timeline.ts:227`):
    1. `.timeline__band`: fascia `--bg` 80 % dietro la linea, visibile solo con sfondo del gioco;
@@ -420,7 +427,7 @@ Raggi fuori scala: 1px (coriandoli, "Today" minimappa), 1.5px (bandiere, pallino
 7. Barra/contatore/avviso della presentazione (90-91).
 8. Dialoghi (top layer).
 
-**Per il canvas stagionale:** sta al livello −1, sopra lo sfondo del gioco e sotto l'header e tutta la timeline; attraversa anche l'header e il footer (è `position: fixed; inset: 0`). Le particelle sfumano via nella fascia della linea (`.timeline__band` letta da `background.ts:203`, bordi `bandFeatherPx` 24).
+**Per il canvas stagionale:** livelli invariati dalle tre fasce di profondità (sono un ordine di disegno dentro lo stesso canvas: lontana, media, vicina). Sta al livello −1, sopra lo sfondo del gioco e sotto l'header e tutta la timeline; attraversa anche l'header e il footer (è `position: fixed; inset: 0`). Le particelle sfumano via nella fascia della linea (`.timeline__band` letta da `background.ts:227`, bordi `bandFeatherPx` 24).
 
 ---
 

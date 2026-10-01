@@ -223,7 +223,7 @@ Principi fissi:
 
 ---
 
-- [ ] **Task 7 — Misura degli fps, contrasti e documentazione**
+- [x] **Task 7 — Misura degli fps, contrasti e documentazione**
 
 **File**
 - Partire da: `src/seasons/background.ts`, `docs/design-tokens.md`, `docs/SPEC.md` (§15), `STATUS.md`.
