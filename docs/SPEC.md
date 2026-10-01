@@ -33,9 +33,10 @@ Per ora il sito è solo per uso personale in locale; la pubblicazione su GitHub 
   lib/snapshots.ts       # snapshot giornalieri, dateHistory / scoreHistory, changes.json
   lib/overrides-schema.ts  # validazione di overrides.json (usata dal pannello admin)
   lib/env.ts             # percorsi, lettura .env
-  lib/http.ts            # fetch JSON con throttle, retry e HttpError
+  lib/http.ts            # fetch testo / JSON con throttle, retry e HttpError
   lib/igdb.ts            # client IGDB (auth Twitch, paginazione stabile)
   lib/opencritic.ts      # client OpenCritic (catalogo Switch 2, ricerche, cache, budget)
+  lib/metacritic.ts      # pagine Metacritic (slug, ricerca, lettura dei voti, cache, budget)
   lib/wikipedia.ts       # categoria Wikipedia + slug IGDB da Wikidata
   lib/links.ts           # link Wikipedia (Wikidata SPARQL) e Nintendo Wiki (API Fandom)
   lib/transform.ts       # IGDB → Game: tipo, date regionali, perimetro, esclusività IGDB
@@ -128,18 +129,18 @@ Regole di dettaglio:
 | Link Nintendo Store | Wikidata (P12418 eShop EU, P8084 eShop US) e link `websites` di IGDB | automatica, sovrascrivibile |
 | Date di uscita JP / EU / NA | IGDB (`release_dates` con `release_region` e `date_format`) | automatica, correggibile a mano |
 | Voto OpenCritic (Top Critic Average) + n° top critic | OpenCritic API (RapidAPI); ID anche da Wikidata (P2864) | automatica, ID forzabile |
-| Metacritic Metascore + n° recensioni | — (nessuna API) | **manuale** |
-| Metacritic User Score + n° voti | — | **manuale** |
+| Metacritic Metascore + n° recensioni | pagina pubblica del gioco su metacritic.com (§4.3) | automatica, correggibile a mano |
+| Metacritic User Score + n° voti | pagina pubblica del gioco su metacritic.com (§4.3) | automatica, correggibile a mano |
 | Backloggd rating + n° voti | — | **manuale** |
 | Esclusività, "Also on Switch 1", terze parti | Wikipedia + piattaforme IGDB (§4.1) | automatica, con override |
 
 Note:
 
-- **Niente scraping** di Metacritic o Backloggd: i valori si inseriscono a mano in `overrides.json`.
+- **Metacritic** si legge dalle pagine pubbliche (nessuna API, §4.3); i valori in `overrides.json` vincono campo per campo. **Backloggd**: niente scraping, i valori si inseriscono a mano.
 - **IGDB**: autenticazione Twitch client credentials. Switch 2 = piattaforma **508**, Switch = **130**. Si usano i campi nuovi `game_type`, `release_region`, `date_format` (non gli enum deprecati `category` / `region`), chiesti **per nome**: i formati data attuali sono `YYYYMMDD`, `YYYYMM`, `YYYY`, `YYYYQ1…Q4`, `TBD` (accettati anche i vecchi nomi `YYYYMMMMDD` / `YYYYMMMM`). Paginazione sempre con `sort id asc`, altrimenti le pagine saltano o ripetono righe. Limite 4 richieste/s, 500 risultati per richiesta.
 - **Date regionali**: per ogni regione vince la data specifica della regione sulla "worldwide"; senza voci per Switch si usa `first_release_date`. `firstReleaseDate` è la più vicina fra JP/EU/NA.
 - **Copertine**: CDN IGDB (`images.igdb.com`, taglia `cover_big`); se l'immagine non si carica, il sito mostra `placeholder.svg`.
-- **Link Backloggd**: automatico (Backloggd usa gli slug IGDB). **Metacritic**: da inserire in `links` negli override.
+- **Link Backloggd**: automatico (Backloggd usa gli slug IGDB). **Metacritic**: la pagina letta da `data:fetch` (§4.3); `links.metacritic` negli override la forza.
 - **Link Wikipedia**: una query SPARQL su Wikidata per tutti i giochi (slug IGDB → articolo della Wikipedia inglese); per i giochi della categoria Switch 2-only vale anche la pagina della categoria.
 - **DLC e Switch 2 Edition** senza pagina propria usano le pagine del **gioco base** (`parent_game` / `version_parent` di IGDB, altrimenti il titolo senza "Nintendo Switch 2 Edition…").
 - **Link Nintendo Wiki**: titolo esatto (o redirect definito dalla wiki) con l'API di Fandom; altrimenti una ricerca, accettata solo se il titolo normalizzato coincide. In caso di dubbio nessun link (DLC e titoli minori spesso non hanno pagina).
@@ -174,6 +175,16 @@ Piano gratuito RapidAPI: **25 ricerche e 200 richieste al giorno** (visibili neg
 - **Mai sovrascrivere con `null`**: se per un gioco uscito OpenCritic non dà una risposta certa in questo run (errore, quota, chiave assente), il voto e il link del `games.json` precedente restano. Una risposta certa è: voto trovato, gioco senza pagina, o pagina con voto `-1` (troppe poche recensioni).
 - A fine fetch un riquadro di avviso elenca le chiamate fallite (con il motivo reale) e quanti voti sono stati mantenuti.
 - Abbinamento sbagliato o titolo diverso: si forza con `opencriticId` negli override.
+
+### 4.3 Metacritic
+
+Nessuna API: `data:fetch` (o il solo `npm run data:fetch-metacritic`) legge la pagina pubblica `metacritic.com/game/<slug>/` dei giochi **usciti** già nel perimetro (§3). Metacritic arricchisce la lista, **non aggiunge mai giochi**; gli aggiornamenti gratuiti non hanno voti.
+
+- **Pagina**: `links.metacritic` negli override (sempre accettata); altrimenti lo slug del titolo (minuscolo, senza accenti e punteggiatura, `&` → `and`). Se risponde 404 o 410: ricerca (`/search/<titolo>/?category=13`) e solo un risultato con lo **stesso nome normalizzato**; la pagina trovata si riusa nei giri successivi. Se la pagina ha un altro nome (JSON-LD) è "di un altro gioco" e i voti non si usano.
+- **Voti**: Metascore e numero di recensioni dalla scheda **Nintendo Switch 2** di "All Platforms", poi Nintendo Switch, poi il valore generale (JSON-LD). User score e numero di voti solo se la piattaforma della sezione "User Reviews" è Nintendo. "tbd" = nessun voto.
+- **Frequenza**: pagina trovata ogni giorno nei 60 giorni dopo l'uscita, poi ogni settimana; pagina non trovata riprovata dopo 3 giorni (14 se il gioco ha più di 30 giorni). Prima i giochi mai cercati, poi i più recenti.
+- **Limiti**: pausa casuale di 3–6 s tra due richieste, al massimo `METACRITIC_MAX_REQUESTS` (default 150) per esecuzione; con HTTP 403 / 429 l'esecuzione si ferma. Una pagina non letta lascia in cache i voti precedenti. `METACRITIC_DISABLED` salta Metacritic in `data:fetch`.
+- **Cache**: `data/cache/metacritic.json` (id del gioco → slug cercato, pagina letta, esito, voti, data del controllo). `data:build` la applica senza rete.
 
 ### Esempio `data/overrides.json`
 
@@ -460,19 +471,21 @@ Pannello simile a quello dei filtri: **Card style** (Full / Compact), **Group sa
 
 ## 10. Aggiornamento dati
 
-Variabili in `.env` (vedi `.env.example`): `TWITCH_CLIENT_ID`, `TWITCH_CLIENT_SECRET`, `RAPIDAPI_KEY` (facoltativa), `OPENCRITIC_MAX_SEARCHES`, `OPENCRITIC_MAX_REQUESTS`, `OPENCRITIC_CATALOG_DAYS`, `WIKI_CONTACT`.
+Variabili in `.env` (vedi `.env.example`): `TWITCH_CLIENT_ID`, `TWITCH_CLIENT_SECRET`, `RAPIDAPI_KEY` (facoltativa), `OPENCRITIC_MAX_SEARCHES`, `OPENCRITIC_MAX_REQUESTS`, `OPENCRITIC_CATALOG_DAYS`, `METACRITIC_MAX_REQUESTS`, `METACRITIC_DISABLED`, `WIKI_CONTACT`.
 
 - `npm run data:fetch` → interroga le API e salva le risposte grezze in `data/cache/`, poi esegue la build e scrive lo snapshot del giorno. Se un passo essenziale fallisce (es. credenziali IGDB mancanti) si ferma senza toccare `games.json`.
 - `npm run data:build` → **senza rete** (~50ms): cache + `overrides.json` + `settings.json` + storico esclusività + snapshot + `free-updates.json` + `studios-overrides.json` → `public/data/games.json`, `public/data/changes.json`, `public/data/studios.json` e `data/fetch-report.json` (aggiorna anche `data/free-updates-seen.json`). Si usa dopo aver modificato a mano overrides o impostazioni.
+- `npm run data:fetch-metacritic` → rete, solo Metacritic (§4.3) sui giochi della cache IGDB / Wikipedia, poi build e snapshot del giorno.
 - `npm run data:fetch-free-updates` e `npm run data:fetch-studios` → rete, solo per aggiornamenti gratuiti (§13) e studi (§14).
 - `npm run data:validate` → elenca:
   - giochi **usciti senza Metacritic o Backloggd** (con quali mancano);
   - conflitti di esclusività non ancora decisi;
   - pagine Wikipedia senza gioco IGDB;
   - giochi usciti senza abbinamento OpenCritic;
+  - giochi usciti senza pagina Metacritic o con la pagina di un altro gioco, e quelli non ancora cercati;
   - DLC / Switch 2 Edition esclusi (senza pagina OpenCritic) o non verificati;
   - giochi senza link **Wikipedia** o **Nintendo Wiki**;
-  - errori OpenCritic, Wikipedia e Nintendo Wiki, e voti mantenuti dal fetch precedente;
+  - errori OpenCritic, Metacritic, Wikipedia e Nintendo Wiki, e voti mantenuti dal fetch precedente;
   - override che puntano a giochi assenti;
   - il contenuto della zona TBA.
 
@@ -514,7 +527,7 @@ Pagina `rankings.html` (`src/rankings/main.ts`, `src/styles/rankings.css`), incl
 
 **Ordinamento** — selettore "Sort by": OpenCritic, Metacritic, Metacritic User, Backloggd, Critics average (OpenCritic + Metacritic, voti normalizzati), Users average (Metacritic User + Backloggd). A parità di valore: più recensioni, poi titolo. Predefinito: OpenCritic.
 
-**Soglia** — campo "Min. reviews", predefinito 20. Per una singola fonte vale sul numero di recensioni di quella fonte; per le medie contano solo le fonti che superano la soglia, e il gioco entra se almeno una la supera. **Numero di recensioni sconosciuto**: con soglia maggiore di 0 il voto non entra in classifica per quella fonte né nelle medie (con soglia 0 entra); nel cerchietto "—" al posto del conteggio. Esclusi: riga finale "N games hidden (no score or fewer than X reviews)", con "; K with no review count" se alcuni hanno un voto senza conteggio. Una classifica corta per Metacritic e Backloggd (dati manuali incompleti) è attesa.
+**Soglia** — campo "Min. reviews", predefinito 20. Per una singola fonte vale sul numero di recensioni di quella fonte; per le medie contano solo le fonti che superano la soglia, e il gioco entra se almeno una la supera. **Numero di recensioni sconosciuto**: con soglia maggiore di 0 il voto non entra in classifica per quella fonte né nelle medie (con soglia 0 entra); nel cerchietto "—" al posto del conteggio. Esclusi: riga finale "N games hidden (no score or fewer than X reviews)", con "; K with no review count" se alcuni hanno un voto senza conteggio. Una classifica corta per Backloggd (dati manuali incompleti) è attesa.
 
 **Filtri** — indipendenti da quelli della timeline:
 - Includi DLC (predefinito off), includi Switch 2 Edition (on), solo esclusive (off, stessa regola della timeline: contano solo altre console e PC), anno (All / anni presenti nei giochi usciti; predefinito All).

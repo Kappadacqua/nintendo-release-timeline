@@ -20,6 +20,8 @@ const HEADERS = {
 /** Random pause between two pages, as a person browsing would make. */
 const DELAY_MS = [3000, 6000] as const;
 const DAY_MS = 86_400_000;
+/** "No page here": 404, or 410 for a page Metacritic removed ("Product gone"). */
+const isGone = (err: unknown) => err instanceof HttpError && (err.status === 404 || err.status === 410);
 /** Platforms whose scores are taken, in order of preference. */
 const PLATFORMS = ["nintendo-switch-2", "nintendo-switch"];
 
@@ -178,7 +180,8 @@ export async function fetchMetacritic(
   log: (...args: unknown[]) => void,
 ) {
   const cache = loadMetacriticCache(cachePath);
-  const budget = intEnv("METACRITIC_MAX_REQUESTS", 60);
+  // A slug with no page costs up to 3 requests (page, search, page found).
+  const budget = intEnv("METACRITIC_MAX_REQUESTS", 150);
   const now = Date.now();
   const today = new Date(now).toISOString().slice(0, 10);
   const daysSince = (iso: string) => Math.floor((Date.parse(today) - Date.parse(iso)) / DAY_MS);
@@ -200,6 +203,7 @@ export async function fetchMetacritic(
       break;
     }
     status.requestsUsed++;
+    status.checked++;
     const previous = cache.games[game.id];
     // A page found by search before: straight there.
     let url = previous?.slug === slug && previous.status === "ok" ? previous.url : `${BASE}${slug}/`;
@@ -213,7 +217,7 @@ export async function fetchMetacritic(
       try {
         html = await get(url);
       } catch (err) {
-        if (forced || !(err instanceof HttpError) || err.status !== 404 || status.requestsUsed >= budget) throw err;
+        if (forced || !isGone(err) || status.requestsUsed >= budget) throw err;
         // The slug differs from the title (often for editions): search, exact name only.
         status.requestsUsed++;
         const hits = parseSearchResults(await get(`https://www.metacritic.com/search/${encodeURIComponent(game.title)}/?category=13`));
@@ -228,7 +232,7 @@ export async function fetchMetacritic(
       const mismatch = !forced && page.name !== null && !sameName(page.name, game.title);
       cache.games[game.id] = { slug, url, checkedAt, status: mismatch ? "mismatch" : "ok", ...page };
     } catch (err) {
-      if (err instanceof HttpError && err.status === 404) {
+      if (isGone(err)) {
         cache.games[game.id] = { slug, url: `${BASE}${slug}/`, checkedAt, status: "not-found" };
         continue;
       }
@@ -241,12 +245,13 @@ export async function fetchMetacritic(
     }
   }
   writeJson(cachePath, cache);
-  log(`Metacritic: ${status.requestsUsed} of ${status.due} due page(s) read${status.stoppedBecause ? ` — stopped: ${status.stoppedBecause}` : status.budgetExhausted ? " — per-run budget reached, run again later" : ""}`);
+  log(`Metacritic: ${status.checked} of ${status.due} due game(s) checked in ${status.requestsUsed} request(s)${status.stoppedBecause ? ` — stopped: ${status.stoppedBecause}` : status.budgetExhausted ? " — per-run budget reached, run again later" : ""}`);
 }
 
 export const emptyMetacriticStatus = (): NonNullable<FetchStatus["metacritic"]> => ({
   enabled: false,
   due: 0,
+  checked: 0,
   requestsUsed: 0,
   budgetExhausted: false,
   stoppedBecause: null,

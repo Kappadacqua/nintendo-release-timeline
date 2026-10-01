@@ -54,6 +54,8 @@ export interface FetchStatus {
     enabled: boolean;
     /** Released games whose page was due this run. */
     due: number;
+    /** Of those, games looked up (a search fallback adds requests, not games). */
+    checked: number;
     requestsUsed: number;
     budgetExhausted: boolean;
     stoppedBecause: string | null;
