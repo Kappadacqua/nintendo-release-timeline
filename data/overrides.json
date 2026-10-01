@@ -21,7 +21,8 @@
           "reason": "OpenCritic search: no match for the title (last try 2026-09-26)",
           "checkedAt": "2026-10-01"
         }
-      }
+      },
+      "developer": "Nintendo (unknown studio)"
     },
     "igdb:405436": {
       "_title": "Pokémon Pokopia: Bubbly Basin",
@@ -83,6 +84,27 @@
           "checkedAt": "2026-10-01"
         }
       }
+    },
+    "igdb:405460": {
+      "_title": "The Legend of Zelda: Ocarina of Time",
+      "developer": "Nintendo (unknown studio)"
+    },
+    "igdb:405451": {
+      "_title": "Nintendo Switch Sports Resort",
+      "developer": "Nintendo (unknown studio)"
+    },
+    "igdb:366878": {
+      "_title": "Super Mario Galaxy + Super Mario Galaxy 2",
+      "include": true,
+      "opencriticId": 19299
+    },
+    "igdb:366899": {
+      "_title": "Super Mario Galaxy",
+      "include": false
+    },
+    "igdb:366900": {
+      "_title": "Super Mario Galaxy 2",
+      "include": false
     }
   },
   "wikipedia": {

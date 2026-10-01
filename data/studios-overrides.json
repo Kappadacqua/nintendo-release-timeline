@@ -64,5 +64,9 @@
   "Nintendo System Development": {
     "active": false,
     "note": "Infobox: defunct September 16, 2015"
+  },
+  "Nintendo (unknown studio)": {
+    "hidden": true,
+    "note": "Placeholder developer for Nintendo-published games whose studio is not known for sure (IGDB says only \"Nintendo\" or nothing): not a studio card, not reported as unattributed"
   }
 }

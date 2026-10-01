@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-01T20:24:06.188Z",
+  "generatedAt": "2026-10-01T20:31:59.431Z",
   "games": [
     {
       "id": "free-update:arms",
@@ -1353,48 +1353,8 @@
       }
     },
     {
-      "id": "igdb:366899",
+      "id": "igdb:366878",
       "kind": "game",
-      "title": "Super Mario Galaxy",
-      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coag5y.jpg",
-      "summary": "This second Nintendo Switch port of Super Mario Galaxy was released standalone and contains differences from the Super Mario 3D All-Stars version, such as an Assist Mode and extra pages in Rosalina's Storybook.",
-      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/scz5c2.jpg",
-      "developer": "Nintendo Software Technology",
-      "genres": [
-        "Platform",
-        "Adventure"
-      ],
-      "releaseDates": {
-        "JP": "2025-10-02",
-        "EU": "2025-10-02",
-        "NA": "2025-10-02"
-      },
-      "firstReleaseDate": "2025-10-02",
-      "exclusivity": "exclusive",
-      "firstParty": true,
-      "alsoOnSwitch1": true,
-      "onOtherConsoles": false,
-      "scores": {
-        "critic": {
-          "opencritic": null,
-          "metacritic": null
-        },
-        "user": {
-          "metacritic": null,
-          "backloggd": null
-        }
-      },
-      "links": {
-        "backloggd": "https://backloggd.com/games/super-mario-galaxy--3/",
-        "metacritic": "https://www.metacritic.com/game/super-mario-galaxy/",
-        "wikipedia": "https://en.wikipedia.org/wiki/Super_Mario_Galaxy",
-        "nintendoWiki": "https://nintendo.fandom.com/wiki/Super_Mario_Galaxy",
-        "nintendoStore": "https://www.nintendo.com/us/store/products/super-mario-galaxy-switch/"
-      }
-    },
-    {
-      "id": "free-update:super-mario-galaxy-super-mario-galaxy-2",
-      "kind": "free-update",
       "title": "Super Mario Galaxy + Super Mario Galaxy 2",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coavv6.jpg",
       "summary": "Travel the stars with Mario in enhanced versions of these beloved adventures.",
@@ -1410,64 +1370,42 @@
         "NA": "2025-10-02"
       },
       "firstReleaseDate": "2025-10-02",
-      "exclusivity": null,
-      "firstParty": true,
-      "alsoOnSwitch1": true,
-      "onOtherConsoles": false,
-      "scores": {
-        "critic": {
-          "opencritic": null,
-          "metacritic": null
-        },
-        "user": {
-          "metacritic": null,
-          "backloggd": null
-        }
-      },
-      "links": {
-        "nintendoWiki": "https://nintendo.fandom.com/wiki/Super_Mario_Galaxy_%2B_Super_Mario_Galaxy_2",
-        "nintendoStore": "https://www.nintendo.com/us/store/products/super-mario-galaxy-plus-super-mario-galaxy-2-switch/"
-      },
-      "originalReleaseYear": 2025
-    },
-    {
-      "id": "igdb:366900",
-      "kind": "game",
-      "title": "Super Mario Galaxy 2",
-      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coag5x.jpg",
-      "summary": "The version of Super Mario Galaxy 2 released as part of the Super Mario Bros. 40th Anniversary contains added features like an Assist Mode and the addition of Rosalina's Storybook.",
-      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/scz5ch.jpg",
-      "developer": "Nintendo Software Technology",
-      "genres": [
-        "Platform",
-        "Adventure"
-      ],
-      "releaseDates": {
-        "JP": "2025-10-02",
-        "EU": "2025-10-02",
-        "NA": "2025-10-02"
-      },
-      "firstReleaseDate": "2025-10-02",
       "exclusivity": "exclusive",
       "firstParty": true,
       "alsoOnSwitch1": true,
       "onOtherConsoles": false,
       "scores": {
         "critic": {
-          "opencritic": null,
-          "metacritic": null
+          "opencritic": {
+            "value": 87,
+            "scale": 100,
+            "normalized": 87,
+            "count": 33
+          },
+          "metacritic": {
+            "value": 87,
+            "scale": 100,
+            "normalized": 87,
+            "count": 83
+          }
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 7.7,
+            "scale": 10,
+            "normalized": 77,
+            "count": 429
+          },
           "backloggd": null
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/super-mario-galaxy-2--1/",
-        "metacritic": "https://www.metacritic.com/game/super-mario-galaxy-2/",
-        "wikipedia": "https://en.wikipedia.org/wiki/Super_Mario_Galaxy_2",
-        "nintendoWiki": "https://nintendo.fandom.com/wiki/Super_Mario_Galaxy_2",
-        "nintendoStore": "https://www.nintendo.com/us/store/products/super-mario-galaxy-2-switch/"
+        "backloggd": "https://backloggd.com/games/super-mario-galaxy-plus-super-mario-galaxy-2/",
+        "opencritic": "https://opencritic.com/game/19299/super-mario-galaxy-super-mario-galaxy-2",
+        "metacritic": "https://www.metacritic.com/game/super-mario-galaxy-plus-super-mario-galaxy-2/",
+        "wikipedia": "https://en.wikipedia.org/wiki/Super_Mario_Galaxy",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Super_Mario_Galaxy_%2B_Super_Mario_Galaxy_2",
+        "nintendoStore": "https://www.nintendo.com/us/store/products/super-mario-galaxy-plus-super-mario-galaxy-2-switch/"
       }
     },
     {
@@ -2417,7 +2355,7 @@
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc7n6.jpg",
       "summary": "A limited-time event available through the Nintendo Switch Online service where you have to complete challenge related to Donkey Kong in the games available on Nintendo Classics and Donkey Kong Bananza.",
       "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar6d9u.jpg",
-      "developer": "Nintendo",
+      "developer": "Nintendo (unknown studio)",
       "genres": [
         "Platform"
       ],
@@ -3077,7 +3015,7 @@
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc7mb.jpg",
       "summary": "Get up and move in 12 motion-control sports! Gently swing your racket, pull back and aim like an archer, and more in 12 sports with intuitive motion controls. Move together in sports like Bowling and Basketball, duke it out in Boxing, and even battle with one thumb in Thumb Wrestling - there are lots of ways to compete and have fun together!",
       "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/sc13r3i.jpg",
-      "developer": null,
+      "developer": "Nintendo (unknown studio)",
       "genres": [
         "Sport"
       ],
@@ -3115,7 +3053,7 @@
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocv5r.jpg",
       "summary": "The evil Ganondorf is scheming to steal the mythical Triforce from the Sacred Realm and take over the world. Now Link must become the hero of time and save the kingdom in this classic tale, built from the ground up for the Nintendo Switch 2 system.",
       "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/sc153eu.jpg",
-      "developer": "Nintendo",
+      "developer": "Nintendo (unknown studio)",
       "genres": [
         "Adventure"
       ],

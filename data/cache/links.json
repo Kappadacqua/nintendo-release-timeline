@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-01T20:24:06.153Z",
+  "fetchedAt": "2026-10-01T20:31:39.201Z",
   "wikipediaBySlug": {
     "pokemon-champions": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Champions",
     "mario-kart-world": "https://en.wikipedia.org/wiki/Mario_Kart_World",
@@ -120,7 +120,8 @@
     "Xenoblade Chronicles 3": "https://nintendo.fandom.com/wiki/Xenoblade_Chronicles_3",
     "Pikmin 4": "https://nintendo.fandom.com/wiki/Pikmin_4",
     "Xenoblade Chronicles": "https://nintendo.fandom.com/wiki/Xenoblade_Chronicles",
-    "Hyrule Warriors: Age of Calamity": "https://nintendo.fandom.com/wiki/Hyrule_Warriors%3A_Age_of_Calamity"
+    "Hyrule Warriors: Age of Calamity": "https://nintendo.fandom.com/wiki/Hyrule_Warriors%3A_Age_of_Calamity",
+    "Super Mario Galaxy + Super Mario Galaxy 2": "https://nintendo.fandom.com/wiki/Super_Mario_Galaxy_%2B_Super_Mario_Galaxy_2"
   },
   "eshopEuBySlug": {
     "nintendo-switch-2-welcome-tour": "2789271",
@@ -166,7 +167,8 @@
     "xenoblade-chronicles-definitive-edition": "xenoblade-chronicles-definitive-edition-switch",
     "xenoblade-chronicles-2": "xenoblade-chronicles-2-switch",
     "xenoblade-chronicles-3": "xenoblade-chronicles-3-switch",
-    "pikmin-4": "pikmin-4-switch"
+    "pikmin-4": "pikmin-4-switch",
+    "super-mario-galaxy-plus-super-mario-galaxy-2": "super-mario-galaxy-plus-super-mario-galaxy-2-switch"
   },
   "opencriticBySlug": {
     "pokemon-champions": "20303",
@@ -200,6 +202,7 @@
     "xenoblade-chronicles-definitive-edition": "9261",
     "xenoblade-chronicles-2": "4952",
     "xenoblade-chronicles-3": "13148",
-    "pikmin-4": "14514"
+    "pikmin-4": "14514",
+    "super-mario-galaxy-plus-super-mario-galaxy-2": "19299"
   }
 }

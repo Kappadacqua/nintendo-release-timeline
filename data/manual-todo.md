@@ -21,10 +21,6 @@ Write the URL after the colon, then copy it into the admin panel (`npm run dev` 
 
 - Nintendo Wiki: 
 
-## Super Mario Galaxy + Super Mario Galaxy 2 (`free-update:super-mario-galaxy-super-mario-galaxy-2`, 2025-10-02)
-
-- Wikipedia: 
-
 ## Riichi Mahjong (`igdb:403729`, 2025-12-25)
 
 - Nintendo Wiki: 

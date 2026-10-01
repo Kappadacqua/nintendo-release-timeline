@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-01T20:24:06.188Z",
+  "generatedAt": "2026-10-01T20:31:59.431Z",
   "studios": [
     {
       "name": "Nintendo EPD Production Group No. 10",
@@ -222,9 +222,9 @@
       "url": "https://nintendo.fandom.com/wiki/Nintendo_Software_Technology",
       "category": "first-party",
       "game": {
-        "id": "igdb:366900",
-        "title": "Super Mario Galaxy 2",
-        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coag5x.jpg",
+        "id": "igdb:366878",
+        "title": "Super Mario Galaxy + Super Mario Galaxy 2",
+        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coavv6.jpg",
         "date": "2025-10-02"
       },
       "hasSwitch2Game": true

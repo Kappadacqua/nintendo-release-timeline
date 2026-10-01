@@ -553,6 +553,18 @@
       "criticCount": 27,
       "user": 5.6,
       "userCount": 10
+    },
+    "igdb:366878": {
+      "slug": "super-mario-galaxy-super-mario-galaxy-2",
+      "url": "https://www.metacritic.com/game/super-mario-galaxy-plus-super-mario-galaxy-2/",
+      "checkedAt": "2026-10-01T20:31:39.658Z",
+      "status": "ok",
+      "name": "Super Mario Galaxy + Super Mario Galaxy 2",
+      "platform": "nintendo-switch",
+      "critic": 87,
+      "criticCount": 83,
+      "user": 7.7,
+      "userCount": 429
     }
   }
 }

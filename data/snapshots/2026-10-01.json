@@ -376,18 +376,7 @@
     "metacriticUser": 0
    }
   },
-  "igdb:366899": {
-   "title": "Super Mario Galaxy",
-   "releaseDates": {
-    "JP": "2025-10-02",
-    "EU": "2025-10-02",
-    "NA": "2025-10-02"
-   },
-   "firstReleaseDate": "2025-10-02",
-   "vague": null,
-   "scores": {}
-  },
-  "free-update:super-mario-galaxy-super-mario-galaxy-2": {
+  "igdb:366878": {
    "title": "Super Mario Galaxy + Super Mario Galaxy 2",
    "releaseDates": {
     "JP": "2025-10-02",
@@ -396,18 +385,11 @@
    },
    "firstReleaseDate": "2025-10-02",
    "vague": null,
-   "scores": {}
-  },
-  "igdb:366900": {
-   "title": "Super Mario Galaxy 2",
-   "releaseDates": {
-    "JP": "2025-10-02",
-    "EU": "2025-10-02",
-    "NA": "2025-10-02"
-   },
-   "firstReleaseDate": "2025-10-02",
-   "vague": null,
-   "scores": {}
+   "scores": {
+    "opencritic": 87,
+    "metacritic": 87,
+    "metacriticUser": 77
+   }
   },
   "igdb:288327": {
    "title": "Pokémon Legends: Z-A",
