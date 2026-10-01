@@ -65,15 +65,19 @@ describe("SeasonState", () => {
     s.set("winter", 1000);
     expect(s.weight("winter", 1000 + delay)).toBe(0);
     expect(s.weight("autumn", 1000)).toBe(1);
-    // Ease-out in, ease-in out: halfway the new one is past half, the old one still above half.
-    expect(s.weight("winter", 1000 + delay + inMs / 2)).toBeGreaterThan(0.5);
-    expect(s.weight("autumn", 1000 + outMs / 2)).toBeGreaterThan(0.5);
+    expect(s.rising("winter", 1000 + delay + 1)).toBe(true);
+    // Ease-in-out in, linear out: a quarter in the new one is still low, halfway both are at half.
+    expect(s.weight("winter", 1000 + delay + inMs / 4)).toBeCloseTo(0.125);
+    expect(s.weight("winter", 1000 + delay + inMs / 2)).toBeCloseTo(0.5);
+    expect(s.weight("autumn", 1000 + outMs / 4)).toBeCloseTo(0.75);
+    expect(s.weight("autumn", 1000 + outMs / 2)).toBeCloseTo(0.5);
     // For a while both are on screen.
     expect(s.weight("winter", 1000 + 1000)).toBeGreaterThan(0);
     expect(s.weight("autumn", 1000 + 1000)).toBeGreaterThan(0);
     expect(s.weight("autumn", 1000 + outMs)).toBe(0);
     expect(s.weight("winter", 1000 + delay + inMs)).toBe(1);
     expect(s.target("winter", 30, 1000 + delay + inMs)).toBe(30);
+    expect(s.rising("winter", 1000 + delay + inMs)).toBe(false);
   });
 
   it("weights only move smoothly, also back and forth across the boundary", () => {

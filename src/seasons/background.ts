@@ -136,7 +136,7 @@ export class SeasonalBackground {
 
   /**
    * Moves every particle. Each season keeps target × its weight alive: the current one's are
-   * reborn at the edge (or, while it rises, appear anywhere, fading in); a sinking season's
+   * reborn at the edge (or, while it rises, anywhere, fading in); a sinking season's
    * finish their path, fading with its weight, and are gone at weight 0.
    */
   private step(dt: number, now: number) {
@@ -159,9 +159,11 @@ export class SeasonalBackground {
     // The current season first: the cap leaves the room to it.
     for (const season of [current, ...SEASON_NAMES.filter((s) => s !== current)]) {
       const target = this.season.target(season, this.max, now);
+      // While a season rises its particles are born anywhere (fading in), not only at the edge.
+      const rising = this.season.rising(season, now);
       let edge = reborn[season];
       while (alive[season] < target && total < cap && (season === current || edge > 0)) {
-        this.particles.push(spawnParticle(season, this.width, this.height, now, edge-- <= 0));
+        this.particles.push(spawnParticle(season, this.width, this.height, now, edge-- <= 0 || rising));
         alive[season]++;
         total++;
       }

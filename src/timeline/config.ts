@@ -95,13 +95,14 @@ export const SEASONS = {
   /** A new particle fades in over this long (it never pops up). */
   fadeInMs: 800,
   /**
-   * Cross-fade at a season change (docs/tasks/seasons-art.md task 2): the new season's weight
-   * rises to 1 after `crossDelayMs`, over `crossInMs`; the others sink to 0 over `crossOutMs`.
-   * A season's particles: target × weight, their opacity × weight.
+   * Cross-fade at a season change (docs/tasks/seasons-art-2.md task 1): the new season's weight
+   * rises to 1 after `crossDelayMs`, over `crossInMs` (ease-in-out); the others sink to 0 over
+   * `crossOutMs` (linear). A season's particles: target × weight, their opacity × weight; while
+   * the new one rises its particles are born anywhere on screen.
    */
-  crossDelayMs: 300,
-  crossInMs: 2000,
-  crossOutMs: 1500,
+  crossDelayMs: 0,
+  crossInMs: 1800,
+  crossOutMs: 1800,
   /** All seasons together never draw more than this × the target number of particles. */
   crossCap: 1.3,
   /** Particles at the smallest and largest window area. */

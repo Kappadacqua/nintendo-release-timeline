@@ -30,13 +30,12 @@ interface Ramp {
   ms: number;
 }
 
-const easeOut = (t: number) => 1 - (1 - t) * (1 - t);
-const easeIn = (t: number) => t * t;
+const easeInOut = (t: number) => (t < 0.5 ? 2 * t * t : 1 - 2 * (1 - t) * (1 - t));
 
 /**
  * The season on screen and the weight (0–1) of every season: at a change the new one rises to 1
- * after `crossDelayMs`, over `crossInMs` (ease-out), the others sink to 0 over `crossOutMs`
- * (ease-in), so the two overlap for a while. A weight always moves on from where it is: a season
+ * after `crossDelayMs`, over `crossInMs` (ease-in-out), the others sink to 0 over `crossOutMs`
+ * (linear), so the two overlap for a while. A weight always moves on from where it is: a season
  * coming back resumes from its current value. The very first season (or `immediate`) starts at once.
  */
 export class SeasonState {
@@ -79,13 +78,19 @@ export class SeasonState {
     if (now <= r.start) return r.from;
     if (now >= r.start + r.ms) return r.to;
     const t = (now - r.start) / r.ms;
-    return r.from + (r.to - r.from) * (r.to > r.from ? easeOut(t) : easeIn(t));
+    return r.from + (r.to - r.from) * (r.to > r.from ? easeInOut(t) : t);
   }
 
   weights(now: number): Record<Season, number> {
     const w = {} as Record<Season, number>;
     for (const name of SEASON_NAMES) w[name] = this.weight(name, now);
     return w;
+  }
+
+  /** True while `season` is still rising to full weight. */
+  rising(season: Season, now: number) {
+    const r = this.ramps.get(season);
+    return !!r && r.to > r.from && now < r.start + r.ms;
   }
 
   /** How many particles of `season` should be alive at `now`, out of `max`. */
