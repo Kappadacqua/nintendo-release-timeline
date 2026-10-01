@@ -35,6 +35,11 @@ interface Shape {
   bubbles?: [number, number, number][];
   /** Small dots filled at the veins' opacity (glints, a starfish's rows). */
   spots?: Path2D;
+  /** A light fill under everything (a fir twig's needles as one mass), at `fillAlpha`. */
+  mass?: Path2D;
+  /** Outline and vein widths (px), if not the band's. */
+  outlinePx?: number;
+  veinPx?: number;
 }
 
 type Point = [number, number];
@@ -481,9 +486,10 @@ function dot(s: number, rand: () => number): Shape {
 
 /**
  * Fir twig `2s` long, tip up: a curved stem and 7–9 pairs of needles curving down, shorter toward
- * the tip (lines only).
+ * the tip, with a light fill over the polygon through the needle tips so it reads as one mass
+ * (docs/tasks/seasons-art-2.md task 3).
  */
-function fir(s: number, rand: () => number): Shape {
+function fir(s: number, rand: () => number, _variant: number, depth: number): Shape {
   const bow = (rand() * 2 - 1) * 0.2 * s;
   /** Point of the stem at `t` (0 base, 1 tip). */
   const stem = (t: number): Point => [bow * 4 * t * (1 - t), s - 2 * s * t];
@@ -492,17 +498,28 @@ function fir(s: number, rand: () => number): Shape {
   outline.quadraticCurveTo(bow * 2, 0, ...stem(1));
   const veins = new Path2D();
   const pairs = 7 + Math.floor(rand() * 3);
+  // Needle tips on each side, base to tip.
+  const tips: Record<number, Point[]> = { [-1]: [], [1]: [] };
   for (let i = 0; i < pairs; i++) {
     const t = 0.1 + (0.85 * i) / pairs;
     const length = s * (0.5 - 0.32 * (i / (pairs - 1))) * (0.9 + 0.2 * rand());
     const [x, y] = stem(t);
     for (const side of [-1, 1]) {
       // Out and up a little, then drooping down at the end.
+      const tip: Point = [x + side * length * 0.9, y + length * 0.15];
       veins.moveTo(x, y);
-      veins.quadraticCurveTo(x + side * length * 0.55, y - length * 0.3, x + side * length * 0.9, y + length * 0.15);
+      veins.quadraticCurveTo(x + side * length * 0.55, y - length * 0.3, ...tip);
+      tips[side].push(tip);
     }
   }
-  return { outline, veins, fill: false, extent: s * 1.05 };
+  const mass = new Path2D();
+  mass.moveTo(...stem(0.05));
+  for (const tip of tips[1]) mass.lineTo(...tip);
+  mass.lineTo(...stem(1));
+  for (const tip of tips[-1].reverse()) mass.lineTo(...tip);
+  mass.closePath();
+  const { needlePx, stemPx, massAlpha } = SEASONS.winter.fir;
+  return { outline, veins, mass, fill: false, fillAlpha: massAlpha, outlinePx: stemPx, veinPx: needlePx[depth], extent: s * 1.05 };
 }
 
 /**
@@ -623,7 +640,7 @@ function starfish(s: number, rand: () => number): Shape {
 }
 
 /** Shape builders; `rand` (seeded per variant) is for the shapes that vary. */
-const SHAPES: Record<Kind, (s: number, rand: () => number, variant: number) => Shape> = {
+const SHAPES: Record<Kind, (s: number, rand: () => number, variant: number, depth: number) => Shape> = {
   maple,
   oak,
   birch,
@@ -658,7 +675,7 @@ function renderSprite(kind: Kind, variant: number, depth: number, color: string,
   const rand = mulberry32(SEASONS.spriteSeed + Object.keys(SHAPES).indexOf(kind) * 97 + variant * 7919);
   const pencilAngle = rand() * Math.PI * 2;
   const pencilPx = style.pencilPx[0] + (style.pencilPx[1] - style.pencilPx[0]) * rand();
-  const shape = SHAPES[kind](kindRadius(kind, depth) * view, rand, variant);
+  const shape = SHAPES[kind](kindRadius(kind, depth) * view, rand, variant, depth);
   const half = Math.ceil(shape.extent + MARGIN);
   const canvas = document.createElement("canvas");
   canvas.width = canvas.height = Math.ceil(half * 2 * dpr);
@@ -674,17 +691,21 @@ function renderSprite(kind: Kind, variant: number, depth: number, color: string,
     g.lineWidth = SEASONS.spring.sprig.branchPx;
     g.stroke(shape.branch);
   }
+  if (shape.mass) {
+    g.globalAlpha = shape.fillAlpha ?? style.fillAlpha;
+    g.fill(shape.mass);
+  }
   if (shape.bubbles) radialFill(g, shape.bubbles, color);
   else if (shape.fill) {
     g.globalAlpha = shape.fillAlpha ?? style.fillAlpha;
     g.fill(shape.outline);
   }
   g.globalAlpha = 1;
-  g.lineWidth = band.linePx;
+  g.lineWidth = shape.outlinePx ?? band.linePx;
   g.stroke(shape.outline);
   if (shape.veins) {
     g.globalAlpha = style.veinAlpha;
-    g.lineWidth = band.linePx * style.veinWidth;
+    g.lineWidth = shape.veinPx ?? band.linePx * style.veinWidth;
     g.stroke(shape.veins);
   }
   if (shape.spots) {
@@ -692,7 +713,7 @@ function renderSprite(kind: Kind, variant: number, depth: number, color: string,
     g.fill(shape.spots);
   }
   g.globalAlpha = style.pencilAlpha;
-  g.lineWidth = band.linePx;
+  g.lineWidth = shape.outlinePx ?? band.linePx;
   g.translate(Math.cos(pencilAngle) * pencilPx, Math.sin(pencilAngle) * pencilPx);
   g.stroke(shape.outline);
   return { canvas, half };

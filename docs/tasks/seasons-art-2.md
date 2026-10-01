@@ -67,7 +67,7 @@ Salvare in `docs/tasks/seasons-art-2.md`. Lancio dal telefono: `Esegui il prossi
 
 ---
 
-- [ ] **Task 3 — Rametto di abete più leggibile**
+- [x] **Task 3 — Rametto di abete più leggibile**
 
 **File**
 - Partire da: `src/seasons/sprites.ts` (rametto), `src/config.ts` (fasce ammesse).

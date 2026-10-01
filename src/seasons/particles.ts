@@ -46,13 +46,18 @@ export const RARE_KINDS: ReadonlySet<Kind> = new Set(["sprig", "fir", "starfish"
 /** Kinds that only live in some depth bands (the others live in all three). */
 export const KIND_BANDS: Partial<Record<Kind, readonly number[]>> = {
   dot: [0],
-  fir: [1],
+  fir: [1, 2],
   blossom: [1, 2],
   sprig: [1],
   bud: [0],
   cluster: [1, 2],
   shell: [1, 2],
   starfish: [1, 2],
+};
+
+/** Kinds kept to some bands with their own split between them (else split by the band shares). */
+const KIND_BAND_SPLIT: Partial<Record<Kind, readonly number[]>> = {
+  fir: SEASONS.winter.fir.bandSplit,
 };
 
 /** Half of the longest side of a bubble cluster, in radii of its biggest bubble (3–5 stacked). */
@@ -77,7 +82,7 @@ export const KIND_SIZE: Record<Kind, number> = {
   oak: 28,
   birch: 28,
   ginkgo: 28,
-  // Winter: diameters 36 and 30 px, a twig 70 px long (middle band only).
+  // Winter: diameters 36 and 30 px, a twig 70 px long (middle band; 105 px in the near one).
   dendrite: 18,
   plate: 15,
   dot: SEASONS.winter.dotRadiusPx[1],
@@ -87,6 +92,7 @@ export const KIND_SIZE: Record<Kind, number> = {
 /** Kinds whose size per band is not the band's size × the middle one: radius (px at 1080p) per band. */
 const KIND_BAND_SIZE: Partial<Record<Kind, readonly number[]>> = {
   starfish: [32, 32, 48],
+  fir: [35, 35, 52.5],
 };
 
 /** Radius or half length (px at 1080p) of a kind in a band; soft dots keep their size in every band. */
@@ -148,19 +154,24 @@ function pick(weights: readonly number[], rand: () => number) {
  * keeps the band shares.
  */
 export function depthWeights(season: Season, kind: Kind): number[] {
-  const allowed = KIND_BANDS[kind];
   const shares = kindShares(season);
   return SEASONS.bands.map((band, depth) => {
-    if (allowed) return allowed.includes(depth) ? band.share : 0;
+    if (KIND_BANDS[kind]) return keptShare(kind, depth);
     let left = band.share;
     for (const [k, share] of Object.entries(shares) as [Kind, number][]) {
-      const only = KIND_BANDS[k];
-      if (!only?.includes(depth)) continue;
-      const room = only.reduce((sum, d) => sum + SEASONS.bands[d].share, 0);
-      left -= (share * band.share) / room;
+      if (KIND_BANDS[k]) left -= share * keptShare(k, depth);
     }
     return Math.max(0, left);
   });
+}
+
+/** Share of a kind kept to some bands that goes to `depth` (`KIND_BAND_SPLIT`, else by the band shares). */
+function keptShare(kind: Kind, depth: number) {
+  const only = KIND_BANDS[kind]!;
+  if (!only.includes(depth)) return 0;
+  const split = KIND_BAND_SPLIT[kind];
+  if (split) return split[depth];
+  return SEASONS.bands[depth].share / only.reduce((sum, d) => sum + SEASONS.bands[d].share, 0);
 }
 
 /** Kind of a new particle of `season`, by its share. */

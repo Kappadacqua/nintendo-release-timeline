@@ -99,7 +99,7 @@ describe("particles", () => {
     }
   });
 
-  it("winter mixes flakes, plates, soft dots (far only) and fir twigs (middle only), keeping the band shares", () => {
+  it("winter mixes flakes, plates, soft dots (far only) and fir twigs (60 % middle, 40 % near), keeping the band shares", () => {
     const rand = seeded(19);
     const winter = Array.from({ length: 6000 }, () => spawnParticle("winter", W, H, 0, true, rand));
     for (const [kind, share] of Object.entries(SEASONS.winter.shares)) {
@@ -111,10 +111,14 @@ describe("particles", () => {
         expect(p.size).toBeLessThanOrEqual(SEASONS.winter.dotRadiusPx[1]);
       }
       if (p.kind === "fir") {
-        expect(p.depth).toBe(1);
+        expect(p.depth).toBeGreaterThanOrEqual(1);
         expect(p.amp).toBeGreaterThanOrEqual(SEASONS.winter.fir.ampPx[0]);
       }
     }
+    const firs = winter.filter((p) => p.kind === "fir");
+    SEASONS.winter.fir.bandSplit.forEach((split, depth) => {
+      expect(firs.filter((p) => p.depth === depth).length / firs.length).toBeCloseTo(split, 1);
+    });
     SEASONS.bands.forEach((band, depth) => {
       expect(winter.filter((p) => p.depth === depth).length / winter.length).toBeCloseTo(band.share, 1);
     });

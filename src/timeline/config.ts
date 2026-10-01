@@ -150,8 +150,10 @@ export const SEASONS = {
   },
   /**
    * Winter (docs/tasks/seasons-art.md task 4): share of each element, speed × the band's, soft
-   * dot radius (px at 1080p), branch length jitter of a dendritic flake (± share), the fir twig's
-   * extra slowness and wider wobble, and the gusts: every `everyS` one band gets a common sideways
+   * dot radius (px at 1080p), branch length jitter of a dendritic flake (± share), the fir twig
+   * (docs/tasks/seasons-art-2.md task 3: extra slowness, wider wobble, split of its twigs between
+   * the middle and near bands, needle width per band and stem width in px, opacity of the light
+   * fill over its needles), and the gusts: every `everyS` one band gets a common sideways
    * push of ± `pxPerS` lasting `durationS` (ease in-out).
    */
   winter: {
@@ -159,7 +161,7 @@ export const SEASONS = {
     speed: 0.9,
     dotRadiusPx: [2.5, 5],
     branchJitter: 0.2,
-    fir: { speed: 0.7, ampPx: [25, 40] },
+    fir: { speed: 0.7, ampPx: [25, 40], bandSplit: [0, 0.6, 0.4], needlePx: [1.4, 1.4, 1.7], stemPx: 1.8, massAlpha: 0.16 },
     gust: { everyS: [6, 12], pxPerS: 20, durationS: 2 },
   },
   /** Canvas (and sprite) pixel density cap. */
