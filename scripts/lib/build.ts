@@ -7,12 +7,12 @@ import { type IgdbGame, PLATFORM } from "./igdb";
 import { baseTitleOfEdition, wikipediaUrl } from "./links";
 import { loadMetacriticCache } from "./metacritic";
 import { loadOpenCriticCache } from "./opencritic";
-import { titleVariants } from "./title-variants";
+import { reducedTitles, titleVariants } from "./title-variants";
 import { applyOverride, isAbsent, loadOverrides, manualToGame, type OverridesFile, score } from "./overrides";
 import type { FetchReport } from "./report";
 import { addHistory, changesOf, readSnapshots } from "./snapshots";
-import { buildStudios, isNintendoPublisher } from "./studios";
-import { igdbExclusive, inDateRange, isExcludedType, isOnSwitch, kindOf, publishers, releaseInfo, toGame } from "./transform";
+import { buildStudios, developerPicker, isNintendoPublisher } from "./studios";
+import { igdbExclusive, inDateRange, isExcludedType, isOnSwitch, kindOf, publishers, releaseInfo, sameTitle, toGame } from "./transform";
 
 /** A game inside the perimeter, before scores, links and overrides. */
 export interface Selected {
@@ -213,6 +213,7 @@ export function buildGames(): BuildResult {
 
   const catalog = new Map((oc.catalog?.games ?? []).map((g) => [g.id, g]));
   const igdbBySlug = new Map([...candidates.values()].map((g) => [g.slug, g]));
+  const pickDeveloper = developerPicker();
   // Labels of the failed lookups in data:fetch (fetchLinks): "Wikipedia (…): …", "Nintendo Wiki: …".
   const lookupFailed = {
     wikipedia: report.linkErrors.some((e) => e.startsWith("Wikipedia")),
@@ -306,6 +307,16 @@ export function buildGames(): BuildResult {
     const baseStore = entry.baseId !== undefined ? storePages(candidates.get(entry.baseId), links, settings) : {};
     const store = regions.map((r) => ownStore[r]).find(Boolean) ?? regions.map((r) => baseStore[r]).find(Boolean);
     if (store) game.links.nintendoStore = store;
+
+    // No IGDB developer for a Switch 2 Edition, or a game scored as its base game: the base game's.
+    if (!game.developer && igdbGame) {
+      const base = candidates.get(igdbGame.parent_game?.id ?? igdbGame.version_parent ?? entry.baseId ?? -1);
+      const scores = [game.scores.critic.opencritic, game.scores.critic.metacritic, game.scores.user.metacritic];
+      const sameGame =
+        game.kind === "switch2-edition" || scores.some((x) => x?.inheritedFrom) || (!!base && reducedTitles(game.title).some((t) => sameTitle(t, base.name)));
+      const developers = (base?.involved_companies ?? []).filter((c) => c.developer).map((c) => c.company?.name ?? "").filter(Boolean);
+      if (sameGame && developers.length) game.developer = pickDeveloper(developers);
+    }
     kept.push(entry);
   }
 

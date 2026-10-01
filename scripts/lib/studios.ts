@@ -42,6 +42,26 @@ export interface StudiosResult {
   unusedOverrides: string[];
 }
 
+/**
+ * Picks, among a game's IGDB developers, the one the Studios page would show: a shown Nintendo
+ * Wiki studio first, else the first name not hidden (e.g. not "Nintendo Entertainment Planning &
+ * Development", the division over the EPD groups), else the first.
+ */
+export function developerPicker() {
+  const cache = readJson<StudiosCache>(PATHS.studiosCache, { fetchedAt: "", source: "", studios: [] });
+  const overrides = loadStudiosOverrides();
+  const shown = new Set<string>();
+  const hidden = new Set<string>();
+  for (const s of cache.studios) {
+    const o = overrides[s.title] ?? {};
+    const set = o.hidden ? hidden : (o.active ?? s.active) ? shown : null;
+    for (const n of [s.title, ...(o.igdbNames ?? [])]) set?.add(normalizeStudio(n));
+  }
+  for (const [name, o] of Object.entries(overrides)) if (o.hidden) for (const n of [name, ...(o.igdbNames ?? [])]) hidden.add(normalizeStudio(n));
+  return (names: string[]) =>
+    names.find((n) => shown.has(normalizeStudio(n))) ?? names.find((n) => !hidden.has(normalizeStudio(n))) ?? names[0] ?? null;
+}
+
 /** What the caller knows from the cached IGDB data. */
 export interface StudioGameInfo {
   /** Playable on Switch 2. */

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-01T20:18:31.625Z",
+  "generatedAt": "2026-10-01T20:21:09.046Z",
   "games": [
     {
       "id": "free-update:arms",
@@ -3153,7 +3153,7 @@
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocv9m.jpg",
       "summary": "Give Oatchi commands using your voice and put your Dandori skills to the test in Pikmin 4 – Nintendo Switch 2 Edition + Dandori Academy.",
       "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/sc154em.jpg",
-      "developer": null,
+      "developer": "Nintendo EPD Production Group No. 10",
       "genres": [
         "Adventure"
       ],
@@ -3269,7 +3269,7 @@
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocw1y.jpg",
       "summary": "Experience the events of the Great Calamity with higher resolution visuals and smoother performance on Nintendo Switch 2!",
       "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/sc154g9.jpg",
-      "developer": null,
+      "developer": "Omega Force",
       "genres": [
         "Strategy",
         "Hack and slash"

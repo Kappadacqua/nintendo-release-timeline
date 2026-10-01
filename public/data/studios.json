@@ -1,6 +1,19 @@
 {
-  "generatedAt": "2026-10-01T20:18:31.625Z",
+  "generatedAt": "2026-10-01T20:21:09.046Z",
   "studios": [
+    {
+      "name": "Nintendo EPD Production Group No. 10",
+      "url": "https://nintendo.fandom.com/wiki/Nintendo_EPD_Production_Group_No._10",
+      "category": "first-party",
+      "game": {
+        "id": "igdb:417169",
+        "title": "Pikmin 4: Nintendo Switch 2 Edition + Dandori Academy",
+        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocv9m.jpg",
+        "date": "2026-11-12",
+        "status": "upcoming"
+      },
+      "hasSwitch2Game": true
+    },
     {
       "name": "Monolith Soft",
       "url": "https://nintendo.fandom.com/wiki/Monolith_Soft",
@@ -23,6 +36,19 @@
         "title": "Metroid Ravenous",
         "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocvge.jpg",
         "date": "2027-01-28",
+        "status": "upcoming"
+      },
+      "hasSwitch2Game": true
+    },
+    {
+      "name": "Omega Force",
+      "url": null,
+      "category": "partner",
+      "game": {
+        "id": "igdb:417167",
+        "title": "Hyrule Warriors: Age of Calamity - Definitive Edition",
+        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocw1y.jpg",
+        "date": "2027-02-25",
         "status": "upcoming"
       },
       "hasSwitch2Game": true
@@ -127,32 +153,6 @@
         "title": "Pokémon Champions",
         "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co9gu3.jpg",
         "date": "2026-04-08",
-        "status": "released"
-      },
-      "hasSwitch2Game": true
-    },
-    {
-      "name": "Nintendo EPD Production Group No. 10",
-      "url": "https://nintendo.fandom.com/wiki/Nintendo_EPD_Production_Group_No._10",
-      "category": "first-party",
-      "game": {
-        "id": "igdb:366881",
-        "title": "Super Mario Bros. Wonder: Nintendo Switch 2 Edition + Meetup in Bellabel Park",
-        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobchm.jpg",
-        "date": "2026-03-26",
-        "status": "released"
-      },
-      "hasSwitch2Game": true
-    },
-    {
-      "name": "Omega Force",
-      "url": null,
-      "category": "partner",
-      "game": {
-        "id": "igdb:366893",
-        "title": "Pokémon Pokopia",
-        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobbur.jpg",
-        "date": "2026-03-05",
         "status": "released"
       },
       "hasSwitch2Game": true
