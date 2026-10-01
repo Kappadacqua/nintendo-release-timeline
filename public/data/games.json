@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-28T16:22:27.317Z",
+  "generatedAt": "2026-10-01T19:37:56.558Z",
   "games": [
     {
       "id": "free-update:arms",
@@ -266,16 +266,27 @@
             "normalized": 87,
             "count": 77
           },
-          "metacritic": null
+          "metacritic": {
+            "value": 86,
+            "scale": 100,
+            "normalized": 86,
+            "count": 137
+          }
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 7,
+            "scale": 10,
+            "normalized": 70,
+            "count": 3787
+          },
           "backloggd": null
         }
       },
       "links": {
         "backloggd": "https://backloggd.com/games/mario-kart-world/",
         "opencritic": "https://opencritic.com/game/18333/mario-kart-world",
+        "metacritic": "https://www.metacritic.com/game/mario-kart-world/",
         "wikipedia": "https://en.wikipedia.org/wiki/Mario_Kart_World",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Mario_Kart_World",
         "nintendoStore": "https://www.nintendo.com/us/store/products/nintendo-switch-2-mario-kart-world-121472/"
@@ -348,16 +359,27 @@
             "normalized": 61,
             "count": 28
           },
-          "metacritic": null
+          "metacritic": {
+            "value": 54,
+            "scale": 100,
+            "normalized": 54,
+            "count": 54
+          }
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 3.9,
+            "scale": 10,
+            "normalized": 39,
+            "count": 346
+          },
           "backloggd": null
         }
       },
       "links": {
         "backloggd": "https://backloggd.com/games/nintendo-switch-2-welcome-tour/",
         "opencritic": "https://opencritic.com/game/18335/nintendo-switch-2-welcome-tour",
+        "metacritic": "https://www.metacritic.com/game/nintendo-switch-2-welcome-tour/",
         "wikipedia": "https://en.wikipedia.org/wiki/Nintendo_Switch_2_Welcome_Tour",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Nintendo_Switch_2_Welcome_Tour",
         "nintendoStore": "https://www.nintendo.it/-/-2789271.html"
@@ -470,16 +492,27 @@
             "normalized": 73,
             "count": 15
           },
-          "metacritic": null
+          "metacritic": {
+            "value": 73,
+            "scale": 100,
+            "normalized": 73,
+            "count": 25
+          }
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 6.1,
+            "scale": 10,
+            "normalized": 61,
+            "count": 10
+          },
           "backloggd": null
         }
       },
       "links": {
         "backloggd": "https://backloggd.com/games/puyo-puyo-tetris-2s/",
         "opencritic": "https://opencritic.com/game/18667/puyo-puyo-tetris-2s",
+        "metacritic": "https://www.metacritic.com/game/puyo-puyo-tetris-2s/",
         "wikipedia": "https://en.wikipedia.org/wiki/Puyo_Puyo_Tetris_2S",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Puyo_Puyo_Tetris_2S",
         "nintendoStore": "https://www.nintendo.com/us/store/products/puyo-puyo-tetris-2s-switch-2/"
@@ -675,16 +708,27 @@
             "normalized": 88,
             "count": 9
           },
-          "metacritic": null
+          "metacritic": {
+            "value": 94,
+            "scale": 100,
+            "normalized": 94,
+            "count": 16
+          }
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 8.8,
+            "scale": 10,
+            "normalized": 88,
+            "count": 1278
+          },
           "backloggd": null
         }
       },
       "links": {
         "backloggd": "https://backloggd.com/games/the-legend-of-zelda-breath-of-the-wild-nintendo-switch-2-edition/",
         "opencritic": "https://opencritic.com/game/19281/the-legend-of-zelda-breath-of-the-wild-nintendo-switch-2-edition",
+        "metacritic": "https://www.metacritic.com/game/the-legend-of-zelda-breath-of-the-wild-nintendo/",
         "wikipedia": "https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Breath_of_the_Wild",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/The_Legend_of_Zelda%3A_Breath_of_the_Wild",
         "nintendoStore": "https://www.nintendo.it/-/-2787250.html"
@@ -798,16 +842,27 @@
             "normalized": 94,
             "count": 7
           },
-          "metacritic": null
+          "metacritic": {
+            "value": 95,
+            "scale": 100,
+            "normalized": 95,
+            "count": 18
+          }
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 8.6,
+            "scale": 10,
+            "normalized": 86,
+            "count": 1414
+          },
           "backloggd": null
         }
       },
       "links": {
         "backloggd": "https://backloggd.com/games/the-legend-of-zelda-tears-of-the-kingdom-nintendo-switch-2-edition/",
         "opencritic": "https://opencritic.com/game/19282/the-legend-of-zelda-tears-of-the-kingdom-nintendo-switch-2-edition",
+        "metacritic": "https://www.metacritic.com/game/the-legend-of-zelda-tears-of-the-kingdom-nintendo/",
         "wikipedia": "https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Tears_of_the_Kingdom",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/The_Legend_of_Zelda%3A_Tears_of_the_Kingdom",
         "nintendoStore": "https://www.nintendo.it/-/-2787249.html"
@@ -882,16 +937,27 @@
             "normalized": 91,
             "count": 85
           },
-          "metacritic": null
+          "metacritic": {
+            "value": 91,
+            "scale": 100,
+            "normalized": 91,
+            "count": 147
+          }
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 8.9,
+            "scale": 10,
+            "normalized": 89,
+            "count": 3268
+          },
           "backloggd": null
         }
       },
       "links": {
         "backloggd": "https://backloggd.com/games/donkey-kong-bananza/",
         "opencritic": "https://opencritic.com/game/18340/donkey-kong-bananza",
+        "metacritic": "https://www.metacritic.com/game/donkey-kong-bananza/",
         "wikipedia": "https://en.wikipedia.org/wiki/Donkey_Kong_Bananza",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Donkey_Kong_Bananza",
         "nintendoStore": "https://www.nintendo.com/us/store/products/nintendo-switch-2-donkey-kong-bananza-121485/"
@@ -927,16 +993,27 @@
             "normalized": 62,
             "count": 8
           },
-          "metacritic": null
+          "metacritic": {
+            "value": 62,
+            "scale": 100,
+            "normalized": 62,
+            "count": 12
+          }
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 4,
+            "scale": 10,
+            "normalized": 40,
+            "count": 24
+          },
           "backloggd": null
         }
       },
       "links": {
         "backloggd": "https://backloggd.com/games/pokemon-friends/",
         "opencritic": "https://opencritic.com/game/18962/pokemon-friends",
+        "metacritic": "https://www.metacritic.com/game/pokemon-friends/",
         "wikipedia": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Friends",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Pok%C3%A9mon_Friends",
         "nintendoStore": "https://www.nintendo.com/us/store/products/pokemon-friends-switch/"
@@ -972,16 +1049,27 @@
             "normalized": 78,
             "count": 31
           },
-          "metacritic": null
+          "metacritic": {
+            "value": 76,
+            "scale": 100,
+            "normalized": 76,
+            "count": 67
+          }
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 6.3,
+            "scale": 10,
+            "normalized": 63,
+            "count": 117
+          },
           "backloggd": null
         }
       },
       "links": {
         "backloggd": "https://backloggd.com/games/super-mario-party-jamboree-nintendo-switch-2-edition-plus-jamboree-tv/",
         "opencritic": "https://opencritic.com/game/18963/super-mario-party-jamboree-nintendo-switch-2-edition-jamboree-tv",
+        "metacritic": "https://www.metacritic.com/game/super-mario-party-jamboree-nintendo-switch-2/",
         "wikipedia": "https://en.wikipedia.org/wiki/Super_Mario_Party_Jamboree_%E2%80%93_Nintendo_Switch_2_Edition_%2B_Jamboree_TV",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Super_Mario_Party_Jamboree",
         "nintendoStore": "https://www.nintendo.it/-/-2785806.html"
@@ -1014,12 +1102,18 @@
           "metacritic": null
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 5.4,
+            "scale": 10,
+            "normalized": 54,
+            "count": 5
+          },
           "backloggd": null
         }
       },
       "links": {
         "backloggd": "https://backloggd.com/games/chillin-by-the-fire/",
+        "metacritic": "https://www.metacritic.com/game/chillin-by-the-fire/",
         "wikipedia": "https://en.wikipedia.org/wiki/Chillin'_by_the_Fire",
         "nintendoStore": "https://www.nintendo.com/us/store/products/chillin-by-the-fire-switch-2/"
       }
@@ -1053,16 +1147,27 @@
             "normalized": 63,
             "count": 37
           },
-          "metacritic": null
+          "metacritic": {
+            "value": 60,
+            "scale": 100,
+            "normalized": 60,
+            "count": 80
+          }
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 5,
+            "scale": 10,
+            "normalized": 50,
+            "count": 113
+          },
           "backloggd": null
         }
       },
       "links": {
         "backloggd": "https://backloggd.com/games/drag-x-drive/",
         "opencritic": "https://opencritic.com/game/18802/drag-x-drive",
+        "metacritic": "https://www.metacritic.com/game/drag-x-drive/",
         "wikipedia": "https://en.wikipedia.org/wiki/Drag_x_Drive",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Drag_x_Drive",
         "nintendoStore": "https://www.nintendo.com/us/store/products/drag-x-drive-switch-2/"
@@ -1098,16 +1203,27 @@
             "normalized": 84,
             "count": 35
           },
-          "metacritic": null
+          "metacritic": {
+            "value": 83,
+            "scale": 100,
+            "normalized": 83,
+            "count": 84
+          }
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 8.5,
+            "scale": 10,
+            "normalized": 85,
+            "count": 202
+          },
           "backloggd": null
         }
       },
       "links": {
         "backloggd": "https://backloggd.com/games/kirby-and-the-forgotten-land-nintendo-switch-2-edition-plus-star-crossed-world/",
         "opencritic": "https://opencritic.com/game/19162/kirby-and-the-forgotten-land-nintendo-switch-2-edition-star-crossed-world",
+        "metacritic": "https://www.metacritic.com/game/kirby-and-the-forgotten-land-nintendo-switch-2/",
         "wikipedia": "https://en.wikipedia.org/wiki/Kirby_and_the_Forgotten_Land_%E2%80%93_Nintendo_Switch_2_Edition_%2B_Star-Crossed_World",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Kirby_and_the_Forgotten_Land",
         "nintendoStore": "https://www.nintendo.it/-/-2787773.html"
@@ -1144,16 +1260,27 @@
             "normalized": 73,
             "count": 11
           },
-          "metacritic": null
+          "metacritic": {
+            "value": 67,
+            "scale": 100,
+            "normalized": 67,
+            "count": 22
+          }
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 5.2,
+            "scale": 10,
+            "normalized": 52,
+            "count": 133
+          },
           "backloggd": null
         }
       },
       "links": {
         "backloggd": "https://backloggd.com/games/donkey-kong-bananza-dk-island-and-emerald-rush/",
         "opencritic": "https://opencritic.com/game/19306/donkey-kong-bananza-dk-island-emerald-rush",
+        "metacritic": "https://www.metacritic.com/game/donkey-kong-bananza-dk-island-and-emerald-rush/",
         "wikipedia": "https://en.wikipedia.org/wiki/Donkey_Kong_Bananza",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Donkey_Kong_Bananza%3A_DK_Island_%26_Emerald_Rush",
         "nintendoStore": "https://www.nintendo.com/us/store/products/donkey-kong-bananza-dk-island-and-emerald-rush-70050000062442-switch-2/"
@@ -1187,12 +1314,18 @@
           "metacritic": null
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 0,
+            "scale": 10,
+            "normalized": 0,
+            "count": null
+          },
           "backloggd": null
         }
       },
       "links": {
         "backloggd": "https://backloggd.com/games/the-touryst-deluxe/",
+        "metacritic": "https://www.metacritic.com/game/the-touryst-deluxe/",
         "wikipedia": "https://en.wikipedia.org/wiki/The_Touryst%3A_Deluxe",
         "nintendoStore": "https://www.nintendo.com/us/store/products/the-touryst-deluxe-switch-2/"
       }
@@ -1231,6 +1364,7 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/super-mario-galaxy--3/",
+        "metacritic": "https://www.metacritic.com/game/super-mario-galaxy/",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Super_Mario_Galaxy",
         "nintendoStore": "https://www.nintendo.com/us/store/products/super-mario-galaxy-switch/"
       }
@@ -1307,6 +1441,7 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/super-mario-galaxy-2--1/",
+        "metacritic": "https://www.metacritic.com/game/super-mario-galaxy-2/",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Super_Mario_Galaxy_2",
         "nintendoStore": "https://www.nintendo.com/us/store/products/super-mario-galaxy-2-switch/"
       }
@@ -1341,16 +1476,27 @@
             "normalized": 79,
             "count": 58
           },
-          "metacritic": null
+          "metacritic": {
+            "value": 78,
+            "scale": 100,
+            "normalized": 78,
+            "count": 112
+          }
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 4.8,
+            "scale": 10,
+            "normalized": 48,
+            "count": 4188
+          },
           "backloggd": null
         }
       },
       "links": {
         "backloggd": "https://backloggd.com/games/pokemon-legends-z-a/",
         "opencritic": "https://opencritic.com/game/18645/pokemon-legends-z-a",
+        "metacritic": "https://www.metacritic.com/game/pokemon-legends-z-a/",
         "wikipedia": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Legends:_Z-A",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Pok%C3%A9mon_Legends%3A_Z-A",
         "nintendoStore": "https://www.nintendo.it/-/-2533423.html"
@@ -1386,16 +1532,27 @@
             "normalized": 79,
             "count": 56
           },
-          "metacritic": null
+          "metacritic": {
+            "value": 79,
+            "scale": 100,
+            "normalized": 79,
+            "count": 110
+          }
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 8.4,
+            "scale": 10,
+            "normalized": 84,
+            "count": 367
+          },
           "backloggd": null
         }
       },
       "links": {
         "backloggd": "https://backloggd.com/games/hyrule-warriors-age-of-imprisonment/",
         "opencritic": "https://opencritic.com/game/19291/hyrule-warriors-age-of-imprisonment",
+        "metacritic": "https://www.metacritic.com/game/hyrule-warriors-age-of-imprisonment/",
         "wikipedia": "https://en.wikipedia.org/wiki/Hyrule_Warriors:_Age_of_Imprisonment",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Hyrule_Warriors%3A_Age_of_Imprisonment",
         "nintendoStore": "https://www.nintendo.com/us/store/products/hyrule-warriors-age-of-imprisonment-switch-2/"
@@ -1431,16 +1588,27 @@
             "normalized": 82,
             "count": 58
           },
-          "metacritic": null
+          "metacritic": {
+            "value": 79,
+            "scale": 100,
+            "normalized": 79,
+            "count": 116
+          }
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 8.6,
+            "scale": 10,
+            "normalized": 86,
+            "count": 624
+          },
           "backloggd": null
         }
       },
       "links": {
         "backloggd": "https://backloggd.com/games/kirby-air-riders/",
         "opencritic": "https://opencritic.com/game/19310/kirby-air-riders",
+        "metacritic": "https://www.metacritic.com/game/kirby-air-riders/",
         "wikipedia": "https://en.wikipedia.org/wiki/Kirby_Air_Riders",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Kirby_Air_Riders",
         "nintendoStore": "https://www.nintendo.com/us/store/products/kirby-air-riders-switch-2/?srsltid=AfmBOooYMKavfdrrMQFt4gSaD2KZDbijYU4u_gTFTs1_aHv8Qdp-wteg"
@@ -1476,16 +1644,27 @@
             "normalized": 80,
             "count": 68
           },
-          "metacritic": null
+          "metacritic": {
+            "value": 78,
+            "scale": 100,
+            "normalized": 78,
+            "count": 133
+          }
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 7.8,
+            "scale": 10,
+            "normalized": 78,
+            "count": 2617
+          },
           "backloggd": null
         }
       },
       "links": {
         "backloggd": "https://backloggd.com/games/metroid-prime-4-beyond/",
         "opencritic": "https://opencritic.com/game/16868/metroid-prime-4-beyond",
+        "metacritic": "https://www.metacritic.com/game/metroid-prime-4-beyond/",
         "wikipedia": "https://en.wikipedia.org/wiki/Metroid_Prime_4:_Beyond",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Metroid_Prime_4%3A_Beyond",
         "nintendoStore": "https://www.nintendo.com/us/store/products/metroid-prime-4-beyond-switch/"
@@ -1519,16 +1698,27 @@
             "normalized": 67,
             "count": 6
           },
-          "metacritic": null
+          "metacritic": {
+            "value": 65,
+            "scale": 100,
+            "normalized": 65,
+            "count": 25
+          }
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 2.7,
+            "scale": 10,
+            "normalized": 27,
+            "count": 233
+          },
           "backloggd": null
         }
       },
       "links": {
         "backloggd": "https://backloggd.com/games/pokemon-legends-z-a-mega-dimension/",
         "opencritic": "https://opencritic.com/game/19873/pok-mon-legends-z-a-mega-dimension",
+        "metacritic": "https://www.metacritic.com/game/pokemon-legends-z-a-mega-dimension/",
         "wikipedia": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Legends:_Z-A",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Pok%C3%A9mon_Legends%3A_Z-A",
         "nintendoStore": "https://www.nintendo.com/us/store/products/pokemon-legends-z-a-mega-dimension-dlc-70070000030771-switch/"
@@ -1567,6 +1757,7 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/riichi-mahjong/",
+        "metacritic": "https://www.metacritic.com/game/riichi-mahjong/",
         "wikipedia": "https://en.wikipedia.org/wiki/SIMPLE_Series_for_Nintendo_Switch_2_Vol.1_THE_Mahjong",
         "nintendoStore": "https://www.nintendo.com/us/store/products/riichi-mahjong-switch-2/"
       }
@@ -1681,12 +1872,18 @@
           "metacritic": null
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 5,
+            "scale": 10,
+            "normalized": 50,
+            "count": null
+          },
           "backloggd": null
         }
       },
       "links": {
         "backloggd": "https://backloggd.com/games/pool-room-billiard/",
+        "metacritic": "https://www.metacritic.com/game/pool-room-billiard/",
         "wikipedia": "https://en.wikipedia.org/wiki/Pool_Room_Billiard",
         "nintendoStore": "https://www.nintendo.com/us/store/products/pool-room-billiard-switch-2/"
       }
@@ -1721,16 +1918,27 @@
             "normalized": 52,
             "count": 7
           },
-          "metacritic": null
+          "metacritic": {
+            "value": 43,
+            "scale": 100,
+            "normalized": 43,
+            "count": 11
+          }
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 5.6,
+            "scale": 10,
+            "normalized": 56,
+            "count": 27
+          },
           "backloggd": null
         }
       },
       "links": {
         "backloggd": "https://backloggd.com/games/tokyo-scramble/",
         "opencritic": "https://opencritic.com/game/20062/tokyo-scramble",
+        "metacritic": "https://www.metacritic.com/game/tokyo-scramble/",
         "wikipedia": "https://en.wikipedia.org/wiki/Tokyo_Scramble",
         "nintendoStore": "https://www.nintendo.com/us/store/products/tokyo-scramble-switch-2/"
       }
@@ -1764,16 +1972,27 @@
             "normalized": 77,
             "count": 54
           },
-          "metacritic": null
+          "metacritic": {
+            "value": 76,
+            "scale": 100,
+            "normalized": 76,
+            "count": 118
+          }
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 7.5,
+            "scale": 10,
+            "normalized": 75,
+            "count": 288
+          },
           "backloggd": null
         }
       },
       "links": {
         "backloggd": "https://backloggd.com/games/mario-tennis-fever/",
         "opencritic": "https://opencritic.com/game/19292/mario-tennis-fever",
+        "metacritic": "https://www.metacritic.com/game/mario-tennis-fever/",
         "wikipedia": "https://en.wikipedia.org/wiki/Mario_Tennis_Fever",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Mario_Tennis_Fever",
         "nintendoStore": "https://www.nintendo.it/-/-2915160.html"
@@ -1809,16 +2028,27 @@
             "normalized": 89,
             "count": 53
           },
-          "metacritic": null
+          "metacritic": {
+            "value": 89,
+            "scale": 100,
+            "normalized": 89,
+            "count": 121
+          }
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 8.6,
+            "scale": 10,
+            "normalized": 86,
+            "count": 1823
+          },
           "backloggd": null
         }
       },
       "links": {
         "backloggd": "https://backloggd.com/games/pokemon-pokopia/",
         "opencritic": "https://opencritic.com/game/19667/pok-mon-pokopia",
+        "metacritic": "https://www.metacritic.com/game/pokemon-pokopia/",
         "wikipedia": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Pokopia",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Pok%C3%A9mon_Pokopia",
         "nintendoStore": "https://www.nintendo.it/-/-2915161.html"
@@ -1853,16 +2083,27 @@
             "normalized": 86,
             "count": 33
           },
-          "metacritic": null
+          "metacritic": {
+            "value": 85,
+            "scale": 100,
+            "normalized": 85,
+            "count": 75
+          }
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 7.7,
+            "scale": 10,
+            "normalized": 77,
+            "count": 174
+          },
           "backloggd": null
         }
       },
       "links": {
         "backloggd": "https://backloggd.com/games/super-mario-bros-wonder-nintendo-switch-2-edition-plus-meetup-in-bellabel-park/",
         "opencritic": "https://opencritic.com/game/20256/super-mario-bros-wonder-nintendo-switch-2-edition-meetup-in-bellabel-park",
+        "metacritic": "https://www.metacritic.com/game/super-mario-bros-wonder-nintendo-switch-2-edition/",
         "wikipedia": "https://en.wikipedia.org/wiki/Super_Mario_Bros._Wonder_%E2%80%93_Nintendo_Switch_2_Edition_%2B_Meetup_in_Bellabel_Park",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Super_Mario_Bros._Wonder",
         "nintendoStore": "https://www.nintendo.com/us/store/products/super-mario-bros-wonder-nintendo-switch-2-edition-plus-meetup-in-bellabel-park-upgrade-pack-switch-2/"
@@ -1898,16 +2139,27 @@
             "normalized": 65,
             "count": 11
           },
-          "metacritic": null
+          "metacritic": {
+            "value": 67,
+            "scale": 100,
+            "normalized": 67,
+            "count": 33
+          }
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 5.1,
+            "scale": 10,
+            "normalized": 51,
+            "count": 261
+          },
           "backloggd": null
         }
       },
       "links": {
         "backloggd": "https://backloggd.com/games/pokemon-champions/",
         "opencritic": "https://opencritic.com/game/20303/pokemon-champions",
+        "metacritic": "https://www.metacritic.com/game/pokemon-champions/",
         "wikipedia": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Champions",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Pok%C3%A9mon_Champions",
         "nintendoStore": "https://www.nintendo.com/us/store/products/pokemon-champions-switch/"
@@ -1942,16 +2194,27 @@
             "normalized": 79,
             "count": 51
           },
-          "metacritic": null
+          "metacritic": {
+            "value": 77,
+            "scale": 100,
+            "normalized": 77,
+            "count": 104
+          }
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 8.1,
+            "scale": 10,
+            "normalized": 81,
+            "count": 474
+          },
           "backloggd": null
         }
       },
       "links": {
         "backloggd": "https://backloggd.com/games/tomodachi-life-living-the-dream/",
         "opencritic": "https://opencritic.com/game/20304/tomodachi-life-living-the-dream",
+        "metacritic": "https://www.metacritic.com/game/tomodachi-life-living-the-dream/",
         "wikipedia": "https://en.wikipedia.org/wiki/Tomodachi_Life:_Living_the_Dream",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Tomodachi_Life%3A_Living_the_Dream",
         "nintendoStore": "https://www.nintendo.com/us/store/products/tomodachi-life-living-the-dream-switch/"
@@ -1984,12 +2247,18 @@
           "metacritic": null
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 9,
+            "scale": 10,
+            "normalized": 90,
+            "count": null
+          },
           "backloggd": null
         }
       },
       "links": {
         "backloggd": "https://backloggd.com/games/card-and-casino/",
+        "metacritic": "https://www.metacritic.com/game/cardcasino/",
         "wikipedia": "https://en.wikipedia.org/wiki/Card_%26_Casino",
         "nintendoStore": "https://www.nintendo.com/us/store/products/card-and-casino-switch-2/"
       }
@@ -2024,16 +2293,27 @@
             "normalized": 80,
             "count": 56
           },
-          "metacritic": null
+          "metacritic": {
+            "value": 80,
+            "scale": 100,
+            "normalized": 80,
+            "count": 125
+          }
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 8,
+            "scale": 10,
+            "normalized": 80,
+            "count": 293
+          },
           "backloggd": null
         }
       },
       "links": {
         "backloggd": "https://backloggd.com/games/yoshi-and-the-mysterious-book/",
         "opencritic": "https://opencritic.com/game/20221/yoshi-and-the-mysterious-book",
+        "metacritic": "https://www.metacritic.com/game/yoshi-and-the-mysterious-book/",
         "wikipedia": "https://en.wikipedia.org/wiki/Yoshi_and_the_Mysterious_Book",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Yoshi_and_the_Mysterious_Book",
         "nintendoStore": "https://www.nintendo.com/us/store/products/yoshi-and-the-mysterious-book-switch-2/"
@@ -2068,16 +2348,27 @@
             "normalized": 76,
             "count": 13
           },
-          "metacritic": null
+          "metacritic": {
+            "value": 76,
+            "scale": 100,
+            "normalized": 76,
+            "count": 30
+          }
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 8.3,
+            "scale": 10,
+            "normalized": 83,
+            "count": 72
+          },
           "backloggd": null
         }
       },
       "links": {
         "backloggd": "https://backloggd.com/games/efootball-kick-off/",
         "opencritic": "https://opencritic.com/game/20767/efootball-kick-off-",
+        "metacritic": "https://www.metacritic.com/game/efootball-kick-off/",
         "wikipedia": "https://en.wikipedia.org/wiki/EFootball_Kick-Off!",
         "nintendoStore": "https://www.nintendo.com/us/store/products/efootball-kick-off-switch-2/"
       }
@@ -2145,12 +2436,18 @@
           "metacritic": null
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 5.8,
+            "scale": 10,
+            "normalized": 58,
+            "count": 4
+          },
           "backloggd": null
         }
       },
       "links": {
-        "backloggd": "https://backloggd.com/games/dk-challenge/"
+        "backloggd": "https://backloggd.com/games/dk-challenge/",
+        "metacritic": "https://www.metacritic.com/game/dk-challenge/"
       }
     },
     {
@@ -2221,16 +2518,27 @@
             "normalized": 82,
             "count": 67
           },
-          "metacritic": null
+          "metacritic": {
+            "value": 81,
+            "scale": 100,
+            "normalized": 81,
+            "count": 132
+          }
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 8.2,
+            "scale": 10,
+            "normalized": 82,
+            "count": 494
+          },
           "backloggd": null
         }
       },
       "links": {
         "backloggd": "https://backloggd.com/games/star-fox--5/",
         "opencritic": "https://opencritic.com/game/20560/star-fox",
+        "metacritic": "https://www.metacritic.com/game/star-fox/",
         "wikipedia": "https://en.wikipedia.org/wiki/Star_Fox_(2026_video_game)",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Star_Fox",
         "nintendoStore": "https://www.nintendo.com/us/store/products/star-fox-switch-2/"
@@ -2265,16 +2573,27 @@
             "normalized": 84,
             "count": 57
           },
-          "metacritic": null
+          "metacritic": {
+            "value": 82,
+            "scale": 100,
+            "normalized": 82,
+            "count": 104
+          }
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 8.6,
+            "scale": 10,
+            "normalized": 86,
+            "count": 148
+          },
           "backloggd": null
         }
       },
       "links": {
         "backloggd": "https://backloggd.com/games/rhythm-heaven-groove/",
         "opencritic": "https://opencritic.com/game/20399/rhythm-heaven-groove",
+        "metacritic": "https://www.metacritic.com/game/rhythm-heaven-groove/",
         "wikipedia": "https://en.wikipedia.org/wiki/Rhythm_Heaven_Groove",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Rhythm_Heaven_Groove",
         "nintendoStore": "https://www.nintendo.com/us/store/products/rhythm-heaven-groove-switch/"
@@ -2349,16 +2668,27 @@
             "normalized": 81,
             "count": 70
           },
-          "metacritic": null
+          "metacritic": {
+            "value": 82,
+            "scale": 100,
+            "normalized": 82,
+            "count": 123
+          }
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 9.3,
+            "scale": 10,
+            "normalized": 93,
+            "count": 1994
+          },
           "backloggd": null
         }
       },
       "links": {
         "backloggd": "https://backloggd.com/games/splatoon-raiders/",
         "opencritic": "https://opencritic.com/game/20454/splatoon-raiders",
+        "metacritic": "https://www.metacritic.com/game/splatoon-raiders/",
         "wikipedia": "https://en.wikipedia.org/wiki/Splatoon_Raiders",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Splatoon_Raiders",
         "nintendoStore": "https://www.nintendo.it/-/-2846969.html"
@@ -2389,15 +2719,26 @@
       "scores": {
         "critic": {
           "opencritic": null,
-          "metacritic": null
+          "metacritic": {
+            "value": 86,
+            "scale": 100,
+            "normalized": 86,
+            "count": 19
+          }
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 8.9,
+            "scale": 10,
+            "normalized": 89,
+            "count": 112
+          },
           "backloggd": null
         }
       },
       "links": {
         "backloggd": "https://backloggd.com/games/xenoblade-chronicles-2-nintendo-switch-2-edition/",
+        "metacritic": "https://www.metacritic.com/game/xenoblade-chronicles-2-nintendo-switch-2-edition/",
         "wikipedia": "https://en.wikipedia.org/wiki/Xenoblade_Chronicles_2",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Xenoblade_Chronicles_2",
         "nintendoStore": "https://www.nintendo.com/us/store/products/xenoblade-chronicles-2-nintendo-switch-2-edition-switch-2/"
@@ -2431,16 +2772,27 @@
             "normalized": 88,
             "count": 17
           },
-          "metacritic": null
+          "metacritic": {
+            "value": 88,
+            "scale": 100,
+            "normalized": 88,
+            "count": 26
+          }
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 9.1,
+            "scale": 10,
+            "normalized": 91,
+            "count": 46
+          },
           "backloggd": null
         }
       },
       "links": {
         "backloggd": "https://backloggd.com/games/pokemon-pokopia-bubbly-basin/",
         "opencritic": "https://opencritic.com/game/21143/pok-mon-pokopia-expansion-pass-part-1-bubbly-basin",
+        "metacritic": "https://www.metacritic.com/game/pokemon-pokopia-bubbly-basin/",
         "wikipedia": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Pokopia",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Pok%C3%A9mon_Pokopia",
         "nintendoStore": "https://www.nintendo.com/us/store/products/part-1-bubbly-basin-70050000074547-switch-2/"
@@ -2554,16 +2906,27 @@
             "normalized": 82,
             "count": 46
           },
-          "metacritic": null
+          "metacritic": {
+            "value": 81,
+            "scale": 100,
+            "normalized": 81,
+            "count": 88
+          }
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 8.4,
+            "scale": 10,
+            "normalized": 84,
+            "count": 140
+          },
           "backloggd": null
         }
       },
       "links": {
         "backloggd": "https://backloggd.com/games/orbitals--1/",
         "opencritic": "https://opencritic.com/game/21141/orbitals",
+        "metacritic": "https://www.metacritic.com/game/orbitals/",
         "wikipedia": "https://en.wikipedia.org/wiki/Orbitals_(video_game)",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Orbitals",
         "nintendoStore": "https://www.nintendo.com/us/store/products/orbitals-switch-2/"
@@ -2599,16 +2962,27 @@
             "normalized": 89,
             "count": 36
           },
-          "metacritic": null
+          "metacritic": {
+            "value": 89,
+            "scale": 100,
+            "normalized": 89,
+            "count": 84
+          }
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 8.8,
+            "scale": 10,
+            "normalized": 88,
+            "count": 732
+          },
           "backloggd": null
         }
       },
       "links": {
         "backloggd": "https://backloggd.com/games/fire-emblem-fortunes-weave/",
         "opencritic": "https://opencritic.com/game/20819/fire-emblem-fortunes-weave",
+        "metacritic": "https://www.metacritic.com/game/fire-emblem-fortunes-weave/",
         "wikipedia": "https://en.wikipedia.org/wiki/Fire_Emblem:_Fortune%27s_Weave",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Fire_Emblem%3A_Fortune's_Weave",
         "nintendoStore": "https://www.nintendo.com/us/store/products/fire-emblem-fortunes-weave-switch-2/"

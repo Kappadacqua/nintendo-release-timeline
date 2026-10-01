@@ -1,4 +1,12 @@
 {
-  "generatedAt": "2026-09-28T16:22:27.317Z",
-  "changes": []
+  "generatedAt": "2026-10-01T19:37:56.558Z",
+  "changes": [
+    {
+      "date": "2026-10-01",
+      "id": "igdb:405447",
+      "type": "reviews-in",
+      "source": "metacritic",
+      "normalized": 86
+    }
+  ]
 }
