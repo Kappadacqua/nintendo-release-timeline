@@ -14,6 +14,7 @@ import { nintendoWikiByTitle, type WikidataLinks, wikidataBySlug, wikipediaByTit
 import { OpenCritic } from "./lib/opencritic";
 import { isAbsent, loadOverrides, type OverridesFile } from "./lib/overrides";
 import { snapshotOf, writeSnapshot } from "./lib/snapshots";
+import { titleVariants } from "./lib/title-variants";
 import { sameTitle } from "./lib/transform";
 import { cleanWikiTitle, fetchSwitch2OnlyGames } from "./lib/wikipedia";
 
@@ -291,7 +292,10 @@ async function fetchLinks(selected: Selected[], candidates: Map<number, IgdbGame
   await refresh("wikipediaBySlug", slugs, () => fromWikidata("wikipedia"), "Wikipedia (Wikidata)");
   await refresh("eshopEuBySlug", slugs, () => fromWikidata("eshopEu"), "eShop Europe (Wikidata)");
   await refresh("eshopUsBySlug", slugs, () => fromWikidata("eshopUs"), "eShop US (Wikidata)");
-  await refresh("wikipediaByTitle", baseTitles, () => wikipediaByTitle(baseTitles, userAgent), "Wikipedia (titles)");
+  // No article through Wikidata: the title, then the base game's shorter titles (SPEC §4); base games too.
+  const unlinked = selected.filter((s) => !(s.slug && links.wikipediaBySlug[s.slug]));
+  const byTitle = [...new Set([...baseTitles, ...unlinked.flatMap((s) => titleVariants(s.game.title))])];
+  await refresh("wikipediaByTitle", byTitle, () => wikipediaByTitle(byTitle, userAgent), "Wikipedia (titles)");
   await refresh("nintendoWikiByTitle", titles, () => nintendoWikiByTitle(titles, userAgent), "Nintendo Wiki");
   await refresh("opencriticBySlug", slugs, () => fromWikidata("opencritic"), "OpenCritic ids (Wikidata)");
   links.fetchedAt = new Date().toISOString();

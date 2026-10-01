@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-01T19:57:42.520Z",
+  "fetchedAt": "2026-10-01T20:03:41.874Z",
   "wikipediaBySlug": {
     "pokemon-champions": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Champions",
     "mario-kart-world": "https://en.wikipedia.org/wiki/Mario_Kart_World",
@@ -53,7 +53,28 @@
     "Xenoblade Chronicles: Definitive Edition": "https://en.wikipedia.org/wiki/Xenoblade_Chronicles_(video_game)",
     "Xenoblade Chronicles 2": "https://en.wikipedia.org/wiki/Xenoblade_Chronicles_2",
     "Xenoblade Chronicles 3": "https://en.wikipedia.org/wiki/Xenoblade_Chronicles_3",
-    "Pikmin 4": "https://en.wikipedia.org/wiki/Pikmin_4"
+    "Pikmin 4": "https://en.wikipedia.org/wiki/Pikmin_4",
+    "Super Mario Party Jamboree: Nintendo Switch 2 Edition + Jamboree TV": "https://en.wikipedia.org/wiki/Super_Mario_Party_Jamboree",
+    "The Legend of Zelda: Breath of the Wild - Nintendo Switch 2 Edition": "https://en.wikipedia.org/wiki/The_Legend_of_Zelda%3A_Breath_of_the_Wild",
+    "The Legend of Zelda: Tears of the Kingdom - Nintendo Switch 2 Edition": "https://en.wikipedia.org/wiki/The_Legend_of_Zelda%3A_Tears_of_the_Kingdom",
+    "Super Mario Bros. Wonder: Nintendo Switch 2 Edition + Meetup in Bellabel Park": "https://en.wikipedia.org/wiki/Super_Mario_Bros._Wonder",
+    "Pokémon Legends: Z-A - Mega Dimension": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Legends%3A_Z-A",
+    "Super Mario Galaxy": "https://en.wikipedia.org/wiki/Super_Mario_Galaxy",
+    "Super Mario Galaxy 2": "https://en.wikipedia.org/wiki/Super_Mario_Galaxy_2",
+    "Animal Crossing: New Horizons - Nintendo Switch 2 Edition": "https://en.wikipedia.org/wiki/Animal_Crossing%3A_New_Horizons",
+    "Pokémon Waves": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Winds_and_Waves",
+    "Pokémon Winds": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Winds_and_Waves",
+    "Xenoblade Chronicles: Definitive Edition - Nintendo Switch 2 Edition": "https://en.wikipedia.org/wiki/Xenoblade_Chronicles_(video_game)",
+    "Xenoblade Genesis": "https://en.wikipedia.org/wiki/Xenoblade_Genesis",
+    "Hyrule Warriors: Age of Calamity": "https://en.wikipedia.org/wiki/Hyrule_Warriors%3A_Age_of_Calamity",
+    "Kirby and the World Beyond": "https://en.wikipedia.org/wiki/Kirby_and_the_World_Beyond",
+    "Puyo Puyo Tetris 2S": "https://en.wikipedia.org/wiki/Puyo_Puyo_Tetris_2",
+    "The Touryst: Deluxe": "https://en.wikipedia.org/wiki/The_Touryst",
+    "Ninjala 2: The Uncharted Planet": "https://en.wikipedia.org/wiki/Ninjala",
+    "Onyx: The Dark Grip": "https://en.wikipedia.org/wiki/Onyx%3A_The_Dark_Grip",
+    "Bit Boy!! Arcade 2": "https://en.wikipedia.org/wiki/Bit_Boy!!_Arcade",
+    "Chit Chat Party!": "https://en.wikipedia.org/wiki/GungHo_Online_Entertainment",
+    "Putty World": "https://en.wikipedia.org/wiki/Putty_(video_game)"
   },
   "nintendoWikiByTitle": {
     "Pokémon Champions": "https://nintendo.fandom.com/wiki/Pok%C3%A9mon_Champions",

@@ -1,6 +1,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname } from "node:path";
 import { fetchJson, Throttle } from "./http";
+import { titleVariants } from "./title-variants";
 
 const HOST = "opencritic-api.p.rapidapi.com";
 const DAY_MS = 86_400_000;
@@ -31,8 +32,12 @@ export interface CatalogEntry {
 }
 
 export interface OpenCriticCache {
-  /** IGDB id → OpenCritic id (null = searched, nothing close enough). */
-  matches: Record<string, { opencriticId: number | null; searchedAt: string }>;
+  /**
+   * IGDB id → OpenCritic id (null = searched, nothing close enough). `matchedTitle`: the shorter
+   * title (the base game's, SPEC §4.2) that found the page, when not the full one; `titlesTried`:
+   * how many titles a miss tried (absent = only the full one).
+   */
+  matches: Record<string, { opencriticId: number | null; searchedAt: string; matchedTitle?: string; titlesTried?: number }>;
   games: Record<string, { data: OpenCriticGame; fetchedAt: string }>;
   /** Every Switch 2 game on OpenCritic: title matching without spending searches. */
   catalog?: { fetchedAt: string; games: CatalogEntry[] };
@@ -193,20 +198,40 @@ export class OpenCritic {
       this.cache.matches[igdbId] = { opencriticId: inCatalog.id, searchedAt: new Date().toISOString() };
       return inCatalog.id;
     }
-    if (cached && Date.now() - Date.parse(cached.searchedAt) < retryMissAfterDays * DAY_MS) return null;
-    if (this.used.searches >= this.budget.searches) {
-      this.budgetExhausted = true;
-      return cached ? null : undefined;
-    }
+    const variants = titleVariants(title);
+    // A miss is retried later, or now if it was searched before the shorter titles existed.
+    const allTried = (cached?.titlesTried ?? 1) >= variants.length;
+    if (cached && allTried && Date.now() - Date.parse(cached.searchedAt) < retryMissAfterDays * DAY_MS) return null;
 
-    this.used.searches++;
-    const hits = await this.get<SearchHit[]>(`/game/search?criteria=${encodeURIComponent(title)}`);
-    const wanted = normalize(title);
-    const best =
-      hits.find((h) => normalize(h.name) === wanted) ??
-      hits.filter((h) => h.dist <= 0.25 && sameWords(h.name, title)).sort((a, b) => a.dist - b.dist)[0];
-    this.cache.matches[igdbId] = { opencriticId: best?.id ?? null, searchedAt: new Date().toISOString() };
-    return best?.id ?? null;
+    // Full title first, then the base game's shorter titles: catalog (free), then a search.
+    for (const [i, candidate] of variants.entries()) {
+      if (i > 0) {
+        const listed = this.catalogByTitle.get(normalize(candidate));
+        if (listed) return this.setMatch(igdbId, listed.id, candidate);
+      }
+      if (this.used.searches >= this.budget.searches) {
+        this.budgetExhausted = true;
+        return cached ? null : undefined;
+      }
+      this.used.searches++;
+      const hits = await this.get<SearchHit[]>(`/game/search?criteria=${encodeURIComponent(candidate)}`);
+      const wanted = normalize(candidate);
+      const best =
+        hits.find((h) => normalize(h.name) === wanted) ??
+        hits.filter((h) => h.dist <= 0.25 && sameWords(h.name, candidate)).sort((a, b) => a.dist - b.dist)[0];
+      if (best) return this.setMatch(igdbId, best.id, i > 0 ? candidate : undefined);
+    }
+    return this.setMatch(igdbId, null, undefined, variants.length);
+  }
+
+  private setMatch(igdbId: string, opencriticId: number | null, matchedTitle?: string, titlesTried?: number) {
+    this.cache.matches[igdbId] = {
+      opencriticId,
+      searchedAt: new Date().toISOString(),
+      ...(matchedTitle ? { matchedTitle } : {}),
+      ...(titlesTried && titlesTried > 1 ? { titlesTried } : {}),
+    };
+    return opencriticId;
   }
 
   /** Game details, from cache while younger than `maxAgeDays`. */

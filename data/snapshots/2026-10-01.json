@@ -505,7 +505,9 @@
    "firstReleaseDate": "2026-01-15",
    "vague": null,
    "scores": {
-    "opencritic": 78
+    "opencritic": 78,
+    "metacritic": 83,
+    "metacriticUser": 60
    }
   },
   "free-update:donkey-kong-country-returns-hd": {
@@ -678,6 +680,21 @@
     "metacriticUser": 58
    }
   },
+  "igdb:405446": {
+   "title": "Xenoblade Chronicles: Definitive Edition - Nintendo Switch 2 Edition",
+   "releaseDates": {
+    "JP": "2026-06-09",
+    "EU": "2026-06-09",
+    "NA": "2026-06-09"
+   },
+   "firstReleaseDate": "2026-06-09",
+   "vague": null,
+   "scores": {
+    "opencritic": 89,
+    "metacritic": 86,
+    "metacriticUser": 89
+   }
+  },
   "igdb:400709": {
    "title": "Star Fox",
    "releaseDates": {
@@ -717,7 +734,11 @@
    },
    "firstReleaseDate": "2026-07-16",
    "vague": null,
-   "scores": {}
+   "scores": {
+    "opencritic": 70,
+    "metacritic": 78,
+    "metacriticUser": 92
+   }
   },
   "igdb:348977": {
    "title": "Splatoon Raiders",
@@ -732,6 +753,21 @@
     "opencritic": 81,
     "metacritic": 82,
     "metacriticUser": 93
+   }
+  },
+  "igdb:405447": {
+   "title": "Xenoblade Chronicles 2: Nintendo Switch 2 Edition",
+   "releaseDates": {
+    "JP": "2026-07-30",
+    "EU": "2026-07-30",
+    "NA": "2026-07-30"
+   },
+   "firstReleaseDate": "2026-07-30",
+   "vague": null,
+   "scores": {
+    "opencritic": 83,
+    "metacritic": 86,
+    "metacriticUser": 89
    }
   },
   "igdb:405436": {
@@ -831,6 +867,28 @@
     "NA": "2026-11-05"
    },
    "firstReleaseDate": "2026-11-05",
+   "vague": null,
+   "scores": {}
+  },
+  "igdb:417169": {
+   "title": "Pikmin 4: Nintendo Switch 2 Edition + Dandori Academy",
+   "releaseDates": {
+    "JP": "2026-11-12",
+    "EU": "2026-11-12",
+    "NA": "2026-11-12"
+   },
+   "firstReleaseDate": "2026-11-12",
+   "vague": null,
+   "scores": {}
+  },
+  "igdb:405448": {
+   "title": "Xenoblade Chronicles 3: Nintendo Switch 2 Edition",
+   "releaseDates": {
+    "JP": "2026-12-03",
+    "EU": "2026-12-03",
+    "NA": "2026-12-03"
+   },
+   "firstReleaseDate": "2026-12-03",
    "vague": null,
    "scores": {}
   },

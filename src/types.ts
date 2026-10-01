@@ -10,6 +10,11 @@ export interface Score {
   scale: 5 | 10 | 100;
   normalized: number; // 0–100
   count: number | null;
+  /**
+   * The base game's score (a Switch 2 Edition or bundle without its own page): id of the base
+   * game's page on that source — Metacritic slug or OpenCritic id. Absent = the game's own score.
+   */
+  inheritedFrom?: string;
 }
 
 export interface Game {

@@ -4,6 +4,7 @@ import { readJson, writeJson } from "./cache";
 import { intEnv } from "./env";
 import { fetchText, HttpError } from "./http";
 import { isAbsent, type OverridesFile } from "./overrides";
+import { titleVariants } from "./title-variants";
 
 /**
  * Metacritic has no API: scores are read from the public game page (inspired by
@@ -47,6 +48,12 @@ export interface MetacriticEntry extends Partial<MetacriticScores> {
   checkedAt: string;
   /** Page read (found by search when the slug had no page); reused by later runs. */
   url: string;
+  /** Shorter title that found the page (the base game's, SPEC §4.3), when not the full one. */
+  matchedTitle?: string;
+  /** Slug of the base game's page whose scores are used (found with a shorter title). */
+  inheritedFrom?: string;
+  /** not-found: how many titles were tried (absent = only the full one). */
+  titlesTried?: number;
 }
 
 export interface MetacriticCache {
@@ -165,6 +172,9 @@ const PARSER = "parseMetacriticPage in scripts/lib/metacritic.ts";
 /** Pages in a row with an unknown layout before the run stops. */
 const MAX_LAYOUT_ERRORS = 3;
 
+/** The per-run request budget ran out in the middle of a game: it is retried next run. */
+class OutOfBudget extends Error {}
+
 /** A page that loads but no longer has the markup the parser reads. */
 export class LayoutError extends Error {}
 
@@ -242,49 +252,79 @@ export async function fetchMetacritic(
       const forced = slugFromUrl(overridesFile.games[g.id]?.links?.metacritic ?? g.links.metacritic);
       return { game: g, slug: forced ?? slugify(g.title), forced: forced !== null, age: daysSince(g.firstReleaseDate!) };
     })
-    .filter((t) => t.slug && isDue(cache.games[t.game.id], t.slug, t.age, now))
+    .filter((t) => {
+      const entry = cache.games[t.game.id];
+      // Missed before the base game's shorter titles were tried: due now.
+      const untried = !t.forced && entry?.status === "not-found" && (entry.titlesTried ?? 1) < titleVariants(t.game.title).length;
+      return t.slug && (untried || isDue(entry, t.slug, t.age, now));
+    })
     .sort((a, b) => Number(a.game.id in cache.games) - Number(b.game.id in cache.games) || a.age - b.age);
   status.enabled = true;
   status.due = todo.length;
   let layoutErrors = 0;
 
+  let sent = 0;
   for (const { game, slug, forced } of todo) {
     if (status.requestsUsed >= budget) {
       status.budgetExhausted = true;
       break;
     }
-    status.requestsUsed++;
     status.checked++;
     const previous = cache.games[game.id];
-    // A page found by search before: straight there.
-    let url = previous?.slug === slug && previous.status === "ok" ? previous.url : `${BASE}${slug}/`;
     const checkedAt = new Date().toISOString();
     const get = async (target: string) => {
-      if (status.requestsUsed > 1) await sleep(DELAY_MS[0] + Math.random() * (DELAY_MS[1] - DELAY_MS[0]));
+      if (status.requestsUsed >= budget) throw new OutOfBudget();
+      status.requestsUsed++;
+      if (sent++) await sleep(DELAY_MS[0] + Math.random() * (DELAY_MS[1] - DELAY_MS[0]));
       return fetchText(target, { headers: HEADERS, label: `Metacritic ${new URL(target).pathname}` }, 2);
     };
-    try {
-      let html: string;
+    /** The page at `target`, else (404 / 410) a search for `title`, exact name only; null = no page. */
+    const pageFor = async (target: string, title: string) => {
       try {
-        html = await get(url);
+        return { url: target, html: await get(target) };
       } catch (err) {
-        if (forced || !isGone(err) || status.requestsUsed >= budget) throw err;
-        // The slug differs from the title (often for editions): search, exact name only.
-        status.requestsUsed++;
-        const hits = parseSearchResults(await get(`https://www.metacritic.com/search/${encodeURIComponent(game.title)}/?category=13`));
-        const hit = hits.find((h) => sameName(h.name, game.title));
-        if (!hit) throw err;
-        status.requestsUsed++;
-        url = `${BASE}${hit.slug}/`;
-        html = await get(url);
+        if (forced || !isGone(err)) throw err;
       }
+      const hits = parseSearchResults(await get(`https://www.metacritic.com/search/${encodeURIComponent(title)}/?category=13`));
+      const hit = hits.find((h) => sameName(h.name, title));
+      if (!hit) return null;
+      const url = `${BASE}${hit.slug}/`;
+      return { url, html: await get(url) };
+    };
+    try {
+      // A page found before (by search or a shorter title): straight there.
+      const known = previous?.slug === slug && previous.status === "ok" ? previous : undefined;
+      let found: { url: string; html: string } | null = null;
+      let title = known?.matchedTitle ?? game.title;
+      if (known) found = { url: known.url, html: await get(known.url) };
+      else {
+        // Full title first, then the base game's shorter titles (SPEC §4.3).
+        for (const candidate of forced ? [game.title] : titleVariants(game.title)) {
+          found = await pageFor(candidate === game.title ? `${BASE}${slug}/` : `${BASE}${slugify(candidate)}/`, candidate);
+          if (found) {
+            title = candidate;
+            break;
+          }
+        }
+      }
+      if (!found) {
+        const titlesTried = forced ? 1 : titleVariants(game.title).length;
+        cache.games[game.id] = { slug, url: `${BASE}${slug}/`, checkedAt, status: "not-found", ...(titlesTried > 1 ? { titlesTried } : {}) };
+        continue;
+      }
+      const { url, html } = found;
       const issue = layoutIssue(html);
       if (issue) throw new LayoutError(`Metacritic page layout not recognized at ${url} — ${issue}. Previous scores kept; update ${PARSER}.`);
       const page = parseMetacriticPage(html);
       // A title-made slug can land on an older game of the same name: only a forced slug skips the check.
-      const mismatch = !forced && page.name !== null && !sameName(page.name, game.title);
-      cache.games[game.id] = { slug, url, checkedAt, status: mismatch ? "mismatch" : "ok", ...page };
+      const mismatch = !forced && page.name !== null && !sameName(page.name, title);
+      const inherited = title !== game.title ? { matchedTitle: title, inheritedFrom: slugFromUrl(url) ?? undefined } : {};
+      cache.games[game.id] = { slug, url, checkedAt, status: mismatch ? "mismatch" : "ok", ...inherited, ...page };
     } catch (err) {
+      if (err instanceof OutOfBudget) {
+        status.budgetExhausted = true;
+        break;
+      }
       if (isGone(err)) {
         cache.games[game.id] = { slug, url: `${BASE}${slug}/`, checkedAt, status: "not-found" };
         continue;

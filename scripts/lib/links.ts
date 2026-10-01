@@ -57,7 +57,16 @@ export async function wikidataBySlug(slugs: string[], userAgent: string): Promis
   return out;
 }
 
-/** English Wikipedia article for exact titles (redirects followed, disambiguation pages skipped). */
+/**
+ * A page about one video game: its short description says so ("2007 video game"). Series,
+ * franchises, companies or a redirect to a character are not the game's page.
+ */
+export const isGameDescription = (d: string | undefined) => !!d && /video ?game/i.test(d) && !/series|franchise|compilation of/i.test(d);
+
+/**
+ * English Wikipedia article for exact titles (redirects followed, disambiguation pages and
+ * pages that are not about a single video game skipped).
+ */
 export async function wikipediaByTitle(titles: string[], userAgent: string): Promise<Map<string, string>> {
   const out = new Map<string, string>();
   const throttle = new Throttle(200);
@@ -68,7 +77,7 @@ export async function wikipediaByTitle(titles: string[], userAgent: string): Pro
       format: "json",
       formatversion: "2",
       redirects: "1",
-      prop: "pageprops",
+      prop: "pageprops|description",
       ppprop: "disambiguation",
       titles: batch.join("|"),
     });
@@ -78,7 +87,7 @@ export async function wikipediaByTitle(titles: string[], userAgent: string): Pro
     );
     const q = res.query ?? {};
     const follow = (t: string, list?: { from: string; to: string }[]) => list?.find((x) => x.from === t)?.to ?? t;
-    const ok = new Set((q.pages ?? []).filter((p) => !p.missing && !p.pageprops).map((p) => p.title));
+    const ok = new Set((q.pages ?? []).filter((p) => !p.missing && !p.pageprops && isGameDescription(p.description)).map((p) => p.title));
     for (const title of batch) {
       const page = follow(follow(title, q.normalized), q.redirects);
       if (ok.has(page)) out.set(title, wikipediaUrl(page));
@@ -104,7 +113,7 @@ type WikiQuery = {
   query?: {
     normalized?: { from: string; to: string }[];
     redirects?: { from: string; to: string }[];
-    pages?: { title: string; missing?: boolean; pageprops?: object }[];
+    pages?: { title: string; missing?: boolean; pageprops?: object; description?: string }[];
   };
 };
 

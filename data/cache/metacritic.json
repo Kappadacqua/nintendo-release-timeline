@@ -62,9 +62,17 @@
     },
     "igdb:402033": {
       "slug": "fitness-boxing-3-your-personal-trainer-nintendo-switch-2-edition",
-      "url": "https://www.metacritic.com/game/fitness-boxing-3-your-personal-trainer-nintendo-switch-2-edition/",
-      "checkedAt": "2026-10-01T19:32:28.648Z",
-      "status": "not-found"
+      "url": "https://www.metacritic.com/game/fitness-boxing-3-your-personal-trainer/",
+      "checkedAt": "2026-10-01T20:03:46.920Z",
+      "status": "ok",
+      "matchedTitle": "Fitness Boxing 3: Your Personal Trainer",
+      "inheritedFrom": "fitness-boxing-3-your-personal-trainer",
+      "name": "Fitness Boxing 3: Your Personal Trainer",
+      "platform": "nintendo-switch-2",
+      "critic": 78,
+      "criticCount": 8,
+      "user": 9.2,
+      "userCount": 10
     },
     "igdb:337031": {
       "slug": "rhythm-heaven-groove",
@@ -104,9 +112,17 @@
     },
     "igdb:405446": {
       "slug": "xenoblade-chronicles-definitive-edition-nintendo-switch-2-edition",
-      "url": "https://www.metacritic.com/game/xenoblade-chronicles-definitive-edition-nintendo-switch-2-edition/",
-      "checkedAt": "2026-10-01T19:32:57.628Z",
-      "status": "not-found"
+      "url": "https://www.metacritic.com/game/xenoblade-chronicles-definitive-edition/",
+      "checkedAt": "2026-10-01T20:04:04.989Z",
+      "status": "ok",
+      "matchedTitle": "Xenoblade Chronicles: Definitive Edition",
+      "inheritedFrom": "xenoblade-chronicles-definitive-edition",
+      "name": "Xenoblade Chronicles: Definitive Edition",
+      "platform": "nintendo-switch-2",
+      "critic": 86,
+      "criticCount": 22,
+      "user": 8.9,
+      "userCount": 1823
     },
     "igdb:388239": {
       "slug": "a-train-9-evolution",
@@ -248,9 +264,17 @@
     },
     "igdb:375733": {
       "slug": "animal-crossing-new-horizons-nintendo-switch-2-edition",
-      "url": "https://www.metacritic.com/game/animal-crossing-new-horizons-nintendo-switch-2-edition/",
-      "checkedAt": "2026-10-01T19:34:52.815Z",
-      "status": "not-found"
+      "url": "https://www.metacritic.com/game/animal-crossing-new-horizons/",
+      "checkedAt": "2026-10-01T20:04:25.372Z",
+      "status": "ok",
+      "matchedTitle": "Animal Crossing: New Horizons",
+      "inheritedFrom": "animal-crossing-new-horizons",
+      "name": "Animal Crossing: New Horizons",
+      "platform": "nintendo-switch-2",
+      "critic": 83,
+      "criticCount": 32,
+      "user": 6,
+      "userCount": 7638
     },
     "igdb:366894": {
       "slug": "pokemon-legends-z-a-mega-dimension",

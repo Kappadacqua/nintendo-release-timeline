@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-01T19:58:34.833Z",
+  "generatedAt": "2026-10-01T20:04:45.479Z",
   "games": [
     {
       "id": "free-update:arms",
@@ -751,7 +751,7 @@
         "backloggd": "https://backloggd.com/games/the-legend-of-zelda-breath-of-the-wild-nintendo-switch-2-edition/",
         "opencritic": "https://opencritic.com/game/19281/the-legend-of-zelda-breath-of-the-wild-nintendo-switch-2-edition",
         "metacritic": "https://www.metacritic.com/game/the-legend-of-zelda-breath-of-the-wild-nintendo/",
-        "wikipedia": "https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Breath_of_the_Wild",
+        "wikipedia": "https://en.wikipedia.org/wiki/The_Legend_of_Zelda%3A_Breath_of_the_Wild",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/The_Legend_of_Zelda%3A_Breath_of_the_Wild",
         "nintendoStore": "https://www.nintendo.it/-/-2787250.html"
       }
@@ -885,7 +885,7 @@
         "backloggd": "https://backloggd.com/games/the-legend-of-zelda-tears-of-the-kingdom-nintendo-switch-2-edition/",
         "opencritic": "https://opencritic.com/game/19282/the-legend-of-zelda-tears-of-the-kingdom-nintendo-switch-2-edition",
         "metacritic": "https://www.metacritic.com/game/the-legend-of-zelda-tears-of-the-kingdom-nintendo/",
-        "wikipedia": "https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Tears_of_the_Kingdom",
+        "wikipedia": "https://en.wikipedia.org/wiki/The_Legend_of_Zelda%3A_Tears_of_the_Kingdom",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/The_Legend_of_Zelda%3A_Tears_of_the_Kingdom",
         "nintendoStore": "https://www.nintendo.it/-/-2787249.html"
       }
@@ -1388,6 +1388,7 @@
       "links": {
         "backloggd": "https://backloggd.com/games/super-mario-galaxy--3/",
         "metacritic": "https://www.metacritic.com/game/super-mario-galaxy/",
+        "wikipedia": "https://en.wikipedia.org/wiki/Super_Mario_Galaxy",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Super_Mario_Galaxy",
         "nintendoStore": "https://www.nintendo.com/us/store/products/super-mario-galaxy-switch/"
       }
@@ -1465,6 +1466,7 @@
       "links": {
         "backloggd": "https://backloggd.com/games/super-mario-galaxy-2--1/",
         "metacritic": "https://www.metacritic.com/game/super-mario-galaxy-2/",
+        "wikipedia": "https://en.wikipedia.org/wiki/Super_Mario_Galaxy_2",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Super_Mario_Galaxy_2",
         "nintendoStore": "https://www.nintendo.com/us/store/products/super-mario-galaxy-2-switch/"
       }
@@ -1742,7 +1744,7 @@
         "backloggd": "https://backloggd.com/games/pokemon-legends-z-a-mega-dimension/",
         "opencritic": "https://opencritic.com/game/19873/pok-mon-legends-z-a-mega-dimension",
         "metacritic": "https://www.metacritic.com/game/pokemon-legends-z-a-mega-dimension/",
-        "wikipedia": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Legends:_Z-A",
+        "wikipedia": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Legends%3A_Z-A",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Pok%C3%A9mon_Legends%3A_Z-A",
         "nintendoStore": "https://www.nintendo.com/us/store/products/pokemon-legends-z-a-mega-dimension-dlc-70070000030771-switch/"
       }
@@ -1814,17 +1816,30 @@
             "normalized": 78,
             "count": 12
           },
-          "metacritic": null
+          "metacritic": {
+            "value": 83,
+            "scale": 100,
+            "normalized": 83,
+            "count": 32,
+            "inheritedFrom": "animal-crossing-new-horizons"
+          }
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 6,
+            "scale": 10,
+            "normalized": 60,
+            "count": 7638,
+            "inheritedFrom": "animal-crossing-new-horizons"
+          },
           "backloggd": null
         }
       },
       "links": {
         "backloggd": "https://backloggd.com/games/animal-crossing-new-horizons-nintendo-switch-2-edition/",
         "opencritic": "https://opencritic.com/game/19943/animal-crossing-new-horizons-nintendo-switch-2-edition",
-        "wikipedia": "https://en.wikipedia.org/wiki/Animal_Crossing:_New_Horizons",
+        "metacritic": "https://www.metacritic.com/game/animal-crossing-new-horizons/",
+        "wikipedia": "https://en.wikipedia.org/wiki/Animal_Crossing%3A_New_Horizons",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Animal_Crossing%3A_New_Horizons",
         "nintendoStore": "https://www.nintendo.com/us/store/products/animal-crossing-new-horizons-nintendo-switch-2-edition-switch-2/"
       }
@@ -2438,6 +2453,64 @@
       }
     },
     {
+      "id": "igdb:405446",
+      "kind": "switch2-edition",
+      "title": "Xenoblade Chronicles: Definitive Edition - Nintendo Switch 2 Edition",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc7me.jpg",
+      "summary": "Xenoblade Chronicles: Definitive Edition - Nintendo Switch 2 Edition includes the additions and enhancements from the Definitive Edition, along with even more made possible by the power of the Nintendo Switch 2 system - including added features, a smoother frame rate, 4K resolution in TV mode, and full HD in handheld mode.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/sc13r3a.jpg",
+      "developer": "Monolith Soft",
+      "genres": [
+        "RPG"
+      ],
+      "releaseDates": {
+        "JP": "2026-06-09",
+        "EU": "2026-06-09",
+        "NA": "2026-06-09"
+      },
+      "firstReleaseDate": "2026-06-09",
+      "exclusivity": "exclusive",
+      "firstParty": true,
+      "alsoOnSwitch1": false,
+      "onOtherConsoles": false,
+      "scores": {
+        "critic": {
+          "opencritic": {
+            "value": 89,
+            "scale": 100,
+            "normalized": 89,
+            "count": 91,
+            "inheritedFrom": "9261"
+          },
+          "metacritic": {
+            "value": 86,
+            "scale": 100,
+            "normalized": 86,
+            "count": 22,
+            "inheritedFrom": "xenoblade-chronicles-definitive-edition"
+          }
+        },
+        "user": {
+          "metacritic": {
+            "value": 8.9,
+            "scale": 10,
+            "normalized": 89,
+            "count": 1823,
+            "inheritedFrom": "xenoblade-chronicles-definitive-edition"
+          },
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/xenoblade-chronicles-definitive-edition-nintendo-switch-2-edition/",
+        "opencritic": "https://opencritic.com/game/9261/xenoblade-chronicles-definitive-edition",
+        "metacritic": "https://www.metacritic.com/game/xenoblade-chronicles-definitive-edition/",
+        "wikipedia": "https://en.wikipedia.org/wiki/Xenoblade_Chronicles_(video_game)",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Xenoblade_Chronicles%3A_Definitive_Edition",
+        "nintendoStore": "https://www.nintendo.com/us/store/products/xenoblade-chronicles-definitive-edition-nintendo-switch-2-edition-switch-2/"
+      }
+    },
+    {
       "id": "igdb:400709",
       "kind": "game",
       "title": "Star Fox",
@@ -2572,16 +2645,36 @@
       "onOtherConsoles": false,
       "scores": {
         "critic": {
-          "opencritic": null,
-          "metacritic": null
+          "opencritic": {
+            "value": 70,
+            "scale": 100,
+            "normalized": 70,
+            "count": 18,
+            "inheritedFrom": "17736"
+          },
+          "metacritic": {
+            "value": 78,
+            "scale": 100,
+            "normalized": 78,
+            "count": 8,
+            "inheritedFrom": "fitness-boxing-3-your-personal-trainer"
+          }
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 9.2,
+            "scale": 10,
+            "normalized": 92,
+            "count": 10,
+            "inheritedFrom": "fitness-boxing-3-your-personal-trainer"
+          },
           "backloggd": null
         }
       },
       "links": {
         "backloggd": "https://backloggd.com/games/fitness-boxing-3-your-personal-trainer-nintendo-switch-2-edition/",
+        "opencritic": "https://opencritic.com/game/17736/fitness-boxing-3-your-personal-trainer",
+        "metacritic": "https://www.metacritic.com/game/fitness-boxing-3-your-personal-trainer/",
         "wikipedia": "https://en.wikipedia.org/wiki/Fitness_Boxing",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Fitness_Boxing_3%3A_Your_Personal_Trainer",
         "nintendoStore": "https://www.nintendo.com/us/store/products/fitness-boxing-3-your-personal-trainer-nintendo-switch-2-edition-switch-2/"
@@ -2641,6 +2734,63 @@
         "wikipedia": "https://en.wikipedia.org/wiki/Splatoon_Raiders",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Splatoon_Raiders",
         "nintendoStore": "https://www.nintendo.it/-/-2846969.html"
+      }
+    },
+    {
+      "id": "igdb:405447",
+      "kind": "switch2-edition",
+      "title": "Xenoblade Chronicles 2: Nintendo Switch 2 Edition",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc7mr.jpg",
+      "summary": "Command a group of Blades and lead them to countless strategic victories as you search for the fabled paradise Pyra calls home. This journey has been enhanced with 4K* resolution in TV mode, and full HD in handheld mode, at 60 frames per second—and with smoother and sharper cutscenes.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/sc13r38.jpg",
+      "developer": "Monolith Soft",
+      "genres": [
+        "RPG",
+        "Adventure"
+      ],
+      "releaseDates": {
+        "JP": "2026-07-30",
+        "EU": "2026-07-30",
+        "NA": "2026-07-30"
+      },
+      "firstReleaseDate": "2026-07-30",
+      "exclusivity": "exclusive",
+      "firstParty": true,
+      "alsoOnSwitch1": false,
+      "onOtherConsoles": false,
+      "scores": {
+        "critic": {
+          "opencritic": {
+            "value": 83,
+            "scale": 100,
+            "normalized": 83,
+            "count": 90,
+            "inheritedFrom": "4952"
+          },
+          "metacritic": {
+            "value": 86,
+            "scale": 100,
+            "normalized": 86,
+            "count": 19
+          }
+        },
+        "user": {
+          "metacritic": {
+            "value": 8.9,
+            "scale": 10,
+            "normalized": 89,
+            "count": 112
+          },
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/xenoblade-chronicles-2-nintendo-switch-2-edition/",
+        "opencritic": "https://opencritic.com/game/4952/xenoblade-chronicles-2",
+        "metacritic": "https://www.metacritic.com/game/xenoblade-chronicles-2-nintendo-switch-2-edition/",
+        "wikipedia": "https://en.wikipedia.org/wiki/Xenoblade_Chronicles_2",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Xenoblade_Chronicles_2",
+        "nintendoStore": "https://www.nintendo.com/us/store/products/xenoblade-chronicles-2-nintendo-switch-2-edition-switch-2/"
       }
     },
     {
@@ -2998,6 +3148,83 @@
       }
     },
     {
+      "id": "igdb:417169",
+      "kind": "switch2-edition",
+      "title": "Pikmin 4: Nintendo Switch 2 Edition + Dandori Academy",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocv9m.jpg",
+      "summary": "Give Oatchi commands using your voice and put your Dandori skills to the test in Pikmin 4 – Nintendo Switch 2 Edition + Dandori Academy.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/sc154em.jpg",
+      "developer": null,
+      "genres": [
+        "Adventure"
+      ],
+      "releaseDates": {
+        "JP": "2026-11-12",
+        "EU": "2026-11-12",
+        "NA": "2026-11-12"
+      },
+      "firstReleaseDate": "2026-11-12",
+      "exclusivity": "exclusive",
+      "firstParty": true,
+      "alsoOnSwitch1": false,
+      "onOtherConsoles": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/pikmin-4-nintendo-switch-2-edition-plus-dandori-academy/",
+        "wikipedia": "https://en.wikipedia.org/wiki/Pikmin_4",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Pikmin_4",
+        "nintendoStore": "https://www.nintendo.com/us/store/products/pikmin-4-nintendo-switch-2-edition-plus-dandori-academy-switch-2/"
+      }
+    },
+    {
+      "id": "igdb:405448",
+      "kind": "switch2-edition",
+      "title": "Xenoblade Chronicles 3: Nintendo Switch 2 Edition",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc7ms.jpg",
+      "summary": "Traverse massive, fantastical landscapes and master seamless real-time RPG combat that has all been enhanced to run at 4K* resolution in TV mode, and full HD in handheld mode, at 60 frames per second with smoother and sharper cutscenes.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/sc13r2t.jpg",
+      "developer": "Monolith Soft",
+      "genres": [
+        "RPG",
+        "Adventure"
+      ],
+      "releaseDates": {
+        "JP": "2026-12-03",
+        "EU": "2026-12-03",
+        "NA": "2026-12-03"
+      },
+      "firstReleaseDate": "2026-12-03",
+      "exclusivity": "exclusive",
+      "firstParty": true,
+      "alsoOnSwitch1": false,
+      "onOtherConsoles": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/xenoblade-chronicles-3-nintendo-switch-2-edition/",
+        "wikipedia": "https://en.wikipedia.org/wiki/Xenoblade_Chronicles_3",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Xenoblade_Chronicles_3",
+        "nintendoStore": "https://www.nintendo.com/us/store/products/xenoblade-chronicles-3-nintendo-switch-2-edition-switch-2/"
+      }
+    },
+    {
       "id": "igdb:408719",
       "kind": "game",
       "title": "Metroid Ravenous",
@@ -3070,6 +3297,7 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/hyrule-warriors-age-of-calamity-definitive-edition/",
+        "wikipedia": "https://en.wikipedia.org/wiki/Hyrule_Warriors%3A_Age_of_Calamity",
         "nintendoStore": "https://www.nintendo.com/us/store/products/hyrule-warriors-age-of-calamity-definitive-edition-switch-2/"
       }
     },

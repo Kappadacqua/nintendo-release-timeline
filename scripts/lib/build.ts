@@ -1,4 +1,4 @@
-import type { ChangesFile, Game, GamesFile, StudiosFile } from "../../src/types";
+import type { ChangesFile, Game, GamesFile, Score, StudiosFile } from "../../src/types";
 import { type FetchStatus, type IgdbCache, type LinksCache, readJson, type WikipediaCache, emptyLinks, writeJson } from "./cache";
 import { PATHS } from "./env";
 import { ExclusivityHistory } from "./exclusivity";
@@ -7,6 +7,7 @@ import { type IgdbGame, PLATFORM } from "./igdb";
 import { baseTitleOfEdition, wikipediaUrl } from "./links";
 import { loadMetacriticCache } from "./metacritic";
 import { loadOpenCriticCache } from "./opencritic";
+import { titleVariants } from "./title-variants";
 import { applyOverride, isAbsent, loadOverrides, manualToGame, type OverridesFile, score } from "./overrides";
 import type { FetchReport } from "./report";
 import { addHistory, changesOf, readSnapshots } from "./snapshots";
@@ -231,7 +232,9 @@ export function buildGames(): BuildResult {
       const value = listed?.topCriticScore ?? details?.topCriticScore;
       if (value !== undefined) {
         scoreKnown = true; // -1 = not enough reviews yet: a real "no score"
-        if (value >= 0) game.scores.critic.opencritic = score(Math.round(value), 100, details?.numTopCriticReviews ?? null);
+        // Found with a shorter title: the base game's page (SPEC §4.2).
+        const inheritedFrom = !overrides[game.id]?.opencriticId && cachedMatch?.matchedTitle ? String(opencriticId) : undefined;
+        if (value >= 0) game.scores.critic.opencritic = inherit(score(Math.round(value), 100, details?.numTopCriticReviews ?? null), inheritedFrom);
       }
       game.links.opencritic = listed?.url ?? details?.url ?? `https://opencritic.com/game/${opencriticId}`;
     }
@@ -256,8 +259,8 @@ export function buildGames(): BuildResult {
     // --- Metacritic, from the cache only (overrides.json still wins, field by field).
     const page = mc.games[game.id];
     if (released && page?.status === "ok") {
-      game.scores.critic.metacritic = score(page.critic ?? undefined, 100, page.criticCount);
-      game.scores.user.metacritic = score(page.user ?? undefined, 10, page.userCount);
+      game.scores.critic.metacritic = inherit(score(page.critic ?? undefined, 100, page.criticCount), page.inheritedFrom);
+      game.scores.user.metacritic = inherit(score(page.user ?? undefined, 10, page.userCount), page.inheritedFrom);
       game.links.metacritic = page.url;
     } else if (isAbsent(overrides[game.id], "metacritic")) {
       // Confirmed by hand: no page, nothing to report.
@@ -270,7 +273,10 @@ export function buildGames(): BuildResult {
     // --- Reference links: own pages, else (DLC / Switch 2 Edition) the base game's, else the last known.
     const wikiPage = wikiPageById.get(game.id);
     const own = {
-      wikipedia: (entry.slug && links.wikipediaBySlug[entry.slug]) || (wikiPage ? wikipediaUrl(wikiPage) : undefined),
+      wikipedia:
+        (entry.slug && links.wikipediaBySlug[entry.slug]) ||
+        (wikiPage ? wikipediaUrl(wikiPage) : undefined) ||
+        titleVariants(game.title).map((t) => links.wikipediaByTitle[t]).find(Boolean),
       nintendoWiki: links.nintendoWikiByTitle[game.title],
     };
     const base = baseOf(entry, candidates);
@@ -342,6 +348,9 @@ export function buildGames(): BuildResult {
   writeJson(PATHS.report, report);
   return { games, report };
 }
+
+/** Marks a score taken from the base game's page (found with a shorter title). */
+const inherit = (s: Score | null, from: string | undefined): Score | null => (s && from ? { ...s, inheritedFrom: from } : s);
 
 /** Base game of a DLC / Switch 2 Edition: the IGDB parent, else the edition title without its suffix. */
 export function baseOf(entry: Selected, candidates: Map<number, IgdbGame>) {
