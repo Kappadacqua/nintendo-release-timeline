@@ -1,6 +1,6 @@
 import { SEASONS } from "../timeline/config";
 
-/** Seasonal background logic (no DOM): season of a day, change ramp, when it shows. */
+/** Seasonal background logic (no DOM): season of a day, cross-fade weights, when it shows. */
 
 export type Season = "winter" | "spring" | "summer" | "autumn";
 
@@ -20,39 +20,78 @@ export function particleCount(width: number, height: number) {
   return Math.round(lo + (hi - lo) * Math.min(1, Math.max(0, t)));
 }
 
+export const SEASON_NAMES: readonly Season[] = ["winter", "spring", "summer", "autumn"];
+
+/** A weight moving from `from` to `to` over `ms`, starting at `start`. */
+interface Ramp {
+  from: number;
+  to: number;
+  start: number;
+  ms: number;
+}
+
+const easeOut = (t: number) => 1 - (1 - t) * (1 - t);
+const easeIn = (t: number) => t * t;
+
 /**
- * The season on screen, one at a time. After a change the old one's particles fade out over
- * `leaveMs` (see `leaveFade`); then the new one's appear gradually, their target number ramping
- * up over `rampMs`. The very first season starts at once.
+ * The season on screen and the weight (0–1) of every season: at a change the new one rises to 1
+ * after `crossDelayMs`, over `crossInMs` (ease-out), the others sink to 0 over `crossOutMs`
+ * (ease-in), so the two overlap for a while. A weight always moves on from where it is: a season
+ * coming back resumes from its current value. The very first season (or `immediate`) starts at once.
  */
 export class SeasonState {
   season: Season | null = null;
-  private rampFrom = -Infinity;
+  private ramps = new Map<Season, Ramp>();
 
   /** True when the season changed. */
-  set(season: Season, now: number) {
+  set(season: Season, now: number, immediate = false) {
     if (season === this.season) return false;
-    this.rampFrom = this.season === null ? now : now + SEASONS.leaveMs;
+    const first = this.season === null;
     this.season = season;
+    if (first || immediate) {
+      this.settle();
+      return true;
+    }
+    for (const name of SEASON_NAMES) {
+      const w = this.weight(name, now);
+      if (name === season) {
+        this.ramps.set(name, { from: w, to: 1, start: now + SEASONS.crossDelayMs, ms: SEASONS.crossInMs * (1 - w) });
+      } else if (w > 0) {
+        this.ramps.set(name, { from: w, to: 0, start: now, ms: SEASONS.crossOutMs * w });
+      } else {
+        // Also drops a rise still waiting for its delay.
+        this.ramps.delete(name);
+      }
+    }
     return true;
   }
 
-  /** How many particles of the current season should be alive at `now`, out of `max`. */
-  target(max: number, now: number) {
-    const t = Math.min(1, Math.max(0, (now - this.rampFrom) / SEASONS.rampMs));
-    return Math.floor(max * t);
+  /** Ends any transition: the current season at 1, the others at 0. */
+  settle() {
+    this.ramps.clear();
+    if (this.season) this.ramps.set(this.season, { from: 1, to: 1, start: -Infinity, ms: 0 });
   }
 
-  /** May a particle of `season` be born (or reborn) at `now`, with `alive` of that season around? */
-  mayBirth(season: Season, alive: number, max: number, now: number) {
-    return season === this.season && alive < this.target(max, now);
+  /** Weight of `season` at `now`. */
+  weight(season: Season, now: number) {
+    const r = this.ramps.get(season);
+    if (!r) return 0;
+    if (now <= r.start) return r.from;
+    if (now >= r.start + r.ms) return r.to;
+    const t = (now - r.start) / r.ms;
+    return r.from + (r.to - r.from) * (r.to > r.from ? easeOut(t) : easeIn(t));
   }
-}
 
-/** Opacity of a particle of an old season that started leaving at `leftAt`: 1 → 0 over `leaveMs`. */
-export function leaveFade(leftAt: number | undefined, now: number) {
-  if (leftAt === undefined) return 1;
-  return Math.max(0, 1 - (now - leftAt) / SEASONS.leaveMs);
+  weights(now: number): Record<Season, number> {
+    const w = {} as Record<Season, number>;
+    for (const name of SEASON_NAMES) w[name] = this.weight(name, now);
+    return w;
+  }
+
+  /** How many particles of `season` should be alive at `now`, out of `max`. */
+  target(season: Season, max: number, now: number) {
+    return Math.floor(max * this.weight(season, now));
+  }
 }
 
 /**

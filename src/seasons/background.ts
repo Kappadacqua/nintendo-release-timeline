@@ -2,20 +2,19 @@ import { SEASONS } from "../timeline/config";
 import { dayToDate } from "../timeline/dates";
 import { onScrollActivity } from "../timeline/scroller";
 import { fadeIn, isGone, spawnParticle, stepParticle, viewScale, wobbleX, type Palette, type Particle } from "./particles";
-import { backgroundShown, leaveFade, particleCount, ScrollGate, seasonOf, SeasonState, type Season } from "./season";
+import { backgroundShown, particleCount, ScrollGate, SEASON_NAMES, seasonOf, SeasonState, type Season } from "./season";
 import { SpriteCache } from "./sprites";
 
 const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
 const systemDark = matchMedia("(prefers-color-scheme: dark)");
-const SEASON_NAMES: Season[] = ["winter", "spring", "summer", "autumn"];
 
 /** What the timeline shows: the day under the playhead (null in the TBA zone) and whether a game is selected. */
 export type TimelineProbe = () => { day: number | null; selected: boolean };
 
 /**
  * Seasonal background (docs/tasks/seasons.md): particles of the season of the day under the
- * playhead, on one canvas behind line and cards. Hidden with a game selected and while
- * scrolling fast; the animation stops whenever nothing is shown.
+ * playhead, on one canvas behind line and cards; at a season change the two cross-fade.
+ * Hidden with a game selected and while scrolling fast; the animation stops whenever nothing is shown.
  */
 export class SeasonalBackground {
   private readonly canvas: HTMLCanvasElement;
@@ -98,10 +97,8 @@ export class SeasonalBackground {
     // A rebuilt timeline (zoom, filters) has a new band.
     if (!this.band?.el.isConnected) this.readBand();
     const { day, selected } = this.probe();
-    if (day !== null && this.season.set(seasonOf(dayToDate(Math.round(day))), now)) {
-      // One season at a time: everything on screen starts fading out, the new season follows.
-      for (const p of this.particles) p.leftAt ??= now;
-    }
+    // Reduced motion: the new season replaces the old one at once.
+    if (day !== null) this.season.set(seasonOf(dayToDate(Math.round(day))), now, reducedMotion.matches);
     const scrolling = !this.gate.shown(now);
     const shown =
       this.season.season !== null && backgroundShown({ enabled: this.enabled, selected, pageVisible: !document.hidden, scrolling });
@@ -146,27 +143,36 @@ export class SeasonalBackground {
     this.frame = requestAnimationFrame(this.tick);
   };
 
-  /** Moves every particle; the current season's are reborn at the edge, an old season's fade out. */
+  /**
+   * Moves every particle. Each season keeps target × its weight alive: the current one's are
+   * reborn at the edge (or, while it rises, appear anywhere, fading in); a sinking season's
+   * finish their path, fading with its weight, and are gone at weight 0.
+   */
   private step(dt: number, now: number) {
-    const season = this.season.season!;
-    let alive = 0;
-    let reborn = 0;
+    const current = this.season.season!;
+    const alive = seasonCounts();
+    const reborn = seasonCounts();
     this.particles = this.particles.filter((p) => {
-      if (leaveFade(p.leftAt, now) <= 0) return false;
+      if (this.season.weight(p.season, now) <= 0) return false;
       stepParticle(p, dt);
-      const current = p.season === season && p.leftAt === undefined;
       if (isGone(p, this.width, this.height)) {
-        if (current) reborn++;
+        reborn[p.season]++;
         return false;
       }
-      if (current) alive++;
+      alive[p.season]++;
       return true;
     });
-    // Reborn ones enter from the edge; a season arriving appears anywhere, fading in.
-    while (this.season.mayBirth(season, alive, this.max, now)) {
-      const anywhere = reborn-- <= 0;
-      this.particles.push(spawnParticle(season, this.width, this.height, now, anywhere));
-      alive++;
+    let total = this.particles.length;
+    const cap = Math.floor(this.max * SEASONS.crossCap);
+    // The current season first: the cap leaves the room to it.
+    for (const season of [current, ...SEASON_NAMES.filter((s) => s !== current)]) {
+      const target = this.season.target(season, this.max, now);
+      let edge = reborn[season];
+      while (alive[season] < target && total < cap && (season === current || edge > 0)) {
+        this.particles.push(spawnParticle(season, this.width, this.height, now, edge-- <= 0));
+        alive[season]++;
+        total++;
+      }
     }
   }
 
@@ -174,6 +180,7 @@ export class SeasonalBackground {
     const { ctx } = this;
     const { dpr } = this;
     const t = now / 1000;
+    const weight = this.season.weights(now);
     ctx.clearRect(0, 0, this.width, this.height);
     // Far band first, near band last.
     for (let depth = 0; depth < SEASONS.bands.length; depth++) {
@@ -184,7 +191,7 @@ export class SeasonalBackground {
         // Fixed tilt and size: the transform never changes over a particle's life.
         const k = dpr * p.scale;
         ctx.setTransform(k * p.cos, k * p.sin, -k * p.sin, k * p.cos, dpr * wobbleX(p, t), dpr * p.y);
-        ctx.globalAlpha = bandAlpha * fadeIn(p, now) * leaveFade(p.leftAt, now);
+        ctx.globalAlpha = bandAlpha * fadeIn(p, now) * weight[p.season];
         ctx.drawImage(sprite.canvas, -sprite.half, -sprite.half, sprite.half * 2, sprite.half * 2);
       }
     }
@@ -225,7 +232,8 @@ export class SeasonalBackground {
   /** Reduced motion: the full number of the current season's particles, still. */
   private drawStill(now: number) {
     const season = this.season.season!;
-    const current = this.particles.filter((p) => p.season === season && p.leftAt === undefined);
+    this.season.settle();
+    const current = this.particles.filter((p) => p.season === season);
     while (current.length < this.max) current.push(spawnParticle(season, this.width, this.height, now - SEASONS.fadeInMs, true));
     this.particles = current.slice(0, this.max);
     this.stillSeason = season;
@@ -268,3 +276,5 @@ export class SeasonalBackground {
     }
   }
 }
+
+const seasonCounts = (): Record<Season, number> => ({ winter: 0, spring: 0, summer: 0, autumn: 0 });

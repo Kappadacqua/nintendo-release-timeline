@@ -87,12 +87,18 @@ export const TIMELINE = {
 
 /** Seasonal background (docs/tasks/seasons.md): timings, density and what counts as fast scrolling. */
 export const SEASONS = {
-  /** New particles of a season reach their full number over this long after they start. */
-  rampMs: 2000,
   /** A new particle fades in over this long (it never pops up). */
   fadeInMs: 800,
-  /** At a season change the old season's particles fade out over this long; the new one starts after. */
-  leaveMs: 500,
+  /**
+   * Cross-fade at a season change (docs/tasks/seasons-art.md task 2): the new season's weight
+   * rises to 1 after `crossDelayMs`, over `crossInMs`; the others sink to 0 over `crossOutMs`.
+   * A season's particles: target × weight, their opacity × weight.
+   */
+  crossDelayMs: 300,
+  crossInMs: 2000,
+  crossOutMs: 1500,
+  /** All seasons together never draw more than this × the target number of particles. */
+  crossCap: 1.3,
   /** After fast scrolling the background comes back this long after the timeline stopped (fades: tokens.css). */
   restMs: 500,
   /** Particles at the smallest and largest window area. */

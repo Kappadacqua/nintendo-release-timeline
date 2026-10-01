@@ -33,8 +33,6 @@ export interface Particle {
   phase: number;
   /** When it was born (ms): it fades in over `SEASONS.fadeInMs`. */
   born: number;
-  /** Its season is over: fading out since then (ms), see `leaveFade`. */
-  leftAt?: number;
 }
 
 export type Kind = "bubble" | "petal" | "blossom" | "leaf" | "flake";

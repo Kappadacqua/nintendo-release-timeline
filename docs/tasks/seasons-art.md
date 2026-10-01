@@ -73,7 +73,7 @@ Principi fissi:
 
 ---
 
-- [ ] **Task 2 — Transizione incrociata tra stagioni**
+- [x] **Task 2 — Transizione incrociata tra stagioni**
 
 **File**
 - Partire da: `src/seasons/background.ts`, `src/config.ts` (`SEASONS.rampMs`, `fadeInMs`, `leaveMs`).

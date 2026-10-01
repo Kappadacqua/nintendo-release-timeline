@@ -1,6 +1,6 @@
 # Stato del progetto
 
-Aggiornato: 2026-10-01 — Coda `seasons-art.md`, task 1 (sprite pre-renderizzate, fasce di profondità, niente rotazione)
+Aggiornato: 2026-10-01 — Coda `seasons-art.md`, task 2 (transizione incrociata tra stagioni)
 
 ## Ultimo checkpoint
 
@@ -23,6 +23,7 @@ Nessuno.
 
 Dettagli completi nelle versioni precedenti di questo file (`git show 58d0ac7:STATUS.md`).
 
+- seasons-art task 2 — Transizione incrociata: al cambio di stagione la nuova sale dopo 300 ms in 2 s (ease-out), la vecchia scende in 1,5 s (ease-in); le particelle vecchie finiscono il percorso sfumando col peso, tetto 1,3 × il numero di particelle. Con le frecce, confini 28→1 di nov/dic, feb/mar, mag/giu, ago/set: ~1 s con entrambe, nessun vuoto; avanti e indietro sul confine: nessun pop; zona TBA: stagione precedente; reduced motion: cambio immediato; fps durante il cambio (≥ 58 a 1080p).
 - seasons-art task 1 — Sfondo stagionale (forme ancora quelle di prima): nessuna particella ruota più (inclinazione fissa ±35°, solo traslazione e ondeggiamento laterale 12–40 px, 4–9 s); tre profondità: lontane piccole, lente e tenui (45 %), medie (35 %), vicine grandi, più veloci e all'intensità di prima (20 %). Sagome in stile disegnato (riempimento tenue, nervature più sottili, secondo tratto sfalsato). Controllare settembre, gennaio, aprile, luglio nei due temi; cambio tema: colori aggiornati subito; reduced motion: particelle ferme; fps a 1080p come prima.
 - design2 task 1 — Tema scuro con un gioco selezionato: la linea verticale dell'indicatore si interrompe 3 px sopra e sotto la pillola del giorno e non attraversa più il numero (Day, Week, Month, entrambi i temi; sfumatura della linea invariata). `localStorage.removeItem('theme')` + ricarica con il sistema scuro: luna dal primo paint. Pulsanti della card: in hover si scuriscono (`brightness(0.9)`) invece di schiarirsi.
 - design task 6 — Pulsante del tema: nel tema chiaro un sole (disco pieno con 8 raggi), nello scuro la luna di prima (ora in SVG, stessa forma). Controllare cambio tema su timeline, Rankings e Studios: icona corretta e rotazione al clic invariata.

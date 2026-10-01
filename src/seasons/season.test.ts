@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { SEASONS } from "../timeline/config";
 import { parseDay, dayToDate } from "../timeline/dates";
-import { backgroundShown, leaveFade, particleCount, ScrollGate, seasonOf, SeasonState } from "./season";
+import { backgroundShown, particleCount, ScrollGate, seasonOf, SeasonState } from "./season";
 
 const season = (iso: string) => seasonOf(dayToDate(parseDay(iso)));
 
@@ -42,61 +42,79 @@ describe("particleCount", () => {
 });
 
 describe("SeasonState", () => {
-  it("ramps the new season's particles up over about 2 s", () => {
+  const { crossDelayMs: delay, crossInMs: inMs, crossOutMs: outMs } = SEASONS;
+
+  it("the first season starts at once, at full weight", () => {
     const s = new SeasonState();
-    expect(s.set("autumn", 1000)).toBe(true);
-    expect(s.target(40, 1000)).toBe(0);
-    expect(s.target(40, 1000 + SEASONS.rampMs / 2)).toBe(20);
-    expect(s.target(40, 1000 + SEASONS.rampMs)).toBe(40);
-    expect(s.target(40, 1000 + SEASONS.rampMs * 5)).toBe(40);
+    expect(s.set("winter", 0)).toBe(true);
+    expect(s.weight("winter", 0)).toBe(1);
+    expect(s.target("winter", 40, 0)).toBe(40);
+    expect(s.weight("autumn", 0)).toBe(0);
   });
 
   it("the same season again changes nothing", () => {
     const s = new SeasonState();
     s.set("summer", 0);
     expect(s.set("summer", 5000)).toBe(false);
-    expect(s.target(30, 5000)).toBe(30);
+    expect(s.target("summer", 30, 5000)).toBe(30);
   });
 
-  it("after a change the old season's particles are never reborn, the new one's start once they are gone", () => {
+  it("cross-fades: the new season rises after the delay, the old one sinks at once", () => {
     const s = new SeasonState();
-    s.set("summer", 0);
-    expect(s.mayBirth("summer", 10, 30, 10_000)).toBe(true);
-    s.set("autumn", 10_000);
-    const from = 10_000 + SEASONS.leaveMs;
-    expect(s.mayBirth("summer", 0, 30, 10_001)).toBe(false);
-    // Nothing new while the old season fades out.
-    expect(s.mayBirth("autumn", 0, 30, from - 1)).toBe(false);
-    expect(s.target(30, from)).toBe(0);
-    expect(s.mayBirth("autumn", 0, 30, from + SEASONS.rampMs / 2)).toBe(true);
-    expect(s.mayBirth("autumn", 15, 30, from + SEASONS.rampMs / 2)).toBe(false);
-    expect(s.mayBirth("autumn", 29, 30, from + SEASONS.rampMs)).toBe(true);
-    expect(s.mayBirth("autumn", 30, 30, from + SEASONS.rampMs)).toBe(false);
+    s.set("autumn", 0);
+    s.set("winter", 1000);
+    expect(s.weight("winter", 1000 + delay)).toBe(0);
+    expect(s.weight("autumn", 1000)).toBe(1);
+    // Ease-out in, ease-in out: halfway the new one is past half, the old one still above half.
+    expect(s.weight("winter", 1000 + delay + inMs / 2)).toBeGreaterThan(0.5);
+    expect(s.weight("autumn", 1000 + outMs / 2)).toBeGreaterThan(0.5);
+    // For a while both are on screen.
+    expect(s.weight("winter", 1000 + 1000)).toBeGreaterThan(0);
+    expect(s.weight("autumn", 1000 + 1000)).toBeGreaterThan(0);
+    expect(s.weight("autumn", 1000 + outMs)).toBe(0);
+    expect(s.weight("winter", 1000 + delay + inMs)).toBe(1);
+    expect(s.target("winter", 30, 1000 + delay + inMs)).toBe(30);
   });
 
-  it("the first season does not wait", () => {
+  it("weights only move smoothly, also back and forth across the boundary", () => {
     const s = new SeasonState();
-    s.set("winter", 0);
-    expect(s.target(40, SEASONS.rampMs)).toBe(40);
+    s.set("autumn", 0);
+    const changes: [number, "autumn" | "winter"][] = [
+      [1000, "winter"],
+      [1600, "autumn"],
+      [2100, "winter"],
+      [2400, "autumn"],
+    ];
+    let prev = { autumn: 1, winter: 0 };
+    for (let t = 0; t <= 8000; t += 4) {
+      for (const [at, season] of changes) if (at === t) s.set(season, t);
+      const now = { autumn: s.weight("autumn", t), winter: s.weight("winter", t) };
+      expect(Math.abs(now.autumn - prev.autumn)).toBeLessThan(0.02);
+      expect(Math.abs(now.winter - prev.winter)).toBeLessThan(0.02);
+      prev = now;
+    }
+    expect(prev).toEqual({ autumn: 1, winter: 0 });
   });
-});
 
-describe("leaveFade", () => {
-  it("is 1 for a particle of the current season", () => expect(leaveFade(undefined, 5000)).toBe(1));
-
-  it("fades an old season's particle to 0 over leaveMs", () => {
-    expect(leaveFade(1000, 1000)).toBe(1);
-    expect(leaveFade(1000, 1000 + SEASONS.leaveMs / 2)).toBeCloseTo(0.5);
-    expect(leaveFade(1000, 1000 + SEASONS.leaveMs)).toBe(0);
-    expect(leaveFade(1000, 1000 + SEASONS.leaveMs * 3)).toBe(0);
-  });
-
-  it("old particles are gone before the new season's first birth", () => {
+  it("a season coming back resumes from its current weight", () => {
     const s = new SeasonState();
     s.set("spring", 0);
-    s.set("summer", 1000);
-    const firstBirth = Array.from({ length: 5000 }, (_, i) => 1000 + i).find((t) => s.mayBirth("summer", 0, 40, t))!;
-    expect(leaveFade(1000, firstBirth)).toBe(0);
+    s.set("summer", 0);
+    const w = s.weight("spring", 500);
+    s.set("spring", 500);
+    expect(s.weight("spring", 500)).toBeCloseTo(w);
+    expect(s.weight("spring", 500 + delay)).toBeCloseTo(w);
+    expect(s.weight("spring", 500 + delay + 1)).toBeGreaterThan(w);
+  });
+
+  it("immediate (reduced motion) and settle() skip the cross-fade", () => {
+    const s = new SeasonState();
+    s.set("spring", 0);
+    s.set("summer", 100, true);
+    expect(s.weights(100)).toEqual({ winter: 0, spring: 0, summer: 1, autumn: 0 });
+    s.set("autumn", 200);
+    s.settle();
+    expect(s.weights(200)).toEqual({ winter: 0, spring: 0, summer: 0, autumn: 1 });
   });
 });
 
