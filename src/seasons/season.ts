@@ -13,7 +13,7 @@ export function seasonOf(date: Date): Season {
   return "autumn";
 }
 
-/** 20–40 particles, growing linearly with the window area. */
+/** 25–50 particles, growing linearly with the window area. */
 export function particleCount(width: number, height: number) {
   const { minParticles: lo, maxParticles: hi, minArea, maxArea } = SEASONS;
   const t = (width * height - minArea) / (maxArea - minArea);

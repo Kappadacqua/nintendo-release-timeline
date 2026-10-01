@@ -94,7 +94,7 @@ Percorsi relativi alla root; `file:riga` si riferisce allo stato di questo commi
 | `--season-spring` | `#c07890` | `#e6c3cf` | Primavera: petali con tacca, fiori di ciliegio, rametti fioriti, boccioli |
 | `--season-summer` | `#4f8fb0` | `#a9cde0` | Estate: bolle, grappoli di bolle, conchiglie a ventaglio, stelle marine |
 | `--season-autumn` | `#b36d3f` | `#dcae8c` | Autunno: foglie di acero, quercia, betulla, ginkgo |
-| `--season-alpha` | `0.40` | `0.28` | Opacità delle particelle (`globalAlpha`), moltiplicata per la fascia di profondità (0.55 / 0.80 / 1.00) e per il peso della stagione nella transizione; contrasto della fascia vicina sullo sfondo ~1.6 chiaro, ~1.8–2.1 scuro |
+| `--season-alpha` | `0.40` | `0.28` | Opacità delle particelle (`globalAlpha`), moltiplicata per la fascia di profondità (0.65 / 0.85 / 1.00) e per il peso della stagione nella transizione; contrasto della fascia vicina sullo sfondo ~1.6 chiaro, ~1.8–2.1 scuro |
 | `--backdrop-veil` | `0.45` | `0.06` | Opacità del velo `--bg` sopra lo sfondo del gioco (`backdrop.css`) |
 | `--backdrop-blur` | `28px` | = | Sfocatura dello sfondo del gioco (`backdrop.css`) |
 | `--backdrop-blur-cover` | `70px` | = | Sfocatura quando lo sfondo è la copertina IGDB (`backdrop.css`) |

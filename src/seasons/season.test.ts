@@ -27,17 +27,16 @@ describe("seasonOf", () => {
 });
 
 describe("particleCount", () => {
-  it("is 20 at 1280 × 720 or smaller and 40 at 2560 × 1440 or larger", () => {
-    expect(particleCount(1280, 720)).toBe(20);
-    expect(particleCount(800, 600)).toBe(20);
-    expect(particleCount(2560, 1440)).toBe(40);
-    expect(particleCount(3840, 2160)).toBe(40);
+  it("is 25 at 1280 × 720 or smaller and 50 at 2560 × 1440 or larger", () => {
+    expect(particleCount(1280, 720)).toBe(25);
+    expect(particleCount(800, 600)).toBe(25);
+    expect(particleCount(2560, 1440)).toBe(50);
+    expect(particleCount(3840, 2160)).toBe(50);
   });
 
   it("grows with the window area in between", () => {
     const hd = particleCount(1920, 1080);
-    expect(hd).toBeGreaterThan(20);
-    expect(hd).toBeLessThan(40);
+    expect(hd).toBe(35);
   });
 });
 

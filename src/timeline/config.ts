@@ -106,8 +106,8 @@ export const SEASONS = {
   /** All seasons together never draw more than this × the target number of particles. */
   crossCap: 1.3,
   /** Particles at the smallest and largest window area. */
-  minParticles: 20,
-  maxParticles: 40,
+  minParticles: 25,
+  maxParticles: 50,
   /** Window areas (px²) of those counts: 1280 × 720 and 2560 × 1440. */
   minArea: 1280 * 720,
   maxArea: 2560 * 1440,
@@ -157,7 +157,7 @@ export const SEASONS = {
   winter: {
     shares: { dendrite: 0.45, plate: 0.2, dot: 0.3, fir: 0.05 },
     speed: 0.9,
-    dotRadiusPx: [1.5, 3.5],
+    dotRadiusPx: [2.5, 5],
     branchJitter: 0.2,
     fir: { speed: 0.7, ampPx: [25, 40] },
     gust: { everyS: [6, 12], pxPerS: 20, durationS: 2 },
@@ -169,8 +169,8 @@ export const SEASONS = {
    * speed and opacity multipliers (opacity × `--season-alpha`), sprite outline width (px).
    */
   bands: [
-    { share: 0.45, size: 0.55, speed: 0.6, alpha: 0.55, linePx: 1.2 },
-    { share: 0.35, size: 1, speed: 1, alpha: 0.8, linePx: 1.4 },
+    { share: 0.45, size: 0.55, speed: 0.6, alpha: 0.65, linePx: 1.2 },
+    { share: 0.35, size: 1, speed: 1, alpha: 0.85, linePx: 1.4 },
     { share: 0.2, size: 1.6, speed: 1.5, alpha: 1, linePx: 1.6 },
   ],
   /** Sideways wobble `x0 + A · sin(2πt / T + φ)`: amplitude A (px at 1080p) and period T (s) ranges. */
