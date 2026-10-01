@@ -43,7 +43,7 @@ if (!report) console.log(dim("No data/fetch-report.json: run `npm run data:fetch
 const gaps = gapsOf(games, overrides, loadMetacriticCache(PATHS.metacriticCache), today);
 const gapList = (g: GameGaps) => g.gaps.map((x) => `${x.source} ${dim(`(${x.state})`)}`).join(", ");
 section(
-  "Released games missing a Metacritic or Backloggd score",
+  "Released games missing a Metacritic score",
   gaps.scores.map((g) => `${label(g)} ${dim(g.date ?? "")} — ${gapList(g)}`),
   "not looked up: run data:fetch-metacritic · no page found: set links.metacritic in the admin panel · tbd: too few reviews yet, wait · none for real: \"absent\": { \"metacritic\": { \"status\": \"none\" } } in data/overrides.json.",
 );
@@ -52,8 +52,11 @@ section(
   gaps.links.map((g) => `${label(g)} — ${g.gaps.map((x) => x.source).join(", ")}`),
   'Add them in the admin panel (npm run dev → /admin) or under games.<id>.links in data/overrides.json; no page at all: "absent": { "wikipedia": { "status": "none" } }.',
 );
+if (gaps.backloggdMissing) {
+  console.log(dim(`\nBackloggd is optional and entered by hand (backloggd.com blocks scripts with a bot challenge): ${gaps.backloggdMissing} released game(s) without a value, not counted. Admin panel, filter "Backloggd".`));
+}
 const none = Object.entries(gaps.confirmedNone);
-if (none.length) console.log(dim(`\nConfirmed absent in data/overrides.json, not listed: ${none.map(([k, n]) => `${k} ${n}`).join(", ")}.`));
+if (none.length) console.log(dim(`\nConfirmed absent (data/overrides.json, or a page Metacritic removed), not listed: ${none.map(([k, n]) => `${k} ${n}`).join(", ")}.`));
 
 // --- Free updates (data/free-updates.json): the cover comes from IGDB.
 section(
@@ -185,7 +188,6 @@ if (process.argv.includes("--stubs") && gaps.scores.length) {
     if (g.gaps.some((x) => x.source.startsWith("Metacritic"))) {
       stub.metacritic = { critic: null, criticCount: null, user: null, userCount: null, ...o.metacritic };
     }
-    if (g.gaps.some((x) => x.source === "Backloggd")) stub.backloggd = { rating: null, count: null, ...o.backloggd };
     stubs[g.id] = stub;
   }
   console.log(`\n${bold("Overrides stubs")} ${dim("(fill in the numbers and merge into data/overrides.json)")}`);

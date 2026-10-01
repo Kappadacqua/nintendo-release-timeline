@@ -22,7 +22,7 @@ describe("gapsOf", () => {
     const states = Object.fromEntries(scores.map((g) => [g.title, g.gaps.map((x) => `${x.source}: ${x.state}`)]));
     expect(states["Never looked up"]).toContain("Metacritic critic: not looked up");
     expect(states["No page"]).toContain("Metacritic user: no page found");
-    expect(states["Few reviews"]).toEqual(["Metacritic critic: tbd", "Metacritic user: no score on the page", "Backloggd: to enter by hand"]);
+    expect(states["Few reviews"]).toEqual(["Metacritic critic: tbd", "Metacritic user: no score on the page"]);
   });
 
   it("leaves out sources confirmed absent, and counts them", () => {
@@ -38,8 +38,23 @@ describe("gapsOf", () => {
     const game = makeGame({ id: "igdb:1", title: "Derby Stallion 2", firstReleaseDate: "2026-09-24" });
     const cache = mc({ "igdb:1": { slug: "derby-stallion-2", url: "", status: "gone", httpStatus: 410, checkedAt } });
     const { scores, confirmedNone } = gapsOf([game], {}, cache, today);
-    expect(scores[0].gaps.map((x) => x.source)).toEqual(["Backloggd"]);
+    expect(scores).toEqual([]);
     expect(confirmedNone.metacritic).toBe(1);
+  });
+
+  it("counts missing Backloggd values instead of listing them", () => {
+    const games = [makeGame({ id: "igdb:1", title: "A", firstReleaseDate: "2026-01-01" }), makeGame({ id: "igdb:2", title: "B", firstReleaseDate: "2026-01-01" })];
+    const cache = mc({
+      "igdb:1": { slug: "a", url: "", status: "ok", checkedAt, critic: 80, user: 8 },
+      "igdb:2": { slug: "b", url: "", status: "ok", checkedAt, critic: 80, user: 8 },
+    });
+    games.forEach((g) => {
+      g.scores.critic.metacritic = { value: 80, scale: 100, normalized: 80, count: 10 };
+      g.scores.user.metacritic = { value: 8, scale: 10, normalized: 80, count: 10 };
+    });
+    const { scores, backloggdMissing } = gapsOf(games, {}, cache, today);
+    expect(scores).toEqual([]);
+    expect(backloggdMissing).toBe(2);
   });
 
   it("skips games not out yet, and the TBA zone for links", () => {

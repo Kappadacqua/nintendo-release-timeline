@@ -9,7 +9,7 @@ import { type AbsentSource, isAbsent, type Override } from "./overrides";
  */
 
 /** Why a value is missing: never looked up, looked up without a page, or a page without a score. */
-export type GapState = "not looked up" | "no page found" | "page of another game" | "no score on the page" | "tbd" | "to enter by hand";
+export type GapState = "not looked up" | "no page found" | "page of another game" | "no score on the page" | "tbd";
 
 export interface Gap {
   source: string;
@@ -24,8 +24,13 @@ export interface GameGaps {
 }
 
 export interface Gaps {
-  /** Released games with a missing Metacritic or Backloggd value. */
+  /** Released games with a missing Metacritic value. */
   scores: GameGaps[];
+  /**
+   * Released games without a Backloggd value. Optional source, entered by hand only (SPEC §4:
+   * backloggd.com blocks scripts with a bot challenge), so counted, not listed.
+   */
+  backloggdMissing: number;
   /** Dated games (not the TBA zone) without a Wikipedia, Nintendo Wiki or Nintendo Store link. */
   links: GameGaps[];
   /** Values skipped because there is none for sure (override, or a page Metacritic removed), per source. */
@@ -35,7 +40,7 @@ export interface Gaps {
 export const isReleased = (g: Pick<Game, "firstReleaseDate">, today: string) => !!g.firstReleaseDate && g.firstReleaseDate <= today;
 
 export function gapsOf(games: Game[], overrides: Record<string, Override>, mc: MetacriticCache, today: string): Gaps {
-  const out: Gaps = { scores: [], links: [], confirmedNone: {} };
+  const out: Gaps = { scores: [], links: [], backloggdMissing: 0, confirmedNone: {} };
   const confirmed = (o: Override | undefined, source: AbsentSource) => {
     if (!isAbsent(o, source)) return false;
     out.confirmedNone[source] = (out.confirmedNone[source] ?? 0) + 1;
@@ -64,7 +69,7 @@ export function gapsOf(games: Game[], overrides: Record<string, Override>, mc: M
         if (missingCritic) gaps.push({ source: "Metacritic critic", state: pageState ?? (page?.criticTbd ? "tbd" : "no score on the page") });
         if (missingUser) gaps.push({ source: "Metacritic user", state: pageState ?? (page?.userTbd ? "tbd" : "no score on the page") });
       }
-      if (!g.scores.user.backloggd && !confirmed(o, "backloggd")) gaps.push({ source: "Backloggd", state: "to enter by hand" });
+      if (!g.scores.user.backloggd && !confirmed(o, "backloggd")) out.backloggdMissing++;
       if (gaps.length) out.scores.push({ id: g.id, title: g.title, date: g.firstReleaseDate, gaps });
     }
 
