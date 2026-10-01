@@ -30,18 +30,23 @@ export const TIMELINE = {
   flingStopVelocity: 0.08,
 
   /**
-   * Mouse-wheel gears, chosen by how long the wheel has been spinning without a pause.
-   * Notches less than this far apart (ms) are one continuous spin; a longer pause starts afresh in gear 1…
+   * Mouse wheel: the longer the wheel spins without a pause, the further each notch moves, on a
+   * steady ramp (no jumps between gears). Notches less than this far apart (ms) are one continuous
+   * spin; a longer pause starts afresh at one unit per notch…
    */
   wheelGearGapMs: 150,
-  /** …and a notch further than this (ms) from the previous one (the pace slows) drops one gear. */
+  /** …and a notch further than this (ms) from the previous one (the pace slows) gives back some of the ramp… */
   wheelGearSlowGapMs: 100,
-  /** Gears 2 and 3 start after this long of continuous spin (ms). */
-  wheelGearStartMs: [300, 800],
-  /** Units (days, weeks, months) per notch in gears 1, 2, 3. */
-  wheelGearUnits: [1, 3, 7],
-  /** Most units the view coasts past the last notch in gears 1, 2, 3 (gear 1: none, it just snaps). */
-  wheelGearInertiaUnits: [0, 7, 30],
+  /** …this many ms of spin for every ms beyond `wheelGearSlowGapMs`. */
+  wheelSlowLoss: 8,
+  /** One unit per notch for the first `wheelRampDelayMs` of a spin, then linearly up to `wheelMaxPace` units per notch over `wheelRampMs`. */
+  wheelRampDelayMs: 150,
+  wheelRampMs: 1100,
+  wheelMaxPace: 6,
+  /** Units the view coasts past the last notch, per unit of pace above 1 (pace 1: none, it just snaps). */
+  wheelInertiaPerPace: 5,
+  /** From these paces a notch counts as gear 2 and 3 (the seasonal background reacts from gear 2; `?debug=wheel`). */
+  wheelGearPace: [2, 4],
   /** Speed kept per 60fps frame while a wheel fling slows down (same as a drag's `flingFriction`). */
   wheelFlingFriction: 0.94,
   /** A continuous spin (notches + inertia) never moves further than this many days (about 3 months, at any zoom). */
@@ -85,7 +90,7 @@ export const TIMELINE = {
   minCardScale: 0.55,
 };
 
-/** Seasonal background (docs/tasks/seasons.md): timings, density and what counts as fast scrolling. */
+/** Seasonal background (docs/tasks/seasons.md): timings, density, shapes and the push of a fast wheel spin. */
 export const SEASONS = {
   /** A new particle fades in over this long (it never pops up). */
   fadeInMs: 800,
@@ -99,8 +104,6 @@ export const SEASONS = {
   crossOutMs: 1500,
   /** All seasons together never draw more than this × the target number of particles. */
   crossCap: 1.3,
-  /** After fast scrolling the background comes back this long after the timeline stopped (fades: tokens.css). */
-  restMs: 500,
   /** Particles at the smallest and largest window area. */
   minParticles: 20,
   maxParticles: 40,
@@ -187,6 +190,18 @@ export const SEASONS = {
   sprite: { fillAlpha: 0.16, veinWidth: 0.8, veinAlpha: 0.7, pencilPx: [0.6, 0.8], pencilAlpha: 0.45 },
   /** Particles fade out over this many px on each side of the line's band. */
   bandFeatherPx: 24,
-  /** A drag faster than this (screen px/ms) counts as fast scrolling; so does a jump longer than the window. */
-  fastDragPxPerMs: 1.2,
+  /**
+   * Push of a fast wheel spin (docs/tasks/seasons-art.md task 8): every notch from gear 2 adds a
+   * sideways speed (px/s) of `sign` × the scroll direction × the gain (from `gainPxPerS[0]` at the
+   * pace of gear 2 to `gainPxPerS[1]` at the top pace, `TIMELINE.wheelGearPace` / `wheelMaxPace`)
+   * × the band's factor, never more than `maxPxPerS` on any particle; it then decays exponentially
+   * with time constant `decayMs`. `sign` 1: scrolling forward pushes the particles right.
+   */
+  react: {
+    sign: 1,
+    gainPxPerS: [220, 420],
+    bandFactor: [0.4, 1, 1.8],
+    maxPxPerS: 600,
+    decayMs: 600,
+  },
 } as const;

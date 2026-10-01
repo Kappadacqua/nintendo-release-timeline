@@ -1,20 +1,18 @@
-import { SEASONS, TIMELINE } from "./config";
+import { TIMELINE } from "./config";
 import { restPoint, WheelFling, type WheelAction } from "./wheel-fling";
 
 const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
 
-/** Scroll activity for the rest of the page (the seasonal background): every move, and fast ones. */
+/** Wheel activity for the rest of the page (the seasonal background reacts to fast spins). */
 export interface ScrollActivity {
-  moved(): void;
-  /** Wheel gear 2+, a quick drag, a jump longer than the window. */
-  fast(): void;
+  /** A mouse-wheel notch from gear 2 (`wheel-fling.ts`): direction (+1 forward in time) and units per notch. */
+  wheelSpin(dir: 1 | -1, pace: number): void;
 }
 const activity = new Set<ScrollActivity>();
 export function onScrollActivity(listener: ScrollActivity) {
   activity.add(listener);
   return () => activity.delete(listener);
 }
-const reportFast = () => activity.forEach((l) => l.fast());
 
 /**
  * Horizontal camera: `current` eases toward `target` for smooth, lightly inertial
@@ -38,14 +36,7 @@ export class Scroller {
   /** Wheel fling: `current` slows down toward `target` with `wheelFlingFriction` (lands exactly on it). */
   private coasting = false;
 
-  private onChange: (x: number) => void;
-
-  constructor(onChange: (x: number) => void) {
-    this.onChange = (x) => {
-      activity.forEach((l) => l.moved());
-      onChange(x);
-    };
-  }
+  constructor(private onChange: (x: number) => void) {}
 
   setBounds(min: number, max: number) {
     this.min = min;
@@ -67,7 +58,6 @@ export class Scroller {
     this.coasting = false;
     const to = this.clamp(this.snap(this.clamp(x)));
     const distance = Math.abs(to - this.current);
-    if (distance > innerWidth) reportFast();
     // Reduced motion: no glide, just go there.
     if (reducedMotion.matches) return this.jumpTo(to);
     this.target = to;
@@ -274,7 +264,7 @@ export function bindScrollInput(
   // When the page is busy, browsers merge several notches into one event with the
   // deltas summed, so an event is worth as many days as notches it contains.
   // Trackpads send many small deltas, which add up to `trackpadDayPx` per day.
-  // A longer spin shifts up to 3 or 7 days per notch plus inertia (wheel-fling.ts); trackpads keep the plain behavior.
+  // A longer spin ramps up to `wheelMaxPace` days per notch plus inertia (wheel-fling.ts); trackpads keep the plain behavior.
   const unitPx = opts.dayPx * opts.unitDays;
   const maxPx = TIMELINE.wheelFlingMaxDays * opts.dayPx;
   const wheelFling = new WheelFling();
@@ -352,7 +342,9 @@ export function bindScrollInput(
           maxUnits: Math.max(1, Math.round(TIMELINE.wheelFlingMaxDays / opts.unitDays)),
         });
         if (debugWheel) console.log("[wheel]", action);
-        if (action.kind === "move" && action.gear >= 2) reportFast();
+        if (action.kind === "move" && action.gear >= 2 && !reducedMotion.matches) {
+          activity.forEach((l) => l.wheelSpin(delta > 0 ? 1 : -1, action.pace));
+        }
         if (action.kind === "brake") scroller.halt();
         else spinWheel(action, step);
         return;
@@ -404,7 +396,6 @@ export function bindScrollInput(
     const dx = e.clientX - lastX;
     const dt = Math.max(1, e.timeStamp - lastT);
     velocity = 0.8 * (-dx / dt) + 0.2 * velocity;
-    if (Math.abs(velocity) > SEASONS.fastDragPxPerMs) reportFast();
     lastX = e.clientX;
     lastT = e.timeStamp;
     scroller.jumpTo(scroller.current - dx);

@@ -1,14 +1,17 @@
 import { TIMELINE } from "./config";
 
-/** Mouse-wheel gears (no DOM): how far each notch of a spin moves, and where the spin lands. */
+/** Mouse-wheel ramp (no DOM): how far each notch of a spin moves, and where the spin lands. */
 
 export type WheelFlingConfig = Pick<
   typeof TIMELINE,
   | "wheelGearGapMs"
   | "wheelGearSlowGapMs"
-  | "wheelGearStartMs"
-  | "wheelGearUnits"
-  | "wheelGearInertiaUnits"
+  | "wheelSlowLoss"
+  | "wheelRampDelayMs"
+  | "wheelRampMs"
+  | "wheelMaxPace"
+  | "wheelInertiaPerPace"
+  | "wheelGearPace"
   | "wheelTrackpadHoldMs"
 >;
 
@@ -17,29 +20,34 @@ export type WheelFlingConfig = Pick<
  * the spin started (`start`: this notch starts a new one): `moved` covered by the notches so far,
  * `rest` where the view comes to rest after the inertia (never behind `moved`, never shorter
  * than for an earlier notch of the same spin). `units`: this notch's own share of `moved`.
+ * `pace`: units per notch at this point of the spin (1 … `wheelMaxPace`, fractional); `gear`
+ * is the same pace in three steps (`wheelGearPace`).
  */
 export type WheelAction =
-  | { kind: "move"; gear: 1 | 2 | 3; start: boolean; units: number; moved: number; rest: number }
+  | { kind: "move"; gear: 1 | 2 | 3; pace: number; start: boolean; units: number; moved: number; rest: number }
   | { kind: "brake" };
 
 /**
  * Tracks wheel notches as spins (notches less than `wheelGearGapMs` apart). The longer the
- * spin, the higher the gear: more units per notch and more inertia after it. A slower notch
- * drops a gear, a pause starts a new spin in gear 1. A spin (notches + inertia) never goes
- * further than `maxUnits`. A notch against a fling in progress brakes it. Trackpads stay in gear 1.
+ * spin, the faster it goes, on a steady ramp: more units per notch and more inertia after it.
+ * A slower notch gives back part of the ramp, a pause starts a new spin at one unit per notch.
+ * A spin (notches + inertia) never goes further than `maxUnits`. A notch against a fling in
+ * progress brakes it. Trackpads stay at one unit per notch.
  */
 export class WheelFling {
   private last = -Infinity;
   private dir = 0;
-  /** Continuous spin time (ms) the gear is read from. */
+  /** Continuous spin time (ms) the pace is read from. */
   private spin = 0;
+  /** Units covered, with the fractions of the pace (`moved` is its whole part). */
+  private exact = 0;
   private moved = 0;
   private rest = 0;
   private trackpadAt = -Infinity;
 
   constructor(private cfg: WheelFlingConfig = TIMELINE) {}
 
-  /** A trackpad-like event (small delta): gear 1 for a while, it is not a mouse wheel. */
+  /** A trackpad-like event (small delta): one unit per notch for a while, it is not a mouse wheel. */
   trackpad(time: number) {
     this.trackpadAt = time;
     this.reset();
@@ -50,10 +58,16 @@ export class WheelFling {
     this.last = -Infinity;
   }
 
-  /** Gear (1–3) for a continuous spin of `spin` ms. */
-  gearFor(spin: number): 1 | 2 | 3 {
-    const [second, third] = this.cfg.wheelGearStartMs;
-    return spin >= third ? 3 : spin >= second ? 2 : 1;
+  /** Units per notch after a continuous spin of `spin` ms. */
+  paceFor(spin: number) {
+    const ramp = Math.min(1, Math.max(0, (spin - this.cfg.wheelRampDelayMs) / this.cfg.wheelRampMs));
+    return 1 + (this.cfg.wheelMaxPace - 1) * ramp;
+  }
+
+  /** Gear (1–3) of a pace. */
+  gearFor(pace: number): 1 | 2 | 3 {
+    const [second, third] = this.cfg.wheelGearPace;
+    return pace >= third ? 3 : pace >= second ? 2 : 1;
   }
 
   /**
@@ -76,12 +90,12 @@ export class WheelFling {
     const start = dir !== this.dir || gap >= this.cfg.wheelGearGapMs;
     if (start) {
       this.spin = 0;
+      this.exact = 0;
       this.moved = 0;
       this.rest = 0;
     } else if (gap > this.cfg.wheelGearSlowGapMs) {
-      // Slowing down: back to the start of the gear below.
-      const gear = this.gearFor(this.spin);
-      this.spin = gear === 3 ? this.cfg.wheelGearStartMs[0] : 0;
+      // Slowing down: part of the ramp is lost, more the slower the notch.
+      this.spin = Math.max(0, this.spin - (gap - this.cfg.wheelGearSlowGapMs) * this.cfg.wheelSlowLoss);
     } else {
       this.spin += gap;
     }
@@ -89,12 +103,23 @@ export class WheelFling {
     this.last = time;
     this.dir = dir;
 
-    const gear = this.gearFor(this.spin);
+    const pace = this.paceFor(this.spin);
     const before = this.moved;
-    this.moved = Math.min(state.maxUnits, this.moved + count * this.cfg.wheelGearUnits[gear - 1]);
-    const inertia = state.reduced ? 0 : this.cfg.wheelGearInertiaUnits[gear - 1];
+    this.exact = Math.min(state.maxUnits, this.exact + count * pace);
+    // Every notch moves at least one unit (a fraction left over carries on to the next).
+    this.moved = Math.min(state.maxUnits, Math.max(before + count, Math.floor(this.exact + 1e-9)));
+    this.exact = Math.max(this.exact, this.moved);
+    const inertia = state.reduced ? 0 : Math.round((pace - 1) * this.cfg.wheelInertiaPerPace);
     this.rest = Math.max(this.rest, Math.min(state.maxUnits, this.moved + inertia));
-    return { kind: "move", gear, start, units: dir * (this.moved - before), moved: dir * this.moved, rest: dir * this.rest };
+    return {
+      kind: "move",
+      gear: this.gearFor(pace),
+      pace,
+      start,
+      units: dir * (this.moved - before),
+      moved: dir * this.moved,
+      rest: dir * this.rest,
+    };
   }
 }
 

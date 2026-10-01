@@ -94,36 +94,7 @@ export class SeasonState {
   }
 }
 
-/**
- * Fast scrolling (wheel gear 2+, quick drag, long jump) hides the background; it comes back
- * `restMs` after the timeline last moved.
- */
-export class ScrollGate {
-  private movedAt = -Infinity;
-  private hidden = false;
-
-  fast(now: number) {
-    this.hidden = true;
-    this.movedAt = Math.max(this.movedAt, now);
-  }
-
-  moved(now: number) {
-    this.movedAt = Math.max(this.movedAt, now);
-  }
-
-  /** Shown at `now`? */
-  shown(now: number) {
-    if (this.hidden && now - this.movedAt >= SEASONS.restMs) this.hidden = false;
-    return !this.hidden;
-  }
-
-  /** When it comes back if nothing moves any more. */
-  get backAt() {
-    return this.hidden ? this.movedAt + SEASONS.restMs : -Infinity;
-  }
-}
-
-/** Visible (drawn, animating): enabled, no game selected, page visible, not fast scrolling. */
-export function backgroundShown(s: { enabled: boolean; selected: boolean; pageVisible: boolean; scrolling: boolean }) {
-  return s.enabled && !s.selected && s.pageVisible && !s.scrolling;
+/** Visible (drawn, animating): enabled, no game selected, page visible (also while scrolling fast). */
+export function backgroundShown(s: { enabled: boolean; selected: boolean; pageVisible: boolean }) {
+  return s.enabled && !s.selected && s.pageVisible;
 }

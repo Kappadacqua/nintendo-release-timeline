@@ -355,19 +355,22 @@ Raggi fuori scala: 1px (coriandoli, "Today" minimappa), 1.5px (bandiere, pallino
 |---|---|---|
 | `smoothing` 0.16 per frame | Inseguimento del bersaglio (rotella, frecce) | `config.ts:18` |
 | `min(600, 250 + 0.12·px)` ms, cubic in-out | Salti lunghi (oltre 300px) | `scroller.ts:77,181` |
-| `flingFriction` / `wheelFlingFriction` 0.94 per frame | Inerzia di trascinamento e rotella | `config.ts:24,46` |
-| `SEASONS.fadeInMs` 800 | Comparsa di una particella | `config.ts:91` |
-| `SEASONS.crossDelayMs` 300, `crossInMs` 2000 (ease-out) | Transizione incrociata: il peso della nuova stagione sale a 1 dopo il ritardo | `config.ts:97-98` |
-| `SEASONS.crossOutMs` 1500 (ease-in) | Transizione incrociata: il peso delle altre stagioni scende a 0, senza ritardo | `config.ts:99` |
-| `SEASONS.crossCap` 1.3 | Tetto delle particelle disegnate durante la transizione (× il numero pieno) | `config.ts:101` |
-| `SEASONS.restMs` 500 | Ritorno dello sfondo dopo lo scorrimento veloce | `config.ts:103` |
-| `SEASONS.bands` | Fasce di profondità lontana / media / vicina: quota 45 / 35 / 20 %, dimensione × 0.55 / 1 / 1.6, velocità × 0.6 / 1 / 1.5, opacità × 0.55 / 0.80 / 1, contorno 1.2 / 1.4 / 1.6 px | `config.ts:167` |
-| `SEASONS.wobbleAmpPx` [12, 40], `wobblePeriodS` [4, 9] | Ondeggiamento laterale `x0 + A · sin(2πt / T + φ)` (px a 1080p, s); ogni stagione può allargarlo (`spring`, `summer`, `leaves`, `winter.fir`) | `config.ts:173-174` |
-| `SEASONS.tiltDeg` 35 | Inclinazione fissa di ogni particella (± gradi): nessuna rotazione nel tempo | `config.ts:176` |
-| `SEASONS.sizeJitter` 0.12, `viewHeight` 1080, `viewScale` [0.75, 1.25] | Dimensione ± 12 % nella fascia; dimensioni e ampiezze scalano con `innerHeight / 1080` | `config.ts:178-181` |
-| `SEASONS.variants` 6 / 3, `spriteSeed` 1789, `sprite` | Sprite pre-renderizzate per tipo (comuni / rari) × fascia, con seme fisso; stile del tratto (riempimento 0.16, nervature 0.8 × e 0.7, secondo tratto 0.6–0.8 px a 0.45) | `config.ts:183-187` |
-| `SEASONS.spring`, `summer`, `leaves`, `winter` | Quote dei tipi di ogni stagione e movimenti propri (bolle che salgono, conchiglie e stelle che scendono a × 0.35, raffiche invernali ± 20 px/s per 2 s ogni 6–12 s, rametto di abete × 0.7) | `config.ts:115-153` |
-| `presentationSeconds` 6, `presentationCursorMs` 2500 | Ritmo della presentazione, cursore nascosto | `config.ts:81-83` |
+| `flingFriction` / `wheelFlingFriction` 0.94 per frame | Inerzia di trascinamento e rotella | `config.ts:24,51` |
+| `wheelRampDelayMs` 150, `wheelRampMs` 1100, `wheelMaxPace` 6 | Rotella: 1 unità per scatto nei primi 150 ms di rotazione continua, poi sale in modo lineare fino a 6 per scatto in 1,1 s (nessun salto tra marce) | `config.ts:43-45` |
+| `wheelInertiaPerPace` 5, `wheelGearSlowGapMs` 100, `wheelSlowLoss` 8 | Inerzia della rotella: 5 unità per ogni unità di passo oltre 1 (max 25); uno scatto più lento di 100 ms toglie 8 ms di rampa per ms in più | `config.ts:39-47` |
+| `wheelGearPace` [2, 4] | Passo da cui uno scatto conta come marcia 2 e 3 (spinta dello sfondo stagionale, `?debug=wheel`) | `config.ts:49` |
+| `SEASONS.fadeInMs` 800 | Comparsa di una particella | `config.ts:96` |
+| `SEASONS.crossDelayMs` 300, `crossInMs` 2000 (ease-out) | Transizione incrociata: il peso della nuova stagione sale a 1 dopo il ritardo | `config.ts:102-103` |
+| `SEASONS.crossOutMs` 1500 (ease-in) | Transizione incrociata: il peso delle altre stagioni scende a 0, senza ritardo | `config.ts:104` |
+| `SEASONS.crossCap` 1.3 | Tetto delle particelle disegnate durante la transizione (× il numero pieno) | `config.ts:106` |
+| `SEASONS.bands` | Fasce di profondità lontana / media / vicina: quota 45 / 35 / 20 %, dimensione × 0.55 / 1 / 1.6, velocità × 0.6 / 1 / 1.5, opacità × 0.55 / 0.80 / 1, contorno 1.2 / 1.4 / 1.6 px | `config.ts:170` |
+| `SEASONS.wobbleAmpPx` [12, 40], `wobblePeriodS` [4, 9] | Ondeggiamento laterale `x0 + A · sin(2πt / T + φ)` (px a 1080p, s); ogni stagione può allargarlo (`spring`, `summer`, `leaves`, `winter.fir`) | `config.ts:176-177` |
+| `SEASONS.tiltDeg` 35 | Inclinazione fissa di ogni particella (± gradi): nessuna rotazione nel tempo | `config.ts:179` |
+| `SEASONS.sizeJitter` 0.12, `viewHeight` 1080, `viewScale` [0.75, 1.25] | Dimensione ± 12 % nella fascia; dimensioni e ampiezze scalano con `innerHeight / 1080` | `config.ts:181-184` |
+| `SEASONS.variants` 6 / 3, `spriteSeed` 1789, `sprite` | Sprite pre-renderizzate per tipo (comuni / rari) × fascia, con seme fisso; stile del tratto (riempimento 0.16, nervature 0.8 × e 0.7, secondo tratto 0.6–0.8 px a 0.45) | `config.ts:186-190` |
+| `SEASONS.react` | Spinta della rotella dalla marcia 2: ogni scatto aggiunge 220–420 px/s (secondo il passo) in direzione opposta allo scorrimento apparente (avanti → destra, `sign`), × 0.4 / 1 / 1.8 per fascia, max 600 px/s, decadimento esponenziale 600 ms; niente con reduced motion o trackpad | `config.ts:200` |
+| `SEASONS.spring`, `summer`, `leaves`, `winter` | Quote dei tipi di ogni stagione e movimenti propri (bolle che salgono, conchiglie e stelle che scendono a × 0.35, raffiche invernali ± 20 px/s per 2 s ogni 6–12 s, rametto di abete × 0.7) | `config.ts:118-168` |
+| `presentationSeconds` 6, `presentationCursorMs` 2500 | Ritmo della presentazione, cursore nascosto | `config.ts:86-88` |
 
 ### 6.5 `prefers-reduced-motion`
 

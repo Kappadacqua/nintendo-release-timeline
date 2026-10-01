@@ -1,8 +1,8 @@
 import { SEASONS } from "../timeline/config";
 import { dayToDate } from "../timeline/dates";
 import { onScrollActivity } from "../timeline/scroller";
-import { fadeIn, Gusts, isGone, spawnParticle, stepParticle, viewScale, wobbleX, type Palette, type Particle } from "./particles";
-import { backgroundShown, particleCount, ScrollGate, SEASON_NAMES, seasonOf, SeasonState, type Season } from "./season";
+import { fadeIn, Gusts, isGone, spawnParticle, stepParticle, viewScale, WheelPush, wobbleX, type Palette, type Particle } from "./particles";
+import { backgroundShown, particleCount, SEASON_NAMES, seasonOf, SeasonState, type Season } from "./season";
 import { SpriteCache } from "./sprites";
 
 const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
@@ -14,15 +14,16 @@ export type TimelineProbe = () => { day: number | null; selected: boolean };
 /**
  * Seasonal background (docs/tasks/seasons.md): particles of the season of the day under the
  * playhead, on one canvas behind line and cards; at a season change the two cross-fade.
- * Hidden with a game selected and while scrolling fast; the animation stops whenever nothing is shown.
+ * Hidden with a game selected; a fast wheel spin pushes the particles sideways. The animation stops
+ * whenever nothing is shown.
  */
 export class SeasonalBackground {
   private readonly canvas: HTMLCanvasElement;
   private readonly ctx: CanvasRenderingContext2D;
   private readonly season = new SeasonState();
-  private readonly gate = new ScrollGate();
   private particles: Particle[] = [];
   private readonly gusts = new Gusts(performance.now());
+  private readonly push = new WheelPush();
   private palette: Palette = { winter: "", spring: "", summer: "", autumn: "" };
   private readonly sprites = new SpriteCache(this.palette);
   private dpr = 1;
@@ -33,7 +34,6 @@ export class SeasonalBackground {
   private shown = false;
   private frame = 0;
   private last = 0;
-  private backTimer = 0;
   /** Season of the still canvas drawn with reduced motion. */
   private stillSeason: Season | null = null;
   private readonly cleanup: (() => void)[] = [];
@@ -66,10 +66,8 @@ export class SeasonalBackground {
     themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
     this.cleanup.push(() => themeObserver.disconnect());
     const stopActivity = onScrollActivity({
-      moved: () => this.gate.moved(performance.now()),
-      fast: () => {
-        this.gate.fast(performance.now());
-        this.sync();
+      wheelSpin: (dir, pace) => {
+        if (this.frame) this.push.notch(dir, pace, performance.now());
       },
     });
     this.cleanup.push(stopActivity);
@@ -88,7 +86,6 @@ export class SeasonalBackground {
 
   destroy() {
     this.stop();
-    clearTimeout(this.backTimer);
     this.cleanup.forEach((fn) => fn());
     this.canvas.remove();
   }
@@ -100,10 +97,7 @@ export class SeasonalBackground {
     const { day, selected } = this.probe();
     // Reduced motion: the new season replaces the old one at once.
     if (day !== null) this.season.set(seasonOf(dayToDate(Math.round(day))), now, reducedMotion.matches);
-    const scrolling = !this.gate.shown(now);
-    const shown =
-      this.season.season !== null && backgroundShown({ enabled: this.enabled, selected, pageVisible: !document.hidden, scrolling });
-    if (scrolling) this.scheduleBack();
+    const shown = this.season.season !== null && backgroundShown({ enabled: this.enabled, selected, pageVisible: !document.hidden });
     const appearing = shown && !this.shown;
     if (shown !== this.shown) {
       this.shown = shown;
@@ -120,15 +114,11 @@ export class SeasonalBackground {
     }
   }
 
-  /** After fast scrolling: check again when the timeline should have been still for `restMs`. */
-  private scheduleBack() {
-    clearTimeout(this.backTimer);
-    this.backTimer = window.setTimeout(() => this.sync(), Math.max(16, this.gate.backAt - performance.now()));
-  }
-
   private stop() {
     cancelAnimationFrame(this.frame);
     this.frame = 0;
+    // A push left over would make the particles jump when the background comes back.
+    this.push.clear();
   }
 
   private tick = (now: number) => {
@@ -155,7 +145,8 @@ export class SeasonalBackground {
     const reborn = seasonCounts();
     this.particles = this.particles.filter((p) => {
       if (this.season.weight(p.season, now) <= 0) return false;
-      stepParticle(p, dt, p.season === "winter" ? this.gusts.velocity(p.depth, now) : 0);
+      const gust = p.season === "winter" ? this.gusts.velocity(p.depth, now) : 0;
+      stepParticle(p, dt, gust + this.push.velocity(p.depth, now));
       if (isGone(p, this.width, this.height)) {
         reborn[p.season]++;
         return false;

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { SEASONS } from "../timeline/config";
-import { fadeIn, Gusts, isGone, kindRadius, SINKING, spawnParticle, stepParticle, viewScale, wobbleX } from "./particles";
+import { SEASONS, TIMELINE } from "../timeline/config";
+import { fadeIn, Gusts, isGone, kindRadius, SINKING, spawnParticle, stepParticle, viewScale, WheelPush, wobbleX } from "./particles";
 import type { Season } from "./season";
 
 const W = 1920;
@@ -216,5 +216,51 @@ describe("particles", () => {
     expect(fadeIn(p, 1000)).toBe(0);
     expect(fadeIn(p, 1000 + SEASONS.fadeInMs / 2)).toBeCloseTo(0.5);
     expect(fadeIn(p, 1000 + SEASONS.fadeInMs * 2)).toBe(1);
+  });
+});
+
+describe("WheelPush", () => {
+  const { gainPxPerS, bandFactor, maxPxPerS, decayMs, sign } = SEASONS.react;
+  const [second] = TIMELINE.wheelGearPace;
+
+  it("no push below gear 2, then from the low gain to the high one at the top pace", () => {
+    expect(WheelPush.gain(1)).toBe(0);
+    expect(WheelPush.gain(second - 0.01)).toBe(0);
+    expect(WheelPush.gain(second)).toBe(gainPxPerS[0]);
+    expect(WheelPush.gain(TIMELINE.wheelMaxPace)).toBe(gainPxPerS[1]);
+  });
+
+  it("pushes against the scroll's apparent motion: forward → right (sign 1), more near than far", () => {
+    const push = new WheelPush();
+    push.notch(1, second, 0);
+    expect(push.velocity(1, 0)).toBe(sign * gainPxPerS[0]);
+    expect(push.velocity(0, 0)).toBeCloseTo(sign * gainPxPerS[0] * bandFactor[0]);
+    expect(push.velocity(2, 0)).toBeCloseTo(sign * gainPxPerS[0] * bandFactor[2]);
+    push.clear();
+    push.notch(-1, second, 0);
+    expect(push.velocity(1, 0)).toBe(-sign * gainPxPerS[0]);
+  });
+
+  it("decays exponentially with decayMs", () => {
+    const push = new WheelPush();
+    push.notch(1, second, 1000);
+    expect(push.velocity(1, 1000 + decayMs)).toBeCloseTo(sign * gainPxPerS[0] * Math.exp(-1));
+    expect(Math.abs(push.velocity(1, 1000 + decayMs * 10))).toBeLessThan(0.02);
+  });
+
+  it("notches add up, never past maxPxPerS on any band", () => {
+    const push = new WheelPush();
+    for (let t = 0; t < 1000; t += 30) push.notch(1, TIMELINE.wheelMaxPace, t);
+    for (let depth = 0; depth < bandFactor.length; depth++) {
+      expect(Math.abs(push.velocity(depth, 990))).toBeLessThanOrEqual(maxPxPerS);
+    }
+    expect(Math.abs(push.velocity(2, 990))).toBe(maxPxPerS);
+  });
+
+  it("clear stops it at once", () => {
+    const push = new WheelPush();
+    push.notch(1, TIMELINE.wheelMaxPace, 0);
+    push.clear();
+    expect(push.velocity(2, 0)).toBe(0);
   });
 });

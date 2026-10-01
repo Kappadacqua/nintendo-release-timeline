@@ -10,7 +10,7 @@ Salvare in `docs/tasks/seasons-art.md`. Lancio dal telefono: `Esegui il prossimo
 - Report fisso: **Fatto / File / Verifica / Da verificare nel browser / Aperto**.
 - Se un valore di questa coda è in conflitto con il codice, l'agente si ferma e lo scrive in **Aperto**.
 - Riferimento: `docs/design-tokens.md` (§2.1 palette stagioni, §6.4 costanti `SEASONS`, §7 livelli).
-- Il task 8 è **bloccato** finché l'Architetto non lo approva: non eseguirlo.
+- Il task 8 era bloccato in attesa di approvazione: approvato dall'utente il 2026-10-01.
 
 ## Direzione (valida per tutti i task)
 
@@ -248,7 +248,7 @@ Principi fissi:
 
 ---
 
-- [ ] **Task 8 — Reazione dello sfondo alla rotella** (**BLOCCATO: da portare all'Architetto**)
+- [x] **Task 8 — Reazione dello sfondo alla rotella** (approvato dall'utente il 2026-10-01)
 
 **Perché è bloccato.** Collega il motore stagionale alle marce di `wheel-fling.ts` ed è una **funzione nuova**; inoltre sostituisce la regola già decisa "lo sfondo sparisce nello scorrimento veloce". Serve l'approvazione dell'Architetto prima dell'esecuzione. L'agente, se lo trova come prossimo task, **non lo esegue** e lo scrive in **Aperto**.
 

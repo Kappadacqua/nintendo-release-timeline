@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { SEASONS } from "../timeline/config";
 import { parseDay, dayToDate } from "../timeline/dates";
-import { backgroundShown, particleCount, ScrollGate, seasonOf, SeasonState } from "./season";
+import { backgroundShown, particleCount, seasonOf, SeasonState } from "./season";
 
 const season = (iso: string) => seasonOf(dayToDate(parseDay(iso)));
 
@@ -118,38 +118,11 @@ describe("SeasonState", () => {
   });
 });
 
-describe("ScrollGate", () => {
-  it("is shown until a fast scroll", () => {
-    const g = new ScrollGate();
-    g.moved(0);
-    expect(g.shown(10)).toBe(true);
-    g.fast(100);
-    expect(g.shown(100)).toBe(false);
-  });
-
-  it("comes back restMs after the last move, not after the fast one", () => {
-    const g = new ScrollGate();
-    g.fast(0);
-    g.moved(300);
-    g.moved(600);
-    expect(g.shown(600 + SEASONS.restMs - 1)).toBe(false);
-    expect(g.backAt).toBe(600 + SEASONS.restMs);
-    expect(g.shown(600 + SEASONS.restMs)).toBe(true);
-  });
-
-  it("slow moves never hide it", () => {
-    const g = new ScrollGate();
-    for (let t = 0; t < 1000; t += 16) g.moved(t);
-    expect(g.shown(1000)).toBe(true);
-  });
-});
-
 describe("backgroundShown", () => {
-  const base = { enabled: true, selected: false, pageVisible: true, scrolling: false };
+  const base = { enabled: true, selected: false, pageVisible: true };
 
   it("shows while browsing", () => expect(backgroundShown(base)).toBe(true));
   it("hides with a game selected", () => expect(backgroundShown({ ...base, selected: true })).toBe(false));
-  it("hides while scrolling fast", () => expect(backgroundShown({ ...base, scrolling: true })).toBe(false));
   it("stops with the page in the background", () => expect(backgroundShown({ ...base, pageVisible: false })).toBe(false));
   it("stays off when switched off", () => expect(backgroundShown({ ...base, enabled: false })).toBe(false));
 });
