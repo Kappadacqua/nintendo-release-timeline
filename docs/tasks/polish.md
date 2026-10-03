@@ -65,3 +65,38 @@ Salvare in `docs/tasks/polish.md`. Lancio dal telefono: `Esegui il prossimo task
 - Typecheck, `npm test` (`contrast.test.ts`: i blocchi scuri devono coincidere).
 - Tabella nel report: velo provato → contrasto minimo per ciascuno dei tre giochi.
 - **Da verificare nel browser:** Bubbly Basin selezionato nei due temi; un gioco dallo sfondo scuro selezionato nel tema scuro, per controllare che non diventi troppo spento.
+
+---
+
+- [ ] **Task 3 — Fasce locali dietro header e linea al posto del velo alto (problema noto 20)**
+
+**File**
+- Partire da: `src/styles/selection-extras.css` (`.timeline__band`, `.has-backdrop .app-footer`), `src/styles/header.css`, `src/styles/tokens.css` (`--backdrop-veil`), `tests/contrast.test.ts`, `docs/design-tokens.md`.
+- Non toccare: `backdrop.ts`, blur e opacità del livello, colori `--accent` / `--text-muted`.
+
+**Contesto / decisioni (Architetto)**
+- Il velo globale non può risolvere il problema: scurisce tutta l'immagine per salvare due strisce di testo, e il rosso `--accent` ha una luminanza intermedia, quindi non arriva a 4.5:1 con nessun velo. La soluzione è il modello del footer: fasce locali opache solo dove c'è testo.
+- Caso peggiore calcolato (tema scuro, `--bg` `#0b0b0d` mescolato con bianco puro dietro): al 85 % → accent 4.06, muted 4.74; al **90 %** → accent 4.83, muted 5.64. La fascia attuale della linea è all'80 % (muted 3.96 nel caso peggiore) e la sua sfumatura (`mask-image` 18 % / 82 %) cade proprio sulle etichette dei mesi.
+
+**Specifica**
+- Con `.has-backdrop`:
+  - **Header**: sfondo `color-mix(in srgb, var(--bg) X%, transparent)`, con transizione 0.4 s come il footer.
+  - **Fascia della linea**: stessa percentuale X. La parte piena della maschera deve coprire per intero tacche, numeri dei giorni ed etichette dei mesi (anche la seconda riga, es. "JAN 2026"); la sfumatura comincia oltre le etichette. Allargare la fascia se serve, non restringere la parte piena.
+- **X** = la percentuale più bassa, a passi di 5, per cui nel **caso peggiore** il contrasto è ≥ 4.5:1:
+  - tema scuro: bianco puro dietro, per `--accent` e `--text-muted`;
+  - tema chiaro: nero puro dietro, per `--accent-text` (o il token usato davvero per il mese dell'header nel chiaro) e `--text-muted`.
+
+  Un nuovo token `--backdrop-scrim` nei tre blocchi, anche con valori diversi per tema. Atteso circa 90 % nello scuro.
+- **Velo del tema scuro**: tornare a **0.2** (era 0.06 prima del task 2, ora 0.5). L'immagine deve tornare viva; la leggibilità la danno le fasce. Tema chiaro invariato (0.45).
+- Footer: usare lo stesso token (oggi 85 % fisso).
+- Aggiungere i casi peggiori a `tests/contrast.test.ts` (header e mesi, due temi).
+- STATUS: chiudere il problema noto 20.
+
+**Atteso**
+- Con qualsiasi sfondo del gioco, data dell'header e mesi sulla linea ≥ 4.5:1 nei due temi.
+- Nel tema scuro l'immagine di sfondo è più viva di adesso (velo 0.2 invece di 0.5).
+- Le fasce si leggono come fasce morbide, non come rettangoli netti.
+
+**Verifica**
+- Typecheck, `npm test` (nuovi casi in `contrast.test.ts`).
+- **Da verificare nel browser:** Bubbly Basin e Kirby selezionati nei due temi; Day, Week e Month (etichette dei mesi dentro la parte piena della fascia); deselezione (le fasce spariscono in 0.4 s).

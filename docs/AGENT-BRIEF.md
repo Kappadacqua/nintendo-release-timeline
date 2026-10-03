@@ -101,7 +101,7 @@ Pannello per inserire e correggere dati a mano: link e voti Metacritic e Backlog
 
 Riferimento completo: **`docs/design-tokens.md`**. Leggilo prima di toccare CSS o colori.
 
-- **Due temi, chiaro e scuro.** I colori di tema stanno in `src/styles/tokens.css` su **tre blocchi**: `:root`, `@media (prefers-color-scheme: dark)` e `:root[data-theme="dark"]`. Ogni nuovo colore va scritto in **tutti e tre**. Stessa doppia regola per il tema scuro in `backdrop.css`, `groups.css` e `header.css` (icona del tema).
+- **Due temi, chiaro e scuro.** I colori di tema stanno in `src/styles/tokens.css` su **tre blocchi**: `:root`, `@media (prefers-color-scheme: dark)` e `:root[data-theme="dark"]`. Ogni nuovo colore va scritto in **tutti e tre**. Stessa doppia regola per il tema scuro in `groups.css` e `header.css` (icona del tema); i token dello sfondo del gioco (`--backdrop-*`) stanno in `tokens.css`.
 - **Niente valori sparsi:** usa token e variabili CSS, non hex o px scritti nel componente.
 - **Testo su riempimento colorato:** sempre `--on-accent` sui token `*-fill` (`--accent-fill`, `--dlc-fill`, `--news-fill`, `--free-update-fill`). I token di base (`--accent`, `--dlc`…) valgono per linee, pallini, bordi e bagliori. `--accent-text` per il testo accent sulle tinte al 16 %.
 - **Contrasti:** WCAG AA, 4.5:1 per il testo, in entrambi i temi. `tests/contrast.test.ts` controlla ogni coppia testo/fondo e che i due blocchi scuri coincidano. **Ogni nuova coppia testo/fondo va aggiunta lì.**
@@ -136,5 +136,5 @@ Se un task li incrocia, citali in "Aperto" invece di risolverli per conto tuo.
 - Riconoscimento del trackpad euristico (da provare su trackpad reali).
 - "What's new" mai verificato con due snapshot reali.
 - Sfondo stagionale: fps misurati solo in headless (da confermare su monitor reale e in 4K).
-- Header sopra lo sfondo del gioco, tema scuro: testi poco leggibili su sfondi chiari (gruppo 4 di `docs/review/triage.md`, da fare).
+- Header e mesi sopra lo sfondo del gioco, tema scuro: testi poco leggibili su sfondi chiari (STATUS, problema noto 20; coda `polish`, task 3).
 - Backloggd quasi tutto N/D (solo a mano); alcuni giochi senza studio in Studios.
