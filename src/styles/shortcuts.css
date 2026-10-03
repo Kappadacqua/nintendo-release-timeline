@@ -58,5 +58,10 @@ kbd {
   color: var(--on-accent);
   font: 800 14px var(--font);
   cursor: pointer;
+  transition: filter var(--hover-ms) ease;
+}
+
+.shortcuts__close:hover {
+  filter: brightness(0.9);
 }
 

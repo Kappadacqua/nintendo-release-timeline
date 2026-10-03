@@ -119,6 +119,7 @@
   color: var(--text-muted);
   font: 800 12px var(--font);
   cursor: pointer;
+  transition: color var(--hover-ms) ease;
 }
 
 .zoom-control button:hover {

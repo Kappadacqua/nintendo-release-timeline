@@ -53,16 +53,16 @@
   font-size: 14px;
   font-weight: 800;
   cursor: pointer;
-  transition: border-color 0.15s;
+  transition: border-color var(--hover-ms) ease;
 }
 
 .rank-field__input:hover {
-  border-color: var(--text-muted);
+  border-color: var(--accent);
 }
 
 .rank-field__input:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 1px;
+  outline: var(--focus-width) solid var(--accent);
+  outline-offset: var(--focus-offset);
 }
 
 .rank-field__input--number {
@@ -129,6 +129,7 @@
   color: var(--text-muted);
   font: 800 12px var(--font);
   cursor: pointer;
+  transition: color var(--hover-ms) ease;
 }
 
 .rank-years button:hover {
@@ -141,8 +142,8 @@
 }
 
 .rank-years button:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 1px;
+  outline: var(--focus-width) solid var(--accent);
+  outline-offset: var(--focus-offset);
 }
 
 .rankings__count {
@@ -183,16 +184,16 @@
   color: var(--text);
   font: 800 13px var(--font);
   cursor: pointer;
-  transition: border-color 0.15s;
+  transition: border-color var(--hover-ms) ease;
 }
 
 .rankings__reset:hover {
-  border-color: var(--text-muted);
+  border-color: var(--accent);
 }
 
 .rankings__reset:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 1px;
+  outline: var(--focus-width) solid var(--accent);
+  outline-offset: var(--focus-offset);
 }
 
 .rankings__list {

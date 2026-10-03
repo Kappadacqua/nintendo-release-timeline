@@ -26,7 +26,7 @@ Salvare in `docs/tasks/states.md`. Lancio dal telefono: `Esegui il prossimo task
 
 ---
 
-- [ ] **Task 1 — Una regola di focus e una di hover**
+- [x] **Task 1 — Una regola di focus e una di hover**
 
 **File**
 - Partire da: `src/styles/header.css` (regola `:focus-visible`), `rankings.css`, `studios.css`, `view-menu.css`, `filters.css`, `whats-new.css`, `shortcuts.css`, `selection.css`, `timeline-items.css`, `tokens.css`, `tests/contrast.test.ts`, `docs/design-tokens.md`.

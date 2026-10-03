@@ -122,8 +122,8 @@
 }
 
 .studio-card__link:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
+  outline: var(--focus-width) solid var(--accent);
+  outline-offset: var(--focus-offset);
   border-radius: 2px;
 }
 

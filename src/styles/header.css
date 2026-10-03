@@ -98,6 +98,7 @@
   color: var(--text);
   font: 900 18px/1 var(--font);
   cursor: pointer;
+  transition: border-color var(--hover-ms) ease;
 }
 
 .icon-button:hover {
@@ -106,8 +107,8 @@
 
 /* One focus style for everything reachable by keyboard. */
 :focus-visible {
-  outline: 3px solid var(--accent);
-  outline-offset: 2px;
+  outline: var(--focus-width) solid var(--accent);
+  outline-offset: var(--focus-offset);
 }
 
 /* Sun in light theme, crescent moon in dark theme (inline SVGs in the markup). */
@@ -175,8 +176,8 @@ main {
   color: var(--text-muted);
   text-decoration: none;
   transition:
-    background-color 0.2s ease,
-    color 0.2s ease;
+    background-color var(--hover-ms) ease,
+    color var(--hover-ms) ease;
 }
 
 .app-nav__link:hover {

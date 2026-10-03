@@ -96,6 +96,13 @@ describe("text contrast on fills (tokens.css)", () => {
       expect(contrast(t("--on-accent"), hovered)).toBeGreaterThanOrEqual(4.5);
     });
 
+    // Hover of filled buttons: filter: brightness(0.9) darkens text and fill alike.
+    // ("Mark all as seen" at brightness 0.9 reaches only 4.28 / 4.35: no hover until decided, STATUS.md.)
+    it(`${theme}: shortcuts close on --accent-fill at brightness 0.9 ≥ 4.5`, () => {
+      const dim = (c: Rgb) => c.map((v) => v * 0.9) as Rgb;
+      expect(contrast(dim(t("--on-accent")), dim(t("--accent-fill")))).toBeGreaterThanOrEqual(4.5);
+    });
+
     // Tinted badges sit on a card or panel (--card).
     it.each([
       ["--accent-text", "--accent", 0.16],

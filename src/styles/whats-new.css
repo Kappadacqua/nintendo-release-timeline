@@ -51,10 +51,11 @@
   font: 800 14px var(--font);
   white-space: nowrap;
   cursor: pointer;
+  transition: border-color var(--hover-ms) ease;
 }
 
 .whats-new__toggle:hover {
-  border-color: var(--news);
+  border-color: var(--accent);
 }
 
 .whats-new__icon {

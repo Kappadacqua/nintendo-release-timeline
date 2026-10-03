@@ -10,6 +10,11 @@
   --radius-md: 14px;
   --radius-lg: 22px;
 
+  /* Keyboard focus ring and hover transition, shared by every page. */
+  --focus-width: 3px;
+  --focus-offset: 2px;
+  --hover-ms: 0.2s;
+
   /* Content width of the Rankings and Studios pages, so their headings line up. */
   --page-max: 1200px;
 
@@ -91,6 +96,13 @@
   --backdrop-scrim: 100%;
 
   color-scheme: light;
+}
+
+/* Hover transitions off when motion is reduced. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --hover-ms: 0s;
+  }
 }
 
 @media (prefers-color-scheme: dark) {

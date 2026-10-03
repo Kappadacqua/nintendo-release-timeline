@@ -312,7 +312,7 @@ Raggi fuori scala: 1px (coriandoli, "Today" minimappa), 1.5px (bandiere, pallino
 | 0.2s ease | background / transform | Interruttore: fondo / pomello | `filters.css:80,93` | pomello: nessuna |
 | 0.2s ease | background, color | Segmenti del menu View | `view-menu.css:91` | nessuna regola |
 | 0.25s ease | transform | Ventaglio chiuso che si apre in hover | `groups.css:42` | nessuna |
-| 0.15s (ease) | border-color | Campi e "Reset" di Rankings | `rankings.css:53,183` | nessuna regola |
+| `--hover-ms` 0.2s ease | border-color, color, filter | Hover di controlli con bordo, testuali e pulsanti pieni (header, Rankings, zoom, View, What's new, scorciatoie) | vari | 0s (token) |
 | `--season-fade-in` 0.6s ease | opacity | Comparsa sfondo stagionale | `seasons.css:13` | nessuna |
 | `--season-fade-out` 0.2s | opacity | Scomparsa sfondo stagionale | `seasons.css:19` | nessuna |
 
@@ -454,15 +454,13 @@ Misure che dipendono dalla finestra: dialogo scorciatoie `min(460px, 100vw − 3
 
 ### 9.1 Focus
 
-Regola unica: `:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }` (`header.css:108`). Outline sempre visibile da tastiera, mai rimosso globalmente. Eccezioni:
+Regola unica: `:focus-visible { outline: var(--focus-width) solid var(--accent); outline-offset: var(--focus-offset); }` (`header.css:108`; token `--focus-width` 3px, `--focus-offset` 2px in `tokens.css`). Ovunque, Rankings e Studios compresi; nessuna eccezione di larghezza o offset tranne la card. Outline sempre visibile da tastiera, mai rimosso globalmente. Eccezioni:
 
 | Elemento | Outline | File:riga |
 |---|---|---|
-| Card | 3px, offset 3 | `timeline-items.css:24` |
-| Interruttori (input nascosto) | 3px, offset 2, sull'interruttore visibile | `filters.css:104` |
-| Segmenti del menu View | 3px, offset 1, sul segmento | `view-menu.css:102` |
-| Campi, "Reset" e anni in Rankings | **2px**, offset 1 | `rankings.css:60,140,190` |
-| Link dello studio | **2px**, offset 2, raggio 2 | `studios.css:121` |
+| Card | 3px, **offset 3** (anello di selezione da 3px) | `timeline-items.css:24` |
+| Interruttori (input nascosto) | come la regola, sull'interruttore visibile | `filters.css:104` |
+| Segmenti del menu View | come la regola, sul segmento | `view-menu.css:102` |
 | `.timeline` | `outline: none` (il focus è sulla card) | `timeline.css:10` |
 | Campo di ricerca | `outline: none` (il dialogo è già evidente) | `search.css:75` |
 | Gruppo chiuso | anche le copertine si aprono come in hover | `groups.css:46` |
@@ -482,19 +480,21 @@ Regola unica: `:focus-visible { outline: 3px solid var(--accent); outline-offset
 
 ### 9.3 Bottoni e controlli
 
+Transizione di hover: `border-color`, `color`, `filter` in `--hover-ms` (0.2s ease; 0s con `prefers-reduced-motion`, `tokens.css`). Bordo → `--accent`; pulsanti pieni `brightness(0.9)`; testuali `--text-muted` → `--text`. "Mark all as seen" resta senza hover: a `brightness(0.9)` il contrasto è 4.28 (chiaro) / 4.35 (scuro) su `--card`, sotto 4.5.
+
 | Controllo | Riposo | Hover | Attivo / premuto | Disabilitato |
 |---|---|---|---|---|
 | Pulsante tondo 44px (`.icon-button`) | `--surface`, bordo `--border` | bordo `--accent` | — | — |
 | Pillole dell'header (Filters, View, 44px) | `--surface`, bordo `--border` | bordo `--accent` | Filters con filtri attivi: pallino `--accent` 8px | — |
-| "What's new" (44px) | come sopra | bordo **`--news`** | con novità: icona `--news-fill` + numero `--news-fill`, testo `--on-accent` | — |
+| "What's new" (44px) | come sopra | bordo `--accent` (il blu resta nell'icona e nel numero) | con novità: icona `--news-fill` + numero `--news-fill`, testo `--on-accent` | — |
 | Navigazione (`.app-nav__link`) | testo `--text-muted` | testo `--text` | pagina corrente: `--accent-fill` pieno, `--on-accent` | — |
 | Controllo zoom / anni di Rankings | testo `--text-muted`, trasparente | testo `--text` | `aria-pressed`: `--accent-fill` pieno | — |
-| Segmenti del menu View | testo `--text-muted` su `--surface-2` | — | selezionato: fondo `--card`, testo `--text`, `--shadow-sm` | — |
+| Segmenti del menu View | testo `--text-muted` su `--surface-2` | testo `--text` | selezionato: fondo `--card`, testo `--text`, `--shadow-sm` | — |
 | Interruttore | fondo `--surface-2`, pomello bianco | riga `--surface` | acceso: fondo `--accent`, pomello +16px | — |
 | "Start presentation" (`.view-menu__action`) | `--surface`, bordo `--border` | bordo `--accent` | — | — |
-| Chiudi (dialogo scorciatoie) | `--accent-fill` pieno | nessuno | — | — |
+| Chiudi (dialogo scorciatoie) | `--accent-fill` pieno | `brightness(0.9)` | — | — |
 | "Mark all as seen" | `--news` 14 %, testo `--news-text-soft` | nessuno | — | fondo `--surface`, testo `--text-muted`, cursore normale |
-| Campi e "Reset" di Rankings (34px) | `--surface`, bordo `--border` | bordo **`--text-muted`** | — | — |
+| Campi e "Reset" di Rankings (34px) | `--surface`, bordo `--border` | bordo `--accent` | — | — |
 | Chip admin | `--surface`, bordo `--border` | nessuno | `aria-pressed`: `--accent-fill` pieno (anche il bordo) | — |
 | Salva / Rimuovi (admin) | `--accent-fill` pieno (anche il bordo) / contorno `--accent` | nessuno | — | — |
 | Tema (`.theme-toggle`, 44px) | `.icon-button`; icona sole (chiaro) o luna (scuro), 18px `--text` | bordo `--accent` | clic: rotazione −90° → 0 (GSAP) | — |
@@ -528,9 +528,6 @@ Regola unica: `:focus-visible { outline: 3px solid var(--accent); outline-offset
 | Miniature: 32×44 r4 (ricerca), 34×45 r5 ("What's new"), 34×46 r6 (header), 34×46 r4 (admin), 36×48 r5 (anteprima) | `search.css:102`, `whats-new.css:206`, `header.css:66`, `admin.css:139`, `minimap-preview.css:40` | Cinque varianti per la stessa cosa |
 | Copertine: 72×96 (card), 64×86 (Week/Month), 66×88 (gruppo), 60×80 (Studios), 48×64 (Rankings), 56×75 (DLC) | vari | Proporzioni simili ma non uguali (3:4 circa) |
 | Raggi fuori scala: 4, 5, 6, 7, 12px accanto a `--radius-sm` 8 e `--radius-md` 14 | §5.2 | Minimappa 12px ≈ né sm né md |
-| Outline di focus 3px (sito) vs 2px (Rankings, Studios); offset 1, 2 o 3 | §9.1 | — |
-| Hover dei bordi: `--accent` (header), `--news` ("What's new"), `--text-muted` (Rankings) | §9.3 | Tre regole per lo stesso gesto |
-| Durata del cambio di bordo: 0.2s (card) vs 0.15s senza easing esplicito (Rankings) | `card.css:13`, `rankings.css:53` | — |
 | Altezza dei controlli: 44px (header) vs 34px (Rankings) | `filters.css:12`, `rankings.css:43` | — |
 | Larghezza dei pannelli: 290 (filtri), 300 (View), 380 ("What's new") | `filters.css:46`, `view-menu.css:32`, `whats-new.css:97` | — |
 | Pillole dei pulsanti dell'header: padding 16 (Filters, View) vs 14/10 ("What's new") | `filters.css:13`, `view-menu.css:13`, `whats-new.css:46` | — |

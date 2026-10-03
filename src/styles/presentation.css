@@ -110,6 +110,7 @@ body.is-cursor-hidden * {
   font: 800 13px var(--font);
   text-align: left;
   cursor: pointer;
+  transition: border-color var(--hover-ms) ease;
 }
 
 .view-menu__action:hover {
