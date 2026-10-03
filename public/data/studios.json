@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-01T20:31:59.431Z",
+  "generatedAt": "2026-10-03T10:13:20.846Z",
   "studios": [
     {
       "name": "Nintendo EPD Production Group No. 10",
@@ -341,7 +341,7 @@
       "tbaGame": {
         "id": "manual:bit-boy-arcade-2",
         "title": "Bit Boy!! Arcade 2",
-        "coverUrl": "/covers/placeholder.svg"
+        "coverUrl": "covers/placeholder.svg"
       }
     },
     {
@@ -365,7 +365,7 @@
       "tbaGame": {
         "id": "manual:chit-chat-party",
         "title": "Chit Chat Party!",
-        "coverUrl": "/covers/placeholder.svg"
+        "coverUrl": "covers/placeholder.svg"
       }
     },
     {

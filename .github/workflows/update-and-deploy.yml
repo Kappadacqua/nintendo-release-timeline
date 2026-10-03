@@ -1,0 +1,100 @@
+# Daily data refresh + GitHub Pages deploy (SPEC §10).
+# Runs every night, on every push to main and by hand (Actions → Run workflow).
+# A failed fetch never blocks the deploy: the site is rebuilt from the data already in the repo.
+name: Update data and deploy
+
+on:
+  schedule:
+    - cron: "17 3 * * *" # 05:17 in Italy (summer), 04:17 (winter)
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: update-and-deploy
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      # Network only on the nightly run and on manual runs; a push just rebuilds and deploys.
+      - name: Fetch free updates
+        if: github.event_name != 'push'
+        continue-on-error: true
+        run: npm run data:fetch-free-updates
+        env:
+          TWITCH_CLIENT_ID: ${{ secrets.TWITCH_CLIENT_ID }}
+          TWITCH_CLIENT_SECRET: ${{ secrets.TWITCH_CLIENT_SECRET }}
+          WIKI_CONTACT: ${{ secrets.WIKI_CONTACT }}
+
+      - name: Fetch studios
+        if: github.event_name != 'push'
+        continue-on-error: true
+        run: npm run data:fetch-studios
+        env:
+          WIKI_CONTACT: ${{ secrets.WIKI_CONTACT }}
+
+      - name: Fetch games and scores
+        id: fetch
+        if: github.event_name != 'push'
+        continue-on-error: true
+        run: npm run data:fetch
+        env:
+          TWITCH_CLIENT_ID: ${{ secrets.TWITCH_CLIENT_ID }}
+          TWITCH_CLIENT_SECRET: ${{ secrets.TWITCH_CLIENT_SECRET }}
+          RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
+          WIKI_CONTACT: ${{ secrets.WIKI_CONTACT }}
+
+      # data:fetch builds on success; otherwise (or on push) rebuild from the committed cache.
+      - name: Build data
+        if: steps.fetch.outcome != 'success'
+        run: npm run data:build
+
+      - name: Commit data
+        if: github.event_name != 'push'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data public/data
+          if git diff --cached --quiet; then
+            echo "No data changes."
+          else
+            git commit -m "Data: daily update $(date -u +%F)"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+
+      - name: Build site
+        run: npm run build
+        env:
+          BASE_PATH: /${{ github.event.repository.name }}/
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: update
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

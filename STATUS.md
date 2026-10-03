@@ -1,6 +1,6 @@
 # Stato del progetto
 
-Aggiornato: 2026-10-03 — Coda `states.md`, task 1: focus e hover uniformi
+Aggiornato: 2026-10-03 — Pubblicazione su GitHub Pages con aggiornamento giornaliero
 
 ## Ultimo checkpoint
 
@@ -24,6 +24,7 @@ Nessuno.
 
 Dettagli completi nelle versioni precedenti di questo file (`git show 58d0ac7:STATUS.md`).
 
+- **Pubblicazione** — sito su GitHub Pages (`https://kappadacqua.github.io/nintendo-release-timeline/`), repo pubblico. Workflow `.github/workflows/update-and-deploy.yml`: ogni notte (03:17 UTC) e a mano fetch di free update, studi e `data:fetch` (Metacritic compreso), commit dei dati su `main` dal bot, build con `BASE_PATH=/nintendo-release-timeline/` e deploy; a ogni push su `main` solo `data:build` + build + deploy. Un fetch fallito non blocca la pubblicazione. Segnaposto copertina ora relativo (`covers/placeholder.svg`). Nel browser: timeline, Rankings e Studios sul sito pubblicato (copertine, segnaposto, link tra le pagine, "What's new"); dopo la prima notte, nella tab Actions il run giornaliero e il commit "Data: daily update …".
 - **"Mark all as seen" in hover** (decisione su problema 21): la tinta si intensifica dal 14 % al 22 % in `--hover-ms`; testo un po' più scuro nel chiaro (`#0066d6` → `#005cc1`) e più chiaro nello scuro (`#3d95ff` → `#50a0ff`). Nel browser: pannello "What's new" nei due temi, hover visibile ma non urlato, disabilitato senza hover.
 - states task 1 — **Focus e hover uniformi**: anello 3px / offset 2 (`--focus-width`, `--focus-offset`) ovunque, Rankings e Studios compresi (card: offset 3); hover dei controlli con bordo → bordo `--accent` (anche "What's new" e Rankings); Chiudi delle scorciatoie `brightness(0.9)`; segmenti del menu View in hover `--text`; transizione `--hover-ms` 0.2s (0s con reduced motion). **"Mark all as seen" senza hover**: a `brightness(0.9)` il contrasto è 4.28 chiaro / 4.35 scuro, sotto 4.5. Nel browser: Tab su header, View, filtri, What's new, Rankings, Studios nei due temi; hover sugli stessi controlli; reduced motion.
 - polish task 3 — **Fasce locali sullo sfondo del gioco**: con `.has-backdrop` header, fascia della linea e footer hanno sfondo `--bg` al `--backdrop-scrim` (scuro 90 %, chiaro 100 %: il mese dell'header nel chiaro è `--accent`, che a 95 % su nero dà 4.30:1), transizione 0.4 s (nessuna con reduced motion). Fascia della linea piena da 26 px sopra a 62 px sotto la linea (tacche, numeri dei giorni, mesi), sfumatura di 16 px oltre (prima 34 px sopra / 66 sotto con sfumatura al 18 / 82 %, che cadeva sui mesi). Velo del tema scuro da 0.5 a 0.2, chiaro invariato. Nel browser: Bubbly Basin e Kirby Air Riders selezionati nei due temi, in Day / Week / Month (etichette dei mesi e numeri dentro la parte piena, sfumatura morbida); immagine più viva nello scuro; header nel chiaro diventa bianco pieno (verificare che non sembri un rettangolo netto); alla deselezione le fasce spariscono in 0.4 s; le particelle stagionali ora si spengono su una fascia un po' più alta (leggono il riquadro di `.timeline__band`).
@@ -83,6 +84,8 @@ Dettagli completi nelle versioni precedenti di questo file (`git show 58d0ac7:ST
 - `ec1c916` Limite dell'inerzia, chiusura del ventaglio a fine presentazione, card estesa non tagliata nel ventaglio, header aggiornato durante il movimento.
 
 ## Problemi noti
+
+22. **Aggiornamento automatico** — il bot fa commit su `main` ogni notte: fare `git pull` prima di lavorare in locale. Metacritic e Wikipedia dagli IP di GitHub mai provati (un 403 ferma solo Metacritic, la pubblicazione va avanti). Snapshot giornaliero in `data/snapshots/` (un file al giorno nel repo). GitHub disattiva i workflow pianificati dopo 60 giorni senza attività nel repo (da controllare se i commit del bot bastano a tenerli attivi).
 
 1. **Prestazioni solo in 4K** — su 4K a densità 2x lo scorrimento scende a 1–3 fps; su 1080p è fluido (60 fps). **In pausa**: se servirà, partire dal tag `archive/wip-perf`.
 2. **Dati manuali mancanti** — Backloggd solo a mano dal pannello admin (backloggd.com risponde agli script con una verifica anti-bot, HTTP 403): in `data:validate` è una riga col conteggio. Link mancanti in `data/manual-todo.md` (`npm run data:validate -- --todo`), che sostituisce `docs/admin-todo.md` (del 27/09, superato). Fonti senza pagina: `"absent": { "<fonte>": { "status": "none", "reason", "checkedAt" } }` negli override.

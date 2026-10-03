@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-01T20:31:59.431Z",
+  "generatedAt": "2026-10-03T10:13:20.846Z",
   "games": [
     {
       "id": "free-update:arms",
@@ -3608,7 +3608,7 @@
       "id": "manual:putty-world",
       "kind": "game",
       "title": "Putty World",
-      "coverUrl": "/covers/placeholder.svg",
+      "coverUrl": "covers/placeholder.svg",
       "summary": null,
       "backgroundUrl": null,
       "developer": null,
@@ -3686,7 +3686,7 @@
       "id": "manual:bit-boy-arcade-2",
       "kind": "game",
       "title": "Bit Boy!! Arcade 2",
-      "coverUrl": "/covers/placeholder.svg",
+      "coverUrl": "covers/placeholder.svg",
       "summary": null,
       "backgroundUrl": null,
       "developer": "Bplus",
@@ -3720,7 +3720,7 @@
       "id": "manual:chit-chat-party",
       "kind": "game",
       "title": "Chit Chat Party!",
-      "coverUrl": "/covers/placeholder.svg",
+      "coverUrl": "covers/placeholder.svg",
       "summary": null,
       "backgroundUrl": null,
       "developer": "GungHo Online Entertainment",

@@ -83,7 +83,7 @@ export function manualToGame(m: ManualGame): Game {
     id: m.id,
     kind: m.kind ?? "game",
     title: m.title,
-    coverUrl: m.coverUrl ?? "/covers/placeholder.svg",
+    coverUrl: m.coverUrl ?? "covers/placeholder.svg",
     summary: m.summary ?? null,
     backgroundUrl: m.backgroundUrl ?? m.coverUrl ?? null,
     developer: m.developer ?? null,

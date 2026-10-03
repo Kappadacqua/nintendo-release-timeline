@@ -3,6 +3,8 @@ import { defineConfig } from "vite";
 import { adminPlugin } from "./scripts/vite-admin";
 
 export default defineConfig({
+  // GitHub Pages serves the site under /<repo>/: the deploy workflow sets BASE_PATH.
+  base: process.env.BASE_PATH ?? "/",
   plugins: [adminPlugin()],
   build: {
     // Only the site pages: the admin page (admin.html) is served by the dev server alone.
