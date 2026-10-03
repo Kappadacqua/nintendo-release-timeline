@@ -37,6 +37,49 @@ body.admin {
   text-decoration: none;
 }
 
+.admin-sources {
+  padding: 10px 32px;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+
+.admin-sources summary {
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.admin-sources__table {
+  margin-top: 8px;
+  border-collapse: collapse;
+}
+
+.admin-sources__table th,
+.admin-sources__table td {
+  padding: 3px 16px 3px 0;
+  text-align: left;
+  vertical-align: top;
+}
+
+.admin-sources__table th {
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.admin-sources__table td {
+  color: var(--text-muted);
+}
+
+.admin-sources__table td:first-of-type {
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.admin-check {
+  margin: 10px 0 0;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
 .admin-main {
   display: grid;
   grid-template-columns: minmax(360px, 440px) 1fr;

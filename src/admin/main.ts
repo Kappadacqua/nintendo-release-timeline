@@ -4,6 +4,7 @@
  */
 import "../styles/main.css";
 import "./admin.css";
+import type { CheckFreshness, FreshnessReport } from "../../scripts/lib/freshness";
 import type { Game, GamesFile } from "../types";
 
 if (!import.meta.env.DEV) throw new Error("The admin panel is available only in development.");
@@ -39,23 +40,66 @@ const state = {
   games: [] as Game[],
   overrides: { games: {} } as { games: Record<string, Override> },
   conflicts: new Map<string, string>(),
+  freshness: null as FreshnessReport | null,
   filters: new Set<string>(["metacritic", "backloggd"]),
   query: "",
   selectedId: null as string | null,
 };
 
 async function load() {
-  const [games, overrides, report] = await Promise.all([
+  const [games, overrides, report, freshness] = await Promise.all([
     fetch(`/data/games.json?t=${Date.now()}`).then((r) => r.json() as Promise<GamesFile>),
     fetch("/__admin/overrides").then((r) => r.json()),
     fetch("/__admin/report").then((r) => r.json() as Promise<Report | null>),
+    fetch("/__admin/freshness").then((r) => r.json() as Promise<FreshnessReport>),
   ]);
+  state.freshness = freshness;
   state.games = games.games;
   state.overrides = overrides;
   state.conflicts = new Map((report?.exclusivityConflicts ?? []).map((c) => [c.id, c.issue]));
   $("#meta").textContent = `${state.games.length} games · games.json built ${games.generatedAt.slice(0, 16).replace("T", " ")}`;
+  renderSources();
   renderList();
   if (state.selectedId) renderEditor(state.selectedId);
+}
+
+// ---------- Data sources ----------
+
+/** "Oct 1, 20:30 · 2 days ago"; "never" without a date. */
+function when(iso: string | null) {
+  if (!iso) return "never";
+  const d = new Date(iso);
+  const days = Math.floor((Date.now() - d.getTime()) / 86_400_000);
+  const ago = days <= 0 ? "today" : days === 1 ? "yesterday" : `${days} days ago`;
+  return `${d.toLocaleDateString("en-US", { month: "short", day: "numeric" })}, ${d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })} · ${ago}`;
+}
+
+/** Earliest data:fetch that reads it again: a date, or "next fetch" once it is due. */
+function next(iso: string | null) {
+  if (!iso) return "never";
+  if (Date.parse(iso) <= Date.now()) return "at the next fetch";
+  return `from ${new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric" })}`;
+}
+
+function renderSources() {
+  const f = state.freshness;
+  if (!f) return;
+  $("#sources summary").textContent = `Data sources · last fetch ${f.lastRun ? when(f.lastRun.at) : "never"}`;
+  const row = (label: string, date: string, detail: string) =>
+    `<tr><th scope="row">${escapeHtml(label)}</th><td>${escapeHtml(date)}</td><td>${escapeHtml(detail)}</td></tr>`;
+  $("#sources table").innerHTML = [
+    ...f.sources.map((s) => row(s.label, s.key === "backloggd" ? "—" : when(s.updatedAt), s.detail)),
+    ...(f.lastRun
+      ? [row("Last run", when(f.lastRun.at), `OpenCritic: ${f.lastRun.opencritic}${f.lastRun.metacritic ? ` · Metacritic: ${f.lastRun.metacritic}` : ""}`)]
+      : []),
+  ].join("");
+}
+
+/** "Read Oct 1, 20:30 · 2 days ago · next from Oct 8 · page read". */
+function checkLine(c: CheckFreshness | undefined) {
+  if (!c) return "";
+  const read = c.checkedAt ? `Read ${when(c.checkedAt)} · next ${next(c.nextAt)} · ` : "";
+  return `<p class="admin-check">${escapeHtml(read + c.note)}</p>`;
 }
 
 function gapsOf(g: Game) {
@@ -165,6 +209,7 @@ function renderEditor(id: string) {
   const bl = o.backloggd ?? {};
   const links = o.links ?? {};
   const conflict = state.conflicts.get(id);
+  const fresh = state.freshness?.games[id];
   const auto = (v: unknown) => (v === null ? "not exclusive" : String(v));
   const sel = (name: string, options: [string, string][], current: string) =>
     `<select name="${name}" id="f-${name}">${options.map(([v, l]) => `<option value="${v}"${v === current ? " selected" : ""}>${l}</option>`).join("")}</select>`;
@@ -180,6 +225,7 @@ function renderEditor(id: string) {
           <label><span>Current score (automatic)</span><output class="admin-readonly">${escapeHtml(openCriticNow(g))}</output></label>
           ${field("Force OpenCritic id", "opencriticId", o.opencriticId, { type: "number", min: "1", step: "1" }, "the number in opencritic.com/game/<id>/…")}
         </div>
+        ${checkLine(fresh?.opencritic)}
       </fieldset>
 
       <fieldset>
@@ -191,6 +237,7 @@ function renderEditor(id: string) {
           ${field("User ratings", "metacritic.userCount", mc.userCount, { type: "number", min: "0", step: "1" })}
         </div>
         ${field("Metacritic page URL", "links.metacritic", links.metacritic, { type: "url" }, "https://www.metacritic.com/game/…/")}
+        ${checkLine(fresh?.metacritic)}
       </fieldset>
 
       <fieldset>

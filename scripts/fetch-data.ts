@@ -13,6 +13,7 @@ import { emptyMetacriticStatus, fetchMetacritic } from "./lib/metacritic";
 import { nintendoWikiByTitle, type WikidataLinks, wikidataBySlug, wikipediaByTitle } from "./lib/links";
 import { OpenCritic } from "./lib/opencritic";
 import { isAbsent, loadOverrides, type OverridesFile } from "./lib/overrides";
+import { OPENCRITIC_RETRY_MISS_DAYS, opencriticMaxAgeDays } from "./lib/refresh-policy";
 import { snapshotOf, writeSnapshot } from "./lib/snapshots";
 import { titleVariants } from "./lib/title-variants";
 import { sameTitle } from "./lib/transform";
@@ -242,13 +243,13 @@ async function fetchOpenCritic(selected: Selected[], known: Map<string, number>,
     let id: number | null | undefined;
     try {
       // A miss is retried after 30 days (the free Switch 2 catalog still catches it earlier).
-      id = await oc.resolveId(game.id, game.title, 30, known.get(game.id));
+      id = await oc.resolveId(game.id, game.title, OPENCRITIC_RETRY_MISS_DAYS, known.get(game.id));
     } catch (err) {
       fail(game.title, err);
     }
     if (!id || !released) continue;
     try {
-      await oc.game(id, age < 45 ? 1 : 14);
+      await oc.game(id, opencriticMaxAgeDays(age));
     } catch (err) {
       fail(game.title, err);
     }

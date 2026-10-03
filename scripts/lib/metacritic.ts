@@ -4,6 +4,7 @@ import { readJson, writeJson } from "./cache";
 import { intEnv } from "./env";
 import { fetchText, HttpError } from "./http";
 import { isAbsent, type OverridesFile } from "./overrides";
+import { metacriticMaxDays, type MetacriticStatus } from "./refresh-policy";
 import { titleVariants } from "./title-variants";
 import { localToday } from "./today";
 
@@ -48,7 +49,7 @@ export interface MetacriticEntry extends Partial<MetacriticScores> {
    * ok: page read; not-found: no page (404) for the title, its shorter titles and a search;
    * gone: Metacritic removed the page (410), never looked up again; mismatch: the page is another game.
    */
-  status: "ok" | "not-found" | "gone" | "mismatch";
+  status: MetacriticStatus;
   /** not-found / gone: the HTTP status of the title's page (404 or 410). */
   httpStatus?: number;
   checkedAt: string;
@@ -217,18 +218,12 @@ export function parseSearchResults(html: string) {
     });
 }
 
-/**
- * Whether a game's page is due again: a new slug always; a page found daily for the
- * first 60 days after release, then weekly; a missing page (404) after 3 days, 30 once the
- * game is a month old; another game's page after 3 days, then 14; a removed page (410) never.
- */
+/** Whether a game's page is due again: a new slug always, otherwise after `metacriticMaxDays`. */
 export function isDue(entry: MetacriticEntry | undefined, slug: string, daysSinceRelease: number, now = Date.now()) {
   if (!entry || entry.slug !== slug) return true;
-  if (entry.status === "gone") return false;
+  const maxDays = metacriticMaxDays(entry.status, daysSinceRelease);
+  if (maxDays === null) return false;
   const age = now - Date.parse(entry.checkedAt);
-  const recent = daysSinceRelease < 30;
-  const maxDays =
-    entry.status === "ok" ? (daysSinceRelease < 60 ? 1 : 7) : recent ? 3 : entry.status === "not-found" ? 30 : 14;
   // A little slack so a daily run at a slightly earlier time still refreshes.
   return age >= maxDays * DAY_MS - 2 * 3_600_000;
 }

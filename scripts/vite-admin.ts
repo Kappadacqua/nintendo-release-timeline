@@ -3,6 +3,7 @@ import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync,
 import type { IncomingMessage, ServerResponse } from "node:http";
 import { join } from "node:path";
 import type { Plugin, ViteDevServer } from "vite";
+import { readFreshness } from "./lib/freshness";
 import { validateGameOverride, validateOverridesFile } from "./lib/overrides-schema";
 
 const KEEP_BACKUPS = 30;
@@ -14,6 +15,7 @@ const KEEP_BACKUPS = 30;
  *   GET  /admin                 → admin.html
  *   GET  /__admin/overrides     → data/overrides.json
  *   GET  /__admin/report        → data/fetch-report.json
+ *   GET  /__admin/freshness     → when each source was last read, and each game's next check
  *   POST /__admin/games/<id>    → save one game's override (JSON body, or null to remove it),
  *                                 then run data:build and tell open pages to refresh
  */
@@ -43,6 +45,7 @@ async function handle(server: ViteDevServer, root: string, req: IncomingMessage,
   const overridesPath = join(root, "data/overrides.json");
   if (req.method === "GET" && url === "/__admin/overrides") return send(res, 200, readJsonFile(overridesPath, { games: {} }));
   if (req.method === "GET" && url === "/__admin/report") return send(res, 200, readJsonFile(join(root, "data/fetch-report.json"), null));
+  if (req.method === "GET" && url === "/__admin/freshness") return send(res, 200, readFreshness(root));
 
   const match = /^\/__admin\/games\/([^/]+)$/.exec(url);
   if (req.method === "POST" && match) {
