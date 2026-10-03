@@ -382,14 +382,30 @@
   transform: translateY(-50%);
 }
 
-.minimap--vertical .minimap__track.has-more-before {
-  mask-image: linear-gradient(to bottom, transparent, #000 28px);
+/* The reel (SPEC "Mobile"): no window to drag; a fixed mark level with the playhead, the
+   strip sliding under it; both ends fade. */
+.minimap--vertical .minimap__window {
+  display: none;
 }
 
-.minimap--vertical .minimap__track.has-more-after {
-  mask-image: linear-gradient(to bottom, #000 calc(100% - 28px), transparent);
+.minimap--vertical .minimap__track {
+  mask-image: linear-gradient(to bottom, transparent, #000 32px, #000 calc(100% - 32px), transparent);
 }
 
-.minimap--vertical .minimap__track.has-more-before.has-more-after {
-  mask-image: linear-gradient(to bottom, transparent, #000 28px, #000 calc(100% - 28px), transparent);
+.minimap__mark {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  right: -2px;
+  left: -2px;
+  height: 3px;
+  margin-top: -1.5px;
+  border-radius: 2px;
+  background: var(--accent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--bg) 80%, transparent);
+  pointer-events: none;
+}
+
+.minimap.minimap--vertical {
+  cursor: ns-resize;
 }

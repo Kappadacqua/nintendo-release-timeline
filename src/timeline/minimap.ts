@@ -35,6 +35,10 @@ export interface MinimapOptions {
   onSeek: (x: number, smooth: boolean) => void;
   /** Scrubbing ended (the timeline snaps to the nearest day). */
   onSeekEnd?: () => void;
+  /** Vertical strip let go while moving: the timeline glides on at this speed (world px/ms). */
+  onFling?: (velocity: number) => void;
+  /** Vertical strip: a tap on a dot selects that game (the first of a group). */
+  onPick?: (gameId: string) => void;
 }
 
 /**
@@ -59,6 +63,8 @@ const DRAG_PX = 3;
 /** Touch: a tap this close to a dot (px) previews it; the preview stays this long. */
 const TAP_PX = 14;
 const TAP_PREVIEW_MS = 2600;
+/** Vertical reel: the finger's speed (px/ms on the strip) from which letting go glides on. */
+const REEL_FLICK = 0.3;
 
 /**
  * Thin overview bar: months, one dot per game, the visible window. Click or drag to jump;
@@ -126,6 +132,12 @@ export class Minimap {
     this.window = document.createElement("div");
     this.window.className = "minimap__window";
     this.strip.append(this.window);
+    if (this.vertical) {
+      // The reel's fixed mark, level with the playhead: the day there is the day under it.
+      const mark = document.createElement("div");
+      mark.className = "minimap__mark";
+      this.track.append(mark);
+    }
 
     this.preview = document.createElement("div");
     this.preview.className = "minimap__preview";
@@ -133,7 +145,8 @@ export class Minimap {
     this.preview.setAttribute("aria-hidden", "true");
     this.el.append(this.preview);
 
-    this.bindSeek();
+    if (this.vertical) this.bindReel();
+    else this.bindSeek();
     this.bindPreview();
   }
 
@@ -152,16 +165,23 @@ export class Minimap {
     this.trackLen = this.vertical ? rect.height : rect.width;
     if (!this.trackLen) return;
     const { worldEnd, monthPx, minMonthPx } = this.opts;
-    this.k = minimapScale(this.trackLen, worldEnd, monthPx, minMonthPx);
+    // The reel always has the same density: a month is minMonthPx, whatever the timeline's length.
+    this.k = this.vertical && monthPx && minMonthPx ? minMonthPx / monthPx : minimapScale(this.trackLen, worldEnd, monthPx, minMonthPx);
     const ratio = (worldEnd * this.k) / this.trackLen;
     // Fits: the strip is the track itself (no rounding that would move the month lines by a pixel).
-    this.strip.style[this.size] = ratio > 1.0001 ? `${ratio * 100}%` : "";
+    this.strip.style[this.size] = this.vertical || ratio > 1.0001 ? `${ratio * 100}%` : "";
     this.follow();
   }
 
   /** Scrolling strip: the view's window stays centred on the bar, within the strip's ends. */
   private follow() {
     if (!this.trackLen || this.holding) return;
+    if (this.vertical) {
+      // Reel: the view's centre always at the middle of the strip (the mark), the ends can come in.
+      this.offset = this.center - this.trackLen / (2 * this.k);
+      this.strip.style.transform = `translate3d(0, ${-this.offset * this.k}px, 0)`;
+      return;
+    }
     const max = Math.max(0, this.opts.worldEnd - this.trackLen / this.k);
     this.offset = minimapOffset(this.center, this.trackLen, this.k, this.opts.worldEnd);
     const shift = -this.offset * this.k;
@@ -270,6 +290,67 @@ export class Minimap {
       this.el.classList.remove("is-scrubbing");
       // Touch has no hover: a tap near a dot shows its preview for a moment (SPEC "Mobile").
       if (tap && e.type === "pointerup" && e.pointerType !== "mouse") this.tapPreview(this.along(e));
+    };
+    this.el.addEventListener("pointerup", end);
+    this.el.addEventListener("pointercancel", end);
+  }
+
+  /**
+   * Vertical (SPEC "Mobile"): the strip is a reel. A finger drags it at its own scale, so the
+   * timeline runs many times faster while the reel moves slowly under the finger; let go while
+   * moving and the timeline glides on. A tap jumps there and previews the games at that spot.
+   */
+  private bindReel() {
+    let active = false;
+    let moved = false;
+    let startY = 0;
+    let startCenter = 0;
+    let lastY = 0;
+    let lastT = 0;
+    let velocity = 0;
+    this.el.addEventListener("pointerdown", (e) => {
+      if (e.button !== 0) return;
+      e.stopPropagation();
+      this.el.setPointerCapture(e.pointerId);
+      this.hidePreview();
+      active = true;
+      moved = false;
+      startY = lastY = e.clientY;
+      lastT = e.timeStamp;
+      velocity = 0;
+      // Stops a glide where it is: the reel is held.
+      this.opts.onSeek(this.center, false);
+      startCenter = this.center;
+    });
+    this.el.addEventListener("pointermove", (e) => {
+      if (!active) return;
+      const dy = e.clientY - startY;
+      if (!moved && Math.abs(dy) < DRAG_PX) return;
+      moved = true;
+      this.el.classList.add("is-scrubbing");
+      const dt = Math.max(1, e.timeStamp - lastT);
+      // World px/ms: the finger going down brings the past in, as on the timeline itself.
+      velocity = 0.8 * (-(e.clientY - lastY) / this.k / dt) + 0.2 * velocity;
+      lastY = e.clientY;
+      lastT = e.timeStamp;
+      this.opts.onSeek(Math.min(this.opts.worldEnd, Math.max(0, startCenter - dy / this.k)), false);
+    });
+    const end = (e: PointerEvent) => {
+      if (!active) return;
+      active = false;
+      this.el.classList.remove("is-scrubbing");
+      if (moved) {
+        // Only a real flick of the finger glides on: a slow drag of the reel is already fast on the timeline.
+        const flick = e.timeStamp - lastT < 80 && Math.abs(velocity * this.k) > REEL_FLICK;
+        if (this.opts.onFling) this.opts.onFling(flick ? velocity : 0);
+        else this.opts.onSeekEnd?.();
+        return;
+      }
+      if (e.type !== "pointerup") return this.opts.onSeekEnd?.();
+      // A tap near a dot selects its game, which comes to the mark with its card open; elsewhere, a jump.
+      const hit = this.dotAt(e.clientY, TAP_PX);
+      if (hit && this.opts.onPick) return this.opts.onPick(hit.dot.ids[0]);
+      this.opts.onSeek(this.worldXAt(e.clientY), true);
     };
     this.el.addEventListener("pointerup", end);
     this.el.addEventListener("pointercancel", end);

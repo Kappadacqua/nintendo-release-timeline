@@ -1095,6 +1095,13 @@ export class Timeline {
         else this.scroller.jumpTo(x);
       },
       onSeekEnd: () => this.scroller.settle(),
+      onPick: (gameId) => this.selectById(gameId),
+      // The vertical reel let go while moving: a touch glide, as far as the timeline goes.
+      onFling: (velocity) => {
+        this.scroller.friction = V.flingFriction;
+        this.scroller.maxFlingPx = this.worldEnd;
+        this.scroller.fling(velocity);
+      },
     });
   }
 
