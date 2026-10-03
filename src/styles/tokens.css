@@ -79,6 +79,12 @@
   --season-autumn: #b36d3f;
   --season-fade-in: 0.6s;
   --season-fade-out: 0.2s;
+  /* Background of the selected game (backdrop.css): blur, layer opacity, veil in --bg on top.
+     Light theme: bright artworks need more cover; the band behind the line keeps labels readable. */
+  --backdrop-blur: 28px;
+  --backdrop-blur-cover: 70px;
+  --backdrop-opacity: 1;
+  --backdrop-veil: 0.45;
 
   color-scheme: light;
 }
@@ -120,6 +126,7 @@
     --season-spring: #e6c3cf;
     --season-summer: #a9cde0;
     --season-autumn: #dcae8c;
+    --backdrop-veil: 0.5;
     color-scheme: dark;
   }
 }
@@ -160,6 +167,7 @@
   --season-spring: #e6c3cf;
   --season-summer: #a9cde0;
   --season-autumn: #dcae8c;
+  --backdrop-veil: 0.5;
   color-scheme: dark;
 }
 

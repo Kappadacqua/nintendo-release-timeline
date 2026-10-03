@@ -34,24 +34,6 @@
   opacity: var(--backdrop-veil);
 }
 
-:root {
-  --backdrop-blur: 28px;
-  --backdrop-blur-cover: 70px;
-  --backdrop-opacity: 1;
-  /* Light theme: bright artworks need more cover; the band behind the line keeps labels readable. */
-  --backdrop-veil: 0.45;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --backdrop-veil: 0.06;
-  }
-}
-
-:root[data-theme="dark"] {
-  --backdrop-veil: 0.06; /* same as the system dark theme above */
-}
-
 @media (prefers-reduced-motion: reduce) {
   .backdrop__layer {
     transition: none;

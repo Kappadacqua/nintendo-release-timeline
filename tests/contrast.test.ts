@@ -52,6 +52,12 @@ describe("text contrast on fills (tokens.css)", () => {
     for (const name of NEW_TOKENS) expect(hex(darkAttr, name), name).toBe(hex(darkMedia, name));
   });
 
+  // Veil over the selected game's background (docs/tasks/polish.md, task 2).
+  it("the two dark blocks agree on --backdrop-veil", () => {
+    expect(darkMedia.get("--backdrop-veil")).toBeDefined();
+    expect(darkAttr.get("--backdrop-veil")).toBe(darkMedia.get("--backdrop-veil"));
+  });
+
   for (const [theme, tokens] of [
     ["light", light],
     ["dark", darkAttr],

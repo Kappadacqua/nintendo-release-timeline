@@ -39,7 +39,7 @@ Salvare in `docs/tasks/polish.md`. Lancio dal telefono: `Esegui il prossimo task
 
 ---
 
-- [ ] **Task 2 — Sfondo del gioco: token in `tokens.css` e velo del tema scuro (gruppo 4)**
+- [x] **Task 2 — Sfondo del gioco: token in `tokens.css` e velo del tema scuro (gruppo 4)**
 
 **File**
 - Partire da: `src/styles/backdrop.css` (blocco `:root` e temi, righe ~37–53), `src/styles/tokens.css`, `tests/contrast.test.ts`, `docs/design-tokens.md`, `docs/review/triage.md` (gruppo 4).

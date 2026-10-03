@@ -26,7 +26,6 @@ Percorsi relativi alla root; `file:riga` si riferisce allo stato di questo commi
 
 **File che ridefiniscono valori per tema** (oltre a `tokens.css`):
 
-- `src/styles/backdrop.css:37-53` — `--backdrop-veil` (0.45 chiaro, 0.06 scuro), con la stessa doppia regola media + attributo.
 - `src/styles/groups.css:80-92` — filtro delle card non selezionate nel ventaglio (`brightness(0.95)` chiaro, `0.7` scuro), stessa doppia regola.
 - `src/styles/header.css:114-140` — icona del tema: sole nel chiaro, luna nello scuro (due SVG inline nel pulsante), con la stessa doppia regola media + attributo, quindi luna corretta anche al primo paint prima di `initTheme`.
 
@@ -41,7 +40,7 @@ Percorsi relativi alla root; `file:riga` si riferisce allo stato di questo commi
 
 ## 2. Colori
 
-### 2.1 Token (`src/styles/tokens.css`, più `backdrop.css`)
+### 2.1 Token (`src/styles/tokens.css`)
 
 "=" significa che il tema scuro non ridefinisce il token.
 
@@ -95,7 +94,7 @@ Percorsi relativi alla root; `file:riga` si riferisce allo stato di questo commi
 | `--season-summer` | `#4f8fb0` | `#a9cde0` | Estate: bolle, grappoli di bolle, conchiglie a ventaglio, stelle marine |
 | `--season-autumn` | `#b36d3f` | `#dcae8c` | Autunno: foglie di acero, quercia, betulla, ginkgo |
 | `--season-alpha` | `0.40` | `0.28` | Opacità delle particelle (`globalAlpha`), moltiplicata per la fascia di profondità (0.65 / 0.85 / 1.00) e per il peso della stagione nella transizione; contrasto della fascia vicina sullo sfondo ~1.6 chiaro, ~1.8–2.1 scuro |
-| `--backdrop-veil` | `0.45` | `0.06` | Opacità del velo `--bg` sopra lo sfondo del gioco (`backdrop.css`) |
+| `--backdrop-veil` | `0.45` | `0.5` | Opacità del velo `--bg` sopra lo sfondo del gioco (`backdrop.css`). Scuro: tetto del task polish 2; su sfondi molto chiari il mese in `--accent` dell'header e le etichette dei mesi restano sotto 4.5:1 (§10) |
 | `--backdrop-blur` | `28px` | = | Sfocatura dello sfondo del gioco (`backdrop.css`) |
 | `--backdrop-blur-cover` | `70px` | = | Sfocatura quando lo sfondo è la copertina IGDB (`backdrop.css`) |
 | `--backdrop-opacity` | `1` | = | Opacità del livello visibile (`backdrop.css`) |
@@ -373,7 +372,7 @@ Raggi fuori scala: 1px (coriandoli, "Today" minimappa), 1.5px (bandiere, pallino
 
 ### 6.5 `prefers-reduced-motion`
 
-- **CSS** (`@media (prefers-reduced-motion: reduce)`): `header.css:191`, `selection.css:28`, `timeline.css:140`, `backdrop.css:55`, `seasons.css:22`, `out-today.css:50`, `filters.css:120`, `compact.css:40`, `groups.css:112`, `presentation.css:123`.
+- **CSS** (`@media (prefers-reduced-motion: reduce)`): `header.css:191`, `selection.css:28`, `timeline.css:140`, `backdrop.css:37`, `seasons.css:22`, `out-today.css:50`, `filters.css:120`, `compact.css:40`, `groups.css:112`, `presentation.css:123`.
 - **JS** (`matchMedia`): `theme.ts`, `appear.ts`, `expand.ts`, `compact.ts`, `header.ts`, `group.ts`, `scroller.ts` (salti immediati, niente inerzia), `timeline.ts:768` (niente animazione al cambio stile), `zoom-control.ts`, `presentation.ts` (contatore al posto della barra), `rankings/main.ts`, `studios/main.ts`, `seasons/background.ts` (particelle ferme), `view.ts` (sfondo stagionale spento per impostazione predefinita).
 - **Senza regola reduced motion:** transizioni di opacità e colore (fascia, footer, indicatore, segmenti, campi di Rankings), trasformazione di scala durante il cambio stile (`compact.css:37`), cambio tema del body. Sono dissolvenze, non movimenti, tranne la scala.
 
@@ -416,7 +415,7 @@ Raggi fuori scala: 1px (coriandoli, "Today" minimappa), 1.5px (bandiere, pallino
 
 1. Sfondo del `body` (`--bg`), propagato alla radice.
 2. **Livello −1**, nell'ordine del DOM:
-   - `.backdrop` (aggiunto con `prepend` al `body`, anche a ogni ricostruzione della timeline): due livelli con l'immagine del gioco (visibili solo con un gioco selezionato che ha uno sfondo) e **sopra, sempre presente, il velo `::after` in `--bg`** all'opacità di `--backdrop-veil` (0.45 chiaro, 0.06 scuro);
+   - `.backdrop` (aggiunto con `prepend` al `body`, anche a ogni ricostruzione della timeline): due livelli con l'immagine del gioco (visibili solo con un gioco selezionato che ha uno sfondo) e **sopra, sempre presente, il velo `::after` in `--bg`** all'opacità di `--backdrop-veil` (0.45 chiaro, 0.5 scuro);
    - canvas stagionale `.seasons` (aggiunto con `append` al `body`, `background.ts:52`): a parità di z-index conta l'ordine del DOM, quindi sta **sempre sopra** `.backdrop` e il suo velo, all'avvio e dopo zoom, filtri o raggruppamento.
 3. Header (non posizionato, nel flusso).
 4. Dentro `main` → `.timeline` → `.timeline__stage`, nell'ordine del DOM (`timeline.ts:227`):
@@ -441,7 +440,7 @@ Il sito è solo desktop: `body { min-width: 1280px }` (`base.css:186`), admin `1
 |---|---|---|
 | `max-width: 1659px` | Titolo "Nintendo Release Timeline" → pallino + "NRT" (il nome resta per i lettori di schermo); header a griglia `clamp(88px, 100vw − 1180px, 200px) · minmax(0,1fr) · auto`, `column-gap` 24, padding laterale 24; data senza larghezza minima (sopra: `min-width: 420px`); gap delle azioni 6 (sopra: 10) | `header.css:204-233` |
 | `max-width: 1500px` | "What's new" solo icona e numero, senza etichetta | `whats-new.css:259-267` |
-| `prefers-color-scheme: dark` | Tema scuro se non c'è una scelta salvata | `tokens.css:74`, `backdrop.css:45`, `groups.css:88` |
+| `prefers-color-scheme: dark` | Tema scuro se non c'è una scelta salvata | `tokens.css:74`, `groups.css:88` |
 | `prefers-reduced-motion: reduce` | Vedi §6.5 | — |
 
 **Soglia dei 1440 px:** non esiste più. Era la soglia dell'header in fixes-3 task 2; nei "Ritocchi finali" è passata a **1660 px** (`max-width: 1659px`). Sotto 1660 l'header mostra "NRT", da 1660 in su il nome intero.
@@ -515,7 +514,7 @@ Regola unica: `:focus-visible { outline: 3px solid var(--accent); outline-offset
 
 **Header sopra lo sfondo del gioco nel tema scuro**
 
-- Con `--backdrop-veil` 0.06 il mese in `--accent` e i testi dell'header hanno poco contrasto su sfondi chiari (es. Pokémon Pokopia: Bubbly Basin). Dipende dal gruppo 4 (`backdrop.css`, in conflitto con `wip/perf`).
+- Con `--backdrop-veil` 0.5 (tetto, polish task 2) su sfondi molto chiari l'anno e il giorno dell'header superano 4.5:1 solo su Bubbly Basin; il mese in `--accent` (~1.2–2.3:1) e le etichette dei mesi sulla linea in `--text-muted` (~2–4.5:1) restano sotto. Il rosso ha luminanza media: il velo lo avvicina allo sfondo prima di staccarlo, e 4.5:1 richiederebbe un velo ≥ 0.9 o una fascia scura locale dietro l'header.
 
 **Valori quasi uguali**
 
@@ -545,7 +544,6 @@ Regola unica: `:focus-visible { outline: 3px solid var(--accent); outline-offset
 - `--red` e `--red-soft` servono solo come base di `--accent`/`--timeline` e nei coriandoli.
 - `--backdrop-opacity` vale sempre 1 e non ha varianti.
 - `--delayed`, `--on-accent`, `--switch-knob`, `--overlay`, `--shadow-sm`, `--shadow-md` e tutti i `--score-*` non hanno varianti scure: stessi valori nei due temi.
-- I token dello sfondo del gioco (`--backdrop-*`) stanno in `backdrop.css`, non in `tokens.css`.
 
 **Colori senza token**
 
@@ -555,7 +553,7 @@ Regola unica: `:focus-visible { outline: 3px solid var(--accent); outline-offset
 
 **Regole duplicate o in conflitto**
 
-- Il tema scuro è scritto due volte a mano (`tokens.css:86-125` e `127-164`) e l'indentazione del primo blocco è irregolare. Stessa doppia regola in `backdrop.css`, `groups.css` e `header.css` (icona del tema). Qualsiasi nuovo token scuro va aggiunto in tutti e due i posti (`tests/contrast.test.ts` controlla che coincidano per i token dei riempimenti).
+- Il tema scuro è scritto due volte a mano (`tokens.css:86-125` e `127-164`) e l'indentazione del primo blocco è irregolare. Stessa doppia regola in `groups.css` e `header.css` (icona del tema). Qualsiasi nuovo token scuro va aggiunto in tutti e due i posti (`tests/contrast.test.ts` controlla che coincidano per i token dei riempimenti).
 - La `transition` di `.card` è dichiarata in quattro punti (`card.css:11`, `selection.css:5`, `compact.css:8`, `groups-fan.css:17`), ognuno sovrascrive il precedente.
 - `.minimap.is-scrubbing` è dichiarato due volte (`minimap.css:19`, `minimap-preview.css:7`).
 - **Bordo tratteggiato delle uscite future solo per i giochi normali:** `.card--upcoming { border-style: dashed }` (`card.css:262`) viene sovrascritto dalla scorciatoia `border: 2px solid …` di DLC, aggiornamenti gratuiti e Switch 2 Edition (stessa specificità, file successivi). Una DLC in uscita ha il bordo pieno.

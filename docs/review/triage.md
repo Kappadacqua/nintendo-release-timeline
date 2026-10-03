@@ -41,10 +41,11 @@ Fonti: i problemi **[bassa]** non ancora segnati ✔ in `static.md` (11 su 12), 
 - File: `filters.css`, `presentation.ts`, `presentation.css`.
 - Motivo: chiude il problema noto 8 di `STATUS.md`; per la barra va solo deciso "barra statica" o "solo contatore".
 
-### 4. Token dello sfondo — rimandare, piccolo
+### 4. Token dello sfondo — rimandare, piccolo ✔
 - Problemi (`static.md` §2): `--backdrop-blur`, `--backdrop-opacity`, `--backdrop-veil` definiti in `backdrop.css:37-53`.
 - File: `backdrop.css`, `tokens.css`.
 - Motivo: `backdrop.css` è toccato anche da `wip/perf`: spostarli ora complica il merge di quel branch.
+- Fatto (polish task 2, 2026-10-03): token in `tokens.css`; velo del tema scuro da 0.06 a 0.5.
 
 ### 5. Colori dei coriandoli — ignorare
 - Problemi (`static.md` §2): `#ff8a95`, `#b3000e`, `#fff` in `confetti.ts:3`.
