@@ -992,9 +992,11 @@ export class Timeline {
     this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     this.lineY = Math.round((this.height - TIMELINE.minimapBandPx) / 2);
     this.world.style.top = `${this.lineY}px`;
-    // From above the tallest tick to below the month labels.
-    this.band.style.top = `${this.lineY - 34}px`;
-    this.band.style.height = `${34 + TIMELINE.cardOffset + 2}px`;
+    // Solid from above the tallest tick to below the month labels, the fade outside them.
+    const { bandSolidAbovePx: above, bandSolidBelowPx: below, bandFeatherPx: feather } = TIMELINE;
+    this.band.style.top = `${this.lineY - above - feather}px`;
+    this.band.style.height = `${above + below + 2 * feather}px`;
+    this.band.style.setProperty("--band-feather", `${feather}px`);
     // Where the playhead pill sits: the playhead line breaks there (timeline.css).
     this.stage.style.setProperty("--pill-top", `${this.lineY + PILL.top}px`);
     this.stage.style.setProperty("--pill-bottom", `${this.lineY + PILL.top + PILL.height}px`);

@@ -58,6 +58,28 @@ describe("text contrast on fills (tokens.css)", () => {
     expect(darkAttr.get("--backdrop-veil")).toBe(darkMedia.get("--backdrop-veil"));
   });
 
+  it("the two dark blocks agree on --backdrop-scrim", () => {
+    expect(darkMedia.get("--backdrop-scrim")).toBeDefined();
+    expect(darkAttr.get("--backdrop-scrim")).toBe(darkMedia.get("--backdrop-scrim"));
+  });
+
+  // Local scrims behind header and line over a game background (docs/tasks/polish.md, task 3):
+  // worst case is pure white behind the dark theme's scrim, pure black behind the light one's.
+  for (const [theme, tokens, under] of [
+    ["light", light, [0, 0, 0]],
+    ["dark", darkAttr, [255, 255, 255]],
+  ] as const) {
+    const scrim = parseFloat(tokens.get("--backdrop-scrim") ?? light.get("--backdrop-scrim")!) / 100;
+    it.each([
+      ["header month", "--accent"],
+      ["header date", "--text"],
+      ["line labels and header separators", "--text-muted"],
+    ])(`${theme}: %s (%s) on --backdrop-scrim over the worst backdrop ≥ 4.5`, (_, text) => {
+      const bg = tint(rgb(hex(tokens, "--bg")), scrim, [...under] as Rgb);
+      expect(contrast(rgb(hex(tokens, text)), bg)).toBeGreaterThanOrEqual(4.5);
+    });
+  }
+
   for (const [theme, tokens] of [
     ["light", light],
     ["dark", darkAttr],

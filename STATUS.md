@@ -1,10 +1,10 @@
 # Stato del progetto
 
-Aggiornato: 2026-10-03 — Coda `polish.md`, task 2: token e velo dello sfondo del gioco
+Aggiornato: 2026-10-03 — Coda `polish.md`, task 3: fasce locali dietro header e linea
 
 ## Ultimo checkpoint
 
-- `main` @ `96816c9` — Tasks: polish queue. Code `docs/tasks/*.md` tutte completate tranne `polish` (aperta); `wheel-seasons` completata; `seasons-art-2` task 1 chiuso per decisione dell'utente (transizione accettata così).
+- `main` @ `27d8d41` — Tasks: polish task 3. Code `docs/tasks/*.md` tutte completate tranne `polish` (aperta); `wheel-seasons` completata; `seasons-art-2` task 1 chiuso per decisione dell'utente (transizione accettata così).
 - Le vecchie modifiche per il 4K (canvas e sfondo, non verificate) sono archiviate nel tag `archive/wip-perf`; il branch `wip/perf` è cancellato e non blocca più `src/styles/backdrop.css`.
 
 ## Storia recente
@@ -24,6 +24,7 @@ Nessuno.
 
 Dettagli completi nelle versioni precedenti di questo file (`git show 58d0ac7:STATUS.md`).
 
+- polish task 3 — **Fasce locali sullo sfondo del gioco**: con `.has-backdrop` header, fascia della linea e footer hanno sfondo `--bg` al `--backdrop-scrim` (scuro 90 %, chiaro 100 %: il mese dell'header nel chiaro è `--accent`, che a 95 % su nero dà 4.30:1), transizione 0.4 s (nessuna con reduced motion). Fascia della linea piena da 26 px sopra a 62 px sotto la linea (tacche, numeri dei giorni, mesi), sfumatura di 16 px oltre (prima 34 px sopra / 66 sotto con sfumatura al 18 / 82 %, che cadeva sui mesi). Velo del tema scuro da 0.5 a 0.2, chiaro invariato. Nel browser: Bubbly Basin e Kirby Air Riders selezionati nei due temi, in Day / Week / Month (etichette dei mesi e numeri dentro la parte piena, sfumatura morbida); immagine più viva nello scuro; header nel chiaro diventa bianco pieno (verificare che non sembri un rettangolo netto); alla deselezione le fasce spariscono in 0.4 s; le particelle stagionali ora si spengono su una fascia un po' più alta (leggono il riquadro di `.timeline__band`).
 - polish task 2 — **Velo dello sfondo del gioco**: token `--backdrop-*` spostati da `backdrop.css` a `tokens.css`; velo del tema scuro da 0.06 a 0.5 (tetto del task: obiettivo 4.5:1 non raggiunto). Misure headless a 0.5 (anno / mese / giorno dell'header, etichette dei mesi sulla linea): Bubbly Basin 7.5 / 2.3 / 6.2 / 2.3–4.5, Kirby Air Riders 3.3 / 1.2 / 3.8 / 3.2–3.4, Rhythm Heaven Groove 4.5 / 1.5 / 4.5 / 2.3–3.6. Controllare Bubbly Basin nei due temi (chiaro invariato a 0.45) e un gioco dallo sfondo scuro nel tema scuro (non troppo spento).
 - polish task 1 — **Date regionali**: una data in un anno diverso da quello della prima uscita si scrive `May 28 ’26` (prima `May 28, 2026`), stesso anno invariato; ogni data ha `title` / `aria-label` con l'anno per esteso ("Europe: May 28, 2026"); se la riga non entra le date vanno a capo (`flex-wrap`, gap 4 / 8 px). `shortDate` in `src/cards/short-date.ts` con test. Riga "Worldwide" dei free update e riga del rinvio invariate ("Jun 5, 2025"). Nel browser: Riichi Mahjong (25 dic 2025) nei due temi, anche selezionata in compatto: niente date attaccate né fuori dal bordo (con tre date larghe probabilmente l'ultima va a capo); per ogni card `.card__dates` con `scrollWidth <= clientWidth`; passando il mouse su una data il tooltip con l'anno.
 - wheel-seasons task 3 — **Stagioni astronomiche**: la stagione inizia il giorno (ora italiana) dell'equinozio o del solstizio, tabella USNO 2025–2030 in `season.ts` (2026: 20 mar, 21 giu, 23 set, 21 dic), fuori tabella 20 mar / 21 giu / 22 set / 21 dic. Pannello "?", sezione "Seasonal background": righe Winter / Spring / Summer / Autumn con "from the December solstice" ecc. al posto dei mesi. Nel browser: a Day, con le frecce, 19 → 20 marzo 2026 (inverno → primavera) e 22 → 23 settembre 2026 (estate → autunno), nessun cambio il 1° del mese; oggi (3 ott 2026) autunno.
@@ -98,7 +99,7 @@ Dettagli completi nelle versioni precedenti di questo file (`git show 58d0ac7:ST
 16. **Metacritic senza API** — si leggono le pagine HTML: se Metacritic cambia markup (schede `product-score-card`, sezione `user-reviews`, `aria-label` "Metascore … out of 100") il fetch lo dice esplicitamente ("Metacritic page layout not recognized … not found: …", stop dopo 3 pagine di fila) e restano gli ultimi voti in cache; un 403/429 ferma l'esecuzione. Regole in SPEC §4.3.
 17. **Voti ereditati dal gioco base** — Switch 2 Edition / bundle senza pagina propria prendono voto e pagina del gioco base (titolo ridotto: senza "Nintendo Switch 2 Edition…", "+ …", "- Definitive Edition"), con `inheritedFrom`; una pagina OpenCritic ereditata basta anche a tenere l'edizione nel perimetro (SPEC §3, §4). La card non lo dice ancora.
 19. **Transizione di stagione: vuoto residuo** (seasons-art-2 task 1) — **chiuso**: accettato dall'utente il 2026-10-03 (la massa scende al 23–67 % durante il cambio).
-20. **Header e mesi sopra lo sfondo del gioco, tema scuro** (polish task 2) — con il velo a 0.5 su sfondi molto chiari il mese rosso dell'header (`--accent`, ~1.2–2.3:1) e le etichette dei mesi sulla linea (`--text-muted`, ~2–4.5:1) restano sotto 4.5:1; il rosso non arriva a 4.5:1 neanche col velo a 0.9. Servirebbe una fascia scura locale dietro header e mesi, o un altro colore per il mese.
+20. **Header e mesi sopra lo sfondo del gioco** — **chiuso** (polish task 3): fasce locali `--backdrop-scrim` dietro header, linea e footer, ≥ 4.5:1 nel caso peggiore nei due temi (`tests/contrast.test.ts`).
 13. **Rotella in Month** — chiuso (wheel-seasons task 2): il limite di 91 giorni non c'è più.
 
 ## Prossimi task (in ordine)

@@ -68,7 +68,7 @@ Salvare in `docs/tasks/polish.md`. Lancio dal telefono: `Esegui il prossimo task
 
 ---
 
-- [ ] **Task 3 — Fasce locali dietro header e linea al posto del velo alto (problema noto 20)**
+- [x] **Task 3 — Fasce locali dietro header e linea al posto del velo alto (problema noto 20)**
 
 **File**
 - Partire da: `src/styles/selection-extras.css` (`.timeline__band`, `.has-backdrop .app-footer`), `src/styles/header.css`, `src/styles/tokens.css` (`--backdrop-veil`), `tests/contrast.test.ts`, `docs/design-tokens.md`.

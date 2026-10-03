@@ -44,6 +44,13 @@ export const TIMELINE = {
 
   /** Distance from the line to the nearest card: the band for day numbers and months, never scaled. */
   cardOffset: 64,
+  /**
+   * Scrim behind the line over a game background: fully opaque from this far above the line
+   * (tallest tick at 22) to this far below it (month labels end at ~59), then a soft fade.
+   */
+  bandSolidAbovePx: 26,
+  bandSolidBelowPx: 62,
+  bandFeatherPx: 16,
   /** Stacked cards: each extra level moves this far out and sideways. */
   stackStepY: 56,
   stackStepX: 22,

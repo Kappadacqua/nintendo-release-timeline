@@ -4,14 +4,16 @@
   border-color: transparent;
 }
 
-/* Over a game background: a translucent band behind the line and its labels, and behind the footer. */
+/* Over a game background: local scrims (--backdrop-scrim) behind the header, the line and its labels,
+   and the footer. The band is solid over ticks, day numbers and months; it fades out beyond them
+   (--band-feather, set with its size in timeline.ts). */
 .timeline__band {
   position: absolute;
   right: 0;
   left: 0;
-  background: color-mix(in srgb, var(--bg) 80%, transparent);
-  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 82%, transparent);
-  mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 82%, transparent);
+  background: color-mix(in srgb, var(--bg) var(--backdrop-scrim), transparent);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 var(--band-feather), #000 calc(100% - var(--band-feather)), transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 var(--band-feather), #000 calc(100% - var(--band-feather)), transparent);
   opacity: 0;
   transition: opacity 0.4s ease;
   pointer-events: none;
@@ -21,12 +23,22 @@
   opacity: 1;
 }
 
+.app-header,
 .app-footer {
   transition: background-color 0.4s ease;
 }
 
+.has-backdrop .app-header,
 .has-backdrop .app-footer {
-  background: color-mix(in srgb, var(--bg) 85%, transparent);
+  background: color-mix(in srgb, var(--bg) var(--backdrop-scrim), transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .timeline__band,
+  .app-header,
+  .app-footer {
+    transition: none;
+  }
 }
 
 /* Selected Switch 2 Edition: no solid ring over the Joy-Con border, an outer glow in its two colours. */

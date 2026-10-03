@@ -94,7 +94,8 @@ Percorsi relativi alla root; `file:riga` si riferisce allo stato di questo commi
 | `--season-summer` | `#4f8fb0` | `#a9cde0` | Estate: bolle, grappoli di bolle, conchiglie a ventaglio, stelle marine |
 | `--season-autumn` | `#b36d3f` | `#dcae8c` | Autunno: foglie di acero, quercia, betulla, ginkgo |
 | `--season-alpha` | `0.40` | `0.28` | Opacità delle particelle (`globalAlpha`), moltiplicata per la fascia di profondità (0.65 / 0.85 / 1.00) e per il peso della stagione nella transizione; contrasto della fascia vicina sullo sfondo ~1.6 chiaro, ~1.8–2.1 scuro |
-| `--backdrop-veil` | `0.45` | `0.5` | Opacità del velo `--bg` sopra lo sfondo del gioco (`backdrop.css`). Scuro: tetto del task polish 2; su sfondi molto chiari il mese in `--accent` dell'header e le etichette dei mesi restano sotto 4.5:1 (§10) |
+| `--backdrop-veil` | `0.45` | `0.2` | Opacità del velo `--bg` sopra lo sfondo del gioco (`backdrop.css`). La leggibilità di header e linea la danno le fasce locali (`--backdrop-scrim`) |
+| `--backdrop-scrim` | `100%` | `90%` | Fasce locali in `--bg` dietro header, linea (`.timeline__band`) e footer con `.has-backdrop` (`selection-extras.css`): la percentuale più bassa, a passi di 5, con testo ≥ 4.5:1 nel caso peggiore (nero puro dietro nel chiaro, bianco puro nello scuro). Chiaro: il mese dell'header è `--accent` (`#e60012`), che arriva a 4.5:1 solo pieno (95 % → 4.30). Scuro: `--accent` 4.80, `--text-muted` 5.61 |
 | `--backdrop-blur` | `28px` | = | Sfocatura dello sfondo del gioco (`backdrop.css`) |
 | `--backdrop-blur-cover` | `70px` | = | Sfocatura quando lo sfondo è la copertina IGDB (`backdrop.css`) |
 | `--backdrop-opacity` | `1` | = | Opacità del livello visibile (`backdrop.css`) |
@@ -125,7 +126,7 @@ Molti colori non sono token ma miscele di un token. I più visibili, calcolati:
 | `color-mix(--dlc 55%, --border)` | `#a985ea` | `#7160a3` | Bordo card DLC (`dlc-card.css:5`) |
 | `color-mix(--free-update 55%, --border)` | `#6dbb98` | `#358d60` | Bordo card/gruppo aggiornamento gratuito (`dlc-card.css:11`, `groups.css:10`) |
 
-Miscele con `transparent` (equivalenti a un rgba del token): `--accent` al 10 % (fascia "upcoming"), 12 % (risultato di ricerca attivo, righe della TBA nella minimappa), 14 % (lacune admin), 16 % (badge "Timed exclusive", badge studio partner), 18 % (barra della presentazione), 30-75 % (bagliori); `--news` al 14 % (fondo di "Mark all as seen") e 60 %; `--delayed` al 22 %; `--text` al 6 % (riquadro della minimappa); `--bg` all'80 % (`.timeline__band`) e 85 % (minimappa, controllo zoom, footer su sfondo); `--surface` al 70 % (zona TBA).
+Miscele con `transparent` (equivalenti a un rgba del token): `--accent` al 10 % (fascia "upcoming"), 12 % (risultato di ricerca attivo, righe della TBA nella minimappa), 14 % (lacune admin), 16 % (badge "Timed exclusive", badge studio partner), 18 % (barra della presentazione), 30-75 % (bagliori); `--news` al 14 % (fondo di "Mark all as seen") e 60 %; `--delayed` al 22 %; `--text` al 6 % (riquadro della minimappa); `--bg` a `--backdrop-scrim` (header, `.timeline__band` e footer su sfondo) e all'85 % (minimappa, controllo zoom); `--surface` al 70 % (zona TBA).
 
 ### 2.3 Colori scritti a mano, fuori dai token
 
@@ -136,7 +137,7 @@ Miscele con `transparent` (equivalenti a un rgba del token): `--accent` al 10 % 
 | `#039`, `#fc0` | `src/cards/flags.ts:12,15` | Bandiera UE |
 | `#fff`, `#b22234`, `#3c3b6e` | `src/cards/flags.ts:20-22` | Bandiera USA |
 | `%23e60012` + `white` | `index.html:10`, `rankings.html:10`, `studios.html:10` | Favicon SVG inline (rosso fisso, anche in tema scuro; admin senza favicon) |
-| `#000`, `transparent` | `src/styles/selection-extras.css:13-14` | Maschera della `.timeline__band` (non visibile come colore) |
+| `#000`, `transparent` | `src/styles/selection-extras.css:15-16` | Maschera della `.timeline__band` (non visibile come colore): piena su tacche, numeri e mesi (`TIMELINE.bandSolidAbovePx` 26 / `bandSolidBelowPx` 62), sfumatura `--band-feather` 16 px oltre (`bandFeatherPx`, impostata da `timeline.ts`) |
 | `#000`, `transparent` | `src/styles/timeline.css:98-104` | Maschera dell'indicatore, interrotto 3 px sopra e sotto la pillola (non visibile come colore) |
 | `#000`, `rgb(0 0 0 / 0)` | `src/seasons/background.ts:216-219` | Maschera `destination-out` che sfuma le particelle sulla fascia della linea (non visibile come colore) |
 
@@ -512,9 +513,7 @@ Regola unica: `:focus-visible { outline: 3px solid var(--accent); outline-offset
 
 ## 10. Incoerenze
 
-**Header sopra lo sfondo del gioco nel tema scuro**
-
-- Con `--backdrop-veil` 0.5 (tetto, polish task 2) su sfondi molto chiari l'anno e il giorno dell'header superano 4.5:1 solo su Bubbly Basin; il mese in `--accent` (~1.2–2.3:1) e le etichette dei mesi sulla linea in `--text-muted` (~2–4.5:1) restano sotto. Il rosso ha luminanza media: il velo lo avvicina allo sfondo prima di staccarlo, e 4.5:1 richiederebbe un velo ≥ 0.9 o una fascia scura locale dietro l'header.
+**Header sopra lo sfondo del gioco** — risolto con le fasce locali `--backdrop-scrim` (polish task 3). Nel tema chiaro la fascia è piena (100 %) perché il mese dell'header usa `--accent` e non `--accent-text`.
 
 **Valori quasi uguali**
 
