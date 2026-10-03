@@ -22,14 +22,14 @@ Lavoro autonomo su branch `mobile`, richiesto dall'utente il 2026-10-03: un pass
 - [x] **Passo 1 — Asse verticale della timeline**
   `layout.ts` (criterio), `Timeline` con opzione `vertical` (canvas trasposto, mondo traslato in y, righe a destra, aggancio e inerzia invariati), tacche e pillola nel gutter, minimappa verticale, `assignLanes` con lati scelti, TBA in colonna, ricostruzione al cambio di layout con stessa data e selezione. Header compatto, pannello del menu, barra in basso.
 
-- [ ] **Passo 2 — Card, selezione e gruppi in verticale**
+- [x] **Passo 2 — Card, selezione e gruppi in verticale**
   Righe, card espansa dentro lo schermo, ventaglio come colonna, sfondo del gioco, TBA.
 
-- [ ] **Passo 3 — Gesti touch**
+- [x] **Passo 3 — Gesti touch**
   Pizzico per lo zoom, pressione lunga per il titolo in Week / Month sulla timeline orizzontale touch, inerzia touch, niente selezione accidentale.
 
-- [ ] **Passo 4 — Sfondo stagionale leggero su mobile**
+- [x] **Passo 4 — Sfondo stagionale leggero su mobile**
 
-- [ ] **Passo 5 — Rankings e Studios responsive**
+- [x] **Passo 5 — Rankings e Studios responsive**
 
-- [ ] **Passo 6 — Verifica completa, test, SPEC "Mobile", STATUS**
+- [x] **Passo 6 — Verifica completa, test, SPEC "Mobile", STATUS**

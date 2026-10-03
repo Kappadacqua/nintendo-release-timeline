@@ -610,3 +610,42 @@ Particelle animate dietro linea e card (`src/seasons/`: `season.ts` logica pura,
 - **Reduced motion**: spento di default; se l'utente lo accende, particelle ferme (decorazione statica, ridisegnata solo al cambio di stagione, tema o finestra).
 - **Prestazioni**: densità del canvas al massimo 1.5, nessun filtro blur, sagome pre-renderizzate; animazione ferma con sfondo spento o nascosto e con la scheda non visibile. Misurato il 2026-10-01 (Chrome headless con GPU GTX 1070, build di produzione): a 1920×1080, 60 fps e 95° percentile 16,8 ms in tutte e quattro le stagioni, a riposo, in scorrimento (marce 1–3) e durante i cambi di stagione, come a sfondo spento. A 2560×1440 lo sfondo acceso costa qualche fps (55–60 a riposo, 43–59 in scorrimento, contro 55–60 a sfondo spento): il costo resta anche senza disegnare particelle, quindi dipende dal canvas a tutto schermo e non dalle sagome.
 - **Aiuto**: sezione "Seasonal background" nel pannello delle scorciatoie (?).
+
+## 16. Mobile
+
+**Stato: fatto** (coda in `docs/tasks/mobile.md`, branch `mobile`). Vale sopra la riga "Solo desktop" del §9: il desktop (≥ 1280 px) resta com'era, identico al pixel.
+
+**Quando** (`src/layout.ts`, stesse media query nel CSS; un test le tiene allineate)
+- **Timeline verticale** con `(max-width: 820px), (max-height: 500px)`: telefoni in verticale e in orizzontale, tablet in verticale, finestre strette. Un tablet in orizzontale (1024×768) resta orizzontale.
+- **Header compatto** con `(max-width: 1279px), (max-height: 500px)`: anche il tablet in orizzontale ha menu e barra in basso.
+- Al cambio (rotazione, resize) la timeline si ricostruisce senza ricaricare: stessa data sotto l'indicatore, stesso gioco selezionato, stesso zoom.
+
+**Timeline verticale** (`Timeline` con opzione `vertical`: stessa coordinata del mondo lungo la linea, canvas trasposto, livello "world" traslato in y)
+- **Passato in alto, futuro in basso.** La linea scende lungo il lato sinistro (x = 58 px, `TIMELINE.vertical`); parte in alto dal 5/6/2025 e finisce con lo stacco `//` e la zona TBA in fondo (blocchi per anno, poi "TBA", con le card in colonna).
+- Tacche più corte, a destra e a sinistra della linea; numeri dei giorni (Week: "W23") a sinistra della linea; etichette dei mesi nel margine sinistro ("JAN" con l'anno sotto). Il numero sotto un mese e le "W" a 2 giorni da un inizio mese lasciano il posto al mese.
+- **Indicatore**: linea orizzontale fissa a metà altezza, pillola del giorno nel margine sinistro; "Today" a destra della linea, sopra il pallino. All'apertura la vista è su oggi (fuso locale), come sul desktop.
+- **Card**: a destra della linea, in una colonna larga quanto lo schermo meno margine e minimappa (massimo 380 px). Non selezionate sono **righe** di altezza fissa (80 px: copertina, titolo su 2 righe, badge); "Card style" vale solo per la timeline orizzontale. Una riga vicina a un'altra scivola in basso fino a 1,25 volte la sua altezza (connettore a gomito), poi si impila (30 px più in basso, 10 px più a destra, sopra la precedente, che mostra il titolo).
+- **Week / Month**: due colonne strette di copertina **e titolo** (righe di 60 px): il titolo, che sul desktop compare al passaggio del mouse, qui è sempre visibile.
+- **Selezione**: card completa nella colonna, senza ingrandimento (×1), centrata sull'indicatore; se è più alta dello schermo si rimpicciolisce. Anelli e pulsanti ristretti per stare in 240 px. Sfondo del gioco e fascia dietro le etichette (una striscia sul lato sinistro) come sul desktop.
+- **Gruppi dello stesso giorno**: il gruppo chiuso è una riga (ventaglio di copertine piccolo, "8 games"). Aperto diventa una **colonna**: la card selezionata, completa, centrata sulla data; gli altri giochi come righe sopra e sotto, in ordine, senza sovrapporsi né inclinarsi; la colonna si riassesta mentre la card selezionata si apre o si chiude.
+- **Rinvii**: fantasma sulla linea, arco nel margine sinistro.
+- **Minimappa**: striscia verticale lungo il bordo destro (mesi, puntini, oggi, TBA a righe, riquadro). Tocco = salto, trascinamento = segue, riquadro trascinabile (6 px di tolleranza al dito). **Tocco vicino a un puntino** (14 px): anteprima per 2,6 s accanto alla striscia.
+
+**Gesti**
+- **Trascinamento** con il dito (lungo y in verticale), inerzia touch più lunga del mouse (`flingFriction` 0,965, fino a 120 giorni al livello corrente); al rilascio aggancio al giorno (Week: lunedì, Month: 1° del mese). Un tocco durante l'inerzia la ferma senza selezionare; uno scorrimento non seleziona (soglia di 5 px). `touch-action: none` e `overscroll-behavior: none`: niente pull-to-refresh né scroll della pagina sulla timeline.
+- **Pizzico** (`pinch.ts`, su `#app` perché lo zoom ricostruisce la timeline): ogni 1,35× di distanza fra le dita un livello (allargando: verso Day), al massimo uno ogni 350 ms; un pizzico lungo attraversa più livelli. Il secondo dito ferma il trascinamento senza inerzia.
+- **Pressione lunga** (400 ms) su una copertina in Week / Month sulla timeline orizzontale touch: mostra il titolo; rilasciando non seleziona. Niente menu contestuale sulla timeline.
+- Frecce ↑ / ↓ come ← / → sulla timeline verticale (finestra stretta con tastiera).
+
+**Header, menu e barra in basso** (`src/mobile.ts`, `mobile.css`)
+- Header: titolo (o gioco selezionato) · data · ricerca · menu (con il numero di novità non viste). Sotto i 600 px la data va su una seconda riga. Footer nel menu.
+- **Menu a comparsa** da destra (stesso markup della riga del desktop): pagine, What's new, filtri, View (con "Start presentation"), Start / Today / Date TBA (Home, T, Fine), "Gestures, shortcuts and legend" (dialogo "?"), tema, nota sulle fonti. Pannelli aperti in linea; si chiude con ✕, tocco fuori, Esc, o scegliendo un'azione che agisce sulla timeline.
+- **Barra in basso**: ‹ (gioco precedente, PagSu), Today (T), › (gioco successivo, PagGiù) e Day / Week / Month. Aree touch ≥ 44 px (segmenti dello zoom 44 × 38 dentro una pillola di 44).
+- Dialogo "?": con puntatore touch il titolo è "Gestures and shortcuts" e i gesti vengono prima dei tasti; si apre dall'inizio. Presentazione: avviso "tap anywhere to stop" (pausa solo con Spazio).
+- Safe area (notch) su header, timeline, barra e menu; altezza `100dvh`; `viewport-fit=cover`.
+
+**Sfondo stagionale su telefono** (§15): sotto 1280 × 720 le particelle scendono linearmente fino a 12 a 360 × 640 (`phoneParticles`); fino a 820 px di larghezza densità del canvas al massimo 1,25 e particelle aggiornate a 30 fps (`phoneFrameMs`); la fascia della linea che le cancella è la striscia sinistra. Niente `backdrop-filter` su minimappa, zoom e barra sotto i 1280 px. Misure (Playwright headless, 390 × 844, build di sviluppo): 60 fps a riposo e in scorrimento (Day e Month) senza rallentamento e con CPU 2× più lenta; con CPU 4× più lenta 46–48 fps in Day e ~27 in Month (sfondo spento: 59 e 40; il resto è rasterizzazione software dell'headless).
+
+**Rankings e Studios** (`page-mobile.css`): sotto i 720 px titolo e tema su una riga, "Timeline · Rankings · Studios" a tutta larghezza sotto; la pagina scorre tutta (anche header e footer). Rankings: posizione, copertina e titolo (2 righe) in alto, i quattro anelli sotto; campi di 44 px (16 px di testo: niente zoom su iOS). Studios: una colonna.
+
+**Invariato**: dati, chiavi `localStorage`, tema, comportamento desktop.

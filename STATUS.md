@@ -1,6 +1,6 @@
 # Stato del progetto
 
-Aggiornato: 2026-10-03 — Pubblicazione su GitHub Pages con aggiornamento giornaliero
+Aggiornato: 2026-10-03 — Versione mobile (branch `mobile`, non ancora unito a `main`)
 
 ## Ultimo checkpoint
 
@@ -18,11 +18,16 @@ Aggiornato: 2026-10-03 — Pubblicazione su GitHub Pages con aggiornamento giorn
 
 ## Lavoro in corso
 
+Branch `mobile` (versione mobile, SPEC §16) pronto da verificare e unire a `main`.
+
+
 Nessuno.
 
 ## Da verificare nel browser (Architetto)
 
 Dettagli completi nelle versioni precedenti di questo file (`git show 58d0ac7:STATUS.md`).
+
+- **Mobile** (branch `mobile`, coda `docs/tasks/mobile.md`, SPEC §16) — timeline verticale (passato in alto) sotto 820 px di larghezza o 500 px di altezza; header compatto con menu a comparsa e barra in basso (‹ Today › e Day / Week / Month) sotto 1280 px; pizzico per lo zoom, inerzia touch, minimappa verticale con anteprima al tocco, ventaglio in colonna, Rankings e Studios responsive, sfondo stagionale alleggerito sui telefoni. Desktop identico al pixel a 1280 / 1440 / 1920 (confronto con `main`). Verificato solo in emulazione (Playwright, Chromium): **da provare su un telefono vero** (iPhone con notch e Safari: safe area, `100dvh`, barra degli indirizzi; Android Chrome), soprattutto la sensazione di trascinamento e inerzia (`TIMELINE.vertical.flingFriction`, `flingMaxDays`), il pizzico (`pinchStep` 1,35) e le prestazioni con lo sfondo stagionale. Nel browser: 360 / 390 / 430 px in verticale, 844 × 390, tablet 768 × 1024 ↔ 1024 × 768 (stessa data e selezione alla rotazione), selezione di giochi e del gruppo del 5 giugno 2025, zona TBA, Week / Month, menu (What's new, filtri, View, presentazione, "?"), ricerca, i due temi.
 
 - **Pubblicazione (sospesa il 2026-10-03: Pages disattivato, workflow `disabled_manually`; per riattivare `gh workflow enable "Update data and deploy"` e riattivare Pages con build da Actions)** — sito su GitHub Pages (`https://kappadacqua.github.io/nintendo-release-timeline/`), repo pubblico. Workflow `.github/workflows/update-and-deploy.yml`: ogni notte (03:17 UTC) e a mano fetch di free update, studi e `data:fetch` (Metacritic compreso), commit dei dati su `main` dal bot, build con `BASE_PATH=/nintendo-release-timeline/` e deploy; a ogni push su `main` solo `data:build` + build + deploy. Un fetch fallito non blocca la pubblicazione. Segnaposto copertina ora relativo (`covers/placeholder.svg`). Nel browser: timeline, Rankings e Studios sul sito pubblicato (copertine, segnaposto, link tra le pagine, "What's new"); dopo la prima notte, nella tab Actions il run giornaliero e il commit "Data: daily update …".
 - **"Mark all as seen" in hover** (decisione su problema 21): la tinta si intensifica dal 14 % al 22 % in `--hover-ms`; testo un po' più scuro nel chiaro (`#0066d6` → `#005cc1`) e più chiaro nello scuro (`#3d95ff` → `#50a0ff`). Nel browser: pannello "What's new" nei due temi, hover visibile ma non urlato, disabilitato senza hover.
@@ -106,6 +111,8 @@ Dettagli completi nelle versioni precedenti di questo file (`git show 58d0ac7:ST
 19. **Transizione di stagione: vuoto residuo** (seasons-art-2 task 1) — **chiuso**: accettato dall'utente il 2026-10-03 (la massa scende al 23–67 % durante il cambio).
 20. **Header e mesi sopra lo sfondo del gioco** — **chiuso** (polish task 3): fasce locali `--backdrop-scrim` dietro header, linea e footer, ≥ 4.5:1 nel caso peggiore nei due temi (`tests/contrast.test.ts`).
 13. **Rotella in Month** — chiuso (wheel-seasons task 2): il limite di 91 giorni non c'è più.
+
+23. **Mobile: limiti noti** (SPEC §16) — (a) verificato solo in emulazione Chromium (Playwright), mai su un telefono reale né in Safari/iOS; (b) minimappa verticale larga 36 px (sotto i 44 px consigliati: è una barra di scorrimento, la tolleranza sul riquadro è di 6 px); (c) in Month la colonna doppia si impila molto (come sul desktop); (d) la presentazione su touch non ha pausa (un tocco la ferma); (e) sulla timeline verticale il connettore della colonna destra in Week / Month passa sopra la card della colonna sinistra; (f) con CPU 4× più lenta lo sfondo stagionale costa ~12 fps in scorrimento (Day 46–48 fps, Month ~27): da misurare su un telefono vero e, se serve, spegnerlo di default sui telefoni.
 
 21. **"Mark all as seen" senza hover** — **chiuso**: hover con tinta `--news` dal 14 % al 22 % (niente `brightness`), `--news-text-soft` chiaro `#005cc1`, scuro `#50a0ff` (≥ 4.68 / 4.75 su entrambe le tinte).
 

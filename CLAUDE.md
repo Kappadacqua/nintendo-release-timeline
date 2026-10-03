@@ -30,11 +30,12 @@ Sito desktop personale: una timeline orizzontale dei giochi Nintendo usciti dal 
 ## Mappa dei moduli
 
 **`src/timeline/`** — la timeline
-- `timeline.ts` (1090 righe) — orchestrazione della timeline: rendering, posizionamento card, selezione. **File grande.**
+- `timeline.ts` (~1250 righe) — orchestrazione della timeline: rendering, posizionamento card, selezione; opzione `vertical` per il mobile (SPEC §16). **File grande.**
 - `scroller.ts` (351) — scorrimento: rotella, trascinamento, inerzia, salti, animazioni di movimento.
 - `group.ts` — gruppi di uscite nello stesso giorno e ventaglio. `same-day.ts` — ordine da tastiera e colori del pallino per i gruppi dello stesso giorno (senza DOM).
 - `minimap.ts` — minimappa, tooltip, riquadro trascinabile.
 - `ticks.ts` — tacche e numeri dei giorni. `dates.ts` — utilità sulle date.
+- `pinch.ts` — pizzico a due dita per lo zoom (SPEC §16).
 - `zoom.ts` — livelli Day/Week/Month. `header.ts` — data nell'header. `site-title.ts` — titolo/gioco selezionato in alto a sinistra.
 - `backdrop.ts` — sfondo del gioco selezionato. `tba.ts` — zona TBA. `config.ts` — costanti (spaziature, soglie, durate).
 
@@ -44,11 +45,11 @@ Sito desktop personale: una timeline orizzontale dei giochi Nintendo usciti dal 
 - `layout.ts` — dimensioni/collisioni. `appear.ts` — animazione di comparsa. `confetti.ts` — "Out today".
 
 **`src/`** (root)
-- `main.ts` — avvio dell'app. `test-utils.ts` — dati minimi per i test. `types.ts` — tipi condivisi (`Game`, `Score`, `Studio`…). `games.ts` — caricamento di `games.json`, condiviso da timeline e Rankings.
+- `main.ts` — avvio dell'app. `layout.ts` — criterio mobile (timeline verticale, header compatto; media query uguali nel CSS). `mobile.ts` — menu a comparsa e barra in basso (‹ Today ›). `test-utils.ts` — dati minimi per i test. `types.ts` — tipi condivisi (`Game`, `Score`, `Studio`…). `games.ts` — caricamento di `games.json`, condiviso da timeline e Rankings.
 - `view.ts` — menu View. `filters.ts` — filtri. `search.ts` — ricerca. `presentation.ts` — modalità presentazione.
 - `whats-new.ts`, `news.ts`, `history.ts` — novità, rinvii, storico voti. `zoom-control.ts` — selettore Day/Week/Month.
 - `theme/theme.ts` — tema giorno/notte. `admin/` — pannello admin (`main.ts`, `admin.css`; solo sviluppo).
-- `styles/main.css` — solo `@import` delle parti, nell'ordine della cascata (non riordinare). Parti in `styles/`: `tokens.css` (`:root` e temi), `base.css`, `header.css`, `timeline.css`, `timeline-items.css`, `card.css`, `dlc-card.css`, `tba.css`, `minimap.css`, `loading.css`, `shortcuts.css`, `selection.css`, `backdrop.css`, `switch2-edition.css`, `out-today.css`, `selection-extras.css` (override su sfondo/selezione, link admin), `filters.css`, `search.css`, `delays.css`, `whats-new.css`, `compact.css`, `view-menu.css`, `dots.css`, `minimap-preview.css`, `groups.css`, `zoom.css`, `presentation.css`, `groups-fan.css` (ventaglio aperto, rivisto). `rankings.css` e `studios.css` non sono in `main.css`: li importano le rispettive pagine.
+- `styles/main.css` — solo `@import` delle parti, nell'ordine della cascata (non riordinare). Parti in `styles/`: `tokens.css` (`:root` e temi), `base.css`, `header.css`, `timeline.css`, `timeline-items.css`, `card.css`, `dlc-card.css`, `tba.css`, `minimap.css`, `loading.css`, `shortcuts.css`, `selection.css`, `backdrop.css`, `switch2-edition.css`, `out-today.css`, `selection-extras.css` (override su sfondo/selezione, link admin), `filters.css`, `search.css`, `delays.css`, `whats-new.css`, `compact.css`, `view-menu.css`, `dots.css`, `minimap-preview.css`, `groups.css`, `zoom.css`, `presentation.css`, `groups-fan.css` (ventaglio aperto, rivisto), `vertical.css` (timeline verticale), `mobile.css` (header compatto, menu, barra in basso; SPEC §16). `page-mobile.css` (header e pagina su telefono) lo importano Rankings e Studios. `rankings.css` e `studios.css` non sono in `main.css`: li importano le rispettive pagine.
 
 **Pagine** (root): `index.html` (timeline), `rankings.html`, `studios.html`, `admin.html` (solo sviluppo).
 

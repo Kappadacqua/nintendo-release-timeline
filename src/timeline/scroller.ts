@@ -429,6 +429,10 @@ export function bindScrollInput(
     // The click that follows a drag must not follow a link.
     suppressClick = true;
     setTimeout(() => (suppressClick = false), 0);
+    // A finger glides longer than a mouse drag (SPEC "Mobile").
+    const touch = e.pointerType === "touch";
+    scroller.friction = touch ? TIMELINE.vertical.flingFriction : TIMELINE.flingFriction;
+    scroller.maxFlingPx = (touch ? TIMELINE.vertical.flingMaxDays : TIMELINE.flingMaxDays) * opts.dayPx;
     // Inertia if the pointer was still moving at release; otherwise just rest on the nearest day.
     scroller.fling(e.timeStamp - lastT < 80 ? velocity : 0);
   };

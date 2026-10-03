@@ -90,6 +90,11 @@ describe("text contrast on fills (tokens.css)", () => {
       expect(contrast(t("--on-accent"), t(fill))).toBeGreaterThanOrEqual(4.5);
     });
 
+    // Mobile (SPEC §16): menu buttons ("Start · Jun 2025") and the bottom bar on --surface.
+    it.each(["--text", "--text-muted"])(`${theme}: %s on --surface (mobile menu and bar) ≥ 4.5`, (text) => {
+      expect(contrast(t(text), t("--surface"))).toBeGreaterThanOrEqual(4.5);
+    });
+
     // Card buttons on hover: filter: brightness(0.9) on the fill.
     it(`${theme}: --on-accent on --accent-fill at brightness 0.9 ≥ 4.5`, () => {
       const hovered = t("--accent-fill").map((v) => v * 0.9) as Rgb;

@@ -35,7 +35,7 @@ Questo brief è un riassunto, non la fonte di verità. **Il codice vince su ques
 
 ## Il sito in breve
 
-Sito **desktop personale**: una timeline orizzontale dei giochi Nintendo dal **5 giugno 2025** (lancio di Switch 2) in avanti, con voti della critica e del pubblico. Non esiste versione mobile. Il target è **1080p**; l'header si adatta a 1440 e 1280 px.
+Sito **personale**: una timeline orizzontale dei giochi Nintendo dal **5 giugno 2025** (lancio di Switch 2) in avanti, con voti della critica e del pubblico. Versione mobile (SPEC §16, branch `mobile`): timeline verticale sotto 820 px di larghezza o 500 di altezza, header con menu a comparsa sotto 1280 px. Il target è **1080p**; l'header si adatta a 1440 e 1280 px.
 
 ### Stack e comandi
 
