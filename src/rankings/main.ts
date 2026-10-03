@@ -1,6 +1,7 @@
 import "../styles/tokens.css";
 import "../styles/base.css";
 import "../styles/header.css";
+import "../styles/page-mobile.css";
 import "../styles/card.css";
 import "../styles/loading.css";
 import "../styles/filters.css";

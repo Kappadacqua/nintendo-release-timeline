@@ -235,3 +235,23 @@
 .studio-none__latest-platform {
   flex: none;
 }
+
+/* ---------- Phones (SPEC "Mobile") ---------- */
+@media (max-width: 720px) {
+  .studios {
+    width: calc(100% - 24px - env(safe-area-inset-left) - env(safe-area-inset-right));
+    padding: 20px 0 32px;
+  }
+
+  .studios__title {
+    font-size: 24px;
+  }
+
+  .studios__list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .studios__toggle {
+    min-height: 44px;
+  }
+}
