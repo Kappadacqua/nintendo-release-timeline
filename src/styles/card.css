@@ -116,7 +116,9 @@
 
 .card__dates {
   display: flex;
+  flex-wrap: wrap; /* narrow or compact card: dates go to a new line, never overlap */
   justify-content: space-between;
+  gap: 4px 8px;
   margin: 10px 0 0;
   padding: 7px 0 0;
   border-top: 1px solid var(--border);

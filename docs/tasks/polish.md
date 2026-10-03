@@ -12,7 +12,7 @@ Salvare in `docs/tasks/polish.md`. Lancio dal telefono: `Esegui il prossimo task
 
 ---
 
-- [ ] **Task 1 — Riga delle date regionali che straborda**
+- [x] **Task 1 — Riga delle date regionali che straborda**
 
 **File**
 - Partire da: `src/cards/card.ts` (`shortDate`, righe ~38 e ~122), `src/styles/card.css` (`.card__dates`, `.card__date`).

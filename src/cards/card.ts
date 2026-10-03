@@ -4,6 +4,7 @@ import type { Game, Region } from "../types";
 import { dayToDate, MONTHS, parseDay } from "../timeline/dates";
 import { shortDeveloper } from "./developer";
 import { FLAGS } from "./flags";
+import { fullYearDate, shortDate } from "./short-date";
 import { createScoreRing, type ScoreRing } from "./score-ring";
 
 /** Card widths in px; the collision layout needs them before any DOM exists. */
@@ -35,12 +36,6 @@ function el<K extends keyof HTMLElementTagNameMap>(tag: K, className?: string, t
   return node;
 }
 
-function shortDate(iso: string, refYear: number) {
-  const [y, m, d] = iso.split("-").map(Number);
-  const base = `${MONTHS[m - 1].slice(0, 3)} ${d}`;
-  return y === refYear ? base : `${base}, ${y}`;
-}
-
 const REGION_NAMES: Record<Region, string> = { JP: "Japan", EU: "Europe", NA: "North America" };
 
 /** Regions whose release date is today (user's local calendar day). */
@@ -52,13 +47,9 @@ export function regionsOutToday(game: Game, todayDay: number): Region[] {
 /** "~~Nov 5, 2026~~ → Dec 3, 2026" (or "→ TBA") under the badges of a delayed game. */
 function delayLine(game: Game, delay: Delay) {
   const p = el("p", `card__delay ${FULL_ONLY}`);
-  const long = (iso: string) => {
-    const [y, m, d] = iso.split("-").map(Number);
-    return `${MONTHS[m - 1].slice(0, 3)} ${d}, ${y}`;
-  };
-  const was = el("s", undefined, long(delay.from));
-  was.setAttribute("aria-label", `originally ${long(delay.from)}`);
-  const now = game.firstReleaseDate ? long(game.firstReleaseDate) : (game.vagueRelease?.label ?? "TBA");
+  const was = el("s", undefined, fullYearDate(delay.from));
+  was.setAttribute("aria-label", `originally ${fullYearDate(delay.from)}`);
+  const now = game.firstReleaseDate ? fullYearDate(game.firstReleaseDate) : (game.vagueRelease?.label ?? "TBA");
   p.append(was, ` → ${now}`);
   return p;
 }
@@ -120,6 +111,9 @@ function regionalDates(game: Game) {
   for (const region of REGIONS) {
     const date = game.releaseDates[region];
     const item = el("li", "card__date");
+    const label = `${REGION_NAMES[region]}: ${date ? fullYearDate(date) : "TBA"}`;
+    item.title = label;
+    item.setAttribute("aria-label", label);
     item.innerHTML = FLAGS[region];
     item.append(el("span", "card__date-region", region), el("span", date ? "" : "is-tba", date ? shortDate(date, refYear) : "TBA"));
     list.append(item);
@@ -130,7 +124,7 @@ function regionalDates(game: Game) {
 /** Free updates have one date for every region: "Worldwide · Jun 5, 2025". */
 function worldwideDate(game: Game) {
   const p = el("p", "card__dates card__worldwide");
-  p.append(el("span", "card__date-region", "Worldwide"), ` · ${game.firstReleaseDate ? shortDate(game.firstReleaseDate, 0) : "TBA"}`);
+  p.append(el("span", "card__date-region", "Worldwide"), ` · ${game.firstReleaseDate ? fullYearDate(game.firstReleaseDate) : "TBA"}`);
   return p;
 }
 
