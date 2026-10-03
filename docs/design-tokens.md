@@ -73,7 +73,7 @@ Percorsi relativi alla root; `file:riga` si riferisce allo stato di questo commi
 | `--free-update-fill` | `#0b7d45` | `#1d7a4a` | Badge "Free update" (testo `--on-accent`) |
 | `--news` | `#0a7cff` | `#3d95ff` | "What's new": pallini, bordo in hover, tinta di "Mark all as seen", tipo di novità |
 | `--news-fill` | `#0066d6` | `#2466cc` | Badge "New", cerchietto "!" (in negativo), icona e numero del pulsante "What's new" (testo `--on-accent`) |
-| `--news-text-soft` | `#0066d6` | `#3d95ff` | Testo di "Mark all as seen" su `--news` al 14 % |
+| `--news-text-soft` | `#005cc1` | `#50a0ff` | Testo di "Mark all as seen" su `--news` al 14 % (22 % in hover): ≥ 4.68 / 4.75 su entrambe |
 | `--delayed` | `#f5a623` | = | Tinta del badge "Delayed" (al 22%) |
 | `--delayed-text` | `#8a5200` | `#ffc15e` | Testo "Delayed" |
 | `--on-accent` | `#fff` | = | Testo e segni su tutti i riempimenti colorati (`*-fill`), anche "Free update" |
@@ -126,7 +126,7 @@ Molti colori non sono token ma miscele di un token. I più visibili, calcolati:
 | `color-mix(--dlc 55%, --border)` | `#a985ea` | `#7160a3` | Bordo card DLC (`dlc-card.css:5`) |
 | `color-mix(--free-update 55%, --border)` | `#6dbb98` | `#358d60` | Bordo card/gruppo aggiornamento gratuito (`dlc-card.css:11`, `groups.css:10`) |
 
-Miscele con `transparent` (equivalenti a un rgba del token): `--accent` al 10 % (fascia "upcoming"), 12 % (risultato di ricerca attivo, righe della TBA nella minimappa), 14 % (lacune admin), 16 % (badge "Timed exclusive", badge studio partner), 18 % (barra della presentazione), 30-75 % (bagliori); `--news` al 14 % (fondo di "Mark all as seen") e 60 %; `--delayed` al 22 %; `--text` al 6 % (riquadro della minimappa); `--bg` a `--backdrop-scrim` (header, `.timeline__band` e footer su sfondo) e all'85 % (minimappa, controllo zoom); `--surface` al 70 % (zona TBA).
+Miscele con `transparent` (equivalenti a un rgba del token): `--accent` al 10 % (fascia "upcoming"), 12 % (risultato di ricerca attivo, righe della TBA nella minimappa), 14 % (lacune admin), 16 % (badge "Timed exclusive", badge studio partner), 18 % (barra della presentazione), 30-75 % (bagliori); `--news` al 14 % (fondo di "Mark all as seen"), 22 % (lo stesso in hover) e 60 %; `--delayed` al 22 %; `--text` al 6 % (riquadro della minimappa); `--bg` a `--backdrop-scrim` (header, `.timeline__band` e footer su sfondo) e all'85 % (minimappa, controllo zoom); `--surface` al 70 % (zona TBA).
 
 ### 2.3 Colori scritti a mano, fuori dai token
 
@@ -480,7 +480,7 @@ Regola unica: `:focus-visible { outline: var(--focus-width) solid var(--accent);
 
 ### 9.3 Bottoni e controlli
 
-Transizione di hover: `border-color`, `color`, `filter` in `--hover-ms` (0.2s ease; 0s con `prefers-reduced-motion`, `tokens.css`). Bordo → `--accent`; pulsanti pieni `brightness(0.9)`; testuali `--text-muted` → `--text`. "Mark all as seen" resta senza hover: a `brightness(0.9)` il contrasto è 4.28 (chiaro) / 4.35 (scuro) su `--card`, sotto 4.5.
+Transizione di hover: `border-color`, `color`, `filter` in `--hover-ms` (0.2s ease; 0s con `prefers-reduced-motion`, `tokens.css`). Bordo → `--accent`; pulsanti pieni `brightness(0.9)`; testuali `--text-muted` → `--text`. Eccezione: "Mark all as seen" in hover passa dalla tinta `--news` 14 % al 22 % (`brightness(0.9)` scurirebbe anche il testo: 4.28 / 4.35 su `--card`, sotto 4.5).
 
 | Controllo | Riposo | Hover | Attivo / premuto | Disabilitato |
 |---|---|---|---|---|
@@ -493,7 +493,7 @@ Transizione di hover: `border-color`, `color`, `filter` in `--hover-ms` (0.2s ea
 | Interruttore | fondo `--surface-2`, pomello bianco | riga `--surface` | acceso: fondo `--accent`, pomello +16px | — |
 | "Start presentation" (`.view-menu__action`) | `--surface`, bordo `--border` | bordo `--accent` | — | — |
 | Chiudi (dialogo scorciatoie) | `--accent-fill` pieno | `brightness(0.9)` | — | — |
-| "Mark all as seen" | `--news` 14 %, testo `--news-text-soft` | nessuno | — | fondo `--surface`, testo `--text-muted`, cursore normale |
+| "Mark all as seen" | `--news` 14 %, testo `--news-text-soft` | tinta `--news` 22 % | — | fondo `--surface`, testo `--text-muted`, cursore normale |
 | Campi e "Reset" di Rankings (34px) | `--surface`, bordo `--border` | bordo `--accent` | — | — |
 | Chip admin | `--surface`, bordo `--border` | nessuno | `aria-pressed`: `--accent-fill` pieno (anche il bordo) | — |
 | Salva / Rimuovi (admin) | `--accent-fill` pieno (anche il bordo) / contorno `--accent` | nessuno | — | — |
@@ -524,7 +524,7 @@ Transizione di hover: `border-color`, `color`, `filter` in `--hover-ms` (0.2s ea
 | `--dlc` `#7c3aed` / `--score-strong` `#9d3ef0` | `tokens.css:36,15` | Due viola vicini con significati diversi (tipo di voce vs fascia di voto) nella stessa card |
 | `--joycon-right` `#ff3b4e` / `#ff5a69` vs `--accent` `#e60012` / `#ff4d5a` | `tokens.css` | Nello scuro il Joy-Con destro e il rosso d'accento sono quasi uguali |
 | `--on-accent`, `--switch-knob` | `tokens.css` | Entrambi `#fff` in entrambi i temi |
-| `--accent-fill` chiaro = `--accent` chiaro `#e60012`; `--dlc-fill` chiaro = `--dlc` chiaro `#7c3aed`; `--news-text-soft` = `--news-fill` nel chiaro, = `--news` nello scuro | `tokens.css` | Token distinti con lo stesso valore in un tema: differiscono solo nell'altro |
+| `--accent-fill` chiaro = `--accent` chiaro `#e60012`; `--dlc-fill` chiaro = `--dlc` chiaro `#7c3aed` | `tokens.css` | Token distinti con lo stesso valore in un tema: differiscono solo nell'altro |
 | Miniature: 32×44 r4 (ricerca), 34×45 r5 ("What's new"), 34×46 r6 (header), 34×46 r4 (admin), 36×48 r5 (anteprima) | `search.css:102`, `whats-new.css:206`, `header.css:66`, `admin.css:139`, `minimap-preview.css:40` | Cinque varianti per la stessa cosa |
 | Copertine: 72×96 (card), 64×86 (Week/Month), 66×88 (gruppo), 60×80 (Studios), 48×64 (Rankings), 56×75 (DLC) | vari | Proporzioni simili ma non uguali (3:4 circa) |
 | Raggi fuori scala: 4, 5, 6, 7, 12px accanto a `--radius-sm` 8 e `--radius-md` 14 | §5.2 | Minimappa 12px ≈ né sm né md |

@@ -97,7 +97,7 @@ describe("text contrast on fills (tokens.css)", () => {
     });
 
     // Hover of filled buttons: filter: brightness(0.9) darkens text and fill alike.
-    // ("Mark all as seen" at brightness 0.9 reaches only 4.28 / 4.35: no hover until decided, STATUS.md.)
+    // ("Mark all as seen" uses a stronger tint instead: at brightness 0.9 it would be below 4.5.)
     it(`${theme}: shortcuts close on --accent-fill at brightness 0.9 ≥ 4.5`, () => {
       const dim = (c: Rgb) => c.map((v) => v * 0.9) as Rgb;
       expect(contrast(dim(t("--on-accent")), dim(t("--accent-fill")))).toBeGreaterThanOrEqual(4.5);
@@ -108,6 +108,7 @@ describe("text contrast on fills (tokens.css)", () => {
       ["--accent-text", "--accent", 0.16],
       ["--delayed-text", "--delayed", 0.22],
       ["--news-text-soft", "--news", 0.14],
+      ["--news-text-soft", "--news", 0.22],
     ] as const)(`${theme}: %s on %s at %d ≥ 4.5`, (text, base, p) => {
       expect(contrast(t(text), tint(t(base), p, t("--card")))).toBeGreaterThanOrEqual(4.5);
     });

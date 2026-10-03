@@ -130,6 +130,12 @@
   color: var(--news-text-soft);
   font: 800 12px var(--font);
   cursor: pointer;
+  transition: background-color var(--hover-ms) ease;
+}
+
+/* Hover: a stronger tint, not brightness(0.9), which would dim the text below 4.5:1. */
+.whats-new__all:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--news) 22%, transparent);
 }
 
 .whats-new__all:disabled {

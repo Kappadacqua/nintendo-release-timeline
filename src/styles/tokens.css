@@ -51,8 +51,8 @@
   --card-free-update: #f6fcf8;
   /* What's new: badges, dots and panel accents (ITERATION-3 §4). */
   --news: #0a7cff;
-  /* Blue text on a light blue tint ("Mark all as seen"). */
-  --news-text-soft: #0066d6;
+  /* Blue text on a light blue tint ("Mark all as seen", 14 % and 22 % in hover). */
+  --news-text-soft: #005cc1;
   /* Delays: badge tint and text (ITERATION-3 §3), also the "delayed" type in What's new. */
   --delayed: #f5a623;
   --delayed-text: #8a5200;
@@ -128,7 +128,7 @@
   --card-free-update: #121a15;
     --news: #3d95ff;
     --delayed-text: #ffc15e;
-    --news-text-soft: #3d95ff;
+    --news-text-soft: #50a0ff;
     --accent-fill: #cc2433;
     --dlc-fill: #6d4bd8;
     --news-fill: #2466cc;
@@ -170,7 +170,7 @@
   --card-free-update: #121a15;
   --news: #3d95ff;
   --delayed-text: #ffc15e;
-  --news-text-soft: #3d95ff;
+  --news-text-soft: #50a0ff;
   --accent-fill: #cc2433;
   --dlc-fill: #6d4bd8;
   --news-fill: #2466cc;
