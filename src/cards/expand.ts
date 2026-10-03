@@ -131,6 +131,8 @@ export function expandCard(
   bounds: () => DOMRect,
   /** Selected scale: 1.05, or 1 on the vertical timeline (the card already fills its column). */
   grow = 1.05,
+  /** Vertical timeline: once unfolded, the card moves to the middle of the band (the playhead). */
+  centre = false,
 ) {
   collapseCard(card, true);
   const more = buildMore(card, game, todayDay);
@@ -155,8 +157,13 @@ export function expandCard(
       gsap.to(card, { scale, duration: reducedMotion.matches ? 0 : 0.2, ease: "power2.out", overwrite: "auto", onComplete: anchor === "center" ? fit : undefined });
       return;
     }
-    const dy = r.top < b.top ? b.top - r.top : r.bottom > b.bottom ? b.bottom - r.bottom : 0;
-    if (!dy) return;
+    let dy = r.top < b.top ? b.top - r.top : r.bottom > b.bottom ? b.bottom - r.bottom : 0;
+    if (centre) {
+      const mid = b.top + b.height / 2 - (r.top + r.height / 2);
+      // Centred on the playhead, but never out of the band.
+      dy = Math.min(b.bottom - r.bottom, Math.max(b.top - r.top, mid));
+    }
+    if (Math.abs(dy) < 0.5) return;
     // `y` is in the card's parent coordinates, which shrink with the window (--card-scale):
     // convert the on-screen correction back to them.
     const parentScale = r.height / (card.offsetHeight * Number(gsap.getProperty(card, "scaleY")));

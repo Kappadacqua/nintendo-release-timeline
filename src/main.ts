@@ -20,7 +20,12 @@ initTheme(document.querySelector<HTMLButtonElement>(".theme-toggle")!);
 
 // Keyboard shortcuts dialog: "?" button or key.
 const shortcuts = document.querySelector<HTMLDialogElement>(".shortcuts")!;
-const toggleShortcuts = () => (shortcuts.open ? shortcuts.close() : shortcuts.showModal());
+const toggleShortcuts = () => {
+  if (shortcuts.open) return shortcuts.close();
+  shortcuts.showModal();
+  // Opens at its top (focus goes to Close, at the bottom of a long list on a phone).
+  shortcuts.scrollTop = 0;
+};
 document.querySelector(".shortcuts-toggle")!.addEventListener("click", toggleShortcuts);
 /** Global keys that are not timeline navigation: "?" (shortcuts) and "/" (search). */
 let openSearch = () => {};

@@ -52,3 +52,25 @@ describe("assignLanes", () => {
     expect(lanes[3]).toMatchObject({ level: 1, extra: 56 });
   });
 });
+
+describe("assignLanes on one side (vertical timeline, SPEC Mobile)", () => {
+  const row = { width: 80, height: 0 };
+  const vstack = { stepX: 30, stepY: 10 };
+
+  it("keeps every row on the given side", () => {
+    const lanes = assignLanes([0, 32, 64, 400].map((x) => ({ ...row, x })), 8, 1.25, vstack, ["below"]);
+    expect(lanes.every((l) => l.side === "below")).toBe(true);
+  });
+
+  it("slides a close row down its column before stacking it", () => {
+    const [a, b] = assignLanes([{ ...row, x: 0 }, { ...row, x: 32 }], 8, 1.25, vstack, ["below"]);
+    expect(a).toMatchObject({ level: 0, shift: 0 });
+    expect(b.level).toBe(0);
+    expect(b.shift).toBe(80 + 8 - 32);
+  });
+
+  it("stacks a row that would slide too far", () => {
+    const lanes = assignLanes([0, 0, 0].map((x) => ({ ...row, x })), 8, 1.25, vstack, ["below"]);
+    expect(lanes.map((l) => l.level)).toEqual([0, 0, 1]);
+  });
+});

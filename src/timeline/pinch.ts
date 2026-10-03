@@ -7,7 +7,7 @@ import { TIMELINE } from "./config";
 export function pinchSteps(baseline: number, distance: number, step = TIMELINE.pinchStep) {
   if (baseline <= 0 || distance <= 0) return 0;
   const ratio = distance / baseline;
-  return Math.trunc(Math.log(ratio) / Math.log(step));
+  return Math.trunc(Math.log(ratio) / Math.log(step)) || 0;
 }
 
 /**

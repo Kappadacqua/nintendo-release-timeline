@@ -75,7 +75,8 @@ export class Presentation {
     window.addEventListener("wheel", this.onInput, { capture: true, passive: true });
     window.addEventListener("pointerdown", this.onInput, true);
     window.addEventListener("pointermove", this.onPointerMove, { passive: true });
-    this.say("Presentation · Space to pause · any other key stops");
+    // Touch (SPEC "Mobile"): no keys, a tap anywhere stops it.
+    this.say(matchMedia("(pointer: coarse)").matches ? "Presentation · tap anywhere to stop" : "Presentation · Space to pause · any other key stops");
     // From the current position: the selected game stays for a full turn, else the next one now.
     if (!this.timeline().hasSelection) this.timeline().presentNext();
     this.schedule(this.stepMs);

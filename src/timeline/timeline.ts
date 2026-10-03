@@ -432,7 +432,7 @@ export class Timeline {
     // A compact card unfolds into the full one.
     morphParts(
       [card],
-      () => expandCard(card, stop.game, this.todayDay, stop.anchor, () => this.visibleBand(), this.vertical ? 1 : 1.05),
+      () => expandCard(card, stop.game, this.todayDay, stop.anchor, () => this.visibleBand(), this.vertical ? 1 : 1.05, this.vertical && !stop.group),
       !this.opening,
     );
     this.siteTitle?.show(stop.game);
