@@ -1,4 +1,4 @@
-import { SEASONS, TIMELINE } from "../timeline/config";
+import { SEASONS } from "../timeline/config";
 import type { Season } from "./season";
 
 /**
@@ -7,7 +7,7 @@ import type { Season } from "./season";
  * while scallop shells and starfish sink slowly, spring petals, tiny
  * buds, whole cherry blossoms and now and then a flowering sprig drift diagonally, autumn leaves
  * (four species) and winter snow (flakes, plates, soft dots, now and then a fir twig) fall, pushed
- * sideways by gusts. A fast wheel spin pushes every particle sideways for a moment (`WheelPush`).
+ * sideways by gusts. A wheel spin pushes every particle sideways for a moment (`WheelPush`).
  * No particle ever turns: its tilt is chosen once, and it only moves and wobbles sideways.
  */
 export interface Particle {
@@ -349,8 +349,8 @@ export class Gusts {
 }
 
 /**
- * Push of a fast wheel spin (`SEASONS.react`): each notch from gear 2 adds a sideways speed that
- * grows with the pace, summed with what is left of the previous ones and decaying exponentially.
+ * Push of a wheel spin (`SEASONS.react`): each notch of a continuous spin adds a fixed sideways
+ * speed, summed with what is left of the previous ones and decaying exponentially.
  * Near particles move more than far ones; none faster than `maxPxPerS`.
  */
 export class WheelPush {
@@ -358,19 +358,10 @@ export class WheelPush {
   private speed = 0;
   private at = 0;
 
-  /** Gain (px/s) of a notch at `pace` units per notch: 0 below gear 2. */
-  static gain(pace: number) {
-    const [from, to] = SEASONS.react.gainPxPerS;
-    const second = TIMELINE.wheelGearPace[0];
-    if (pace < second) return 0;
-    const k = Math.min(1, (pace - second) / Math.max(1e-6, TIMELINE.wheelMaxPace - second));
-    return from + (to - from) * k;
-  }
-
-  /** A notch in direction `dir` (+1 forward in time) at `pace`, at `now` (ms). */
-  notch(dir: 1 | -1, pace: number, now: number) {
-    const { sign, maxPxPerS } = SEASONS.react;
-    const speed = this.base(now) + sign * dir * WheelPush.gain(pace);
+  /** A spin notch in direction `dir` (+1 forward in time) at `now` (ms). */
+  notch(dir: 1 | -1, now: number) {
+    const { sign, gainPxPerS, maxPxPerS } = SEASONS.react;
+    const speed = this.base(now) + sign * dir * gainPxPerS;
     this.speed = Math.max(-maxPxPerS, Math.min(maxPxPerS, speed));
     this.at = now;
   }

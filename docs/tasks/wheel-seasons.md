@@ -60,7 +60,7 @@ Salvare in `docs/tasks/wheel-seasons.md`. Lancio dal telefono: `Esegui il prossi
 
 ---
 
-- [ ] **Task 2 — Rotella: scorrimento libero, magnete al giorno, spinta invertita**
+- [x] **Task 2 — Rotella: scorrimento libero, magnete al giorno, spinta invertita**
 
 **File**
 - Partire da: `src/timeline/wheel-fling.ts` (+ `wheel-fling.test.ts`), `src/timeline/config.ts` (parametri `wheel*`), i punti di `src/timeline/scroller.ts` e `timeline.ts` che usano `WheelFling` (cercali con grep, non leggere i file interi), `src/seasons/particles.ts` (`WheelPush`) e `background.ts`, `SEASONS.react` in config.

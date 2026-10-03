@@ -1,12 +1,12 @@
 import { TIMELINE } from "./config";
-import { restPoint, WheelFling, type WheelAction } from "./wheel-fling";
+import { restPoint, WheelFling } from "./wheel-fling";
 
 const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
 
 /** Wheel activity for the rest of the page (the seasonal background reacts to fast spins). */
 export interface ScrollActivity {
-  /** A mouse-wheel notch from gear 2 (`wheel-fling.ts`): direction (+1 forward in time) and units per notch. */
-  wheelSpin(dir: 1 | -1, pace: number): void;
+  /** A notch of a continuous mouse-wheel spin (`wheel-fling.ts`): direction (+1 forward in time). */
+  wheelSpin(dir: 1 | -1): void;
 }
 const activity = new Set<ScrollActivity>();
 export function onScrollActivity(listener: ScrollActivity) {
@@ -33,8 +33,8 @@ export class Scroller {
   private velocity = 0;
   /** A long jump (Home, End, minimap, search…) is a timed glide, never longer than `maxGlideMs`. */
   private glide: { from: number; to: number; start: number; duration: number } | null = null;
-  /** Wheel fling: `current` slows down toward `target` with `wheelFlingFriction` (lands exactly on it). */
-  private coasting = false;
+  /** Wheel spin: `current` chases a `target` that is not snapped (free scrolling). */
+  private chasing = false;
 
   constructor(private onChange: (x: number) => void) {}
 
@@ -55,7 +55,7 @@ export class Scroller {
   scrollTo(x: number) {
     if (!Number.isFinite(x)) return;
     this.velocity = 0;
-    this.coasting = false;
+    this.chasing = false;
     const to = this.clamp(this.snap(this.clamp(x)));
     const distance = Math.abs(to - this.current);
     // Reduced motion: no glide, just go there.
@@ -94,36 +94,37 @@ export class Scroller {
   }
 
   /**
-   * Wheel fling: coast to `x` (already snapped: a day or a release), slowing down with
-   * `wheelFlingFriction` all the way, so it lands softly exactly there.
+   * Wheel spin: chase `x` as it is, not snapped (free scrolling; the spin's magnet snaps it at
+   * the end). Reduced motion: go there at once.
    */
-  coast(x: number) {
+  chase(x: number) {
     if (!Number.isFinite(x)) return;
+    if (reducedMotion.matches) return this.jumpTo(x);
     this.velocity = 0;
     this.glide = null;
     this.target = this.clamp(x);
-    this.coasting = true;
+    this.chasing = true;
     this.start();
   }
 
-  /** Direction of the wheel fling in progress (+1 / -1), 0 if none or only its slow landing is left. */
-  get coastDirection() {
-    if (!this.coasting) return 0;
+  /** Direction a wheel spin is still moving the view in (+1 / -1), 0 if none or only its soft landing is left. */
+  get wheelDirection() {
+    if (!this.chasing) return 0;
     const remaining = this.target - this.current;
-    const speed = (Math.abs(remaining) * -Math.log(TIMELINE.wheelFlingFriction)) / (1000 / 60);
+    const speed = (Math.abs(remaining) * TIMELINE.smoothing) / (1000 / 60);
     return speed < TIMELINE.flingStopVelocity ? 0 : Math.sign(remaining);
   }
 
-  /** Inertia in progress? (a click during it stops it instead of selecting). */
+  /** Inertia or a wheel spin in progress? (a click during it stops it instead of selecting). */
   get gliding() {
-    return this.velocity !== 0 || this.coastDirection !== 0;
+    return this.velocity !== 0 || this.wheelDirection !== 0;
   }
 
-  /** Stops inertia where it is and rests on the nearest snap point (a wheel fling's slow landing is left to end). */
+  /** Stops inertia or a wheel spin where it is and rests on the nearest snap point (a soft landing is left to end). */
   halt() {
-    if (!this.velocity && !this.coastDirection) return;
+    if (!this.velocity && !this.wheelDirection) return;
     this.velocity = 0;
-    this.coasting = false;
+    this.chasing = false;
     this.scrollTo(this.current);
   }
 
@@ -134,7 +135,7 @@ export class Scroller {
   /** Move instantly (no easing), e.g. while dragging or on first render. */
   jumpTo(x: number) {
     this.velocity = 0;
-    this.coasting = false;
+    this.chasing = false;
     this.glide = null;
     this.target = this.current = this.clamp(x);
     this.stop();
@@ -195,14 +196,12 @@ export class Scroller {
       }
       return;
     }
-    // Frame-rate independent exponential easing (a wheel fling: the remaining distance
-    // shrinks like the speed of a drag's inertia, so it slows down the same way).
-    const keep = this.coasting ? TIMELINE.wheelFlingFriction : 1 - TIMELINE.smoothing;
-    const k = 1 - Math.pow(keep, dt / (1000 / 60));
+    // Frame-rate independent exponential easing.
+    const k = 1 - Math.pow(1 - TIMELINE.smoothing, dt / (1000 / 60));
     this.current += (this.target - this.current) * k;
     if (Math.abs(this.target - this.current) < 0.25) {
       this.current = this.target;
-      this.coasting = false;
+      this.chasing = false;
       this.frame = 0;
     } else {
       this.frame = requestAnimationFrame(this.tick);
@@ -233,12 +232,12 @@ export function bindScrollInput(
   scroller: Scroller,
   opts: {
     dayPx: number;
-    /** Days in one unit of the zoom level (1, 7, about 30): a wheel fling moves in these units. */
+    /** Days in one unit of the zoom level (1, 7, about 30): the wheel's magnet reaches this many units. */
     unitDays: number;
-    /** World x of the releases shown (active filters): a wheel fling may land on them. */
+    /** World x of the releases shown (active filters): a wheel spin may land on them. */
     magnets: () => readonly number[];
-    /** A wheel fling starts or speeds up. */
-    onWheelFling: () => void;
+    /** A notch of a continuous wheel spin. */
+    onWheelSpin: () => void;
     /** Move by whole days (wheel notch, trackpad, arrows). */
     onDayStep: (days: number) => void;
     onToday: () => void;
@@ -260,46 +259,37 @@ export function bindScrollInput(
     onKeyNavigate: () => void;
   },
 ) {
-  // Wheel: one mouse notch = one day, added to the destination (the glide chases it).
+  // Wheel: an isolated mouse notch = one day (week, month), added to the destination (the glide
+  // chases it). The further notches of a continuous spin move the view freely by `wheelSpinPx`
+  // each; once the wheel stops, a magnet settles it on the nearest day or release (wheel-fling.ts).
   // When the page is busy, browsers merge several notches into one event with the
-  // deltas summed, so an event is worth as many days as notches it contains.
+  // deltas summed, so an event is worth as many notches as it contains.
   // Trackpads send many small deltas, which add up to `trackpadDayPx` per day.
-  // A longer spin ramps up to `wheelMaxPace` days per notch plus inertia (wheel-fling.ts); trackpads keep the plain behavior.
   const unitPx = opts.dayPx * opts.unitDays;
-  const maxPx = TIMELINE.wheelFlingMaxDays * opts.dayPx;
   const wheelFling = new WheelFling();
-  /** Where the current spin started, and where it was last sent to land. */
-  let spinFrom = 0;
-  let spinLanding = 0;
-  const spinWheel = (action: Extract<WheelAction, { kind: "move" }>, step: (units: number) => void) => {
-    const dir = Math.sign(action.moved || action.units);
-    if (action.start) spinFrom = spinLanding = scroller.target;
-    // Gear 1 with nothing coasting, or reduced motion: plain steps, snapped.
-    if (reducedMotion.matches || (action.rest === action.moved && scroller.coastDirection !== dir)) {
-      if (action.units) step(action.units);
-      spinLanding = scroller.target;
-      return;
-    }
-    if (!action.units && action.rest === action.moved) return;
-    opts.onWheelFling();
+  let settleTimer = 0;
+  /** The wheel has been quiet for `wheelSpinGapMs`: a spin that moved freely lands on a day or a release. */
+  const settleSpin = () => {
+    settleTimer = 0;
+    // The timer only fires after a quiet gap (every notch restarts it).
+    if (!wheelFling.settle(Infinity)) return;
     const { min, max } = scroller.bounds;
-    const notched = spinFrom + action.moved * unitPx;
-    const limit = spinFrom + dir * maxPx;
-    // Never behind the notches or an earlier landing of this spin, never past the limit.
-    const [near, far] = dir > 0 ? [Math.max(notched, spinLanding), limit] : [Math.min(notched, spinLanding), limit];
-    const lo = Math.max(min, Math.min(near, far));
-    const hi = Math.min(max, Math.max(near, far));
-    spinLanding =
-      action.rest === action.moved
-        ? restPoint(near, { lo, hi, snap: scroller.snap, magnets: [], magnetPx: 0 })
-        : restPoint(spinFrom + action.rest * unitPx, {
-            lo,
-            hi,
-            snap: scroller.snap,
-            magnets: opts.magnets(),
-            magnetPx: TIMELINE.wheelMagnetUnits * unitPx,
-          });
-    scroller.coast(spinLanding);
+    const to = restPoint(scroller.target, {
+      lo: min,
+      hi: max,
+      snap: scroller.snap,
+      magnets: opts.magnets(),
+      magnetPx: TIMELINE.wheelMagnetUnits * unitPx,
+    });
+    if (debugWheel) console.log("[wheel] magnet", { from: scroller.target, to });
+    scroller.chase(to);
+  };
+  /** A click, a key or a drag ends a spin at once: it still rests on a snap point. */
+  const stopSpin = () => {
+    clearTimeout(settleTimer);
+    settleTimer = 0;
+    if (wheelFling.settle(Infinity)) scroller.settle();
+    wheelFling.reset();
   };
   let wheelAcc = 0;
   let zoomAcc = 0;
@@ -331,24 +321,31 @@ export function bindScrollInput(
       const unit = e.shiftKey ? TIMELINE.trackpadMonthPx : TIMELINE.trackpadDayPx;
       if (notches && e.shiftKey) {
         wheelAcc = 0;
+        stopSpin();
         step(Math.sign(delta) * notches);
         return;
       }
       if (notches) {
         wheelAcc = 0;
-        const action = wheelFling.notch(e.timeStamp, delta > 0 ? 1 : -1, notches, {
-          flying: scroller.coastDirection,
-          reduced: reducedMotion.matches,
-          maxUnits: Math.max(1, Math.round(TIMELINE.wheelFlingMaxDays / opts.unitDays)),
-        });
-        if (debugWheel) console.log("[wheel]", action);
-        if (action.kind === "move" && action.gear >= 2 && !reducedMotion.matches) {
-          activity.forEach((l) => l.wheelSpin(delta > 0 ? 1 : -1, action.pace));
+        const dir = delta > 0 ? 1 : -1;
+        const action = wheelFling.notch(e.timeStamp, dir, notches, { moving: scroller.wheelDirection });
+        if (debugWheel) {
+          const what = { step: "isolated notch", spin: "spinning", brake: "brake" }[action.kind];
+          console.log("[wheel]", what, action);
         }
+        clearTimeout(settleTimer);
+        settleTimer = 0;
         if (action.kind === "brake") scroller.halt();
-        else spinWheel(action, step);
+        else if (action.kind === "step") step(action.units);
+        else {
+          opts.onWheelSpin();
+          if (!reducedMotion.matches) activity.forEach((l) => l.wheelSpin(dir));
+          scroller.chase(scroller.target + action.px);
+          settleTimer = window.setTimeout(settleSpin, TIMELINE.wheelSpinGapMs);
+        }
         return;
       }
+      if (settleTimer) stopSpin();
       wheelFling.trackpad(e.timeStamp);
       if (Math.sign(delta) !== Math.sign(wheelAcc)) wheelAcc = 0;
       wheelAcc += delta;
@@ -376,7 +373,7 @@ export function bindScrollInput(
     // A press during inertia stops it, and does not count as a click on a card.
     suppressClick = scroller.gliding;
     scroller.halt();
-    wheelFling.reset();
+    stopSpin();
     pressed = true;
     dragging = false;
     startX = lastX = e.clientX;
@@ -433,9 +430,9 @@ export function bindScrollInput(
     if ((e.ctrlKey || e.metaKey || e.altKey) && !e.getModifierState("AltGraph")) return;
     const t = e.target instanceof HTMLElement ? e.target : null;
     if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName) || t.closest("dialog"))) return;
-    // Any key stops a wheel fling where it is (arrows then step from there).
+    // Any key stops a wheel spin where it is (arrows then step from there).
     scroller.halt();
-    wheelFling.reset();
+    stopSpin();
 
     const days = e.shiftKey ? opts.largeStep : 1;
     if (e.key === "ArrowRight") opts.onDayStep(days);
@@ -455,5 +452,8 @@ export function bindScrollInput(
     opts.onKeyNavigate();
   };
   window.addEventListener("keydown", onKey);
-  return () => window.removeEventListener("keydown", onKey);
+  return () => {
+    window.removeEventListener("keydown", onKey);
+    clearTimeout(settleTimer);
+  };
 }

@@ -30,30 +30,16 @@ export const TIMELINE = {
   flingStopVelocity: 0.08,
 
   /**
-   * Mouse wheel: the longer the wheel spins without a pause, the further each notch moves, on a
-   * steady ramp (no jumps between gears). Notches less than this far apart (ms) are one continuous
-   * spin; a longer pause starts afresh at one unit per notch…
+   * Mouse wheel (docs/tasks/wheel-seasons.md task 2): notches less than this far apart (ms) are one
+   * continuous spin. An isolated notch moves exactly one unit (day, week or month); a spin ends
+   * (and settles) once no notch has come for this long.
    */
-  wheelGearGapMs: 150,
-  /** …and a notch further than this (ms) from the previous one (the pace slows) gives back some of the ramp… */
-  wheelGearSlowGapMs: 100,
-  /** …this many ms of spin for every ms beyond `wheelGearSlowGapMs`. */
-  wheelSlowLoss: 8,
-  /** One unit per notch for the first `wheelRampDelayMs` of a spin, then linearly up to `wheelMaxPace` units per notch over `wheelRampMs`. */
-  wheelRampDelayMs: 150,
-  wheelRampMs: 1100,
-  wheelMaxPace: 6,
-  /** Units the view coasts past the last notch, per unit of pace above 1 (pace 1: none, it just snaps). */
-  wheelInertiaPerPace: 5,
-  /** From these paces a notch counts as gear 2 and 3 (the seasonal background reacts from gear 2; `?debug=wheel`). */
-  wheelGearPace: [2, 4],
-  /** Speed kept per 60fps frame while a wheel fling slows down (same as a drag's `flingFriction`). */
-  wheelFlingFriction: 0.94,
-  /** A continuous spin (notches + inertia) never moves further than this many days (about 3 months, at any zoom). */
-  wheelFlingMaxDays: 91,
-  /** A wheel fling that would stop within this many units of a release lands on it. */
+  wheelSpinGapMs: 150,
+  /** Every notch of a spin after the first adds this many px to the destination, at any zoom level (free scrolling, no snapping). */
+  wheelSpinPx: 120,
+  /** A spin that ends within this many units of a release lands on it. */
   wheelMagnetUnits: 2,
-  /** After a trackpad-like event (small delta), wheel events never fling for this long. */
+  /** After a trackpad-like event (small delta), wheel events only step (never spin) for this long. */
   wheelTrackpadHoldMs: 400,
 
   /** Distance from the line to the nearest card: the band for day numbers and months, never scaled. */
@@ -194,15 +180,14 @@ export const SEASONS = {
   /** Particles fade out over this many px on each side of the line's band. */
   bandFeatherPx: 24,
   /**
-   * Push of a fast wheel spin (docs/tasks/seasons-art.md task 8): every notch from gear 2 adds a
-   * sideways speed (px/s) of `sign` × the scroll direction × the gain (from `gainPxPerS[0]` at the
-   * pace of gear 2 to `gainPxPerS[1]` at the top pace, `TIMELINE.wheelGearPace` / `wheelMaxPace`)
+   * Push of a wheel spin (docs/tasks/wheel-seasons.md task 2): every notch of a continuous spin
+   * (not an isolated one) adds a sideways speed (px/s) of `sign` × the scroll direction × `gainPxPerS`
    * × the band's factor, never more than `maxPxPerS` on any particle; it then decays exponentially
-   * with time constant `decayMs`. `sign` 1: scrolling forward pushes the particles right.
+   * with time constant `decayMs`. `sign` -1: scrolling forward pushes the particles left, with the content.
    */
   react: {
-    sign: 1,
-    gainPxPerS: [220, 420],
+    sign: -1,
+    gainPxPerS: 220,
     bandFactor: [0.4, 1, 1.8],
     maxPxPerS: 600,
     decayMs: 600,

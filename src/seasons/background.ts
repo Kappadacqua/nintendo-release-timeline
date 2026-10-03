@@ -14,7 +14,7 @@ export type TimelineProbe = () => { day: number | null; selected: boolean };
 /**
  * Seasonal background (docs/tasks/seasons.md): particles of the season of the day under the
  * playhead, on one canvas behind line and cards; at a season change the two cross-fade.
- * Hidden with a game selected; a fast wheel spin pushes the particles sideways. The animation stops
+ * Hidden with a game selected; a wheel spin pushes the particles sideways. The animation stops
  * whenever nothing is shown.
  */
 export class SeasonalBackground {
@@ -66,8 +66,8 @@ export class SeasonalBackground {
     themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
     this.cleanup.push(() => themeObserver.disconnect());
     const stopActivity = onScrollActivity({
-      wheelSpin: (dir, pace) => {
-        if (this.frame) this.push.notch(dir, pace, performance.now());
+      wheelSpin: (dir) => {
+        if (this.frame) this.push.notch(dir, performance.now());
       },
     });
     this.cleanup.push(stopActivity);
