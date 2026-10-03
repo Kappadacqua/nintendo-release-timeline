@@ -9,3 +9,4 @@ data/backups/
 
 # Local scraper output
 data/report.txt
+tools/browser-check/shots/
