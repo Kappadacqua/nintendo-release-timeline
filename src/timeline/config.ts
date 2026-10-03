@@ -103,8 +103,8 @@ export const TIMELINE = {
     /** Cross offset stops growing after this many levels (the row would leave the screen). */
     maxStackCross: 2,
     minimapPx: 40,
-    /** Vertical minimap, a reel dragged with the finger: px per month, always (the timeline runs ~32× faster at Day). */
-    minimapMonthPx: 30,
+    /** Vertical minimap, a reel dragged with the finger: px per month, always (the timeline runs ~24× faster at Day). */
+    minimapMonthPx: 40,
     /** Widest card column (tablets in portrait). */
     maxCardPx: 380,
     /** Touch inertia: speed kept per 60fps frame, and the longest flick (days at the current zoom). */
