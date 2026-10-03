@@ -247,6 +247,7 @@ export class Timeline {
     this.el.addEventListener("focusin", (e) => this.onFocusIn(e));
     this.el.addEventListener("click", (e) => this.onClick(e));
     this.el.addEventListener("keydown", (e) => this.onCardKey(e));
+    this.bindPeek();
     this.siteTitle = titleEl ? new SiteTitle(titleEl) : null;
 
     this.scroller = new Scroller((x) => this.render(x));
@@ -473,9 +474,53 @@ export class Timeline {
     return this.stops.findIndex((s) => s.game.id === id);
   }
 
+  /** True between a long press that showed a title and the click that follows it. */
+  private peeked = false;
+
+  /**
+   * Touch, Week / Month on the horizontal timeline: covers only, the title shows on hover. A
+   * long press shows it instead (SPEC "Mobile"); letting go hides it without selecting. On the
+   * vertical timeline titles are always beside the covers. No long-press menu on the timeline.
+   */
+  private bindPeek() {
+    let timer = 0;
+    let item: HTMLElement | null = null;
+    let start = { x: 0, y: 0 };
+    const end = () => {
+      clearTimeout(timer);
+      item?.classList.remove("is-peeking");
+      item = null;
+    };
+    this.el.addEventListener("pointerdown", (e) => {
+      end();
+      this.peeked = false;
+      if (e.pointerType !== "touch" || this.zoom === "day" || this.vertical) return;
+      const target = (e.target as HTMLElement).closest<HTMLElement>(".tl-item, .tba-block .card");
+      if (!target) return;
+      start = { x: e.clientX, y: e.clientY };
+      timer = window.setTimeout(() => {
+        item = target;
+        item.classList.add("is-peeking");
+        this.peeked = true;
+      }, 400);
+    });
+    this.el.addEventListener("pointermove", (e) => {
+      if (Math.hypot(e.clientX - start.x, e.clientY - start.y) > 8) end();
+    });
+    this.el.addEventListener("pointerup", end);
+    this.el.addEventListener("pointercancel", end);
+    this.el.addEventListener("contextmenu", (e) => {
+      if (this.peeked || (e as PointerEvent).pointerType === "touch") e.preventDefault();
+    });
+  }
+
   /** Click on a card selects it (never follows a link until it is selected); elsewhere deselects. */
   private onClick(e: MouseEvent) {
     const target = e.target as HTMLElement;
+    if (this.peeked) {
+      this.peeked = false;
+      return;
+    }
     if (target.closest(".minimap")) return;
     const card = target.closest(".card");
     if (!card) return this.deselect();

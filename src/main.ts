@@ -9,7 +9,8 @@ import { initTheme } from "./theme/theme";
 import { isVerticalLayout, watchLayout } from "./layout";
 import { Dock, MobileMenu } from "./mobile";
 import { Timeline } from "./timeline/timeline";
-import { ZOOM_LEVELS, type ZoomLevel } from "./timeline/zoom";
+import { nextZoom, ZOOM_LEVELS, type ZoomLevel } from "./timeline/zoom";
+import { bindPinch } from "./timeline/pinch";
 import type { ChangesFile, Game } from "./types";
 import { loadView, ViewMenu } from "./view";
 import { WhatsNew } from "./whats-new";
@@ -122,6 +123,11 @@ Promise.all([loadGames(), loadChanges()])
       zoomControl.set(level);
     };
     const zoomControl = new ZoomControl(app, zoom, (level) => zoomTo(level));
+    // Two fingers: the touch equivalent of Ctrl + wheel (SPEC "Mobile").
+    bindPinch(app, (dir) => {
+      const level = nextZoom(zoom, dir);
+      if (level) zoomTo(level);
+    });
 
     // Filters and grouping change the layout (lanes, collisions), so the timeline is rebuilt,
     // keeping the view and, if still visible, the selected game.

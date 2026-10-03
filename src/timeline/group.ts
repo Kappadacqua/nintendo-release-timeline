@@ -82,14 +82,20 @@ export function createGroupStack(games: Game[]): Card {
 export class Fan {
   cards: Card[] = [];
   isOpen = false;
+  /** Vertical timeline: the column re-flows as the selected card unfolds (its height changes). */
+  private resize: ResizeObserver | null = null;
+  private selectedId: string | null = null;
 
   constructor(
     private readonly host: HTMLElement,
     private readonly stack: Card,
     readonly games: Game[],
     private readonly todayDay: number,
-    /** Side and stacking offset of the group's lane, read when opening. */
-    private readonly lane: () => { side: Side; extra: number },
+    /**
+     * Side and stacking offset of the group's lane, read when opening; on the vertical timeline
+     * (SPEC "Mobile") also the column's left edge and width (the fan is then a column of rows).
+     */
+    private readonly lane: () => { side: Side; extra: number; vertical: { left: number; width: number } | null },
   ) {}
 
   /** The card of a game of the group (all cards are created on first use). */
@@ -140,7 +146,10 @@ export class Fan {
   /** Card positions around the selected game; they glide there unless `instant`. */
   layout(selectedId: string | null = null, instant = false) {
     if (!this.cards.length) return;
+    this.selectedId = selectedId;
     const selected = Math.max(0, this.games.findIndex((g) => g.id === selectedId));
+    const column = this.lane().vertical;
+    if (column) return this.layoutColumn(selected, column, instant);
     const poses = this.poses(selected);
     const quick = instant || reducedMotion.matches;
     this.cards.forEach((card, i) => {
@@ -156,6 +165,44 @@ export class Fan {
     });
   }
 
+  /**
+   * Vertical: the selected card centred on the date, the other games as rows above and below
+   * it in order, never overlapping; no tilt. Re-run as the selected card grows or shrinks.
+   */
+  private layoutColumn(selected: number, column: { left: number; width: number }, instant: boolean) {
+    const heights = this.cards.map((c) => c.el.offsetHeight);
+    const tops: number[] = [];
+    tops[selected] = -heights[selected] / 2;
+    for (let i = selected - 1; i >= 0; i--) tops[i] = tops[i + 1] - FAN_GAP / 2 - heights[i];
+    for (let i = selected + 1; i < this.cards.length; i++) tops[i] = tops[i - 1] + heights[i - 1] + FAN_GAP / 2;
+    const quick = instant || reducedMotion.matches;
+    this.cards.forEach((card, i) => {
+      const el = card.el;
+      el.style.left = `${column.left}px`;
+      el.style.bottom = "";
+      el.style.transformOrigin = "0% 50%";
+      el.style.zIndex = String(i === selected ? 100 : 50 - Math.abs(i - selected));
+      el.style.setProperty("--v-card-w", `${column.width}px`);
+      const to = { top: tops[i], rotation: 0 };
+      if (quick) gsap.set(el, { ...to, overwrite: "auto" });
+      else gsap.to(el, { ...to, duration: 0.3, ease: "power2.out", overwrite: false });
+    });
+    if (!this.resize) {
+      // Follows the selected card while it unfolds or folds (instantly: it is the motion itself).
+      this.resize = new ResizeObserver(() => {
+        if (this.isOpen && this.lane().vertical) this.layoutColumnNow();
+      });
+      for (const card of this.cards) this.resize.observe(card.el);
+    }
+  }
+
+  private layoutColumnNow() {
+    const column = this.lane().vertical;
+    if (!column) return;
+    const selected = Math.max(0, this.games.findIndex((g) => g.id === this.selectedId));
+    this.layoutColumn(selected, column, true);
+  }
+
   /** Spreads the cards out of the closed stack. */
   open(selectedId: string, animate: boolean) {
     if (this.isOpen) return this.layout(selectedId);
@@ -169,7 +216,8 @@ export class Fan {
     gsap.set(this.cards.map((c) => c.el), { clearProps: FOLD_PROPS });
     for (const card of this.cards) card.el.hidden = false;
     this.layout(selectedId, true);
-    const stackMid = this.stack.el.offsetLeft + this.stack.el.offsetWidth / 2;
+    const vertical = !!this.lane().vertical;
+    const stackMid = this.stackMid(vertical);
     if (!animate || reducedMotion.matches) {
       gsap.set(this.stack.el, { autoAlpha: 0 });
       return;
@@ -178,7 +226,7 @@ export class Fan {
     this.cards.forEach((card, i) => {
       const el = card.el;
       gsap.from(el, {
-        x: stackMid - (el.offsetLeft + el.offsetWidth / 2),
+        [vertical ? "y" : "x"]: stackMid - this.midOf(el, vertical),
         rotation: 0,
         scale: 0.6,
         opacity: 0,
@@ -195,7 +243,8 @@ export class Fan {
     if (!this.isOpen) return;
     this.isOpen = false;
     const item = this.host.closest(".tl-item");
-    const stackMid = this.stack.el.offsetLeft + this.stack.el.offsetWidth / 2;
+    const vertical = !!this.lane().vertical;
+    const stackMid = this.stackMid(vertical);
     const done = () => {
       if (this.isOpen) return;
       for (const card of this.cards) {
@@ -213,7 +262,7 @@ export class Fan {
     this.cards.forEach((card) => {
       const el = card.el;
       gsap.to(el, {
-        x: stackMid - (el.offsetLeft + el.offsetWidth / 2),
+        [vertical ? "y" : "x"]: stackMid - this.midOf(el, vertical),
         rotation: 0,
         scale: 0.6,
         opacity: 0,
@@ -223,5 +272,14 @@ export class Fan {
       });
     });
     gsap.delayedCall(CLOSE_S + 0.02, done);
+  }
+
+  /** Middle of the closed stack along the line: x, or y on the vertical timeline. */
+  private stackMid(vertical: boolean) {
+    return this.midOf(this.stack.el, vertical);
+  }
+
+  private midOf(el: HTMLElement, vertical: boolean) {
+    return vertical ? el.offsetTop + el.offsetHeight / 2 : el.offsetLeft + el.offsetWidth / 2;
   }
 }

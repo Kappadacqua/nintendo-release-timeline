@@ -94,7 +94,7 @@ export const TIMELINE = {
     coverRowPx: 60,
     laneGap: 8,
     /** A row may slide down along the line up to this fraction of its length before stacking. */
-    maxShift: 0.8,
+    maxShift: 1.25,
     /** Stacked rows: each level further down the line and to the right. */
     stackAlongPx: 30,
     stackCrossPx: 10,

@@ -36,7 +36,9 @@
 }
 
 .timeline.is-zoomed-out .tl-item:hover .card__peek,
-.timeline.is-zoomed-out .tba-block .card:hover .card__peek {
+.timeline.is-zoomed-out .tba-block .card:hover .card__peek,
+.timeline.is-zoomed-out .is-peeking .card__peek,
+.timeline.is-zoomed-out .tba-block .card.is-peeking .card__peek {
   display: block;
   position: absolute;
   z-index: 5;

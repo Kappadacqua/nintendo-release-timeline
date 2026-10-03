@@ -109,7 +109,7 @@ export function drawTicks(v: TickView) {
     // Vertical: the month label takes the 1st's place in the gutter.
     if (v.zoom === "day" && !isCenter && TIMELINE.labeledDays.includes(date.getUTCDate()) && !(vert && monthStart)) {
       write(String(date.getUTCDate()), x, 27, "small");
-    } else if (v.zoom === "week" && monday && !isCenter) {
+    } else if (v.zoom === "week" && monday && !isCenter && !(vert && nearMonthStart(date))) {
       write(`W${isoWeek(date)}`, x, 27, "small");
     }
 
@@ -164,6 +164,13 @@ export function drawTicks(v: TickView) {
     }
   }
   ctx.globalAlpha = 1;
+}
+
+/** Vertical, Week: a Monday within 2 days of a month start gives its gutter place to the month label. */
+function nearMonthStart(date: Date) {
+  const d = date.getUTCDate();
+  const daysInMonth = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth() + 1, 0)).getUTCDate();
+  return d <= 3 || d >= daysInMonth - 1;
 }
 
 /** Position, text and width of the playhead pill, or null in the TBA zone. */

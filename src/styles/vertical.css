@@ -219,8 +219,22 @@
   transform: translateX(calc(var(--i) * 6px)) rotate(calc(var(--i) * 5deg));
 }
 
+.timeline.is-vertical.is-zoomed-out .group-stack__label strong {
+  font-size: 12px;
+  white-space: normal;
+}
+
 .timeline.is-vertical.is-zoomed-out .group-stack__label span {
-  display: block;
+  display: none;
+}
+
+.timeline.is-vertical.is-zoomed-out .card--group .group-stack__covers {
+  width: 52px;
+}
+
+/* Ring labels fit the narrower selected card. */
+.timeline.is-vertical .card.is-selected .ring__source {
+  font-size: 9.5px;
 }
 
 /* Open group: a column of rows above and below the selected card, no tilt. */
