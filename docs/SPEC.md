@@ -590,7 +590,7 @@ Pagina `studios.html` (`src/studios/main.ts`, `src/styles/studios.css`), inclusa
 
 Particelle animate dietro linea e card (`src/seasons/`: `season.ts` logica pura, `particles.ts` tipi e movimento, `sprites.ts` disegno delle sagome, `background.ts` canvas e ciclo; `src/styles/seasons.css`; costanti `SEASONS` in `src/timeline/config.ts`).
 
-- **Stagione** dal giorno sotto l'indicatore, a mesi interi: inverno dic–feb, primavera mar–mag, estate giu–ago, autunno set–nov. Vale per tutto lo schermo; nella zona TBA resta l'ultima.
+- **Stagione** dal giorno sotto l'indicatore, con inizio il giorno (ora italiana) dell'equinozio o del solstizio: primavera all'equinozio di marzo, estate al solstizio di giugno, autunno all'equinozio di settembre, inverno al solstizio di dicembre. Date fisse 2025–2030 in `season.ts` (fonte USNO; es. 2026: 20 mar, 21 giu, 23 set, 21 dic), fuori tabella 20 mar / 21 giu / 22 set / 21 dic. Confronto sui campi UTC del giorno. A Week e Month vale il giorno sotto l'indicatore. Vale per tutto lo schermo; nella zona TBA resta l'ultima.
 - **Stile**: disegno acquerellato, un colore per stagione, niente immagini, un unico canvas. Ogni sagoma ha contorno a tratto arrotondato, riempimento tenue dello stesso colore, nervature più sottili e un secondo tratto sfalsato (effetto matita). Le sagome sono **sprite** disegnate una volta su canvas fuori schermo (6 varianti per i tipi comuni, 3 per i rari, per ognuna delle tre fasce, con seme fisso) e riusate a ogni frame; si ridisegnano al cambio di tema.
 - **Tipi per stagione** (quote in `SEASONS`):
   - Autunno: foglie di acero a cinque lobi, quercia, betulla, ginkgo, che cadono ondeggiando.

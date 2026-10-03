@@ -4,13 +4,33 @@ import { SEASONS } from "../timeline/config";
 
 export type Season = "winter" | "spring" | "summer" | "autumn";
 
-/** Whole months: winter Dec–Feb, spring Mar–May, summer Jun–Aug, autumn Sep–Nov (UTC fields). */
+/**
+ * First day (Italian time) of spring, summer, autumn and winter: equinoxes and solstices, from USNO.
+ * Months are 0-based, as in `getUTCMonth`.
+ */
+const SEASON_STARTS: Record<number, readonly [number, number, number, number]> = {
+  2025: [20, 21, 22, 21],
+  2026: [20, 21, 23, 21],
+  2027: [20, 21, 23, 22],
+  2028: [20, 20, 22, 21],
+  2029: [20, 21, 22, 21],
+  2030: [20, 21, 23, 21],
+};
+/** Years outside the table. */
+const DEFAULT_STARTS = [20, 21, 22, 21] as const;
+const START_MONTHS = [2, 5, 8, 11] as const;
+const STARTING: readonly Season[] = ["spring", "summer", "autumn", "winter"];
+
+/** Season from the equinox or solstice day it starts on (UTC fields of the day). */
 export function seasonOf(date: Date): Season {
   const m = date.getUTCMonth();
-  if (m === 11 || m <= 1) return "winter";
-  if (m <= 4) return "spring";
-  if (m <= 7) return "summer";
-  return "autumn";
+  const d = date.getUTCDate();
+  const starts = SEASON_STARTS[date.getUTCFullYear()] ?? DEFAULT_STARTS;
+  let season: Season = "winter";
+  for (let i = 0; i < 4; i++) {
+    if (m > START_MONTHS[i] || (m === START_MONTHS[i] && d >= starts[i])) season = STARTING[i];
+  }
+  return season;
 }
 
 /** 25–50 particles, growing linearly with the window area. */

@@ -6,23 +6,49 @@ import { backgroundShown, particleCount, seasonOf, SeasonState } from "./season"
 const season = (iso: string) => seasonOf(dayToDate(parseDay(iso)));
 
 describe("seasonOf", () => {
-  it("uses whole months: winter Dec–Feb, spring Mar–May, summer Jun–Aug, autumn Sep–Nov", () => {
-    expect(season("2025-12-01")).toBe("winter");
-    expect(season("2026-01-15")).toBe("winter");
-    expect(season("2026-02-28")).toBe("winter");
-    expect(season("2026-03-01")).toBe("spring");
-    expect(season("2026-05-31")).toBe("spring");
-    expect(season("2026-06-01")).toBe("summer");
-    expect(season("2025-06-05")).toBe("summer");
-    expect(season("2026-08-31")).toBe("summer");
-    expect(season("2026-09-01")).toBe("autumn");
-    expect(season("2026-11-30")).toBe("autumn");
+  // Last day of the old season, first day of the new one (Italian time, USNO).
+  const boundaries: [string, string, string][] = [
+    ["2025-03-19", "2025-03-20", "spring"],
+    ["2025-06-20", "2025-06-21", "summer"],
+    ["2025-09-21", "2025-09-22", "autumn"],
+    ["2025-12-20", "2025-12-21", "winter"],
+    ["2026-03-19", "2026-03-20", "spring"],
+    ["2026-06-20", "2026-06-21", "summer"],
+    ["2026-09-22", "2026-09-23", "autumn"],
+    ["2026-12-20", "2026-12-21", "winter"],
+    ["2027-03-19", "2027-03-20", "spring"],
+    ["2027-06-20", "2027-06-21", "summer"],
+    ["2027-09-22", "2027-09-23", "autumn"],
+    ["2027-12-21", "2027-12-22", "winter"],
+  ];
+  const before: Record<string, string> = { spring: "winter", summer: "spring", autumn: "summer", winter: "autumn" };
+
+  it.each(boundaries)("%s → %s starts the new season", (last, first, starts) => {
+    expect(season(last)).toBe(before[starts]);
+    expect(season(first)).toBe(starts);
   });
 
-  it("switches exactly at midnight of the 1st (UTC fields, any time zone)", () => {
-    expect(season("2026-11-30")).toBe("autumn");
-    expect(season("2026-12-01")).toBe("winter");
-    expect(season("2028-02-29")).toBe("winter");
+  it("uses the table of each year (2028 summer on Jun 20)", () => {
+    expect(season("2028-06-19")).toBe("spring");
+    expect(season("2028-06-20")).toBe("summer");
+  });
+
+  it("falls back to Mar 20 / Jun 21 / Sep 22 / Dec 21 outside the table", () => {
+    expect(season("2031-03-19")).toBe("winter");
+    expect(season("2031-03-20")).toBe("spring");
+    expect(season("2031-06-20")).toBe("spring");
+    expect(season("2031-06-21")).toBe("summer");
+    expect(season("2031-09-21")).toBe("summer");
+    expect(season("2031-09-22")).toBe("autumn");
+    expect(season("2031-12-20")).toBe("autumn");
+    expect(season("2031-12-21")).toBe("winter");
+  });
+
+  it("keeps winter across the new year and the 1st of the month no longer matters", () => {
+    expect(season("2026-01-01")).toBe("winter");
+    expect(season("2026-03-01")).toBe("winter");
+    expect(season("2026-09-01")).toBe("summer");
+    expect(season("2025-06-05")).toBe("spring");
   });
 });
 

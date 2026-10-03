@@ -1,6 +1,6 @@
 # Stato del progetto
 
-Aggiornato: 2026-10-03 — Coda `wheel-seasons.md`, task 2: rotella libera con magnete, spinta delle particelle invertita
+Aggiornato: 2026-10-03 — Coda `wheel-seasons.md`, task 3: stagioni a equinozi e solstizi (coda completata)
 
 ## Ultimo checkpoint
 
@@ -24,6 +24,7 @@ Nessuno.
 
 Dettagli completi nelle versioni precedenti di questo file (`git show 58d0ac7:STATUS.md`).
 
+- wheel-seasons task 3 — **Stagioni astronomiche**: la stagione inizia il giorno (ora italiana) dell'equinozio o del solstizio, tabella USNO 2025–2030 in `season.ts` (2026: 20 mar, 21 giu, 23 set, 21 dic), fuori tabella 20 mar / 21 giu / 22 set / 21 dic. Pannello "?", sezione "Seasonal background": righe Winter / Spring / Summer / Autumn con "from the December solstice" ecc. al posto dei mesi. Nel browser: a Day, con le frecce, 19 → 20 marzo 2026 (inverno → primavera) e 22 → 23 settembre 2026 (estate → autunno), nessun cambio il 1° del mese; oggi (3 ott 2026) autunno.
 - wheel-seasons task 2 — **Rotella** (sostituisce rampa e marce): scatto isolato (nessuno nei 150 ms prima) = 1 giorno / settimana / mese esatto; in rotazione continua ogni scatto dopo il primo aggiunge `wheelSpinPx` (120 px) alla destinazione, a ogni zoom, senza aggancio; 150 ms dopo l'ultimo scatto un magnete porta sull'unità più vicina (giorno, lunedì, 1° del mese) o su un'uscita entro 2 unità, con l'inseguimento normale (`smoothing`). Niente inerzia né limite di 91 giorni (tolti `wheelGear*`, `wheelRamp*`, `wheelMaxPace`, `wheelInertiaPerPace`, `wheelSlowLoss`, `wheelFlingFriction`, `wheelFlingMaxDays`). Scatto opposto mentre la vista corre: si ferma sul giorno. Clic, tasti, trascinamento, Shift + rotella durante la rotazione: aggancio al giorno. Reduced motion: spostamenti immediati. Trackpad e Shift invariati. **Spinta delle particelle**: solo sugli scatti in rotazione continua, 220 px/s fissi (`gainPxPerS`), ora **verso sinistra** andando avanti (con il contenuto, `sign` −1). Nel browser (la sensazione la giudica l'utente, `wheelSpinPx` in `config.ts` è il valore da regolare): Day / Week / Month, uno scatto lento = 1 unità, girando veloce scorre fluida e lineare, al rilascio si ferma morbida su un giorno (lunedì, 1° del mese) o su un'uscita vicina; le particelle vanno nello stesso verso delle card; `?debug=wheel` stampa "isolated notch" / "spinning" / "magnet".
 - Report dei dati (8 fasi, `00b70b1`…) — `data:validate` da 143 a 72 righe (89 → 29 voci). Timeline: Xenoblade Chronicles DE / 2 / 3 Switch 2 Edition e Pikmin 4 S2 di nuovo presenti (erano state escluse dopo il fetch di oggi); Animal Crossing NH S2, Xenoblade DE S2, Xenoblade 2 S2 e Fitness Boxing 3 S2 mostrano il voto del **gioco base** (`inheritedFrom` nel JSON, nessuna indicazione nella card per ora). Link: Super Mario Galaxy / Galaxy 2 → pagine Wikipedia dei giochi originali, Hyrule Warriors AoC DE → Wikipedia e Nintendo Wiki di Age of Calamity; Survival Kids senza link Nintendo Wiki (era una pagina di disambiguazione). Studios: Pikmin 4 S2 sotto EPD Production Group No. 10, HW AoC DE sotto Omega Force; ordine e "Upcoming · in N days" invariati (tolto il campo `status` statico di `studios.json`). A-Train 9 Evolution non c'è più: uscito dalla categoria Wikipedia "Switch 2-only". Super Mario Galaxy + Super Mario Galaxy 2 (2 ott 2025): **una sola card** (bundle IGDB 366878, OpenCritic 87, Metacritic 87 · 7.7) al posto delle due voci separate e della card verde "free update"; Wikipedia porta alla pagina di Super Mario Galaxy (il bundle non ne ha una). DK Challenge, Ocarina of Time e Switch Sports Resort: sviluppatore "Nintendo (unknown studio)" nella card, nessuna card studio in Studios.
 
@@ -99,6 +100,5 @@ Dettagli completi nelle versioni precedenti di questo file (`git show 58d0ac7:ST
 
 ## Prossimi task (in ordine)
 
-1. Coda `docs/tasks/wheel-seasons.md`: task 3 (stagioni a equinozi e solstizi).
-2. Verifica nel browser delle voci sopra (Architetto).
-3. Eventuali gruppi "rimandare" di `docs/review/triage.md`, se diventano utili (il gruppo 4, `backdrop.css`, non è più bloccato).
+1. Verifica nel browser delle voci sopra (Architetto).
+2. Eventuali gruppi "rimandare" di `docs/review/triage.md`, se diventano utili (il gruppo 4, `backdrop.css`, non è più bloccato).

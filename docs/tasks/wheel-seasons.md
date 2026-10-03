@@ -101,7 +101,7 @@ Salvare in `docs/tasks/wheel-seasons.md`. Lancio dal telefono: `Esegui il prossi
 
 ---
 
-- [ ] **Task 3 — Stagioni a equinozi e solstizi**
+- [x] **Task 3 — Stagioni a equinozi e solstizi**
 
 **File**
 - Partire da: `src/seasons/season.ts` (`seasonOf`) e `season.test.ts`.
