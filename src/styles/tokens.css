@@ -18,6 +18,9 @@
   /* Content width of the Rankings and Studios pages, so their headings line up. */
   --page-max: 1200px;
 
+  /* Phones and narrow windows (mobile.css): height of the bar under the timeline. */
+  --dock-h: 56px;
+
   /* OpenCritic tiers — approximate, verify against opencritic.com (SPEC §7). */
   --score-mighty: #fc430a;
   --score-strong: #9d3ef0;

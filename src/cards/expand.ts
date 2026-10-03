@@ -123,7 +123,15 @@ const ORIGIN: Record<Anchor, string> = { above: "50% 100%", below: "50% 0%", cen
  * Grows the card (×1.05) and unfolds the extra content. `bounds` is the visible band
  * (client coordinates): if the expanded card spills out of it, it is nudged back in.
  */
-export function expandCard(card: HTMLElement, game: Game, todayDay: number, anchor: Anchor, bounds: () => DOMRect) {
+export function expandCard(
+  card: HTMLElement,
+  game: Game,
+  todayDay: number,
+  anchor: Anchor,
+  bounds: () => DOMRect,
+  /** Selected scale: 1.05, or 1 on the vertical timeline (the card already fills its column). */
+  grow = 1.05,
+) {
   collapseCard(card, true);
   const more = buildMore(card, game, todayDay);
   card.append(more);
@@ -141,9 +149,10 @@ export function expandCard(card: HTMLElement, game: Game, todayDay: number, anch
     // Taller than the room on its side of the line: shrink it, its edge toward the line
     // staying put, rather than push it over the line (where it would look cut off).
     const room = anchor === "above" ? r.bottom - b.top : anchor === "below" ? b.bottom - r.top : b.height;
-    if (anchor !== "center" && r.height > room) {
+    // Centred (TBA zone, vertical timeline): taller than the whole band, it shrinks too, then moves in.
+    if (r.height > room + 0.5) {
       const scale = Number(gsap.getProperty(card, "scale")) * (room / r.height);
-      gsap.to(card, { scale, duration: reducedMotion.matches ? 0 : 0.2, ease: "power2.out", overwrite: "auto" });
+      gsap.to(card, { scale, duration: reducedMotion.matches ? 0 : 0.2, ease: "power2.out", overwrite: "auto", onComplete: anchor === "center" ? fit : undefined });
       return;
     }
     const dy = r.top < b.top ? b.top - r.top : r.bottom > b.bottom ? b.bottom - r.bottom : 0;
@@ -154,11 +163,11 @@ export function expandCard(card: HTMLElement, game: Game, todayDay: number, anch
     gsap.to(card, { y: `+=${dy / parentScale}`, duration: reducedMotion.matches ? 0 : 0.25, ease: "power2.out", overwrite: "auto" });
   };
   if (reducedMotion.matches) {
-    gsap.set(card, { scale: 1.05, y: 0, opacity: 1, transformOrigin: ORIGIN[anchor], overwrite: "auto" });
+    gsap.set(card, { scale: grow, y: 0, opacity: 1, transformOrigin: ORIGIN[anchor], overwrite: "auto" });
     fit();
     return;
   }
-  gsap.to(card, { scale: 1.05, y: 0, opacity: 1, transformOrigin: ORIGIN[anchor], duration: 0.3, ease: "power2.out", overwrite: "auto" });
+  gsap.to(card, { scale: grow, y: 0, opacity: 1, transformOrigin: ORIGIN[anchor], duration: 0.3, ease: "power2.out", overwrite: "auto" });
   gsap.from(more, { height: 0, opacity: 0, duration: 0.35, ease: "power2.out", clearProps: "height", onComplete: fit });
 }
 

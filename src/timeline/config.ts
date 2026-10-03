@@ -81,6 +81,34 @@ export const TIMELINE = {
   presentationCursorMs: 2500,
   /** Cards never shrink below this scale on short windows. */
   minCardScale: 0.55,
+
+  /**
+   * Vertical timeline (SPEC "Mobile"): the line runs down the left side, past at the top. Its x,
+   * the gap from the line to the cards, the card rows' length along the line (Day: cover, title,
+   * badges; Week / Month: cover and title, in two columns), the minimap strip on the right.
+   */
+  vertical: {
+    lineX: 58,
+    cardOffset: 14,
+    rowPx: 80,
+    coverRowPx: 60,
+    laneGap: 8,
+    /** A row may slide down along the line up to this fraction of its length before stacking. */
+    maxShift: 0.8,
+    /** Stacked rows: each level further down the line and to the right. */
+    stackAlongPx: 30,
+    stackCrossPx: 10,
+    /** Cross offset stops growing after this many levels (the row would leave the screen). */
+    maxStackCross: 2,
+    minimapPx: 40,
+    /** Widest card column (tablets in portrait). */
+    maxCardPx: 380,
+    /** Touch inertia: speed kept per 60fps frame, and the longest flick (days at the current zoom). */
+    flingFriction: 0.965,
+    flingMaxDays: 120,
+  },
+  /** Pinch: the distance between two fingers must change by this factor for one zoom level. */
+  pinchStep: 1.35,
 };
 
 /** Seasonal background (docs/tasks/seasons.md): timings, density, shapes and the push of a fast wheel spin. */

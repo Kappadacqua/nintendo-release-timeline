@@ -6,6 +6,8 @@ import { Search } from "./search";
 import { Presentation } from "./presentation";
 import { SeasonalBackground } from "./seasons/background";
 import { initTheme } from "./theme/theme";
+import { isVerticalLayout, watchLayout } from "./layout";
+import { Dock, MobileMenu } from "./mobile";
 import { Timeline } from "./timeline/timeline";
 import { ZOOM_LEVELS, type ZoomLevel } from "./timeline/zoom";
 import type { ChangesFile, Game } from "./types";
@@ -93,11 +95,14 @@ Promise.all([loadGames(), loadChanges()])
     let view = loadView();
     // The page always opens at the Day level.
     let zoom: ZoomLevel = "day";
+    // Vertical on phones and narrow windows (SPEC "Mobile"); rebuilt in place when it flips.
+    let vertical = isVerticalLayout();
     const create = (games: Game[]) =>
       new Timeline(app, games, document.querySelector<HTMLElement>("#timeline-date")!, document.querySelector<HTMLElement>(".app-title")!, {
         compact: view.cardStyle === "compact",
         group: view.groupSameDay,
         zoom,
+        vertical,
         onZoom: (level, selectId) => zoomTo(level, selectId),
       });
     let timeline = create(applyFilters(allGames, filters));
@@ -133,6 +138,13 @@ Promise.all([loadGames(), loadChanges()])
       rebuild();
     });
     control.setCount(applyFilters(allGames, filters).length, allGames.length);
+
+    // Rotation or resize across the breakpoint: same day under the playhead, same game selected.
+    watchLayout((next) => {
+      if (next === vertical) return;
+      vertical = next;
+      rebuild();
+    });
 
     // Presentation (ITERATION-4 §9): always at the Day level.
     const presentation = new Presentation(() => timeline);
@@ -173,7 +185,18 @@ Promise.all([loadGames(), loadChanges()])
       (game) => timeline.selectById(game.id),
     );
     openSearch = () => search.open();
-    document.querySelector(".search-toggle")!.addEventListener("click", openSearch);
+    document.querySelectorAll(".search-toggle").forEach((b) => b.addEventListener("click", () => openSearch()));
+
+    // Phones and narrow windows (SPEC "Mobile"): drawer menu and bottom bar.
+    const menu = new MobileMenu((where) => timeline.go(where));
+    new Dock(app, { onStep: (direction) => timeline.step(direction), onToday: () => timeline.go("today") });
+    // The menu button repeats the unseen What's new count of the button inside the drawer.
+    const newsCount = document.querySelector<HTMLElement>(".whats-new__count");
+    if (newsCount) {
+      const mirror = () => menu.setBadge(newsCount.hidden ? 0 : Number.parseInt(newsCount.textContent ?? "", 10) || 0);
+      new MutationObserver(mirror).observe(newsCount, { childList: true, characterData: true, subtree: true, attributes: true });
+      mirror();
+    }
 
 
     if (import.meta.env.DEV) devTools(() => timeline);

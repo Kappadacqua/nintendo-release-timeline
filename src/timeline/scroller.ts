@@ -23,6 +23,8 @@ export class Scroller {
   target = 0;
   /** Longest distance (px) a drag's inertia may cover (about a month at the current zoom). */
   maxFlingPx = Infinity;
+  /** Inertia: speed kept per 60fps frame (touch glides longer than a mouse drag). */
+  friction: number = TIMELINE.flingFriction;
   /** Where every glide must come to rest (e.g. the nearest day). */
   snap: (x: number) => number = (x) => x;
   private min = 0;
@@ -86,7 +88,7 @@ export class Scroller {
     // With friction f per 60fps frame the glide covers v · 16.7ms / (1 − f): cap v so that
     // even a very fast flick never travels further than maxFlingPx.
     const frameMs = 1000 / 60;
-    const maxVelocity = (this.maxFlingPx * (1 - TIMELINE.flingFriction)) / frameMs;
+    const maxVelocity = (this.maxFlingPx * (1 - this.friction)) / frameMs;
     this.velocity = Math.sign(velocity) * Math.min(Math.abs(velocity), maxVelocity);
     this.glide = null;
     this.target = this.current;
@@ -186,7 +188,7 @@ export class Scroller {
       const next = this.clamp(this.current + this.velocity * dt);
       const hitEdge = next !== this.current + this.velocity * dt;
       this.current = this.target = next;
-      this.velocity *= Math.pow(TIMELINE.flingFriction, dt / (1000 / 60));
+      this.velocity *= Math.pow(this.friction, dt / (1000 / 60));
       this.onChange(this.current);
       if (hitEdge || Math.abs(this.velocity) < TIMELINE.flingStopVelocity) {
         this.frame = 0;
@@ -257,6 +259,8 @@ export function bindScrollInput(
     onGameStep: (direction: 1 | -1) => void;
     /** After any keyboard navigation (lets focus follow the centered game). */
     onKeyNavigate: () => void;
+    /** Vertical timeline (SPEC "Mobile"): drags move along y, ↑ / ↓ step like ← / →. */
+    vertical?: boolean;
   },
 ) {
   // Wheel: an isolated mouse notch = one day (week, month), added to the destination (the glide
@@ -367,38 +371,57 @@ export function bindScrollInput(
   let lastX = 0;
   let lastT = 0;
   let velocity = 0; // px/ms, in world direction
+  /** Position along the timeline's axis: x, or y on the vertical timeline. */
+  const along = (e: PointerEvent) => (opts.vertical ? e.clientY : e.clientX);
+  /** Fingers down: a second one starts a pinch (zoom, `pinch.ts`), which ends the drag without inertia. */
+  const pointers = new Set<number>();
+  let pointerId = -1;
 
   el.addEventListener("pointerdown", (e) => {
     if (e.button !== 0) return;
+    pointers.add(e.pointerId);
+    if (pointers.size > 1) {
+      if (dragging) {
+        dragging = false;
+        el.classList.remove("is-dragging");
+        scroller.settle();
+      }
+      pressed = false;
+      suppressClick = true;
+      return;
+    }
+    pointerId = e.pointerId;
     // A press during inertia stops it, and does not count as a click on a card.
     suppressClick = scroller.gliding;
     scroller.halt();
     stopSpin();
     pressed = true;
     dragging = false;
-    startX = lastX = e.clientX;
+    startX = lastX = along(e);
     lastT = e.timeStamp;
     velocity = 0;
   });
 
   el.addEventListener("pointermove", (e) => {
-    if (!pressed) return;
+    if (!pressed || e.pointerId !== pointerId) return;
     if (!dragging) {
-      if (Math.abs(e.clientX - startX) < DRAG_THRESHOLD) return;
+      if (Math.abs(along(e) - startX) < DRAG_THRESHOLD) return;
       dragging = true;
       opts.onDragStart();
       el.setPointerCapture(e.pointerId);
       el.classList.add("is-dragging");
     }
-    const dx = e.clientX - lastX;
+    const dx = along(e) - lastX;
     const dt = Math.max(1, e.timeStamp - lastT);
     velocity = 0.8 * (-dx / dt) + 0.2 * velocity;
-    lastX = e.clientX;
+    lastX = along(e);
     lastT = e.timeStamp;
     scroller.jumpTo(scroller.current - dx);
   });
 
   const endPress = (e: PointerEvent) => {
+    pointers.delete(e.pointerId);
+    if (e.pointerId !== pointerId) return;
     pressed = false;
     if (!dragging) return;
     dragging = false;
@@ -435,8 +458,10 @@ export function bindScrollInput(
     stopSpin();
 
     const days = e.shiftKey ? opts.largeStep : 1;
-    if (e.key === "ArrowRight") opts.onDayStep(days);
-    else if (e.key === "ArrowLeft") opts.onDayStep(-days);
+    const forward = e.key === "ArrowRight" || (opts.vertical && e.key === "ArrowDown");
+    const back = e.key === "ArrowLeft" || (opts.vertical && e.key === "ArrowUp");
+    if (forward) opts.onDayStep(days);
+    else if (back) opts.onDayStep(-days);
     else if (e.key === "Escape") opts.onEscape();
     else if (e.key === "t" || e.key === "T") opts.onToday();
     else if (e.key === "Home") opts.onHome();

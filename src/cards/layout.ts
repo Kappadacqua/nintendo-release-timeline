@@ -55,6 +55,8 @@ export function assignLanes(
   gap: number,
   maxShift: number,
   stack: Stack,
+  /** Sides to use: both, or one (vertical timeline: a single column of cards, SPEC "Mobile"). */
+  sides: readonly Side[] = ["above", "below"],
 ): Lane[] {
   const laneEnds = new Map<string, number>();
   const placed: { side: Side; level: number; left: number; right: number; extra: number; height: number }[] = [];
@@ -62,7 +64,7 @@ export function assignLanes(
     const idealLeft = x - width / 2;
     for (let level = 0; ; level++) {
       let best: Omit<Lane, "extra"> | null = null;
-      for (const side of ["above", "below"] as const) {
+      for (const side of sides) {
         const end = laneEnds.get(`${side}:${level}`) ?? -Infinity;
         const shift = Math.max(0, end + gap - idealLeft);
         if (shift <= maxShift * width && (!best || shift < best.shift)) best = { side, level, shift };

@@ -43,7 +43,7 @@ export function zoomTransition(from: Timeline, to: Timeline, zoomingIn: boolean)
   gsap.from(to.stage, {
     scale: zoomingIn ? 0.85 : 1.18,
     opacity: 0,
-    transformOrigin: `50% ${to.lineCenterY}px`,
+    transformOrigin: to.zoomOrigin,
     duration: 0.3,
     ease: "power2.out",
     clearProps: "transform,opacity",

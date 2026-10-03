@@ -1,0 +1,359 @@
+/* ---------- Vertical timeline (SPEC "Mobile") ----------
+   Past at the top, future at the bottom: the line runs down the left side (x = --v-line-x),
+   day numbers and months in the gutter left of it, cards as rows in a column on the right,
+   the minimap as a strip along the right edge. Set from timeline.ts (`is-vertical`). */
+
+.timeline.is-vertical {
+  cursor: default;
+}
+
+.timeline.is-vertical .timeline__world {
+  top: 0;
+  width: 0;
+  height: auto;
+}
+
+/* Playhead: a horizontal line across the column, at mid-height (the pill sits in the gutter). */
+.timeline.is-vertical .timeline__playhead {
+  top: 50%;
+  bottom: auto;
+  left: calc(var(--v-line-x) + 2px);
+  right: calc(var(--v-minimap) + 4px);
+  width: auto;
+  height: 2px;
+  margin: -1px 0 0;
+  background: linear-gradient(
+    to right,
+    color-mix(in srgb, var(--accent) 45%, transparent),
+    color-mix(in srgb, var(--accent) 45%, transparent) 85%,
+    transparent
+  );
+  mask-image: none;
+}
+
+/* Band behind the line and its labels (over a game background): a strip down the left side. */
+.timeline.is-vertical .timeline__band {
+  top: 0;
+  bottom: 0;
+  height: auto;
+  mask-image: linear-gradient(to right, #000 calc(100% - var(--band-feather)), transparent);
+}
+
+/* Today: dot on the line, the label in the gutter just above it. */
+.timeline.is-vertical .timeline-today {
+  left: 0;
+}
+
+/* Right of the line, just above its dot (the gutter has the day pill). */
+.timeline.is-vertical .timeline-today__label {
+  bottom: 8px;
+  left: 10px;
+  padding: 2px 8px;
+  font-size: 11px;
+  transform: none;
+}
+
+/* Items: a row of the column, its dot on the line. */
+.timeline.is-vertical .tl-item {
+  left: 0;
+}
+
+.timeline.is-vertical .tl-item__group {
+  top: 0;
+  transform: none;
+}
+
+.timeline.is-vertical .card {
+  width: var(--v-card-w, var(--v-column));
+}
+
+/* Unselected rows: cover, title and badges at a fixed height (the layout counts on it). */
+.timeline.is-vertical .tl-item .card:not(.is-selected),
+.timeline.is-vertical .tba-block .card:not(.is-selected) {
+  height: var(--v-row-h);
+  padding: 8px 10px 8px 8px;
+  overflow: hidden;
+}
+
+.timeline.is-vertical .card:not(.is-selected) .card__top {
+  gap: 10px;
+  height: 100%;
+}
+
+.timeline.is-vertical .card:not(.is-selected) .card__cover {
+  width: 48px;
+  height: 64px;
+}
+
+.timeline.is-vertical .card:not(.is-selected) .card__title {
+  -webkit-line-clamp: 2;
+  font-size: 14px;
+}
+
+.timeline.is-vertical .card:not(.is-selected) .card__badges {
+  flex-wrap: nowrap;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, #000 85%, transparent);
+}
+
+.timeline.is-vertical .card:not(.is-selected) .card__original {
+  display: none;
+}
+
+/* No compact-mode centring: rows and the selected card share the column's left edge. */
+.timeline.is-vertical.is-compact .tl-item .card.is-selected,
+.timeline.is-vertical.is-compact .tl-item .card:not(.is-selected) {
+  width: var(--v-card-w, var(--v-column));
+  margin-left: 0;
+}
+
+.timeline.is-vertical .tl-item .card {
+  transition:
+    box-shadow 0.2s ease,
+    border-color 0.2s ease,
+    filter 0.3s ease;
+}
+
+/* Selected: the full card, within the column (rings and buttons sized to fit 240 px). */
+.timeline.is-vertical .card.is-selected {
+  height: auto;
+  max-width: var(--v-column);
+}
+
+.timeline.is-vertical .card.is-selected .ring {
+  width: 50px;
+}
+
+.timeline.is-vertical .card.is-selected .ring__dial {
+  width: 40px;
+  height: 40px;
+}
+
+.timeline.is-vertical .card.is-selected .score-group__rings {
+  gap: 2px;
+}
+
+.timeline.is-vertical .card.is-selected .card__actions {
+  flex-wrap: wrap;
+}
+
+/* Week / Month: cover and title side by side in two columns (no hover needed for the title). */
+.timeline.is-vertical.is-zoomed-out .tl-item .card:not(.is-selected),
+.timeline.is-vertical.is-zoomed-out .tba-block .card:not(.is-selected) {
+  width: var(--v-card-w, var(--v-column));
+  padding: 4px 8px 4px 4px;
+}
+
+.timeline.is-vertical.is-zoomed-out .card:not(.is-selected) .card__info {
+  display: block;
+  align-self: center;
+}
+
+.timeline.is-vertical.is-zoomed-out .card:not(.is-selected) .card__top {
+  gap: 8px;
+}
+
+.timeline.is-vertical.is-zoomed-out .card:not(.is-selected) .card__cover {
+  width: 38px;
+  height: 50px;
+}
+
+.timeline.is-vertical.is-zoomed-out .card:not(.is-selected) .card__title {
+  margin: 0;
+  -webkit-line-clamp: 3;
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+.timeline.is-vertical.is-zoomed-out .card:not(.is-selected) .card__badges,
+.timeline.is-vertical.is-zoomed-out .card:not(.is-selected) .card__meta,
+.timeline.is-vertical.is-zoomed-out .card:not(.is-selected) .card__base {
+  display: none;
+}
+
+.timeline.is-vertical.is-zoomed-out .tl-item:hover .card__peek {
+  display: none;
+}
+
+/* Closed same-day group as a row: a small fan of covers, then "N games" and the date. */
+.timeline.is-vertical .card--group:not(.is-selected) {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.timeline.is-vertical .card--group .group-stack__covers {
+  flex: none;
+  width: 84px;
+  height: 100%;
+}
+
+.timeline.is-vertical .card--group .group-stack__cover {
+  bottom: 0;
+  width: 44px;
+  height: 60px;
+  margin-left: -22px;
+  transform: translateX(calc(var(--i) * 9px)) rotate(calc(var(--i) * 6deg));
+  transform-origin: 50% 110%;
+}
+
+.timeline.is-vertical .card--group .group-stack__label {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  margin: 0;
+}
+
+.timeline.is-vertical.is-zoomed-out .card--group {
+  padding: 4px 8px 4px 4px;
+}
+
+.timeline.is-vertical.is-zoomed-out .card--group .group-stack__covers {
+  width: 60px;
+}
+
+.timeline.is-vertical.is-zoomed-out .card--group .group-stack__cover {
+  width: 32px;
+  height: 44px;
+  margin-left: -16px;
+  transform: translateX(calc(var(--i) * 6px)) rotate(calc(var(--i) * 5deg));
+}
+
+.timeline.is-vertical.is-zoomed-out .group-stack__label span {
+  display: block;
+}
+
+/* Open group: a column of rows above and below the selected card, no tilt. */
+.timeline.is-vertical .tl-item.is-fanned .fan-card:not(.is-selected) {
+  width: var(--v-card-w, var(--v-column));
+}
+
+/* Delays: the ghost on the line, the arc bulging into the gutter. */
+.timeline.is-vertical .tl-ghost {
+  top: auto;
+  left: -7px;
+  margin: -7px 0 0;
+}
+
+/* TBA zone: blocks down the line, label on top, cards in a column at their slots. */
+.timeline.is-vertical .tba-block {
+  left: calc(var(--v-card-offset) - 10px);
+  width: calc(var(--v-column) + 20px);
+  padding: 10px;
+  transform: none;
+}
+
+.timeline.is-vertical .tba-block__head {
+  flex-wrap: wrap;
+  gap: 2px 10px;
+  margin: 0;
+}
+
+.timeline.is-vertical .tba-block__label {
+  font-size: 26px;
+}
+
+.timeline.is-vertical .tba-block__cards {
+  display: block;
+}
+
+.timeline.is-vertical .tba-block .card {
+  position: absolute;
+  left: 10px;
+  margin-top: calc(var(--v-row-h) / -2);
+  width: var(--v-column);
+}
+
+/* Minimap: a strip along the right edge, the world from top to bottom. */
+.minimap.minimap--vertical {
+  top: 8px;
+  right: 4px;
+  bottom: 8px;
+  left: auto;
+  width: calc(var(--v-minimap) - 4px);
+  height: auto;
+  padding: 8px 0;
+  border-radius: 10px;
+}
+
+.minimap--vertical .minimap__track {
+  width: 100%;
+}
+
+.minimap--vertical .minimap__track::before {
+  top: 0;
+  bottom: 0;
+  left: auto;
+  right: 9px;
+  width: 2px;
+  height: auto;
+  margin: 0;
+}
+
+.minimap--vertical .minimap__month {
+  top: auto;
+  right: 2px;
+  bottom: auto;
+  left: 3px;
+  padding: 1px 0 0;
+  border-left: 0;
+  border-top: 1px solid var(--tick);
+  font-size: 8.5px;
+}
+
+.minimap--vertical .minimap__month--major {
+  border-left: 0;
+  border-top: 2px solid var(--text-muted);
+}
+
+.minimap--vertical .minimap__tba {
+  top: auto;
+  right: 2px;
+  bottom: auto;
+  left: 2px;
+  padding: 3px 2px;
+  writing-mode: vertical-rl;
+  text-align: start;
+  background: repeating-linear-gradient(
+    45deg,
+    color-mix(in srgb, var(--accent) 12%, transparent) 0 4px,
+    transparent 4px 8px
+  );
+}
+
+.minimap--vertical .minimap__dot {
+  top: auto;
+  left: auto;
+  right: 6px;
+  margin: -3.5px 0 0;
+}
+
+.minimap--vertical .minimap__dot--group {
+  right: 4.5px;
+  margin: -5.5px 0 0;
+}
+
+.minimap--vertical .minimap__today {
+  top: auto;
+  right: 2px;
+  bottom: auto;
+  left: 2px;
+  width: auto;
+  height: 2px;
+  margin: -1px 0 0;
+}
+
+.minimap--vertical .minimap__window {
+  top: auto;
+  right: 0;
+  bottom: auto;
+  left: 0;
+}
+
+/* The preview opens beside the strip, toward the column. */
+.minimap--vertical .minimap__preview {
+  right: calc(100% + 8px);
+  bottom: auto;
+  max-width: min(260px, 70vw);
+  transform: translateY(-50%);
+}

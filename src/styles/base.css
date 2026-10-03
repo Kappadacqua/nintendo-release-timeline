@@ -12,6 +12,18 @@ body {
   height: 100%;
 }
 
+/* Mobile browsers: the visible height without their toolbars (SPEC "Mobile"). */
+body {
+  height: 100dvh;
+}
+
+/* No pull-to-refresh or rubber band over the timeline; pages that scroll still scroll. */
+html {
+  overscroll-behavior: none;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
 body {
   min-width: 1280px;
   display: flex;
@@ -28,3 +40,10 @@ a {
   color: inherit;
 }
 
+
+/* Below the desktop width the header folds into a menu (mobile.css): no minimum width. */
+@media (max-width: 1279px), (max-height: 500px) {
+  body {
+    min-width: 0;
+  }
+}

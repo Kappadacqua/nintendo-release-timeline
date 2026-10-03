@@ -2,7 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0f0f12" media="(prefers-color-scheme: dark)" />
     <title>Nintendo Release Timeline</title>
     <meta name="description" content="Nintendo games released since the Switch 2 launch, on a scrollable timeline with critic and user scores." />
     <link
@@ -29,7 +31,23 @@
         <span class="app-title__site"><span class="app-title__dot"></span><span class="app-title__name">Nintendo Release Timeline</span><span class="app-title__short" aria-hidden="true">NRT</span></span>
       </h1>
       <div class="app-header__date" id="timeline-date"></div>
-      <div class="app-header__actions">
+      <!-- Phones and narrow windows (SPEC "Mobile"): search and the menu; the actions below become its drawer. -->
+      <div class="app-header__bar">
+        <button class="icon-button search-toggle" type="button" aria-label="Search games">
+          <span class="search-toggle__icon" aria-hidden="true"></span>
+        </button>
+        <button class="icon-button menu-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="app-menu">
+          <span class="menu-toggle__icon" aria-hidden="true"></span>
+          <span class="menu-toggle__badge" aria-hidden="true" hidden></span>
+        </button>
+      </div>
+      <div class="app-header__actions" id="app-menu">
+        <div class="app-menu__head">
+          <h2 class="app-menu__title">Menu</h2>
+          <button class="icon-button app-menu__close" type="button" aria-label="Close the menu">
+            <span aria-hidden="true">✕</span>
+          </button>
+        </div>
         <nav class="app-nav" aria-label="Pages">
           <a class="app-nav__link" href="./" aria-current="page">Timeline</a>
           <a class="app-nav__link" href="rankings.html">Rankings</a>
@@ -38,8 +56,13 @@
         <button class="icon-button search-toggle" type="button" aria-label="Search games" title="Search (/)">
           <span class="search-toggle__icon" aria-hidden="true"></span>
         </button>
+        <div class="app-menu__jumps" role="group" aria-label="Go to">
+          <button class="app-menu__jump" type="button" data-go="start">Start <small>Jun 2025</small></button>
+          <button class="app-menu__jump" type="button" data-go="today">Today</button>
+          <button class="app-menu__jump" type="button" data-go="tba">Date TBA</button>
+        </div>
         <button class="icon-button shortcuts-toggle" type="button" aria-label="Keyboard shortcuts" title="Keyboard shortcuts (?)" aria-haspopup="dialog">
-          <span aria-hidden="true">?</span>
+          <span aria-hidden="true">?</span><span class="app-menu__label">Gestures, shortcuts and legend</span>
         </button>
         <button class="icon-button theme-toggle" type="button" aria-label="Toggle theme">
           <span class="theme-toggle__icon" aria-hidden="true">
@@ -47,9 +70,12 @@
             <svg class="theme-toggle__sun" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="5" fill="currentColor" /><path d="M20.5 12L23 12M18.01 18.01L19.78 19.78M12 20.5L12 23M5.99 18.01L4.22 19.78M3.5 12L1 12M5.99 5.99L4.22 4.22M12 3.5L12 1M18.01 5.99L19.78 4.22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>
             <svg class="theme-toggle__moon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.98 0.04A12 12 0 1 1 3.02 19.96A12 12 0 0 0 12.98 0.04Z" fill="currentColor" /></svg>
           </span>
+          <span class="app-menu__label">Light / dark theme</span>
         </button>
+        <p class="app-menu__note">Not affiliated with Nintendo. Scores from OpenCritic, Metacritic and Backloggd.</p>
       </div>
     </header>
+    <div class="app-menu-scrim" hidden></div>
 
     <main id="app" aria-busy="true">
       <p class="app-status">Loading games…</p>
@@ -57,7 +83,23 @@
 
     <dialog class="shortcuts" aria-labelledby="shortcuts-title">
       <h2 id="shortcuts-title">Keyboard shortcuts</h2>
-      <dl>
+      <h3 class="shortcuts__touch">Touch</h3>
+      <dl class="shortcuts__touch">
+        <dt>Swipe</dt>
+        <dd>Scroll through time (flick: it glides on, then rests on a day)</dd>
+        <dt>Pinch</dt>
+        <dd>Zoom: Day, Week, Month (also the buttons at the bottom)</dd>
+        <dt>Tap a card</dt>
+        <dd>Select it; tap again to use its links. Tap empty space to deselect</dd>
+        <dt>‹ Today ›</dt>
+        <dd>Previous game, today, next game (bottom bar)</dd>
+        <dt>Minimap</dt>
+        <dd>Tap to jump and preview the games there, drag its window to move the view</dd>
+        <dt>Menu</dt>
+        <dd>Pages, What's new, view, filters, start, TBA, presentation, theme</dd>
+      </dl>
+      <h3 class="shortcuts__keys">Keyboard</h3>
+      <dl class="shortcuts__keys">
         <dt><kbd>←</kbd> <kbd>→</kbd></dt>
         <dd>One day back / forward (<kbd>Shift</kbd>: a week)</dd>
         <dt><kbd>Page Up</kbd> <kbd>Page Down</kbd></dt>

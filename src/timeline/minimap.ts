@@ -17,6 +17,8 @@ export interface MinimapDot {
 }
 
 export interface MinimapOptions {
+  /** Vertical strip on the right (SPEC "Mobile"): the world runs from top to bottom. */
+  vertical?: boolean;
   /** World x range shown by the bar: [0, worldEnd]. */
   worldEnd: number;
   months: { x: number; label: string; major: boolean }[];
@@ -33,6 +35,9 @@ export interface MinimapOptions {
 const HOVER_PX = 7;
 /** A press on the visible window that moves less than this is a click (jump there). */
 const DRAG_PX = 3;
+/** Touch: a tap this close to a dot (px) previews it; the preview stays this long. */
+const TAP_PX = 14;
+const TAP_PREVIEW_MS = 2600;
 
 /**
  * Thin overview bar: months, one dot per game, the visible window. Click or drag to jump;
@@ -45,10 +50,13 @@ export class Minimap {
   private readonly preview: HTMLElement;
   /** World x of the view center, as last reported by `update`. */
   private center = 0;
+  private readonly vertical: boolean;
+  private tapTimer = 0;
 
   constructor(private readonly opts: MinimapOptions) {
+    this.vertical = opts.vertical ?? false;
     this.el = document.createElement("div");
-    this.el.className = "minimap";
+    this.el.className = `minimap${this.vertical ? " minimap--vertical" : ""}`;
     this.el.setAttribute("aria-label", "Timeline overview. Click to jump.");
 
     this.track = document.createElement("div");
@@ -59,7 +67,7 @@ export class Minimap {
     const add = (className: string, left: number, text?: string) => {
       const node = document.createElement("div");
       node.className = className;
-      node.style.left = pct(left);
+      node.style[this.start] = pct(left);
       if (text) node.textContent = text;
       this.track.append(node);
       return node;
@@ -69,7 +77,7 @@ export class Minimap {
 
     if (opts.tba) {
       const zone = add("minimap__tba", opts.tba.startX, "TBA");
-      zone.style.width = pct(opts.tba.endX - opts.tba.startX);
+      zone.style[this.size] = pct(opts.tba.endX - opts.tba.startX);
     }
 
     add("minimap__today", opts.todayX);
@@ -98,20 +106,54 @@ export class Minimap {
   /** Reflect the visible world range [left, left + width]. */
   update(left: number, width: number) {
     const { worldEnd } = this.opts;
-    this.window.style.left = `${(left / worldEnd) * 100}%`;
-    this.window.style.width = `${(width / worldEnd) * 100}%`;
+    this.window.style[this.start] = `${(left / worldEnd) * 100}%`;
+    this.window.style[this.size] = `${(width / worldEnd) * 100}%`;
     this.center = left + width / 2;
   }
 
-  private worldXAt(clientX: number) {
+  /** CSS properties along the bar: left / width, or top / height on the vertical strip. */
+  private get start() {
+    return this.vertical ? "top" : "left";
+  }
+
+  private get size() {
+    return this.vertical ? "height" : "width";
+  }
+
+  /** Pointer position along the bar. */
+  private along(e: { clientX: number; clientY: number }) {
+    return this.vertical ? e.clientY : e.clientX;
+  }
+
+  /** The track's extent along the bar, in client px: [start, length]. */
+  private trackSpan() {
     const rect = this.track.getBoundingClientRect();
-    const ratio = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
+    return this.vertical ? [rect.top, rect.height] : [rect.left, rect.width];
+  }
+
+  private worldXAt(client: number) {
+    const [start, length] = this.trackSpan();
+    const ratio = Math.min(1, Math.max(0, (client - start) / length));
     return ratio * this.opts.worldEnd;
   }
 
-  private overWindow(clientX: number) {
+  private overWindow(client: number) {
     const r = this.window.getBoundingClientRect();
-    return clientX >= r.left && clientX <= r.right;
+    // A finger needs a little more room on a thin window.
+    const slack = this.vertical ? 6 : 0;
+    return this.vertical ? client >= r.top - slack && client <= r.bottom + slack : client >= r.left && client <= r.right;
+  }
+
+  /** The dot nearest to a pointer position along the bar, within `reach` px. */
+  private dotAt(client: number, reach: number) {
+    const [start, length] = this.trackSpan();
+    let best: MinimapDot | null = null;
+    let bestD = reach;
+    for (const dot of this.opts.dots) {
+      const d = Math.abs(start + (dot.x / this.opts.worldEnd) * length - client);
+      if (d <= bestD) [best, bestD] = [dot, d];
+    }
+    return best ? { dot: best, at: start + (best.x / this.opts.worldEnd) * length } : null;
   }
 
   /**
@@ -123,36 +165,44 @@ export class Minimap {
     let offset = 0;
     let startX = 0;
     let moved = false;
+    let scrubMoved = false;
     this.el.addEventListener("pointerdown", (e) => {
       if (e.button !== 0) return;
       // Keep the timeline's own drag-to-scroll out of it.
       e.stopPropagation();
       this.el.setPointerCapture(e.pointerId);
       this.hidePreview();
-      startX = e.clientX;
+      startX = this.along(e);
       moved = false;
-      if (this.overWindow(e.clientX)) {
+      scrubMoved = false;
+      if (this.overWindow(this.along(e))) {
         mode = "window";
-        offset = this.worldXAt(e.clientX) - this.center;
+        offset = this.worldXAt(this.along(e)) - this.center;
         return;
       }
       mode = "scrub";
       this.el.classList.add("is-scrubbing");
-      this.opts.onSeek(this.worldXAt(e.clientX), true);
+      this.opts.onSeek(this.worldXAt(this.along(e)), true);
     });
     this.el.addEventListener("pointermove", (e) => {
-      if (mode === "scrub") this.opts.onSeek(this.worldXAt(e.clientX), false);
+      if (mode === "scrub") {
+        if (Math.abs(this.along(e) - startX) >= DRAG_PX) scrubMoved = true;
+        this.opts.onSeek(this.worldXAt(this.along(e)), false);
+      }
       if (mode !== "window") return;
-      if (!moved && Math.abs(e.clientX - startX) < DRAG_PX) return;
+      if (!moved && Math.abs(this.along(e) - startX) < DRAG_PX) return;
       moved = true;
       this.el.classList.add("is-scrubbing");
-      this.opts.onSeek(this.worldXAt(e.clientX) - offset, false);
+      this.opts.onSeek(this.worldXAt(this.along(e)) - offset, false);
     });
     const end = (e: PointerEvent) => {
-      if (mode === "window" && !moved) this.opts.onSeek(this.worldXAt(e.clientX), true);
+      const tap = (mode === "window" && !moved) || (mode === "scrub" && !scrubMoved);
+      if (mode === "window" && !moved) this.opts.onSeek(this.worldXAt(this.along(e)), true);
       else if (mode) this.opts.onSeekEnd?.();
       mode = null;
       this.el.classList.remove("is-scrubbing");
+      // Touch has no hover: a tap near a dot shows its preview for a moment (SPEC "Mobile").
+      if (tap && e.type === "pointerup" && e.pointerType !== "mouse") this.tapPreview(this.along(e));
     };
     this.el.addEventListener("pointerup", end);
     this.el.addEventListener("pointercancel", end);
@@ -160,27 +210,31 @@ export class Minimap {
 
   private bindPreview() {
     this.el.addEventListener("pointermove", (e) => {
+      if (e.pointerType !== "mouse") return;
       if (this.el.classList.contains("is-scrubbing")) return this.hidePreview();
-      this.el.classList.toggle("is-over-window", this.overWindow(e.clientX));
-      const rect = this.track.getBoundingClientRect();
-      let best: MinimapDot | null = null;
-      let bestD = HOVER_PX;
-      for (const dot of this.opts.dots) {
-        const d = Math.abs(rect.left + (dot.x / this.opts.worldEnd) * rect.width - e.clientX);
-        if (d <= bestD) [best, bestD] = [dot, d];
-      }
-      if (best) this.showPreview(best, rect.left + (best.x / this.opts.worldEnd) * rect.width);
+      this.el.classList.toggle("is-over-window", this.overWindow(this.along(e)));
+      const hit = this.dotAt(this.along(e), HOVER_PX);
+      if (hit) this.showPreview(hit.dot, hit.at);
       else this.hidePreview();
     });
-    this.el.addEventListener("pointerleave", () => {
+    this.el.addEventListener("pointerleave", (e) => {
+      if (e.pointerType !== "mouse") return;
       this.hidePreview();
       this.el.classList.remove("is-over-window");
     });
   }
 
+  private tapPreview(client: number) {
+    const hit = this.dotAt(client, TAP_PX);
+    if (!hit) return;
+    this.showPreview(hit.dot, hit.at);
+    clearTimeout(this.tapTimer);
+    this.tapTimer = window.setTimeout(() => this.hidePreview(), TAP_PREVIEW_MS);
+  }
+
   private shown: MinimapDot | null = null;
 
-  private showPreview(dot: MinimapDot, clientX: number) {
+  private showPreview(dot: MinimapDot, client: number) {
     if (this.shown !== dot) {
       this.shown = dot;
       this.preview.replaceChildren(
@@ -196,14 +250,21 @@ export class Minimap {
       );
       this.preview.hidden = false;
     }
-    // Centered on the dot, kept inside the bar.
+    // Centered on the dot, kept inside the bar (vertical: beside the strip, inside the screen).
     const bar = this.el.getBoundingClientRect();
+    if (this.vertical) {
+      const half = this.preview.offsetHeight / 2;
+      const room = innerHeight - bar.top;
+      this.preview.style.top = `${Math.min(room - half - 8, Math.max(half + 8 - bar.top, client - bar.top))}px`;
+      return;
+    }
     const half = this.preview.offsetWidth / 2;
-    const x = Math.min(bar.width - half - 4, Math.max(half + 4, clientX - bar.left));
+    const x = Math.min(bar.width - half - 4, Math.max(half + 4, client - bar.left));
     this.preview.style.left = `${x}px`;
   }
 
   private hidePreview() {
+    clearTimeout(this.tapTimer);
     this.shown = null;
     this.preview.hidden = true;
   }

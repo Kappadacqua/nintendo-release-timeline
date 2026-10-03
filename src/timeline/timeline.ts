@@ -17,6 +17,7 @@ import { SiteTitle } from "./site-title";
 import { createGroupStack, Fan, GROUP_COVER_WIDTH, GROUP_MIN_GAMES, GROUP_WIDTH } from "./group";
 import { mixesKinds, orderStops } from "./same-day";
 import { drawTicks, PILL } from "./ticks";
+import type { Side } from "../cards/layout";
 import { addUnits, isoWeek, nextZoom, snapDay, ZOOM, type ZoomLevel } from "./zoom";
 import { createTbaBlockNode, layoutTba, TBA_LAYOUT, type TbaBlock } from "./tba";
 
@@ -109,12 +110,20 @@ export interface TimelineOptions {
   zoom?: ZoomLevel;
   /** Ctrl + wheel, + / −, or selecting a game while zoomed out (which returns to Day). */
   onZoom?: (level: ZoomLevel, selectId?: string) => void;
+  /** Vertical timeline (SPEC "Mobile"): past at the top, the line on the left, cards in a column. */
+  vertical?: boolean;
 }
 
+const V = TIMELINE.vertical;
+
 /**
- * Horizontal timeline. World coordinates: x = (days since start) * dayPx.
+ * Timeline. World coordinates: x = (days since start) * dayPx, along the line.
  * Ticks and the line are drawn on a canvas sized to the viewport, so only the
  * visible range is ever drawn; DOM markers live in a translated "world" layer.
+ *
+ * Vertical (SPEC "Mobile"): the same world x runs down the screen (past at the top). `width`
+ * is then the viewport's length along the line (its height) and `height` the size across it;
+ * `lineY` is the line's x. The canvas is transposed, the world layer translated along y.
  */
 export class Timeline {
   private readonly el: HTMLElement;
@@ -136,6 +145,9 @@ export class Timeline {
   readonly stage: HTMLElement;
   private readonly tbaBlocks: TbaBlock[];
   private readonly minimap: Minimap;
+  readonly vertical: boolean;
+  /** Vertical: width of the card column (px), between the line and the minimap. */
+  private column = 0;
 
   private readonly startDay = parseDay(TIMELINE.startDate);
   private readonly todayDay = todayEpochDay();
@@ -175,7 +187,9 @@ export class Timeline {
     titleEl?: HTMLElement,
     options: TimelineOptions = {},
   ) {
-    this.compact = options.compact ?? false;
+    this.vertical = options.vertical ?? false;
+    // Vertical: rows of cover, title and badges whatever the card style (the selected card is full).
+    this.compact = this.vertical || (options.compact ?? false);
     this.group = options.group ?? false;
     this.zoom = options.zoom ?? "day";
     this.dayPx = ZOOM[this.zoom].dayPx;
@@ -187,7 +201,7 @@ export class Timeline {
     this.endDay = Math.max(lastRelease, this.todayDay) + TIMELINE.endMarginDays;
 
     this.el = document.createElement("div");
-    this.el.className = `timeline zoom-${this.zoom}${this.zoom !== "day" ? " is-zoomed-out" : ""}${this.compact ? " is-compact" : ""}`;
+    this.el.className = `timeline zoom-${this.zoom}${this.zoom !== "day" ? " is-zoomed-out" : ""}${this.compact ? " is-compact" : ""}${this.vertical ? " is-vertical" : ""}`;
     this.el.setAttribute("role", "region");
     this.el.setAttribute("aria-label", "Release timeline. Press ? for keyboard shortcuts.");
 
@@ -206,6 +220,7 @@ export class Timeline {
       games.filter((g) => !g.firstReleaseDate),
       this.dayX(this.endDay) + TIMELINE.tbaGapPx,
       (g) => this.widthOf(g),
+      this.vertical,
     );
     this.tbaBlocks = tba.blocks;
     this.tbaStartX = this.tbaBlocks.length ? this.tbaBlocks[0].x : this.dayX(this.endDay);
@@ -218,7 +233,7 @@ export class Timeline {
     const playhead = document.createElement("div");
     playhead.className = "timeline__playhead";
     playhead.setAttribute("aria-hidden", "true");
-    playhead.style.bottom = `${TIMELINE.minimapBandPx}px`;
+    if (!this.vertical) playhead.style.bottom = `${TIMELINE.minimapBandPx}px`;
     // Translucent band behind the line and its labels, shown over a game background.
     this.band = document.createElement("div");
     this.band.className = "timeline__band";
@@ -238,6 +253,7 @@ export class Timeline {
     this.scroller.snap = (x) => this.snapToDay(x);
     this.scroller.maxFlingPx = TIMELINE.flingMaxDays * this.dayPx;
     const unbindKeys = bindScrollInput(this.el, this.scroller, {
+      vertical: this.vertical,
       dayPx: this.dayPx,
       unitDays: this.zoom === "day" ? 1 : this.zoom === "week" ? 7 : 30.44,
       magnets: () => this.items.map((item) => item.x),
@@ -328,9 +344,9 @@ export class Timeline {
     this.el.remove();
   }
 
-  /** Line y within the stage: the center of a zoom transition. */
-  get lineCenterY() {
-    return this.lineY;
+  /** Where a zoom transition scales from: the playhead on the line (CSS transform-origin). */
+  get zoomOrigin() {
+    return this.vertical ? `${this.lineY}px 50%` : `50% ${this.lineY}px`;
   }
 
   /** Where the view is and what is selected, to come back to it after a reload. */
@@ -360,6 +376,17 @@ export class Timeline {
     let next = this.selected >= 0 ? this.selected + 1 : this.stops.findIndex((s) => s.x >= this.scroller.target - 0.5);
     if (!dated(next)) next = this.stops.findIndex((s) => !!s.game.firstReleaseDate);
     if (next >= 0) this.select(next);
+  }
+
+  /** Buttons for T, Home and End (bottom bar and menu, SPEC "Mobile"). */
+  go(where: "today" | "start" | "tba") {
+    this.deselect();
+    this.scroller.scrollTo(where === "today" ? this.dayX(this.todayDay) : where === "start" ? 0 : this.worldEnd);
+  }
+
+  /** Buttons for Page Up / Page Down: the previous / next game. */
+  step(direction: 1 | -1) {
+    this.stepGame(direction);
   }
 
   get hasSelection() {
@@ -402,7 +429,11 @@ export class Timeline {
     stop.layer().classList.add("is-selected-layer");
     this.el.classList.add("has-selection");
     // A compact card unfolds into the full one.
-    morphParts([card], () => expandCard(card, stop.game, this.todayDay, stop.anchor, () => this.visibleBand()), !this.opening);
+    morphParts(
+      [card],
+      () => expandCard(card, stop.game, this.todayDay, stop.anchor, () => this.visibleBand(), this.vertical ? 1 : 1.05),
+      !this.opening,
+    );
     this.siteTitle?.show(stop.game);
     this.backdrop.show(stop.game);
     news.markSeen(stop.game.id);
@@ -432,6 +463,8 @@ export class Timeline {
   /** Where a selected card must fit: between the top of the timeline and the minimap. */
   private visibleBand() {
     const r = this.el.getBoundingClientRect();
+    // Vertical: the whole height, left of the minimap strip.
+    if (this.vertical) return new DOMRect(r.left, r.top + 8, r.width - V.minimapPx, r.height - 16);
     return new DOMRect(r.left, r.top + 8, r.width, r.height - TIMELINE.minimapBandPx - 16);
   }
 
@@ -470,14 +503,16 @@ export class Timeline {
       const reveal = () => {
         if (item.revealed) return;
         item.revealed = true;
-        revealCard(node().connectors, node().card, item.lane.side);
+        revealCard(node().connectors, node().card, item.lane.side, false, this.vertical);
       };
+      // Vertical: the selected card is centred on its date, shrinking only if taller than the screen.
+      const anchor: Anchor = this.vertical ? "center" : item.lane.side;
       if (item.games) {
         // One stop per game, all on the group's date: PagSu / PagGiù walk through it.
         return item.games.map((game) => ({
           x: item.x,
           game,
-          anchor: item.lane.side,
+          anchor,
           card: () => (node().fan!.isOpen ? node().fan!.cardOf(game.id) : node().card.el),
           layer: () => node().root,
           reveal,
@@ -489,14 +524,10 @@ export class Timeline {
       return [{
         x: item.x,
         game: item.game,
-        anchor: item.lane.side,
+        anchor,
         card: () => node().card.el,
         layer: () => node().root,
-        reveal: () => {
-          if (item.revealed) return;
-          item.revealed = true;
-          revealCard(node().connectors, node().card, item.lane.side);
-        },
+        reveal,
       }];
     });
     const tba: Stop[] = this.tbaBlocks.flatMap((block) =>
@@ -514,7 +545,7 @@ export class Timeline {
           reveal: () => {
             if (slot.revealed) return;
             slot.revealed = true;
-            revealCard(null, card(), "above");
+            revealCard(null, card(), "above", false, this.vertical);
           },
         };
       }),
@@ -580,6 +611,13 @@ export class Timeline {
 
   /** Scales cards down so they fit between the top bar and the minimap on short windows. */
   private fitCards() {
+    // Vertical: rows fill the column's width, nothing to shrink.
+    if (this.vertical) {
+      this.cardScale = 1;
+      this.el.style.setProperty("--card-scale", "1");
+      for (const item of this.items) if (item.node) this.drawStub(item.node);
+      return;
+    }
     // The label band (cardOffset) never shrinks; only cards and stacking do.
     const room = Math.min(this.lineY, this.height - TIMELINE.minimapBandPx - this.lineY) - TIMELINE.cardOffset - 12;
     const tallest = this.zoom !== "day" ? TIMELINE.coverCardMaxHeight : this.compact ? TIMELINE.compactCardMaxHeight : TIMELINE.cardMaxHeight;
@@ -595,11 +633,15 @@ export class Timeline {
 
   /** Layout width of a game's card: covers only when zoomed out, else full or compact. */
   private widthOf(game: Game) {
+    // Vertical: a card's length along the line is its row's height.
+    if (this.vertical) return this.zoom !== "day" ? V.coverRowPx : V.rowPx;
     return this.zoom !== "day" ? COVER_CARD_WIDTH : cardWidth(game, this.compact);
   }
 
   /** Layout height of a card (or group, with `games`), for stacking behind taller ones. */
   private heightOf(game: Game, games?: Game[], compact = this.compact) {
+    // Vertical: every row has the column's width; stacked rows step aside by level only.
+    if (this.vertical) return 0;
     if (this.zoom !== "day") return TIMELINE.coverCardMaxHeight;
     if (games) return CARD_HEIGHT.group;
     return cardHeight(game, compact, parseDay(game.firstReleaseDate!) > this.todayDay);
@@ -607,11 +649,25 @@ export class Timeline {
 
   /** Stacking steps for `assignLanes`. */
   private stack() {
+    if (this.vertical) return { stepX: V.stackAlongPx, stepY: V.stackCrossPx };
     return { stepX: TIMELINE.stackStepX, stepY: TIMELINE.stackStepY };
   }
 
+  /** Lane settings: vertical, one column at Day and two (narrower) zoomed out. */
+  private lanes(items: { x: number; width: number; height: number }[]) {
+    if (!this.vertical) return assignLanes(items, TIMELINE.laneGap, TIMELINE.maxShift, this.stack());
+    const sides: Side[] = this.zoom === "day" ? ["below"] : ["above", "below"];
+    return assignLanes(items, V.laneGap, V.maxShift, this.stack(), sides);
+  }
+
   private groupWidth() {
+    if (this.vertical) return this.zoom !== "day" ? V.coverRowPx : V.rowPx;
     return this.zoom !== "day" ? GROUP_COVER_WIDTH : GROUP_WIDTH;
+  }
+
+  /** Puts an element at world x: `left` on the horizontal line, `top` on the vertical one. */
+  private place(el: HTMLElement | SVGElement, x: number) {
+    el.style[this.vertical ? "top" : "left"] = `${x}px`;
   }
 
   /**
@@ -630,15 +686,25 @@ export class Timeline {
       const from = this.dayX(parseDay(delay.from));
       const ghost = document.createElement("div");
       ghost.className = "tl-ghost";
-      ghost.style.left = `${from}px`;
+      this.place(ghost, from);
       ghost.title = `${game.title}: originally ${long(delay.from)}, now ${game.firstReleaseDate ? long(game.firstReleaseDate) : (game.vagueRelease?.label ?? "TBA")}`;
       if (!game.firstReleaseDate) return [ghost];
       const to = this.dayX(parseDay(game.firstReleaseDate));
       const width = Math.max(1, to - from);
-      const rise = Math.min(46, 14 + width / 40);
+      const rise = Math.min(this.vertical ? 34 : 46, 14 + width / 40);
       const arc = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       arc.setAttribute("class", "tl-ghost__arc");
       arc.setAttribute("aria-hidden", "true");
+      if (this.vertical) {
+        // Bulging into the gutter, left of the line.
+        arc.style.top = `${from}px`;
+        arc.style.left = `${-rise}px`;
+        arc.setAttribute("width", String(rise));
+        arc.setAttribute("height", String(width));
+        arc.setAttribute("viewBox", `0 0 ${rise} ${width}`);
+        arc.innerHTML = `<path d="M${rise} 0 Q ${-rise * 0.9} ${width / 2} ${rise} ${width}"/>`;
+        return [arc, ghost];
+      }
       arc.style.left = `${from}px`;
       arc.style.top = `${-rise}px`;
       arc.setAttribute("width", String(width));
@@ -652,7 +718,7 @@ export class Timeline {
   private todayMarker() {
     const marker = document.createElement("div");
     marker.className = "timeline-today";
-    marker.style.left = `${this.dayX(this.todayDay)}px`;
+    this.place(marker, this.dayX(this.todayDay));
     marker.innerHTML = `<span class="timeline-today__label">Today</span><span class="timeline-today__dot"></span>`;
     return marker;
   }
@@ -677,7 +743,7 @@ export class Timeline {
         });
       })
       .sort((a, b) => a.x - b.x);
-    const lanes = assignLanes(placed, TIMELINE.laneGap, TIMELINE.maxShift, this.stack());
+    const lanes = this.lanes(placed);
     return placed.map((p, i) => ({ ...p, lane: lanes[i], inRange: false, revealed: false }));
   }
 
@@ -688,7 +754,7 @@ export class Timeline {
    */
   private createNode(item: Item) {
     const root = document.createElement("div");
-    root.style.left = `${item.x}px`;
+    this.place(root, item.x);
     const stub = svgPath("tl-item__connector");
     const rest = svgPath("tl-item__connector");
     const group = document.createElement("div");
@@ -717,17 +783,33 @@ export class Timeline {
         card,
         item.games,
         this.todayDay,
-        () => ({ side: item.lane.side, extra: item.lane.extra }),
+        () => ({ side: item.lane.side, extra: item.lane.extra, vertical: this.vertical ? this.crossOf(item) : null }),
       );
     }
     item.node = node;
     this.placeNode(item);
-    hideCard(connectors, card);
+    hideCard(connectors, card, this.vertical);
     return node;
   }
 
   /** Puts card and connectors where the item's lane says (also after the card style changes). */
+  /**
+   * Vertical: where a row sits across the line (px from the group's origin, right of the line)
+   * and how wide it is: the whole column at Day, one of two columns zoomed out; a stacked row
+   * steps right by level (up to `maxStackCross`) and narrows so it never leaves the column.
+   */
+  private crossOf(item: Item) {
+    const two = this.zoom !== "day";
+    const gap = 8;
+    const reserve = V.maxStackCross * V.stackCrossPx;
+    const col = two ? (this.column - gap) / 2 : this.column;
+    const step = Math.min(item.lane.level, V.maxStackCross) * V.stackCrossPx;
+    const left = (two && item.lane.side === "below" ? col + gap : 0) + step;
+    return { left, width: Math.max(0, col - reserve) + reserve - step };
+  }
+
   private placeNode(item: Item) {
+    if (this.vertical) return this.placeNodeVertical(item);
     const node = item.node!;
     const { side, level, shift } = item.lane;
     const dir = side === "above" ? -1 : 1;
@@ -755,11 +837,39 @@ export class Timeline {
   }
 
   /**
+   * Vertical row: centred on its date along the line unless shifted or stacked (then an elbow
+   * connector); a stacked row lies on top of the one before it, which keeps its title strip.
+   */
+  private placeNodeVertical(item: Item) {
+    const node = item.node!;
+    const { level, shift } = item.lane;
+    const length = item.width;
+    node.root.classList.add("tl-item", "tl-item--right");
+    node.root.style.zIndex = String(10 + level);
+    const top = -length / 2 + shift + level * V.stackAlongPx;
+    const inset = Math.min(24, length / 2);
+    node.targetX = top + inset <= 0 && 0 <= top + length - inset ? 0 : top + inset;
+    node.dir = 1;
+    node.group.style.left = `${V.cardOffset}px`;
+    node.group.style.top = "";
+    const cross = this.crossOf(item);
+    node.restPath.setAttribute("d", cross.left > 0 ? `M0 ${node.targetX} H${cross.left}` : "");
+    const el = node.card.el;
+    el.style.left = `${cross.left}px`;
+    el.style.top = `${top}px`;
+    el.style.bottom = "";
+    el.style.setProperty("--v-card-w", `${cross.width}px`);
+    this.drawStub(node);
+    if (node.fan?.isOpen) node.fan.layout(this.selected >= 0 ? this.stops[this.selected].game.id : null);
+  }
+
+  /**
    * Full / compact cards (ITERATION-4 §2), animated: lanes are recomputed with the new
    * widths, cards glide to their new place while resizing and their parts fold / unfold.
    */
   setCompact(compact: boolean) {
-    if (compact === this.compact) return;
+    // Vertical: always rows (the style applies on the horizontal timeline).
+    if (compact === this.compact || this.vertical) return;
     this.compact = compact;
     // Zoomed out, cards are covers only: the style shows again back at the Day level.
     if (this.zoom !== "day") {
@@ -819,6 +929,13 @@ export class Timeline {
 
   /** The stub ends where the scaled group puts the connector, so it follows `--card-scale`. */
   private drawStub(node: { stubPath: SVGPathElement; targetX: number; dir: number }) {
+    if (this.vertical) {
+      // Sideways from the dot to the column; an elbow down (or up) to a row off its date.
+      const off = V.cardOffset;
+      const ty = node.targetX;
+      node.stubPath.setAttribute("d", ty === 0 ? `M0 0 H${off}` : `M0 0 H${off / 2} V${ty} H${off}`);
+      return;
+    }
     const off = TIMELINE.cardOffset * node.dir;
     const tx = node.targetX * this.cardScale;
     node.stubPath.setAttribute("d", tx === 0 ? `M0 0 V${off}` : `M0 0 V${off / 2} H${tx} V${off}`);
@@ -855,6 +972,7 @@ export class Timeline {
       };
     });
     return new Minimap({
+      vertical: this.vertical,
       worldEnd: this.worldEnd,
       months,
       dots,
@@ -886,14 +1004,14 @@ export class Timeline {
       for (const slot of block.slots) {
         if (canReveal && !slot.revealed && slot.x >= left && slot.x <= right) {
           slot.revealed = true;
-          revealCard(null, slot.card!, "above", this.opening);
+          revealCard(null, slot.card!, "above", this.opening, this.vertical);
         }
       }
     }
   }
 
   private createTbaNode(block: TbaBlock) {
-    block.node = createTbaBlockNode(block, this.todayDay);
+    block.node = createTbaBlockNode(block, this.todayDay, this.vertical);
     this.world.append(block.node);
     for (const slot of block.slots) {
       hideCard(null, slot.card!);
@@ -938,7 +1056,7 @@ export class Timeline {
     const right = left + this.width;
     const margin = TIMELINE.cullMarginPx;
     for (const item of this.items) {
-      const reach = item.width / 2 + item.lane.shift + item.lane.level * TIMELINE.stackStepX;
+      const reach = item.width / 2 + item.lane.shift + item.lane.level * this.stack().stepX;
       const inRange = item.x + reach > left - margin && item.x - reach < right + margin;
       if (inRange && !item.node) item.node = this.createNode(item);
       // Never hide the tabbable or focused card, or Tab / focus would be lost.
@@ -948,7 +1066,7 @@ export class Timeline {
 
       if (canReveal && item.node && !item.revealed && item.x >= left && item.x <= right) {
         item.revealed = true;
-        revealCard(item.node.connectors, item.node.card, item.lane.side, this.opening);
+        revealCard(item.node.connectors, item.node.card, item.lane.side, this.opening, this.vertical);
       }
     }
   }
@@ -985,10 +1103,13 @@ export class Timeline {
 
   private resize() {
     const dpr = window.devicePixelRatio || 1;
-    this.width = this.el.clientWidth;
-    this.height = this.el.clientHeight;
-    this.canvas.width = Math.round(this.width * dpr);
-    this.canvas.height = Math.round(this.height * dpr);
+    const w = this.el.clientWidth;
+    const h = this.el.clientHeight;
+    this.canvas.width = Math.round(w * dpr);
+    this.canvas.height = Math.round(h * dpr);
+    if (this.vertical) return this.resizeVertical(w, h, dpr);
+    this.width = w;
+    this.height = h;
     this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     this.lineY = Math.round((this.height - TIMELINE.minimapBandPx) / 2);
     this.world.style.top = `${this.lineY}px`;
@@ -1004,10 +1125,34 @@ export class Timeline {
     this.scroller.setBounds(0, this.worldEnd);
   }
 
+  /** Vertical: the line down the left side, the band behind its labels, the card column. */
+  private resizeVertical(w: number, h: number, dpr: number) {
+    this.width = h;
+    this.height = w;
+    // Transposed: world x (along the line) is drawn down the screen.
+    this.ctx.setTransform(0, dpr, dpr, 0, 0, 0);
+    this.lineY = V.lineX;
+    this.world.style.top = "0px";
+    this.world.style.left = `${this.lineY}px`;
+    const feather = TIMELINE.bandFeatherPx;
+    this.band.style.left = "0px";
+    this.band.style.width = `${this.lineY + 14 + feather}px`;
+    this.band.style.setProperty("--band-feather", `${feather}px`);
+    this.column = Math.min(V.maxCardPx, w - this.lineY - V.cardOffset - V.minimapPx - 10);
+    this.el.style.setProperty("--v-column", `${this.column}px`);
+    this.el.style.setProperty("--v-line-x", `${this.lineY}px`);
+    this.el.style.setProperty("--v-card-offset", `${V.cardOffset}px`);
+    this.el.style.setProperty("--v-row-h", `${this.zoom === "day" ? V.rowPx : V.coverRowPx}px`);
+    this.el.style.setProperty("--v-minimap", `${V.minimapPx}px`);
+    for (const item of this.items) if (item.node) this.placeNode(item);
+    this.fitCards();
+    this.scroller.setBounds(0, this.worldEnd);
+  }
+
   private render(center: number) {
     if (this.destroyed) return;
     const left = center - this.width / 2;
-    this.world.style.transform = `translate3d(${-left}px, 0, 0)`;
+    this.world.style.transform = this.vertical ? `translate3d(0, ${-left}px, 0)` : `translate3d(${-left}px, 0, 0)`;
     this.drawCanvas(left);
     // Before the initial jump to today, don't create or reveal any cards.
     if (this.ready) {
@@ -1033,7 +1178,7 @@ export class Timeline {
     const { ctx, width, palette } = this;
     const lineStart = this.dayX(this.startDay) - left;
     const lineEnd = this.dayX(this.endDay + 1) - left;
-    const bottom = this.height - TIMELINE.minimapBandPx;
+    const bottom = this.vertical ? this.height : this.height - TIMELINE.minimapBandPx;
     const first = dayToDate(this.dayAt(left));
     ctx.fillStyle = palette.monthBand;
     for (let y = first.getUTCFullYear(), m = first.getUTCMonth(); ; m++) {
@@ -1124,6 +1269,7 @@ export class Timeline {
       centerDay: center <= this.dayX(this.endDay) + this.dayPx / 2 ? this.dayAt(center) : null,
       zoom: this.zoom,
       palette,
+      vertical: this.vertical ? { dpr: window.devicePixelRatio || 1 } : undefined,
     });
   }
 }

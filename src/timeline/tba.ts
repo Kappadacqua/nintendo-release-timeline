@@ -8,6 +8,16 @@ export const TBA_LAYOUT = {
   minWidth: 240,
 };
 
+/** Vertical timeline (SPEC "Mobile"): blocks run down the line, their label on top, cards in a column. */
+export const TBA_LAYOUT_V = {
+  padding: 12,
+  cardGap: 10,
+  blockGap: 32,
+  minWidth: 120,
+  /** Length of the block's head ("2027 · Date to be announced") before its first card. */
+  head: 48,
+};
+
 export interface TbaCardSlot {
   game: Game;
   /** World x of the card's center. */
@@ -31,6 +41,7 @@ export function layoutTba(
   games: Game[],
   startX: number,
   widthOf: (game: Game) => number = (g) => cardWidth(g),
+  vertical = false,
 ): { blocks: TbaBlock[]; endX: number } {
   const groups = new Map<number | null, Game[]>();
   for (const game of games) {
@@ -40,15 +51,16 @@ export function layoutTba(
   // Known years ascending, fully unknown ("TBA") last.
   const years = [...groups.keys()].sort((a, b) => (a ?? Infinity) - (b ?? Infinity));
 
-  const { padding, cardGap, blockGap, minWidth } = TBA_LAYOUT;
+  const { padding, cardGap, blockGap, minWidth } = vertical ? TBA_LAYOUT_V : TBA_LAYOUT;
+  const head = vertical ? TBA_LAYOUT_V.head : 0;
   const blocks: TbaBlock[] = [];
   let cursor = startX;
   for (const year of years) {
     const blockGames = groups.get(year)!.sort((a, b) => a.title.localeCompare(b.title));
     const cardsWidth = blockGames.reduce((sum, g) => sum + widthOf(g), 0) + cardGap * (blockGames.length - 1);
-    const width = Math.max(minWidth, cardsWidth + padding * 2);
+    const width = Math.max(minWidth, head + cardsWidth + padding * 2);
 
-    let cardX = cursor + (width - cardsWidth) / 2;
+    let cardX = cursor + head + (width - head - cardsWidth) / 2;
     const slots = blockGames.map((game) => {
       const w = widthOf(game);
       const slot = { game, x: cardX + w / 2, revealed: false };
@@ -62,11 +74,12 @@ export function layoutTba(
   return { blocks, endX: blocks.length ? cursor - blockGap : startX };
 }
 
-export function createTbaBlockNode(block: TbaBlock, todayDay: number) {
+export function createTbaBlockNode(block: TbaBlock, todayDay: number, vertical = false) {
   const root = document.createElement("section");
   root.className = "tba-block";
-  root.style.left = `${block.x}px`;
-  root.style.width = `${block.width}px`;
+  // Vertical: the block's length runs down the line and every card sits at its slot.
+  root.style[vertical ? "top" : "left"] = `${block.x}px`;
+  root.style[vertical ? "height" : "width"] = `${block.width}px`;
   root.setAttribute("aria-label", block.label === "TBA" ? "Release date to be announced" : `Expected in ${block.label}`);
 
   const head = document.createElement("header");
@@ -83,6 +96,7 @@ export function createTbaBlockNode(block: TbaBlock, todayDay: number) {
   row.className = "tba-block__cards";
   for (const slot of block.slots) {
     slot.card = createCard(slot.game, todayDay);
+    if (vertical) slot.card.el.style.top = `${slot.x - block.x}px`;
     row.append(slot.card.el);
   }
 
