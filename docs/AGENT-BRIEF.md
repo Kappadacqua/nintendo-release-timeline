@@ -131,7 +131,7 @@ In caso di dubbio su una funzione: prima `docs/SPEC.md`, poi il codice.
 Se un task li incrocia, citali in "Aperto" invece di risolverli per conto tuo.
 
 - Prestazioni 4K (in pausa; le vecchie modifiche sono archiviate nel tag `archive/wip-perf`, da usare solo su richiesta).
-- Card sovrapposte nelle pile (es. Pikmin 3 Deluxe copre i voti di Orbitals, fine agosto 2026): dipende dall'algoritmo delle pile.
+- Card coperte nelle pile (es. Orbitals dietro Pikmin 3 Deluxe): **voluto**, si vede la striscia del titolo e l'hover porta la card davanti (decisione dell'utente, 2026-10-03). Non è un bug.
 - Altezze delle card nelle pile stimate, non misurate.
 - Riconoscimento del trackpad euristico (da provare su trackpad reali).
 - "What's new" mai verificato con due snapshot reali.
