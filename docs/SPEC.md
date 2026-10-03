@@ -2,7 +2,7 @@
 
 Sito desktop che mostra, su una timeline orizzontale scorrevole, i giochi Nintendo usciti (e in uscita) dal lancio di Switch 2 (5 giugno 2025) in poi, con voti aggregati di critica e pubblico.
 
-Per ora il sito è solo per uso personale in locale; la pubblicazione su GitHub Pages arriverà più avanti. Il codice è su GitHub nel repository privato `Kappadacqua/nintendo-release-timeline`.
+Il sito è per uso personale in locale. La pubblicazione su GitHub Pages con aggiornamento giornaliero dei dati è pronta ma sospesa (§10). Il codice è su GitHub nel repository pubblico `Kappadacqua/nintendo-release-timeline`. Versione mobile: §16.
 
 > **Stato:** milestone 1–6, `ITERATION-2.md`, `ITERATION-3.md` e `ITERATION-4.md` completate. Dove un documento di iterazione è in contrasto con questo, vale l'iterazione.
 
@@ -16,7 +16,7 @@ Per ora il sito è solo per uso personale in locale; la pubblicazione su GitHub 
 - Script di raccolta dati in **Node + TypeScript** (`tsx` per eseguirli)
 - Node **≥ 20.19** (`.nvmrc`: 24). Le variabili di `.env` sono lette con `process.loadEnvFile`, senza dipendenze.
 - Nessun backend: il sito legge i file statici `public/data/games.json`, `public/data/changes.json` e `public/data/studios.json`. Solo in sviluppo un plugin Vite serve il pannello admin (§10)
-- Chiavi API in `.env` (escluso da git), in futuro nei GitHub Secrets
+- Chiavi API in `.env` (escluso da git) e, per il workflow di pubblicazione, nei GitHub Secrets (§10)
 
 ## 2. Struttura cartelle
 
@@ -28,6 +28,8 @@ Per ora il sito è solo per uso personale in locale; la pubblicazione su GitHub 
   fetch-studios.ts       # solo rete: studi first party da Nintendo Wiki → data/cache/studios.json (§14)
   validate-data.ts       # cosa va completato o deciso a mano
   vite-admin.ts          # plugin Vite del pannello admin (solo `vite dev`)
+  lib/refresh-policy.ts  # ogni quanto si rileggono OpenCritic e Metacritic (fetch e admin)
+  lib/freshness.ts       # date dell'ultimo aggiornamento di ogni fonte e prossimo controllo per gioco (admin)
   lib/build.ts           # perimetro, merge, link Nintendo Store, storico → games.json
   lib/cache.ts           # formato dei file in data/cache/
   lib/snapshots.ts       # snapshot giornalieri, dateHistory / scoreHistory, changes.json
@@ -497,8 +499,10 @@ Variabili in `.env` (vedi `.env.example`): `TWITCH_CLIENT_ID`, `TWITCH_CLIENT_SE
   - elenco dei giochi con dati mancanti, filtrabile: Metacritic, Backloggd, link Wikipedia / Nintendo Wiki / Nintendo Store, conflitti di esclusività; ricerca per titolo;
   - per ogni gioco un modulo con i campi di `overrides.json` (voti e numero di recensioni, esclusività, "Also on Switch 1", link), con link rapidi alla ricerca del gioco su Metacritic e Backloggd;
   - sezione **OpenCritic**: voto attuale in sola lettura (voto, top critic, ID abbinato) e campo per forzare l'ID. La build non va in rete: se l'ID forzato non è già in cache, il voto arriva con il `data:fetch` successivo (l'admin lo dice). Filtro "OpenCritic" per i giochi usciti senza voto;
-  - **Save**: il plugin Vite (`scripts/vite-admin.ts`) valida lo schema, copia il file precedente in `data/backups/` (ultime 30 copie), scrive `overrides.json` formattato, lancia `data:build` e il sito aperto si ricarica da solo mantenendo posizione e selezione.
-- Più avanti: GitHub Action settimanale che esegue il fetch, fa il commit di `games.json` e `changes.json` (e di cache, snapshot e storico) e ripubblica su GitHub Pages.
+  - **Save**: il plugin Vite (`scripts/vite-admin.ts`) valida lo schema, copia il file precedente in `data/backups/` (ultime 30 copie), scrive `overrides.json` formattato, lancia `data:build` e il sito aperto si ricarica da solo mantenendo posizione e selezione;
+  - riquadro **Data sources** sotto l'header (chiuso di default, il titolo dice l'ultimo fetch): per IGDB, Wikipedia, Links, OpenCritic, Metacritic, Backloggd (solo a mano), Free updates e Studios la data dell'ultima lettura, cosa copre, ogni quanto si rilegge e quanti giochi sono da rileggere al prossimo fetch; riga "Last run" con richieste usate e budget (da `data/cache/fetch-status.json`). Nel modulo di un gioco uscito, sotto OpenCritic e Metacritic: ultima lettura, prossimo controllo e stato ("page read", "no page found", "never looked up"…). Dati da `GET /__admin/freshness` (`scripts/lib/freshness.ts`, solo cache, niente rete).
+- **Frequenza di rilettura dei voti** (`scripts/lib/refresh-policy.ts`, la stessa per fetch e admin): OpenCritic ogni giorno per 45 giorni dall'uscita, poi ogni 14; un titolo senza pagina si ricerca dopo 30 giorni. Metacritic ogni giorno per 60 giorni, poi ogni settimana (§4.3). I giochi mai cercati e i più recenti passano per primi, così a quota esaurita restano indietro i vecchi. IGDB, Wikipedia e link si rileggono interi a ogni `data:fetch`.
+- **Pubblicazione** (`.github/workflows/update-and-deploy.yml`, **sospesa**: workflow disattivato e GitHub Pages spento dal 2026-10-03). Ogni notte (03:17 UTC) e a mano: `data:fetch-free-updates`, `data:fetch-studios`, `data:fetch` con le chiavi nei GitHub Secrets (`TWITCH_CLIENT_ID`, `TWITCH_CLIENT_SECRET`, `RAPIDAPI_KEY`, `WIKI_CONTACT`), commit di `data/` e `public/data/` su `main` dal bot, build con `BASE_PATH=/nintendo-release-timeline/` (`base` di Vite) e deploy su Pages; a ogni push su `main` solo `data:build`, build e deploy. Un fetch fallito non blocca la pubblicazione. Per riattivarla: `gh workflow enable "Update data and deploy"` e Pages con sorgente "GitHub Actions"; poi `git pull` prima di lavorare in locale.
 
 ## 11. Milestone di sviluppo
 
@@ -508,7 +512,7 @@ Variabili in `.env` (vedi `.env.example`): `TWITCH_CLIENT_ID`, `TWITCH_CLIENT_SE
 4. ~~**Zona TBA e minimappa**.~~ ✔
 5. ~~**Script dati**: IGDB + OpenCritic, merge degli overrides, validazione.~~ ✔
 6. ~~**Rifinitura**: performance, accessibilità da tastiera, dettagli visivi.~~ ✔
-7. *(Più avanti)* GitHub Action e pubblicazione su GitHub Pages.
+7. ~~GitHub Action e pubblicazione su GitHub Pages.~~ ✔ (pronta, sospesa: §10)
 
 **Iterazione 2** (`docs/archive/ITERATION-2.md`) ✔: correzioni, indicatore centrale e controlli per giorno, selezione e card espansa, nuovi campi dati, sfondo, "uscito oggi", bordo Switch 2 Edition.
 

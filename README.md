@@ -1,6 +1,6 @@
 # Nintendo Release Timeline
 
-A personal desktop site that shows Nintendo releases from June 5, 2025 onwards on a horizontal timeline — Nintendo and Pokémon Company games, their DLC and Switch 2 Editions, third-party exclusives and free Switch 2 updates —, with critic and user scores. Game data is collected by Node scripts and served as static JSON. For now it runs locally only.
+A personal site that shows Nintendo releases from June 5, 2025 onwards on a horizontal timeline — Nintendo and Pokémon Company games, their DLC and Switch 2 Editions, third-party exclusives and free Switch 2 updates —, with critic and user scores, and a vertical layout on phones. Game data is collected by Node scripts and served as static JSON. It runs locally; publishing to GitHub Pages with a nightly data update is ready but suspended (see below).
 
 Built with Vite 7 and vanilla TypeScript (no UI framework), GSAP for animations and Fuse.js for search.
 
@@ -63,7 +63,13 @@ fetch  →  data/cache/  →  build  →  public/data/  →  site
 
 Available at `/admin` with `npm run dev` only (it is not part of the production build). It lists games with missing data (Metacritic, Backloggd, links, OpenCritic match, exclusivity conflicts) and edits their entries in `data/overrides.json`. On save, the Vite plugin (`scripts/vite-admin.ts`) validates the file, backs up the previous copy in `data/backups/`, runs `data:build`, and open pages reload.
 
-A checklist of games still missing manual data is in `docs/admin-todo.md`.
+The "Data sources" box shows when each source was last read, and each game shows when its OpenCritic and Metacritic scores are read again: daily while a game is new, then every week or two (`scripts/lib/refresh-policy.ts`).
+
+A checklist of games still missing manual links is in `data/manual-todo.md` (`npm run data:validate -- --todo`).
+
+## Publishing (suspended)
+
+`.github/workflows/update-and-deploy.yml` fetches the data every night, commits it to `main` and deploys the site to GitHub Pages (`BASE_PATH` sets Vite's `base`). The API keys are GitHub Secrets. The workflow is disabled and Pages is off; to turn it back on: `gh workflow enable "Update data and deploy"` and set Pages to deploy from GitHub Actions.
 
 ## Project layout
 

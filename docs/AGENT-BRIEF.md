@@ -35,7 +35,7 @@ Questo brief è un riassunto, non la fonte di verità. **Il codice vince su ques
 
 ## Il sito in breve
 
-Sito **personale**: una timeline orizzontale dei giochi Nintendo dal **5 giugno 2025** (lancio di Switch 2) in avanti, con voti della critica e del pubblico. Versione mobile (SPEC §16, branch `mobile`): timeline verticale sotto 820 px di larghezza o 500 di altezza, header con menu a comparsa sotto 1280 px. Il target è **1080p**; l'header si adatta a 1440 e 1280 px.
+Sito **personale**: una timeline orizzontale dei giochi Nintendo dal **5 giugno 2025** (lancio di Switch 2) in avanti, con voti della critica e del pubblico. Versione mobile (SPEC §16): timeline verticale sotto 820 px di larghezza o 500 di altezza, header con menu a comparsa sotto 1280 px. Il target è **1080p**; l'header si adatta a 1440 e 1280 px.
 
 ### Stack e comandi
 
@@ -89,7 +89,11 @@ Griglia degli studi con badge di categoria: **first-party**, **partner**, **thir
 
 ### Admin (solo sviluppo)
 
-Pannello per inserire e correggere dati a mano: link e voti Metacritic e Backloggd, link Wikipedia / Nintendo Wiki / Nintendo Store, campo "Developer" (se vuoto vale lo sviluppatore IGDB). Gli aggiornamenti gratuiti non hanno sezioni OpenCritic, Metacritic e Backloggd. Elenco dei link mancanti in `data/manual-todo.md` (`npm run data:validate -- --todo`; `docs/admin-todo.md` è superato).
+Pannello per inserire e correggere dati a mano: link e voti Metacritic e Backloggd, link Wikipedia / Nintendo Wiki / Nintendo Store, campo "Developer" (se vuoto vale lo sviluppatore IGDB). Gli aggiornamenti gratuiti non hanno sezioni OpenCritic, Metacritic e Backloggd. Elenco dei link mancanti in `data/manual-todo.md` (`npm run data:validate -- --todo`; `docs/admin-todo.md` è superato). Riquadro **Data sources**: data dell'ultimo aggiornamento di ogni fonte e, nel gioco, prossimo controllo di OpenCritic e Metacritic (soglie in `scripts/lib/refresh-policy.ts`).
+
+### Pubblicazione
+
+Workflow `.github/workflows/update-and-deploy.yml` (fetch notturno, commit dei dati, deploy su GitHub Pages) **sospeso**: workflow disattivato e Pages spento. Non riattivarlo senza richiesta esplicita (SPEC §10).
 
 ### Dati
 

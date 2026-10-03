@@ -1,6 +1,6 @@
 # Nintendo Release Timeline — istruzioni per l'agente
 
-Sito desktop personale: una timeline orizzontale dei giochi Nintendo usciti dal 5 giugno 2025 in poi, con voti di critica e pubblico. Dati raccolti da script Node e serviti come JSON statico. Uso solo locale per ora.
+Sito desktop personale: una timeline orizzontale dei giochi Nintendo usciti dal 5 giugno 2025 in poi, con voti di critica e pubblico. Dati raccolti da script Node e serviti come JSON statico. Versione mobile (SPEC §16). Uso locale: la pubblicazione su GitHub Pages con aggiornamento giornaliero è pronta ma sospesa (SPEC §10, `.github/workflows/update-and-deploy.yml`).
 
 ## Inizio di ogni sessione
 
@@ -61,9 +61,9 @@ Sito desktop personale: una timeline orizzontale dei giochi Nintendo usciti dal 
 - `fetch-data.ts` → rete → `data/cache/`. `build-data.ts` + `lib/build.ts` → `public/data/games.json`, `changes.json` e `studios.json`.
 - `fetch-free-updates.ts` → `data/cache/free-updates.json`. `fetch-studios.ts` → `data/cache/studios.json`.
 - `fetch-metacritic.ts` → `data/cache/metacritic.json` (solo Metacritic, sui giochi della cache IGDB/Wikipedia).
-- `lib/`: `igdb.ts`, `opencritic.ts`, `metacritic.ts` (lettura delle pagine, slug, ricerca), `wikipedia.ts`, `links.ts` (fonti), `transform.ts`, `exclusivity.ts`, `snapshots.ts`, `overrides.ts`, `overrides-schema.ts`, `cache.ts`, `http.ts`, `env.ts` (tutti i percorsi, `PATHS`), `report.ts`.
+- `lib/`: `igdb.ts`, `opencritic.ts`, `metacritic.ts` (lettura delle pagine, slug, ricerca), `wikipedia.ts`, `links.ts` (fonti), `transform.ts`, `exclusivity.ts`, `snapshots.ts`, `overrides.ts`, `overrides-schema.ts`, `cache.ts`, `http.ts`, `env.ts` (tutti i percorsi, `PATHS`), `report.ts`, `refresh-policy.ts` (ogni quanto si rileggono OpenCritic e Metacritic, senza import), `freshness.ts` (date delle fonti e prossimo controllo per gioco, per l'admin).
 - `lib/free-updates.ts` — aggiornamenti gratuiti Switch 2 → voci `free-update`. `lib/fandom.ts` — studi da Nintendo Wiki (API MediaWiki). `lib/studios.ts` — costruzione di `studios.json`.
-- `validate-data.ts`. `vite-admin.ts` — plugin Vite del pannello admin.
+- `validate-data.ts`. `vite-admin.ts` — plugin Vite del pannello admin (salvataggio degli override, `GET /__admin/freshness`). Non importare nel plugin moduli che leggono `.env` (`env.ts`).
 
 ## Come leggere il codice
 

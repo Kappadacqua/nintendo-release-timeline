@@ -9,6 +9,7 @@ Aggiornato: 2026-10-03 — Versione mobile e freschezza dei dati nell'admin unit
 
 ## Storia recente
 
+- Documenti allineati (2026-10-03): SPEC §10 (riquadro Data sources, frequenza di rilettura dei voti, workflow di pubblicazione sospeso), §11 milestone 7, intestazione e struttura cartelle; CLAUDE.md, AGENT-BRIEF.md e README (pubblicazione sospesa, `refresh-policy.ts` / `freshness.ts`, `data/manual-todo.md`). Solo documenti.
 - Timeline: iterazione 4 (gruppi, zoom, presentazione) e correzioni fino a `ec1c916`; CSS diviso in `src/styles/` (build identica).
 - Nuove pagine Rankings (SPEC §12) e Studios (SPEC §14); aggiornamenti gratuiti Switch 2 come voci `free-update` (SPEC §13): il primo import non genera novità in "What's new".
 - Revisione di qualità in `docs/review/` (static, pages, data) con test Vitest; correzioni di media/alta gravità fatte (`docs/tasks/fixes.md`), le basse smistate in `docs/review/triage.md`.
