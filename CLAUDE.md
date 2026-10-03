@@ -1,6 +1,6 @@
 # Nintendo Release Timeline — istruzioni per l'agente
 
-Sito desktop personale: una timeline orizzontale dei giochi Nintendo usciti dal 5 giugno 2025 in poi, con voti di critica e pubblico. Dati raccolti da script Node e serviti come JSON statico. Versione mobile (SPEC §16). Uso locale: la pubblicazione su GitHub Pages con aggiornamento giornaliero è pronta ma sospesa (SPEC §10, `.github/workflows/update-and-deploy.yml`).
+Sito desktop personale: una timeline orizzontale dei giochi Nintendo usciti dal 5 giugno 2025 in poi, con voti di critica e pubblico. Dati raccolti da script Node e serviti come JSON statico. Versione mobile (SPEC §16). Pubblicato su GitHub Pages (https://kappadacqua.github.io/nintendo-release-timeline/) con aggiornamento giornaliero dei dati (SPEC §10, `.github/workflows/update-and-deploy.yml`): il bot fa commit su `main` ogni notte, quindi `git pull` prima di iniziare.
 
 ## Inizio di ogni sessione
 

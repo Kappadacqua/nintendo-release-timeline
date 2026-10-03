@@ -93,7 +93,7 @@ Pannello per inserire e correggere dati a mano: link e voti Metacritic e Backlog
 
 ### Pubblicazione
 
-Workflow `.github/workflows/update-and-deploy.yml` (fetch notturno, commit dei dati, deploy su GitHub Pages) **sospeso**: workflow disattivato, Pages spento, repository privato. Non riattivarlo senza richiesta esplicita (SPEC §10).
+Workflow `.github/workflows/update-and-deploy.yml` (fetch notturno, commit dei dati, deploy su GitHub Pages) **attivo**: https://kappadacqua.github.io/nintendo-release-timeline/, repository pubblico. Il bot fa commit su `main` ogni notte: `git pull` prima di iniziare. Non sospenderlo né cambiare la visibilità del repository senza richiesta esplicita (SPEC §10).
 
 ### Dati
 

@@ -1,11 +1,11 @@
 # Stato del progetto
 
-Aggiornato: 2026-10-03 — **Progetto chiuso**: tutto verificato dall'utente, repository privato, pubblicazione sospesa
+Aggiornato: 2026-10-03 — Sito pubblicato di nuovo su GitHub Pages, aggiornamento giornaliero attivo
 
 ## Ultimo checkpoint
 
 - `main` (allineato a `origin/main`) — versione mobile, freschezza dei dati nell'admin e documenti allineati. Code `docs/tasks/*.md` chiuse.
-- Repository tornato **privato** il 2026-10-03; workflow di pubblicazione disattivato e GitHub Pages spento (SPEC §10: per riattivarlo serve di nuovo un repository pubblico).
+- Sito pubblico su https://kappadacqua.github.io/nintendo-release-timeline/ (repository pubblico, Pages e workflow `update-and-deploy.yml` attivi dal 2026-10-03). Il bot fa commit dei dati su `main` ogni notte: `git pull` prima di lavorare in locale.
 - Le vecchie modifiche per il 4K (canvas e sfondo, non verificate) sono archiviate nel tag `archive/wip-perf`.
 
 ## Storia recente
@@ -24,7 +24,7 @@ Nessuno.
 
 ## Da verificare nel browser (Architetto)
 
-Nessuna voce: tutto verificato dall'utente il 2026-10-03 (versione mobile compresa). L'elenco completo delle voci verificate è in `git show 8d614ec:STATUS.md`.
+- **Sito pubblicato** — https://kappadacqua.github.io/nintendo-release-timeline/: timeline, Rankings e Studios (copertine, link tra le pagine). Il giorno dopo, nella tab Actions di GitHub, il run notturno (03:17 UTC) e il commit "Data: daily update …": è il primo fetch dai server di GitHub, mai provato (Metacritic e Wikipedia potrebbero rispondere 403; la pubblicazione va avanti lo stesso). In `/admin`, dopo `git pull`, il riquadro "Data sources" mostra le date del fetch notturno.
 
 ## Problemi noti
 

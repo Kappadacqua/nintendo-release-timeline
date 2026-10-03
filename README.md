@@ -1,6 +1,6 @@
 # Nintendo Release Timeline
 
-A personal site that shows Nintendo releases from June 5, 2025 onwards on a horizontal timeline — Nintendo and Pokémon Company games, their DLC and Switch 2 Editions, third-party exclusives and free Switch 2 updates —, with critic and user scores, and a vertical layout on phones. Game data is collected by Node scripts and served as static JSON. It runs locally; publishing to GitHub Pages with a nightly data update is ready but suspended (see below).
+A personal site that shows Nintendo releases from June 5, 2025 onwards on a horizontal timeline — Nintendo and Pokémon Company games, their DLC and Switch 2 Editions, third-party exclusives and free Switch 2 updates —, with critic and user scores, and a vertical layout on phones. Game data is collected by Node scripts and served as static JSON. It is published on GitHub Pages (https://kappadacqua.github.io/nintendo-release-timeline/) with a nightly data update.
 
 Built with Vite 7 and vanilla TypeScript (no UI framework), GSAP for animations and Fuse.js for search.
 
@@ -67,9 +67,9 @@ The "Data sources" box shows when each source was last read, and each game shows
 
 A checklist of games still missing manual links is in `data/manual-todo.md` (`npm run data:validate -- --todo`).
 
-## Publishing (suspended)
+## Publishing
 
-`.github/workflows/update-and-deploy.yml` fetches the data every night, commits it to `main` and deploys the site to GitHub Pages (`BASE_PATH` sets Vite's `base`). The API keys are GitHub Secrets. The workflow is disabled, Pages is off and the repository is private; to turn it back on: make the repository public (GitHub Pages on a private repository needs a paid plan), `gh workflow enable "Update data and deploy"` and set Pages to deploy from GitHub Actions.
+`.github/workflows/update-and-deploy.yml` fetches the data every night, commits it to `main` and deploys the site to GitHub Pages (`BASE_PATH` sets Vite's `base`). The API keys are GitHub Secrets. A push to `main` only rebuilds and deploys. The bot commits to `main` every night, so pull before working locally. On the free GitHub plan the repository must stay public (Pages on a private repository needs a paid plan).
 
 ## Project layout
 
