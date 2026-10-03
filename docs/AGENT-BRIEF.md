@@ -136,5 +136,4 @@ Se un task li incrocia, citali in "Aperto" invece di risolverli per conto tuo.
 - Riconoscimento del trackpad euristico (da provare su trackpad reali).
 - "What's new" mai verificato con due snapshot reali.
 - Sfondo stagionale: fps misurati solo in headless (da confermare su monitor reale e in 4K).
-- Header e mesi sopra lo sfondo del gioco, tema scuro: testi poco leggibili su sfondi chiari (STATUS, problema noto 20; coda `polish`, task 3).
 - Backloggd quasi tutto N/D (solo a mano); alcuni giochi senza studio in Studios.
