@@ -1,3 +1,4 @@
+import { isVerticalSize } from "../layout";
 import { SEASONS } from "../timeline/config";
 import { dayToDate } from "../timeline/dates";
 import { onScrollActivity } from "../timeline/scroller";
@@ -9,7 +10,7 @@ const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
 const systemDark = matchMedia("(prefers-color-scheme: dark)");
 
 /** What the timeline shows: the day under the playhead (null in the TBA zone) and whether a game is selected. */
-export type TimelineProbe = () => { day: number | null; selected: boolean; moving?: boolean };
+export type TimelineProbe = () => { day: number | null; selected: boolean };
 
 /**
  * Seasonal background (docs/tasks/seasons.md): particles of the season of the day under the
@@ -32,8 +33,6 @@ export class SeasonalBackground {
   private height = 0;
   private max: number = SEASONS.minParticles;
   private shown = false;
-  /** The timeline is scrolling (read from the probe every frame). */
-  private moving = false;
   private frame = 0;
   private last = 0;
   /** Season of the still canvas drawn with reduced motion. */
@@ -96,8 +95,7 @@ export class SeasonalBackground {
   private sync(now = performance.now()) {
     // A rebuilt timeline (zoom, filters) has a new band.
     if (!this.band?.el.isConnected) this.readBand();
-    const { day, selected, moving } = this.probe();
-    this.moving = !!moving;
+    const { day, selected } = this.probe();
     // Reduced motion: the new season replaces the old one at once.
     if (day !== null) this.season.set(seasonOf(dayToDate(Math.round(day))), now, reducedMotion.matches);
     const shown = this.season.season !== null && backgroundShown({ enabled: this.enabled, selected, pageVisible: !document.hidden });
@@ -129,14 +127,6 @@ export class SeasonalBackground {
     // if it decides to stop, it clears it.
     this.sync(now);
     if (!this.shown || reducedMotion.matches) return;
-    // Phones (SPEC "Mobile"): particles move at 30 fps, and hold still (still drawn) while the
-    // timeline scrolls, leaving the frame time to it; they go on from where they were.
-    const phone = this.width <= SEASONS.phoneWidth;
-    if (phone && (this.moving || now - this.last < SEASONS.phoneFrameMs)) {
-      if (this.moving) this.last = now;
-      this.frame = requestAnimationFrame(this.tick);
-      return;
-    }
     // A long pause (hidden, background tab) must not make particles jump.
     const dt = Math.min(0.05, (now - this.last) / 1000);
     this.last = now;
@@ -261,7 +251,7 @@ export class SeasonalBackground {
 
   private resize() {
     // Phones: a lighter canvas (SPEC "Mobile").
-    const cap = innerWidth <= SEASONS.phoneWidth ? SEASONS.phoneMaxDpr : SEASONS.maxDpr;
+    const cap = isVerticalSize(innerWidth, innerHeight) ? SEASONS.phoneMaxDpr : SEASONS.maxDpr;
     const dpr = (this.dpr = Math.min(cap, devicePixelRatio || 1));
     this.width = innerWidth;
     this.height = innerHeight;
@@ -269,7 +259,7 @@ export class SeasonalBackground {
     this.canvas.height = Math.round(this.height * dpr);
     this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     this.max = particleCount(this.width, this.height);
-    this.sprites.setScale(dpr, viewScale(this.height));
+    this.sprites.setScale(dpr, viewScale(this.height, this.width));
     // The timeline moves its line on the same resize: read it once that is done.
     requestAnimationFrame(() => {
       this.readBand();

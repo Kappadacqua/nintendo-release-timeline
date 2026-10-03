@@ -1,3 +1,4 @@
+import { isVerticalSize } from "../layout";
 import { SEASONS } from "../timeline/config";
 import type { Season } from "./season";
 
@@ -117,9 +118,14 @@ export type Palette = Record<Season, string>;
 
 const between = (rand: () => number, lo: number, hi: number) => lo + (hi - lo) * rand();
 
-/** Size factor of the window: `innerHeight / 1080`, clamped. */
-export function viewScale(height: number) {
+/**
+ * Size factor of the window: `innerHeight / 1080`, clamped. Phones (the vertical timeline's sizes, SPEC
+ * "Mobile"): the screen's short side / `phoneViewPx`, from `phoneViewScale` up to the usual minimum,
+ * so a leaf stays small next to a 360 px wide timeline.
+ */
+export function viewScale(height: number, width = Infinity) {
   const [lo, hi] = SEASONS.viewScale;
+  if (isVerticalSize(width, height)) return Math.min(lo, Math.max(SEASONS.phoneViewScale, Math.min(width, height) / SEASONS.phoneViewPx));
   return Math.min(hi, Math.max(lo, height / SEASONS.viewHeight));
 }
 
@@ -189,7 +195,7 @@ export function variantCount(kind: Kind) {
  * (a season arriving); otherwise just outside the edge it enters from (a particle reborn).
  */
 export function spawnParticle(season: Season, width: number, height: number, now: number, anywhere: boolean, rand = Math.random): Particle {
-  const view = viewScale(height);
+  const view = viewScale(height, width);
   const kind = pickKind(season, rand);
   const depth = pick(depthWeights(season, kind), rand);
   const band = SEASONS.bands[depth];

@@ -285,6 +285,7 @@ export class Timeline {
       },
       onEscape: () => this.deselect(),
       onDragStart: () => this.deselect(),
+      captureDrag: (target) => this.captureFanDrag(target),
       onMonthStep: (months) => this.stepMonth(months),
       onGameStep: (direction) => this.stepGame(direction),
       onKeyNavigate: () => this.followWithFocus(),
@@ -390,11 +391,6 @@ export class Timeline {
     this.stepGame(direction);
   }
 
-  /** The view is moving: dragged, gliding or coasting (phones pause the seasonal particles meanwhile). */
-  get isMoving() {
-    return this.scroller.animating || this.el.classList.contains("is-dragging");
-  }
-
   get hasSelection() {
     return this.selected >= 0;
   }
@@ -477,6 +473,66 @@ export class Timeline {
   private stopOfCard(card: Element) {
     const id = (card as HTMLElement).dataset.gameId;
     return this.stops.findIndex((s) => s.game.id === id);
+  }
+
+  /**
+   * Vertical timeline (SPEC "Mobile"): a finger on an open same-day column drags the column like
+   * a picker; on release the card nearest the playhead is selected (a flick carries a little
+   * further). Dragged well past the first or last game, the group closes and the timeline moves on.
+   */
+  private captureFanDrag(target: EventTarget | null) {
+    if (!this.vertical || this.selected < 0) return null;
+    const item = this.stops[this.selected].group;
+    const node = item?.node;
+    const fan = node?.fan;
+    if (!node || !fan?.isOpen || !(target instanceof Node) || !node.root.contains(target)) return null;
+    const column = node.group;
+    let offset = 0;
+    gsap.killTweensOf(column);
+    return {
+      move: (delta: number) => {
+        offset += delta;
+        gsap.set(column, { y: offset });
+      },
+      end: (velocity: number) => {
+        const r = this.el.getBoundingClientRect();
+        const mid = r.top + r.height / 2;
+        // A flick carries the pick a little (never out of the group: that takes a real drag).
+        const carry = Math.max(-200, Math.min(200, velocity * 120));
+        const centers = fan.cards.map((c) => {
+          const b = c.el.getBoundingClientRect();
+          return b.top + b.height / 2;
+        });
+        const exit = 140;
+        // Past the first game (dragged down) or the last one (dragged up): leave the group.
+        const first = centers[0] - mid;
+        const last = mid - centers.at(-1)!;
+        const beyond = first > exit ? first : last > exit ? -last : 0;
+        if (beyond) {
+          gsap.set(column, { clearProps: "transform" });
+          this.deselect();
+          this.scroller.scrollTo(this.scroller.target - beyond);
+          return;
+        }
+        let pick = 0;
+        centers.forEach((c, i) => {
+          if (Math.abs(c + carry - mid) < Math.abs(centers[pick] + carry - mid)) pick = i;
+        });
+        const game = fan.games[pick];
+        const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+        gsap.to(column, {
+          y: offset + (mid - centers[pick]),
+          duration: reduced ? 0 : 0.22,
+          ease: "power2.out",
+          onComplete: () => {
+            gsap.set(column, { clearProps: "transform" });
+            const index = this.stops.findIndex((s) => s.game.id === game.id);
+            if (index >= 0 && index !== this.selected) this.select(index);
+            else fan.layout(game.id, true);
+          },
+        });
+      },
+    };
   }
 
   /** True between a long press that showed a title and the click that follows it. */
@@ -1026,6 +1082,9 @@ export class Timeline {
     return new Minimap({
       vertical: this.vertical,
       worldEnd: this.worldEnd,
+      // A month never gets fewer px than this: later on the bar scrolls instead of squeezing.
+      monthPx: 30.44 * this.dayPx,
+      minMonthPx: this.vertical ? TIMELINE.vertical.minimapMonthPx : TIMELINE.minimapMonthPx,
       months,
       dots,
       todayX: this.dayX(this.todayDay),

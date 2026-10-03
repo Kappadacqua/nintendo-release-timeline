@@ -168,7 +168,7 @@ Promise.all([loadGames(), loadChanges()])
     // Seasonal background (SPEC §15): follows whichever timeline is current, in every zoom level.
     const seasons = new SeasonalBackground(() => {
       const state = timeline.getState();
-      return { day: state.day ?? null, selected: state.selectedId !== null, moving: timeline.isMoving };
+      return { day: state.day ?? null, selected: state.selectedId !== null };
     }, view.seasonalBackground);
 
     new ViewMenu(

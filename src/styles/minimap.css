@@ -26,6 +26,25 @@
   overflow: hidden;
 }
 
+/* Everything along the bar; scrolls (translated in JS) once the timeline outgrows the bar. */
+.minimap__strip {
+  position: absolute;
+  inset: 0;
+}
+
+/* More timeline beyond an end of the bar: that end fades. */
+.minimap__track.has-more-before {
+  mask-image: linear-gradient(to right, transparent, #000 28px);
+}
+
+.minimap__track.has-more-after {
+  mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent);
+}
+
+.minimap__track.has-more-before.has-more-after {
+  mask-image: linear-gradient(to right, transparent, #000 28px, #000 calc(100% - 28px), transparent);
+}
+
 /* Baseline */
 .minimap__track::before {
   content: "";

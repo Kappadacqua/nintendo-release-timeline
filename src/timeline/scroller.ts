@@ -130,11 +130,6 @@ export class Scroller {
     this.scrollTo(this.current);
   }
 
-  /** A glide, inertia or wheel chase is running (the view moves without a finger on it). */
-  get animating() {
-    return this.frame !== 0;
-  }
-
   get bounds() {
     return { min: this.min, max: this.max };
   }
@@ -254,6 +249,11 @@ export function bindScrollInput(
     onEscape: () => void;
     /** A press turned into a drag. */
     onDragStart: () => void;
+    /**
+     * A drag that something else takes over (vertical timeline: the open same-day column, SPEC
+     * "Mobile"): it gets the finger's moves (px, along the axis) and its release speed (px/ms).
+     */
+    captureDrag?: (target: EventTarget | null) => { move: (delta: number) => void; end: (velocity: number) => void } | null;
     /** Shift + arrow moves this many units (days, weeks or months). */
     largeStep: number;
     /** Ctrl + wheel, "+" / "−": +1 zooms in (toward Day), -1 zooms out. */
@@ -381,11 +381,15 @@ export function bindScrollInput(
   /** Fingers down: a second one starts a pinch (zoom, `pinch.ts`), which ends the drag without inertia. */
   const pointers = new Set<number>();
   let pointerId = -1;
+  let pressTarget: EventTarget | null = null;
+  let captured: { move: (delta: number) => void; end: (velocity: number) => void } | null = null;
 
   el.addEventListener("pointerdown", (e) => {
     if (e.button !== 0) return;
     pointers.add(e.pointerId);
     if (pointers.size > 1) {
+      captured?.end(0);
+      captured = null;
       if (dragging) {
         dragging = false;
         el.classList.remove("is-dragging");
@@ -396,6 +400,7 @@ export function bindScrollInput(
       return;
     }
     pointerId = e.pointerId;
+    pressTarget = e.target;
     // A press during inertia stops it, and does not count as a click on a card.
     suppressClick = scroller.gliding;
     scroller.halt();
@@ -412,7 +417,8 @@ export function bindScrollInput(
     if (!dragging) {
       if (Math.abs(along(e) - startX) < DRAG_THRESHOLD) return;
       dragging = true;
-      opts.onDragStart();
+      captured = opts.captureDrag?.(pressTarget) ?? null;
+      if (!captured) opts.onDragStart();
       el.setPointerCapture(e.pointerId);
       el.classList.add("is-dragging");
     }
@@ -421,7 +427,8 @@ export function bindScrollInput(
     velocity = 0.8 * (-dx / dt) + 0.2 * velocity;
     lastX = along(e);
     lastT = e.timeStamp;
-    scroller.jumpTo(scroller.current - dx);
+    if (captured) captured.move(dx);
+    else scroller.jumpTo(scroller.current - dx);
   });
 
   const endPress = (e: PointerEvent) => {
@@ -434,6 +441,11 @@ export function bindScrollInput(
     // The click that follows a drag must not follow a link.
     suppressClick = true;
     setTimeout(() => (suppressClick = false), 0);
+    if (captured) {
+      captured.end(e.timeStamp - lastT < 80 ? -velocity : 0);
+      captured = null;
+      return;
+    }
     // A finger glides longer than a mouse drag (SPEC "Mobile").
     const touch = e.pointerType === "touch";
     scroller.friction = touch ? TIMELINE.vertical.flingFriction : TIMELINE.flingFriction;

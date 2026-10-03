@@ -65,6 +65,8 @@ export const TIMELINE = {
   tbaGapPx: 240,
   /** Height reserved at the bottom for the minimap; the line is centered above it. */
   minimapBandPx: 64,
+  /** Fewest px a month gets on the minimap: past that the bar scrolls with the view instead of squeezing. */
+  minimapMonthPx: 40,
   /** Tallest card (game with scores and a 3-line title), used to fit cards to short windows. */
   cardMaxHeight: 272,
   /** Tallest compact card (cover, title, badges). */
@@ -101,6 +103,8 @@ export const TIMELINE = {
     /** Cross offset stops growing after this many levels (the row would leave the screen). */
     maxStackCross: 2,
     minimapPx: 40,
+    /** Vertical minimap: fewest px per month (room for its label). */
+    minimapMonthPx: 26,
     /** Widest card column (tablets in portrait). */
     maxCardPx: 380,
     /** Touch inertia: speed kept per 60fps frame, and the longest flick (days at the current zoom). */
@@ -134,14 +138,14 @@ export const SEASONS = {
   maxArea: 2560 * 1440,
   /**
    * Phones (SPEC "Mobile"): below 1280 × 720 the count falls linearly to `phoneParticles` at a
-   * 360 × 640 screen, and the canvas density is capped lower (`phoneMaxDpr`) up to `phoneWidth`.
+   * 360 × 640 screen; on the vertical timeline's screens the canvas density is capped lower (`phoneMaxDpr`).
    */
   phoneParticles: 12,
   phoneArea: 360 * 640,
   phoneMaxDpr: 1.25,
-  phoneWidth: 820,
-  /** Phones: particles move and redraw at most every this many ms (30 fps; a frame is ~16.7). */
-  phoneFrameMs: 30,
+  /** Phones: particle size factor = the screen's short side / this, never below `phoneViewScale` (0.45 at 390 px). */
+  phoneViewPx: 860,
+  phoneViewScale: 0.4,
   /**
    * Spring (docs/tasks/seasons-art.md task 5): share of each element, a wider sideways wobble
    * (px at 1080p, s), the two fill opacities of a single petal (per variant), the blossom's

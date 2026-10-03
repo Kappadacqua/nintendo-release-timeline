@@ -215,6 +215,14 @@ describe("particles", () => {
     expect(viewScale(2160)).toBe(1.25);
   });
 
+  it("keeps particles small on phones (SPEC Mobile)", () => {
+    expect(viewScale(844, 390)).toBeCloseTo(390 / 860);
+    expect(viewScale(390, 844)).toBeCloseTo(390 / 860);
+    expect(viewScale(640, 320)).toBe(0.4);
+    expect(viewScale(1024, 768)).toBe(0.75);
+    expect(viewScale(768, 1024)).toBe(0.75);
+  });
+
   it("fades in over fadeInMs from birth", () => {
     const p = spawnParticle("autumn", W, H, 1000, true, seeded());
     expect(fadeIn(p, 1000)).toBe(0);

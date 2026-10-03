@@ -381,3 +381,15 @@
   max-width: min(260px, 70vw);
   transform: translateY(-50%);
 }
+
+.minimap--vertical .minimap__track.has-more-before {
+  mask-image: linear-gradient(to bottom, transparent, #000 28px);
+}
+
+.minimap--vertical .minimap__track.has-more-after {
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 28px), transparent);
+}
+
+.minimap--vertical .minimap__track.has-more-before.has-more-after {
+  mask-image: linear-gradient(to bottom, transparent, #000 28px, #000 calc(100% - 28px), transparent);
+}

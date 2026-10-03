@@ -21,6 +21,12 @@ export interface MinimapOptions {
   vertical?: boolean;
   /** World x range shown by the bar: [0, worldEnd]. */
   worldEnd: number;
+  /**
+   * World length of a month and the fewest px a month may take on the bar: once the whole range
+   * no longer fits at that density, the bar shows part of it and scrolls with the view.
+   */
+  monthPx?: number;
+  minMonthPx?: number;
   months: { x: number; label: string; major: boolean }[];
   dots: MinimapDot[];
   todayX: number;
@@ -29,6 +35,21 @@ export interface MinimapOptions {
   onSeek: (x: number, smooth: boolean) => void;
   /** Scrubbing ended (the timeline snaps to the nearest day). */
   onSeekEnd?: () => void;
+}
+
+/**
+ * Minimap px per world px: the whole timeline on the track, unless a month would get fewer than
+ * `minMonthPx` (then the bar shows part of it and scrolls).
+ */
+export function minimapScale(trackLen: number, worldEnd: number, monthPx?: number, minMonthPx?: number) {
+  const fit = trackLen / worldEnd;
+  return monthPx && minMonthPx ? Math.max(fit, minMonthPx / monthPx) : fit;
+}
+
+/** World x at the track's start: the view's centre in the middle of the bar, within the timeline's ends. */
+export function minimapOffset(center: number, trackLen: number, k: number, worldEnd: number) {
+  const visible = trackLen / k;
+  return Math.min(Math.max(0, worldEnd - visible), Math.max(0, center - visible / 2));
 }
 
 /** Pointer closer than this (px) to a dot shows its preview. */
@@ -46,6 +67,14 @@ const TAP_PREVIEW_MS = 2600;
 export class Minimap {
   readonly el: HTMLElement;
   private readonly track: HTMLElement;
+  /** Everything along the bar; longer than the track (and translated) once a month would get too few px. */
+  private readonly strip: HTMLElement;
+  /** Track length (px), minimap px per world px, and the world x at the track's start. */
+  private trackLen = 0;
+  private k = 1;
+  private offset = 0;
+  /** A press on the bar keeps it where it is (the view moving under the finger must not move it). */
+  private holding = false;
   private readonly window: HTMLElement;
   private readonly preview: HTMLElement;
   /** World x of the view center, as last reported by `update`. */
@@ -62,6 +91,11 @@ export class Minimap {
     this.track = document.createElement("div");
     this.track.className = "minimap__track";
     this.el.append(this.track);
+    this.strip = document.createElement("div");
+    this.strip.className = "minimap__strip";
+    this.track.append(this.strip);
+    const sizeObserver = new ResizeObserver(() => this.measure());
+    sizeObserver.observe(this.track);
 
     const pct = (x: number) => `${(x / opts.worldEnd) * 100}%`;
     const add = (className: string, left: number, text?: string) => {
@@ -69,7 +103,7 @@ export class Minimap {
       node.className = className;
       node.style[this.start] = pct(left);
       if (text) node.textContent = text;
-      this.track.append(node);
+      this.strip.append(node);
       return node;
     };
 
@@ -91,7 +125,7 @@ export class Minimap {
 
     this.window = document.createElement("div");
     this.window.className = "minimap__window";
-    this.track.append(this.window);
+    this.strip.append(this.window);
 
     this.preview = document.createElement("div");
     this.preview.className = "minimap__preview";
@@ -109,6 +143,33 @@ export class Minimap {
     this.window.style[this.start] = `${(left / worldEnd) * 100}%`;
     this.window.style[this.size] = `${(width / worldEnd) * 100}%`;
     this.center = left + width / 2;
+    this.follow();
+  }
+
+  /** Track size changed: the density, hence whether (and how far) the strip scrolls. */
+  private measure() {
+    const rect = this.track.getBoundingClientRect();
+    this.trackLen = this.vertical ? rect.height : rect.width;
+    if (!this.trackLen) return;
+    const { worldEnd, monthPx, minMonthPx } = this.opts;
+    this.k = minimapScale(this.trackLen, worldEnd, monthPx, minMonthPx);
+    const ratio = (worldEnd * this.k) / this.trackLen;
+    // Fits: the strip is the track itself (no rounding that would move the month lines by a pixel).
+    this.strip.style[this.size] = ratio > 1.0001 ? `${ratio * 100}%` : "";
+    this.follow();
+  }
+
+  /** Scrolling strip: the view's window stays centred on the bar, within the strip's ends. */
+  private follow() {
+    if (!this.trackLen || this.holding) return;
+    const max = Math.max(0, this.opts.worldEnd - this.trackLen / this.k);
+    this.offset = minimapOffset(this.center, this.trackLen, this.k, this.opts.worldEnd);
+    const shift = -this.offset * this.k;
+    // Nothing to scroll (the whole timeline fits): no transform, the bar renders as it always did.
+    this.strip.style.transform = max === 0 ? "" : this.vertical ? `translate3d(0, ${shift}px, 0)` : `translate3d(${shift}px, 0, 0)`;
+    // A fade at an end that hides more of the timeline.
+    this.track.classList.toggle("has-more-before", this.offset > 0.5);
+    this.track.classList.toggle("has-more-after", this.offset < max - 0.5);
   }
 
   /** CSS properties along the bar: left / width, or top / height on the vertical strip. */
@@ -132,9 +193,13 @@ export class Minimap {
   }
 
   private worldXAt(client: number) {
-    const [start, length] = this.trackSpan();
-    const ratio = Math.min(1, Math.max(0, (client - start) / length));
-    return ratio * this.opts.worldEnd;
+    const [start] = this.trackSpan();
+    return Math.min(this.opts.worldEnd, Math.max(0, (client - start) / this.k + this.offset));
+  }
+
+  /** Client position (along the bar) of a world x. */
+  private clientAt(x: number) {
+    return this.trackSpan()[0] + (x - this.offset) * this.k;
   }
 
   private overWindow(client: number) {
@@ -146,14 +211,13 @@ export class Minimap {
 
   /** The dot nearest to a pointer position along the bar, within `reach` px. */
   private dotAt(client: number, reach: number) {
-    const [start, length] = this.trackSpan();
     let best: MinimapDot | null = null;
     let bestD = reach;
     for (const dot of this.opts.dots) {
-      const d = Math.abs(start + (dot.x / this.opts.worldEnd) * length - client);
+      const d = Math.abs(this.clientAt(dot.x) - client);
       if (d <= bestD) [best, bestD] = [dot, d];
     }
-    return best ? { dot: best, at: start + (best.x / this.opts.worldEnd) * length } : null;
+    return best ? { dot: best, at: this.clientAt(best.x) } : null;
   }
 
   /**
@@ -171,6 +235,7 @@ export class Minimap {
       // Keep the timeline's own drag-to-scroll out of it.
       e.stopPropagation();
       this.el.setPointerCapture(e.pointerId);
+      this.holding = true;
       this.hidePreview();
       startX = this.along(e);
       moved = false;
@@ -200,6 +265,8 @@ export class Minimap {
       if (mode === "window" && !moved) this.opts.onSeek(this.worldXAt(this.along(e)), true);
       else if (mode) this.opts.onSeekEnd?.();
       mode = null;
+      this.holding = false;
+      this.follow();
       this.el.classList.remove("is-scrubbing");
       // Touch has no hover: a tap near a dot shows its preview for a moment (SPEC "Mobile").
       if (tap && e.type === "pointerup" && e.pointerType !== "mouse") this.tapPreview(this.along(e));

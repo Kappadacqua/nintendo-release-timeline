@@ -484,3 +484,40 @@
     background: color-mix(in srgb, var(--bg) 94%, transparent);
   }
 }
+
+/* Over a game background (SPEC "Mobile"): the image reaches the bottom edge (the bar's buttons
+   keep their own fill) and the header's scrim fades into it instead of ending on a line. */
+@media (max-width: 1279px), (max-height: 500px) {
+  .has-backdrop .timeline-dock {
+    border-top-color: transparent;
+    background: transparent;
+  }
+
+  .has-backdrop .app-header {
+    border-bottom-color: transparent;
+  }
+
+  main::before {
+    content: "";
+    position: absolute;
+    z-index: 45;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 16px;
+    background: linear-gradient(color-mix(in srgb, var(--bg) var(--backdrop-scrim), transparent), transparent);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+  }
+
+  .has-backdrop main::before {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  main::before {
+    transition: none;
+  }
+}
