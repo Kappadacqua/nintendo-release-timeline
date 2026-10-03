@@ -69,7 +69,7 @@ A checklist of games still missing manual links is in `data/manual-todo.md` (`np
 
 ## Publishing (suspended)
 
-`.github/workflows/update-and-deploy.yml` fetches the data every night, commits it to `main` and deploys the site to GitHub Pages (`BASE_PATH` sets Vite's `base`). The API keys are GitHub Secrets. The workflow is disabled and Pages is off; to turn it back on: `gh workflow enable "Update data and deploy"` and set Pages to deploy from GitHub Actions.
+`.github/workflows/update-and-deploy.yml` fetches the data every night, commits it to `main` and deploys the site to GitHub Pages (`BASE_PATH` sets Vite's `base`). The API keys are GitHub Secrets. The workflow is disabled, Pages is off and the repository is private; to turn it back on: make the repository public (GitHub Pages on a private repository needs a paid plan), `gh workflow enable "Update data and deploy"` and set Pages to deploy from GitHub Actions.
 
 ## Project layout
 
