@@ -6,3 +6,6 @@ dist
 data/fetch-report.json
 data/cache/fetch-status.json
 data/backups/
+
+# Local scraper output
+data/report.txt

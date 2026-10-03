@@ -20,7 +20,7 @@ Salvare in `docs/tasks/wheel-seasons.md`. Lancio dal telefono: `Esegui il prossi
 
 ---
 
-- [ ] **Task 1 — Documenti allineati al codice**
+- [x] **Task 1 — Documenti allineati al codice**
 
 **File**
 - Partire da: `STATUS.md`, `docs/SPEC.md` (§3, §4.2, §4.3, §14, §15; **non** §6), `docs/AGENT-BRIEF.md`, `.claude/skills/agent-brief/SKILL.md`, `docs/admin-todo.md`, `.gitignore`.

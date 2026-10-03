@@ -16,8 +16,6 @@ Questo brief è un riassunto, non la fonte di verità. **Il codice vince su ques
 
 - A fine task: typecheck, `npm test`, commit, riga in `STATUS.md`, spunta `[x]` sul task nello stesso commit del lavoro (se il task viene da una coda in `docs/tasks/`).
 - Niente `data:fetch`, niente `git push`, salvo che il task lo chieda in modo esplicito.
-- Non toccare il branch `wip/perf` (modifiche interrotte per le prestazioni 4K, non verificate).
-- Non toccare `src/styles/backdrop.css` finché il conflitto con `wip/perf` non è risolto (gruppo 4 di `docs/review/triage.md`).
 - Non cancellare `data/free-updates-seen.json`: se manca, la build tratta tutte le voci come già note e "What's new" non mostra nulla.
 
 ### Report finale (formato fisso)
@@ -44,7 +42,7 @@ Sito **desktop personale**: una timeline orizzontale dei giochi Nintendo dal **5
 - Vite + TypeScript vanilla (nessun framework), GSAP per le animazioni, Fuse.js per la ricerca, Vitest per i test, script dei dati in Node con `tsx`.
 - Cartella del progetto: `~/Documents/VisualStudio/nintendo`.
 - Dev server Vite su `http://localhost:5173`, **già acceso dall'utente**: non avviarne un altro.
-- Comandi usati nel flusso: typecheck, `npm test`, script `data:*` (build e validate dei dati; `data:fetch` e `data:fetch-studios` scaricano da fonti esterne, quindi solo su richiesta esplicita).
+- Comandi usati nel flusso: typecheck, `npm test`, script `data:*` (build e validate dei dati; `data:fetch`, `data:fetch-metacritic`, `data:fetch-free-updates` e `data:fetch-studios` scaricano da fonti esterne, quindi solo su richiesta esplicita).
 
 ### Pagine
 
@@ -72,12 +70,12 @@ Stati di un gioco: in uscita (bordo tratteggiato, fascia "Upcoming"), "Out today
 - **Indicatore del giorno:** linea verticale fissa con una pillola che mostra il giorno corrente; la timeline scorre sotto di lui.
 - **Card** dei giochi, impilate quando più uscite cadono vicine (le altezze delle pile sono stimate per tipo, `CARD_HEIGHT` in `src/cards/layout.ts`). Una card **selezionata** si espande con il contenuto extra e scala; le altre restano opache con un velo del colore della pagina al 50 %.
 - **Gruppi di uscite nello stesso giorno:** si aprono "a ventaglio"; interruttore "Group same-day releases" nel menu View; PagSu / PagGiù saltano tra i gruppi.
-- **Rotella a marce** (`wheel-fling.ts`, parametri `wheelGear*` e `wheelFlingMaxDays` in `config.ts`): scatti isolati = un giorno; rotazione continua sale di marcia (3 giorni per scatto, poi 7) con inerzia limitata; in Week e Month le stesse marce valgono in settimane e mesi; il trackpad resta in marcia 1; Shift + rotella è separato. La **sensazione** della rotella la regola l'utente: non intervenire salvo richiesta.
+- **Rotella** (`wheel-fling.ts`, parametri `wheel*` in `config.ts`): uno scatto isolato = un giorno (una settimana / un mese). Il comportamento in rotazione continua lo ridefinisce il task 2 di `docs/tasks/wheel-seasons.md`: vale quello che c'è nel codice. Trackpad e Shift + rotella sono separati. La **sensazione** della rotella la regola l'utente: non intervenire salvo richiesta.
 - **Tastiera:** frecce, PagSu / PagGiù, Home / End, `P` (modalità presentazione), `?` (scorciatoie).
 - **Ricerca** (Fuse.js), **filtri** (tra cui "Free updates" ed "Exclusives only", con contatore "N of M" / "M games"), pannello **What's new** (novità tra due snapshot dei dati).
 - **Presentazione (P):** scorre i giochi uno alla volta con un gioco sempre selezionato; contatore "3 / 20" al posto della barra, rispetta reduced motion.
 - **Sfondo del gioco:** il gioco selezionato mostra la sua immagine dietro la timeline (`.backdrop`, con un velo `--backdrop-veil`).
-- **Sfondo stagionale** (`src/seasons/`): canvas fisso con particelle (foglie, neve, petali, bolle) in base al mese del giorno sotto l'indicatore. Si ferma o scompare con un gioco selezionato, in scorrimento veloce e con reduced motion; si accende e spegne dal menu View. Sta sempre sopra `.backdrop` e sotto tutto il contenuto (z-index −1, aggiunto con `append`).
+- **Sfondo stagionale** (`src/seasons/`, SPEC §15): canvas fisso con particelle (foglie, neve, petali, bolle) in base alla stagione del giorno sotto l'indicatore. Al cambio di stagione dissolvenza incrociata tra le due. Resta visibile in scorrimento veloce (con la rotella le particelle ricevono una spinta laterale); scompare con un gioco selezionato; con reduced motion particelle ferme; si accende e spegne dal menu View. Sta sempre sopra `.backdrop` e sotto tutto il contenuto (z-index −1, aggiunto con `append`).
 - **Header:** titolo (sotto 1660 px diventa pallino + "NRT"), data, pulsanti (zoom, View, "What's new", tema, scorciatoie).
 - **Menu View:** interruttori e segmenti delle impostazioni, salvati nel browser.
 
@@ -91,11 +89,11 @@ Griglia degli studi con badge di categoria: **first-party**, **partner**, **thir
 
 ### Admin (solo sviluppo)
 
-Pannello per inserire e correggere dati a mano: link e voti Metacritic e Backloggd, link Wikipedia / Nintendo Wiki / Nintendo Store, campo "Developer" (se vuoto vale lo sviluppatore IGDB). Gli aggiornamenti gratuiti non hanno sezioni OpenCritic, Metacritic e Backloggd. Elenco di ciò che manca in `docs/admin-todo.md`.
+Pannello per inserire e correggere dati a mano: link e voti Metacritic e Backloggd, link Wikipedia / Nintendo Wiki / Nintendo Store, campo "Developer" (se vuoto vale lo sviluppatore IGDB). Gli aggiornamenti gratuiti non hanno sezioni OpenCritic, Metacritic e Backloggd. Elenco dei link mancanti in `data/manual-todo.md` (`npm run data:validate -- --todo`; `docs/admin-todo.md` è superato).
 
 ### Dati
 
-- Fonti: IGDB (sviluppatori), OpenCritic, Metacritic e Backloggd (voti, quasi tutti ancora N/D: da compilare dall'admin), Nintendo Store regione **Italia**.
+- Fonti: IGDB (sviluppatori), OpenCritic, Metacritic (automatico dalle pagine pubbliche, `data:fetch` o `data:fetch-metacritic`), Backloggd (solo a mano dall'admin, opzionale: il sito risponde agli script con una verifica anti-bot), Nintendo Store regione **Italia**.
 - File principali: `data/free-updates.json` (aggiornamenti gratuiti), `data/free-updates-seen.json` (snapshot delle novità, da tenere nel repo), `studios.json`.
 - `data:validate` segnala gli avvisi sulla qualità dei dati.
 
@@ -123,7 +121,7 @@ Riferimento completo: **`docs/design-tokens.md`**. Leggilo prima di toccare CSS 
 | `docs/design-tokens.md` | Design system attuale |
 | `docs/tasks/*.md` | Code di task (le completate restano come storico) |
 | `docs/review/*.md` | Revisioni di qualità e `triage.md` (problemi di gravità bassa smistati per gruppo) |
-| `docs/admin-todo.md` | Dati da inserire dal pannello admin |
+| `data/manual-todo.md` | Link mancanti da inserire a mano (`data:validate -- --todo`; sostituisce `docs/admin-todo.md`) |
 | `README.md` | Presentazione del progetto |
 
 In caso di dubbio su una funzione: prima `docs/SPEC.md`, poi il codice.
@@ -132,11 +130,11 @@ In caso di dubbio su una funzione: prima `docs/SPEC.md`, poi il codice.
 
 Se un task li incrocia, citali in "Aperto" invece di risolverli per conto tuo.
 
-- Prestazioni 4K (in pausa, ripartire da `wip/perf` solo su richiesta).
+- Prestazioni 4K (in pausa; le vecchie modifiche sono archiviate nel tag `archive/wip-perf`, da usare solo su richiesta).
 - Card sovrapposte nelle pile (es. Pikmin 3 Deluxe copre i voti di Orbitals, fine agosto 2026): dipende dall'algoritmo delle pile.
 - Altezze delle card nelle pile stimate, non misurate.
 - Riconoscimento del trackpad euristico (da provare su trackpad reali).
 - "What's new" mai verificato con due snapshot reali.
 - Sfondo stagionale: fps misurati solo in headless (da confermare su monitor reale e in 4K).
-- Header sopra lo sfondo del gioco, tema scuro: testi poco leggibili su sfondi chiari (dipende dal gruppo 4, bloccato).
-- Metacritic e Backloggd quasi tutti N/D; alcuni giochi senza studio in Studios.
+- Header sopra lo sfondo del gioco, tema scuro: testi poco leggibili su sfondi chiari (gruppo 4 di `docs/review/triage.md`, da fare).
+- Backloggd quasi tutto N/D (solo a mano); alcuni giochi senza studio in Studios.

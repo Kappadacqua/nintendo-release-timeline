@@ -13,6 +13,6 @@ Promemoria dei punti che contano di più:
 - Un task per sessione. Conflitti con il codice, funzioni o dati nuovi non previsti → fermati e scrivilo in "Aperto".
 - Coda di task: `Esegui il prossimo task di docs/tasks/<coda>.md` = primo `- [ ] **Task N …**` non spuntato; se è **bloccato**, non eseguirlo. Spunta `[x]` nello stesso commit del lavoro.
 - Fine task: typecheck, `npm test`, commit, riga in `STATUS.md`.
-- Mai `data:fetch` / `data:fetch-studios` / `git push` senza richiesta esplicita. Non toccare il branch `wip/perf` né `src/styles/backdrop.css`. Non cancellare `data/free-updates-seen.json`.
+- Mai `data:fetch*` (anche `data:fetch-metacritic`, `data:fetch-studios`) / `git push` senza richiesta esplicita. Non cancellare `data/free-updates-seen.json`.
 - Modifiche visive: leggi prima `docs/design-tokens.md`; colori nei tre blocchi di `tokens.css`; nuove coppie testo/fondo in `tests/contrast.test.ts`.
 - Report finale in italiano: **Fatto**, **File**, **Verifica**, **Da verificare nel browser**, **Aperto** (o "Nessuno").

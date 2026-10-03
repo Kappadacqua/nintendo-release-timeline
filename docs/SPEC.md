@@ -112,7 +112,7 @@ Regole di dettaglio:
 - Giochi con sola data "TBD" (nemmeno l'anno): inclusi solo se per Switch 2.
 - **Switch 2 Edition**: incluse, con la data della Switch 2 Edition.
 - **DLC / espansioni**: voce separata con propria data e card diversa (§7).
-- Switch 2 Edition e DLC entrano solo se hanno una pagina OpenCritic o se sono forzati in `overrides.json`. Se OpenCritic non è stato interrogabile, restano (e `data:validate` lo segnala).
+- Switch 2 Edition e DLC entrano solo se hanno una pagina OpenCritic o se sono forzati in `overrides.json`. Basta anche la pagina del **gioco base** trovata con un titolo ridotto (§4, voti ereditati). Se OpenCritic non è stato interrogabile, restano (e `data:validate` lo segnala).
 - Un gioco **appena uscito** senza recensioni si mostra comunque, con i voti a **N/D**.
 - **Giochi annunciati**:
   - con data precisa → sulla timeline nel futuro, stato "Upcoming";
@@ -131,19 +131,20 @@ Regole di dettaglio:
 | Voto OpenCritic (Top Critic Average) + n° top critic | OpenCritic API (RapidAPI); ID anche da Wikidata (P2864) | automatica, ID forzabile |
 | Metacritic Metascore + n° recensioni | pagina pubblica del gioco su metacritic.com (§4.3) | automatica, correggibile a mano |
 | Metacritic User Score + n° voti | pagina pubblica del gioco su metacritic.com (§4.3) | automatica, correggibile a mano |
-| Backloggd rating + n° voti | — | **manuale** |
+| Backloggd rating + n° voti | — | **manuale, opzionale** |
 | Esclusività, "Also on Switch 1", terze parti | Wikipedia + piattaforme IGDB (§4.1) | automatica, con override |
 
 Note:
 
-- **Metacritic** si legge dalle pagine pubbliche (nessuna API, §4.3); i valori in `overrides.json` vincono campo per campo. **Backloggd**: niente scraping, i valori si inseriscono a mano.
+- **Metacritic** si legge dalle pagine pubbliche (nessuna API, §4.3); i valori in `overrides.json` vincono campo per campo. **Backloggd**: niente scraping (backloggd.com risponde agli script con una verifica anti-bot, HTTP 403), i valori si inseriscono a mano dal pannello admin. È una fonte **opzionale**: `data:validate` ne conta i voti mancanti in una riga, non li elenca gioco per gioco.
 - **IGDB**: autenticazione Twitch client credentials. Switch 2 = piattaforma **508**, Switch = **130**. Si usano i campi nuovi `game_type`, `release_region`, `date_format` (non gli enum deprecati `category` / `region`), chiesti **per nome**: i formati data attuali sono `YYYYMMDD`, `YYYYMM`, `YYYY`, `YYYYQ1…Q4`, `TBD` (accettati anche i vecchi nomi `YYYYMMMMDD` / `YYYYMMMM`). Paginazione sempre con `sort id asc`, altrimenti le pagine saltano o ripetono righe. Limite 4 richieste/s, 500 risultati per richiesta.
 - **Date regionali**: per ogni regione vince la data specifica della regione sulla "worldwide"; senza voci per Switch si usa `first_release_date`. `firstReleaseDate` è la più vicina fra JP/EU/NA.
 - **Copertine**: CDN IGDB (`images.igdb.com`, taglia `cover_big`); se l'immagine non si carica, il sito mostra `placeholder.svg`.
 - **Link Backloggd**: automatico (Backloggd usa gli slug IGDB). **Metacritic**: la pagina letta da `data:fetch` (§4.3); `links.metacritic` negli override la forza.
-- **Link Wikipedia**: una query SPARQL su Wikidata per tutti i giochi (slug IGDB → articolo della Wikipedia inglese); per i giochi della categoria Switch 2-only vale anche la pagina della categoria.
+- **Link Wikipedia**, in quest'ordine: link Wikipedia fra i `websites` di IGDB; query SPARQL su Wikidata (slug IGDB → articolo della Wikipedia inglese); pagina della categoria Switch 2-only; ricerca per titolo, poi per i titoli ridotti del gioco base, accettata solo se la pagina descrive un singolo videogioco. Un link non più trovato si toglie; resta solo se la ricerca è fallita.
 - **DLC e Switch 2 Edition** senza pagina propria usano le pagine del **gioco base** (`parent_game` / `version_parent` di IGDB, altrimenti il titolo senza "Nintendo Switch 2 Edition…").
-- **Link Nintendo Wiki**: titolo esatto (o redirect definito dalla wiki) con l'API di Fandom; altrimenti una ricerca, accettata solo se il titolo normalizzato coincide. In caso di dubbio nessun link (DLC e titoli minori spesso non hanno pagina).
+- **Titoli ridotti** (`scripts/lib/title-variants.ts`): se il titolo completo non trova nulla su Metacritic, OpenCritic o Wikipedia, si prova il titolo senza "[-:–] Nintendo Switch 2 Edition…", poi anche senza "+ …" (bundle con un DLC), poi anche senza "- Definitive Edition". Un voto trovato così è quello del gioco base e porta `inheritedFrom` (slug Metacritic o id OpenCritic della pagina del gioco base, §5); la card per ora non lo segnala.
+- **Link Nintendo Wiki**: titolo esatto (o redirect definito dalla wiki) con l'API di Fandom; altrimenti una ricerca, accettata solo se il titolo normalizzato coincide; poi i titoli ridotti del gioco base. Valgono solo le pagine di giochi (categoria `Category:Game articles`): un redirect a una serie o a una pagina di disambiguazione non è un link. I giochi TBA si saltano. In caso di dubbio nessun link (DLC e titoli minori spesso non hanno pagina).
 - **Link Nintendo Store**: regione in `data/settings.json` (`nintendoStore.region`, default `"EU"`; `euSite` sceglie il sito europeo, impostato su `www.nintendo.it` (default del codice `www.nintendo.co.uk`); `fallbackRegions`, default `["US"]`, si provano in ordine se la regione scelta non ha la pagina). Pagina EU: `https://<euSite>/-/-<id>.html` con l'id eShop europeo (Wikidata o link IGDB a un sito Nintendo europeo); pagina US: link IGDB a `nintendo.com/us/store/products/` o id Wikidata. DLC e Switch 2 Edition senza pagina propria usano quella del gioco base.
 - Se Wikidata o Fandom non rispondono, restano i link del `games.json` precedente.
 - **Immagine di sfondo** (taglia `1080p`): solo immagini orizzontali e senza trasparenza, in quest'ordine: artwork di tipo *key art without logo* → screenshot → *concept art* → altri artwork → *key art with logo* → copertina. Gli artwork IGDB sono spesso la copertina stessa (key art con logo) o un personaggio su fondo trasparente, che sfocati sembrano la copertina: per questo si leggono `artwork_type`, dimensioni e `alpha_channel`.
@@ -169,9 +170,9 @@ Piano gratuito RapidAPI: **25 ricerche e 200 richieste al giorno** (visibili neg
 
 - **ID noti senza ricerca**, con precedenza su ogni abbinamento per titolo: `opencriticId` in `overrides.json`, poi l'ID OpenCritic di Wikidata (P2864, letto con la stessa query dei link, solo per lo slug IGDB del gioco stesso). Serve per i giochi che OpenCritic non elenca come Switch 2 (es. Drag x Drive, segnato solo "Switch").
 - **Catalogo Switch 2**: lo script scarica l'elenco completo dei giochi Switch 2 (`GET /game?platforms=Switch 2&sort=name`, ~38 pagine da 20) e lo tiene in cache per `OPENCRITIC_CATALOG_DAYS` giorni (default 3). Gli abbinamenti per titolo normalizzato si fanno sul catalogo, **senza ricerche**; il voto viene dal catalogo.
-- **Ricerche** (`/game/search`) solo come ripiego per i giochi che non sono nel catalogo; i giochi **mai cercati passano per primi**, poi gli altri dal più recente. I mancati abbinamenti si ritentano dopo 3 giorni (giochi usciti da poco) o 14. Oltre al titolo identico (normalizzato) si accetta un risultato vicino solo se ha **le stesse parole** a meno di articoli e congiunzioni (evita "Xenoblade Chronicles X" al posto di "Xenoblade Chronicles", o un "2" perso).
+- **Ricerche** (`/game/search`) solo come ripiego per i giochi che non sono nel catalogo; i giochi **mai cercati passano per primi**, poi gli altri dal più recente; i DLC non ancora usciti si saltano. Se il titolo completo non trova nulla si provano i titoli ridotti del gioco base (§4), prima nel catalogo e poi con una ricerca. I mancati abbinamenti si ritentano dopo **30 giorni** (il catalogo, gratuito, li trova anche prima). Oltre al titolo identico (normalizzato) si accetta un risultato vicino solo se ha **le stesse parole** a meno di articoli e congiunzioni (evita "Xenoblade Chronicles X" al posto di "Xenoblade Chronicles", o un "2" perso).
 - **Dettagli** (`/game/{id}`) per il numero di top critic, in cache 1 giorno per i giochi usciti da meno di 45 giorni, 14 per gli altri.
-- Ogni esecuzione ha un tetto (`OPENCRITIC_MAX_SEARCHES`, `OPENCRITIC_MAX_REQUESTS`). Esaurire le ricerche non blocca le richieste; un 429 sulle richieste o una chiave rifiutata fermano le chiamate ma **la cache continua a essere usata**.
+- Ogni esecuzione ha un tetto (`OPENCRITIC_MAX_SEARCHES`, `OPENCRITIC_MAX_REQUESTS`). Esaurire il tetto delle ricerche non blocca le richieste. Un **429** (quota giornaliera di RapidAPI) non si ritenta e **ferma tutte le chiamate OpenCritic** dell'esecuzione, ricerche e richieste; anche una chiave rifiutata (401 / 403) le ferma. I giochi rimasti sono una coda per l'esecuzione successiva (conteggio `queued` nel report), non errori; **la cache continua a essere usata**.
 - **Mai sovrascrivere con `null`**: se per un gioco uscito OpenCritic non dà una risposta certa in questo run (errore, quota, chiave assente), il voto e il link del `games.json` precedente restano. Una risposta certa è: voto trovato, gioco senza pagina, o pagina con voto `-1` (troppe poche recensioni).
 - A fine fetch un riquadro di avviso elenca le chiamate fallite (con il motivo reale) e quanti voti sono stati mantenuti.
 - Abbinamento sbagliato o titolo diverso: si forza con `opencriticId` negli override.
@@ -180,10 +181,10 @@ Piano gratuito RapidAPI: **25 ricerche e 200 richieste al giorno** (visibili neg
 
 Nessuna API: `data:fetch` (o il solo `npm run data:fetch-metacritic`) legge la pagina pubblica `metacritic.com/game/<slug>/` dei giochi **usciti** già nel perimetro (§3). Metacritic arricchisce la lista, **non aggiunge mai giochi**; gli aggiornamenti gratuiti non hanno voti.
 
-- **Pagina**: `links.metacritic` negli override (sempre accettata); altrimenti lo slug del titolo (minuscolo, senza accenti e punteggiatura, `&` → `and`). Se risponde 404 o 410: ricerca (`/search/<titolo>/?category=13`) e solo un risultato con lo **stesso nome normalizzato**; la pagina trovata si riusa nei giri successivi. Se la pagina ha un altro nome (JSON-LD) è "di un altro gioco" e i voti non si usano.
+- **Pagina**: `links.metacritic` negli override (sempre accettata); altrimenti lo slug del titolo (minuscolo, senza accenti e punteggiatura, `&` → `and`). Se risponde 404 o 410: titoli ridotti del gioco base (§4), poi ricerca (`/search/<titolo>/?category=13`) e solo un risultato con lo **stesso nome normalizzato**; la pagina trovata si riusa nei giri successivi. Se la pagina ha un altro nome (JSON-LD) è "di un altro gioco" e i voti non si usano.
 - **Voti**: Metascore e numero di recensioni dalla scheda **Nintendo Switch 2** di "All Platforms", poi Nintendo Switch, poi il valore generale (JSON-LD). User score e numero di voti solo se la piattaforma della sezione "User Reviews" è Nintendo. "tbd" = nessun voto.
-- **Frequenza**: pagina trovata ogni giorno nei 60 giorni dopo l'uscita, poi ogni settimana; pagina non trovata riprovata dopo 3 giorni (14 se il gioco ha più di 30 giorni). Prima i giochi mai cercati, poi i più recenti.
-- **Limiti**: pausa casuale di 3–6 s tra due richieste, al massimo `METACRITIC_MAX_REQUESTS` (default 150) per esecuzione; con HTTP 403 / 429 l'esecuzione si ferma. Una pagina non letta lascia in cache i voti precedenti. `METACRITIC_DISABLED` salta Metacritic in `data:fetch`.
+- **Frequenza**: pagina trovata ogni giorno nei 60 giorni dopo l'uscita, poi ogni settimana. Pagina non trovata (**404**) riprovata dopo 3 giorni, **30** se il gioco ha più di 30 giorni; pagina di un altro gioco dopo 3 giorni, poi 14. Pagina rimossa da Metacritic (**410**, "Product gone"): definitiva, mai più cercata e contata come assenza confermata. Prima i giochi mai cercati, poi i più recenti.
+- **Limiti**: pausa casuale di 3–6 s tra due richieste, al massimo `METACRITIC_MAX_REQUESTS` (default 150) per esecuzione; 5xx e timeout: 2 ritentativi; con HTTP 403 / 429 l'esecuzione si ferma subito (il 429 non si ritenta). Una pagina non letta lascia in cache i voti precedenti. `METACRITIC_DISABLED` salta Metacritic in `data:fetch`.
 - **Markup cambiato**: prima di leggere i voti si controlla che la pagina abbia ancora JSON-LD, sezione "All Platforms" con le schede (`product-score-card`, etichetta "Metascore …") e, se c'è la sezione "User Reviews", l'etichetta "User score …". Se manca qualcosa: errore "Metacritic page layout not recognized at <url> — not found: <cosa>", voti precedenti mantenuti; dopo 3 pagine di fila l'esecuzione si ferma con "Metacritic changed its page layout … update parseMetacriticPage in scripts/lib/metacritic.ts". Gli errori compaiono a fine fetch e in `data:validate`.
 - **Cache**: `data/cache/metacritic.json` (id del gioco → slug cercato, pagina letta, esito, voti, data del controllo). `data:build` la applica senza rete.
 
@@ -281,6 +282,7 @@ interface Score {
   scale: 5 | 10 | 100;
   normalized: number;  // 0–100
   count: number | null;
+  inheritedFrom?: string; // voto del gioco base (titolo ridotto, §4): slug Metacritic o id OpenCritic della sua pagina
 }
 ```
 
@@ -479,7 +481,7 @@ Variabili in `.env` (vedi `.env.example`): `TWITCH_CLIENT_ID`, `TWITCH_CLIENT_SE
 - `npm run data:fetch-metacritic` → rete, solo Metacritic (§4.3) sui giochi della cache IGDB / Wikipedia, poi build e snapshot del giorno.
 - `npm run data:fetch-free-updates` e `npm run data:fetch-studios` → rete, solo per aggiornamenti gratuiti (§13) e studi (§14).
 - `npm run data:validate` → elenca:
-  - giochi **usciti senza Metacritic o Backloggd** (con quali mancano);
+  - giochi **usciti senza Metacritic** (Backloggd, opzionale: solo il conteggio dei mancanti in una riga);
   - conflitti di esclusività non ancora decisi;
   - pagine Wikipedia senza gioco IGDB;
   - giochi usciti senza abbinamento OpenCritic;
@@ -490,7 +492,7 @@ Variabili in `.env` (vedi `.env.example`): `TWITCH_CLIENT_ID`, `TWITCH_CLIENT_SE
   - override che puntano a giochi assenti;
   - il contenuto della zona TBA.
 
-  Con `--stubs` stampa il blocco JSON da completare per i voti manuali mancanti.
+  Con `--stubs` stampa il blocco JSON da completare per i voti manuali mancanti. Con `--todo` scrive `data/manual-todo.md`: i giochi usciti ancora senza un link, ciascuno con un campo URL (i campi compilati restano quando lo si rigenera).
 - **Pannello admin** (`/admin`, solo con `npm run dev`; non finisce nella build di produzione):
   - elenco dei giochi con dati mancanti, filtrabile: Metacritic, Backloggd, link Wikipedia / Nintendo Wiki / Nintendo Store, conflitti di esclusività; ricerca per titolo;
   - per ogni gioco un modulo con i campi di `overrides.json` (voti e numero di recensioni, esclusività, "Also on Switch 1", link), con link rapidi alla ricerca del gioco su Metacritic e Backloggd;
@@ -571,8 +573,9 @@ Pagina `studios.html` (`src/studios/main.ts`, `src/styles/studios.css`), inclusa
 - **First party**: categoria `Category:First_party_developers` di Nintendo Wiki (API MediaWiki, `npm run data:fetch-studios` → `data/cache/studios.json`). Esclusi gli studi chiusi o accorpati (categorie "Defunct"/"Former"); i casi incerti restano attivi. Esclusa "Nintendo" (casa madre).
 - **Partner**: sviluppano almeno un gioco del dataset pubblicato da Nintendo o The Pokémon Company (publisher IGDB in cache).
 - **Third party**: solo esclusive di altri editori.
-- Corrispondenza nomi Wiki ↔ IGDB con nomi normalizzati, più `data/studios-overrides.json` (`active`, `igdbNames`, `hidden`; una chiave che non è una pagina della wiki è un alias per partner e terze parti).
-- **Gioco mostrato**: il prossimo in uscita con data precisa, altrimenti l'ultimo uscito. Contano giochi e Switch 2 Edition, non DLC né free update. `hasSwitch2Game` e, per gli studi senza gioco Switch 2, `latestSwitch1Game`.
+- Corrispondenza nomi Wiki ↔ IGDB con nomi normalizzati, più `data/studios-overrides.json` (`active`, `igdbNames`, `hidden`; una chiave che non è una pagina della wiki è un alias per partner e terze parti). "Nintendo (unknown studio)" è lo sviluppatore segnaposto dei giochi Nintendo di studio incerto (impostato negli override dei giochi): nascosto, nessuna card.
+- **Sviluppatore del gioco base**: se IGDB non dà sviluppatori per una Switch 2 Edition, per un gioco con voti ereditati dal gioco base o per un gioco il cui titolo ridotto è il suo `parent_game` IGDB, vale lo sviluppatore del gioco base (prima uno studio Nintendo Wiki mostrato, altrimenti il primo non nascosto). Gli override vincono.
+- **Gioco mostrato**: il prossimo in uscita con data precisa, altrimenti l'ultimo uscito. Contano giochi e Switch 2 Edition, non DLC né free update. `hasSwitch2Game` e, per gli studi senza gioco Switch 2, `latestSwitch1Game`. Il gioco (`StudioGame`: id, titolo, copertina, data) non ha uno stato: uscito o in uscita si calcola nella pagina dalla data (`order.ts`).
 
 **Pagina**
 - Una card per studio: nome (link a Nintendo Wiki in una nuova scheda, solo per i first party), badge "First party" / "Partner" / "Third party", gioco con copertina, titolo, data e stato ("Upcoming · in 26 days" / "Released 3 months ago", calcolato dalla data a ogni visita).
@@ -583,7 +586,7 @@ Pagina `studios.html` (`src/studios/main.ts`, `src/styles/studios.css`), inclusa
 
 ## 15. Sfondo stagionale
 
-**Stato: fatto** (code in `docs/tasks/seasons.md` e `docs/tasks/seasons-art.md`).
+**Stato: fatto** (code in `docs/tasks/seasons.md`, `docs/tasks/seasons-art.md` e `docs/tasks/seasons-art-2.md`).
 
 Particelle animate dietro linea e card (`src/seasons/`: `season.ts` logica pura, `particles.ts` tipi e movimento, `sprites.ts` disegno delle sagome, `background.ts` canvas e ciclo; `src/styles/seasons.css`; costanti `SEASONS` in `src/timeline/config.ts`).
 
@@ -591,15 +594,15 @@ Particelle animate dietro linea e card (`src/seasons/`: `season.ts` logica pura,
 - **Stile**: disegno acquerellato, un colore per stagione, niente immagini, un unico canvas. Ogni sagoma ha contorno a tratto arrotondato, riempimento tenue dello stesso colore, nervature più sottili e un secondo tratto sfalsato (effetto matita). Le sagome sono **sprite** disegnate una volta su canvas fuori schermo (6 varianti per i tipi comuni, 3 per i rari, per ognuna delle tre fasce, con seme fisso) e riusate a ogni frame; si ridisegnano al cambio di tema.
 - **Tipi per stagione** (quote in `SEASONS`):
   - Autunno: foglie di acero a cinque lobi, quercia, betulla, ginkgo, che cadono ondeggiando.
-  - Inverno: fiocchi dendritici, lastre esagonali, puntini morbidi (solo lontani), rametti di abete (rari, più lenti); raffiche laterali comuni a ogni fascia.
+  - Inverno: fiocchi dendritici, lastre esagonali, puntini morbidi (solo lontani, raggio 2,5–5 px), rametti di abete (rari, più lenti, nelle fasce media e vicina: 60 % / 40 %, lunghi 70 / 105 px, aghi 1,4 / 1,7 px, fusto 1,8 px, riempimento tenue sulle punte degli aghi); raffiche laterali comuni a ogni fascia.
   - Primavera: petali con la tacca, fiori di ciliegio interi (più lenti), rametti fioriti (rari), boccioli e petali minuscoli (solo lontani), in diagonale.
   - Estate: bolle e grappoli di bolle che salgono; conchiglie a ventaglio e stelle marine che scendono lente.
 - **Nessuna rotazione**: ogni particella ha un'inclinazione fissa scelta alla creazione (± `tiltDeg` 35°; le bolle salgono dritte). Il movimento è solo traslazione più ondeggiamento laterale.
-- **Fasce di profondità** (`SEASONS.bands`), uguali per tutte le stagioni: lontana (45 %, piccola, lenta e tenue), media (35 %), vicina (20 %, grande, più veloce, all'intensità piena di `--season-alpha`). Dimensioni e ampiezze scalano con l'altezza della finestra (`innerHeight / 1080`, tra 0.75 e 1.25).
-- **Quantità**: 20–40 particelle secondo l'area della finestra (20 fino a 1280×720, 40 da 2560×1440).
+- **Fasce di profondità** (`SEASONS.bands`), uguali per tutte le stagioni: lontana (45 %, piccola, lenta e tenue), media (35 %), vicina (20 %, grande, più veloce). Opacità per fascia × `--season-alpha`: 0,65 / 0,85 / 1. Dimensioni e ampiezze scalano con l'altezza della finestra (`innerHeight / 1080`, tra 0.75 e 1.25).
+- **Quantità**: 25–50 particelle, lineari con l'area della finestra (25 fino a 1280×720, 35 a 1920×1080, 50 da 2560×1440).
 - **Colori**: token `--season-<stagione>` e `--season-alpha` in `tokens.css`, attenuati; nel tema chiaro più scuri (es. neve azzurro-grigia), nello scuro più chiari.
 - **Livelli**: dietro tutto (`z-index: -1`, come lo sfondo del gioco). Le particelle sfumano via nella fascia della linea (tacche, numeri, mesi; bordi morbidi di `bandFeatherPx`), così non sembrano attraversarla.
-- **Cambio stagione** (transizione incrociata): ogni stagione ha un peso tra 0 e 1. La nuova sale a 1 dopo `crossDelayMs` (300 ms) in `crossInMs` (2 s, ease-out); le altre scendono a 0 in `crossOutMs` (1,5 s, ease-in). Le particelle di una stagione sono il numero pieno × il suo peso; quelle in volo finiscono il percorso sfumando col peso. Per circa 1 s si vedono entrambe, senza vuoti; tornando indietro sul confine il peso riparte da dove si trova (nessuna ricomparsa di colpo). Tetto: 1,3 × il numero pieno (`crossCap`). Con reduced motion il cambio è immediato.
+- **Cambio stagione** (transizione incrociata): ogni stagione ha un peso tra 0 e 1. La nuova sale a 1 dopo `crossDelayMs` (0, nessun ritardo) in `crossInMs` (1,8 s, ease-in-out); le altre scendono a 0 in `crossOutMs` (1,8 s, lineare). Le particelle di una stagione sono il numero pieno × il suo peso; quelle in volo finiscono il percorso sfumando col peso. Finché la nuova sale, le sue particelle nascono in un punto qualsiasi dello schermo (dissolvenza d'ingresso `fadeInMs`, 800 ms), poi di nuovo dal bordo. Durante il cambio resta un calo di massa (vuoto parziale, accettato); tornando indietro sul confine il peso riparte da dove si trova (nessuna ricomparsa di colpo). Tetto: 1,3 × il numero pieno (`crossCap`). Con reduced motion il cambio è immediato.
 - **Scorrimento veloce**: lo sfondo resta visibile (rotella, trascinamento, salti lunghi). Con la rotella dalla marcia 2 (passo ≥ 2 unità per scatto, `TIMELINE.wheelGearPace`) ogni scatto dà alle particelle una spinta laterale in direzione opposta allo scorrimento apparente (avanti nel tempo → verso destra; `SEASONS.react.sign` per invertirla): 220 px/s al passo della marcia 2, fino a 420 px/s al passo massimo, × 0,4 / 1 / 1,8 per fascia lontana / media / vicina, mai oltre 600 px/s. Gli scatti si sommano entro il tetto; la spinta decade in modo esponenziale (costante 600 ms). Uguale in Day, Week e Month; niente spinta in marcia 1, con il trackpad e con reduced motion.
 - **Gioco selezionato**: sfondo stagionale nascosto (c'è lo sfondo del gioco). In presentazione un gioco è sempre selezionato, quindi resta nascosto e torna a fine presentazione.
 - **Zoom**: uguale in Day, Week e Month (segue la timeline corrente anche dopo cambi di zoom e filtri).

@@ -1,5 +1,7 @@
 # Admin to-do
 
+> **Superato** (2026-10-03): la lista aggiornata dei dati da inserire a mano è `data/manual-todo.md` (`npm run data:validate -- --todo`).
+
 Data to fill in by hand, generated on 2026-09-27 from `public/data/games.json` (84 entries, 17 of them free updates, which have no scores and are left out) and `npm run data:validate`. "Released" means a first release date on or before 2026-09-27. Newest first.
 
 To regenerate: rerun `npm run data:validate` after `npm run data:build`; the lists below match its "Released games missing Metacritic or Backloggd" section.
