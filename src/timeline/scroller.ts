@@ -130,6 +130,11 @@ export class Scroller {
     this.scrollTo(this.current);
   }
 
+  /** A glide, inertia or wheel chase is running (the view moves without a finger on it). */
+  get animating() {
+    return this.frame !== 0;
+  }
+
   get bounds() {
     return { min: this.min, max: this.max };
   }

@@ -390,6 +390,11 @@ export class Timeline {
     this.stepGame(direction);
   }
 
+  /** The view is moving: dragged, gliding or coasting (phones pause the seasonal particles meanwhile). */
+  get isMoving() {
+    return this.scroller.animating || this.el.classList.contains("is-dragging");
+  }
+
   get hasSelection() {
     return this.selected >= 0;
   }
@@ -890,7 +895,9 @@ export class Timeline {
     const { level, shift } = item.lane;
     const length = item.width;
     node.root.classList.add("tl-item", "tl-item--right");
-    node.root.style.zIndex = String(10 + level);
+    // Two columns (Week / Month): the right column's connectors cross the left one, under its cards.
+    const right = this.zoom !== "day" && item.lane.side === "below";
+    node.root.style.zIndex = String((right ? 0 : 10) + level);
     const top = -length / 2 + shift + level * V.stackAlongPx;
     const inset = Math.min(24, length / 2);
     node.targetX = top + inset <= 0 && 0 <= top + length - inset ? 0 : top + inset;

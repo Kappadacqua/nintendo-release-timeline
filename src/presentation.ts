@@ -36,6 +36,8 @@ export class Presentation {
   private readonly bar: HTMLElement;
   private readonly toast: HTMLElement;
   private readonly counter: HTMLElement;
+  /** Touch (SPEC "Mobile"): the Space key's job, as a button; any other tap stops. */
+  private readonly pause: HTMLButtonElement;
   private readonly stepMs = TIMELINE.presentationSeconds * 1000;
 
   constructor(
@@ -53,7 +55,13 @@ export class Presentation {
     this.toast = document.createElement("div");
     this.toast.className = "presentation-toast";
     this.toast.setAttribute("role", "status");
-    document.body.append(this.bar, this.counter, this.toast);
+    this.pause = document.createElement("button");
+    this.pause.type = "button";
+    this.pause.className = "presentation-pause";
+    this.pause.hidden = true;
+    this.pause.textContent = "Pause";
+    this.pause.addEventListener("click", () => this.togglePause());
+    document.body.append(this.bar, this.counter, this.toast, this.pause);
   }
 
   get isActive() {
@@ -76,7 +84,10 @@ export class Presentation {
     window.addEventListener("pointerdown", this.onInput, true);
     window.addEventListener("pointermove", this.onPointerMove, { passive: true });
     // Touch (SPEC "Mobile"): no keys, a tap anywhere stops it.
-    this.say(matchMedia("(pointer: coarse)").matches ? "Presentation · tap anywhere to stop" : "Presentation · Space to pause · any other key stops");
+    const touch = matchMedia("(pointer: coarse)").matches;
+    this.say(touch ? "Presentation · tap anywhere else to stop" : "Presentation · Space to pause · any other key stops");
+    this.pause.hidden = !touch;
+    this.pause.textContent = "Pause";
     // From the current position: the selected game stays for a full turn, else the next one now.
     if (!this.timeline().hasSelection) this.timeline().presentNext();
     this.schedule(this.stepMs);
@@ -96,6 +107,7 @@ export class Presentation {
     window.removeEventListener("pointermove", this.onPointerMove);
     this.bar.hidden = true;
     this.counter.hidden = true;
+    this.pause.hidden = true;
     // The shown game is let go: an open group folds, its card goes back to compact.
     // (An input that stopped it may select something else right after, e.g. a click.)
     this.timeline().clearSelection();
@@ -133,8 +145,10 @@ export class Presentation {
       clearTimeout(this.timer);
       this.remaining = Math.max(0, this.stepMs - (performance.now() - this.stepStart));
       this.bar.classList.add("is-paused");
-      this.say("Paused · Space to resume");
+      this.pause.textContent = "Resume";
+      this.say(this.pause.hidden ? "Paused · Space to resume" : "Paused");
     } else {
+      this.pause.textContent = "Pause";
       this.say("Resumed");
       this.schedule(this.remaining);
     }
@@ -153,7 +167,11 @@ export class Presentation {
     this.stop();
   };
 
-  private onInput = () => this.stop();
+  private onInput = (e: Event) => {
+    // The touch pause button pauses; every other input stops.
+    if (e.target instanceof Element && e.target.closest(".presentation-pause")) return;
+    this.stop();
+  };
 
   /** The pointer shows while it moves and hides after a moment of stillness. */
   private onPointerMove = () => {

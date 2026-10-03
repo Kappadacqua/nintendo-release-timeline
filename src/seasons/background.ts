@@ -9,7 +9,7 @@ const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
 const systemDark = matchMedia("(prefers-color-scheme: dark)");
 
 /** What the timeline shows: the day under the playhead (null in the TBA zone) and whether a game is selected. */
-export type TimelineProbe = () => { day: number | null; selected: boolean };
+export type TimelineProbe = () => { day: number | null; selected: boolean; moving?: boolean };
 
 /**
  * Seasonal background (docs/tasks/seasons.md): particles of the season of the day under the
@@ -32,6 +32,8 @@ export class SeasonalBackground {
   private height = 0;
   private max: number = SEASONS.minParticles;
   private shown = false;
+  /** The timeline is scrolling (read from the probe every frame). */
+  private moving = false;
   private frame = 0;
   private last = 0;
   /** Season of the still canvas drawn with reduced motion. */
@@ -94,7 +96,8 @@ export class SeasonalBackground {
   private sync(now = performance.now()) {
     // A rebuilt timeline (zoom, filters) has a new band.
     if (!this.band?.el.isConnected) this.readBand();
-    const { day, selected } = this.probe();
+    const { day, selected, moving } = this.probe();
+    this.moving = !!moving;
     // Reduced motion: the new season replaces the old one at once.
     if (day !== null) this.season.set(seasonOf(dayToDate(Math.round(day))), now, reducedMotion.matches);
     const shown = this.season.season !== null && backgroundShown({ enabled: this.enabled, selected, pageVisible: !document.hidden });
@@ -126,8 +129,11 @@ export class SeasonalBackground {
     // if it decides to stop, it clears it.
     this.sync(now);
     if (!this.shown || reducedMotion.matches) return;
-    // Phones: particles move at 30 fps, leaving the frame time to the timeline (SPEC "Mobile").
-    if (this.width <= SEASONS.phoneWidth && now - this.last < SEASONS.phoneFrameMs) {
+    // Phones (SPEC "Mobile"): particles move at 30 fps, and hold still (still drawn) while the
+    // timeline scrolls, leaving the frame time to it; they go on from where they were.
+    const phone = this.width <= SEASONS.phoneWidth;
+    if (phone && (this.moving || now - this.last < SEASONS.phoneFrameMs)) {
+      if (this.moving) this.last = now;
       this.frame = requestAnimationFrame(this.tick);
       return;
     }

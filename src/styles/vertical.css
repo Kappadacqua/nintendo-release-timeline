@@ -294,6 +294,16 @@
   width: 100%;
 }
 
+/* A finger gets 8 px more on the left of the thin strip (44 px in all), invisible. */
+.minimap.minimap--vertical::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -8px;
+  width: 8px;
+}
+
 .minimap--vertical .minimap__track::before {
   top: 0;
   bottom: 0;

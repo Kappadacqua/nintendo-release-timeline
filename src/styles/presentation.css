@@ -129,3 +129,36 @@ body.is-cursor-hidden * {
   }
 }
 
+
+/* Touch (SPEC "Mobile"): pause / resume, above the bottom bar; any other tap stops. */
+.presentation-pause {
+  position: fixed;
+  z-index: 91;
+  bottom: calc(var(--dock-h) + 16px + env(safe-area-inset-bottom));
+  left: 50%;
+  min-width: 96px;
+  height: 44px;
+  padding: 0 18px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font: 800 14px var(--font);
+  box-shadow: var(--card-shadow-hover);
+  transform: translateX(-50%);
+  cursor: pointer;
+}
+
+.presentation-pause[hidden] {
+  display: none;
+}
+
+/* With the bottom bar (SPEC "Mobile"): the notice above the pause button. */
+@media (max-width: 1279px), (max-height: 500px) {
+  .presentation-toast {
+    bottom: calc(var(--dock-h) + 72px + env(safe-area-inset-bottom));
+    max-width: calc(100vw - 24px);
+    white-space: normal;
+    text-align: center;
+  }
+}
