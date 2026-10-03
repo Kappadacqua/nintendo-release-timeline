@@ -20,7 +20,7 @@ Salvare in `docs/tasks/seasons-art-2.md`. Lancio dal telefono: `Esegui il prossi
 
 ---
 
-- [ ] **Task 1 — Transizione: niente vuoto**
+- [x] **Task 1 — Transizione: niente vuoto** (chiuso dall'utente il 2026-10-03: valori applicati in `b93a438`, vuoto residuo accettato)
 
 **File**
 - Partire da: `src/seasons/background.ts`, `src/seasons/particles.ts`, `src/config.ts` (`SEASONS.cross*`).
