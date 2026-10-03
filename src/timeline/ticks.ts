@@ -178,6 +178,16 @@ function pillOf(v: TickView) {
   if (v.centerDay === null) return null;
   const date = dayToDate(v.centerDay);
   const label = v.zoom === "day" ? String(date.getUTCDate()) : v.zoom === "week" ? `W${isoWeek(date)}` : monthShort(date);
-  v.ctx.font = `900 14px ${v.palette.font}`;
-  return { x: Math.round((v.centerDay - v.startDay) * v.dayPx - v.left), label, w: Math.max(26, v.ctx.measureText(label).width + 14) };
+  const key = `${v.palette.font}|${label}`;
+  let width = pillWidths.get(key);
+  if (width === undefined) {
+    // Setting the font is costly when done every frame: measure each label once.
+    v.ctx.font = `900 14px ${v.palette.font}`;
+    width = Math.max(26, v.ctx.measureText(label).width + 14);
+    if (document.fonts?.status === "loaded") pillWidths.set(key, width);
+  }
+  return { x: Math.round((v.centerDay - v.startDay) * v.dayPx - v.left), label, w: width };
 }
+
+/** Pill widths per font and label (the web font changes them, so only cached once it has loaded). */
+const pillWidths = new Map<string, number>();

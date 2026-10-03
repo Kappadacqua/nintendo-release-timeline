@@ -35,8 +35,14 @@ export function seasonOf(date: Date): Season {
 
 /** 25–50 particles, growing linearly with the window area. */
 export function particleCount(width: number, height: number) {
-  const { minParticles: lo, maxParticles: hi, minArea, maxArea } = SEASONS;
-  const t = (width * height - minArea) / (maxArea - minArea);
+  const { minParticles: lo, maxParticles: hi, minArea, maxArea, phoneParticles, phoneArea } = SEASONS;
+  const area = width * height;
+  // Phones and small windows: fewer particles, less to draw (SPEC "Mobile").
+  if (area < minArea) {
+    const s = (area - phoneArea) / (minArea - phoneArea);
+    return Math.round(phoneParticles + (lo - phoneParticles) * Math.min(1, Math.max(0, s)));
+  }
+  const t = (area - minArea) / (maxArea - minArea);
   return Math.round(lo + (hi - lo) * Math.min(1, Math.max(0, t)));
 }
 

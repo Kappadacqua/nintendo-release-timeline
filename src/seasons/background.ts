@@ -38,7 +38,7 @@ export class SeasonalBackground {
   private stillSeason: Season | null = null;
   private readonly cleanup: (() => void)[] = [];
   /** The band of the line (ticks, day numbers, months), in window y: particles never cross it. */
-  private band: { el: HTMLElement; top: number; bottom: number } | null = null;
+  private band: { el: HTMLElement; top: number; bottom: number; vertical: boolean; left: number; right: number } | null = null;
 
   constructor(
     private probe: TimelineProbe,
@@ -126,6 +126,11 @@ export class SeasonalBackground {
     // if it decides to stop, it clears it.
     this.sync(now);
     if (!this.shown || reducedMotion.matches) return;
+    // Phones: particles move at 30 fps, leaving the frame time to the timeline (SPEC "Mobile").
+    if (this.width <= SEASONS.phoneWidth && now - this.last < SEASONS.phoneFrameMs) {
+      this.frame = requestAnimationFrame(this.tick);
+      return;
+    }
     // A long pause (hidden, background tab) must not make particles jump.
     const dt = Math.min(0.05, (now - this.last) / 1000);
     this.last = now;
@@ -202,6 +207,19 @@ export class SeasonalBackground {
     if (!this.band) return;
     const { ctx } = this;
     const f = SEASONS.bandFeatherPx;
+    // Vertical timeline (SPEC "Mobile"): the band is a strip down the left side, faded on its right.
+    if (this.band.vertical) {
+      const width = this.band.right + f;
+      const mask = ctx.createLinearGradient(0, 0, width, 0);
+      mask.addColorStop(0, "#000");
+      mask.addColorStop(1 - f / width, "#000");
+      mask.addColorStop(1, "rgb(0 0 0 / 0)");
+      ctx.globalCompositeOperation = "destination-out";
+      ctx.fillStyle = mask;
+      ctx.fillRect(0, this.band.top, width, this.band.bottom - this.band.top);
+      ctx.globalCompositeOperation = "source-over";
+      return;
+    }
     const top = this.band.top - f;
     const height = this.band.bottom - this.band.top + 2 * f;
     const mask = ctx.createLinearGradient(0, top, 0, top + height);
@@ -220,7 +238,8 @@ export class SeasonalBackground {
     const el = document.querySelector<HTMLElement>(".timeline__band");
     if (!el) return (this.band = null);
     const rect = el.getBoundingClientRect();
-    this.band = rect.height ? { el, top: rect.top, bottom: rect.bottom } : null;
+    const vertical = !!el.closest(".is-vertical");
+    this.band = rect.height ? { el, top: rect.top, bottom: rect.bottom, vertical, left: rect.left, right: rect.right } : null;
   }
 
   /** Reduced motion: the full number of the current season's particles, still. */
@@ -235,7 +254,9 @@ export class SeasonalBackground {
   }
 
   private resize() {
-    const dpr = (this.dpr = Math.min(SEASONS.maxDpr, devicePixelRatio || 1));
+    // Phones: a lighter canvas (SPEC "Mobile").
+    const cap = innerWidth <= SEASONS.phoneWidth ? SEASONS.phoneMaxDpr : SEASONS.maxDpr;
+    const dpr = (this.dpr = Math.min(cap, devicePixelRatio || 1));
     this.width = innerWidth;
     this.height = innerHeight;
     this.canvas.width = Math.round(this.width * dpr);

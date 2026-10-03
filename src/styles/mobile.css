@@ -466,3 +466,21 @@
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
 }
+
+/* Phones and tablets: no backdrop blur over the moving timeline (re-blurred every frame). */
+@media (max-width: 1279px), (max-height: 500px) {
+  .timeline-dock,
+  .minimap,
+  .zoom-control {
+    backdrop-filter: none;
+  }
+
+  .timeline-dock {
+    background: var(--bg);
+  }
+
+  .minimap,
+  .zoom-control {
+    background: color-mix(in srgb, var(--bg) 94%, transparent);
+  }
+}
