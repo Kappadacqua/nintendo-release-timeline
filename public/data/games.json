@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-03T10:13:20.846Z",
+  "generatedAt": "2026-10-04T09:46:10.626Z",
   "games": [
     {
       "id": "free-update:arms",
@@ -2901,10 +2901,10 @@
         },
         "user": {
           "metacritic": {
-            "value": 8.4,
+            "value": 8.3,
             "scale": 10,
-            "normalized": 84,
-            "count": 140
+            "normalized": 83,
+            "count": 142
           },
           "backloggd": null
         }
@@ -2916,6 +2916,18 @@
         "wikipedia": "https://en.wikipedia.org/wiki/Orbitals_(video_game)",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Orbitals",
         "nintendoStore": "https://www.nintendo.com/us/store/products/orbitals-switch-2/"
+      },
+      "scoreHistory": {
+        "metacriticUser": [
+          {
+            "date": "2026-10-01",
+            "normalized": 84
+          },
+          {
+            "date": "2026-10-04",
+            "normalized": 83
+          }
+        ]
       }
     },
     {
@@ -2946,13 +2958,13 @@
             "value": 89,
             "scale": 100,
             "normalized": 89,
-            "count": 39
+            "count": 50
           },
           "metacritic": {
             "value": 89,
             "scale": 100,
             "normalized": 89,
-            "count": 84
+            "count": 86
           }
         },
         "user": {
@@ -2960,7 +2972,7 @@
             "value": 8.8,
             "scale": 10,
             "normalized": 88,
-            "count": 732
+            "count": 765
           },
           "backloggd": null
         }
@@ -3476,7 +3488,7 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/onyx-the-dark-grip/",
-        "wikipedia": "https://en.wikipedia.org/wiki/Onyx%3A_The_Dark_Grip"
+        "wikipedia": "https://en.wikipedia.org/wiki/Onyx:_The_Dark_Grip"
       }
     },
     {

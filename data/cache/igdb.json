@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-01T20:30:34.298Z",
+  "fetchedAt": "2026-10-04T09:45:22.618Z",
   "firstPartyIds": [
     164,
     408,
@@ -89264,6 +89264,16 @@
       ],
       "slug": "onyx-the-dark-grip",
       "summary": "Set in an isolated town trapped in an endless winter, ONYX: The Dark Grip challenges players to survive through two deeply intertwined roles. As The Vessel, players explore a bleak, frozen world, fight for survival, manage scarce resources and confront the dangers hiding within the town and beneath its snow. But human strength can only go so far. When The Vessel cannot survive alone, players become The God, reaching directly into his world to manipulate reality, protect their host and change what happens beyond the limits of an ordinary human being. Survival depends on knowing when to act as The Vessel and when to intervene as The God.",
+      "websites": [
+        {
+          "id": 1126483,
+          "url": "https://en.wikipedia.org/wiki/Onyx:_The_Dark_Grip",
+          "type": {
+            "id": 3,
+            "type": "Wikipedia"
+          }
+        }
+      ],
       "game_type": {
         "id": 0,
         "type": "Main Game"
