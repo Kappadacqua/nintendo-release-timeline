@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-04T09:46:10.626Z",
+  "generatedAt": "2026-10-05T10:24:24.042Z",
   "games": [
     {
       "id": "free-update:arms",
@@ -2890,7 +2890,7 @@
             "value": 82,
             "scale": 100,
             "normalized": 82,
-            "count": 47
+            "count": 48
           },
           "metacritic": {
             "value": 81,
@@ -2969,10 +2969,10 @@
         },
         "user": {
           "metacritic": {
-            "value": 8.8,
+            "value": 8.7,
             "scale": 10,
-            "normalized": 88,
-            "count": 765
+            "normalized": 87,
+            "count": 786
           },
           "backloggd": null
         }
@@ -2984,6 +2984,18 @@
         "wikipedia": "https://en.wikipedia.org/wiki/Fire_Emblem:_Fortune%27s_Weave",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Fire_Emblem%3A_Fortune's_Weave",
         "nintendoStore": "https://www.nintendo.com/us/store/products/fire-emblem-fortunes-weave-switch-2/"
+      },
+      "scoreHistory": {
+        "metacriticUser": [
+          {
+            "date": "2026-10-01",
+            "normalized": 88
+          },
+          {
+            "date": "2026-10-05",
+            "normalized": 87
+          }
+        ]
       }
     },
     {
