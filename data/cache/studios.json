@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-05T10:23:32.226Z",
+  "fetchedAt": "2026-10-06T10:14:53.310Z",
   "source": "https://nintendo.fandom.com/wiki/Category:First_party_developers",
   "studios": [
     {
@@ -129,7 +129,6 @@
       "title": "Nintendo EPD Production Group No. 1",
       "url": "https://nintendo.fandom.com/wiki/Nintendo_EPD_Production_Group_No._1",
       "categories": [
-        "Class C articles",
         "Company articles",
         "First party developers",
         "Nintendo developers",
@@ -156,7 +155,6 @@
       "title": "Nintendo EPD Production Group No. 3",
       "url": "https://nintendo.fandom.com/wiki/Nintendo_EPD_Production_Group_No._3",
       "categories": [
-        "Class C articles",
         "First party developers",
         "Group articles",
         "Nintendo developers",
@@ -363,6 +361,7 @@
       "title": "Nintendo System Development",
       "url": "https://nintendo.fandom.com/wiki/Nintendo_System_Development",
       "categories": [
+        "Class B articles",
         "Company articles",
         "First party developers",
         "Nintendo divisions"
