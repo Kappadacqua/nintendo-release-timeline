@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-06T10:14:53.667Z",
+  "fetchedAt": "2026-10-07T10:13:34.104Z",
   "firstPartyIds": [
     164,
     408,
@@ -2940,8 +2940,12 @@
     325078,
     306450,
     306046,
+    419417,
+    419418,
+    419419,
     325075,
-    49160
+    49160,
+    421954
   ],
   "games": [
     {
@@ -38478,6 +38482,24 @@
       ],
       "screenshots": [
         {
+          "id": 1034092,
+          "height": 675,
+          "image_id": "scm5ws",
+          "width": 1200
+        },
+        {
+          "id": 1034089,
+          "height": 675,
+          "image_id": "scm5wp",
+          "width": 1200
+        },
+        {
+          "id": 1034093,
+          "height": 675,
+          "image_id": "scm5wt",
+          "width": 1200
+        },
+        {
           "id": 1034090,
           "height": 675,
           "image_id": "scm5wq",
@@ -38493,24 +38515,6 @@
           "id": 1034088,
           "height": 675,
           "image_id": "scm5wo",
-          "width": 1200
-        },
-        {
-          "id": 1034089,
-          "height": 675,
-          "image_id": "scm5wp",
-          "width": 1200
-        },
-        {
-          "id": 1034092,
-          "height": 675,
-          "image_id": "scm5ws",
-          "width": 1200
-        },
-        {
-          "id": 1034093,
-          "height": 675,
-          "image_id": "scm5wt",
           "width": 1200
         }
       ],
@@ -62398,6 +62402,274 @@
         {
           "id": 1118565,
           "url": "https://www.nintendo.com/us/store/products/metroid-ravenous-special-edition-128115/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 0,
+        "type": "Main Game"
+      }
+    },
+    {
+      "id": 419417,
+      "cover": {
+        "id": 604788,
+        "image_id": "cocyno"
+      },
+      "genres": [
+        {
+          "id": 12,
+          "name": "Role-playing (RPG)"
+        },
+        {
+          "id": 31,
+          "name": "Adventure"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 415884,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        },
+        {
+          "id": 415885,
+          "company": {
+            "id": 1119,
+            "name": "Monolith Soft"
+          },
+          "developer": true,
+          "publisher": false
+        }
+      ],
+      "name": "Xenoblade Chronicles 2: New Quests Pack",
+      "parent_game": {
+        "id": 26766,
+        "name": "Xenoblade Chronicles 2"
+      },
+      "platforms": [
+        130
+      ],
+      "slug": "xenoblade-chronicles-2-new-quests-pack",
+      "summary": "•Sunken Boosters\n•The Trendy Patissier\n•Artisanal Accessories\n•Hot Spring Bonanza\n•Mystery Launch Codes\n\n•A Smith's Pastime\n•A Hat Fit for a Lady\n•Making Love Source\n•A Mercenary's Honor\n•Merclibay's Mightiest\n\n•Nopon of Good Tastes\n•Cleared of All Charges\n•Beneath the Aurora\n•Upgrades and Tinkering\n•Most Awful News?!\n\n•Passion of the Artisan\n•M.I.A. Nopon\n•Industrial Sort of Tour\n•Midnight Feasting\n•The Lone Watchman",
+      "websites": [
+        {
+          "id": 1121575,
+          "url": "https://www.nintendo.com/us/store/products/new-quests-pack-70050000001901-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 1,
+        "type": "DLC"
+      }
+    },
+    {
+      "id": 419418,
+      "cover": {
+        "id": 604789,
+        "image_id": "cocynp"
+      },
+      "first_release_date": 1524700800,
+      "genres": [
+        {
+          "id": 12,
+          "name": "Role-playing (RPG)"
+        },
+        {
+          "id": 31,
+          "name": "Adventure"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 415886,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        },
+        {
+          "id": 415887,
+          "company": {
+            "id": 1119,
+            "name": "Monolith Soft"
+          },
+          "developer": true,
+          "publisher": false
+        }
+      ],
+      "name": "Xenoblade Chronicles 2: New Rare Blade Pack",
+      "parent_game": {
+        "id": 26766,
+        "name": "Xenoblade Chronicles 2"
+      },
+      "platforms": [
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 968858,
+          "date": 1524700800,
+          "platform": 130,
+          "y": 2018,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "slug": "xenoblade-chronicles-2-new-rare-blade-pack",
+      "summary": "Meet Corvin, an Uchigatana-toting Light-element cool dude with a positive attitude! He comes in a Core Crystal with a 100% resonance rate, and can't wait to find a place in your party.\n\nElma, the Full Metal Jaguar BLADE colonel from Xenoblade Chronicles X, has arrived in Xenoblade Chronicles 2 as part of the Expansion Pass! Starting now, you can face her in the Challenge Battle Mode.\n\nCrossette is bursting with excitement to finally meet you all! This Bitball-wielding Fire-element girl comes in a Core Crystal with a 100% resonance rate, and is very eager to prove herself!\n\nThe Poppibuster is ready to serve! To access him, finish the quest \"Shiny New Power\".",
+      "websites": [
+        {
+          "id": 1121576,
+          "url": "https://www.nintendo.com/us/store/products/new-rare-blade-pack-70050000001902-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 1,
+        "type": "DLC"
+      }
+    },
+    {
+      "id": 419419,
+      "cover": {
+        "id": 604790,
+        "image_id": "cocynq"
+      },
+      "first_release_date": 1528934400,
+      "genres": [
+        {
+          "id": 12,
+          "name": "Role-playing (RPG)"
+        },
+        {
+          "id": 31,
+          "name": "Adventure"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 415888,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        },
+        {
+          "id": 415889,
+          "company": {
+            "id": 1119,
+            "name": "Monolith Soft"
+          },
+          "developer": true,
+          "publisher": false
+        }
+      ],
+      "name": "Xenoblade Chronicles 2: New Challenge Mode Pack",
+      "parent_game": {
+        "id": 26766,
+        "name": "Xenoblade Chronicles 2"
+      },
+      "platforms": [
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 968859,
+          "date": 1528934400,
+          "platform": 130,
+          "y": 2018,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "slug": "xenoblade-chronicles-2-new-challenge-mode-pack",
+      "summary": "Challenge Battle Mode",
+      "websites": [
+        {
+          "id": 1121577,
+          "url": "https://www.nintendo.com/us/store/products/new-challenge-mode-pack-70050000001903-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 1,
+        "type": "DLC"
+      }
+    },
+    {
+      "id": 421954,
+      "cover": {
+        "id": 609795,
+        "image_id": "cod2ir"
+      },
+      "genres": [
+        {
+          "id": 2,
+          "name": "Point-and-click"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 418669,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        }
+      ],
+      "name": "Hello, Luigi!",
+      "platforms": [
+        130
+      ],
+      "screenshots": [
+        {
+          "id": 1940221,
+          "height": 591,
+          "image_id": "sc15l31",
+          "width": 1050
+        }
+      ],
+      "slug": "hello-luigi",
+      "websites": [
+        {
+          "id": 1128959,
+          "url": "https://www.nintendo.com/us/store/products/hello-luigi-switch/",
           "type": {
             "id": 24,
             "type": "Nintendo"

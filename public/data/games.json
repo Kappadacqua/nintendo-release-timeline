@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-06T10:15:34.400Z",
+  "generatedAt": "2026-10-07T10:14:18.731Z",
   "games": [
     {
       "id": "free-update:arms",
@@ -83,7 +83,7 @@
       "title": "Captain Toad: Treasure Tracker",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co6c6f.jpg",
       "summary": "Captain Toad stars in his own puzzling quest on the Nintendo Switch system! Our stubby hero must dodge dangers and track treasures across many trap-filled courses. Survive smoldering volcanoes, hazardous steam engines, haunted houses, and even new courses based on the Super Mario Odyssey game! Luckily, a second player can join in by tossing turnips at enemies.",
-      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/scm5wq.jpg",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/scm5ws.jpg",
       "developer": "Nintendo Software Technology",
       "genres": [
         "Platform",
@@ -2904,7 +2904,7 @@
             "value": 8.3,
             "scale": 10,
             "normalized": 83,
-            "count": 144
+            "count": 146
           },
           "backloggd": null
         }
@@ -2958,13 +2958,13 @@
             "value": 89,
             "scale": 100,
             "normalized": 89,
-            "count": 50
+            "count": 51
           },
           "metacritic": {
             "value": 89,
             "scale": 100,
             "normalized": 89,
-            "count": 92
+            "count": 94
           }
         },
         "user": {
@@ -2972,7 +2972,7 @@
             "value": 8.7,
             "scale": 10,
             "normalized": 87,
-            "count": 784
+            "count": 782
           },
           "backloggd": null
         }

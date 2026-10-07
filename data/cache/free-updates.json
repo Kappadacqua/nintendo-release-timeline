@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-06T10:14:50.840Z",
+  "fetchedAt": "2026-10-07T10:13:31.236Z",
   "matches": {
     "ARMS": 26759,
     "Animal Crossing: New Horizons": 109462,
@@ -866,6 +866,24 @@
       ],
       "screenshots": [
         {
+          "id": 1034092,
+          "height": 675,
+          "image_id": "scm5ws",
+          "width": 1200
+        },
+        {
+          "id": 1034089,
+          "height": 675,
+          "image_id": "scm5wp",
+          "width": 1200
+        },
+        {
+          "id": 1034093,
+          "height": 675,
+          "image_id": "scm5wt",
+          "width": 1200
+        },
+        {
           "id": 1034090,
           "height": 675,
           "image_id": "scm5wq",
@@ -881,24 +899,6 @@
           "id": 1034088,
           "height": 675,
           "image_id": "scm5wo",
-          "width": 1200
-        },
-        {
-          "id": 1034089,
-          "height": 675,
-          "image_id": "scm5wp",
-          "width": 1200
-        },
-        {
-          "id": 1034092,
-          "height": 675,
-          "image_id": "scm5ws",
-          "width": 1200
-        },
-        {
-          "id": 1034093,
-          "height": 675,
-          "image_id": "scm5wt",
           "width": 1200
         }
       ],
