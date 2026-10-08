@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-07T10:13:34.104Z",
+  "fetchedAt": "2026-10-08T10:33:18.600Z",
   "firstPartyIds": [
     164,
     408,
@@ -31543,8 +31543,8 @@
         }
       ],
       "cover": {
-        "id": 218185,
-        "image_id": "co4ocp"
+        "id": 607804,
+        "image_id": "cod0zg"
       },
       "first_release_date": 1659052800,
       "genres": [
@@ -51924,6 +51924,14 @@
       "summary": "Fire Emblem: Fortune's Weave is a turn-based strategy RPG centered around the Heroic Games, a tournament where warriors with different motivations compete for a chance to have their greatest wish granted by the Divine Sovereign. The game builds on the tactical foundation of previous Fire Emblem titles, featuring turn-based combat with combat arts, gambits, and crests. A new mechanic called Blaze Arts lets units spend health to perform powerful special abilities on the battlefield.\nThe game appears to be set in the same world as Fire Emblem: Three Houses, though in a different era, and follows characters like Cai, who enters the tournament to save his father's life.",
       "websites": [
         {
+          "id": 1129796,
+          "url": "https://en.wikipedia.org/wiki/Fire_Emblem:_Fortune%27s_Weave",
+          "type": {
+            "id": 3,
+            "type": "Wikipedia"
+          }
+        },
+        {
           "id": 1082895,
           "url": "https://www.twitch.tv/directory/category/fire-emblem-fortunes-weave",
           "type": {
@@ -52604,6 +52612,12 @@
       ],
       "screenshots": [
         {
+          "id": 1700278,
+          "height": 720,
+          "image_id": "sc10fxy",
+          "width": 1280
+        },
+        {
           "id": 1700273,
           "height": 720,
           "image_id": "sc10fxt",
@@ -52632,12 +52646,6 @@
           "height": 720,
           "image_id": "sc10fxx",
           "width": 1280
-        },
-        {
-          "id": 1700278,
-          "height": 720,
-          "image_id": "sc10fxy",
-          "width": 1280
         }
       ],
       "slug": "hello-yoshi",
@@ -52657,6 +52665,14 @@
           "type": {
             "id": 10,
             "type": "App Store (iPhone)"
+          }
+        },
+        {
+          "id": 1129552,
+          "url": "https://www.mariowiki.com/Hello,_Yoshi!",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
           }
         },
         {
@@ -62673,6 +62689,14 @@
           "type": {
             "id": 24,
             "type": "Nintendo"
+          }
+        },
+        {
+          "id": 1129551,
+          "url": "https://www.mariowiki.com/Hello,_Luigi!",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
           }
         }
       ],
@@ -89491,12 +89515,39 @@
     },
     {
       "id": 403828,
+      "artworks": [
+        {
+          "id": 314215,
+          "alpha_channel": false,
+          "height": 2160,
+          "image_id": "ar6qg7",
+          "width": 3840,
+          "artwork_type": 1
+        }
+      ],
       "cover": {
         "id": 566906,
         "image_id": "coc5fe"
       },
       "first_release_date": 1798675200,
-      "name": "Beyond the Dark Nightwatch",
+      "genres": [
+        {
+          "id": 31,
+          "name": "Adventure"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 418858,
+          "company": {
+            "id": 29636,
+            "name": "Atlantis Studio"
+          },
+          "developer": true,
+          "publisher": true
+        }
+      ],
+      "name": "Beyond the Dark: Nightwatch",
       "platforms": [
         508
       ],
@@ -89514,6 +89565,32 @@
             "id": 8,
             "region": "worldwide"
           }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 1941107,
+          "height": 936,
+          "image_id": "sc15lrn",
+          "width": 1926
+        },
+        {
+          "id": 1941108,
+          "height": 930,
+          "image_id": "sc15lro",
+          "width": 1926
+        },
+        {
+          "id": 1941109,
+          "height": 934,
+          "image_id": "sc15lrp",
+          "width": 1925
+        },
+        {
+          "id": 1941110,
+          "height": 1080,
+          "image_id": "sc15lrq",
+          "width": 1920
         }
       ],
       "slug": "beyond-the-dark-nightwatch",

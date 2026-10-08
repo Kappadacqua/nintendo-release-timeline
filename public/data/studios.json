@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-07T10:14:18.731Z",
+  "generatedAt": "2026-10-08T10:34:11.583Z",
   "studios": [
     {
       "name": "Nintendo EPD Production Group No. 10",
@@ -319,6 +319,18 @@
       "category": "first-party",
       "game": null,
       "hasSwitch2Game": false
+    },
+    {
+      "name": "Atlantis Studio",
+      "url": null,
+      "category": "third-party",
+      "game": null,
+      "hasSwitch2Game": true,
+      "tbaGame": {
+        "id": "igdb:403828",
+        "title": "Beyond the Dark: Nightwatch",
+        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc5fe.jpg"
+      }
     },
     {
       "name": "Bloober Team",

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-07T10:14:18.731Z",
+  "generatedAt": "2026-10-08T10:34:11.583Z",
   "games": [
     {
       "id": "free-update:arms",
@@ -2958,13 +2958,13 @@
             "value": 89,
             "scale": 100,
             "normalized": 89,
-            "count": 51
+            "count": 52
           },
           "metacritic": {
             "value": 89,
             "scale": 100,
             "normalized": 89,
-            "count": 94
+            "count": 95
           }
         },
         "user": {
@@ -2972,7 +2972,7 @@
             "value": 8.7,
             "scale": 10,
             "normalized": 87,
-            "count": 782
+            "count": 791
           },
           "backloggd": null
         }
@@ -3266,12 +3266,14 @@
     {
       "id": "igdb:403828",
       "kind": "game",
-      "title": "Beyond the Dark Nightwatch",
+      "title": "Beyond the Dark: Nightwatch",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc5fe.jpg",
       "summary": null,
-      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc5fe.jpg",
-      "developer": null,
-      "genres": [],
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/sc15lrn.jpg",
+      "developer": "Atlantis Studio",
+      "genres": [
+        "Adventure"
+      ],
       "releaseDates": {
         "JP": null,
         "EU": null,

@@ -1,0 +1,1054 @@
+{
+ "date": "2026-10-08",
+ "games": {
+  "free-update:arms": {
+   "title": "ARMS",
+   "releaseDates": {
+    "JP": "2025-06-05",
+    "EU": "2025-06-05",
+    "NA": "2025-06-05"
+   },
+   "firstReleaseDate": "2025-06-05",
+   "vague": null,
+   "scores": {}
+  },
+  "free-update:big-brain-academy-brain-vs-brain": {
+   "title": "Big Brain Academy: Brain vs. Brain",
+   "releaseDates": {
+    "JP": "2025-06-05",
+    "EU": "2025-06-05",
+    "NA": "2025-06-05"
+   },
+   "firstReleaseDate": "2025-06-05",
+   "vague": null,
+   "scores": {}
+  },
+  "free-update:captain-toad-treasure-tracker": {
+   "title": "Captain Toad: Treasure Tracker",
+   "releaseDates": {
+    "JP": "2025-06-05",
+    "EU": "2025-06-05",
+    "NA": "2025-06-05"
+   },
+   "firstReleaseDate": "2025-06-05",
+   "vague": null,
+   "scores": {}
+  },
+  "free-update:clubhouse-games-51-worldwide-classics": {
+   "title": "Clubhouse Games: 51 Worldwide Classics",
+   "releaseDates": {
+    "JP": "2025-06-05",
+    "EU": "2025-06-05",
+    "NA": "2025-06-05"
+   },
+   "firstReleaseDate": "2025-06-05",
+   "vague": null,
+   "scores": {}
+  },
+  "igdb:338093": {
+   "title": "Fast Fusion",
+   "releaseDates": {
+    "JP": "2025-06-05",
+    "EU": "2025-06-05",
+    "NA": "2025-06-05"
+   },
+   "firstReleaseDate": "2025-06-05",
+   "vague": null,
+   "scores": {
+    "opencritic": 81,
+    "metacritic": 80,
+    "metacriticUser": 74
+   }
+  },
+  "free-update:game-builder-garage": {
+   "title": "Game Builder Garage",
+   "releaseDates": {
+    "JP": "2025-06-05",
+    "EU": "2025-06-05",
+    "NA": "2025-06-05"
+   },
+   "firstReleaseDate": "2025-06-05",
+   "vague": null,
+   "scores": {}
+  },
+  "igdb:338067": {
+   "title": "Mario Kart World",
+   "releaseDates": {
+    "JP": "2025-06-05",
+    "EU": "2025-06-05",
+    "NA": "2025-06-05"
+   },
+   "firstReleaseDate": "2025-06-05",
+   "vague": null,
+   "scores": {
+    "opencritic": 87,
+    "metacritic": 86,
+    "metacriticUser": 70
+   }
+  },
+  "free-update:new-super-mario-bros-u-deluxe": {
+   "title": "New Super Mario Bros. U Deluxe",
+   "releaseDates": {
+    "JP": "2025-06-05",
+    "EU": "2025-06-05",
+    "NA": "2025-06-05"
+   },
+   "firstReleaseDate": "2025-06-05",
+   "vague": null,
+   "scores": {}
+  },
+  "igdb:338069": {
+   "title": "Nintendo Switch 2 Welcome Tour",
+   "releaseDates": {
+    "JP": "2025-06-05",
+    "EU": "2025-06-05",
+    "NA": "2025-06-05"
+   },
+   "firstReleaseDate": "2025-06-05",
+   "vague": null,
+   "scores": {
+    "opencritic": 61,
+    "metacritic": 54,
+    "metacriticUser": 39
+   }
+  },
+  "free-update:pokemon-scarlet": {
+   "title": "Pokémon Scarlet",
+   "releaseDates": {
+    "JP": "2025-06-05",
+    "EU": "2025-06-05",
+    "NA": "2025-06-05"
+   },
+   "firstReleaseDate": "2025-06-05",
+   "vague": null,
+   "scores": {}
+  },
+  "free-update:pokemon-violet": {
+   "title": "Pokémon Violet",
+   "releaseDates": {
+    "JP": "2025-06-05",
+    "EU": "2025-06-05",
+    "NA": "2025-06-05"
+   },
+   "firstReleaseDate": "2025-06-05",
+   "vague": null,
+   "scores": {}
+  },
+  "igdb:338091": {
+   "title": "Puyo Puyo Tetris 2S",
+   "releaseDates": {
+    "JP": "2025-06-05",
+    "EU": "2025-06-05",
+    "NA": "2025-06-05"
+   },
+   "firstReleaseDate": "2025-06-05",
+   "vague": null,
+   "scores": {
+    "opencritic": 73,
+    "metacritic": 73,
+    "metacriticUser": 61
+   }
+  },
+  "igdb:217964": {
+   "title": "Shine Post: Be Your Idol!",
+   "releaseDates": {
+    "JP": "2025-06-05",
+    "EU": null,
+    "NA": null
+   },
+   "firstReleaseDate": "2025-06-05",
+   "vague": null,
+   "scores": {}
+  },
+  "free-update:super-mario-3d-world-bowser-s-fury": {
+   "title": "Super Mario 3D World + Bowser's Fury",
+   "releaseDates": {
+    "JP": "2025-06-05",
+    "EU": "2025-06-05",
+    "NA": "2025-06-05"
+   },
+   "firstReleaseDate": "2025-06-05",
+   "vague": null,
+   "scores": {}
+  },
+  "free-update:super-mario-odyssey": {
+   "title": "Super Mario Odyssey",
+   "releaseDates": {
+    "JP": "2025-06-05",
+    "EU": "2025-06-05",
+    "NA": "2025-06-05"
+   },
+   "firstReleaseDate": "2025-06-05",
+   "vague": null,
+   "scores": {}
+  },
+  "igdb:338087": {
+   "title": "Survival Kids",
+   "releaseDates": {
+    "JP": "2025-06-05",
+    "EU": "2025-06-05",
+    "NA": "2025-06-05"
+   },
+   "firstReleaseDate": "2025-06-05",
+   "vague": null,
+   "scores": {
+    "opencritic": 62,
+    "metacritic": 62,
+    "metacriticUser": 56
+   }
+  },
+  "igdb:338072": {
+   "title": "The Legend of Zelda: Breath of the Wild - Nintendo Switch 2 Edition",
+   "releaseDates": {
+    "JP": "2025-06-05",
+    "EU": "2025-06-05",
+    "NA": "2025-06-05"
+   },
+   "firstReleaseDate": "2025-06-05",
+   "vague": null,
+   "scores": {
+    "opencritic": 88,
+    "metacritic": 94,
+    "metacriticUser": 88
+   }
+  },
+  "free-update:the-legend-of-zelda-echoes-of-wisdom": {
+   "title": "The Legend of Zelda: Echoes of Wisdom",
+   "releaseDates": {
+    "JP": "2025-06-05",
+    "EU": "2025-06-05",
+    "NA": "2025-06-05"
+   },
+   "firstReleaseDate": "2025-06-05",
+   "vague": null,
+   "scores": {}
+  },
+  "free-update:the-legend-of-zelda-link-s-awakening": {
+   "title": "The Legend of Zelda: Link's Awakening",
+   "releaseDates": {
+    "JP": "2025-06-05",
+    "EU": "2025-06-05",
+    "NA": "2025-06-05"
+   },
+   "firstReleaseDate": "2025-06-05",
+   "vague": null,
+   "scores": {}
+  },
+  "igdb:338073": {
+   "title": "The Legend of Zelda: Tears of the Kingdom - Nintendo Switch 2 Edition",
+   "releaseDates": {
+    "JP": "2025-06-05",
+    "EU": "2025-06-05",
+    "NA": "2025-06-05"
+   },
+   "firstReleaseDate": "2025-06-05",
+   "vague": null,
+   "scores": {
+    "opencritic": 94,
+    "metacritic": 95,
+    "metacriticUser": 86
+   }
+  },
+  "free-update:splatoon-3": {
+   "title": "Splatoon 3",
+   "releaseDates": {
+    "JP": "2025-06-12",
+    "EU": "2025-06-12",
+    "NA": "2025-06-12"
+   },
+   "firstReleaseDate": "2025-06-12",
+   "vague": null,
+   "scores": {}
+  },
+  "igdb:338106": {
+   "title": "Donkey Kong Bananza",
+   "releaseDates": {
+    "JP": "2025-07-17",
+    "EU": "2025-07-17",
+    "NA": "2025-07-17"
+   },
+   "firstReleaseDate": "2025-07-17",
+   "vague": null,
+   "scores": {
+    "opencritic": 91,
+    "metacritic": 91,
+    "metacriticUser": 89
+   }
+  },
+  "igdb:356551": {
+   "title": "Pokémon Friends",
+   "releaseDates": {
+    "JP": "2025-07-22",
+    "EU": "2025-07-22",
+    "NA": "2025-07-22"
+   },
+   "firstReleaseDate": "2025-07-22",
+   "vague": null,
+   "scores": {
+    "opencritic": 62,
+    "metacritic": 62,
+    "metacriticUser": 40
+   }
+  },
+  "igdb:338071": {
+   "title": "Super Mario Party Jamboree: Nintendo Switch 2 Edition + Jamboree TV",
+   "releaseDates": {
+    "JP": "2025-07-24",
+    "EU": "2025-07-24",
+    "NA": "2025-07-24"
+   },
+   "firstReleaseDate": "2025-07-24",
+   "vague": null,
+   "scores": {
+    "opencritic": 78,
+    "metacritic": 76,
+    "metacriticUser": 63
+   }
+  },
+  "igdb:358531": {
+   "title": "Chillin' by the Fire",
+   "releaseDates": {
+    "JP": "2025-07-31",
+    "EU": "2025-07-31",
+    "NA": "2025-07-31"
+   },
+   "firstReleaseDate": "2025-07-31",
+   "vague": null,
+   "scores": {
+    "metacriticUser": 54
+   }
+  },
+  "igdb:338077": {
+   "title": "Drag x Drive",
+   "releaseDates": {
+    "JP": "2025-08-14",
+    "EU": "2025-08-14",
+    "NA": "2025-08-14"
+   },
+   "firstReleaseDate": "2025-08-14",
+   "vague": null,
+   "scores": {
+    "opencritic": 63,
+    "metacritic": 60,
+    "metacriticUser": 50
+   }
+  },
+  "igdb:338074": {
+   "title": "Kirby and the Forgotten Land: Nintendo Switch 2 Edition + Star-Crossed World",
+   "releaseDates": {
+    "JP": "2025-08-28",
+    "EU": "2025-08-28",
+    "NA": "2025-08-28"
+   },
+   "firstReleaseDate": "2025-08-28",
+   "vague": null,
+   "scores": {
+    "opencritic": 84,
+    "metacritic": 83,
+    "metacriticUser": 85
+   }
+  },
+  "igdb:366892": {
+   "title": "Donkey Kong Bananza: DK Island & Emerald Rush",
+   "releaseDates": {
+    "JP": "2025-09-12",
+    "EU": "2025-09-12",
+    "NA": "2025-09-12"
+   },
+   "firstReleaseDate": "2025-09-12",
+   "vague": null,
+   "scores": {
+    "opencritic": 73,
+    "metacritic": 67,
+    "metacriticUser": 52
+   }
+  },
+  "igdb:368773": {
+   "title": "The Touryst: Deluxe",
+   "releaseDates": {
+    "JP": "2025-09-25",
+    "EU": "2025-09-25",
+    "NA": "2025-09-25"
+   },
+   "firstReleaseDate": "2025-09-25",
+   "vague": null,
+   "scores": {
+    "metacriticUser": 0
+   }
+  },
+  "igdb:366878": {
+   "title": "Super Mario Galaxy + Super Mario Galaxy 2",
+   "releaseDates": {
+    "JP": "2025-10-02",
+    "EU": "2025-10-02",
+    "NA": "2025-10-02"
+   },
+   "firstReleaseDate": "2025-10-02",
+   "vague": null,
+   "scores": {
+    "opencritic": 87,
+    "metacritic": 87,
+    "metacriticUser": 77
+   }
+  },
+  "igdb:288327": {
+   "title": "Pokémon Legends: Z-A",
+   "releaseDates": {
+    "JP": "2025-10-16",
+    "EU": "2025-10-16",
+    "NA": "2025-10-16"
+   },
+   "firstReleaseDate": "2025-10-16",
+   "vague": null,
+   "scores": {
+    "opencritic": 79,
+    "metacritic": 78,
+    "metacriticUser": 48
+   }
+  },
+  "igdb:338085": {
+   "title": "Hyrule Warriors: Age of Imprisonment",
+   "releaseDates": {
+    "JP": "2025-11-06",
+    "EU": "2025-11-06",
+    "NA": "2025-11-06"
+   },
+   "firstReleaseDate": "2025-11-06",
+   "vague": null,
+   "scores": {
+    "opencritic": 79,
+    "metacritic": 79,
+    "metacriticUser": 84
+   }
+  },
+  "igdb:338105": {
+   "title": "Kirby Air Riders",
+   "releaseDates": {
+    "JP": "2025-11-20",
+    "EU": "2025-11-20",
+    "NA": "2025-11-20"
+   },
+   "firstReleaseDate": "2025-11-20",
+   "vague": null,
+   "scores": {
+    "opencritic": 82,
+    "metacritic": 79,
+    "metacriticUser": 86
+   }
+  },
+  "igdb:37136": {
+   "title": "Metroid Prime 4: Beyond",
+   "releaseDates": {
+    "JP": "2025-12-04",
+    "EU": "2025-12-04",
+    "NA": "2025-12-04"
+   },
+   "firstReleaseDate": "2025-12-04",
+   "vague": null,
+   "scores": {
+    "opencritic": 80,
+    "metacritic": 78,
+    "metacriticUser": 78
+   }
+  },
+  "igdb:366894": {
+   "title": "Pokémon Legends: Z-A - Mega Dimension",
+   "releaseDates": {
+    "JP": "2025-12-10",
+    "EU": "2025-12-10",
+    "NA": "2025-12-10"
+   },
+   "firstReleaseDate": "2025-12-10",
+   "vague": null,
+   "scores": {
+    "opencritic": 67,
+    "metacritic": 65,
+    "metacriticUser": 27
+   }
+  },
+  "igdb:403729": {
+   "title": "Riichi Mahjong",
+   "releaseDates": {
+    "JP": "2025-12-25",
+    "EU": "2026-05-28",
+    "NA": "2026-05-28"
+   },
+   "firstReleaseDate": "2025-12-25",
+   "vague": null,
+   "scores": {}
+  },
+  "igdb:375733": {
+   "title": "Animal Crossing: New Horizons - Nintendo Switch 2 Edition",
+   "releaseDates": {
+    "JP": "2026-01-15",
+    "EU": "2026-01-15",
+    "NA": "2026-01-15"
+   },
+   "firstReleaseDate": "2026-01-15",
+   "vague": null,
+   "scores": {
+    "opencritic": 78,
+    "metacritic": 83,
+    "metacriticUser": 60
+   }
+  },
+  "free-update:donkey-kong-country-returns-hd": {
+   "title": "Donkey Kong Country Returns HD",
+   "releaseDates": {
+    "JP": "2026-01-20",
+    "EU": "2026-01-20",
+    "NA": "2026-01-20"
+   },
+   "firstReleaseDate": "2026-01-20",
+   "vague": null,
+   "scores": {}
+  },
+  "igdb:386785": {
+   "title": "Pool Room Billiard",
+   "releaseDates": {
+    "JP": "2026-01-22",
+    "EU": "2026-01-22",
+    "NA": "2026-01-22"
+   },
+   "firstReleaseDate": "2026-01-22",
+   "vague": null,
+   "scores": {
+    "metacriticUser": 50
+   }
+  },
+  "igdb:388428": {
+   "title": "Tokyo Scramble",
+   "releaseDates": {
+    "JP": "2026-02-11",
+    "EU": "2026-02-11",
+    "NA": "2026-02-11"
+   },
+   "firstReleaseDate": "2026-02-11",
+   "vague": null,
+   "scores": {
+    "opencritic": 52,
+    "metacritic": 43,
+    "metacriticUser": 56
+   }
+  },
+  "igdb:366880": {
+   "title": "Mario Tennis Fever",
+   "releaseDates": {
+    "JP": "2026-02-12",
+    "EU": "2026-02-12",
+    "NA": "2026-02-12"
+   },
+   "firstReleaseDate": "2026-02-12",
+   "vague": null,
+   "scores": {
+    "opencritic": 77,
+    "metacritic": 76,
+    "metacriticUser": 75
+   }
+  },
+  "igdb:366893": {
+   "title": "Pokémon Pokopia",
+   "releaseDates": {
+    "JP": "2026-03-05",
+    "EU": "2026-03-05",
+    "NA": "2026-03-05"
+   },
+   "firstReleaseDate": "2026-03-05",
+   "vague": null,
+   "scores": {
+    "opencritic": 89,
+    "metacritic": 89,
+    "metacriticUser": 86
+   }
+  },
+  "igdb:366881": {
+   "title": "Super Mario Bros. Wonder: Nintendo Switch 2 Edition + Meetup in Bellabel Park",
+   "releaseDates": {
+    "JP": "2026-03-26",
+    "EU": "2026-03-26",
+    "NA": "2026-03-26"
+   },
+   "firstReleaseDate": "2026-03-26",
+   "vague": null,
+   "scores": {
+    "opencritic": 86,
+    "metacritic": 85,
+    "metacriticUser": 77
+   }
+  },
+  "igdb:333568": {
+   "title": "Pokémon Champions",
+   "releaseDates": {
+    "JP": "2026-04-08",
+    "EU": "2026-04-08",
+    "NA": "2026-04-08"
+   },
+   "firstReleaseDate": "2026-04-08",
+   "vague": null,
+   "scores": {
+    "opencritic": 65,
+    "metacritic": 67,
+    "metacriticUser": 51
+   }
+  },
+  "igdb:337036": {
+   "title": "Tomodachi Life: Living the Dream",
+   "releaseDates": {
+    "JP": "2026-04-16",
+    "EU": "2026-04-16",
+    "NA": "2026-04-16"
+   },
+   "firstReleaseDate": "2026-04-16",
+   "vague": null,
+   "scores": {
+    "opencritic": 79,
+    "metacritic": 77,
+    "metacriticUser": 81
+   }
+  },
+  "igdb:399617": {
+   "title": "Card&Casino",
+   "releaseDates": {
+    "JP": "2026-04-23",
+    "EU": "2026-04-23",
+    "NA": "2026-04-23"
+   },
+   "firstReleaseDate": "2026-04-23",
+   "vague": null,
+   "scores": {
+    "metacriticUser": 90
+   }
+  },
+  "igdb:366883": {
+   "title": "Yoshi and the Mysterious Book",
+   "releaseDates": {
+    "JP": "2026-05-21",
+    "EU": "2026-05-21",
+    "NA": "2026-05-21"
+   },
+   "firstReleaseDate": "2026-05-21",
+   "vague": null,
+   "scores": {
+    "opencritic": 80,
+    "metacritic": 80,
+    "metacriticUser": 80
+   }
+  },
+  "igdb:388431": {
+   "title": "eFootball Kick-Off!",
+   "releaseDates": {
+    "JP": "2026-06-03",
+    "EU": "2026-06-03",
+    "NA": "2026-06-03"
+   },
+   "firstReleaseDate": "2026-06-03",
+   "vague": null,
+   "scores": {
+    "opencritic": 76,
+    "metacritic": 76,
+    "metacriticUser": 83
+   }
+  },
+  "igdb:405439": {
+   "title": "DK Challenge",
+   "releaseDates": {
+    "JP": "2026-06-09",
+    "EU": "2026-06-09",
+    "NA": "2026-06-09"
+   },
+   "firstReleaseDate": "2026-06-09",
+   "vague": null,
+   "scores": {
+    "metacriticUser": 58
+   }
+  },
+  "igdb:405446": {
+   "title": "Xenoblade Chronicles: Definitive Edition - Nintendo Switch 2 Edition",
+   "releaseDates": {
+    "JP": "2026-06-09",
+    "EU": "2026-06-09",
+    "NA": "2026-06-09"
+   },
+   "firstReleaseDate": "2026-06-09",
+   "vague": null,
+   "scores": {
+    "opencritic": 89,
+    "metacritic": 86,
+    "metacriticUser": 89
+   }
+  },
+  "igdb:400709": {
+   "title": "Star Fox",
+   "releaseDates": {
+    "JP": "2026-06-25",
+    "EU": "2026-06-25",
+    "NA": "2026-06-25"
+   },
+   "firstReleaseDate": "2026-06-25",
+   "vague": null,
+   "scores": {
+    "opencritic": 82,
+    "metacritic": 81,
+    "metacriticUser": 82
+   }
+  },
+  "igdb:337031": {
+   "title": "Rhythm Heaven Groove",
+   "releaseDates": {
+    "JP": "2026-07-02",
+    "EU": "2026-07-02",
+    "NA": "2026-07-02"
+   },
+   "firstReleaseDate": "2026-07-02",
+   "vague": null,
+   "scores": {
+    "opencritic": 84,
+    "metacritic": 82,
+    "metacriticUser": 86
+   }
+  },
+  "igdb:402033": {
+   "title": "Fitness Boxing 3: Your Personal Trainer - Nintendo Switch 2 Edition",
+   "releaseDates": {
+    "JP": "2026-07-16",
+    "EU": "2026-07-16",
+    "NA": "2026-07-16"
+   },
+   "firstReleaseDate": "2026-07-16",
+   "vague": null,
+   "scores": {
+    "opencritic": 70,
+    "metacritic": 78,
+    "metacriticUser": 92
+   }
+  },
+  "igdb:348977": {
+   "title": "Splatoon Raiders",
+   "releaseDates": {
+    "JP": "2026-07-23",
+    "EU": "2026-07-23",
+    "NA": "2026-07-23"
+   },
+   "firstReleaseDate": "2026-07-23",
+   "vague": null,
+   "scores": {
+    "opencritic": 81,
+    "metacritic": 82,
+    "metacriticUser": 93
+   }
+  },
+  "igdb:405447": {
+   "title": "Xenoblade Chronicles 2: Nintendo Switch 2 Edition",
+   "releaseDates": {
+    "JP": "2026-07-30",
+    "EU": "2026-07-30",
+    "NA": "2026-07-30"
+   },
+   "firstReleaseDate": "2026-07-30",
+   "vague": null,
+   "scores": {
+    "opencritic": 83,
+    "metacritic": 86,
+    "metacriticUser": 89
+   }
+  },
+  "igdb:405436": {
+   "title": "Pokémon Pokopia: Bubbly Basin",
+   "releaseDates": {
+    "JP": "2026-08-05",
+    "EU": "2026-08-05",
+    "NA": "2026-08-05"
+   },
+   "firstReleaseDate": "2026-08-05",
+   "vague": null,
+   "scores": {
+    "opencritic": 88,
+    "metacritic": 88,
+    "metacriticUser": 91
+   }
+  },
+  "free-update:pikmin-3-deluxe": {
+   "title": "Pikmin 3 Deluxe",
+   "releaseDates": {
+    "JP": "2026-08-31",
+    "EU": "2026-08-31",
+    "NA": "2026-08-31"
+   },
+   "firstReleaseDate": "2026-08-31",
+   "vague": null,
+   "scores": {}
+  },
+  "free-update:mario-kart-8-deluxe": {
+   "title": "Mario Kart 8 Deluxe",
+   "releaseDates": {
+    "JP": "2026-09-01",
+    "EU": "2026-09-01",
+    "NA": "2026-09-01"
+   },
+   "firstReleaseDate": "2026-09-01",
+   "vague": null,
+   "scores": {}
+  },
+  "igdb:381237": {
+   "title": "Orbitals",
+   "releaseDates": {
+    "JP": "2026-09-03",
+    "EU": "2026-09-03",
+    "NA": "2026-09-03"
+   },
+   "firstReleaseDate": "2026-09-03",
+   "vague": null,
+   "scores": {
+    "opencritic": 82,
+    "metacritic": 81,
+    "metacriticUser": 83
+   }
+  },
+  "igdb:366896": {
+   "title": "Fire Emblem: Fortune's Weave",
+   "releaseDates": {
+    "JP": "2026-09-17",
+    "EU": "2026-09-17",
+    "NA": "2026-09-17"
+   },
+   "firstReleaseDate": "2026-09-17",
+   "vague": null,
+   "scores": {
+    "opencritic": 89,
+    "metacritic": 89,
+    "metacriticUser": 87
+   }
+  },
+  "igdb:405468": {
+   "title": "Derby Stallion 2",
+   "releaseDates": {
+    "JP": "2026-09-24",
+    "EU": null,
+    "NA": null
+   },
+   "firstReleaseDate": "2026-09-24",
+   "vague": null,
+   "scores": {}
+  },
+  "igdb:405451": {
+   "title": "Nintendo Switch Sports Resort",
+   "releaseDates": {
+    "JP": "2026-10-22",
+    "EU": "2026-10-22",
+    "NA": "2026-10-22"
+   },
+   "firstReleaseDate": "2026-10-22",
+   "vague": null,
+   "scores": {}
+  },
+  "igdb:405460": {
+   "title": "The Legend of Zelda: Ocarina of Time",
+   "releaseDates": {
+    "JP": "2026-11-05",
+    "EU": "2026-11-05",
+    "NA": "2026-11-05"
+   },
+   "firstReleaseDate": "2026-11-05",
+   "vague": null,
+   "scores": {}
+  },
+  "igdb:417169": {
+   "title": "Pikmin 4: Nintendo Switch 2 Edition + Dandori Academy",
+   "releaseDates": {
+    "JP": "2026-11-12",
+    "EU": "2026-11-12",
+    "NA": "2026-11-12"
+   },
+   "firstReleaseDate": "2026-11-12",
+   "vague": null,
+   "scores": {}
+  },
+  "igdb:405448": {
+   "title": "Xenoblade Chronicles 3: Nintendo Switch 2 Edition",
+   "releaseDates": {
+    "JP": "2026-12-03",
+    "EU": "2026-12-03",
+    "NA": "2026-12-03"
+   },
+   "firstReleaseDate": "2026-12-03",
+   "vague": null,
+   "scores": {}
+  },
+  "igdb:408719": {
+   "title": "Metroid Ravenous",
+   "releaseDates": {
+    "JP": "2027-01-28",
+    "EU": "2027-01-28",
+    "NA": "2027-01-28"
+   },
+   "firstReleaseDate": "2027-01-28",
+   "vague": null,
+   "scores": {}
+  },
+  "igdb:417167": {
+   "title": "Hyrule Warriors: Age of Calamity - Definitive Edition",
+   "releaseDates": {
+    "JP": "2027-02-25",
+    "EU": "2027-02-25",
+    "NA": "2027-02-25"
+   },
+   "firstReleaseDate": "2027-02-25",
+   "vague": null,
+   "scores": {}
+  },
+  "igdb:403828": {
+   "title": "Beyond the Dark: Nightwatch",
+   "releaseDates": {
+    "JP": null,
+    "EU": null,
+    "NA": null
+   },
+   "firstReleaseDate": null,
+   "vague": "2026",
+   "scores": {}
+  },
+  "igdb:407137": {
+   "title": "Pokémon Pokopia: Part 2",
+   "releaseDates": {
+    "JP": null,
+    "EU": null,
+    "NA": null
+   },
+   "firstReleaseDate": null,
+   "vague": "Q4 2026",
+   "scores": {}
+  },
+  "igdb:338104": {
+   "title": "The Duskbloods",
+   "releaseDates": {
+    "JP": null,
+    "EU": null,
+    "NA": null
+   },
+   "firstReleaseDate": null,
+   "vague": "2026",
+   "scores": {}
+  },
+  "igdb:417186": {
+   "title": "Kirby and the World Beyond",
+   "releaseDates": {
+    "JP": null,
+    "EU": null,
+    "NA": null
+   },
+   "firstReleaseDate": null,
+   "vague": "Q2 2027",
+   "scores": {}
+  },
+  "igdb:405438": {
+   "title": "Ninjala 2: The Uncharted Planet",
+   "releaseDates": {
+    "JP": null,
+    "EU": null,
+    "NA": null
+   },
+   "firstReleaseDate": null,
+   "vague": "Q2 2027",
+   "scores": {}
+  },
+  "igdb:417170": {
+   "title": "Onyx: The Dark Grip",
+   "releaseDates": {
+    "JP": null,
+    "EU": null,
+    "NA": null
+   },
+   "firstReleaseDate": null,
+   "vague": "2027",
+   "scores": {}
+  },
+  "igdb:407138": {
+   "title": "Pokémon Pokopia: Part 3",
+   "releaseDates": {
+    "JP": null,
+    "EU": null,
+    "NA": null
+   },
+   "firstReleaseDate": null,
+   "vague": "2027",
+   "scores": {}
+  },
+  "igdb:393104": {
+   "title": "Pokémon Waves",
+   "releaseDates": {
+    "JP": null,
+    "EU": null,
+    "NA": null
+   },
+   "firstReleaseDate": null,
+   "vague": "2027",
+   "scores": {}
+  },
+  "igdb:393105": {
+   "title": "Pokémon Winds",
+   "releaseDates": {
+    "JP": null,
+    "EU": null,
+    "NA": null
+   },
+   "firstReleaseDate": null,
+   "vague": "2027",
+   "scores": {}
+  },
+  "manual:putty-world": {
+   "title": "Putty World",
+   "releaseDates": {
+    "JP": null,
+    "EU": null,
+    "NA": null
+   },
+   "firstReleaseDate": null,
+   "vague": "2027",
+   "scores": {}
+  },
+  "igdb:405450": {
+   "title": "Xenoblade Genesis",
+   "releaseDates": {
+    "JP": null,
+    "EU": null,
+    "NA": null
+   },
+   "firstReleaseDate": null,
+   "vague": "2027",
+   "scores": {}
+  },
+  "manual:bit-boy-arcade-2": {
+   "title": "Bit Boy!! Arcade 2",
+   "releaseDates": {
+    "JP": null,
+    "EU": null,
+    "NA": null
+   },
+   "firstReleaseDate": null,
+   "vague": null,
+   "scores": {}
+  },
+  "manual:chit-chat-party": {
+   "title": "Chit Chat Party!",
+   "releaseDates": {
+    "JP": null,
+    "EU": null,
+    "NA": null
+   },
+   "firstReleaseDate": null,
+   "vague": null,
+   "scores": {}
+  },
+  "igdb:339137": {
+   "title": "Mouse Work",
+   "releaseDates": {
+    "JP": null,
+    "EU": null,
+    "NA": null
+   },
+   "firstReleaseDate": null,
+   "vague": null,
+   "scores": {}
+  }
+ }
+}
