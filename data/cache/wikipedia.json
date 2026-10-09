@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-08T10:33:18.600Z",
+  "fetchedAt": "2026-10-09T10:30:45.741Z",
   "pages": [
     {
       "title": "Mario Kart World",
@@ -210,6 +210,11 @@
       "title": "Putty World",
       "wikidataId": null,
       "igdbSlug": null
+    },
+    {
+      "title": "Girls und Panzer: All-Star Tank Carnival",
+      "wikidataId": null,
+      "igdbSlug": null
     }
   ],
   "matches": {
@@ -254,6 +259,7 @@
     "Kirby and the World Beyond": 417186,
     "Xenoblade Genesis": 405450,
     "Chit Chat Party!": null,
-    "Putty World": null
+    "Putty World": null,
+    "Girls und Panzer: All-Star Tank Carnival": null
   }
 }

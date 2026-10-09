@@ -1,6 +1,18 @@
 {
-  "generatedAt": "2026-10-08T10:34:11.583Z",
+  "generatedAt": "2026-10-09T10:35:02.122Z",
   "studios": [
+    {
+      "name": "Atlantis Studio",
+      "url": null,
+      "category": "third-party",
+      "game": {
+        "id": "igdb:403828",
+        "title": "Beyond the Dark: Nightwatch",
+        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc5fe.jpg",
+        "date": "2026-10-22"
+      },
+      "hasSwitch2Game": true
+    },
     {
       "name": "Nintendo EPD Production Group No. 10",
       "url": "https://nintendo.fandom.com/wiki/Nintendo_EPD_Production_Group_No._10",
@@ -319,18 +331,6 @@
       "category": "first-party",
       "game": null,
       "hasSwitch2Game": false
-    },
-    {
-      "name": "Atlantis Studio",
-      "url": null,
-      "category": "third-party",
-      "game": null,
-      "hasSwitch2Game": true,
-      "tbaGame": {
-        "id": "igdb:403828",
-        "title": "Beyond the Dark: Nightwatch",
-        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc5fe.jpg"
-      }
     },
     {
       "name": "Bloober Team",

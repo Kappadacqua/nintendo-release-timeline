@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-08T10:34:11.583Z",
+  "generatedAt": "2026-10-09T10:35:02.122Z",
   "games": [
     {
       "id": "free-update:arms",
@@ -194,10 +194,10 @@
         },
         "user": {
           "metacritic": {
-            "value": 7.4,
+            "value": 7.5,
             "scale": 10,
-            "normalized": 74,
-            "count": 94
+            "normalized": 75,
+            "count": 96
           },
           "backloggd": null
         }
@@ -209,6 +209,18 @@
         "wikipedia": "https://en.wikipedia.org/wiki/Fast_Fusion",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/FAST_Fusion",
         "nintendoStore": "https://www.nintendo.com/us/store/products/fast-fusion-switch-2/"
+      },
+      "scoreHistory": {
+        "metacriticUser": [
+          {
+            "date": "2026-10-01",
+            "normalized": 74
+          },
+          {
+            "date": "2026-10-09",
+            "normalized": 75
+          }
+        ]
       }
     },
     {
@@ -289,7 +301,7 @@
             "value": 7,
             "scale": 10,
             "normalized": 70,
-            "count": 3787
+            "count": 3812
           },
           "backloggd": null
         }
@@ -382,7 +394,7 @@
             "value": 3.9,
             "scale": 10,
             "normalized": 39,
-            "count": 346
+            "count": 345
           },
           "backloggd": null
         }
@@ -741,7 +753,7 @@
             "value": 8.8,
             "scale": 10,
             "normalized": 88,
-            "count": 1278
+            "count": 1291
           },
           "backloggd": null
         }
@@ -875,7 +887,7 @@
             "value": 8.6,
             "scale": 10,
             "normalized": 86,
-            "count": 1414
+            "count": 1426
           },
           "backloggd": null
         }
@@ -970,7 +982,7 @@
             "value": 8.9,
             "scale": 10,
             "normalized": 89,
-            "count": 3268
+            "count": 3279
           },
           "backloggd": null
         }
@@ -1082,7 +1094,7 @@
             "value": 6.3,
             "scale": 10,
             "normalized": 63,
-            "count": 117
+            "count": 116
           },
           "backloggd": null
         }
@@ -1294,7 +1306,7 @@
             "value": 5.2,
             "scale": 10,
             "normalized": 52,
-            "count": 133
+            "count": 132
           },
           "backloggd": null
         }
@@ -1336,12 +1348,7 @@
           "metacritic": null
         },
         "user": {
-          "metacritic": {
-            "value": 0,
-            "scale": 10,
-            "normalized": 0,
-            "count": null
-          },
+          "metacritic": null,
           "backloggd": null
         }
       },
@@ -1394,7 +1401,7 @@
             "value": 7.7,
             "scale": 10,
             "normalized": 77,
-            "count": 429
+            "count": 431
           },
           "backloggd": null
         }
@@ -1450,7 +1457,7 @@
             "value": 4.8,
             "scale": 10,
             "normalized": 48,
-            "count": 4188
+            "count": 4195
           },
           "backloggd": null
         }
@@ -1506,7 +1513,7 @@
             "value": 8.4,
             "scale": 10,
             "normalized": 84,
-            "count": 367
+            "count": 369
           },
           "backloggd": null
         }
@@ -1562,7 +1569,7 @@
             "value": 8.6,
             "scale": 10,
             "normalized": 86,
-            "count": 624
+            "count": 625
           },
           "backloggd": null
         }
@@ -1615,10 +1622,10 @@
         },
         "user": {
           "metacritic": {
-            "value": 7.8,
+            "value": 7.7,
             "scale": 10,
-            "normalized": 78,
-            "count": 2617
+            "normalized": 77,
+            "count": 2602
           },
           "backloggd": null
         }
@@ -1630,6 +1637,18 @@
         "wikipedia": "https://en.wikipedia.org/wiki/Metroid_Prime_4%3A_Beyond",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Metroid_Prime_4%3A_Beyond",
         "nintendoStore": "https://www.nintendo.com/us/store/products/metroid-prime-4-beyond-switch/"
+      },
+      "scoreHistory": {
+        "metacriticUser": [
+          {
+            "date": "2026-10-01",
+            "normalized": 78
+          },
+          {
+            "date": "2026-10-09",
+            "normalized": 77
+          }
+        ]
       }
     },
     {
@@ -1672,7 +1691,7 @@
             "value": 2.7,
             "scale": 10,
             "normalized": 27,
-            "count": 233
+            "count": 232
           },
           "backloggd": null
         }
@@ -1766,7 +1785,7 @@
             "value": 6,
             "scale": 10,
             "normalized": 60,
-            "count": 7638,
+            "count": 7644,
             "inheritedFrom": "animal-crossing-new-horizons"
           },
           "backloggd": null
@@ -1847,12 +1866,7 @@
           "metacritic": null
         },
         "user": {
-          "metacritic": {
-            "value": 5,
-            "scale": 10,
-            "normalized": 50,
-            "count": null
-          },
+          "metacritic": null,
           "backloggd": null
         }
       },
@@ -1902,10 +1916,10 @@
         },
         "user": {
           "metacritic": {
-            "value": 5.6,
+            "value": 5.9,
             "scale": 10,
-            "normalized": 56,
-            "count": 27
+            "normalized": 59,
+            "count": 29
           },
           "backloggd": null
         }
@@ -1916,6 +1930,18 @@
         "metacritic": "https://www.metacritic.com/game/tokyo-scramble/",
         "wikipedia": "https://en.wikipedia.org/wiki/Tokyo_Scramble",
         "nintendoStore": "https://www.nintendo.com/us/store/products/tokyo-scramble-switch-2/"
+      },
+      "scoreHistory": {
+        "metacriticUser": [
+          {
+            "date": "2026-10-01",
+            "normalized": 56
+          },
+          {
+            "date": "2026-10-09",
+            "normalized": 59
+          }
+        ]
       }
     },
     {
@@ -1959,7 +1985,7 @@
             "value": 7.5,
             "scale": 10,
             "normalized": 75,
-            "count": 288
+            "count": 292
           },
           "backloggd": null
         }
@@ -2015,7 +2041,7 @@
             "value": 8.6,
             "scale": 10,
             "normalized": 86,
-            "count": 1823
+            "count": 1814
           },
           "backloggd": null
         }
@@ -2070,7 +2096,7 @@
             "value": 7.7,
             "scale": 10,
             "normalized": 77,
-            "count": 174
+            "count": 176
           },
           "backloggd": null
         }
@@ -2126,7 +2152,7 @@
             "value": 5.1,
             "scale": 10,
             "normalized": 51,
-            "count": 261
+            "count": 263
           },
           "backloggd": null
         }
@@ -2173,7 +2199,7 @@
             "value": 77,
             "scale": 100,
             "normalized": 77,
-            "count": 104
+            "count": 105
           }
         },
         "user": {
@@ -2181,7 +2207,7 @@
             "value": 8.1,
             "scale": 10,
             "normalized": 81,
-            "count": 474
+            "count": 475
           },
           "backloggd": null
         }
@@ -2222,12 +2248,7 @@
           "metacritic": null
         },
         "user": {
-          "metacritic": {
-            "value": 9,
-            "scale": 10,
-            "normalized": 90,
-            "count": null
-          },
+          "metacritic": null,
           "backloggd": null
         }
       },
@@ -2272,7 +2293,7 @@
             "value": 80,
             "scale": 100,
             "normalized": 80,
-            "count": 125
+            "count": 126
           }
         },
         "user": {
@@ -2280,7 +2301,7 @@
             "value": 8,
             "scale": 10,
             "normalized": 80,
-            "count": 293
+            "count": 297
           },
           "backloggd": null
         }
@@ -2327,15 +2348,15 @@
             "value": 76,
             "scale": 100,
             "normalized": 76,
-            "count": 30
+            "count": 31
           }
         },
         "user": {
           "metacritic": {
-            "value": 8.3,
+            "value": 8.2,
             "scale": 10,
-            "normalized": 83,
-            "count": 72
+            "normalized": 82,
+            "count": 75
           },
           "backloggd": null
         }
@@ -2346,6 +2367,18 @@
         "metacritic": "https://www.metacritic.com/game/efootball-kick-off/",
         "wikipedia": "https://en.wikipedia.org/wiki/EFootball_Kick-Off!",
         "nintendoStore": "https://www.nintendo.com/us/store/products/efootball-kick-off-switch-2/"
+      },
+      "scoreHistory": {
+        "metacriticUser": [
+          {
+            "date": "2026-10-01",
+            "normalized": 83
+          },
+          {
+            "date": "2026-10-09",
+            "normalized": 82
+          }
+        ]
       }
     },
     {
@@ -2432,7 +2465,7 @@
             "value": 8.9,
             "scale": 10,
             "normalized": 89,
-            "count": 1823,
+            "count": 1827,
             "inheritedFrom": "xenoblade-chronicles-definitive-edition"
           },
           "backloggd": null
@@ -2481,7 +2514,7 @@
             "value": 81,
             "scale": 100,
             "normalized": 81,
-            "count": 132
+            "count": 133
           }
         },
         "user": {
@@ -2489,7 +2522,7 @@
             "value": 8.2,
             "scale": 10,
             "normalized": 82,
-            "count": 494
+            "count": 505
           },
           "backloggd": null
         }
@@ -2541,10 +2574,10 @@
         },
         "user": {
           "metacritic": {
-            "value": 8.6,
+            "value": 8.5,
             "scale": 10,
-            "normalized": 86,
-            "count": 148
+            "normalized": 85,
+            "count": 151
           },
           "backloggd": null
         }
@@ -2556,6 +2589,18 @@
         "wikipedia": "https://en.wikipedia.org/wiki/Rhythm_Heaven_Groove",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Rhythm_Heaven_Groove",
         "nintendoStore": "https://www.nintendo.com/us/store/products/rhythm-heaven-groove-switch/"
+      },
+      "scoreHistory": {
+        "metacriticUser": [
+          {
+            "date": "2026-10-01",
+            "normalized": 86
+          },
+          {
+            "date": "2026-10-09",
+            "normalized": 85
+          }
+        ]
       }
     },
     {
@@ -2656,10 +2701,10 @@
         },
         "user": {
           "metacritic": {
-            "value": 9.3,
+            "value": 9.2,
             "scale": 10,
-            "normalized": 93,
-            "count": 1994
+            "normalized": 92,
+            "count": 1979
           },
           "backloggd": null
         }
@@ -2671,6 +2716,18 @@
         "wikipedia": "https://en.wikipedia.org/wiki/Splatoon_Raiders",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Splatoon_Raiders",
         "nintendoStore": "https://www.nintendo.it/-/-2846969.html"
+      },
+      "scoreHistory": {
+        "metacriticUser": [
+          {
+            "date": "2026-10-01",
+            "normalized": 93
+          },
+          {
+            "date": "2026-10-09",
+            "normalized": 92
+          }
+        ]
       }
     },
     {
@@ -2716,7 +2773,7 @@
             "value": 8.9,
             "scale": 10,
             "normalized": 89,
-            "count": 112
+            "count": 114
           },
           "backloggd": null
         }
@@ -2904,7 +2961,7 @@
             "value": 8.3,
             "scale": 10,
             "normalized": 83,
-            "count": 146
+            "count": 147
           },
           "backloggd": null
         }
@@ -2969,10 +3026,10 @@
         },
         "user": {
           "metacritic": {
-            "value": 8.7,
+            "value": 8.6,
             "scale": 10,
-            "normalized": 87,
-            "count": 791
+            "normalized": 86,
+            "count": 800
           },
           "backloggd": null
         }
@@ -2994,6 +3051,10 @@
           {
             "date": "2026-10-05",
             "normalized": 87
+          },
+          {
+            "date": "2026-10-09",
+            "normalized": 86
           }
         ]
       }
@@ -3031,6 +3092,52 @@
         "backloggd": "https://backloggd.com/games/derby-stallion-2/",
         "wikipedia": "https://en.wikipedia.org/wiki/Derby_Stallion_2"
       }
+    },
+    {
+      "id": "igdb:403828",
+      "kind": "game",
+      "title": "Beyond the Dark: Nightwatch",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc5fe.jpg",
+      "summary": null,
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/sc15lrn.jpg",
+      "developer": "Atlantis Studio",
+      "genres": [
+        "Adventure"
+      ],
+      "releaseDates": {
+        "JP": "2026-10-22",
+        "EU": "2026-10-22",
+        "NA": "2026-10-22"
+      },
+      "firstReleaseDate": "2026-10-22",
+      "exclusivity": "exclusive",
+      "firstParty": false,
+      "alsoOnSwitch1": false,
+      "onOtherConsoles": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/beyond-the-dark-nightwatch/",
+        "wikipedia": "https://en.wikipedia.org/wiki/Beyond_the_Dark%3A_Nightwatch"
+      },
+      "dateHistory": [
+        {
+          "date": "2026-09-26",
+          "firstReleaseDate": null
+        },
+        {
+          "date": "2026-10-09",
+          "firstReleaseDate": "2026-10-22"
+        }
+      ]
     },
     {
       "id": "igdb:405451",
@@ -3261,46 +3368,6 @@
         "wikipedia": "https://en.wikipedia.org/wiki/Hyrule_Warriors%3A_Age_of_Calamity",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Hyrule_Warriors%3A_Age_of_Calamity",
         "nintendoStore": "https://www.nintendo.com/us/store/products/hyrule-warriors-age-of-calamity-definitive-edition-switch-2/"
-      }
-    },
-    {
-      "id": "igdb:403828",
-      "kind": "game",
-      "title": "Beyond the Dark: Nightwatch",
-      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc5fe.jpg",
-      "summary": null,
-      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/sc15lrn.jpg",
-      "developer": "Atlantis Studio",
-      "genres": [
-        "Adventure"
-      ],
-      "releaseDates": {
-        "JP": null,
-        "EU": null,
-        "NA": null
-      },
-      "firstReleaseDate": null,
-      "vagueRelease": {
-        "year": 2026,
-        "label": "2026"
-      },
-      "exclusivity": "exclusive",
-      "firstParty": false,
-      "alsoOnSwitch1": false,
-      "onOtherConsoles": false,
-      "scores": {
-        "critic": {
-          "opencritic": null,
-          "metacritic": null
-        },
-        "user": {
-          "metacritic": null,
-          "backloggd": null
-        }
-      },
-      "links": {
-        "backloggd": "https://backloggd.com/games/beyond-the-dark-nightwatch/",
-        "wikipedia": "https://en.wikipedia.org/wiki/Beyond_the_Dark%3A_Nightwatch"
       }
     },
     {

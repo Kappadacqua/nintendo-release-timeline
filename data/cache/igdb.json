@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-08T10:33:18.600Z",
+  "fetchedAt": "2026-10-09T10:30:45.741Z",
   "firstPartyIds": [
     164,
     408,
@@ -2945,7 +2945,8 @@
     419419,
     325075,
     49160,
-    421954
+    421954,
+    165121
   ],
   "games": [
     {
@@ -89529,7 +89530,7 @@
         "id": 566906,
         "image_id": "coc5fe"
       },
-      "first_release_date": 1798675200,
+      "first_release_date": 1792627200,
       "genres": [
         {
           "id": 31,
@@ -89553,13 +89554,13 @@
       ],
       "release_dates": [
         {
-          "id": 920014,
-          "date": 1798675200,
+          "id": 975451,
+          "date": 1792627200,
           "platform": 508,
           "y": 2026,
           "date_format": {
-            "id": 2,
-            "format": "YYYY"
+            "id": 0,
+            "format": "YYYYMMDD"
           },
           "release_region": {
             "id": 8,
