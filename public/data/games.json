@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-09T10:35:02.122Z",
+  "generatedAt": "2026-10-10T09:48:57.394Z",
   "games": [
     {
       "id": "free-update:arms",
@@ -2961,7 +2961,7 @@
             "value": 8.3,
             "scale": 10,
             "normalized": 83,
-            "count": 147
+            "count": 149
           },
           "backloggd": null
         }
@@ -3015,13 +3015,13 @@
             "value": 89,
             "scale": 100,
             "normalized": 89,
-            "count": 52
+            "count": 53
           },
           "metacritic": {
             "value": 89,
             "scale": 100,
             "normalized": 89,
-            "count": 95
+            "count": 96
           }
         },
         "user": {
@@ -3029,7 +3029,7 @@
             "value": 8.6,
             "scale": 10,
             "normalized": 86,
-            "count": 800
+            "count": 807
           },
           "backloggd": null
         }
@@ -3098,7 +3098,7 @@
       "kind": "game",
       "title": "Beyond the Dark: Nightwatch",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc5fe.jpg",
-      "summary": null,
+      "summary": "Beyond the Dark: Nightwatch is an asymmetrical cooperative horror game where one player explores a mysterious house in first-person while being hunted by the Gloam, while the other observes through security cameras and guides them. Survival depends entirely on communication and trust between players who see the world from completely different perspectives.",
       "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/sc15lrn.jpg",
       "developer": "Atlantis Studio",
       "genres": [

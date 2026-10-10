@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-09T10:30:45.741Z",
+  "fetchedAt": "2026-10-10T09:48:12.651Z",
   "firstPartyIds": [
     164,
     408,
@@ -89595,6 +89595,7 @@
         }
       ],
       "slug": "beyond-the-dark-nightwatch",
+      "summary": "Beyond the Dark: Nightwatch is an asymmetrical cooperative horror game where one player explores a mysterious house in first-person while being hunted by the Gloam, while the other observes through security cameras and guides them. Survival depends entirely on communication and trust between players who see the world from completely different perspectives.",
       "game_type": {
         "id": 0,
         "type": "Main Game"
