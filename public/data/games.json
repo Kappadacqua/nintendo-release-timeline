@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-11T09:59:31.123Z",
+  "generatedAt": "2026-10-12T10:46:44.430Z",
   "games": [
     {
       "id": "free-update:arms",
@@ -2961,7 +2961,7 @@
             "value": 8.3,
             "scale": 10,
             "normalized": 83,
-            "count": 149
+            "count": 150
           },
           "backloggd": null
         }
@@ -3012,9 +3012,9 @@
       "scores": {
         "critic": {
           "opencritic": {
-            "value": 89,
+            "value": 90,
             "scale": 100,
-            "normalized": 89,
+            "normalized": 90,
             "count": 53
           },
           "metacritic": {
@@ -3029,7 +3029,7 @@
             "value": 8.6,
             "scale": 10,
             "normalized": 86,
-            "count": 812
+            "count": 826
           },
           "backloggd": null
         }
@@ -3043,6 +3043,16 @@
         "nintendoStore": "https://www.nintendo.com/us/store/products/fire-emblem-fortunes-weave-switch-2/"
       },
       "scoreHistory": {
+        "opencritic": [
+          {
+            "date": "2026-09-26",
+            "normalized": 89
+          },
+          {
+            "date": "2026-10-12",
+            "normalized": 90
+          }
+        ],
         "metacriticUser": [
           {
             "date": "2026-10-01",
