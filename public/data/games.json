@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-12T10:46:44.430Z",
+  "generatedAt": "2026-10-13T10:33:56.500Z",
   "games": [
     {
       "id": "free-update:arms",
@@ -3029,7 +3029,7 @@
             "value": 8.6,
             "scale": 10,
             "normalized": 86,
-            "count": 826
+            "count": 836
           },
           "backloggd": null
         }
