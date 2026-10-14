@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-13T10:33:50.777Z",
+  "fetchedAt": "2026-10-14T08:41:34.006Z",
   "wikipediaBySlug": {
     "pokemon-champions": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Champions",
     "mario-kart-world": "https://en.wikipedia.org/wiki/Mario_Kart_World",
@@ -74,7 +74,8 @@
     "Onyx: The Dark Grip": "https://en.wikipedia.org/wiki/Onyx%3A_The_Dark_Grip",
     "Bit Boy!! Arcade 2": "https://en.wikipedia.org/wiki/Bit_Boy!!_Arcade",
     "Chit Chat Party!": "https://en.wikipedia.org/wiki/GungHo_Online_Entertainment",
-    "Putty World": "https://en.wikipedia.org/wiki/Putty_(video_game)"
+    "Putty World": "https://en.wikipedia.org/wiki/Putty_(video_game)",
+    "Hello, Luigi!": "https://en.wikipedia.org/wiki/Hello%2C_Mario!"
   },
   "nintendoWikiByTitle": {
     "Pokémon Champions": "https://nintendo.fandom.com/wiki/Pok%C3%A9mon_Champions",
@@ -121,7 +122,8 @@
     "Pikmin 4": "https://nintendo.fandom.com/wiki/Pikmin_4",
     "Xenoblade Chronicles": "https://nintendo.fandom.com/wiki/Xenoblade_Chronicles",
     "Hyrule Warriors: Age of Calamity": "https://nintendo.fandom.com/wiki/Hyrule_Warriors%3A_Age_of_Calamity",
-    "Super Mario Galaxy + Super Mario Galaxy 2": "https://nintendo.fandom.com/wiki/Super_Mario_Galaxy_%2B_Super_Mario_Galaxy_2"
+    "Super Mario Galaxy + Super Mario Galaxy 2": "https://nintendo.fandom.com/wiki/Super_Mario_Galaxy_%2B_Super_Mario_Galaxy_2",
+    "Hello, Luigi!": "https://nintendo.fandom.com/wiki/Hello%2C_Luigi!"
   },
   "eshopEuBySlug": {
     "nintendo-switch-2-welcome-tour": "2789271",

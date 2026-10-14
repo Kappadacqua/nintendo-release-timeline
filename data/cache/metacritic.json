@@ -3,19 +3,19 @@
     "igdb:366896": {
       "slug": "fire-emblem-fortunes-weave",
       "url": "https://www.metacritic.com/game/fire-emblem-fortunes-weave/",
-      "checkedAt": "2026-10-13T10:33:50.784Z",
+      "checkedAt": "2026-10-14T08:41:36.057Z",
       "status": "ok",
       "name": "Fire Emblem: Fortune's Weave",
       "platform": "nintendo-switch-2",
       "critic": 89,
-      "criticCount": 97,
+      "criticCount": 99,
       "user": 8.6,
-      "userCount": 836
+      "userCount": 839
     },
     "igdb:381237": {
       "slug": "orbitals",
       "url": "https://www.metacritic.com/game/orbitals/",
-      "checkedAt": "2026-10-13T10:33:50.909Z",
+      "checkedAt": "2026-10-14T08:41:42.353Z",
       "status": "ok",
       "name": "Orbitals",
       "platform": "nintendo-switch-2",
@@ -575,6 +575,20 @@
       "criticCount": 83,
       "user": 7.7,
       "userCount": 431
+    },
+    "igdb:421954": {
+      "slug": "hello-luigi",
+      "url": "https://www.metacritic.com/game/hello-luigi/",
+      "checkedAt": "2026-10-14T08:41:35.295Z",
+      "status": "ok",
+      "name": "Hello, Luigi!",
+      "platform": "nintendo-switch",
+      "critic": null,
+      "criticCount": null,
+      "user": null,
+      "userCount": null,
+      "criticTbd": true,
+      "userTbd": true
     }
   }
 }

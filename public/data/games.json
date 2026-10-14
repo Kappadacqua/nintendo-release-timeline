@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-13T10:33:56.500Z",
+  "generatedAt": "2026-10-14T08:41:48.638Z",
   "games": [
     {
       "id": "free-update:arms",
@@ -3015,13 +3015,13 @@
             "value": 90,
             "scale": 100,
             "normalized": 90,
-            "count": 53
+            "count": 54
           },
           "metacritic": {
             "value": 89,
             "scale": 100,
             "normalized": 89,
-            "count": 97
+            "count": 99
           }
         },
         "user": {
@@ -3029,7 +3029,7 @@
             "value": 8.6,
             "scale": 10,
             "normalized": 86,
-            "count": 836
+            "count": 839
           },
           "backloggd": null
         }
@@ -3101,6 +3101,45 @@
       "links": {
         "backloggd": "https://backloggd.com/games/derby-stallion-2/",
         "wikipedia": "https://en.wikipedia.org/wiki/Derby_Stallion_2"
+      }
+    },
+    {
+      "id": "igdb:421954",
+      "kind": "game",
+      "title": "Hello, Luigi!",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cod2ir.jpg",
+      "summary": "Luigi is ready to play! Touch Luigi's face to play together with your children in Hello, Luigi! Hello, Luigi! is part of the My Mario series – a collection of products designed for young children and their parents to enjoy together.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/sc15l31.jpg",
+      "developer": null,
+      "genres": [
+        "Point & click"
+      ],
+      "releaseDates": {
+        "JP": "2026-10-05",
+        "EU": "2026-10-05",
+        "NA": "2026-10-05"
+      },
+      "firstReleaseDate": "2026-10-05",
+      "exclusivity": "exclusive",
+      "firstParty": true,
+      "alsoOnSwitch1": false,
+      "onOtherConsoles": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/hello-luigi/",
+        "metacritic": "https://www.metacritic.com/game/hello-luigi/",
+        "wikipedia": "https://en.wikipedia.org/wiki/Hello%2C_Mario!",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Hello%2C_Luigi!",
+        "nintendoStore": "https://www.nintendo.com/us/store/products/hello-luigi-switch/"
       }
     },
     {

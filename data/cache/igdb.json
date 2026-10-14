@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-13T10:32:43.619Z",
+  "fetchedAt": "2026-10-14T08:40:55.653Z",
   "firstPartyIds": [
     164,
     408,
@@ -2947,7 +2947,8 @@
     420096,
     49160,
     421954,
-    165121
+    165121,
+    68029
   ],
   "games": [
     {
@@ -18955,21 +18956,7 @@
       ],
       "release_dates": [
         {
-          "id": 225143,
-          "date": 1619740800,
-          "platform": 130,
-          "y": 2021,
-          "date_format": {
-            "id": 0,
-            "format": "YYYYMMDD"
-          },
-          "release_region": {
-            "id": 8,
-            "region": "worldwide"
-          }
-        },
-        {
-          "id": 339125,
+          "id": 971809,
           "date": 1619654400,
           "platform": 130,
           "y": 2021,
@@ -18980,6 +18967,20 @@
           "release_region": {
             "id": 1,
             "region": "europe"
+          }
+        },
+        {
+          "id": 971810,
+          "date": 1619740800,
+          "platform": 130,
+          "y": 2021,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
           }
         }
       ],
@@ -23371,7 +23372,7 @@
       ],
       "release_dates": [
         {
-          "id": 246192,
+          "id": 971811,
           "date": 1637280000,
           "platform": 130,
           "y": 2021,
@@ -32753,6 +32754,26 @@
           }
         }
       ],
+      "screenshots": [
+        {
+          "id": 1937841,
+          "height": 360,
+          "image_id": "sc15j8x",
+          "width": 640
+        },
+        {
+          "id": 1937842,
+          "height": 360,
+          "image_id": "sc15j8y",
+          "width": 640
+        },
+        {
+          "id": 1937843,
+          "height": 360,
+          "image_id": "sc15j8z",
+          "width": 640
+        }
+      ],
       "slug": "pokemon-legends-arceus-daybreak",
       "summary": "In the Daybreak update, you will begin investigating mysterious mass outbreaks of Pokémon that are popping up all over the Hisui region. You’ll also have a chance to battle powerful opponents, like Legendary Pokémon and wardens, adding yet more options to your Pokémon battle experience.​",
       "game_type": {
@@ -38644,8 +38665,8 @@
         }
       ],
       "cover": {
-        "id": 306766,
-        "image_id": "co6kpa"
+        "id": 610983,
+        "image_id": "cod3fr"
       },
       "first_release_date": 1688083200,
       "genres": [
@@ -62651,10 +62672,21 @@
     },
     {
       "id": 421954,
+      "artworks": [
+        {
+          "id": 316659,
+          "alpha_channel": false,
+          "height": 1080,
+          "image_id": "ar6sc3",
+          "width": 1920,
+          "artwork_type": 1
+        }
+      ],
       "cover": {
         "id": 609795,
         "image_id": "cod2ir"
       },
+      "first_release_date": 1791158400,
       "genres": [
         {
           "id": 2,
@@ -62676,15 +62708,58 @@
       "platforms": [
         130
       ],
+      "release_dates": [
+        {
+          "id": 974610,
+          "date": 1791158400,
+          "platform": 130,
+          "y": 2026,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        },
+        {
+          "id": 977495,
+          "date": 1791158400,
+          "platform": 130,
+          "y": 2026,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
       "screenshots": [
         {
           "id": 1940221,
           "height": 591,
           "image_id": "sc15l31",
           "width": 1050
+        },
+        {
+          "id": 1940513,
+          "height": 591,
+          "image_id": "sc15lb5",
+          "width": 1050
+        },
+        {
+          "id": 1940514,
+          "height": 591,
+          "image_id": "sc15lb6",
+          "width": 1050
         }
       ],
       "slug": "hello-luigi",
+      "summary": "Luigi is ready to play! Touch Luigi's face to play together with your children in Hello, Luigi! Hello, Luigi! is part of the My Mario series – a collection of products designed for young children and their parents to enjoy together.",
       "websites": [
         {
           "id": 1128959,
