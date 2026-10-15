@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-14T08:40:55.653Z",
+  "fetchedAt": "2026-10-15T08:15:50.400Z",
   "firstPartyIds": [
     164,
     408,
@@ -42230,6 +42230,26 @@
           }
         }
       ],
+      "screenshots": [
+        {
+          "id": 1938418,
+          "height": 759,
+          "image_id": "sc15joy",
+          "width": 1350
+        },
+        {
+          "id": 1938416,
+          "height": 759,
+          "image_id": "sc15jow",
+          "width": 1350
+        },
+        {
+          "id": 1938417,
+          "height": 759,
+          "image_id": "sc15jox",
+          "width": 1350
+        }
+      ],
       "slug": "pokemon-violet-the-hidden-treasure-of-area-zero-part-1-the-teal-mask",
       "summary": "In this year's annual school trip, students from various schools - including you! - will be sent to the land of Kitakami, where people live at the feet of tall, towering mountains and the tranquil landscape is teeming with nature unfamiliar to Paldea, flourishing among rice paddies and apple orchards. At this time of year, the villages hold festivals, bustling with all kinds of stalls and stands. Make new friends and meet new Pokémon as you unravel the old legends of Kitakami.\n\n- You need to have begun the Treasure Hunt in Pokémon Scarlet to access the main story of Part 1: The Teal Mask. It takes approximately 3 hours of play to unlock the Treasure Hunt, depending on the player.",
       "websites": [
@@ -42555,6 +42575,26 @@
             "id": 8,
             "region": "worldwide"
           }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 1938421,
+          "height": 759,
+          "image_id": "sc15jp1",
+          "width": 1350
+        },
+        {
+          "id": 1938419,
+          "height": 759,
+          "image_id": "sc15joz",
+          "width": 1350
+        },
+        {
+          "id": 1938420,
+          "height": 759,
+          "image_id": "sc15jp0",
+          "width": 1350
         }
       ],
       "slug": "pokemon-violet-the-hidden-treasure-of-area-zero-part-2-the-indigo-disk",
