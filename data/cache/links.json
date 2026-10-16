@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-15T08:16:30.485Z",
+  "fetchedAt": "2026-10-16T08:09:01.750Z",
   "wikipediaBySlug": {
     "pokemon-champions": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Champions",
     "mario-kart-world": "https://en.wikipedia.org/wiki/Mario_Kart_World",
@@ -75,7 +75,8 @@
     "Bit Boy!! Arcade 2": "https://en.wikipedia.org/wiki/Bit_Boy!!_Arcade",
     "Chit Chat Party!": "https://en.wikipedia.org/wiki/GungHo_Online_Entertainment",
     "Putty World": "https://en.wikipedia.org/wiki/Putty_(video_game)",
-    "Hello, Luigi!": "https://en.wikipedia.org/wiki/Hello%2C_Mario!"
+    "Hello, Luigi!": "https://en.wikipedia.org/wiki/Hello%2C_Mario!",
+    "Fire Emblem: Fortune's Weave": "https://en.wikipedia.org/wiki/Fire_Emblem%3A_Fortune's_Weave"
   },
   "nintendoWikiByTitle": {
     "Pokémon Champions": "https://nintendo.fandom.com/wiki/Pok%C3%A9mon_Champions",

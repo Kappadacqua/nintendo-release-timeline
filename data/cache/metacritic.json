@@ -3,26 +3,26 @@
     "igdb:366896": {
       "slug": "fire-emblem-fortunes-weave",
       "url": "https://www.metacritic.com/game/fire-emblem-fortunes-weave/",
-      "checkedAt": "2026-10-15T08:16:31.317Z",
+      "checkedAt": "2026-10-16T08:09:21.484Z",
       "status": "ok",
       "name": "Fire Emblem: Fortune's Weave",
       "platform": "nintendo-switch-2",
       "critic": 89,
       "criticCount": 99,
-      "user": 8.6,
-      "userCount": 842
+      "user": 8.5,
+      "userCount": 845
     },
     "igdb:381237": {
       "slug": "orbitals",
       "url": "https://www.metacritic.com/game/orbitals/",
-      "checkedAt": "2026-10-15T08:16:36.554Z",
+      "checkedAt": "2026-10-16T08:09:28.469Z",
       "status": "ok",
       "name": "Orbitals",
       "platform": "nintendo-switch-2",
       "critic": 81,
       "criticCount": 88,
       "user": 8.3,
-      "userCount": 150
+      "userCount": 151
     },
     "igdb:405436": {
       "slug": "pokemon-pokopia-bubbly-basin",
@@ -579,10 +579,24 @@
     "igdb:421954": {
       "slug": "hello-luigi",
       "url": "https://www.metacritic.com/game/hello-luigi/",
-      "checkedAt": "2026-10-15T08:16:30.491Z",
+      "checkedAt": "2026-10-16T08:09:17.473Z",
       "status": "ok",
       "name": "Hello, Luigi!",
       "platform": "nintendo-switch",
+      "critic": null,
+      "criticCount": null,
+      "user": null,
+      "userCount": null,
+      "criticTbd": true,
+      "userTbd": true
+    },
+    "igdb:423780": {
+      "slug": "fire-emblem-fortunes-weave-expansion-pass",
+      "url": "https://www.metacritic.com/game/fire-emblem-fortunes-weave-expansion-pass/",
+      "checkedAt": "2026-10-16T08:09:16.060Z",
+      "status": "ok",
+      "name": "Fire Emblem: Fortune's Weave - Expansion Pass",
+      "platform": "nintendo-switch-2",
       "critic": null,
       "criticCount": null,
       "user": null,
