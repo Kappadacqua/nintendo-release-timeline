@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-16T08:09:33.820Z",
+  "generatedAt": "2026-10-17T07:50:15.237Z",
   "games": [
     {
       "id": "free-update:arms",
@@ -301,7 +301,7 @@
             "value": 7,
             "scale": 10,
             "normalized": 70,
-            "count": 3812
+            "count": 3834
           },
           "backloggd": null
         }
@@ -695,10 +695,10 @@
         },
         "user": {
           "metacritic": {
-            "value": 5.6,
+            "value": 5.8,
             "scale": 10,
-            "normalized": 56,
-            "count": 10
+            "normalized": 58,
+            "count": 11
           },
           "backloggd": null
         }
@@ -709,6 +709,18 @@
         "metacritic": "https://www.metacritic.com/game/survival-kids/",
         "wikipedia": "https://en.wikipedia.org/wiki/Survival_Kids_(2025_video_game)",
         "nintendoStore": "https://www.nintendo.it/-/-2807680.html"
+      },
+      "scoreHistory": {
+        "metacriticUser": [
+          {
+            "date": "2026-10-01",
+            "normalized": 56
+          },
+          {
+            "date": "2026-10-17",
+            "normalized": 58
+          }
+        ]
       }
     },
     {
@@ -753,7 +765,7 @@
             "value": 8.8,
             "scale": 10,
             "normalized": 88,
-            "count": 1291
+            "count": 1307
           },
           "backloggd": null
         }
@@ -887,7 +899,7 @@
             "value": 8.6,
             "scale": 10,
             "normalized": 86,
-            "count": 1426
+            "count": 1440
           },
           "backloggd": null
         }
@@ -979,10 +991,10 @@
         },
         "user": {
           "metacritic": {
-            "value": 8.9,
+            "value": 10,
             "scale": 10,
-            "normalized": 89,
-            "count": 3279
+            "normalized": 100,
+            "count": null
           },
           "backloggd": null
         }
@@ -994,6 +1006,18 @@
         "wikipedia": "https://en.wikipedia.org/wiki/Donkey_Kong_Bananza",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Donkey_Kong_Bananza",
         "nintendoStore": "https://www.nintendo.com/us/store/products/nintendo-switch-2-donkey-kong-bananza-121485/"
+      },
+      "scoreHistory": {
+        "metacriticUser": [
+          {
+            "date": "2026-10-01",
+            "normalized": 89
+          },
+          {
+            "date": "2026-10-17",
+            "normalized": 100
+          }
+        ]
       }
     },
     {
@@ -1094,7 +1118,7 @@
             "value": 6.3,
             "scale": 10,
             "normalized": 63,
-            "count": 116
+            "count": 119
           },
           "backloggd": null
         }
@@ -1249,7 +1273,7 @@
             "value": 8.5,
             "scale": 10,
             "normalized": 85,
-            "count": 202
+            "count": 204
           },
           "backloggd": null
         }
@@ -1401,7 +1425,7 @@
             "value": 7.7,
             "scale": 10,
             "normalized": 77,
-            "count": 431
+            "count": 436
           },
           "backloggd": null
         }
@@ -1457,7 +1481,7 @@
             "value": 4.8,
             "scale": 10,
             "normalized": 48,
-            "count": 4195
+            "count": 4204
           },
           "backloggd": null
         }
@@ -1513,7 +1537,7 @@
             "value": 8.4,
             "scale": 10,
             "normalized": 84,
-            "count": 369
+            "count": 373
           },
           "backloggd": null
         }
@@ -1569,7 +1593,7 @@
             "value": 8.6,
             "scale": 10,
             "normalized": 86,
-            "count": 625
+            "count": 626
           },
           "backloggd": null
         }
@@ -1625,7 +1649,7 @@
             "value": 7.7,
             "scale": 10,
             "normalized": 77,
-            "count": 2602
+            "count": 2611
           },
           "backloggd": null
         }
@@ -1691,7 +1715,7 @@
             "value": 2.7,
             "scale": 10,
             "normalized": 27,
-            "count": 232
+            "count": 233
           },
           "backloggd": null
         }
@@ -1785,7 +1809,7 @@
             "value": 6,
             "scale": 10,
             "normalized": 60,
-            "count": 7644,
+            "count": 7649,
             "inheritedFrom": "animal-crossing-new-horizons"
           },
           "backloggd": null
@@ -1985,7 +2009,7 @@
             "value": 7.5,
             "scale": 10,
             "normalized": 75,
-            "count": 292
+            "count": 293
           },
           "backloggd": null
         }
@@ -2041,7 +2065,7 @@
             "value": 8.6,
             "scale": 10,
             "normalized": 86,
-            "count": 1814
+            "count": 1825
           },
           "backloggd": null
         }
@@ -2108,7 +2132,7 @@
             "value": 7.7,
             "scale": 10,
             "normalized": 77,
-            "count": 176
+            "count": 181
           },
           "backloggd": null
         }
@@ -2219,7 +2243,7 @@
             "value": 8.1,
             "scale": 10,
             "normalized": 81,
-            "count": 475
+            "count": 480
           },
           "backloggd": null
         }
@@ -2313,7 +2337,7 @@
             "value": 8,
             "scale": 10,
             "normalized": 80,
-            "count": 297
+            "count": 299
           },
           "backloggd": null
         }
@@ -2365,10 +2389,10 @@
         },
         "user": {
           "metacritic": {
-            "value": 8.2,
+            "value": 8.3,
             "scale": 10,
-            "normalized": 82,
-            "count": 75
+            "normalized": 83,
+            "count": 77
           },
           "backloggd": null
         }
@@ -2389,6 +2413,10 @@
           {
             "date": "2026-10-09",
             "normalized": 82
+          },
+          {
+            "date": "2026-10-17",
+            "normalized": 83
           }
         ]
       }
@@ -2477,7 +2505,7 @@
             "value": 8.9,
             "scale": 10,
             "normalized": 89,
-            "count": 1827,
+            "count": 1828,
             "inheritedFrom": "xenoblade-chronicles-definitive-edition"
           },
           "backloggd": null
@@ -2534,7 +2562,7 @@
             "value": 8.2,
             "scale": 10,
             "normalized": 82,
-            "count": 505
+            "count": 514
           },
           "backloggd": null
         }
@@ -2589,7 +2617,7 @@
             "value": 8.5,
             "scale": 10,
             "normalized": 85,
-            "count": 151
+            "count": 154
           },
           "backloggd": null
         }
@@ -2716,7 +2744,7 @@
             "value": 9.2,
             "scale": 10,
             "normalized": 92,
-            "count": 1979
+            "count": 1993
           },
           "backloggd": null
         }
@@ -2785,7 +2813,7 @@
             "value": 8.9,
             "scale": 10,
             "normalized": 89,
-            "count": 114
+            "count": 119
           },
           "backloggd": null
         }
@@ -2973,7 +3001,7 @@
             "value": 8.3,
             "scale": 10,
             "normalized": 83,
-            "count": 151
+            "count": 152
           },
           "backloggd": null
         }
@@ -3033,7 +3061,7 @@
             "value": 89,
             "scale": 100,
             "normalized": 89,
-            "count": 99
+            "count": 102
           }
         },
         "user": {
@@ -3041,7 +3069,7 @@
             "value": 8.5,
             "scale": 10,
             "normalized": 85,
-            "count": 845
+            "count": 858
           },
           "backloggd": null
         }
