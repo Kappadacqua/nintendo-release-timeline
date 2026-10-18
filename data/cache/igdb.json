@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-17T07:45:42.593Z",
+  "fetchedAt": "2026-10-18T07:59:41.673Z",
   "firstPartyIds": [
     164,
     408,
@@ -50337,6 +50337,54 @@
     {
       "id": 348977,
       "artworks": [
+        {
+          "id": 314659,
+          "alpha_channel": false,
+          "height": 1440,
+          "image_id": "ar6qsj",
+          "width": 1080,
+          "artwork_type": 1
+        },
+        {
+          "id": 314660,
+          "alpha_channel": false,
+          "height": 1440,
+          "image_id": "ar6qsk",
+          "width": 1080,
+          "artwork_type": 1
+        },
+        {
+          "id": 314656,
+          "alpha_channel": true,
+          "height": 1397,
+          "image_id": "ar6qsg",
+          "width": 1126,
+          "artwork_type": 1
+        },
+        {
+          "id": 314657,
+          "alpha_channel": true,
+          "height": 4000,
+          "image_id": "ar6qsh",
+          "width": 3000,
+          "artwork_type": 3
+        },
+        {
+          "id": 314658,
+          "alpha_channel": false,
+          "height": 1440,
+          "image_id": "ar6qsi",
+          "width": 1080,
+          "artwork_type": 1
+        },
+        {
+          "id": 314663,
+          "alpha_channel": false,
+          "height": 1080,
+          "image_id": "ar6qsn",
+          "width": 1920,
+          "artwork_type": 1
+        },
         {
           "id": 268550,
           "alpha_channel": false,
