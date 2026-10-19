@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-18T07:59:38.838Z",
+  "fetchedAt": "2026-10-19T08:49:26.709Z",
   "matches": {
     "ARMS": 26759,
     "Animal Crossing: New Horizons": 109462,
@@ -704,6 +704,14 @@
           "type": {
             "id": 6,
             "type": "Twitch"
+          }
+        },
+        {
+          "id": 1137600,
+          "url": "https://en.wikipedia.org/wiki/Big_Brain_Academy:_Brain_vs._Brain",
+          "type": {
+            "id": 3,
+            "type": "Wikipedia"
           }
         }
       ],

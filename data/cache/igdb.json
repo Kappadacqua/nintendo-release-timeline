@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-18T07:59:41.673Z",
+  "fetchedAt": "2026-10-19T08:49:30.710Z",
   "firstPartyIds": [
     164,
     408,
@@ -2948,7 +2948,10 @@
     49160,
     421954,
     165121,
+    67620,
     68029,
+    423537,
+    423538,
     423780
   ],
   "games": [
@@ -7937,14 +7940,6 @@
           }
         },
         {
-          "id": 11428,
-          "url": "http://www.jp.square-enix.com/octopathtraveler/",
-          "type": {
-            "id": 1,
-            "type": "Official Website"
-          }
-        },
-        {
           "id": 786695,
           "url": "https://www.nintendo.com/games/detail/octopath-traveler-switch/",
           "type": {
@@ -8014,6 +8009,22 @@
           "type": {
             "id": 6,
             "type": "Twitch"
+          }
+        },
+        {
+          "id": 1137645,
+          "url": "https://www.square-enix-games.com/en_US/games/octopath-traveler",
+          "type": {
+            "id": 1,
+            "type": "Official Website"
+          }
+        },
+        {
+          "id": 1137644,
+          "url": "https://www.gog.com/en/game/octopath_traveler",
+          "type": {
+            "id": 17,
+            "type": "GOG"
           }
         }
       ],
@@ -29034,6 +29045,14 @@
           "type": {
             "id": 6,
             "type": "Twitch"
+          }
+        },
+        {
+          "id": 1137600,
+          "url": "https://en.wikipedia.org/wiki/Big_Brain_Academy:_Brain_vs._Brain",
+          "type": {
+            "id": 3,
+            "type": "Wikipedia"
           }
         }
       ],
