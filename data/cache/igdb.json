@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-19T08:49:30.710Z",
+  "fetchedAt": "2026-10-20T08:30:05.471Z",
   "firstPartyIds": [
     164,
     408,
@@ -48179,6 +48179,14 @@
           }
         },
         {
+          "id": 1138074,
+          "url": "https://duskbloods.net/",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
+          }
+        },
+        {
           "id": 1068063,
           "url": "https://www.nintendo.com/us/store/products/the-duskbloods-switch-2/",
           "type": {
@@ -62894,8 +62902,8 @@
     {
       "id": 423780,
       "cover": {
-        "id": 613823,
-        "image_id": "cod5mn"
+        "id": 614420,
+        "image_id": "cod638"
       },
       "first_release_date": 1791936000,
       "genres": [
@@ -64931,8 +64939,8 @@
         }
       ],
       "cover": {
-        "id": 486885,
-        "image_id": "coafol"
+        "id": 605726,
+        "image_id": "coczdq"
       },
       "first_release_date": 1564099200,
       "genres": [
