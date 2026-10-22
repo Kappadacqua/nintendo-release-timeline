@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-21T08:32:17.695Z",
+  "fetchedAt": "2026-10-22T08:34:34.918Z",
   "firstPartyIds": [
     164,
     408,
@@ -2946,13 +2946,13 @@
     325075,
     420096,
     49160,
-    421954,
     165121,
     67620,
     68029,
     423537,
     423538,
-    423780
+    423780,
+    421954
   ],
   "games": [
     {
@@ -62790,10 +62790,10 @@
       "id": 421954,
       "artworks": [
         {
-          "id": 316659,
+          "id": 318063,
           "alpha_channel": false,
           "height": 1080,
-          "image_id": "ar6sc3",
+          "image_id": "ar6tf3",
           "width": 1920,
           "artwork_type": 1
         }
@@ -62811,7 +62811,7 @@
       ],
       "involved_companies": [
         {
-          "id": 418669,
+          "id": 421304,
           "company": {
             "id": 70,
             "name": "Nintendo"
@@ -62822,17 +62822,17 @@
       ],
       "name": "Hello, Luigi!",
       "platforms": [
+        34,
+        39,
         130
       ],
       "release_dates": [
         {
-          "id": 974610,
-          "date": 1791158400,
-          "platform": 130,
-          "y": 2026,
+          "id": 978968,
+          "platform": 39,
           "date_format": {
-            "id": 0,
-            "format": "YYYYMMDD"
+            "id": 7,
+            "format": "TBD"
           },
           "release_region": {
             "id": 8,
@@ -62840,7 +62840,19 @@
           }
         },
         {
-          "id": 977495,
+          "id": 978969,
+          "platform": 34,
+          "date_format": {
+            "id": 7,
+            "format": "TBD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        },
+        {
+          "id": 974610,
           "date": 1791158400,
           "platform": 130,
           "y": 2026,

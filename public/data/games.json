@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-21T08:33:13.818Z",
+  "generatedAt": "2026-10-22T08:36:02.597Z",
   "games": [
     {
       "id": "free-update:arms",
@@ -3069,7 +3069,7 @@
             "value": 8.5,
             "scale": 10,
             "normalized": 85,
-            "count": 888
+            "count": 898
           },
           "backloggd": null
         }
@@ -3164,7 +3164,7 @@
         "NA": "2026-10-05"
       },
       "firstReleaseDate": "2026-10-05",
-      "exclusivity": "exclusive",
+      "exclusivity": "timed",
       "firstParty": true,
       "alsoOnSwitch1": false,
       "onOtherConsoles": false,
@@ -3219,6 +3219,7 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/beyond-the-dark-nightwatch/",
+        "metacritic": "https://www.metacritic.com/game/beyond-the-dark-nightwatch/",
         "wikipedia": "https://en.wikipedia.org/wiki/Beyond_the_Dark%3A_Nightwatch"
       },
       "dateHistory": [
@@ -3256,7 +3257,12 @@
       "scores": {
         "critic": {
           "opencritic": null,
-          "metacritic": null
+          "metacritic": {
+            "value": 79,
+            "scale": 100,
+            "normalized": 79,
+            "count": 61
+          }
         },
         "user": {
           "metacritic": null,
@@ -3265,6 +3271,8 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/nintendo-switch-sports-resort/",
+        "opencritic": "https://opencritic.com/game/20827/nintendo-switch-sports-resort",
+        "metacritic": "https://www.metacritic.com/game/nintendo-switch-sports-resort/",
         "wikipedia": "https://en.wikipedia.org/wiki/Nintendo_Switch_Sports_Resort",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Nintendo_Switch_Sports_Resort",
         "nintendoStore": "https://www.nintendo.com/us/store/products/nintendo-switch-sports-resort-switch-2/"
