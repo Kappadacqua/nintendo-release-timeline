@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-22T08:36:02.597Z",
+  "generatedAt": "2026-10-23T08:32:02.722Z",
   "games": [
     {
       "id": "free-update:arms",
@@ -3061,7 +3061,7 @@
             "value": 89,
             "scale": 100,
             "normalized": 89,
-            "count": 104
+            "count": 105
           }
         },
         "user": {
@@ -3069,7 +3069,7 @@
             "value": 8.5,
             "scale": 10,
             "normalized": 85,
-            "count": 898
+            "count": 901
           },
           "backloggd": null
         }
@@ -3219,6 +3219,7 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/beyond-the-dark-nightwatch/",
+        "opencritic": "https://opencritic.com/game/21577/beyond-the-dark-nightwatch",
         "metacritic": "https://www.metacritic.com/game/beyond-the-dark-nightwatch/",
         "wikipedia": "https://en.wikipedia.org/wiki/Beyond_the_Dark%3A_Nightwatch"
       },
@@ -3256,12 +3257,17 @@
       "onOtherConsoles": false,
       "scores": {
         "critic": {
-          "opencritic": null,
+          "opencritic": {
+            "value": 79,
+            "scale": 100,
+            "normalized": 79,
+            "count": 24
+          },
           "metacritic": {
             "value": 79,
             "scale": 100,
             "normalized": 79,
-            "count": 61
+            "count": 64
           }
         },
         "user": {
