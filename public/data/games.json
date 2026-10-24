@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-23T08:32:02.722Z",
+  "generatedAt": "2026-10-24T08:10:19.057Z",
   "games": [
     {
       "id": "free-update:arms",
@@ -301,7 +301,7 @@
             "value": 7,
             "scale": 10,
             "normalized": 70,
-            "count": 3834
+            "count": 3832
           },
           "backloggd": null
         }
@@ -394,7 +394,7 @@
             "value": 3.9,
             "scale": 10,
             "normalized": 39,
-            "count": 345
+            "count": 347
           },
           "backloggd": null
         }
@@ -765,7 +765,7 @@
             "value": 8.8,
             "scale": 10,
             "normalized": 88,
-            "count": 1307
+            "count": 1317
           },
           "backloggd": null
         }
@@ -899,7 +899,7 @@
             "value": 8.6,
             "scale": 10,
             "normalized": 86,
-            "count": 1440
+            "count": 1452
           },
           "backloggd": null
         }
@@ -991,10 +991,10 @@
         },
         "user": {
           "metacritic": {
-            "value": 10,
+            "value": 8.9,
             "scale": 10,
-            "normalized": 100,
-            "count": null
+            "normalized": 89,
+            "count": 3299
           },
           "backloggd": null
         }
@@ -1016,6 +1016,10 @@
           {
             "date": "2026-10-17",
             "normalized": 100
+          },
+          {
+            "date": "2026-10-24",
+            "normalized": 89
           }
         ]
       }
@@ -1115,10 +1119,10 @@
         },
         "user": {
           "metacritic": {
-            "value": 6.3,
+            "value": 6.4,
             "scale": 10,
-            "normalized": 63,
-            "count": 119
+            "normalized": 64,
+            "count": 121
           },
           "backloggd": null
         }
@@ -1130,6 +1134,18 @@
         "wikipedia": "https://en.wikipedia.org/wiki/Super_Mario_Party_Jamboree_%E2%80%93_Nintendo_Switch_2_Edition_%2B_Jamboree_TV",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Super_Mario_Party_Jamboree",
         "nintendoStore": "https://www.nintendo.it/-/-2785806.html"
+      },
+      "scoreHistory": {
+        "metacriticUser": [
+          {
+            "date": "2026-10-01",
+            "normalized": 63
+          },
+          {
+            "date": "2026-10-24",
+            "normalized": 64
+          }
+        ]
       }
     },
     {
@@ -1273,7 +1289,7 @@
             "value": 8.5,
             "scale": 10,
             "normalized": 85,
-            "count": 204
+            "count": 205
           },
           "backloggd": null
         }
@@ -1330,7 +1346,7 @@
             "value": 5.2,
             "scale": 10,
             "normalized": 52,
-            "count": 132
+            "count": 133
           },
           "backloggd": null
         }
@@ -1425,7 +1441,7 @@
             "value": 7.7,
             "scale": 10,
             "normalized": 77,
-            "count": 436
+            "count": 439
           },
           "backloggd": null
         }
@@ -1481,7 +1497,7 @@
             "value": 4.8,
             "scale": 10,
             "normalized": 48,
-            "count": 4204
+            "count": 4213
           },
           "backloggd": null
         }
@@ -1593,7 +1609,7 @@
             "value": 8.6,
             "scale": 10,
             "normalized": 86,
-            "count": 626
+            "count": 627
           },
           "backloggd": null
         }
@@ -1649,7 +1665,7 @@
             "value": 7.7,
             "scale": 10,
             "normalized": 77,
-            "count": 2611
+            "count": 2613
           },
           "backloggd": null
         }
@@ -1809,7 +1825,7 @@
             "value": 6,
             "scale": 10,
             "normalized": 60,
-            "count": 7649,
+            "count": 7651,
             "inheritedFrom": "animal-crossing-new-horizons"
           },
           "backloggd": null
@@ -2009,7 +2025,7 @@
             "value": 7.5,
             "scale": 10,
             "normalized": 75,
-            "count": 293
+            "count": 295
           },
           "backloggd": null
         }
@@ -2065,7 +2081,7 @@
             "value": 8.6,
             "scale": 10,
             "normalized": 86,
-            "count": 1825
+            "count": 1831
           },
           "backloggd": null
         }
@@ -2132,7 +2148,7 @@
             "value": 7.7,
             "scale": 10,
             "normalized": 77,
-            "count": 181
+            "count": 185
           },
           "backloggd": null
         }
@@ -2185,10 +2201,10 @@
         },
         "user": {
           "metacritic": {
-            "value": 5.1,
+            "value": 5.2,
             "scale": 10,
-            "normalized": 51,
-            "count": 263
+            "normalized": 52,
+            "count": 265
           },
           "backloggd": null
         }
@@ -2200,6 +2216,18 @@
         "wikipedia": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Champions",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Pok%C3%A9mon_Champions",
         "nintendoStore": "https://www.nintendo.com/us/store/products/pokemon-champions-switch/"
+      },
+      "scoreHistory": {
+        "metacriticUser": [
+          {
+            "date": "2026-10-01",
+            "normalized": 51
+          },
+          {
+            "date": "2026-10-24",
+            "normalized": 52
+          }
+        ]
       }
     },
     {
@@ -2243,7 +2271,7 @@
             "value": 8.1,
             "scale": 10,
             "normalized": 81,
-            "count": 480
+            "count": 483
           },
           "backloggd": null
         }
@@ -2337,7 +2365,7 @@
             "value": 8,
             "scale": 10,
             "normalized": 80,
-            "count": 299
+            "count": 300
           },
           "backloggd": null
         }
@@ -2562,7 +2590,7 @@
             "value": 8.2,
             "scale": 10,
             "normalized": 82,
-            "count": 514
+            "count": 515
           },
           "backloggd": null
         }
@@ -2617,7 +2645,7 @@
             "value": 8.5,
             "scale": 10,
             "normalized": 85,
-            "count": 154
+            "count": 156
           },
           "backloggd": null
         }
@@ -2744,7 +2772,7 @@
             "value": 9.2,
             "scale": 10,
             "normalized": 92,
-            "count": 1993
+            "count": 2006
           },
           "backloggd": null
         }
@@ -2813,7 +2841,7 @@
             "value": 8.9,
             "scale": 10,
             "normalized": 89,
-            "count": 119
+            "count": 120
           },
           "backloggd": null
         }
@@ -2867,7 +2895,7 @@
             "value": 9.1,
             "scale": 10,
             "normalized": 91,
-            "count": 46
+            "count": 50
           },
           "backloggd": null
         }
@@ -3055,7 +3083,7 @@
             "value": 90,
             "scale": 100,
             "normalized": 90,
-            "count": 55
+            "count": 56
           },
           "metacritic": {
             "value": 89,
@@ -3069,7 +3097,7 @@
             "value": 8.5,
             "scale": 10,
             "normalized": 85,
-            "count": 901
+            "count": 902
           },
           "backloggd": null
         }
@@ -3210,7 +3238,12 @@
       "scores": {
         "critic": {
           "opencritic": null,
-          "metacritic": null
+          "metacritic": {
+            "value": 46,
+            "scale": 100,
+            "normalized": 46,
+            "count": 4
+          }
         },
         "user": {
           "metacritic": null,
@@ -3261,7 +3294,7 @@
             "value": 79,
             "scale": 100,
             "normalized": 79,
-            "count": 24
+            "count": 25
           },
           "metacritic": {
             "value": 79,
@@ -3271,7 +3304,12 @@
           }
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 8.9,
+            "scale": 10,
+            "normalized": 89,
+            "count": 23
+          },
           "backloggd": null
         }
       },

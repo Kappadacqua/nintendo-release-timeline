@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-23T08:30:44.117Z",
+  "fetchedAt": "2026-10-24T08:05:40.823Z",
   "firstPartyIds": [
     164,
     408,
@@ -40230,6 +40230,218 @@
           "type": {
             "id": 3,
             "type": "Wikipedia"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 0,
+        "type": "Main Game"
+      }
+    },
+    {
+      "id": 81523,
+      "cover": {
+        "id": 294893,
+        "image_id": "co6bjh"
+      },
+      "first_release_date": 683510400,
+      "genres": [
+        {
+          "id": 14,
+          "name": "Sport"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 62370,
+          "company": {
+            "id": 3702,
+            "name": "Tonkin House"
+          },
+          "developer": false,
+          "publisher": true
+        },
+        {
+          "id": 225049,
+          "company": {
+            "id": 33804,
+            "name": "Playtronic"
+          },
+          "developer": false,
+          "publisher": true
+        },
+        {
+          "id": 229229,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        },
+        {
+          "id": 243428,
+          "company": {
+            "id": 321,
+            "name": "Tose"
+          },
+          "developer": true,
+          "publisher": false
+        },
+        {
+          "id": 423058,
+          "company": {
+            "id": 2850,
+            "name": "Nintendo of America"
+          },
+          "developer": false,
+          "publisher": true
+        }
+      ],
+      "name": "Super Tennis",
+      "platforms": [
+        52,
+        19,
+        130,
+        58
+      ],
+      "release_dates": [
+        {
+          "id": 548277,
+          "date": 694137600,
+          "platform": 52,
+          "y": 1991,
+          "date_format": {
+            "id": 2,
+            "format": "YYYY"
+          },
+          "release_region": {
+            "id": 2,
+            "region": "north_america"
+          }
+        },
+        {
+          "id": 548278,
+          "date": 683510400,
+          "platform": 58,
+          "y": 1991,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 5,
+            "region": "japan"
+          }
+        },
+        {
+          "id": 548279,
+          "date": 746668800,
+          "platform": 19,
+          "y": 1993,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 10,
+            "region": "brazil"
+          }
+        },
+        {
+          "id": 548280,
+          "date": 707616000,
+          "platform": 19,
+          "y": 1992,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 1,
+            "region": "europe"
+          }
+        },
+        {
+          "id": 548281,
+          "date": 694137600,
+          "platform": 19,
+          "y": 1991,
+          "date_format": {
+            "id": 2,
+            "format": "YYYY"
+          },
+          "release_region": {
+            "id": 2,
+            "region": "north_america"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 438423,
+          "height": 226,
+          "image_id": "sc9eaf",
+          "width": 260
+        },
+        {
+          "id": 438424,
+          "height": 226,
+          "image_id": "sc9eag",
+          "width": 260
+        },
+        {
+          "id": 438426,
+          "height": 226,
+          "image_id": "sc9eai",
+          "width": 260
+        },
+        {
+          "id": 438431,
+          "height": 384,
+          "image_id": "sc9ean",
+          "width": 512
+        },
+        {
+          "id": 438429,
+          "height": 384,
+          "image_id": "sc9eal",
+          "width": 512
+        },
+        {
+          "id": 438425,
+          "height": 226,
+          "image_id": "sc9eah",
+          "width": 260
+        },
+        {
+          "id": 438430,
+          "height": 384,
+          "image_id": "sc9eam",
+          "width": 512
+        },
+        {
+          "id": 438427,
+          "height": 441,
+          "image_id": "sc9eaj",
+          "width": 503
+        },
+        {
+          "id": 438428,
+          "height": 384,
+          "image_id": "sc9eak",
+          "width": 512
+        }
+      ],
+      "slug": "super-tennis--1",
+      "summary": "Super Tennis is a 1991 tennis video game for the Super NES. It released at early points in the Super Nintendo's shelf lives and utilized mode 7.",
+      "websites": [
+        {
+          "id": 315917,
+          "url": "https://nintendo.fandom.com/wiki/Super_Tennis",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
           }
         }
       ],
