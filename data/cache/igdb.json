@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-24T08:05:40.823Z",
+  "fetchedAt": "2026-10-25T08:23:00.858Z",
   "firstPartyIds": [
     164,
     408,
@@ -6885,6 +6885,13 @@
           "artwork_type": 1
         },
         {
+          "id": 5057,
+          "height": 900,
+          "image_id": "x4dqdmoorf7xne3mngdb",
+          "width": 750,
+          "artwork_type": 1
+        },
+        {
           "id": 5058,
           "height": 1085,
           "image_id": "uwpak2ntufmodne7xr12",
@@ -6896,13 +6903,6 @@
           "height": 900,
           "image_id": "aqjvqoxtxsbezthyzukn",
           "width": 840,
-          "artwork_type": 1
-        },
-        {
-          "id": 5057,
-          "height": 900,
-          "image_id": "x4dqdmoorf7xne3mngdb",
-          "width": 750,
           "artwork_type": 1
         },
         {
@@ -7014,28 +7014,10 @@
       ],
       "screenshots": [
         {
-          "id": 213412,
-          "height": 1080,
-          "image_id": "c7pqjiy5vxbhapfvgrib",
-          "width": 1920
-        },
-        {
-          "id": 213411,
-          "height": 1080,
-          "image_id": "uyancq2q4ttdybifhqxz",
-          "width": 1920
-        },
-        {
           "id": 213410,
           "height": 450,
           "image_id": "hkacotef23y4lz6totqy",
           "width": 800
-        },
-        {
-          "id": 213413,
-          "height": 1080,
-          "image_id": "aiyqp7bmpbxehcp8ybuz",
-          "width": 1920
         },
         {
           "id": 193262,
@@ -7060,6 +7042,24 @@
           "height": 419,
           "image_id": "vr62xj5wjn800wnwnlv8",
           "width": 745
+        },
+        {
+          "id": 213411,
+          "height": 1080,
+          "image_id": "uyancq2q4ttdybifhqxz",
+          "width": 1920
+        },
+        {
+          "id": 213412,
+          "height": 1080,
+          "image_id": "c7pqjiy5vxbhapfvgrib",
+          "width": 1920
+        },
+        {
+          "id": 213413,
+          "height": 1080,
+          "image_id": "aiyqp7bmpbxehcp8ybuz",
+          "width": 1920
         },
         {
           "id": 193264,

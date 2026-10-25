@@ -3,26 +3,26 @@
     "igdb:366896": {
       "slug": "fire-emblem-fortunes-weave",
       "url": "https://www.metacritic.com/game/fire-emblem-fortunes-weave/",
-      "checkedAt": "2026-10-24T08:06:36.937Z",
+      "checkedAt": "2026-10-25T08:24:03.330Z",
       "status": "ok",
       "name": "Fire Emblem: Fortune's Weave",
       "platform": "nintendo-switch-2",
       "critic": 89,
       "criticCount": 105,
       "user": 8.5,
-      "userCount": 902
+      "userCount": 908
     },
     "igdb:381237": {
       "slug": "orbitals",
       "url": "https://www.metacritic.com/game/orbitals/",
-      "checkedAt": "2026-10-24T08:06:43.200Z",
+      "checkedAt": "2026-10-25T08:24:08.275Z",
       "status": "ok",
       "name": "Orbitals",
       "platform": "nintendo-switch-2",
       "critic": 81,
       "criticCount": 88,
       "user": 8.3,
-      "userCount": 155
+      "userCount": 156
     },
     "igdb:405436": {
       "slug": "pokemon-pokopia-bubbly-basin",
@@ -579,7 +579,7 @@
     "igdb:421954": {
       "slug": "hello-luigi",
       "url": "https://www.metacritic.com/game/hello-luigi/",
-      "checkedAt": "2026-10-24T08:06:31.442Z",
+      "checkedAt": "2026-10-25T08:23:56.972Z",
       "status": "ok",
       "name": "Hello, Luigi!",
       "platform": "nintendo-switch",
@@ -593,7 +593,7 @@
     "igdb:423780": {
       "slug": "fire-emblem-fortunes-weave-expansion-pass",
       "url": "https://www.metacritic.com/game/fire-emblem-fortunes-weave-expansion-pass/",
-      "checkedAt": "2026-10-24T08:06:26.202Z",
+      "checkedAt": "2026-10-25T08:23:47.096Z",
       "status": "ok",
       "name": "Fire Emblem: Fortune's Weave - Expansion Pass",
       "platform": "nintendo-switch-2",
@@ -607,27 +607,26 @@
     "igdb:405451": {
       "slug": "nintendo-switch-sports-resort",
       "url": "https://www.metacritic.com/game/nintendo-switch-sports-resort/",
-      "checkedAt": "2026-10-24T08:06:20.091Z",
+      "checkedAt": "2026-10-25T08:23:40.517Z",
       "status": "ok",
       "name": "Nintendo Switch Sports Resort",
       "platform": "nintendo-switch-2",
       "critic": 79,
       "criticCount": 64,
-      "user": 8.9,
-      "userCount": 23
+      "user": 8.4,
+      "userCount": 59
     },
     "igdb:403828": {
       "slug": "beyond-the-dark-nightwatch",
       "url": "https://www.metacritic.com/game/beyond-the-dark-nightwatch/",
-      "checkedAt": "2026-10-24T08:06:20.326Z",
+      "checkedAt": "2026-10-25T08:23:41.308Z",
       "status": "ok",
       "name": "Beyond the Dark: Nightwatch",
       "platform": "nintendo-switch-2",
       "critic": 46,
       "criticCount": 4,
-      "user": null,
-      "userCount": null,
-      "userTbd": true
+      "user": 4.5,
+      "userCount": 4
     }
   }
 }

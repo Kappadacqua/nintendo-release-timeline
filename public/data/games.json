@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-24T08:10:19.057Z",
+  "generatedAt": "2026-10-25T08:24:11.659Z",
   "games": [
     {
       "id": "free-update:arms",
@@ -3029,7 +3029,7 @@
             "value": 8.3,
             "scale": 10,
             "normalized": 83,
-            "count": 155
+            "count": 156
           },
           "backloggd": null
         }
@@ -3097,7 +3097,7 @@
             "value": 8.5,
             "scale": 10,
             "normalized": 85,
-            "count": 902
+            "count": 908
           },
           "backloggd": null
         }
@@ -3246,7 +3246,12 @@
           }
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 4.5,
+            "scale": 10,
+            "normalized": 45,
+            "count": 4
+          },
           "backloggd": null
         }
       },
@@ -3294,7 +3299,7 @@
             "value": 79,
             "scale": 100,
             "normalized": 79,
-            "count": 25
+            "count": 26
           },
           "metacritic": {
             "value": 79,
@@ -3305,10 +3310,10 @@
         },
         "user": {
           "metacritic": {
-            "value": 8.9,
+            "value": 8.4,
             "scale": 10,
-            "normalized": 89,
-            "count": 23
+            "normalized": 84,
+            "count": 59
           },
           "backloggd": null
         }
@@ -3320,6 +3325,18 @@
         "wikipedia": "https://en.wikipedia.org/wiki/Nintendo_Switch_Sports_Resort",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Nintendo_Switch_Sports_Resort",
         "nintendoStore": "https://www.nintendo.com/us/store/products/nintendo-switch-sports-resort-switch-2/"
+      },
+      "scoreHistory": {
+        "metacriticUser": [
+          {
+            "date": "2026-10-24",
+            "normalized": 89
+          },
+          {
+            "date": "2026-10-25",
+            "normalized": 84
+          }
+        ]
       }
     },
     {
