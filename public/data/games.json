@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-25T08:24:11.659Z",
+  "generatedAt": "2026-10-26T08:53:44.876Z",
   "games": [
     {
       "id": "free-update:arms",
@@ -2067,7 +2067,7 @@
             "value": 90,
             "scale": 100,
             "normalized": 90,
-            "count": 53
+            "count": 55
           },
           "metacritic": {
             "value": 89,
@@ -2351,7 +2351,7 @@
             "value": 80,
             "scale": 100,
             "normalized": 80,
-            "count": 56
+            "count": 58
           },
           "metacritic": {
             "value": 80,
@@ -3029,7 +3029,7 @@
             "value": 8.3,
             "scale": 10,
             "normalized": 83,
-            "count": 156
+            "count": 157
           },
           "backloggd": null
         }
@@ -3089,7 +3089,7 @@
             "value": 89,
             "scale": 100,
             "normalized": 89,
-            "count": 105
+            "count": 106
           }
         },
         "user": {
@@ -3097,7 +3097,7 @@
             "value": 8.5,
             "scale": 10,
             "normalized": 85,
-            "count": 908
+            "count": 910
           },
           "backloggd": null
         }
@@ -3247,10 +3247,10 @@
         },
         "user": {
           "metacritic": {
-            "value": 4.5,
+            "value": 5.9,
             "scale": 10,
-            "normalized": 45,
-            "count": 4
+            "normalized": 59,
+            "count": 9
           },
           "backloggd": null
         }
@@ -3270,7 +3270,19 @@
           "date": "2026-10-09",
           "firstReleaseDate": "2026-10-22"
         }
-      ]
+      ],
+      "scoreHistory": {
+        "metacriticUser": [
+          {
+            "date": "2026-10-25",
+            "normalized": 45
+          },
+          {
+            "date": "2026-10-26",
+            "normalized": 59
+          }
+        ]
+      }
     },
     {
       "id": "igdb:405451",
@@ -3296,9 +3308,9 @@
       "scores": {
         "critic": {
           "opencritic": {
-            "value": 79,
+            "value": 80,
             "scale": 100,
-            "normalized": 79,
+            "normalized": 80,
             "count": 26
           },
           "metacritic": {
@@ -3313,7 +3325,7 @@
             "value": 8.4,
             "scale": 10,
             "normalized": 84,
-            "count": 59
+            "count": 77
           },
           "backloggd": null
         }
@@ -3327,6 +3339,16 @@
         "nintendoStore": "https://www.nintendo.com/us/store/products/nintendo-switch-sports-resort-switch-2/"
       },
       "scoreHistory": {
+        "opencritic": [
+          {
+            "date": "2026-10-23",
+            "normalized": 79
+          },
+          {
+            "date": "2026-10-26",
+            "normalized": 80
+          }
+        ],
         "metacriticUser": [
           {
             "date": "2026-10-24",
