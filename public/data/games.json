@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-26T08:53:44.876Z",
+  "generatedAt": "2026-10-27T08:58:42.874Z",
   "games": [
     {
       "id": "free-update:arms",
@@ -3089,7 +3089,7 @@
             "value": 89,
             "scale": 100,
             "normalized": 89,
-            "count": 106
+            "count": 108
           }
         },
         "user": {
@@ -3097,7 +3097,7 @@
             "value": 8.5,
             "scale": 10,
             "normalized": 85,
-            "count": 910
+            "count": 914
           },
           "backloggd": null
         }
@@ -3215,6 +3215,45 @@
       }
     },
     {
+      "id": "igdb:424071",
+      "kind": "game",
+      "title": "Hello, Peach!",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cod5t8.jpg",
+      "summary": "Peach is ready to play! Touch Peach's face to play together with your children in Hello, Peach! for Nintendo Switch. You can also play on Nintendo Switch 2!",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/sc15w6j.jpg",
+      "developer": null,
+      "genres": [
+        "Point & click"
+      ],
+      "releaseDates": {
+        "JP": "2026-10-05",
+        "EU": "2026-10-05",
+        "NA": "2026-10-05"
+      },
+      "firstReleaseDate": "2026-10-05",
+      "exclusivity": null,
+      "firstParty": true,
+      "alsoOnSwitch1": false,
+      "onOtherConsoles": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/hello-peach/",
+        "metacritic": "https://www.metacritic.com/game/hello-peach/",
+        "wikipedia": "https://en.wikipedia.org/wiki/Hello%2C_Mario!",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Hello%2C_Peach!",
+        "nintendoStore": "https://www.nintendo.com/us/store/products/hello-peach-switch/"
+      }
+    },
+    {
       "id": "igdb:403828",
       "kind": "game",
       "title": "Beyond the Dark: Nightwatch",
@@ -3247,10 +3286,10 @@
         },
         "user": {
           "metacritic": {
-            "value": 5.9,
+            "value": 5.4,
             "scale": 10,
-            "normalized": 59,
-            "count": 9
+            "normalized": 54,
+            "count": 14
           },
           "backloggd": null
         }
@@ -3280,6 +3319,10 @@
           {
             "date": "2026-10-26",
             "normalized": 59
+          },
+          {
+            "date": "2026-10-27",
+            "normalized": 54
           }
         ]
       }
@@ -3311,13 +3354,13 @@
             "value": 80,
             "scale": 100,
             "normalized": 80,
-            "count": 26
+            "count": 28
           },
           "metacritic": {
             "value": 79,
             "scale": 100,
             "normalized": 79,
-            "count": 64
+            "count": 71
           }
         },
         "user": {
@@ -3325,7 +3368,7 @@
             "value": 8.4,
             "scale": 10,
             "normalized": 84,
-            "count": 77
+            "count": 92
           },
           "backloggd": null
         }

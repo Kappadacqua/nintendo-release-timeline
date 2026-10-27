@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-26T08:52:03.636Z",
+  "fetchedAt": "2026-10-27T08:57:10.564Z",
   "firstPartyIds": [
     164,
     408,
@@ -2952,6 +2952,7 @@
     423537,
     423538,
     423780,
+    424071,
     421954
   ],
   "games": [
@@ -40262,6 +40263,15 @@
           "publisher": true
         },
         {
+          "id": 423058,
+          "company": {
+            "id": 2850,
+            "name": "Nintendo of America"
+          },
+          "developer": false,
+          "publisher": true
+        },
+        {
           "id": 225049,
           "company": {
             "id": 33804,
@@ -40287,15 +40297,6 @@
           },
           "developer": true,
           "publisher": false
-        },
-        {
-          "id": 423058,
-          "company": {
-            "id": 2850,
-            "name": "Nintendo of America"
-          },
-          "developer": false,
-          "publisher": true
         }
       ],
       "name": "Super Tennis",
@@ -54351,6 +54352,14 @@
       "id": 115276,
       "artworks": [
         {
+          "id": 96010,
+          "alpha_channel": false,
+          "height": 924,
+          "image_id": "ar222y",
+          "width": 1706,
+          "artwork_type": 1
+        },
+        {
           "id": 12952,
           "alpha_channel": false,
           "height": 1080,
@@ -54372,14 +54381,6 @@
           "height": 662,
           "image_id": "ar2230",
           "width": 672,
-          "artwork_type": 1
-        },
-        {
-          "id": 96010,
-          "alpha_channel": false,
-          "height": 924,
-          "image_id": "ar222y",
-          "width": 1706,
           "artwork_type": 1
         }
       ],
@@ -54472,6 +54473,30 @@
           "width": 1280
         },
         {
+          "id": 322409,
+          "height": 1080,
+          "image_id": "sc6wrt",
+          "width": 1920
+        },
+        {
+          "id": 322411,
+          "height": 1080,
+          "image_id": "sc6wrv",
+          "width": 1920
+        },
+        {
+          "id": 322410,
+          "height": 1080,
+          "image_id": "sc6wru",
+          "width": 1920
+        },
+        {
+          "id": 284036,
+          "height": 720,
+          "image_id": "sc635w",
+          "width": 1280
+        },
+        {
           "id": 284030,
           "height": 720,
           "image_id": "sc635q",
@@ -54482,30 +54507,6 @@
           "height": 720,
           "image_id": "sc635s",
           "width": 1280
-        },
-        {
-          "id": 284036,
-          "height": 720,
-          "image_id": "sc635w",
-          "width": 1280
-        },
-        {
-          "id": 322409,
-          "height": 1080,
-          "image_id": "sc6wrt",
-          "width": 1920
-        },
-        {
-          "id": 322410,
-          "height": 1080,
-          "image_id": "sc6wru",
-          "width": 1920
-        },
-        {
-          "id": 322411,
-          "height": 1080,
-          "image_id": "sc6wrv",
-          "width": 1920
         }
       ],
       "slug": "super-mario-maker-2",
@@ -63241,6 +63242,149 @@
       "game_type": {
         "id": 1,
         "type": "DLC"
+      }
+    },
+    {
+      "id": 424071,
+      "artworks": [
+        {
+          "id": 318080,
+          "alpha_channel": true,
+          "height": 1013,
+          "image_id": "ar6tfk",
+          "width": 1800,
+          "artwork_type": 3
+        }
+      ],
+      "cover": {
+        "id": 614060,
+        "image_id": "cod5t8"
+      },
+      "first_release_date": 1791158400,
+      "genres": [
+        {
+          "id": 2,
+          "name": "Point-and-click"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 421281,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        }
+      ],
+      "name": "Hello, Peach!",
+      "platforms": [
+        34,
+        39,
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 978925,
+          "date": 1791158400,
+          "platform": 130,
+          "y": 2026,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        },
+        {
+          "id": 978926,
+          "platform": 39,
+          "date_format": {
+            "id": 7,
+            "format": "TBD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        },
+        {
+          "id": 978927,
+          "platform": 34,
+          "date_format": {
+            "id": 7,
+            "format": "TBD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 1954603,
+          "height": 1080,
+          "image_id": "sc15w6j",
+          "width": 1920
+        },
+        {
+          "id": 1954601,
+          "height": 534,
+          "image_id": "sc15w6h",
+          "width": 950
+        },
+        {
+          "id": 1954602,
+          "height": 534,
+          "image_id": "sc15w6i",
+          "width": 950
+        },
+        {
+          "id": 1954604,
+          "height": 1080,
+          "image_id": "sc15w6k",
+          "width": 1920
+        },
+        {
+          "id": 1954605,
+          "height": 720,
+          "image_id": "sc15w6l",
+          "width": 1280
+        },
+        {
+          "id": 1954606,
+          "height": 720,
+          "image_id": "sc15w6m",
+          "width": 1280
+        }
+      ],
+      "slug": "hello-peach",
+      "summary": "Peach is ready to play! Touch Peach's face to play together with your children in Hello, Peach! for Nintendo Switch. You can also play on Nintendo Switch 2!",
+      "websites": [
+        {
+          "id": 1136612,
+          "url": "https://www.nintendo.com/us/store/products/hello-peach-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        },
+        {
+          "id": 1137264,
+          "url": "https://www.mariowiki.com/Hello,_Peach!",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 0,
+        "type": "Main Game"
       }
     },
     {

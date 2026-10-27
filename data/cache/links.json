@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-26T08:52:42.648Z",
+  "fetchedAt": "2026-10-27T08:57:50.341Z",
   "wikipediaBySlug": {
     "pokemon-champions": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Champions",
     "mario-kart-world": "https://en.wikipedia.org/wiki/Mario_Kart_World",
@@ -76,7 +76,8 @@
     "Chit Chat Party!": "https://en.wikipedia.org/wiki/GungHo_Online_Entertainment",
     "Putty World": "https://en.wikipedia.org/wiki/Putty_(video_game)",
     "Hello, Luigi!": "https://en.wikipedia.org/wiki/Hello%2C_Mario!",
-    "Fire Emblem: Fortune's Weave": "https://en.wikipedia.org/wiki/Fire_Emblem%3A_Fortune's_Weave"
+    "Fire Emblem: Fortune's Weave": "https://en.wikipedia.org/wiki/Fire_Emblem%3A_Fortune's_Weave",
+    "Hello, Peach!": "https://en.wikipedia.org/wiki/Hello%2C_Mario!"
   },
   "nintendoWikiByTitle": {
     "Pokémon Champions": "https://nintendo.fandom.com/wiki/Pok%C3%A9mon_Champions",
@@ -124,7 +125,8 @@
     "Xenoblade Chronicles": "https://nintendo.fandom.com/wiki/Xenoblade_Chronicles",
     "Hyrule Warriors: Age of Calamity": "https://nintendo.fandom.com/wiki/Hyrule_Warriors%3A_Age_of_Calamity",
     "Super Mario Galaxy + Super Mario Galaxy 2": "https://nintendo.fandom.com/wiki/Super_Mario_Galaxy_%2B_Super_Mario_Galaxy_2",
-    "Hello, Luigi!": "https://nintendo.fandom.com/wiki/Hello%2C_Luigi!"
+    "Hello, Luigi!": "https://nintendo.fandom.com/wiki/Hello%2C_Luigi!",
+    "Hello, Peach!": "https://nintendo.fandom.com/wiki/Hello%2C_Peach!"
   },
   "eshopEuBySlug": {
     "nintendo-switch-2-welcome-tour": "2789271",
