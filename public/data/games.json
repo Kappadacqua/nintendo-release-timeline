@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-27T08:58:42.874Z",
+  "generatedAt": "2026-10-28T09:38:31.260Z",
   "games": [
     {
       "id": "free-update:arms",
@@ -3029,7 +3029,7 @@
             "value": 8.3,
             "scale": 10,
             "normalized": 83,
-            "count": 157
+            "count": 158
           },
           "backloggd": null
         }
@@ -3097,7 +3097,7 @@
             "value": 8.5,
             "scale": 10,
             "normalized": 85,
-            "count": 914
+            "count": 917
           },
           "backloggd": null
         }
@@ -3278,18 +3278,18 @@
         "critic": {
           "opencritic": null,
           "metacritic": {
-            "value": 46,
+            "value": 49,
             "scale": 100,
-            "normalized": 46,
-            "count": 4
+            "normalized": 49,
+            "count": 5
           }
         },
         "user": {
           "metacritic": {
-            "value": 5.4,
+            "value": 6.3,
             "scale": 10,
-            "normalized": 54,
-            "count": 14
+            "normalized": 63,
+            "count": 17
           },
           "backloggd": null
         }
@@ -3311,6 +3311,16 @@
         }
       ],
       "scoreHistory": {
+        "metacritic": [
+          {
+            "date": "2026-10-24",
+            "normalized": 46
+          },
+          {
+            "date": "2026-10-28",
+            "normalized": 49
+          }
+        ],
         "metacriticUser": [
           {
             "date": "2026-10-25",
@@ -3323,6 +3333,10 @@
           {
             "date": "2026-10-27",
             "normalized": 54
+          },
+          {
+            "date": "2026-10-28",
+            "normalized": 63
           }
         ]
       }
@@ -3360,7 +3374,7 @@
             "value": 79,
             "scale": 100,
             "normalized": 79,
-            "count": 71
+            "count": 73
           }
         },
         "user": {
@@ -3368,7 +3382,7 @@
             "value": 8.4,
             "scale": 10,
             "normalized": 84,
-            "count": 92
+            "count": 105
           },
           "backloggd": null
         }
