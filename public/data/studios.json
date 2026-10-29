@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-28T09:38:31.260Z",
+  "generatedAt": "2026-10-29T09:57:00.128Z",
   "studios": [
     {
       "name": "Nintendo EPD Production Group No. 10",
@@ -56,7 +56,7 @@
       "game": {
         "id": "igdb:403828",
         "title": "Beyond the Dark: Nightwatch",
-        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc5fe.jpg",
+        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cod8tl.jpg",
         "date": "2026-10-22"
       },
       "hasSwitch2Game": true

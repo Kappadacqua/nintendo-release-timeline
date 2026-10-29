@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-28T09:37:13.701Z",
+  "fetchedAt": "2026-10-29T09:55:40.794Z",
   "firstPartyIds": [
     164,
     408,
@@ -9926,12 +9926,6 @@
       ],
       "screenshots": [
         {
-          "id": 266607,
-          "height": 720,
-          "image_id": "sc5ppr",
-          "width": 1280
-        },
-        {
           "id": 266606,
           "height": 720,
           "image_id": "sc5ppq",
@@ -9959,6 +9953,12 @@
           "id": 266608,
           "height": 720,
           "image_id": "sc5pps",
+          "width": 1280
+        },
+        {
+          "id": 266607,
+          "height": 720,
+          "image_id": "sc5ppr",
           "width": 1280
         }
       ],
@@ -21055,15 +21055,33 @@
           "width": 1280
         },
         {
-          "id": 400380,
-          "height": 720,
-          "image_id": "sc8kxo",
-          "width": 1280
+          "id": 436818,
+          "height": 1035,
+          "image_id": "sc9d1u",
+          "width": 1841
+        },
+        {
+          "id": 436821,
+          "height": 1036,
+          "image_id": "sc9d1x",
+          "width": 1842
+        },
+        {
+          "id": 436820,
+          "height": 1034,
+          "image_id": "sc9d1w",
+          "width": 1841
         },
         {
           "id": 400381,
           "height": 720,
           "image_id": "sc8kxp",
+          "width": 1280
+        },
+        {
+          "id": 400380,
+          "height": 720,
+          "image_id": "sc8kxo",
           "width": 1280
         },
         {
@@ -21073,28 +21091,10 @@
           "width": 1280
         },
         {
-          "id": 436818,
-          "height": 1035,
-          "image_id": "sc9d1u",
-          "width": 1841
-        },
-        {
           "id": 436819,
           "height": 1037,
           "image_id": "sc9d1v",
           "width": 1841
-        },
-        {
-          "id": 436820,
-          "height": 1034,
-          "image_id": "sc9d1w",
-          "width": 1841
-        },
-        {
-          "id": 436821,
-          "height": 1036,
-          "image_id": "sc9d1x",
-          "width": 1842
         }
       ],
       "slug": "fitness-boxing-2-rhythm-and-exercise",
@@ -50430,6 +50430,18 @@
       ],
       "screenshots": [
         {
+          "id": 1414230,
+          "height": 720,
+          "image_id": "scub86",
+          "width": 1280
+        },
+        {
+          "id": 1414231,
+          "height": 720,
+          "image_id": "scub87",
+          "width": 1280
+        },
+        {
           "id": 1414227,
           "height": 720,
           "image_id": "scub83",
@@ -50445,18 +50457,6 @@
           "id": 1414229,
           "height": 720,
           "image_id": "scub85",
-          "width": 1280
-        },
-        {
-          "id": 1414230,
-          "height": 720,
-          "image_id": "scub86",
-          "width": 1280
-        },
-        {
-          "id": 1414231,
-          "height": 720,
-          "image_id": "scub87",
           "width": 1280
         }
       ],
@@ -62466,10 +62466,10 @@
       "id": 417169,
       "artworks": [
         {
-          "id": 306954,
+          "id": 321256,
           "alpha_channel": false,
           "height": 1080,
-          "image_id": "ar6kui",
+          "image_id": "ar6vvs",
           "width": 1920,
           "artwork_type": 1
         }
@@ -90226,8 +90226,8 @@
         }
       ],
       "cover": {
-        "id": 566906,
-        "image_id": "coc5fe"
+        "id": 617961,
+        "image_id": "cod8tl"
       },
       "first_release_date": 1792627200,
       "genres": [

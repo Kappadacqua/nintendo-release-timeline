@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-28T09:38:31.260Z",
+  "generatedAt": "2026-10-29T09:57:00.128Z",
   "games": [
     {
       "id": "free-update:arms",
@@ -3089,15 +3089,15 @@
             "value": 89,
             "scale": 100,
             "normalized": 89,
-            "count": 108
+            "count": 109
           }
         },
         "user": {
           "metacritic": {
-            "value": 8.5,
+            "value": 8.4,
             "scale": 10,
-            "normalized": 85,
-            "count": 917
+            "normalized": 84,
+            "count": 924
           },
           "backloggd": null
         }
@@ -3137,6 +3137,10 @@
           {
             "date": "2026-10-16",
             "normalized": 85
+          },
+          {
+            "date": "2026-10-29",
+            "normalized": 84
           }
         ]
       }
@@ -3257,7 +3261,7 @@
       "id": "igdb:403828",
       "kind": "game",
       "title": "Beyond the Dark: Nightwatch",
-      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc5fe.jpg",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cod8tl.jpg",
       "summary": "Beyond the Dark: Nightwatch is an asymmetrical cooperative horror game where one player explores a mysterious house in first-person while being hunted by the Gloam, while the other observes through security cameras and guides them. Survival depends entirely on communication and trust between players who see the world from completely different perspectives.",
       "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/sc15lrn.jpg",
       "developer": "Atlantis Studio",
@@ -3286,10 +3290,10 @@
         },
         "user": {
           "metacritic": {
-            "value": 6.3,
+            "value": 5.5,
             "scale": 10,
-            "normalized": 63,
-            "count": 17
+            "normalized": 55,
+            "count": 14
           },
           "backloggd": null
         }
@@ -3337,6 +3341,10 @@
           {
             "date": "2026-10-28",
             "normalized": 63
+          },
+          {
+            "date": "2026-10-29",
+            "normalized": 55
           }
         ]
       }
@@ -3382,7 +3390,7 @@
             "value": 8.4,
             "scale": 10,
             "normalized": 84,
-            "count": 105
+            "count": 111
           },
           "backloggd": null
         }
