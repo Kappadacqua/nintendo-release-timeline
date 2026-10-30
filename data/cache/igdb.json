@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-29T09:55:40.794Z",
+  "fetchedAt": "2026-10-30T09:58:10.194Z",
   "firstPartyIds": [
     164,
     408,
@@ -2937,6 +2937,8 @@
     317934,
     245690,
     306607,
+    388806,
+    388810,
     325078,
     306450,
     306046,
@@ -48265,7 +48267,7 @@
         "id": 594404,
         "image_id": "cocqn8"
       },
-      "first_release_date": 1798675200,
+      "first_release_date": 1830211200,
       "involved_companies": [
         {
           "id": 313967,
@@ -48292,10 +48294,10 @@
       ],
       "release_dates": [
         {
-          "id": 722886,
-          "date": 1798675200,
+          "id": 983984,
+          "date": 1830211200,
           "platform": 508,
-          "y": 2026,
+          "y": 2027,
           "date_format": {
             "id": 2,
             "format": "YYYY"
@@ -55109,23 +55111,43 @@
           }
         }
       ],
+      "screenshots": [
+        {
+          "id": 1962774,
+          "height": 720,
+          "image_id": "sc162hi",
+          "width": 1280
+        },
+        {
+          "id": 1962775,
+          "height": 576,
+          "image_id": "sc162hj",
+          "width": 1024
+        },
+        {
+          "id": 1962776,
+          "height": 720,
+          "image_id": "sc162hk",
+          "width": 1280
+        }
+      ],
       "slug": "super-mario-maker-2-a-legendary-update",
       "summary": "Version 2.0.0 of Super Mario Maker.\n\nChanges:\n\nAdds Spikes, Pokeys, Frozen Coins, P Blocks, Dash Blocks, and Master Swords.\nAdds Ninji Speedruns, where players compete on official courses.\nAdded a new opening animation.\nAdded more search options in the detailed search section.\nChanged the way enemies spawn in slopes.\nImproved the course corruption system.",
       "websites": [
-        {
-          "id": 515418,
-          "url": "https://supermariomaker2.fandom.com/wiki/Version_History",
-          "type": {
-            "id": 2,
-            "type": "Community Wiki"
-          }
-        },
         {
           "id": 515526,
           "url": "https://supermariomaker.nintendo.com/",
           "type": {
             "id": 1,
             "type": "Official Website"
+          }
+        },
+        {
+          "id": 1142137,
+          "url": "https://www.mariowiki.com/Super_Mario_Maker_2_update_history",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
           }
         }
       ],
@@ -60229,7 +60251,7 @@
           "publisher": true
         }
       ],
-      "name": "Super Smash Bros Ultitmate: Team Rocket Outfit and Hat",
+      "name": "Super Smash Bros. Ultimate: Team Rocket Outfit and Hat",
       "parent_game": {
         "id": 90101,
         "name": "Super Smash Bros. Ultimate"
@@ -60261,7 +60283,7 @@
           "width": 1200
         }
       ],
-      "slug": "super-smash-bros-ultitmate-team-rocket-outfit-and-hat",
+      "slug": "super-smash-bros-ultimate-team-rocket-outfit-and-hat--1",
       "websites": [
         {
           "id": 1119165,
@@ -60357,6 +60379,149 @@
           "type": {
             "id": 24,
             "type": "Nintendo"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 13,
+        "type": "Pack / Addon"
+      }
+    },
+    {
+      "id": 388806,
+      "cover": {
+        "id": 604424,
+        "image_id": "cocydk"
+      },
+      "genres": [
+        {
+          "id": 4,
+          "name": "Fighting"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 415602,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        }
+      ],
+      "name": "Super Smash Bros. Ultimate: Pig Outfit and Mask",
+      "parent_game": {
+        "id": 90101,
+        "name": "Super Smash Bros. Ultimate"
+      },
+      "platforms": [
+        130
+      ],
+      "screenshots": [
+        {
+          "id": 1927498,
+          "height": 540,
+          "image_id": "sc15b9m",
+          "width": 960
+        }
+      ],
+      "slug": "super-smash-bros-ultimate-pig-outfit-and-mask",
+      "websites": [
+        {
+          "id": 1120944,
+          "url": "https://www.ssbwiki.com/Downloadable_content_(SSBU)",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
+          }
+        },
+        {
+          "id": 1120943,
+          "url": "https://www.nintendo.com/us/store/products/costumepig-outfit-and-mask-70050000023140-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 13,
+        "type": "Pack / Addon"
+      }
+    },
+    {
+      "id": 388810,
+      "cover": {
+        "id": 604441,
+        "image_id": "cocye1"
+      },
+      "first_release_date": 1602547200,
+      "genres": [
+        {
+          "id": 4,
+          "name": "Fighting"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 415605,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        }
+      ],
+      "name": "Super Smash Bros. Ultimate: Travis Outfit and Wig",
+      "parent_game": {
+        "id": 90101,
+        "name": "Super Smash Bros. Ultimate"
+      },
+      "platforms": [
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 968099,
+          "date": 1602547200,
+          "platform": 130,
+          "y": 2020,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 1927539,
+          "height": 576,
+          "image_id": "sc15bar",
+          "width": 1024
+        }
+      ],
+      "slug": "super-smash-bros-ultimate-travis-outfit-and-wig",
+      "websites": [
+        {
+          "id": 1120964,
+          "url": "https://www.nintendo.com/us/store/products/costumetravis-outfit-and-wig-70050000023142-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        },
+        {
+          "id": 1120965,
+          "url": "https://www.ssbwiki.com/Downloadable_content_(SSBU)",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
           }
         }
       ],

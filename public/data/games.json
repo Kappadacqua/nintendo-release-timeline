@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-29T09:57:00.128Z",
+  "generatedAt": "2026-10-30T09:59:49.268Z",
   "games": [
     {
       "id": "free-update:arms",
@@ -2755,9 +2755,9 @@
       "scores": {
         "critic": {
           "opencritic": {
-            "value": 81,
+            "value": 82,
             "scale": 100,
-            "normalized": 81,
+            "normalized": 82,
             "count": 70
           },
           "metacritic": {
@@ -2786,6 +2786,16 @@
         "nintendoStore": "https://www.nintendo.it/-/-2846969.html"
       },
       "scoreHistory": {
+        "opencritic": [
+          {
+            "date": "2026-09-26",
+            "normalized": 81
+          },
+          {
+            "date": "2026-10-30",
+            "normalized": 82
+          }
+        ],
         "metacriticUser": [
           {
             "date": "2026-10-01",
@@ -3029,7 +3039,7 @@
             "value": 8.3,
             "scale": 10,
             "normalized": 83,
-            "count": 158
+            "count": 157
           },
           "backloggd": null
         }
@@ -3097,7 +3107,7 @@
             "value": 8.4,
             "scale": 10,
             "normalized": 84,
-            "count": 924
+            "count": 925
           },
           "backloggd": null
         }
@@ -3290,10 +3300,10 @@
         },
         "user": {
           "metacritic": {
-            "value": 5.5,
+            "value": 5.7,
             "scale": 10,
-            "normalized": 55,
-            "count": 14
+            "normalized": 57,
+            "count": 15
           },
           "backloggd": null
         }
@@ -3345,6 +3355,10 @@
           {
             "date": "2026-10-29",
             "normalized": 55
+          },
+          {
+            "date": "2026-10-30",
+            "normalized": 57
           }
         ]
       }
@@ -3382,7 +3396,7 @@
             "value": 79,
             "scale": 100,
             "normalized": 79,
-            "count": 73
+            "count": 74
           }
         },
         "user": {
@@ -3390,7 +3404,7 @@
             "value": 8.4,
             "scale": 10,
             "normalized": 84,
-            "count": 111
+            "count": 117
           },
           "backloggd": null
         }
@@ -3658,46 +3672,6 @@
         "wikipedia": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Pokopia",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Pok%C3%A9mon_Pokopia",
         "nintendoStore": "https://www.nintendo.com/us/store/products/part-2-70050000074548-switch-2/"
-      }
-    },
-    {
-      "id": "igdb:338104",
-      "kind": "game",
-      "title": "The Duskbloods",
-      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocqn8.jpg",
-      "summary": "An online multiplayer PvPvE game where players vie for supremacy among themselves and against challenging foes. Play as the \"Bloodsworn\"; a group that has transcended human strength thanks to their special blood, and throw yourself into a violent fray for \"First Blood\" as the twilight of humanity approaches. The moontears will flow for one and one alone.",
-      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/scw2ws.jpg",
-      "developer": "FromSoftware",
-      "genres": [],
-      "releaseDates": {
-        "JP": null,
-        "EU": null,
-        "NA": null
-      },
-      "firstReleaseDate": null,
-      "vagueRelease": {
-        "year": 2026,
-        "label": "2026"
-      },
-      "exclusivity": "exclusive",
-      "firstParty": true,
-      "alsoOnSwitch1": false,
-      "onOtherConsoles": false,
-      "scores": {
-        "critic": {
-          "opencritic": null,
-          "metacritic": null
-        },
-        "user": {
-          "metacritic": null,
-          "backloggd": null
-        }
-      },
-      "links": {
-        "backloggd": "https://backloggd.com/games/the-duskbloods/",
-        "wikipedia": "https://en.wikipedia.org/wiki/The_Duskbloods",
-        "nintendoWiki": "https://nintendo.fandom.com/wiki/The_Duskbloods",
-        "nintendoStore": "https://www.nintendo.it/-/-2789410.html"
       }
     },
     {
@@ -3980,6 +3954,46 @@
       "vagueRelease": {
         "year": 2027,
         "label": "2027"
+      }
+    },
+    {
+      "id": "igdb:338104",
+      "kind": "game",
+      "title": "The Duskbloods",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocqn8.jpg",
+      "summary": "An online multiplayer PvPvE game where players vie for supremacy among themselves and against challenging foes. Play as the \"Bloodsworn\"; a group that has transcended human strength thanks to their special blood, and throw yourself into a violent fray for \"First Blood\" as the twilight of humanity approaches. The moontears will flow for one and one alone.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/scw2ws.jpg",
+      "developer": "FromSoftware",
+      "genres": [],
+      "releaseDates": {
+        "JP": null,
+        "EU": null,
+        "NA": null
+      },
+      "firstReleaseDate": null,
+      "vagueRelease": {
+        "year": 2027,
+        "label": "2027"
+      },
+      "exclusivity": "exclusive",
+      "firstParty": true,
+      "alsoOnSwitch1": false,
+      "onOtherConsoles": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/the-duskbloods/",
+        "wikipedia": "https://en.wikipedia.org/wiki/The_Duskbloods",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/The_Duskbloods",
+        "nintendoStore": "https://www.nintendo.it/-/-2789410.html"
       }
     },
     {
