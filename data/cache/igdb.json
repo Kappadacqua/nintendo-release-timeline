@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-30T09:58:10.194Z",
+  "fetchedAt": "2026-10-31T09:36:11.466Z",
   "firstPartyIds": [
     164,
     408,
@@ -2886,7 +2886,6 @@
     410037,
     9151,
     103340,
-    2485,
     2135,
     410642,
     49582,
@@ -2955,7 +2954,8 @@
     423538,
     423780,
     424071,
-    421954
+    421954,
+    2485
   ],
   "games": [
     {
@@ -90382,12 +90382,20 @@
       "id": 403828,
       "artworks": [
         {
-          "id": 314215,
+          "id": 322525,
+          "alpha_channel": false,
+          "height": 1080,
+          "image_id": "ar6wv1",
+          "width": 1920,
+          "artwork_type": 3
+        },
+        {
+          "id": 322922,
           "alpha_channel": false,
           "height": 2160,
-          "image_id": "ar6qg7",
+          "image_id": "ar6x62",
           "width": 3840,
-          "artwork_type": 1
+          "artwork_type": 15
         }
       ],
       "cover": {
@@ -90460,6 +90468,48 @@
       ],
       "slug": "beyond-the-dark-nightwatch",
       "summary": "Beyond the Dark: Nightwatch is an asymmetrical cooperative horror game where one player explores a mysterious house in first-person while being hunted by the Gloam, while the other observes through security cameras and guides them. Survival depends entirely on communication and trust between players who see the world from completely different perspectives.",
+      "websites": [
+        {
+          "id": 1146492,
+          "url": "https://beyondthedark.com/",
+          "type": {
+            "id": 1,
+            "type": "Official Website"
+          }
+        },
+        {
+          "id": 1146494,
+          "url": "https://x.com/BeyondtheDarknw",
+          "type": {
+            "id": 5,
+            "type": "Twitter"
+          }
+        },
+        {
+          "id": 1146495,
+          "url": "https://www.instagram.com/beyondthedark.game",
+          "type": {
+            "id": 8,
+            "type": "Instagram"
+          }
+        },
+        {
+          "id": 1146496,
+          "url": "https://www.youtube.com/@AtlantisStudioFr",
+          "type": {
+            "id": 9,
+            "type": "YouTube"
+          }
+        },
+        {
+          "id": 1146497,
+          "url": "https://discord.gg/adWuzHkBX8",
+          "type": {
+            "id": 18,
+            "type": "Discord"
+          }
+        }
+      ],
       "game_type": {
         "id": 0,
         "type": "Main Game"
