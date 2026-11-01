@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-31T09:36:11.466Z",
+  "fetchedAt": "2026-11-01T10:25:03.295Z",
   "firstPartyIds": [
     164,
     408,
@@ -62643,7 +62643,7 @@
         "id": 600394,
         "image_id": "cocv9m"
       },
-      "first_release_date": 1794441600,
+      "first_release_date": 1793577600,
       "genres": [
         {
           "id": 31,
@@ -62671,8 +62671,8 @@
       ],
       "release_dates": [
         {
-          "id": 963208,
-          "date": 1794441600,
+          "id": 984940,
+          "date": 1793577600,
           "platform": 508,
           "y": 2026,
           "date_format": {
@@ -82772,6 +82772,26 @@
             "id": 8,
             "region": "worldwide"
           }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 1967273,
+          "height": 720,
+          "image_id": "sc165yh",
+          "width": 1280
+        },
+        {
+          "id": 1967272,
+          "height": 720,
+          "image_id": "sc165yg",
+          "width": 1280
+        },
+        {
+          "id": 1967274,
+          "height": 720,
+          "image_id": "sc165yi",
+          "width": 1280
         }
       ],
       "slug": "captain-toad-treasure-tracker-special-episode",
