@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-11-01T10:25:03.295Z",
+  "fetchedAt": "2026-11-02T10:59:45.720Z",
   "firstPartyIds": [
     164,
     408,
@@ -15169,7 +15169,7 @@
         "id": 548592,
         "image_id": "cobrao"
       },
-      "first_release_date": 1614211200,
+      "first_release_date": 1614297600,
       "genres": [
         {
           "id": 12,
@@ -15234,20 +15234,6 @@
       ],
       "release_dates": [
         {
-          "id": 339444,
-          "date": 1614211200,
-          "platform": 130,
-          "y": 2021,
-          "date_format": {
-            "id": 0,
-            "format": "YYYYMMDD"
-          },
-          "release_region": {
-            "id": 1,
-            "region": "europe"
-          }
-        },
-        {
           "id": 817601,
           "date": 1614297600,
           "platform": 130,
@@ -15273,6 +15259,20 @@
           "release_region": {
             "id": 8,
             "region": "worldwide"
+          }
+        },
+        {
+          "id": 982654,
+          "date": 1614297600,
+          "platform": 130,
+          "y": 2021,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 1,
+            "region": "europe"
           }
         }
       ],
@@ -62643,7 +62643,7 @@
         "id": 600394,
         "image_id": "cocv9m"
       },
-      "first_release_date": 1793577600,
+      "first_release_date": 1794441600,
       "genres": [
         {
           "id": 31,
@@ -62671,8 +62671,8 @@
       ],
       "release_dates": [
         {
-          "id": 984940,
-          "date": 1793577600,
+          "id": 985158,
+          "date": 1794441600,
           "platform": 508,
           "y": 2026,
           "date_format": {

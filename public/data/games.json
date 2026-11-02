@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-01T10:26:27.812Z",
+  "generatedAt": "2026-11-02T11:01:15.069Z",
   "games": [
     {
       "id": "free-update:arms",
@@ -2068,9 +2068,9 @@
       "scores": {
         "critic": {
           "opencritic": {
-            "value": 90,
+            "value": 89,
             "scale": 100,
-            "normalized": 90,
+            "normalized": 89,
             "count": 55
           },
           "metacritic": {
@@ -2107,6 +2107,10 @@
           {
             "date": "2026-10-16",
             "normalized": 90
+          },
+          {
+            "date": "2026-11-02",
+            "normalized": 89
           }
         ]
       }
@@ -3124,10 +3128,10 @@
         },
         "user": {
           "metacritic": {
-            "value": 8.4,
+            "value": 8.5,
             "scale": 10,
-            "normalized": 84,
-            "count": 931
+            "normalized": 85,
+            "count": 932
           },
           "backloggd": null
         }
@@ -3171,6 +3175,10 @@
           {
             "date": "2026-10-29",
             "normalized": 84
+          },
+          {
+            "date": "2026-11-02",
+            "normalized": 85
           }
         ]
       }
@@ -3320,10 +3328,10 @@
         },
         "user": {
           "metacritic": {
-            "value": 5.9,
+            "value": 6,
             "scale": 10,
-            "normalized": 59,
-            "count": 17
+            "normalized": 60,
+            "count": 18
           },
           "backloggd": null
         }
@@ -3387,6 +3395,10 @@
           {
             "date": "2026-11-01",
             "normalized": 59
+          },
+          {
+            "date": "2026-11-02",
+            "normalized": 60
           }
         ]
       }
@@ -3429,10 +3441,10 @@
         },
         "user": {
           "metacritic": {
-            "value": 8.4,
+            "value": 8.3,
             "scale": 10,
-            "normalized": 84,
-            "count": 119
+            "normalized": 83,
+            "count": 126
           },
           "backloggd": null
         }
@@ -3464,57 +3476,13 @@
           {
             "date": "2026-10-25",
             "normalized": 84
+          },
+          {
+            "date": "2026-11-02",
+            "normalized": 83
           }
         ]
       }
-    },
-    {
-      "id": "igdb:417169",
-      "kind": "switch2-edition",
-      "title": "Pikmin 4: Nintendo Switch 2 Edition + Dandori Academy",
-      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocv9m.jpg",
-      "summary": "Give Oatchi commands using your voice and put your Dandori skills to the test in Pikmin 4 – Nintendo Switch 2 Edition + Dandori Academy.",
-      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/sc154em.jpg",
-      "developer": "Nintendo EPD Production Group No. 10",
-      "genres": [
-        "Adventure"
-      ],
-      "releaseDates": {
-        "JP": "2026-11-02",
-        "EU": "2026-11-02",
-        "NA": "2026-11-02"
-      },
-      "firstReleaseDate": "2026-11-02",
-      "exclusivity": "exclusive",
-      "firstParty": true,
-      "alsoOnSwitch1": false,
-      "onOtherConsoles": false,
-      "scores": {
-        "critic": {
-          "opencritic": null,
-          "metacritic": null
-        },
-        "user": {
-          "metacritic": null,
-          "backloggd": null
-        }
-      },
-      "links": {
-        "backloggd": "https://backloggd.com/games/pikmin-4-nintendo-switch-2-edition-plus-dandori-academy/",
-        "wikipedia": "https://en.wikipedia.org/wiki/Pikmin_4",
-        "nintendoWiki": "https://nintendo.fandom.com/wiki/Pikmin_4",
-        "nintendoStore": "https://www.nintendo.com/us/store/products/pikmin-4-nintendo-switch-2-edition-plus-dandori-academy-switch-2/"
-      },
-      "dateHistory": [
-        {
-          "date": "2026-09-26",
-          "firstReleaseDate": "2026-11-12"
-        },
-        {
-          "date": "2026-11-01",
-          "firstReleaseDate": "2026-11-02"
-        }
-      ]
     },
     {
       "id": "igdb:405460",
@@ -3553,6 +3521,58 @@
         "nintendoWiki": "https://nintendo.fandom.com/wiki/The_Legend_of_Zelda%3A_Ocarina_of_Time",
         "nintendoStore": "https://www.nintendo.com/us/store/products/the-legend-of-zelda-ocarina-of-time-switch-2/"
       }
+    },
+    {
+      "id": "igdb:417169",
+      "kind": "switch2-edition",
+      "title": "Pikmin 4: Nintendo Switch 2 Edition + Dandori Academy",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocv9m.jpg",
+      "summary": "Give Oatchi commands using your voice and put your Dandori skills to the test in Pikmin 4 – Nintendo Switch 2 Edition + Dandori Academy.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/sc154em.jpg",
+      "developer": "Nintendo EPD Production Group No. 10",
+      "genres": [
+        "Adventure"
+      ],
+      "releaseDates": {
+        "JP": "2026-11-12",
+        "EU": "2026-11-12",
+        "NA": "2026-11-12"
+      },
+      "firstReleaseDate": "2026-11-12",
+      "exclusivity": "exclusive",
+      "firstParty": true,
+      "alsoOnSwitch1": false,
+      "onOtherConsoles": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/pikmin-4-nintendo-switch-2-edition-plus-dandori-academy/",
+        "wikipedia": "https://en.wikipedia.org/wiki/Pikmin_4",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Pikmin_4",
+        "nintendoStore": "https://www.nintendo.com/us/store/products/pikmin-4-nintendo-switch-2-edition-plus-dandori-academy-switch-2/"
+      },
+      "dateHistory": [
+        {
+          "date": "2026-09-26",
+          "firstReleaseDate": "2026-11-12"
+        },
+        {
+          "date": "2026-11-01",
+          "firstReleaseDate": "2026-11-02"
+        },
+        {
+          "date": "2026-11-02",
+          "firstReleaseDate": "2026-11-12"
+        }
+      ]
     },
     {
       "id": "igdb:405448",
