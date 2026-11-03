@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-11-02T10:59:45.720Z",
+  "fetchedAt": "2026-11-03T10:49:25.464Z",
   "firstPartyIds": [
     164,
     408,
@@ -2907,7 +2907,6 @@
     417169,
     417167,
     408719,
-    405460,
     229859,
     345240,
     170336,
@@ -2932,6 +2931,7 @@
     372870,
     306045,
     317688,
+    388804,
     306198,
     317934,
     245690,
@@ -2955,7 +2955,8 @@
     423780,
     424071,
     421954,
-    2485
+    2485,
+    405460
   ],
   "games": [
     {
@@ -55791,6 +55792,20 @@
             "id": 8,
             "region": "worldwide"
           }
+        },
+        {
+          "id": 929944,
+          "date": 1796256000,
+          "platform": 508,
+          "y": 2026,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
         }
       ],
       "screenshots": [
@@ -60388,6 +60403,86 @@
       }
     },
     {
+      "id": 388804,
+      "cover": {
+        "id": 603228,
+        "image_id": "cocxgc"
+      },
+      "first_release_date": 1593388800,
+      "genres": [
+        {
+          "id": 4,
+          "name": "Fighting"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 414624,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        }
+      ],
+      "name": "Super Smash Bros. Ultimate: Ninjara Outfit and Wig",
+      "parent_game": {
+        "id": 90101,
+        "name": "Super Smash Bros. Ultimate"
+      },
+      "platforms": [
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 966394,
+          "date": 1593388800,
+          "platform": 130,
+          "y": 2020,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 1925102,
+          "height": 540,
+          "image_id": "sc159f2",
+          "width": 960
+        }
+      ],
+      "slug": "super-smash-bros-ultimate-ninjara-outfit-and-wig",
+      "websites": [
+        {
+          "id": 1119340,
+          "url": "https://www.nintendo.com/us/store/products/costumeninjara-outfit-and-wig-70050000020818-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        },
+        {
+          "id": 1119341,
+          "url": "https://www.ssbwiki.com/Downloadable_content_(SSBU)",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 13,
+        "type": "Pack / Addon"
+      }
+    },
+    {
       "id": 388806,
       "cover": {
         "id": 604424,
@@ -62040,12 +62135,21 @@
       ],
       "involved_companies": [
         {
-          "id": 413135,
+          "id": 425192,
+          "company": {
+            "id": 45209,
+            "name": "Nintendo EPD Production Group No. 3"
+          },
+          "developer": true,
+          "publisher": false
+        },
+        {
+          "id": 425191,
           "company": {
             "id": 70,
             "name": "Nintendo"
           },
-          "developer": true,
+          "developer": false,
           "publisher": true
         }
       ],
