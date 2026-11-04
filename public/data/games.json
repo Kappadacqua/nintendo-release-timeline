@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-03T10:50:32.245Z",
+  "generatedAt": "2026-11-04T10:53:38.078Z",
   "games": [
     {
       "id": "free-update:arms",
@@ -3123,7 +3123,7 @@
             "value": 89,
             "scale": 100,
             "normalized": 89,
-            "count": 109
+            "count": 110
           }
         },
         "user": {
@@ -3131,7 +3131,7 @@
             "value": 8.5,
             "scale": 10,
             "normalized": 85,
-            "count": 934
+            "count": 938
           },
           "backloggd": null
         }
@@ -3328,10 +3328,10 @@
         },
         "user": {
           "metacritic": {
-            "value": 6,
+            "value": 5.7,
             "scale": 10,
-            "normalized": 60,
-            "count": 18
+            "normalized": 57,
+            "count": 19
           },
           "backloggd": null
         }
@@ -3399,6 +3399,10 @@
           {
             "date": "2026-11-02",
             "normalized": 60
+          },
+          {
+            "date": "2026-11-04",
+            "normalized": 57
           }
         ]
       }
@@ -3430,13 +3434,13 @@
             "value": 80,
             "scale": 100,
             "normalized": 80,
-            "count": 30
+            "count": 32
           },
           "metacritic": {
             "value": 79,
             "scale": 100,
             "normalized": 79,
-            "count": 81
+            "count": 83
           }
         },
         "user": {
@@ -3444,7 +3448,7 @@
             "value": 8.4,
             "scale": 10,
             "normalized": 84,
-            "count": 133
+            "count": 134
           },
           "backloggd": null
         }
