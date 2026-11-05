@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-04T10:53:38.078Z",
+  "generatedAt": "2026-11-05T10:52:23.757Z",
   "games": [
     {
       "id": "free-update:arms",
@@ -3131,7 +3131,7 @@
             "value": 8.5,
             "scale": 10,
             "normalized": 85,
-            "count": 938
+            "count": 943
           },
           "backloggd": null
         }
@@ -3323,7 +3323,7 @@
             "value": 49,
             "scale": 100,
             "normalized": 49,
-            "count": 5
+            "count": 6
           }
         },
         "user": {
@@ -3440,7 +3440,7 @@
             "value": 79,
             "scale": 100,
             "normalized": 79,
-            "count": 83
+            "count": 86
           }
         },
         "user": {
@@ -3448,7 +3448,7 @@
             "value": 8.4,
             "scale": 10,
             "normalized": 84,
-            "count": 134
+            "count": 137
           },
           "backloggd": null
         }
@@ -3525,6 +3525,7 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/the-legend-of-zelda-ocarina-of-time--1/",
+        "opencritic": "https://opencritic.com/game/21344/the-legend-of-zelda-ocarina-of-time",
         "wikipedia": "https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Ocarina_of_Time",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/The_Legend_of_Zelda%3A_Ocarina_of_Time",
         "nintendoStore": "https://www.nintendo.com/us/store/products/the-legend-of-zelda-ocarina-of-time-switch-2/"
@@ -3622,6 +3623,53 @@
       }
     },
     {
+      "id": "igdb:407137",
+      "kind": "dlc",
+      "title": "Pokémon Pokopia: Dazzling Decorations",
+      "baseGameTitle": "Pokémon Pokopia",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/codazn.jpg",
+      "summary": "Harness your passion for fashion with cute new accessories, items, and Pokémon.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/sc14h0u.jpg",
+      "developer": "Omega Force",
+      "genres": [],
+      "releaseDates": {
+        "JP": "2026-12-09",
+        "EU": "2026-12-09",
+        "NA": "2026-12-09"
+      },
+      "firstReleaseDate": "2026-12-09",
+      "exclusivity": "exclusive",
+      "firstParty": true,
+      "alsoOnSwitch1": false,
+      "onOtherConsoles": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/pokemon-pokopia-dazzling-decorations/",
+        "wikipedia": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Pokopia",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Pok%C3%A9mon_Pokopia",
+        "nintendoStore": "https://www.nintendo.com/us/store/products/part-2-dazzling-decorations-70050000074548-switch-2/"
+      },
+      "dateHistory": [
+        {
+          "date": "2026-09-26",
+          "firstReleaseDate": null
+        },
+        {
+          "date": "2026-11-05",
+          "firstReleaseDate": "2026-12-09"
+        }
+      ]
+    },
+    {
       "id": "igdb:408719",
       "kind": "game",
       "title": "Metroid Ravenous",
@@ -3697,47 +3745,6 @@
         "wikipedia": "https://en.wikipedia.org/wiki/Hyrule_Warriors%3A_Age_of_Calamity",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Hyrule_Warriors%3A_Age_of_Calamity",
         "nintendoStore": "https://www.nintendo.com/us/store/products/hyrule-warriors-age-of-calamity-definitive-edition-switch-2/"
-      }
-    },
-    {
-      "id": "igdb:407137",
-      "kind": "dlc",
-      "title": "Pokémon Pokopia: Part 2",
-      "baseGameTitle": "Pokémon Pokopia",
-      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocva6.jpg",
-      "summary": null,
-      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/sc14h0u.jpg",
-      "developer": "Omega Force",
-      "genres": [],
-      "releaseDates": {
-        "JP": null,
-        "EU": null,
-        "NA": null
-      },
-      "firstReleaseDate": null,
-      "vagueRelease": {
-        "year": 2026,
-        "label": "Q4 2026"
-      },
-      "exclusivity": "exclusive",
-      "firstParty": true,
-      "alsoOnSwitch1": false,
-      "onOtherConsoles": false,
-      "scores": {
-        "critic": {
-          "opencritic": null,
-          "metacritic": null
-        },
-        "user": {
-          "metacritic": null,
-          "backloggd": null
-        }
-      },
-      "links": {
-        "backloggd": "https://backloggd.com/games/pokemon-pokopia-part-2/",
-        "wikipedia": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Pokopia",
-        "nintendoWiki": "https://nintendo.fandom.com/wiki/Pok%C3%A9mon_Pokopia",
-        "nintendoStore": "https://www.nintendo.com/us/store/products/part-2-70050000074548-switch-2/"
       }
     },
     {

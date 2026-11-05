@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-11-04T10:52:33.905Z",
+  "fetchedAt": "2026-11-05T10:51:09.435Z",
   "firstPartyIds": [
     164,
     408,
@@ -27932,6 +27932,7 @@
       "name": "Fire Emblem: Monshou no Nazo",
       "platforms": [
         5,
+        137,
         130,
         58
       ],
@@ -27955,6 +27956,20 @@
           "date": 759110400,
           "platform": 58,
           "y": 1994,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 5,
+            "region": "japan"
+          }
+        },
+        {
+          "id": 985710,
+          "date": 1466553600,
+          "platform": 137,
+          "y": 2016,
           "date_format": {
             "id": 0,
             "format": "YYYYMMDD"
@@ -62135,15 +62150,6 @@
       ],
       "involved_companies": [
         {
-          "id": 425192,
-          "company": {
-            "id": 45209,
-            "name": "Nintendo EPD Production Group No. 3"
-          },
-          "developer": true,
-          "publisher": false
-        },
-        {
           "id": 425191,
           "company": {
             "id": 70,
@@ -62151,6 +62157,24 @@
           },
           "developer": false,
           "publisher": true
+        },
+        {
+          "id": 425787,
+          "company": {
+            "id": 1119,
+            "name": "Monolith Soft"
+          },
+          "developer": false,
+          "publisher": false
+        },
+        {
+          "id": 425785,
+          "company": {
+            "id": 45209,
+            "name": "Nintendo EPD Production Group No. 3"
+          },
+          "developer": true,
+          "publisher": false
         }
       ],
       "name": "The Legend of Zelda: Ocarina of Time",
@@ -62269,10 +62293,10 @@
         }
       ],
       "cover": {
-        "id": 600414,
-        "image_id": "cocva6"
+        "id": 620771,
+        "image_id": "codazn"
       },
-      "first_release_date": 1798675200,
+      "first_release_date": 1796774400,
       "involved_companies": [
         {
           "id": 404756,
@@ -62311,7 +62335,7 @@
           "publisher": true
         }
       ],
-      "name": "Pokémon Pokopia: Part 2",
+      "name": "Pokémon Pokopia: Dazzling Decorations",
       "parent_game": {
         "id": 366893,
         "name": "Pokémon Pokopia"
@@ -62321,13 +62345,13 @@
       ],
       "release_dates": [
         {
-          "id": 963262,
-          "date": 1798675200,
+          "id": 986321,
+          "date": 1796774400,
           "platform": 508,
           "y": 2026,
           "date_format": {
-            "id": 6,
-            "format": "YYYYQ4"
+            "id": 0,
+            "format": "YYYYMMDD"
           },
           "release_region": {
             "id": 8,
@@ -62367,11 +62391,12 @@
           "width": 3840
         }
       ],
-      "slug": "pokemon-pokopia-part-2",
+      "slug": "pokemon-pokopia-dazzling-decorations",
+      "summary": "Harness your passion for fashion with cute new accessories, items, and Pokémon.",
       "websites": [
         {
-          "id": 1090828,
-          "url": "https://www.nintendo.com/us/store/products/part-2-70050000074548-switch-2/",
+          "id": 1151340,
+          "url": "https://www.nintendo.com/us/store/products/part-2-dazzling-decorations-70050000074548-switch-2/",
           "type": {
             "id": 24,
             "type": "Nintendo"
