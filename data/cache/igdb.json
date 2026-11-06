@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-11-05T10:51:09.435Z",
+  "fetchedAt": "2026-11-06T10:50:03.347Z",
   "firstPartyIds": [
     164,
     408,
@@ -2088,7 +2088,6 @@
     66584,
     254339,
     4601,
-    4625,
     4612,
     136906,
     20514,
@@ -2808,6 +2807,7 @@
     136498,
     254335,
     254334,
+    4625,
     328666,
     392737,
     393105,
@@ -45166,6 +45166,209 @@
       }
     },
     {
+      "id": 306149,
+      "artworks": [
+        {
+          "id": 260570,
+          "alpha_channel": false,
+          "height": 1080,
+          "image_id": "ar5l22",
+          "width": 1920,
+          "artwork_type": 3
+        },
+        {
+          "id": 260572,
+          "alpha_channel": true,
+          "height": 1044,
+          "image_id": "ar5l24",
+          "width": 1532,
+          "artwork_type": 5
+        },
+        {
+          "id": 260571,
+          "alpha_channel": true,
+          "height": 1044,
+          "image_id": "ar5l23",
+          "width": 1532,
+          "artwork_type": 7
+        }
+      ],
+      "cover": {
+        "id": 390431,
+        "image_id": "co8d9b"
+      },
+      "first_release_date": 1727308800,
+      "genres": [
+        {
+          "id": 9,
+          "name": "Puzzle"
+        },
+        {
+          "id": 31,
+          "name": "Adventure"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 271143,
+          "company": {
+            "id": 739,
+            "name": "Grezzo"
+          },
+          "developer": true,
+          "publisher": false
+        },
+        {
+          "id": 271144,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        },
+        {
+          "id": 289877,
+          "company": {
+            "id": 7902,
+            "name": "Nintendo Entertainment Planning & Development"
+          },
+          "developer": true,
+          "publisher": false
+        },
+        {
+          "id": 330792,
+          "company": {
+            "id": 45209,
+            "name": "Nintendo EPD Production Group No. 3"
+          },
+          "developer": true,
+          "publisher": false
+        }
+      ],
+      "name": "The Legend of Zelda: Echoes of Wisdom",
+      "platforms": [
+        508,
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 605509,
+          "date": 1727308800,
+          "platform": 130,
+          "y": 2024,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        },
+        {
+          "id": 743566,
+          "date": 1749081600,
+          "platform": 508,
+          "y": 2025,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 1343526,
+          "height": 513,
+          "image_id": "scsso6",
+          "width": 912
+        },
+        {
+          "id": 1343527,
+          "height": 1080,
+          "image_id": "scsso7",
+          "width": 1920
+        },
+        {
+          "id": 1343531,
+          "height": 1080,
+          "image_id": "scssob",
+          "width": 1920
+        },
+        {
+          "id": 1343528,
+          "height": 1080,
+          "image_id": "scsso8",
+          "width": 1920
+        },
+        {
+          "id": 1343530,
+          "height": 1080,
+          "image_id": "scssoa",
+          "width": 1920
+        },
+        {
+          "id": 1343529,
+          "height": 1080,
+          "image_id": "scsso9",
+          "width": 1920
+        }
+      ],
+      "slug": "the-legend-of-zelda-echoes-of-wisdom",
+      "summary": "The people of Hyrule are being stolen away by strange rifts that have appeared, and with a certain swordsman among those missing, it’s up to Princess Zelda to save her kingdom.\n\nTeam up with the mysterious fairy, Tri, and use the power of the Tri Rod to learn how to create echoes, imitations of things found in the environment. You can then recreate those echoes whenever you like to solve puzzles and defeat enemies.\n\nCreate echoes like water blocks to reach new heights, make bridges out of old beds, throw rocks at foes, or find your own creative combination of echoes to do things your way. You can even create echoes of monsters to fight at your side in combat!",
+      "websites": [
+        {
+          "id": 791960,
+          "url": "https://www.nintendo.com/us/store/products/the-legend-of-zelda-echoes-of-wisdom-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        },
+        {
+          "id": 646962,
+          "url": "https://zeldawiki.wiki/wiki/The_Legend_of_Zelda:_Echoes_of_Wisdom",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
+          }
+        },
+        {
+          "id": 646963,
+          "url": "https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Echoes_of_Wisdom",
+          "type": {
+            "id": 3,
+            "type": "Wikipedia"
+          }
+        },
+        {
+          "id": 657532,
+          "url": "https://m.twitch.tv/directory/category/the-legend-of-zelda-echoes-of-wisdom",
+          "type": {
+            "id": 6,
+            "type": "Twitch"
+          }
+        },
+        {
+          "id": 659049,
+          "url": "https://www.reddit.com/r/zelda/",
+          "type": {
+            "id": 14,
+            "type": "Subreddit"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 0,
+        "type": "Main Game"
+      }
+    },
+    {
       "id": 26769,
       "artworks": [
         {
@@ -46125,209 +46328,6 @@
       "game_type": {
         "id": 9,
         "type": "Remaster"
-      }
-    },
-    {
-      "id": 306149,
-      "artworks": [
-        {
-          "id": 260570,
-          "alpha_channel": false,
-          "height": 1080,
-          "image_id": "ar5l22",
-          "width": 1920,
-          "artwork_type": 3
-        },
-        {
-          "id": 260572,
-          "alpha_channel": true,
-          "height": 1044,
-          "image_id": "ar5l24",
-          "width": 1532,
-          "artwork_type": 5
-        },
-        {
-          "id": 260571,
-          "alpha_channel": true,
-          "height": 1044,
-          "image_id": "ar5l23",
-          "width": 1532,
-          "artwork_type": 7
-        }
-      ],
-      "cover": {
-        "id": 390431,
-        "image_id": "co8d9b"
-      },
-      "first_release_date": 1727308800,
-      "genres": [
-        {
-          "id": 9,
-          "name": "Puzzle"
-        },
-        {
-          "id": 31,
-          "name": "Adventure"
-        }
-      ],
-      "involved_companies": [
-        {
-          "id": 271143,
-          "company": {
-            "id": 739,
-            "name": "Grezzo"
-          },
-          "developer": true,
-          "publisher": false
-        },
-        {
-          "id": 271144,
-          "company": {
-            "id": 70,
-            "name": "Nintendo"
-          },
-          "developer": false,
-          "publisher": true
-        },
-        {
-          "id": 289877,
-          "company": {
-            "id": 7902,
-            "name": "Nintendo Entertainment Planning & Development"
-          },
-          "developer": true,
-          "publisher": false
-        },
-        {
-          "id": 330792,
-          "company": {
-            "id": 45209,
-            "name": "Nintendo EPD Production Group No. 3"
-          },
-          "developer": true,
-          "publisher": false
-        }
-      ],
-      "name": "The Legend of Zelda: Echoes of Wisdom",
-      "platforms": [
-        508,
-        130
-      ],
-      "release_dates": [
-        {
-          "id": 605509,
-          "date": 1727308800,
-          "platform": 130,
-          "y": 2024,
-          "date_format": {
-            "id": 0,
-            "format": "YYYYMMDD"
-          },
-          "release_region": {
-            "id": 8,
-            "region": "worldwide"
-          }
-        },
-        {
-          "id": 743566,
-          "date": 1749081600,
-          "platform": 508,
-          "y": 2025,
-          "date_format": {
-            "id": 0,
-            "format": "YYYYMMDD"
-          },
-          "release_region": {
-            "id": 8,
-            "region": "worldwide"
-          }
-        }
-      ],
-      "screenshots": [
-        {
-          "id": 1343526,
-          "height": 513,
-          "image_id": "scsso6",
-          "width": 912
-        },
-        {
-          "id": 1343527,
-          "height": 1080,
-          "image_id": "scsso7",
-          "width": 1920
-        },
-        {
-          "id": 1343531,
-          "height": 1080,
-          "image_id": "scssob",
-          "width": 1920
-        },
-        {
-          "id": 1343528,
-          "height": 1080,
-          "image_id": "scsso8",
-          "width": 1920
-        },
-        {
-          "id": 1343530,
-          "height": 1080,
-          "image_id": "scssoa",
-          "width": 1920
-        },
-        {
-          "id": 1343529,
-          "height": 1080,
-          "image_id": "scsso9",
-          "width": 1920
-        }
-      ],
-      "slug": "the-legend-of-zelda-echoes-of-wisdom",
-      "summary": "The people of Hyrule are being stolen away by strange rifts that have appeared, and with a certain swordsman among those missing, it’s up to Princess Zelda to save her kingdom.\n\nTeam up with the mysterious fairy, Tri, and use the power of the Tri Rod to learn how to create echoes, imitations of things found in the environment. You can then recreate those echoes whenever you like to solve puzzles and defeat enemies.\n\nCreate echoes like water blocks to reach new heights, make bridges out of old beds, throw rocks at foes, or find your own creative combination of echoes to do things your way. You can even create echoes of monsters to fight at your side in combat!",
-      "websites": [
-        {
-          "id": 791960,
-          "url": "https://www.nintendo.com/us/store/products/the-legend-of-zelda-echoes-of-wisdom-switch/",
-          "type": {
-            "id": 24,
-            "type": "Nintendo"
-          }
-        },
-        {
-          "id": 646962,
-          "url": "https://zeldawiki.wiki/wiki/The_Legend_of_Zelda:_Echoes_of_Wisdom",
-          "type": {
-            "id": 2,
-            "type": "Community Wiki"
-          }
-        },
-        {
-          "id": 646963,
-          "url": "https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Echoes_of_Wisdom",
-          "type": {
-            "id": 3,
-            "type": "Wikipedia"
-          }
-        },
-        {
-          "id": 657532,
-          "url": "https://m.twitch.tv/directory/category/the-legend-of-zelda-echoes-of-wisdom",
-          "type": {
-            "id": 6,
-            "type": "Twitch"
-          }
-        },
-        {
-          "id": 659049,
-          "url": "https://www.reddit.com/r/zelda/",
-          "type": {
-            "id": 14,
-            "type": "Subreddit"
-          }
-        }
-      ],
-      "game_type": {
-        "id": 0,
-        "type": "Main Game"
       }
     },
     {
@@ -50244,6 +50244,324 @@
       "game_type": {
         "id": 3,
         "type": "Bundle"
+      }
+    },
+    {
+      "id": 306137,
+      "artworks": [
+        {
+          "id": 204074,
+          "alpha_channel": true,
+          "height": 964,
+          "image_id": "ar4dgq",
+          "width": 906,
+          "artwork_type": 1
+        },
+        {
+          "id": 204075,
+          "alpha_channel": true,
+          "height": 908,
+          "image_id": "ar4dgr",
+          "width": 952,
+          "artwork_type": 1
+        },
+        {
+          "id": 204077,
+          "alpha_channel": true,
+          "height": 1093,
+          "image_id": "ar4dgt",
+          "width": 781,
+          "artwork_type": 1
+        },
+        {
+          "id": 204070,
+          "alpha_channel": true,
+          "height": 659,
+          "image_id": "ar4dgm",
+          "width": 528,
+          "artwork_type": 1
+        },
+        {
+          "id": 204071,
+          "alpha_channel": true,
+          "height": 956,
+          "image_id": "ar4dgn",
+          "width": 1214,
+          "artwork_type": 1
+        },
+        {
+          "id": 204072,
+          "alpha_channel": true,
+          "height": 1157,
+          "image_id": "ar4dgo",
+          "width": 1132,
+          "artwork_type": 1
+        },
+        {
+          "id": 204078,
+          "alpha_channel": true,
+          "height": 900,
+          "image_id": "ar4dgu",
+          "width": 1105,
+          "artwork_type": 1
+        },
+        {
+          "id": 204073,
+          "alpha_channel": true,
+          "height": 640,
+          "image_id": "ar4dgp",
+          "width": 1108,
+          "artwork_type": 1
+        },
+        {
+          "id": 204076,
+          "alpha_channel": true,
+          "height": 1146,
+          "image_id": "ar4dgs",
+          "width": 1202,
+          "artwork_type": 1
+        },
+        {
+          "id": 140732,
+          "alpha_channel": false,
+          "height": 800,
+          "image_id": "ar30l8",
+          "width": 1600,
+          "artwork_type": 1
+        },
+        {
+          "id": 204066,
+          "alpha_channel": false,
+          "height": 729,
+          "image_id": "ar4dgi",
+          "width": 980,
+          "artwork_type": 1
+        },
+        {
+          "id": 204067,
+          "alpha_channel": true,
+          "height": 1140,
+          "image_id": "ar4dgj",
+          "width": 1280,
+          "artwork_type": 1
+        },
+        {
+          "id": 204068,
+          "alpha_channel": true,
+          "height": 630,
+          "image_id": "ar4dgk",
+          "width": 575,
+          "artwork_type": 1
+        },
+        {
+          "id": 204069,
+          "alpha_channel": true,
+          "height": 1158,
+          "image_id": "ar4dgl",
+          "width": 1132,
+          "artwork_type": 1
+        },
+        {
+          "id": 204065,
+          "alpha_channel": false,
+          "height": 431,
+          "image_id": "ar4dgh",
+          "width": 767,
+          "artwork_type": 7
+        }
+      ],
+      "cover": {
+        "id": 390430,
+        "image_id": "co8d9a"
+      },
+      "first_release_date": 1730937600,
+      "genres": [
+        {
+          "id": 8,
+          "name": "Platform"
+        },
+        {
+          "id": 12,
+          "name": "Role-playing (RPG)"
+        },
+        {
+          "id": 31,
+          "name": "Adventure"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 292355,
+          "company": {
+            "id": 1383,
+            "name": "ACQUIRE Corp."
+          },
+          "developer": true,
+          "publisher": false
+        },
+        {
+          "id": 369974,
+          "company": {
+            "id": 73545,
+            "name": "Nintendo EPD Co-Production Group"
+          },
+          "developer": false,
+          "publisher": false
+        },
+        {
+          "id": 369818,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        },
+        {
+          "id": 369819,
+          "company": {
+            "id": 1922,
+            "name": "Racjin"
+          },
+          "developer": false,
+          "publisher": false
+        }
+      ],
+      "name": "Mario & Luigi: Brothership",
+      "platforms": [
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 605207,
+          "date": 1730937600,
+          "platform": 130,
+          "y": 2024,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 1343544,
+          "height": 1080,
+          "image_id": "scssoo",
+          "width": 1920
+        },
+        {
+          "id": 1343547,
+          "height": 1080,
+          "image_id": "scssor",
+          "width": 1920
+        },
+        {
+          "id": 1343545,
+          "height": 1080,
+          "image_id": "scssop",
+          "width": 1920
+        },
+        {
+          "id": 1343548,
+          "height": 1080,
+          "image_id": "scssos",
+          "width": 1920
+        },
+        {
+          "id": 1343543,
+          "height": 1080,
+          "image_id": "scsson",
+          "width": 1920
+        },
+        {
+          "id": 1343546,
+          "height": 1080,
+          "image_id": "scssoq",
+          "width": 1920
+        },
+        {
+          "id": 1343549,
+          "height": 1080,
+          "image_id": "scssot",
+          "width": 1920
+        },
+        {
+          "id": 1343550,
+          "height": 1080,
+          "image_id": "scssou",
+          "width": 1920
+        },
+        {
+          "id": 1343551,
+          "height": 1080,
+          "image_id": "scssov",
+          "width": 1920
+        },
+        {
+          "id": 1343542,
+          "height": 1080,
+          "image_id": "scssom",
+          "width": 1920
+        },
+        {
+          "id": 1343714,
+          "height": 767,
+          "image_id": "scsste",
+          "width": 1365
+        }
+      ],
+      "slug": "mario-and-luigi-brothership",
+      "summary": "The brothers return for a brand new adventure on the high seas! Set sail with Mario and Luigi on Shipshape Island (part ship, part island) and journey through the vast world of Concordia. Launch out of Shipshape’s cannon to visit, explore, and quest your way through islands that range from tropical rainforests to bustling cities.\n\nMeet new friends along the way, like Connie and Snoutlet (who's definitely not a pig), and encounter familiar faces from the Mushroom Kingdom like Peach and Bowser, who may help you on your journey!\n\nYou’ll have to rely on Mario and Luigi’s brotherly bond to succeed. Use Bros. Moves to get past obstacles while you explore, and powerful Bros. Attacks in a dynamic twist on turn-based combat. You’ll need every edge this 'brothership' will give you to save the day!",
+      "websites": [
+        {
+          "id": 836158,
+          "url": "https://www.twitch.tv/directory/category/mario-and-luigi-brothership",
+          "type": {
+            "id": 6,
+            "type": "Twitch"
+          }
+        },
+        {
+          "id": 836157,
+          "url": "https://www.nintendo.com/us/store/products/mario-and-luigi-brothership-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        },
+        {
+          "id": 646359,
+          "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Mario-Luigi-Brothership-2590264.html",
+          "type": {
+            "id": 1,
+            "type": "Official Website"
+          }
+        },
+        {
+          "id": 646961,
+          "url": "https://en.wikipedia.org/wiki/Mario_%26_Luigi:_Brothership",
+          "type": {
+            "id": 3,
+            "type": "Wikipedia"
+          }
+        },
+        {
+          "id": 646960,
+          "url": "https://www.mariowiki.com/Mario_%26_Luigi:_Brothership",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 0,
+        "type": "Main Game"
       }
     },
     {
@@ -57189,324 +57507,6 @@
       "game_type": {
         "id": 13,
         "type": "Pack / Addon"
-      }
-    },
-    {
-      "id": 306137,
-      "artworks": [
-        {
-          "id": 204074,
-          "alpha_channel": true,
-          "height": 964,
-          "image_id": "ar4dgq",
-          "width": 906,
-          "artwork_type": 1
-        },
-        {
-          "id": 204075,
-          "alpha_channel": true,
-          "height": 908,
-          "image_id": "ar4dgr",
-          "width": 952,
-          "artwork_type": 1
-        },
-        {
-          "id": 204077,
-          "alpha_channel": true,
-          "height": 1093,
-          "image_id": "ar4dgt",
-          "width": 781,
-          "artwork_type": 1
-        },
-        {
-          "id": 204070,
-          "alpha_channel": true,
-          "height": 659,
-          "image_id": "ar4dgm",
-          "width": 528,
-          "artwork_type": 1
-        },
-        {
-          "id": 204071,
-          "alpha_channel": true,
-          "height": 956,
-          "image_id": "ar4dgn",
-          "width": 1214,
-          "artwork_type": 1
-        },
-        {
-          "id": 204072,
-          "alpha_channel": true,
-          "height": 1157,
-          "image_id": "ar4dgo",
-          "width": 1132,
-          "artwork_type": 1
-        },
-        {
-          "id": 204078,
-          "alpha_channel": true,
-          "height": 900,
-          "image_id": "ar4dgu",
-          "width": 1105,
-          "artwork_type": 1
-        },
-        {
-          "id": 204073,
-          "alpha_channel": true,
-          "height": 640,
-          "image_id": "ar4dgp",
-          "width": 1108,
-          "artwork_type": 1
-        },
-        {
-          "id": 204076,
-          "alpha_channel": true,
-          "height": 1146,
-          "image_id": "ar4dgs",
-          "width": 1202,
-          "artwork_type": 1
-        },
-        {
-          "id": 140732,
-          "alpha_channel": false,
-          "height": 800,
-          "image_id": "ar30l8",
-          "width": 1600,
-          "artwork_type": 1
-        },
-        {
-          "id": 204066,
-          "alpha_channel": false,
-          "height": 729,
-          "image_id": "ar4dgi",
-          "width": 980,
-          "artwork_type": 1
-        },
-        {
-          "id": 204067,
-          "alpha_channel": true,
-          "height": 1140,
-          "image_id": "ar4dgj",
-          "width": 1280,
-          "artwork_type": 1
-        },
-        {
-          "id": 204068,
-          "alpha_channel": true,
-          "height": 630,
-          "image_id": "ar4dgk",
-          "width": 575,
-          "artwork_type": 1
-        },
-        {
-          "id": 204069,
-          "alpha_channel": true,
-          "height": 1158,
-          "image_id": "ar4dgl",
-          "width": 1132,
-          "artwork_type": 1
-        },
-        {
-          "id": 204065,
-          "alpha_channel": false,
-          "height": 431,
-          "image_id": "ar4dgh",
-          "width": 767,
-          "artwork_type": 7
-        }
-      ],
-      "cover": {
-        "id": 390430,
-        "image_id": "co8d9a"
-      },
-      "first_release_date": 1730937600,
-      "genres": [
-        {
-          "id": 8,
-          "name": "Platform"
-        },
-        {
-          "id": 12,
-          "name": "Role-playing (RPG)"
-        },
-        {
-          "id": 31,
-          "name": "Adventure"
-        }
-      ],
-      "involved_companies": [
-        {
-          "id": 292355,
-          "company": {
-            "id": 1383,
-            "name": "ACQUIRE Corp."
-          },
-          "developer": true,
-          "publisher": false
-        },
-        {
-          "id": 369974,
-          "company": {
-            "id": 73545,
-            "name": "Nintendo EPD Co-Production Group"
-          },
-          "developer": false,
-          "publisher": false
-        },
-        {
-          "id": 369818,
-          "company": {
-            "id": 70,
-            "name": "Nintendo"
-          },
-          "developer": false,
-          "publisher": true
-        },
-        {
-          "id": 369819,
-          "company": {
-            "id": 1922,
-            "name": "Racjin"
-          },
-          "developer": false,
-          "publisher": false
-        }
-      ],
-      "name": "Mario & Luigi: Brothership",
-      "platforms": [
-        130
-      ],
-      "release_dates": [
-        {
-          "id": 605207,
-          "date": 1730937600,
-          "platform": 130,
-          "y": 2024,
-          "date_format": {
-            "id": 0,
-            "format": "YYYYMMDD"
-          },
-          "release_region": {
-            "id": 8,
-            "region": "worldwide"
-          }
-        }
-      ],
-      "screenshots": [
-        {
-          "id": 1343544,
-          "height": 1080,
-          "image_id": "scssoo",
-          "width": 1920
-        },
-        {
-          "id": 1343547,
-          "height": 1080,
-          "image_id": "scssor",
-          "width": 1920
-        },
-        {
-          "id": 1343545,
-          "height": 1080,
-          "image_id": "scssop",
-          "width": 1920
-        },
-        {
-          "id": 1343548,
-          "height": 1080,
-          "image_id": "scssos",
-          "width": 1920
-        },
-        {
-          "id": 1343543,
-          "height": 1080,
-          "image_id": "scsson",
-          "width": 1920
-        },
-        {
-          "id": 1343546,
-          "height": 1080,
-          "image_id": "scssoq",
-          "width": 1920
-        },
-        {
-          "id": 1343549,
-          "height": 1080,
-          "image_id": "scssot",
-          "width": 1920
-        },
-        {
-          "id": 1343550,
-          "height": 1080,
-          "image_id": "scssou",
-          "width": 1920
-        },
-        {
-          "id": 1343551,
-          "height": 1080,
-          "image_id": "scssov",
-          "width": 1920
-        },
-        {
-          "id": 1343542,
-          "height": 1080,
-          "image_id": "scssom",
-          "width": 1920
-        },
-        {
-          "id": 1343714,
-          "height": 767,
-          "image_id": "scsste",
-          "width": 1365
-        }
-      ],
-      "slug": "mario-and-luigi-brothership",
-      "summary": "The brothers return for a brand new adventure on the high seas! Set sail with Mario and Luigi on Shipshape Island (part ship, part island) and journey through the vast world of Concordia. Launch out of Shipshape’s cannon to visit, explore, and quest your way through islands that range from tropical rainforests to bustling cities.\n\nMeet new friends along the way, like Connie and Snoutlet (who's definitely not a pig), and encounter familiar faces from the Mushroom Kingdom like Peach and Bowser, who may help you on your journey!\n\nYou’ll have to rely on Mario and Luigi’s brotherly bond to succeed. Use Bros. Moves to get past obstacles while you explore, and powerful Bros. Attacks in a dynamic twist on turn-based combat. You’ll need every edge this 'brothership' will give you to save the day!",
-      "websites": [
-        {
-          "id": 836158,
-          "url": "https://www.twitch.tv/directory/category/mario-and-luigi-brothership",
-          "type": {
-            "id": 6,
-            "type": "Twitch"
-          }
-        },
-        {
-          "id": 836157,
-          "url": "https://www.nintendo.com/us/store/products/mario-and-luigi-brothership-switch/",
-          "type": {
-            "id": 24,
-            "type": "Nintendo"
-          }
-        },
-        {
-          "id": 646359,
-          "url": "https://www.nintendo.com/en-gb/Games/Nintendo-Switch-games/Mario-Luigi-Brothership-2590264.html",
-          "type": {
-            "id": 1,
-            "type": "Official Website"
-          }
-        },
-        {
-          "id": 646961,
-          "url": "https://en.wikipedia.org/wiki/Mario_%26_Luigi:_Brothership",
-          "type": {
-            "id": 3,
-            "type": "Wikipedia"
-          }
-        },
-        {
-          "id": 646960,
-          "url": "https://www.mariowiki.com/Mario_%26_Luigi:_Brothership",
-          "type": {
-            "id": 2,
-            "type": "Community Wiki"
-          }
-        }
-      ],
-      "game_type": {
-        "id": 0,
-        "type": "Main Game"
       }
     },
     {
