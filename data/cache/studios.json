@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-11-07T10:03:26.309Z",
+  "fetchedAt": "2026-11-08T10:16:56.171Z",
   "source": "https://nintendo.fandom.com/wiki/Category:First_party_developers",
   "studios": [
     {
@@ -249,15 +249,14 @@
       "title": "Nintendo EPD Smart Device Production Group",
       "url": "https://nintendo.fandom.com/wiki/Nintendo_EPD_Smart_Device_Production_Group",
       "categories": [
-        "Class B articles",
         "First party developers",
         "Group articles",
         "Nintendo developers",
         "Nintendo divisions"
       ],
-      "defunct": "[[2026]]",
+      "defunct": "",
       "active": true,
-      "uncertain": true
+      "uncertain": false
     },
     {
       "title": "Nintendo Integrated Research & Development",
