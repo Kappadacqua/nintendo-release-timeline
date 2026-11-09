@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-11-08T10:16:56.573Z",
+  "fetchedAt": "2026-11-09T11:27:25.486Z",
   "firstPartyIds": [
     164,
     408,
@@ -62121,6 +62121,22 @@
           "artwork_type": 3
         },
         {
+          "id": 325726,
+          "alpha_channel": false,
+          "height": 620,
+          "image_id": "ar6zby",
+          "width": 1920,
+          "artwork_type": 2
+        },
+        {
+          "id": 325725,
+          "alpha_channel": false,
+          "height": 1600,
+          "image_id": "ar6zbx",
+          "width": 2880,
+          "artwork_type": 2
+        },
+        {
           "id": 282809,
           "alpha_channel": true,
           "height": 887,
@@ -62143,6 +62159,10 @@
       },
       "first_release_date": 1793836800,
       "genres": [
+        {
+          "id": 9,
+          "name": "Puzzle"
+        },
         {
           "id": 31,
           "name": "Adventure"
@@ -62243,27 +62263,27 @@
       "summary": "The evil Ganondorf is scheming to steal the mythical Triforce from the Sacred Realm and take over the world. Now Link must become the hero of time and save the kingdom in this classic tale, built from the ground up for the Nintendo Switch 2 system.",
       "websites": [
         {
-          "id": 1089134,
-          "url": "https://www.nintendo.com/us/store/products/the-legend-of-zelda-ocarina-of-time-switch-2/",
-          "type": {
-            "id": 1,
-            "type": "Official Website"
-          }
-        },
-        {
-          "id": 1089135,
-          "url": "https://zelda.fandom.com/wiki/The_Legend_of_Zelda:_Ocarina_of_Time_(Switch_2)",
+          "id": 1152692,
+          "url": "https://zeldawiki.wiki/wiki/The_Legend_of_Zelda:_Ocarina_of_Time_(Nintendo_Switch_2)",
           "type": {
             "id": 2,
             "type": "Community Wiki"
           }
         },
         {
-          "id": 1089136,
-          "url": "https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Ocarina_of_Time",
+          "id": 1152693,
+          "url": "https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Ocarina_of_Time_(2026_video_game)",
           "type": {
             "id": 3,
             "type": "Wikipedia"
+          }
+        },
+        {
+          "id": 1089134,
+          "url": "https://www.nintendo.com/us/store/products/the-legend-of-zelda-ocarina-of-time-switch-2/",
+          "type": {
+            "id": 1,
+            "type": "Official Website"
           }
         },
         {

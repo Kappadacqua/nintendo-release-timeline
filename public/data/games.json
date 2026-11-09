@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-08T10:18:14.637Z",
+  "generatedAt": "2026-11-09T11:28:45.771Z",
   "games": [
     {
       "id": "free-update:arms",
@@ -2083,7 +2083,7 @@
             "value": 89,
             "scale": 100,
             "normalized": 89,
-            "count": 55
+            "count": 59
           },
           "metacritic": {
             "value": 89,
@@ -2659,7 +2659,7 @@
             "value": 84,
             "scale": 100,
             "normalized": 84,
-            "count": 57
+            "count": 58
           },
           "metacritic": {
             "value": 82,
@@ -2798,7 +2798,7 @@
             "value": 82,
             "scale": 100,
             "normalized": 82,
-            "count": 70
+            "count": 71
           },
           "metacritic": {
             "value": 82,
@@ -3163,7 +3163,7 @@
             "value": 8.5,
             "scale": 10,
             "normalized": 85,
-            "count": 986
+            "count": 996
           },
           "backloggd": null
         }
@@ -3481,10 +3481,10 @@
         },
         "user": {
           "metacritic": {
-            "value": 8.5,
+            "value": 8.6,
             "scale": 10,
-            "normalized": 85,
-            "count": 157
+            "normalized": 86,
+            "count": 165
           },
           "backloggd": null
         }
@@ -3528,6 +3528,10 @@
           {
             "date": "2026-11-06",
             "normalized": 85
+          },
+          {
+            "date": "2026-11-09",
+            "normalized": 86
           }
         ]
       }
@@ -3538,9 +3542,10 @@
       "title": "The Legend of Zelda: Ocarina of Time",
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocv5r.jpg",
       "summary": "The evil Ganondorf is scheming to steal the mythical Triforce from the Sacred Realm and take over the world. Now Link must become the hero of time and save the kingdom in this classic tale, built from the ground up for the Nintendo Switch 2 system.",
-      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/sc153eu.jpg",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar6zby.jpg",
       "developer": "Nintendo (unknown studio)",
       "genres": [
+        "Puzzle",
         "Adventure"
       ],
       "releaseDates": {
@@ -3559,7 +3564,7 @@
             "value": 95,
             "scale": 100,
             "normalized": 95,
-            "count": 32
+            "count": 33
           },
           "metacritic": null
         },
@@ -3571,7 +3576,7 @@
       "links": {
         "backloggd": "https://backloggd.com/games/the-legend-of-zelda-ocarina-of-time--1/",
         "opencritic": "https://opencritic.com/game/21344/the-legend-of-zelda-ocarina-of-time",
-        "wikipedia": "https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Ocarina_of_Time",
+        "wikipedia": "https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Ocarina_of_Time_(2026_video_game)",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/The_Legend_of_Zelda%3A_Ocarina_of_Time",
         "nintendoStore": "https://www.nintendo.com/us/store/products/the-legend-of-zelda-ocarina-of-time-switch-2/"
       }
