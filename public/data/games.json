@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-09T11:28:45.771Z",
+  "generatedAt": "2026-11-10T11:09:32.726Z",
   "games": [
     {
       "id": "free-update:arms",
@@ -1823,9 +1823,9 @@
       "scores": {
         "critic": {
           "opencritic": {
-            "value": 78,
+            "value": 79,
             "scale": 100,
-            "normalized": 78,
+            "normalized": 79,
             "count": 12
           },
           "metacritic": {
@@ -1854,6 +1854,18 @@
         "wikipedia": "https://en.wikipedia.org/wiki/Animal_Crossing:_New_Horizons",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Animal_Crossing%3A_New_Horizons",
         "nintendoStore": "https://www.nintendo.com/us/store/products/animal-crossing-new-horizons-nintendo-switch-2-edition-switch-2/"
+      },
+      "scoreHistory": {
+        "opencritic": [
+          {
+            "date": "2026-09-26",
+            "normalized": 78
+          },
+          {
+            "date": "2026-11-10",
+            "normalized": 79
+          }
+        ]
       }
     },
     {
@@ -2431,9 +2443,9 @@
       "scores": {
         "critic": {
           "opencritic": {
-            "value": 76,
+            "value": 75,
             "scale": 100,
-            "normalized": 76,
+            "normalized": 75,
             "count": 13
           },
           "metacritic": {
@@ -2461,6 +2473,16 @@
         "nintendoStore": "https://www.nintendo.com/us/store/products/efootball-kick-off-switch-2/"
       },
       "scoreHistory": {
+        "opencritic": [
+          {
+            "date": "2026-09-26",
+            "normalized": 76
+          },
+          {
+            "date": "2026-11-10",
+            "normalized": 75
+          }
+        ],
         "metacriticUser": [
           {
             "date": "2026-10-01",
@@ -3163,7 +3185,7 @@
             "value": 8.5,
             "scale": 10,
             "normalized": 85,
-            "count": 996
+            "count": 1006
           },
           "backloggd": null
         }
@@ -3364,10 +3386,10 @@
         },
         "user": {
           "metacritic": {
-            "value": 5.7,
+            "value": 5.8,
             "scale": 10,
-            "normalized": 57,
-            "count": 19
+            "normalized": 58,
+            "count": 20
           },
           "backloggd": null
         }
@@ -3439,6 +3461,10 @@
           {
             "date": "2026-11-04",
             "normalized": 57
+          },
+          {
+            "date": "2026-11-10",
+            "normalized": 58
           }
         ]
       }
@@ -3484,7 +3510,7 @@
             "value": 8.6,
             "scale": 10,
             "normalized": 86,
-            "count": 165
+            "count": 176
           },
           "backloggd": null
         }
