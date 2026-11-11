@@ -469,7 +469,7 @@ Pannello simile a quello dei filtri: **Card style** (Full / Compact), **Group sa
 
 - Richiamo Nintendo: **rosso** primario, angoli arrotondati, look pulito.
 - **Tema giorno/notte**: segue la preferenza di sistema, con interruttore manuale ricordato nel browser (applicato prima del primo paint). Tutti i colori sono variabili CSS.
-- Font **Nunito** (Google Fonts) con fallback arrotondati di sistema.
+- Font **Nunito** (servito dal sito, pacchetto `@fontsource-variable/nunito`) con fallback arrotondati di sistema.
 - Niente loghi o font ufficiali Nintendo. Footer: "Not affiliated with Nintendo. Scores from OpenCritic, Metacritic and Backloggd."
 - Interfaccia in **inglese**. Solo **desktop** (larghezza minima 1280px). Un titolo di gioco lungo nell'header finisce con i puntini.
 - Favicon SVG inline, stato "Loading games…" e messaggio d'errore se `games.json` non si carica.

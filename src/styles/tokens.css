@@ -1,7 +1,10 @@
+/* Nunito, served with the site (variable weight; the browser fetches only the Latin file it needs). */
+@import "@fontsource-variable/nunito/wght.css";
+
 /* ---------- Design tokens ---------- */
 
 :root {
-  --font: "Nunito", "M PLUS Rounded 1c", ui-rounded, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font: "Nunito Variable", "Nunito", "M PLUS Rounded 1c", ui-rounded, system-ui, -apple-system, "Segoe UI", sans-serif;
 
   --red: #e60012;
   --red-soft: #ff4d5a;

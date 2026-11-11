@@ -197,7 +197,7 @@ Stato del gioco mostrato: "Upcoming" in `--accent` (`studios.css:193`), altrimen
 
 ## 4. Tipografia
 
-**Famiglia:** una sola, `--font` = `"Nunito", "M PLUS Rounded 1c", ui-rounded, system-ui, -apple-system, "Segoe UI", sans-serif` (`tokens.css:4`). Nunito arriva da Google Fonts con i pesi **400, 600, 700, 800, 900** (i quattro HTML, riga 15 o 10). "M PLUS Rounded 1c" non viene caricata: vale solo se installata. Il canvas usa la `font-family` calcolata del body (`timeline.ts:965`).
+**Famiglia:** una sola, `--font` = `"Nunito Variable", "Nunito", "M PLUS Rounded 1c", ui-rounded, system-ui, -apple-system, "Segoe UI", sans-serif` (`tokens.css`). Nunito è servita dal sito (pacchetto `@fontsource-variable/nunito`, importato in testa a `tokens.css`): font variabile, pesi usati **400, 600, 700, 800, 900**; niente Google Fonts. "M PLUS Rounded 1c" non viene caricata: vale solo se installata. Il canvas usa la `font-family` calcolata del body (`timeline.ts:965`).
 
 **Pesi in uso:** 400 (testo corrente: descrizioni, `dd`, footer, piccoli testi senza peso), 600 (data barrata dei rinvii, campi admin), 700 (meta, date, didascalie), 800 (titoli di card, pulsanti, badge, etichette), 900 (titoli di pagina, numeri, etichette maiuscole).
 

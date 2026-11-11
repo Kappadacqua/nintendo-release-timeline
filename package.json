@@ -17,6 +17,7 @@
     "data:fetch-studios": "tsx scripts/fetch-studios.ts"
   },
   "dependencies": {
+    "@fontsource-variable/nunito": "^5.3.0",
     "fuse.js": "^7.5.0",
     "gsap": "^3.13.0"
   },
