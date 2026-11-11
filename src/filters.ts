@@ -1,3 +1,4 @@
+import { addHeaderControl } from "./header-slot";
 import type { Game } from "./types";
 
 /** Header filters (ITERATION-3 §6); they apply to timeline, minimap, PagSu/PagGiù and search. */
@@ -112,7 +113,7 @@ export class FiltersControl {
       this.panel.append(row);
     }
     wrap.append(this.button, this.panel);
-    host.prepend(wrap);
+    addHeaderControl(host, wrap);
 
     this.button.addEventListener("click", () => this.setOpen(this.panel.hidden));
     document.addEventListener("click", (e) => {

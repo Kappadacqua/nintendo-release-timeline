@@ -11,7 +11,50 @@
   color: var(--text-muted);
 }
 
+/* Without JavaScript: covers the loading text under it. */
+.app-status--noscript {
+  background: var(--bg);
+}
+
+/* Error: message, hint, a way out and the technical reason in small print. */
 .app-status--error {
-  color: var(--accent);
+  align-content: center;
+  justify-items: center;
+  gap: 8px;
+  padding: 24px;
+  text-align: center;
+}
+
+.app-status--error strong {
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--text);
+}
+
+.app-status--error small {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.app-status__retry {
+  margin: 8px 0 4px;
+  padding: 10px 22px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--accent-fill);
+  color: var(--on-accent);
+  font: 800 14px var(--font);
+  cursor: pointer;
+  transition: filter var(--hover-ms) ease;
+}
+
+.app-status__retry:hover {
+  /* Darker, not lighter: white text stays above 4.5:1 on the red. */
+  filter: brightness(0.9);
+}
+
+.app-status__retry:focus-visible {
+  outline: var(--focus-width) solid var(--accent);
+  outline-offset: var(--focus-offset);
 }
 

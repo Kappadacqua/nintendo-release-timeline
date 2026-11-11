@@ -24,6 +24,9 @@ function apply(theme: Theme, button: HTMLButtonElement) {
   const next = theme === "dark" ? "light" : "dark";
   button.setAttribute("aria-label", `Switch to ${next} theme`);
   button.title = `Switch to ${next} theme`;
+  // The browser bar follows the theme picked here, not only the system one.
+  const bg = getComputedStyle(document.documentElement).getPropertyValue("--bg").trim();
+  if (bg) document.querySelectorAll('meta[name="theme-color"]').forEach((meta) => meta.setAttribute("content", bg));
 }
 
 /** Follows the system preference until the user picks a theme manually. */

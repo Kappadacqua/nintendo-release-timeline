@@ -7,6 +7,7 @@ import "../styles/loading.css";
 import "../styles/filters.css";
 import "../styles/rankings.css";
 import { gsap } from "gsap";
+import { showLoadError } from "../load-error";
 import { createScoreRing, tier, type ScoreRing } from "../cards/score-ring";
 import { applyFilters, FILTER_OPTIONS } from "../filters";
 import { loadGames } from "../games";
@@ -367,7 +368,6 @@ loadGames()
     render(app, games);
   })
   .catch((err: unknown) => {
-    status.textContent = `Couldn't load the games (${err instanceof Error ? err.message : String(err)}).`;
-    status.classList.add("app-status--error");
+    showLoadError(status, "games", err);
   })
   .finally(() => app.removeAttribute("aria-busy"));

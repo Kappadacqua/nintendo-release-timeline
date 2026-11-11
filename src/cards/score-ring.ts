@@ -40,6 +40,8 @@ export function createScoreRing(
 ): ScoreRing {
   const el = document.createElement("div");
   el.className = `ring ring--${tier(score)}`;
+  // A named group: the label ("Metacritic: 86 out of 100") is read, and the link inside stays reachable.
+  el.setAttribute("role", "group");
   el.innerHTML = `
     <div class="ring__dial">
       <svg viewBox="0 0 44 44" aria-hidden="true">

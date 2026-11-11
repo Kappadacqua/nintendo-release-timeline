@@ -1,3 +1,4 @@
+import { addHeaderControl } from "./header-slot";
 import { NEWS_LABEL, news } from "./news";
 import { MONTHS } from "./timeline/dates";
 import type { Change, Game } from "./types";
@@ -67,7 +68,7 @@ export class WhatsNew {
     this.panel.setAttribute("role", "dialog");
     this.panel.setAttribute("aria-label", "What's new");
     wrap.append(this.button, this.panel);
-    host.prepend(wrap);
+    addHeaderControl(host, wrap);
 
     this.button.addEventListener("click", () => this.setOpen(this.panel.hidden));
     document.addEventListener("click", (e) => {

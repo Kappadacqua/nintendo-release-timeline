@@ -1,6 +1,7 @@
 import "./styles/main.css";
 import { applyFilters, FiltersControl, loadFilters } from "./filters";
 import { loadGames } from "./games";
+import { showLoadError } from "./load-error";
 import { news } from "./news";
 import { Search } from "./search";
 import { Presentation } from "./presentation";
@@ -213,7 +214,6 @@ Promise.all([loadGames(), loadChanges()])
     if (import.meta.env.DEV) devTools(() => timeline);
   })
   .catch((err: unknown) => {
-    status.textContent = `Couldn't load the games (${err instanceof Error ? err.message : String(err)}).`;
-    status.classList.add("app-status--error");
+    showLoadError(status, "games", err);
   })
   .finally(() => app.removeAttribute("aria-busy"));

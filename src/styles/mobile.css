@@ -401,17 +401,22 @@
 }
 
 /* Touch first: the gestures before the keys in the help dialog. */
-.shortcuts__touch {
+.shortcuts .shortcuts__touch {
   display: none;
 }
 
 @media (pointer: coarse) {
-  .shortcuts__touch {
+  .shortcuts dl.shortcuts__touch {
     display: grid;
   }
 
-  h3.shortcuts__touch {
+  .shortcuts h3.shortcuts__touch {
     display: block;
+  }
+
+  /* Fingers: the links of the selected card get a taller target. */
+  .card-button {
+    padding-block: 11px;
   }
 }
 

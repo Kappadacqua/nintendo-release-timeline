@@ -7,6 +7,7 @@ import "../styles/loading.css";
 import "../styles/filters.css";
 import "../styles/studios.css";
 import { gsap } from "gsap";
+import { showLoadError } from "../load-error";
 import { initTheme } from "../theme/theme";
 import { MONTHS, parseDay, todayEpochDay } from "../timeline/dates";
 import type { Studio, StudioCategory, StudioGame, StudiosFile } from "../types";
@@ -207,7 +208,6 @@ loadStudios()
     render(app, studios);
   })
   .catch((err: unknown) => {
-    status.textContent = `Couldn't load the studios (${err instanceof Error ? err.message : String(err)}).`;
-    status.classList.add("app-status--error");
+    showLoadError(status, "studios", err);
   })
   .finally(() => app.removeAttribute("aria-busy"));

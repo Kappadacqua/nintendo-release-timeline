@@ -1,3 +1,4 @@
+import { addHeaderControl } from "./header-slot";
 /** View settings (ITERATION-4 §1): how the timeline looks, remembered in the browser. */
 export interface ViewSettings {
   cardStyle: "full" | "compact";
@@ -127,7 +128,7 @@ export class ViewMenu {
       this.panel.append(b);
     }
     wrap.append(this.button, this.panel);
-    host.prepend(wrap);
+    addHeaderControl(host, wrap);
 
     this.button.addEventListener("click", () => this.setOpen(this.panel.hidden));
     document.addEventListener("click", (e) => {

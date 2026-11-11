@@ -9,6 +9,8 @@ const MAX_DEVELOPER_CHARS = 20;
 
 /** "Nintendo EPD Production Group No. 9" → "Nintendo EPD", "Konami Digital Entertainment" → "Konami". */
 export function shortDeveloper(name: string) {
+  // A note in brackets ("Nintendo (unknown studio)") is not part of the name.
+  name = name.replace(/\s*\([^)]*\)\s*$/, "") || name;
   if (name.length <= MAX_DEVELOPER_CHARS) return name;
   if (DEVELOPER_ALIASES[name]) return DEVELOPER_ALIASES[name];
   let words = name.replace(DIVISION_SUFFIX, "").split(/\s+/);
