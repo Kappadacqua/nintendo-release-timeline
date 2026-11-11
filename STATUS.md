@@ -1,6 +1,6 @@
 # Stato del progetto
 
-Aggiornato: 2026-11-11 — Revisione generale sul branch `review/professional-pass` (da verificare e unire); sito pubblico con aggiornamento giornaliero attivo
+Aggiornato: 2026-11-11 — Revisione generale unita a `main`; sito pubblico con aggiornamento giornaliero attivo
 
 ## Ultimo checkpoint
 
@@ -26,7 +26,7 @@ Nessuno.
 
 - **Sito pubblicato** — https://kappadacqua.github.io/nintendo-release-timeline/: timeline, Rankings e Studios (copertine, link tra le pagine). Il giorno dopo, nella tab Actions di GitHub, il run notturno (03:17 UTC) e il commit "Data: daily update …": è il primo fetch dai server di GitHub, mai provato (Metacritic e Wikipedia potrebbero rispondere 403; la pubblicazione va avanti lo stesso). In `/admin`, dopo `git pull`, il riquadro "Data sources" mostra le date del fetch notturno.
 
-- **Revisione generale (2026-11-11), branch `review/professional-pass`, non unito a `main`** — (a) finestra "Keyboard shortcuts" sul desktop: non mostra più l'elenco dei gesti touch; (b) card: "Nintendo" al posto di "Nintendo (unknown s…"; (c) Tab nell'header: prima i link delle pagine, poi What's new, View, filtri (ordine visivo invariato, anche nel menu del telefono); (d) errore di caricamento (rinominare per prova `public/data/games.json`): messaggio, "Try again" e motivo tecnico, nelle tre pagine; (e) telefono: bottoni Wikipedia / Store della card più alti, in Rankings il riquadro del voto evidenziato non tocca più l'etichetta; (f) anteprima del link condiviso (`public/og.png`, tag Open Graph) e icona `apple-touch-icon.png`: verificabili solo dopo la pubblicazione; (g) colore della barra del browser sul telefono segue il tema scelto a mano.
+- **Revisione generale (2026-11-11), unita a `main` e pubblicata** — (a) finestra "Keyboard shortcuts" sul desktop: non mostra più l'elenco dei gesti touch; (b) card: "Nintendo" al posto di "Nintendo (unknown s…"; (c) Tab nell'header: prima i link delle pagine, poi What's new, View, filtri (ordine visivo invariato, anche nel menu del telefono); (d) errore di caricamento (rinominare per prova `public/data/games.json`): messaggio, "Try again" e motivo tecnico, nelle tre pagine; (e) telefono: bottoni Wikipedia / Store della card più alti, in Rankings il riquadro del voto evidenziato non tocca più l'etichetta; (f) anteprima del link condiviso (`public/og.png`, tag Open Graph) e icona `apple-touch-icon.png`: verificabili solo dopo la pubblicazione; (g) colore della barra del browser sul telefono segue il tema scelto a mano. Secondo giro: (h) tasto Fine e "Date TBA" portano all'inizio della zona TBA (primo blocco a sinistra, in alto sul telefono); premuti di nuovo, alla fine; (i) voti mancanti "N/A" al posto di "N/D" (SPEC §4, §12 aggiornate); (l) `og.png` neutra, senza copertine; (m) pagina `404.html` (un indirizzo sbagliato sul sito pubblicato); (n) i link dei voti hanno nomi distinti per lo screen reader ("Metacritic critic reviews" / "Metacritic user ratings").
 
 ## Problemi noti
 

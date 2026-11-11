@@ -115,7 +115,7 @@ Regole di dettaglio:
 - **Switch 2 Edition**: incluse, con la data della Switch 2 Edition.
 - **DLC / espansioni**: voce separata con propria data e card diversa (§7).
 - Switch 2 Edition e DLC entrano solo se hanno una pagina OpenCritic o se sono forzati in `overrides.json`. Basta anche la pagina del **gioco base** trovata con un titolo ridotto (§4, voti ereditati). Se OpenCritic non è stato interrogabile, restano (e `data:validate` lo segnala).
-- Un gioco **appena uscito** senza recensioni si mostra comunque, con i voti a **N/D**.
+- Un gioco **appena uscito** senza recensioni si mostra comunque, con i voti a **N/A**.
 - **Giochi annunciati**:
   - con data precisa → sulla timeline nel futuro, stato "Upcoming";
   - con data vaga (anno, trimestre, mese) → nella **zona TBA**, raggruppati per anno; senza nemmeno l'anno → blocco "TBA" in fondo.
@@ -403,7 +403,7 @@ Bordo sfumato a due colori, ispirato ai due Joy-Con: blu a sinistra, rosso a des
 
 - Anello che si riempie in proporzione al voto normalizzato, valore originale al centro.
 - Colori per fasce OpenCritic: **Mighty ≥ 84**, **Strong 75–83**, **Fair 65–74**, **Weak < 65**, come token CSS (`--score-*`). I colori sono approssimati e vanno ancora verificati su opencritic.com.
-- Nessun voto → anello grigio con "N/D".
+- Nessun voto → anello grigio con "N/A".
 
 ### Animazione di comparsa
 
@@ -530,7 +530,7 @@ Pagina `rankings.html` (`src/rankings/main.ts`, `src/styles/rankings.css`), incl
 
 - Header con navigazione **"Timeline · Rankings · Studios"** su tutte e tre le pagine, pagina attiva evidenziata; stesso tema giorno/notte.
 - Solo giochi **usciti** (data di prima uscita ≤ oggi).
-- Ogni riga: posizione, copertina piccola, titolo, badge del tipo (DLC / Switch 2 Edition), data di uscita, quattro cerchietti (OpenCritic, Metacritic, Metacritic User, Backloggd; N/D dove manca il voto). Il cerchietto usato per ordinare è evidenziato; per le medie c'è anche una pillola col valore della media.
+- Ogni riga: posizione, copertina piccola, titolo, badge del tipo (DLC / Switch 2 Edition), data di uscita, quattro cerchietti (OpenCritic, Metacritic, Metacritic User, Backloggd; N/A dove manca il voto). Il cerchietto usato per ordinare è evidenziato; per le medie c'è anche una pillola col valore della media.
 
 **Ordinamento** — selettore "Sort by": OpenCritic, Metacritic, Metacritic User, Backloggd, Critics average (OpenCritic + Metacritic, voti normalizzati), Users average (Metacritic User + Backloggd). A parità di valore: più recensioni, poi titolo. Predefinito: OpenCritic.
 

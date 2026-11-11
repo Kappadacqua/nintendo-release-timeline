@@ -63,6 +63,8 @@ export const TIMELINE = {
 
   /** Empty space between the end of the dated line and the TBA zone. */
   tbaGapPx: 240,
+  /** End / "Date TBA": space left before the first TBA block, from the leading edge of the view. */
+  tbaLandingMarginPx: 48,
   /** Height reserved at the bottom for the minimap; the line is centered above it. */
   minimapBandPx: 64,
   /** Fewest px a month gets on the minimap: past that the bar scrolls with the view instead of squeezing. */

@@ -62,6 +62,8 @@ export function createScoreRing(
     sourceEl.href = href;
     sourceEl.target = "_blank";
     sourceEl.rel = "noopener noreferrer";
+    // "Metacritic" appears twice on a card (critics and users): the name says which one.
+    sourceEl.setAttribute("aria-label", `${source} ${unit === "reviews" ? "critic reviews" : "user ratings"} (opens in a new tab)`);
   }
   const countEl = document.createElement("span");
   countEl.className = "ring__count";
@@ -69,7 +71,7 @@ export function createScoreRing(
   el.append(sourceEl, countEl);
 
   if (!score) {
-    valueEl.textContent = "N/D";
+    valueEl.textContent = "N/A";
     el.setAttribute("aria-label", `${source}: no score`);
     return { el, fill: () => gsap.timeline(), finish: () => {} };
   }

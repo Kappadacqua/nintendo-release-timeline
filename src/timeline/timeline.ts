@@ -281,7 +281,7 @@ export class Timeline {
       },
       onEnd: () => {
         this.deselect();
-        this.scroller.scrollTo(this.worldEnd);
+        this.scroller.scrollTo(this.tbaLandingX());
       },
       onEscape: () => this.deselect(),
       onDragStart: () => this.deselect(),
@@ -383,7 +383,19 @@ export class Timeline {
   /** Buttons for T, Home and End (bottom bar and menu, SPEC "Mobile"). */
   go(where: "today" | "start" | "tba") {
     this.deselect();
-    this.scroller.scrollTo(where === "today" ? this.dayX(this.todayDay) : where === "start" ? 0 : this.worldEnd);
+    this.scroller.scrollTo(where === "today" ? this.dayX(this.todayDay) : where === "start" ? 0 : this.tbaLandingX());
+  }
+
+  /**
+   * Where End and "Date TBA" land: the start of the TBA zone, with its first block at the
+   * leading edge of the view, so as many undated games as fit are on screen (the very end
+   * showed only the last block and empty space). Already there: on to the very end.
+   */
+  private tbaLandingX() {
+    if (!this.tbaBlocks.length) return this.worldEnd;
+    const lead = this.vertical ? 0 : this.el.clientWidth / 2 - TIMELINE.tbaLandingMarginPx;
+    const landing = Math.min(this.worldEnd, this.tbaStartX + Math.max(0, lead));
+    return Math.abs(this.scroller.target - landing) < 1 ? this.worldEnd : landing;
   }
 
   /** Buttons for Page Up / Page Down: the previous / next game. */
