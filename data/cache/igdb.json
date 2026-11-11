@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-11-10T11:08:07.459Z",
+  "fetchedAt": "2026-11-11T10:53:52.060Z",
   "firstPartyIds": [
     164,
     408,
@@ -89358,6 +89358,7 @@
         "id": 449864,
         "image_id": "co9n48"
       },
+      "first_release_date": 1796601600,
       "genres": [
         {
           "id": 2,
@@ -89385,11 +89386,13 @@
       ],
       "release_dates": [
         {
-          "id": 847542,
+          "id": 989936,
+          "date": 1796601600,
           "platform": 508,
+          "y": 2026,
           "date_format": {
-            "id": 7,
-            "format": "TBD"
+            "id": 0,
+            "format": "YYYYMMDD"
           },
           "release_region": {
             "id": 8,
@@ -89460,6 +89463,14 @@
           "type": {
             "id": 1,
             "type": "Official Website"
+          }
+        },
+        {
+          "id": 1155269,
+          "url": "https://x.com/Nitrome",
+          "type": {
+            "id": 5,
+            "type": "Twitter"
           }
         }
       ],

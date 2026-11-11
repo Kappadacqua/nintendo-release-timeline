@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-10T11:09:32.726Z",
+  "generatedAt": "2026-11-11T10:55:04.172Z",
   "studios": [
     {
       "name": "Nintendo EPD Production Group No. 10",
@@ -22,6 +22,18 @@
         "title": "Xenoblade Chronicles 3: Nintendo Switch 2 Edition",
         "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coc7ms.jpg",
         "date": "2026-12-03"
+      },
+      "hasSwitch2Game": true
+    },
+    {
+      "name": "Nitrome",
+      "url": null,
+      "category": "third-party",
+      "game": {
+        "id": "igdb:339137",
+        "title": "Mouse Work",
+        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co9n48.jpg",
+        "date": "2026-12-07"
       },
       "hasSwitch2Game": true
     },
@@ -398,18 +410,6 @@
         "title": "Tomodachi Life: Living the Dream",
         "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobdqd.jpg",
         "date": "2026-04-16"
-      }
-    },
-    {
-      "name": "Nitrome",
-      "url": null,
-      "category": "third-party",
-      "game": null,
-      "hasSwitch2Game": true,
-      "tbaGame": {
-        "id": "igdb:339137",
-        "title": "Mouse Work",
-        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co9n48.jpg"
       }
     },
     {

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-10T11:09:32.726Z",
+  "generatedAt": "2026-11-11T10:55:04.172Z",
   "games": [
     {
       "id": "free-update:arms",
@@ -3185,7 +3185,7 @@
             "value": 8.5,
             "scale": 10,
             "normalized": 85,
-            "count": 1006
+            "count": 1014
           },
           "backloggd": null
         }
@@ -3386,10 +3386,10 @@
         },
         "user": {
           "metacritic": {
-            "value": 5.8,
+            "value": 5.6,
             "scale": 10,
-            "normalized": 58,
-            "count": 20
+            "normalized": 56,
+            "count": 22
           },
           "backloggd": null
         }
@@ -3465,6 +3465,10 @@
           {
             "date": "2026-11-10",
             "normalized": 58
+          },
+          {
+            "date": "2026-11-11",
+            "normalized": 56
           }
         ]
       }
@@ -3496,13 +3500,13 @@
             "value": 80,
             "scale": 100,
             "normalized": 80,
-            "count": 33
+            "count": 40
           },
           "metacritic": {
             "value": 79,
             "scale": 100,
             "normalized": 79,
-            "count": 90
+            "count": 91
           }
         },
         "user": {
@@ -3510,7 +3514,7 @@
             "value": 8.6,
             "scale": 10,
             "normalized": 86,
-            "count": 176
+            "count": 188
           },
           "backloggd": null
         }
@@ -3590,7 +3594,7 @@
             "value": 95,
             "scale": 100,
             "normalized": 95,
-            "count": 33
+            "count": 43
           },
           "metacritic": null
         },
@@ -3697,6 +3701,53 @@
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Xenoblade_Chronicles_3",
         "nintendoStore": "https://www.nintendo.com/us/store/products/xenoblade-chronicles-3-nintendo-switch-2-edition-switch-2/"
       }
+    },
+    {
+      "id": "igdb:339137",
+      "kind": "game",
+      "title": "Mouse Work",
+      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co9n48.jpg",
+      "summary": "Quit mousin' around and get yourselves down to the job centre! Team up with friends or go it alone, facing a range of mini game challenges using the Switch 2 mouse controls. Each job features unique mechanics making full use of the Joy-Con 2’s cursor functionality.",
+      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/scxrn1.jpg",
+      "developer": "Nitrome",
+      "genres": [
+        "Point & click",
+        "Indie"
+      ],
+      "releaseDates": {
+        "JP": "2026-12-07",
+        "EU": "2026-12-07",
+        "NA": "2026-12-07"
+      },
+      "firstReleaseDate": "2026-12-07",
+      "exclusivity": "exclusive",
+      "firstParty": false,
+      "alsoOnSwitch1": false,
+      "onOtherConsoles": false,
+      "scores": {
+        "critic": {
+          "opencritic": null,
+          "metacritic": null
+        },
+        "user": {
+          "metacritic": null,
+          "backloggd": null
+        }
+      },
+      "links": {
+        "backloggd": "https://backloggd.com/games/mouse-work/",
+        "wikipedia": "https://en.wikipedia.org/wiki/Mouse_Work"
+      },
+      "dateHistory": [
+        {
+          "date": "2026-09-26",
+          "firstReleaseDate": null
+        },
+        {
+          "date": "2026-11-11",
+          "firstReleaseDate": "2026-12-07"
+        }
+      ]
     },
     {
       "id": "igdb:407137",
@@ -4251,43 +4302,6 @@
       },
       "links": {
         "wikipedia": "https://en.wikipedia.org/wiki/Chit_Chat_Party!"
-      }
-    },
-    {
-      "id": "igdb:339137",
-      "kind": "game",
-      "title": "Mouse Work",
-      "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co9n48.jpg",
-      "summary": "Quit mousin' around and get yourselves down to the job centre! Team up with friends or go it alone, facing a range of mini game challenges using the Switch 2 mouse controls. Each job features unique mechanics making full use of the Joy-Con 2’s cursor functionality.",
-      "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/scxrn1.jpg",
-      "developer": "Nitrome",
-      "genres": [
-        "Point & click",
-        "Indie"
-      ],
-      "releaseDates": {
-        "JP": null,
-        "EU": null,
-        "NA": null
-      },
-      "firstReleaseDate": null,
-      "exclusivity": "exclusive",
-      "firstParty": false,
-      "alsoOnSwitch1": false,
-      "onOtherConsoles": false,
-      "scores": {
-        "critic": {
-          "opencritic": null,
-          "metacritic": null
-        },
-        "user": {
-          "metacritic": null,
-          "backloggd": null
-        }
-      },
-      "links": {
-        "backloggd": "https://backloggd.com/games/mouse-work/",
-        "wikipedia": "https://en.wikipedia.org/wiki/Mouse_Work"
       }
     }
   ]
