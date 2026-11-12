@@ -1,6 +1,13 @@
 {
-  "generatedAt": "2026-11-11T10:55:04.172Z",
+  "generatedAt": "2026-11-12T11:03:24.788Z",
   "changes": [
+    {
+      "date": "2026-11-12",
+      "id": "igdb:417169",
+      "type": "reviews-in",
+      "source": "opencritic",
+      "normalized": 88
+    },
     {
       "date": "2026-11-07",
       "id": "igdb:405460",

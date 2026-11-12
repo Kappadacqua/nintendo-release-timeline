@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-11T10:55:04.172Z",
+  "generatedAt": "2026-11-12T11:03:24.788Z",
   "games": [
     {
       "id": "free-update:arms",
@@ -3185,7 +3185,7 @@
             "value": 8.5,
             "scale": 10,
             "normalized": 85,
-            "count": 1014
+            "count": 1021
           },
           "backloggd": null
         }
@@ -3500,7 +3500,7 @@
             "value": 80,
             "scale": 100,
             "normalized": 80,
-            "count": 40
+            "count": 41
           },
           "metacritic": {
             "value": 79,
@@ -3514,7 +3514,7 @@
             "value": 8.6,
             "scale": 10,
             "normalized": 86,
-            "count": 188
+            "count": 192
           },
           "backloggd": null
         }
@@ -3594,7 +3594,7 @@
             "value": 95,
             "scale": 100,
             "normalized": 95,
-            "count": 43
+            "count": 44
           },
           "metacritic": null
         },
@@ -3634,8 +3634,19 @@
       "onOtherConsoles": false,
       "scores": {
         "critic": {
-          "opencritic": null,
-          "metacritic": null
+          "opencritic": {
+            "value": 88,
+            "scale": 100,
+            "normalized": 88,
+            "count": 72,
+            "inheritedFrom": "14514"
+          },
+          "metacritic": {
+            "value": 84,
+            "scale": 100,
+            "normalized": 84,
+            "count": 22
+          }
         },
         "user": {
           "metacritic": null,
@@ -3644,6 +3655,8 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/pikmin-4-nintendo-switch-2-edition-plus-dandori-academy/",
+        "opencritic": "https://opencritic.com/game/14514/pikmin-4",
+        "metacritic": "https://www.metacritic.com/game/pikmin-4-nintendo-switch-2-edition-plus-dandori/",
         "wikipedia": "https://en.wikipedia.org/wiki/Pikmin_4",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/Pikmin_4",
         "nintendoStore": "https://www.nintendo.com/us/store/products/pikmin-4-nintendo-switch-2-edition-plus-dandori-academy-switch-2/"
