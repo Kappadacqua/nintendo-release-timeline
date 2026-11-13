@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-11-12T11:02:45.221Z",
+  "fetchedAt": "2026-11-13T10:56:41.680Z",
   "wikipediaBySlug": {
     "pokemon-champions": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Champions",
     "mario-kart-world": "https://en.wikipedia.org/wiki/Mario_Kart_World",
@@ -126,7 +126,8 @@
     "Hyrule Warriors: Age of Calamity": "https://nintendo.fandom.com/wiki/Hyrule_Warriors%3A_Age_of_Calamity",
     "Super Mario Galaxy + Super Mario Galaxy 2": "https://nintendo.fandom.com/wiki/Super_Mario_Galaxy_%2B_Super_Mario_Galaxy_2",
     "Hello, Luigi!": "https://nintendo.fandom.com/wiki/Hello%2C_Luigi!",
-    "Hello, Peach!": "https://nintendo.fandom.com/wiki/Hello%2C_Peach!"
+    "Hello, Peach!": "https://nintendo.fandom.com/wiki/Hello%2C_Peach!",
+    "Mouse Work": "https://nintendo.fandom.com/wiki/Mouse_Work"
   },
   "eshopEuBySlug": {
     "nintendo-switch-2-welcome-tour": "2789271",

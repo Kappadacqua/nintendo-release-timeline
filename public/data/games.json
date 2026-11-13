@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-12T11:03:24.788Z",
+  "generatedAt": "2026-11-13T10:57:13.891Z",
   "games": [
     {
       "id": "free-update:arms",
@@ -3103,7 +3103,7 @@
             "value": 82,
             "scale": 100,
             "normalized": 82,
-            "count": 48
+            "count": 49
           },
           "metacritic": {
             "value": 81,
@@ -3171,7 +3171,7 @@
             "value": 89,
             "scale": 100,
             "normalized": 89,
-            "count": 56
+            "count": 60
           },
           "metacritic": {
             "value": 89,
@@ -3506,7 +3506,7 @@
             "value": 79,
             "scale": 100,
             "normalized": 79,
-            "count": 91
+            "count": 93
           }
         },
         "user": {
@@ -3514,7 +3514,7 @@
             "value": 8.6,
             "scale": 10,
             "normalized": 86,
-            "count": 192
+            "count": 196
           },
           "backloggd": null
         }
@@ -3645,7 +3645,7 @@
             "value": 84,
             "scale": 100,
             "normalized": 84,
-            "count": 22
+            "count": 24
           }
         },
         "user": {
@@ -3749,7 +3749,8 @@
       },
       "links": {
         "backloggd": "https://backloggd.com/games/mouse-work/",
-        "wikipedia": "https://en.wikipedia.org/wiki/Mouse_Work"
+        "wikipedia": "https://en.wikipedia.org/wiki/Mouse_Work",
+        "nintendoWiki": "https://nintendo.fandom.com/wiki/Mouse_Work"
       },
       "dateHistory": [
         {

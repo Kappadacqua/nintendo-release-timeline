@@ -1,18 +1,6 @@
 {
-  "generatedAt": "2026-11-12T11:03:24.788Z",
+  "generatedAt": "2026-11-13T10:57:13.891Z",
   "studios": [
-    {
-      "name": "Nintendo EPD Production Group No. 10",
-      "url": "https://nintendo.fandom.com/wiki/Nintendo_EPD_Production_Group_No._10",
-      "category": "first-party",
-      "game": {
-        "id": "igdb:417169",
-        "title": "Pikmin 4: Nintendo Switch 2 Edition + Dandori Academy",
-        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocv9m.jpg",
-        "date": "2026-11-12"
-      },
-      "hasSwitch2Game": true
-    },
     {
       "name": "Monolith Soft",
       "url": "https://nintendo.fandom.com/wiki/Monolith_Soft",
@@ -58,6 +46,18 @@
         "title": "Hyrule Warriors: Age of Calamity - Definitive Edition",
         "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocw1y.jpg",
         "date": "2027-02-25"
+      },
+      "hasSwitch2Game": true
+    },
+    {
+      "name": "Nintendo EPD Production Group No. 10",
+      "url": "https://nintendo.fandom.com/wiki/Nintendo_EPD_Production_Group_No._10",
+      "category": "first-party",
+      "game": {
+        "id": "igdb:417169",
+        "title": "Pikmin 4: Nintendo Switch 2 Edition + Dandori Academy",
+        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocv9m.jpg",
+        "date": "2026-11-12"
       },
       "hasSwitch2Game": true
     },
