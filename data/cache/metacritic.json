@@ -3,67 +3,67 @@
     "igdb:366896": {
       "slug": "fire-emblem-fortunes-weave",
       "url": "https://www.metacritic.com/game/fire-emblem-fortunes-weave/",
-      "checkedAt": "2026-11-13T10:57:09.359Z",
+      "checkedAt": "2026-11-14T10:23:35.331Z",
       "status": "ok",
       "name": "Fire Emblem: Fortune's Weave",
       "platform": "nintendo-switch-2",
       "critic": 89,
-      "criticCount": 111,
+      "criticCount": 113,
       "user": 8.5,
-      "userCount": 1021
+      "userCount": 1024
     },
     "igdb:381237": {
       "slug": "orbitals",
       "url": "https://www.metacritic.com/game/orbitals/",
-      "checkedAt": "2026-11-07T10:04:48.337Z",
+      "checkedAt": "2026-11-14T10:23:40.461Z",
       "status": "ok",
       "name": "Orbitals",
       "platform": "nintendo-switch-2",
       "critic": 81,
       "criticCount": 88,
       "user": 8.3,
-      "userCount": 162
+      "userCount": 171
     },
     "igdb:405436": {
       "slug": "pokemon-pokopia-bubbly-basin",
       "url": "https://www.metacritic.com/game/pokemon-pokopia-bubbly-basin/",
-      "checkedAt": "2026-11-07T10:04:54.886Z",
+      "checkedAt": "2026-11-14T10:23:43.702Z",
       "status": "ok",
       "name": "Pokemon Pokopia: Bubbly Basin",
       "platform": "nintendo-switch-2",
       "critic": 88,
       "criticCount": 26,
       "user": 9,
-      "userCount": 56
+      "userCount": 68
     },
     "igdb:405447": {
       "slug": "xenoblade-chronicles-2-nintendo-switch-2-edition",
       "url": "https://www.metacritic.com/game/xenoblade-chronicles-2-nintendo-switch-2-edition/",
-      "checkedAt": "2026-11-07T10:04:59.384Z",
+      "checkedAt": "2026-11-14T10:23:47.969Z",
       "status": "ok",
       "name": "Xenoblade Chronicles 2: Nintendo Switch 2 Edition",
       "platform": "nintendo-switch-2",
       "critic": 86,
       "criticCount": 19,
       "user": 8.9,
-      "userCount": 126
+      "userCount": 143
     },
     "igdb:348977": {
       "slug": "splatoon-raiders",
       "url": "https://www.metacritic.com/game/splatoon-raiders/",
-      "checkedAt": "2026-11-07T10:05:03.345Z",
+      "checkedAt": "2026-11-14T10:23:51.738Z",
       "status": "ok",
       "name": "Splatoon Raiders",
       "platform": "nintendo-switch-2",
       "critic": 82,
       "criticCount": 124,
-      "user": 9.3,
-      "userCount": 2029
+      "user": 9.2,
+      "userCount": 2105
     },
     "igdb:402033": {
       "slug": "fitness-boxing-3-your-personal-trainer-nintendo-switch-2-edition",
       "url": "https://www.metacritic.com/game/fitness-boxing-3-your-personal-trainer/",
-      "checkedAt": "2026-11-07T10:05:09.248Z",
+      "checkedAt": "2026-11-14T10:23:56.037Z",
       "status": "ok",
       "matchedTitle": "Fitness Boxing 3: Your Personal Trainer",
       "inheritedFrom": "fitness-boxing-3-your-personal-trainer",
@@ -77,31 +77,31 @@
     "igdb:337031": {
       "slug": "rhythm-heaven-groove",
       "url": "https://www.metacritic.com/game/rhythm-heaven-groove/",
-      "checkedAt": "2026-11-07T10:05:13.360Z",
+      "checkedAt": "2026-11-14T10:24:00.961Z",
       "status": "ok",
       "name": "Rhythm Heaven Groove",
       "platform": "nintendo-switch",
       "critic": 82,
       "criticCount": 104,
       "user": 8.5,
-      "userCount": 161
+      "userCount": 170
     },
     "igdb:400709": {
       "slug": "star-fox",
       "url": "https://www.metacritic.com/game/star-fox/",
-      "checkedAt": "2026-11-07T10:05:18.722Z",
+      "checkedAt": "2026-11-14T10:24:07.434Z",
       "status": "ok",
       "name": "Star Fox",
       "platform": "nintendo-switch-2",
       "critic": 81,
       "criticCount": 133,
-      "user": 8.2,
-      "userCount": 534
+      "user": 8.3,
+      "userCount": 565
     },
     "igdb:405439": {
       "slug": "dk-challenge",
       "url": "https://www.metacritic.com/game/dk-challenge/",
-      "checkedAt": "2026-11-07T10:05:24.288Z",
+      "checkedAt": "2026-11-14T10:24:11.341Z",
       "status": "ok",
       "name": "DK Challenge",
       "platform": "nintendo-switch-2",
@@ -114,7 +114,7 @@
     "igdb:405446": {
       "slug": "xenoblade-chronicles-definitive-edition-nintendo-switch-2-edition",
       "url": "https://www.metacritic.com/game/xenoblade-chronicles-definitive-edition/",
-      "checkedAt": "2026-11-07T10:05:29.945Z",
+      "checkedAt": "2026-11-14T10:24:16.051Z",
       "status": "ok",
       "matchedTitle": "Xenoblade Chronicles: Definitive Edition",
       "inheritedFrom": "xenoblade-chronicles-definitive-edition",
@@ -123,7 +123,7 @@
       "critic": 86,
       "criticCount": 22,
       "user": 8.9,
-      "userCount": 1833
+      "userCount": 1848
     },
     "igdb:388239": {
       "slug": "a-train-9-evolution",
@@ -134,7 +134,7 @@
     "igdb:388431": {
       "slug": "efootball-kick-off",
       "url": "https://www.metacritic.com/game/efootball-kick-off/",
-      "checkedAt": "2026-11-07T10:05:36.666Z",
+      "checkedAt": "2026-11-14T10:24:19.118Z",
       "status": "ok",
       "name": "eFootball Kick-Off!",
       "platform": "nintendo-switch-2",
@@ -146,7 +146,7 @@
     "igdb:403729": {
       "slug": "riichi-mahjong",
       "url": "https://www.metacritic.com/game/riichi-mahjong/",
-      "checkedAt": "2026-11-07T10:05:42.848Z",
+      "checkedAt": "2026-11-14T10:24:22.399Z",
       "status": "ok",
       "name": "RIICHI MAHJONG",
       "platform": "nintendo-switch-2",
@@ -160,19 +160,19 @@
     "igdb:366883": {
       "slug": "yoshi-and-the-mysterious-book",
       "url": "https://www.metacritic.com/game/yoshi-and-the-mysterious-book/",
-      "checkedAt": "2026-11-07T10:05:46.672Z",
+      "checkedAt": "2026-11-14T10:24:27.177Z",
       "status": "ok",
       "name": "Yoshi and the Mysterious Book",
       "platform": "nintendo-switch-2",
       "critic": 80,
       "criticCount": 126,
       "user": 8,
-      "userCount": 307
+      "userCount": 316
     },
     "igdb:399617": {
       "slug": "cardandcasino",
       "url": "https://www.metacritic.com/game/cardcasino/",
-      "checkedAt": "2026-11-07T10:05:52.541Z",
+      "checkedAt": "2026-11-14T10:24:31.769Z",
       "status": "ok",
       "name": "CARD&CASINO",
       "platform": "nintendo-switch-2",
@@ -186,79 +186,79 @@
     "igdb:337036": {
       "slug": "tomodachi-life-living-the-dream",
       "url": "https://www.metacritic.com/game/tomodachi-life-living-the-dream/",
-      "checkedAt": "2026-11-07T10:05:57.201Z",
+      "checkedAt": "2026-11-14T10:24:37.418Z",
       "status": "ok",
       "name": "Tomodachi Life: Living the Dream",
       "platform": "nintendo-switch",
       "critic": 77,
       "criticCount": 105,
       "user": 8.1,
-      "userCount": 489
+      "userCount": 504
     },
     "igdb:333568": {
       "slug": "pokemon-champions",
       "url": "https://www.metacritic.com/game/pokemon-champions/",
-      "checkedAt": "2026-11-07T10:06:01.755Z",
+      "checkedAt": "2026-11-14T10:24:42.715Z",
       "status": "ok",
       "name": "Pokemon Champions",
       "platform": "nintendo-switch",
       "critic": 67,
       "criticCount": 33,
-      "user": 5.2,
-      "userCount": 268
+      "user": 5.1,
+      "userCount": 276
     },
     "igdb:366881": {
       "slug": "super-mario-bros-wonder-nintendo-switch-2-edition-meetup-in-bellabel-park",
       "url": "https://www.metacritic.com/game/super-mario-bros-wonder-nintendo-switch-2-edition/",
-      "checkedAt": "2026-11-07T10:06:07.513Z",
+      "checkedAt": "2026-11-14T10:24:47.268Z",
       "status": "ok",
       "name": "Super Mario Bros. Wonder: Nintendo Switch 2 Edition + Meetup in Bellabel Park",
       "platform": "nintendo-switch-2",
       "critic": 85,
       "criticCount": 75,
-      "user": 7.7,
-      "userCount": 188
+      "user": 7.8,
+      "userCount": 203
     },
     "igdb:366893": {
       "slug": "pokemon-pokopia",
       "url": "https://www.metacritic.com/game/pokemon-pokopia/",
-      "checkedAt": "2026-11-07T10:06:13.198Z",
+      "checkedAt": "2026-11-14T10:24:51.995Z",
       "status": "ok",
       "name": "Pokemon Pokopia",
       "platform": "nintendo-switch-2",
       "critic": 89,
       "criticCount": 121,
       "user": 8.6,
-      "userCount": 1858
+      "userCount": 1936
     },
     "igdb:366880": {
       "slug": "mario-tennis-fever",
       "url": "https://www.metacritic.com/game/mario-tennis-fever/",
-      "checkedAt": "2026-11-07T10:06:16.933Z",
+      "checkedAt": "2026-11-14T10:24:56.048Z",
       "status": "ok",
       "name": "Mario Tennis Fever",
       "platform": "nintendo-switch-2",
       "critic": 76,
       "criticCount": 118,
       "user": 7.5,
-      "userCount": 298
+      "userCount": 309
     },
     "igdb:388428": {
       "slug": "tokyo-scramble",
       "url": "https://www.metacritic.com/game/tokyo-scramble/",
-      "checkedAt": "2026-11-07T10:06:20.919Z",
+      "checkedAt": "2026-11-14T10:25:02.293Z",
       "status": "ok",
       "name": "Tokyo Scramble",
       "platform": "nintendo-switch-2",
       "critic": 43,
       "criticCount": 11,
-      "user": 5.9,
-      "userCount": 29
+      "user": 5.8,
+      "userCount": 28
     },
     "igdb:386785": {
       "slug": "pool-room-billiard",
       "url": "https://www.metacritic.com/game/pool-room-billiard/",
-      "checkedAt": "2026-11-07T10:06:26.465Z",
+      "checkedAt": "2026-11-14T10:25:08.493Z",
       "status": "ok",
       "name": "POOL ROOM BILLIARD",
       "platform": "nintendo-switch-2",
@@ -272,7 +272,7 @@
     "igdb:375733": {
       "slug": "animal-crossing-new-horizons-nintendo-switch-2-edition",
       "url": "https://www.metacritic.com/game/animal-crossing-new-horizons/",
-      "checkedAt": "2026-11-07T10:06:32.298Z",
+      "checkedAt": "2026-11-14T10:25:13.929Z",
       "status": "ok",
       "matchedTitle": "Animal Crossing: New Horizons",
       "inheritedFrom": "animal-crossing-new-horizons",
@@ -281,67 +281,67 @@
       "critic": 83,
       "criticCount": 32,
       "user": 6,
-      "userCount": 7662
+      "userCount": 7699
     },
     "igdb:366894": {
       "slug": "pokemon-legends-z-a-mega-dimension",
       "url": "https://www.metacritic.com/game/pokemon-legends-z-a-mega-dimension/",
-      "checkedAt": "2026-11-07T10:06:38.241Z",
+      "checkedAt": "2026-11-14T10:25:18.602Z",
       "status": "ok",
       "name": "Pokemon Legends: Z-A - Mega Dimension",
       "platform": "nintendo-switch-2",
       "critic": 65,
       "criticCount": 25,
-      "user": 2.7,
-      "userCount": 234
+      "user": 2.8,
+      "userCount": 246
     },
     "igdb:37136": {
       "slug": "metroid-prime-4-beyond",
       "url": "https://www.metacritic.com/game/metroid-prime-4-beyond/",
-      "checkedAt": "2026-11-07T10:06:44.945Z",
+      "checkedAt": "2026-11-14T10:25:22.923Z",
       "status": "ok",
       "name": "Metroid Prime 4: Beyond",
       "platform": "nintendo-switch-2",
       "critic": 78,
       "criticCount": 133,
       "user": 7.7,
-      "userCount": 2626
+      "userCount": 2662
     },
     "igdb:338105": {
       "slug": "kirby-air-riders",
       "url": "https://www.metacritic.com/game/kirby-air-riders/",
-      "checkedAt": "2026-11-07T10:06:51.533Z",
+      "checkedAt": "2026-11-14T10:25:29.614Z",
       "status": "ok",
       "name": "Kirby Air Riders",
       "platform": "nintendo-switch-2",
       "critic": 79,
       "criticCount": 116,
       "user": 8.6,
-      "userCount": 632
+      "userCount": 644
     },
     "igdb:338085": {
       "slug": "hyrule-warriors-age-of-imprisonment",
       "url": "https://www.metacritic.com/game/hyrule-warriors-age-of-imprisonment/",
-      "checkedAt": "2026-11-07T10:06:56.176Z",
+      "checkedAt": "2026-11-14T10:25:34.641Z",
       "status": "ok",
       "name": "Hyrule Warriors: Age of Imprisonment",
       "platform": "nintendo-switch-2",
       "critic": 79,
       "criticCount": 110,
       "user": 8.4,
-      "userCount": 374
+      "userCount": 380
     },
     "igdb:288327": {
       "slug": "pokemon-legends-z-a",
       "url": "https://www.metacritic.com/game/pokemon-legends-z-a/",
-      "checkedAt": "2026-11-07T10:06:59.776Z",
+      "checkedAt": "2026-11-14T10:25:38.803Z",
       "status": "ok",
       "name": "Pokemon Legends: Z-A",
       "platform": "nintendo-switch-2",
       "critic": 78,
       "criticCount": 112,
       "user": 4.9,
-      "userCount": 4226
+      "userCount": 4290
     },
     "igdb:366899": {
       "slug": "super-mario-galaxy",
@@ -370,7 +370,7 @@
     "igdb:368773": {
       "slug": "the-touryst-deluxe",
       "url": "https://www.metacritic.com/game/the-touryst-deluxe/",
-      "checkedAt": "2026-11-07T10:07:11.212Z",
+      "checkedAt": "2026-11-14T10:25:48.795Z",
       "status": "ok",
       "name": "The Touryst: Deluxe",
       "platform": "nintendo-switch-2",
@@ -384,43 +384,43 @@
     "igdb:366892": {
       "slug": "donkey-kong-bananza-dk-island-and-emerald-rush",
       "url": "https://www.metacritic.com/game/donkey-kong-bananza-dk-island-and-emerald-rush/",
-      "checkedAt": "2026-11-07T10:07:16.090Z",
+      "checkedAt": "2026-11-14T10:25:52.447Z",
       "status": "ok",
       "name": "Donkey Kong Bananza: DK Island & Emerald Rush",
       "platform": "nintendo-switch-2",
       "critic": 67,
       "criticCount": 22,
-      "user": 5.2,
-      "userCount": 133
+      "user": 5.3,
+      "userCount": 135
     },
     "igdb:338074": {
       "slug": "kirby-and-the-forgotten-land-nintendo-switch-2-edition-star-crossed-world",
       "url": "https://www.metacritic.com/game/kirby-and-the-forgotten-land-nintendo-switch-2/",
-      "checkedAt": "2026-11-07T10:07:21.981Z",
+      "checkedAt": "2026-11-14T10:25:56.807Z",
       "status": "ok",
       "name": "Kirby and the Forgotten Land: Nintendo Switch 2 Edition + Star-Crossed World",
       "platform": "nintendo-switch-2",
       "critic": 83,
       "criticCount": 84,
       "user": 8.5,
-      "userCount": 210
+      "userCount": 220
     },
     "igdb:338077": {
       "slug": "drag-x-drive",
       "url": "https://www.metacritic.com/game/drag-x-drive/",
-      "checkedAt": "2026-11-07T10:07:25.488Z",
+      "checkedAt": "2026-11-14T10:26:03.579Z",
       "status": "ok",
       "name": "Drag x Drive",
       "platform": "nintendo-switch-2",
       "critic": 60,
       "criticCount": 80,
       "user": 5,
-      "userCount": 113
+      "userCount": 114
     },
     "igdb:358531": {
       "slug": "chillin-by-the-fire",
       "url": "https://www.metacritic.com/game/chillin-by-the-fire/",
-      "checkedAt": "2026-11-07T10:07:31.210Z",
+      "checkedAt": "2026-11-14T10:26:09.718Z",
       "status": "ok",
       "name": "Chillin' by the Fire",
       "platform": "nintendo-switch-2",
@@ -433,19 +433,19 @@
     "igdb:338071": {
       "slug": "super-mario-party-jamboree-nintendo-switch-2-edition-jamboree-tv",
       "url": "https://www.metacritic.com/game/super-mario-party-jamboree-nintendo-switch-2/",
-      "checkedAt": "2026-11-07T10:07:35.317Z",
+      "checkedAt": "2026-11-14T10:26:15.767Z",
       "status": "ok",
       "name": "Super Mario Party Jamboree: Nintendo Switch 2 Edition + Jamboree TV",
       "platform": "nintendo-switch-2",
       "critic": 76,
       "criticCount": 67,
-      "user": 6.3,
-      "userCount": 121
+      "user": 6.5,
+      "userCount": 128
     },
     "igdb:356551": {
       "slug": "pokemon-friends",
       "url": "https://www.metacritic.com/game/pokemon-friends/",
-      "checkedAt": "2026-11-07T10:07:40.125Z",
+      "checkedAt": "2026-11-14T10:26:20.484Z",
       "status": "ok",
       "name": "Pokemon Friends",
       "platform": "nintendo-switch",
@@ -457,74 +457,74 @@
     "igdb:338106": {
       "slug": "donkey-kong-bananza",
       "url": "https://www.metacritic.com/game/donkey-kong-bananza/",
-      "checkedAt": "2026-11-07T10:07:44.965Z",
+      "checkedAt": "2026-11-14T10:26:25.591Z",
       "status": "ok",
       "name": "Donkey Kong Bananza",
       "platform": "nintendo-switch-2",
       "critic": 91,
       "criticCount": 147,
       "user": 8.9,
-      "userCount": 3337
+      "userCount": 3434
     },
     "igdb:338067": {
       "slug": "mario-kart-world",
       "url": "https://www.metacritic.com/game/mario-kart-world/",
-      "checkedAt": "2026-11-07T10:07:50.694Z",
+      "checkedAt": "2026-11-14T10:26:30.854Z",
       "status": "ok",
       "name": "Mario Kart World",
       "platform": "nintendo-switch-2",
       "critic": 86,
       "criticCount": 137,
       "user": 7,
-      "userCount": 3864
+      "userCount": 3948
     },
     "igdb:338069": {
       "slug": "nintendo-switch-2-welcome-tour",
       "url": "https://www.metacritic.com/game/nintendo-switch-2-welcome-tour/",
-      "checkedAt": "2026-11-07T10:07:54.572Z",
+      "checkedAt": "2026-11-14T10:26:36.061Z",
       "status": "ok",
       "name": "Nintendo Switch 2 Welcome Tour",
       "platform": "nintendo-switch-2",
       "critic": 54,
       "criticCount": 54,
       "user": 3.9,
-      "userCount": 348
+      "userCount": 352
     },
     "igdb:338072": {
       "slug": "the-legend-of-zelda-breath-of-the-wild-nintendo-switch-2-edition",
       "url": "https://www.metacritic.com/game/the-legend-of-zelda-breath-of-the-wild-nintendo/",
-      "checkedAt": "2026-11-07T10:08:00.063Z",
+      "checkedAt": "2026-11-14T10:26:41.480Z",
       "status": "ok",
       "name": "The Legend of Zelda: Breath of the Wild - Nintendo Switch 2 Edition",
       "platform": "nintendo-switch-2",
       "critic": 94,
       "criticCount": 16,
-      "user": 8.8,
-      "userCount": 1367
+      "user": 8.9,
+      "userCount": 1523
     },
     "igdb:338073": {
       "slug": "the-legend-of-zelda-tears-of-the-kingdom-nintendo-switch-2-edition",
       "url": "https://www.metacritic.com/game/the-legend-of-zelda-tears-of-the-kingdom-nintendo/",
-      "checkedAt": "2026-11-07T10:08:06.800Z",
+      "checkedAt": "2026-11-14T10:26:47.395Z",
       "status": "ok",
       "name": "The Legend of Zelda: Tears of the Kingdom - Nintendo Switch 2 Edition",
       "platform": "nintendo-switch-2",
       "critic": 95,
       "criticCount": 18,
       "user": 8.6,
-      "userCount": 1509
+      "userCount": 1666
     },
     "igdb:338091": {
       "slug": "puyo-puyo-tetris-2s",
       "url": "https://www.metacritic.com/game/puyo-puyo-tetris-2s/",
-      "checkedAt": "2026-11-07T10:08:12.545Z",
+      "checkedAt": "2026-11-14T10:26:53.574Z",
       "status": "ok",
       "name": "Puyo Puyo Tetris 2S",
       "platform": "nintendo-switch-2",
       "critic": 73,
       "criticCount": 25,
-      "user": 6.1,
-      "userCount": 10
+      "user": 5.9,
+      "userCount": 11
     },
     "igdb:405468": {
       "slug": "derby-stallion-2",
@@ -536,7 +536,7 @@
     "igdb:338093": {
       "slug": "fast-fusion",
       "url": "https://www.metacritic.com/game/fast-fusion/",
-      "checkedAt": "2026-11-07T10:08:16.835Z",
+      "checkedAt": "2026-11-14T10:26:59.338Z",
       "status": "ok",
       "name": "FAST Fusion",
       "platform": "nintendo-switch-2",
@@ -555,7 +555,7 @@
     "igdb:338087": {
       "slug": "survival-kids",
       "url": "https://www.metacritic.com/game/survival-kids/",
-      "checkedAt": "2026-11-07T10:08:20.626Z",
+      "checkedAt": "2026-11-14T10:27:04.266Z",
       "status": "ok",
       "name": "Survival Kids",
       "platform": "nintendo-switch-2",
@@ -567,19 +567,19 @@
     "igdb:366878": {
       "slug": "super-mario-galaxy-super-mario-galaxy-2",
       "url": "https://www.metacritic.com/game/super-mario-galaxy-plus-super-mario-galaxy-2/",
-      "checkedAt": "2026-11-07T10:07:06.158Z",
+      "checkedAt": "2026-11-14T10:25:43.811Z",
       "status": "ok",
       "name": "Super Mario Galaxy + Super Mario Galaxy 2",
       "platform": "nintendo-switch",
       "critic": 87,
       "criticCount": 83,
-      "user": 7.7,
-      "userCount": 441
+      "user": 7.8,
+      "userCount": 468
     },
     "igdb:421954": {
       "slug": "hello-luigi",
       "url": "https://www.metacritic.com/game/hello-luigi/",
-      "checkedAt": "2026-11-13T10:57:00.256Z",
+      "checkedAt": "2026-11-14T10:23:26.310Z",
       "status": "ok",
       "name": "Hello, Luigi!",
       "platform": "nintendo-switch",
@@ -593,7 +593,7 @@
     "igdb:423780": {
       "slug": "fire-emblem-fortunes-weave-expansion-pass",
       "url": "https://www.metacritic.com/game/fire-emblem-fortunes-weave-expansion-pass/",
-      "checkedAt": "2026-11-13T10:56:56.666Z",
+      "checkedAt": "2026-11-14T10:23:21.724Z",
       "status": "ok",
       "name": "Fire Emblem: Fortune's Weave - Expansion Pass",
       "platform": "nintendo-switch-2",
@@ -607,31 +607,31 @@
     "igdb:405451": {
       "slug": "nintendo-switch-sports-resort",
       "url": "https://www.metacritic.com/game/nintendo-switch-sports-resort/",
-      "checkedAt": "2026-11-13T10:56:47.403Z",
+      "checkedAt": "2026-11-14T10:23:12.743Z",
       "status": "ok",
       "name": "Nintendo Switch Sports Resort",
       "platform": "nintendo-switch-2",
       "critic": 79,
       "criticCount": 93,
       "user": 8.6,
-      "userCount": 196
+      "userCount": 198
     },
     "igdb:403828": {
       "slug": "beyond-the-dark-nightwatch",
       "url": "https://www.metacritic.com/game/beyond-the-dark-nightwatch/",
-      "checkedAt": "2026-11-13T10:56:52.297Z",
+      "checkedAt": "2026-11-14T10:23:16.342Z",
       "status": "ok",
       "name": "Beyond the Dark: Nightwatch",
       "platform": "nintendo-switch-2",
       "critic": 49,
       "criticCount": 6,
-      "user": 5.6,
-      "userCount": 22
+      "user": 6.7,
+      "userCount": 29
     },
     "igdb:424071": {
       "slug": "hello-peach",
       "url": "https://www.metacritic.com/game/hello-peach/",
-      "checkedAt": "2026-11-13T10:57:04.371Z",
+      "checkedAt": "2026-11-14T10:23:31.155Z",
       "status": "ok",
       "name": "Hello, Peach!",
       "platform": "nintendo-switch",
@@ -645,7 +645,7 @@
     "igdb:405460": {
       "slug": "the-legend-of-zelda-ocarina-of-time",
       "url": "https://www.metacritic.com/game/the-legend-of-zelda-ocarina-of-time/",
-      "checkedAt": "2026-11-11T10:54:34.136Z",
+      "checkedAt": "2026-11-14T10:23:07.138Z",
       "status": "mismatch",
       "name": "The Legend of Zelda: Ocarina of Time (1998)",
       "platform": null,
@@ -657,15 +657,14 @@
     "igdb:417169": {
       "slug": "pikmin-4-nintendo-switch-2-edition-dandori-academy",
       "url": "https://www.metacritic.com/game/pikmin-4-nintendo-switch-2-edition-plus-dandori/",
-      "checkedAt": "2026-11-13T10:56:47.223Z",
+      "checkedAt": "2026-11-14T10:23:07.082Z",
       "status": "ok",
       "name": "Pikmin 4: Nintendo Switch 2 Edition + Dandori Academy",
       "platform": "nintendo-switch-2",
-      "critic": 84,
-      "criticCount": 24,
-      "user": null,
-      "userCount": null,
-      "userTbd": true
+      "critic": 83,
+      "criticCount": 25,
+      "user": 1.5,
+      "userCount": 27
     }
   }
 }
