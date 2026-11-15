@@ -3,14 +3,14 @@
     "igdb:366896": {
       "slug": "fire-emblem-fortunes-weave",
       "url": "https://www.metacritic.com/game/fire-emblem-fortunes-weave/",
-      "checkedAt": "2026-11-14T10:23:35.331Z",
+      "checkedAt": "2026-11-15T10:50:50.804Z",
       "status": "ok",
       "name": "Fire Emblem: Fortune's Weave",
       "platform": "nintendo-switch-2",
       "critic": 89,
       "criticCount": 113,
       "user": 8.5,
-      "userCount": 1024
+      "userCount": 1031
     },
     "igdb:381237": {
       "slug": "orbitals",
@@ -579,7 +579,7 @@
     "igdb:421954": {
       "slug": "hello-luigi",
       "url": "https://www.metacritic.com/game/hello-luigi/",
-      "checkedAt": "2026-11-14T10:23:26.310Z",
+      "checkedAt": "2026-11-15T10:50:38.586Z",
       "status": "ok",
       "name": "Hello, Luigi!",
       "platform": "nintendo-switch",
@@ -593,7 +593,7 @@
     "igdb:423780": {
       "slug": "fire-emblem-fortunes-weave-expansion-pass",
       "url": "https://www.metacritic.com/game/fire-emblem-fortunes-weave-expansion-pass/",
-      "checkedAt": "2026-11-14T10:23:21.724Z",
+      "checkedAt": "2026-11-15T10:50:31.426Z",
       "status": "ok",
       "name": "Fire Emblem: Fortune's Weave - Expansion Pass",
       "platform": "nintendo-switch-2",
@@ -607,31 +607,31 @@
     "igdb:405451": {
       "slug": "nintendo-switch-sports-resort",
       "url": "https://www.metacritic.com/game/nintendo-switch-sports-resort/",
-      "checkedAt": "2026-11-14T10:23:12.743Z",
+      "checkedAt": "2026-11-15T10:50:23.333Z",
       "status": "ok",
       "name": "Nintendo Switch Sports Resort",
       "platform": "nintendo-switch-2",
       "critic": 79,
       "criticCount": 93,
       "user": 8.6,
-      "userCount": 198
+      "userCount": 200
     },
     "igdb:403828": {
       "slug": "beyond-the-dark-nightwatch",
       "url": "https://www.metacritic.com/game/beyond-the-dark-nightwatch/",
-      "checkedAt": "2026-11-14T10:23:16.342Z",
+      "checkedAt": "2026-11-15T10:50:26.887Z",
       "status": "ok",
       "name": "Beyond the Dark: Nightwatch",
       "platform": "nintendo-switch-2",
       "critic": 49,
       "criticCount": 6,
-      "user": 6.7,
-      "userCount": 29
+      "user": 6.8,
+      "userCount": 30
     },
     "igdb:424071": {
       "slug": "hello-peach",
       "url": "https://www.metacritic.com/game/hello-peach/",
-      "checkedAt": "2026-11-14T10:23:31.155Z",
+      "checkedAt": "2026-11-15T10:50:45.095Z",
       "status": "ok",
       "name": "Hello, Peach!",
       "platform": "nintendo-switch",
@@ -657,14 +657,14 @@
     "igdb:417169": {
       "slug": "pikmin-4-nintendo-switch-2-edition-dandori-academy",
       "url": "https://www.metacritic.com/game/pikmin-4-nintendo-switch-2-edition-plus-dandori/",
-      "checkedAt": "2026-11-14T10:23:07.082Z",
+      "checkedAt": "2026-11-15T10:50:23.211Z",
       "status": "ok",
       "name": "Pikmin 4: Nintendo Switch 2 Edition + Dandori Academy",
       "platform": "nintendo-switch-2",
       "critic": 83,
       "criticCount": 25,
-      "user": 1.5,
-      "userCount": 27
+      "user": 0.5,
+      "userCount": 121
     }
   }
 }

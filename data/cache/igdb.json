@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-11-14T10:22:26.146Z",
+  "fetchedAt": "2026-11-15T10:49:30.090Z",
   "firstPartyIds": [
     164,
     408,
@@ -45177,6 +45177,22 @@
           "artwork_type": 3
         },
         {
+          "id": 327904,
+          "alpha_channel": false,
+          "height": 700,
+          "image_id": "ar710g",
+          "width": 525,
+          "artwork_type": 1
+        },
+        {
+          "id": 327903,
+          "alpha_channel": false,
+          "height": 700,
+          "image_id": "ar710f",
+          "width": 525,
+          "artwork_type": 1
+        },
+        {
           "id": 260572,
           "alpha_channel": true,
           "height": 1044,
@@ -89394,7 +89410,7 @@
       ],
       "release_dates": [
         {
-          "id": 989936,
+          "id": 991508,
           "date": 1796601600,
           "platform": 508,
           "y": 2026,
