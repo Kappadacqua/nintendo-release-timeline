@@ -885,7 +885,9 @@
    "firstReleaseDate": "2026-11-05",
    "vague": null,
    "scores": {
-    "opencritic": 95
+    "opencritic": 95,
+    "metacritic": 96,
+    "metacriticUser": 96
    }
   },
   "igdb:417169": {

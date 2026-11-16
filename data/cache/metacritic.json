@@ -643,16 +643,16 @@
       "userTbd": true
     },
     "igdb:405460": {
-      "slug": "the-legend-of-zelda-ocarina-of-time",
-      "url": "https://www.metacritic.com/game/the-legend-of-zelda-ocarina-of-time/",
-      "checkedAt": "2026-11-14T10:23:07.138Z",
-      "status": "mismatch",
-      "name": "The Legend of Zelda: Ocarina of Time (1998)",
-      "platform": null,
-      "critic": 99,
-      "criticCount": 22,
-      "user": null,
-      "userCount": null
+      "slug": "the-legend-of-zelda-ocarina-of-time-2026",
+      "url": "https://www.metacritic.com/game/the-legend-of-zelda-ocarina-of-time-2026/",
+      "checkedAt": "2026-11-16T19:58:23.451Z",
+      "status": "ok",
+      "name": "The Legend of Zelda: Ocarina of Time",
+      "platform": "nintendo-switch-2",
+      "critic": 96,
+      "criticCount": 129,
+      "user": 9.6,
+      "userCount": 14957
     },
     "igdb:417169": {
       "slug": "pikmin-4-nintendo-switch-2-edition-dandori-academy",

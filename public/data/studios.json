@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-16T11:13:30.178Z",
+  "generatedAt": "2026-11-16T19:59:18.574Z",
   "studios": [
     {
       "name": "Monolith Soft",
@@ -58,6 +58,18 @@
         "title": "Pikmin 4: Nintendo Switch 2 Edition + Dandori Academy",
         "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocv9m.jpg",
         "date": "2026-11-12"
+      },
+      "hasSwitch2Game": true
+    },
+    {
+      "name": "Nintendo EPD Production Group No. 3",
+      "url": "https://nintendo.fandom.com/wiki/Nintendo_EPD_Production_Group_No._3",
+      "category": "first-party",
+      "game": {
+        "id": "igdb:405460",
+        "title": "The Legend of Zelda: Ocarina of Time",
+        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocv5r.jpg",
+        "date": "2026-11-05"
       },
       "hasSwitch2Game": true
     },
@@ -286,18 +298,6 @@
         "title": "Donkey Kong Bananza",
         "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobd1q.jpg",
         "date": "2025-07-17"
-      },
-      "hasSwitch2Game": true
-    },
-    {
-      "name": "Nintendo EPD Production Group No. 3",
-      "url": "https://nintendo.fandom.com/wiki/Nintendo_EPD_Production_Group_No._3",
-      "category": "first-party",
-      "game": {
-        "id": "igdb:338073",
-        "title": "The Legend of Zelda: Tears of the Kingdom - Nintendo Switch 2 Edition",
-        "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coav5n.jpg",
-        "date": "2025-06-05"
       },
       "hasSwitch2Game": true
     },

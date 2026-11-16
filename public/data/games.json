@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-16T11:13:30.178Z",
+  "generatedAt": "2026-11-16T19:59:18.574Z",
   "games": [
     {
       "id": "free-update:arms",
@@ -3681,7 +3681,7 @@
       "coverUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocv5r.jpg",
       "summary": "The evil Ganondorf is scheming to steal the mythical Triforce from the Sacred Realm and take over the world. Now Link must become the hero of time and save the kingdom in this classic tale, built from the ground up for the Nintendo Switch 2 system.",
       "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/ar6zby.jpg",
-      "developer": "Nintendo (unknown studio)",
+      "developer": "Nintendo EPD Production Group No. 3",
       "genres": [
         "Puzzle",
         "Adventure"
@@ -3704,16 +3704,27 @@
             "normalized": 95,
             "count": 53
           },
-          "metacritic": null
+          "metacritic": {
+            "value": 96,
+            "scale": 100,
+            "normalized": 96,
+            "count": 129
+          }
         },
         "user": {
-          "metacritic": null,
+          "metacritic": {
+            "value": 9.6,
+            "scale": 10,
+            "normalized": 96,
+            "count": 14957
+          },
           "backloggd": null
         }
       },
       "links": {
         "backloggd": "https://backloggd.com/games/the-legend-of-zelda-ocarina-of-time--1/",
         "opencritic": "https://opencritic.com/game/21344/the-legend-of-zelda-ocarina-of-time",
+        "metacritic": "https://www.metacritic.com/game/the-legend-of-zelda-ocarina-of-time-2026/",
         "wikipedia": "https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Ocarina_of_Time_(2026_video_game)",
         "nintendoWiki": "https://nintendo.fandom.com/wiki/The_Legend_of_Zelda%3A_Ocarina_of_Time",
         "nintendoStore": "https://www.nintendo.com/us/store/products/the-legend-of-zelda-ocarina-of-time-switch-2/"
