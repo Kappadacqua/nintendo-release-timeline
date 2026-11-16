@@ -1,10 +1,10 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname } from "node:path";
 import { fetchJson, Throttle } from "./http";
+import { isDueAfter, researchDays } from "./refresh-policy";
 import { titleVariants } from "./title-variants";
 
 const HOST = "opencritic-api.p.rapidapi.com";
-const DAY_MS = 86_400_000;
 
 export interface OpenCriticGame {
   id: number;
@@ -21,16 +21,6 @@ interface SearchHit {
   dist: number; // 0 = perfect trigram match, 1 = no overlap
 }
 
-/** One row of the platform listing (GET /game): has the score, not the top-critic count. */
-export interface CatalogEntry {
-  id: number;
-  name: string;
-  url?: string;
-  firstReleaseDate?: string;
-  topCriticScore: number; // -1 when not enough reviews
-  numReviews: number;
-}
-
 export interface OpenCriticCache {
   /**
    * IGDB id → OpenCritic id (null = searched, nothing close enough). `matchedTitle`: the shorter
@@ -39,13 +29,7 @@ export interface OpenCriticCache {
    */
   matches: Record<string, { opencriticId: number | null; searchedAt: string; matchedTitle?: string; titlesTried?: number }>;
   games: Record<string, { data: OpenCriticGame; fetchedAt: string }>;
-  /** Every Switch 2 game on OpenCritic: title matching without spending searches. */
-  catalog?: { fetchedAt: string; games: CatalogEntry[] };
 }
-
-/** OpenCritic's filter takes the platform's shortName, space included. */
-const CATALOG_PLATFORM = "Switch 2";
-const PAGE_SIZE = 20;
 
 /** The cache on disk, for data:build (no client, no network). */
 export function loadOpenCriticCache(path: string): OpenCriticCache {
@@ -89,8 +73,6 @@ export class OpenCritic {
   private readonly cache: OpenCriticCache;
   readonly used = { searches: 0, requests: 0 };
   budgetExhausted = false;
-  private catalogByTitle = new Map<string, CatalogEntry>();
-  private catalogById = new Map<number, CatalogEntry>();
 
   constructor(
     private readonly apiKey: string,
@@ -104,7 +86,9 @@ export class OpenCritic {
 
   save() {
     mkdirSync(dirname(this.cachePath), { recursive: true });
-    writeFileSync(this.cachePath, `${JSON.stringify(this.cache, null, 2)}\n`);
+    // The Switch 2 catalog of older versions is no longer used (SPEC §4.2).
+    const { matches, games } = this.cache;
+    writeFileSync(this.cachePath, `${JSON.stringify({ matches, games }, null, 2)}\n`);
   }
 
   private get<T>(path: string) {
@@ -117,51 +101,9 @@ export class OpenCritic {
     });
   }
 
-  /**
-   * Loads the Switch 2 catalog (~40 requests), reusing the cached copy while it is
-   * younger than `maxAgeDays`. A partial download is merged into the old copy.
-   */
-  async loadCatalog(maxAgeDays: number) {
-    const cached = this.cache.catalog;
-    const fresh = cached && Date.now() - Date.parse(cached.fetchedAt) < maxAgeDays * DAY_MS;
-    if (!fresh) {
-      const rows: CatalogEntry[] = [];
-      let complete = false;
-      for (let skip = 0; this.used.requests < this.budget.requests; skip += PAGE_SIZE) {
-        this.used.requests++;
-        // Sorted by name so offset paging stays stable while scores change.
-        const page = await this.get<CatalogEntry[]>(
-          `/game?platforms=${encodeURIComponent(CATALOG_PLATFORM)}&sort=name&order=asc&skip=${skip}`,
-        );
-        rows.push(...page.map(({ id, name, url, firstReleaseDate, topCriticScore, numReviews }) => ({ id, name, url, firstReleaseDate, topCriticScore, numReviews })));
-        if (page.length < PAGE_SIZE) {
-          complete = true;
-          break;
-        }
-      }
-      if (!complete) this.budgetExhausted = true;
-      const merged = new Map((complete ? [] : (cached?.games ?? [])).map((g) => [g.id, g]));
-      for (const g of rows) merged.set(g.id, g);
-      // Only a complete download counts as fresh; a partial one is retried next run.
-      this.cache.catalog = { fetchedAt: complete ? new Date().toISOString() : (cached?.fetchedAt ?? new Date(0).toISOString()), games: [...merged.values()] };
-    }
-    for (const g of this.cache.catalog?.games ?? []) {
-      this.catalogById.set(g.id, g);
-      const key = normalize(g.name);
-      // Same title twice: keep the one with more reviews (the main entry, not a port).
-      const prev = this.catalogByTitle.get(key);
-      if (!prev || g.numReviews > prev.numReviews) this.catalogByTitle.set(key, g);
-    }
-    return this.catalogById.size;
-  }
-
   /** Looked up before (found or not). */
   hasMatch(igdbId: string) {
     return igdbId in this.cache.matches;
-  }
-
-  catalogEntry(id: number) {
-    return this.catalogById.get(id);
   }
 
   /** After a quota / auth error: no more network calls, answers come from the cache only. */
@@ -175,38 +117,29 @@ export class OpenCritic {
   offlineReason: string | null = null;
 
   /**
-   * OpenCritic id for an IGDB game from the cache or a new search. A found id is never searched
-   * again; a miss (searchedAt = last try) only after `retryMissAfterDays`, unless the Switch 2
-   * catalog lists the title. null = no page; undefined = unknown (budget spent).
+   * OpenCritic id for an IGDB game from the cache or a new search. The game's own page, once
+   * found, is never searched again. A provisional answer — no page (null), or the base game's
+   * page found with a shorter title — is searched again on the `researchDays` curve (searchedAt =
+   * last try). null = no page; undefined = unknown (budget spent).
    */
-  async resolveId(igdbId: string, title: string, retryMissAfterDays: number, knownId?: number): Promise<number | null | undefined> {
+  async resolveId(igdbId: string, title: string, daysSinceRelease: number, knownId?: number, now = Date.now()): Promise<number | null | undefined> {
     // Forced in overrides.json or from Wikidata: wins over any title match.
     if (knownId) {
-      this.cache.matches[igdbId] = { opencriticId: knownId, searchedAt: new Date().toISOString() };
+      this.cache.matches[igdbId] = { opencriticId: knownId, searchedAt: new Date(now).toISOString() };
       return knownId;
     }
     const cached = this.cache.matches[igdbId];
-    if (cached?.opencriticId) return cached.opencriticId;
-    // Exact (normalized) title in the Switch 2 catalog: free, and fixes old failed searches.
-    const inCatalog = this.catalogByTitle.get(normalize(title));
-    if (inCatalog) {
-      this.cache.matches[igdbId] = { opencriticId: inCatalog.id, searchedAt: new Date().toISOString() };
-      return inCatalog.id;
-    }
+    if (cached?.opencriticId && !cached.matchedTitle) return cached.opencriticId;
     const variants = titleVariants(title);
-    // A miss is retried later, or now if it was searched before the shorter titles existed.
-    const allTried = (cached?.titlesTried ?? 1) >= variants.length;
-    if (cached && allTried && Date.now() - Date.parse(cached.searchedAt) < retryMissAfterDays * DAY_MS) return null;
+    // A miss searched before the shorter titles existed is due now.
+    const allTried = cached?.opencriticId ? true : (cached?.titlesTried ?? 1) >= variants.length;
+    if (cached && allTried && !isDueAfter(cached.searchedAt, researchDays(daysSinceRelease), now)) return cached.opencriticId;
 
-    // Full title first, then the base game's shorter titles: catalog (free), then a search.
+    // Full title first, then the base game's shorter titles.
     for (const [i, candidate] of variants.entries()) {
-      if (i > 0) {
-        const listed = this.catalogByTitle.get(normalize(candidate));
-        if (listed) return this.setMatch(igdbId, listed.id, candidate);
-      }
       if (this.used.searches >= this.budget.searches) {
         this.budgetExhausted = true;
-        return cached ? null : undefined;
+        return cached ? cached.opencriticId : undefined;
       }
       this.used.searches++;
       const hits = await this.get<SearchHit[]>(`/game/search?criteria=${encodeURIComponent(candidate)}`);
@@ -214,25 +147,27 @@ export class OpenCritic {
       const best =
         hits.find((h) => normalize(h.name) === wanted) ??
         hits.filter((h) => h.dist <= 0.25 && sameWords(h.name, candidate)).sort((a, b) => a.dist - b.dist)[0];
-      if (best) return this.setMatch(igdbId, best.id, i > 0 ? candidate : undefined);
+      if (best) return this.setMatch(igdbId, best.id, now, i > 0 ? candidate : undefined);
     }
-    return this.setMatch(igdbId, null, undefined, variants.length);
+    // Nothing this time: a base game's page found before stays until a search finds better.
+    if (cached?.opencriticId) return this.setMatch(igdbId, cached.opencriticId, now, cached.matchedTitle);
+    return this.setMatch(igdbId, null, now, undefined, variants.length);
   }
 
-  private setMatch(igdbId: string, opencriticId: number | null, matchedTitle?: string, titlesTried?: number) {
+  private setMatch(igdbId: string, opencriticId: number | null, now: number, matchedTitle?: string, titlesTried?: number) {
     this.cache.matches[igdbId] = {
       opencriticId,
-      searchedAt: new Date().toISOString(),
+      searchedAt: new Date(now).toISOString(),
       ...(matchedTitle ? { matchedTitle } : {}),
       ...(titlesTried && titlesTried > 1 ? { titlesTried } : {}),
     };
     return opencriticId;
   }
 
-  /** Game details, from cache while younger than `maxAgeDays`. */
-  async game(id: number, maxAgeDays: number): Promise<OpenCriticGame | null> {
+  /** Game details (the score), from cache until `maxAgeDays` have passed (`isDueAfter`). */
+  async game(id: number, maxAgeDays: number, now = Date.now()): Promise<OpenCriticGame | null> {
     const cached = this.cache.games[id];
-    if (cached && Date.now() - Date.parse(cached.fetchedAt) < maxAgeDays * DAY_MS) return cached.data;
+    if (cached && !isDueAfter(cached.fetchedAt, maxAgeDays, now)) return cached.data;
     if (this.used.requests >= this.budget.requests) {
       this.budgetExhausted = true;
       return cached?.data ?? null;
@@ -248,7 +183,7 @@ export class OpenCritic {
       numTopCriticReviews: g.numTopCriticReviews,
       numReviews: g.numReviews,
     };
-    this.cache.games[id] = { data, fetchedAt: new Date().toISOString() };
+    this.cache.games[id] = { data, fetchedAt: new Date(now).toISOString() };
     return data;
   }
 }

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { computeFreshness, type FreshnessInput } from "./freshness";
-import { metacriticMaxDays, opencriticMaxAgeDays } from "./refresh-policy";
+import { isDueAfter, metacriticMaxDays, researchDays, scoreRefreshDays } from "./refresh-policy";
 
 const now = Date.parse("2026-10-03T12:00:00Z");
 const daysAgo = (d: number) => new Date(now - d * 86_400_000).toISOString();
@@ -26,14 +26,19 @@ const input = (over: Partial<FreshnessInput>): FreshnessInput => ({
 
 describe("refresh policy", () => {
   it("reads new games often and old ones rarely", () => {
-    expect(opencriticMaxAgeDays(10)).toBe(1);
-    expect(opencriticMaxAgeDays(45)).toBe(14);
-    expect(metacriticMaxDays("ok", 59)).toBe(1);
-    expect(metacriticMaxDays("ok", 60)).toBe(7);
-    expect(metacriticMaxDays("not-found", 10)).toBe(3);
-    expect(metacriticMaxDays("not-found", 40)).toBe(30);
-    expect(metacriticMaxDays("mismatch", 40)).toBe(14);
+    expect([0, 13, 14, 27, 28, 83, 84, 400].map(scoreRefreshDays)).toEqual([1, 1, 3, 3, 7, 7, 30, 30]);
+    expect(researchDays(-20)).toBe(7); // not out yet: weekly
+    expect(researchDays(20)).toBe(3);
+    expect(metacriticMaxDays("ok", 20)).toBe(3);
+    expect(metacriticMaxDays("not-found", 100)).toBe(30);
+    expect(metacriticMaxDays("mismatch", 40)).toBe(7);
     expect(metacriticMaxDays("gone", 1)).toBeNull();
+  });
+
+  it("counts a run up to 2 hours earlier than the day before as a day later", () => {
+    const now = Date.parse("2026-11-14T10:27:00Z");
+    expect(isDueAfter("2026-11-13T10:56:00Z", 1, now)).toBe(true); // the drift seen on the daily cron
+    expect(isDueAfter("2026-11-13T13:00:00Z", 1, now)).toBe(false);
   });
 });
 
@@ -50,8 +55,8 @@ describe("computeFreshness", () => {
     // Five days old: OpenCritic daily, due again (read two days ago).
     expect(r.games["igdb:1"].opencritic).toEqual({ checkedAt: daysAgo(2), nextAt: daysAgo(1), note: "score read (id 7)" });
     expect(r.games["igdb:1"].metacritic).toEqual({ checkedAt: null, nextAt: null, note: "never looked up" });
-    // Over a year old: Metacritic weekly, OpenCritic miss searched again after 30 days.
-    expect(r.games["igdb:2"].metacritic!.nextAt).toBe(daysAgo(-4));
+    // Over a year old: Metacritic monthly, OpenCritic miss searched again after 30 days.
+    expect(r.games["igdb:2"].metacritic!.nextAt).toBe(daysAgo(-27));
     expect(r.games["igdb:2"].opencritic!.nextAt).toBe(daysAgo(-27));
     expect(r.sources.find((s) => s.key === "opencritic")!.detail).toContain("1 due at the next fetch");
     expect(r.sources.find((s) => s.key === "metacritic")!.detail).toContain("1 due at the next fetch");

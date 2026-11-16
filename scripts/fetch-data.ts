@@ -13,7 +13,7 @@ import { emptyMetacriticStatus, fetchMetacritic } from "./lib/metacritic";
 import { nintendoWikiByTitle, type WikidataLinks, wikidataBySlug, wikipediaByTitle } from "./lib/links";
 import { OpenCritic } from "./lib/opencritic";
 import { isAbsent, loadOverrides, type OverridesFile } from "./lib/overrides";
-import { OPENCRITIC_RETRY_MISS_DAYS, opencriticMaxAgeDays } from "./lib/refresh-policy";
+import { scoreRefreshDays } from "./lib/refresh-policy";
 import { snapshotOf, writeSnapshot } from "./lib/snapshots";
 import { titleVariants } from "./lib/title-variants";
 import { sameTitle } from "./lib/transform";
@@ -46,7 +46,6 @@ async function main() {
       budgetExhausted: false,
       stoppedBecause: null,
       errors: [],
-      catalogSize: 0,
       queued: 0,
     },
     metacritic: emptyMetacriticStatus(),
@@ -219,37 +218,29 @@ async function fetchOpenCritic(selected: Selected[], known: Map<string, number>,
     if (err instanceof HttpError && [401, 403].includes(err.status)) oc.goOffline(`API key rejected (HTTP ${err.status})`);
   };
 
-  try {
-    status.opencritic.catalogSize = await oc.loadCatalog(intEnv("OPENCRITIC_CATALOG_DAYS", 3));
-    log(`OpenCritic catalog: ${status.opencritic.catalogSize} Switch 2 games`);
-  } catch (err) {
-    fail("Switch 2 catalog", err);
-  }
-
   // Released games newest first, then upcoming ones soonest first.
   const priority = (g: Game) => {
     const days = daysSince(g.firstReleaseDate!);
     return days >= 0 ? days : 1_000_000 - days;
   };
-  // Queue: (a) games never looked up, (b) recent releases, (c) refreshes of known pages.
-  // Otherwise the daily search quota is spent every day on retries and new games never get
-  // their turn. TBA games and DLC not out yet have nothing to look up.
+  // Games never looked up first, then the newest: otherwise the daily search quota is spent
+  // on retries and new games never get their turn. TBA games and DLC not out yet have nothing to look up.
   const dated = games
     .filter((g) => g.firstReleaseDate && !(g.kind === "dlc" && g.firstReleaseDate > today))
     .sort((a, b) => Number(oc.hasMatch(a.id)) - Number(oc.hasMatch(b.id)) || priority(a) - priority(b));
   for (const game of dated) {
     const released = game.firstReleaseDate! <= today;
-    const age = released ? daysSince(game.firstReleaseDate!) : -1;
+    const age = daysSince(game.firstReleaseDate!); // negative before release
     let id: number | null | undefined;
     try {
-      // A miss is retried after 30 days (the free Switch 2 catalog still catches it earlier).
-      id = await oc.resolveId(game.id, game.title, OPENCRITIC_RETRY_MISS_DAYS, known.get(game.id));
+      // The game's own page is found once; a miss or the base game's page is searched again later.
+      id = await oc.resolveId(game.id, game.title, age, known.get(game.id));
     } catch (err) {
       fail(game.title, err);
     }
     if (!id || !released) continue;
     try {
-      await oc.game(id, opencriticMaxAgeDays(age));
+      await oc.game(id, scoreRefreshDays(age));
     } catch (err) {
       fail(game.title, err);
     }

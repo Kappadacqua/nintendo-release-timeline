@@ -16,8 +16,6 @@ export interface FetchReport {
     errors: string[];
     /** Released games whose score could not be checked this run: previous games.json value kept. */
     keptPrevious: { id: string; title: string }[];
-    /** Switch 2 games in the cached OpenCritic catalog. */
-    catalogSize: number;
     /** Why calls stopped early (daily quota, rejected key), if they did. */
     stoppedBecause?: string | null;
     /** Games never looked up because the budget ran out: first in line next run. */

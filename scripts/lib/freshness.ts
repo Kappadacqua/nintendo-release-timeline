@@ -5,7 +5,7 @@
  */
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { metacriticMaxDays, type MetacriticStatus, OPENCRITIC_RETRY_MISS_DAYS, opencriticMaxAgeDays } from "./refresh-policy";
+import { metacriticMaxDays, type MetacriticStatus, researchDays, scoreRefreshDays } from "./refresh-policy";
 
 const DAY_MS = 86_400_000;
 
@@ -45,9 +45,8 @@ export interface FreshnessInput {
   freeUpdates: Dated | null;
   studios: Dated | null;
   opencritic: {
-    matches?: Record<string, { opencriticId: number | null; searchedAt: string }>;
+    matches?: Record<string, { opencriticId: number | null; searchedAt: string; matchedTitle?: string }>;
     games?: Record<string, { fetchedAt: string }>;
-    catalog?: { fetchedAt: string };
   } | null;
   metacritic: { games?: Record<string, { status: MetacriticStatus; checkedAt: string; inheritedFrom?: string }> } | null;
   fetchStatus: {
@@ -63,6 +62,9 @@ const MC_NOTE: Record<MetacriticStatus, string> = {
   mismatch: "page of another game",
   gone: "page removed (410), never checked again",
 };
+
+/** The refresh curve of `scoreRefreshDays`, for the admin panel. */
+const CURVE = "daily for 2 weeks after release, every 3 days to week 4, weekly to week 12, then monthly";
 
 const plusDays = (iso: string, days: number) => new Date(Date.parse(iso) + days * DAY_MS).toISOString();
 const latest = (dates: string[]) => dates.reduce<string | null>((max, d) => (!max || d > max ? d : max), null);
@@ -84,11 +86,11 @@ export function computeFreshness(input: FreshnessInput, now = Date.now()): Fresh
     const ocData = ocId ? ocGames[ocId] : undefined;
     let opencritic: CheckFreshness;
     if (ocData) {
-      opencritic = { checkedAt: ocData.fetchedAt, nextAt: plusDays(ocData.fetchedAt, opencriticMaxAgeDays(daysSinceRelease)), note: `score read (id ${ocId})` };
+      opencritic = { checkedAt: ocData.fetchedAt, nextAt: plusDays(ocData.fetchedAt, scoreRefreshDays(daysSinceRelease)), note: `score read (id ${ocId})${match?.matchedTitle ? ` (base game: ${match.matchedTitle})` : ""}` };
     } else if (ocId) {
       opencritic = { checkedAt: null, nextAt: null, note: `page matched (id ${ocId}), score not read yet` };
     } else if (match) {
-      opencritic = { checkedAt: match.searchedAt, nextAt: plusDays(match.searchedAt, OPENCRITIC_RETRY_MISS_DAYS), note: "no page found, searched again later" };
+      opencritic = { checkedAt: match.searchedAt, nextAt: plusDays(match.searchedAt, researchDays(daysSinceRelease)), note: "no page found, searched again later" };
     } else {
       opencritic = { checkedAt: null, nextAt: null, note: "never looked up" };
     }
@@ -113,7 +115,6 @@ export function computeFreshness(input: FreshnessInput, now = Date.now()): Fresh
     }).length;
   const ocDates = Object.values(ocGames).map((g) => g.fetchedAt);
   const mcDates = Object.values(mcGames).map((g) => g.checkedAt);
-  const catalog = input.opencritic?.catalog?.fetchedAt;
 
   const sources: SourceFreshness[] = [
     { key: "igdb", label: "IGDB", updatedAt: input.igdb?.fetchedAt ?? null, detail: "Games, dates, developers · every data:fetch" },
@@ -123,13 +124,13 @@ export function computeFreshness(input: FreshnessInput, now = Date.now()): Fresh
       key: "opencritic",
       label: "OpenCritic",
       updatedAt: latest(ocDates),
-      detail: `${ocDates.length} scores · daily for 45 days after release, then every 14 · ${dueNow("opencritic")} due at the next fetch${catalog ? ` · Switch 2 catalog ${catalog.slice(0, 10)}` : ""}`,
+      detail: `${ocDates.length} scores · ${CURVE} · ${dueNow("opencritic")} due at the next fetch`,
     },
     {
       key: "metacritic",
       label: "Metacritic",
       updatedAt: latest(mcDates),
-      detail: `${mcDates.length} pages · daily for 60 days after release, then weekly · ${dueNow("metacritic")} due at the next fetch`,
+      detail: `${mcDates.length} pages · ${CURVE} · ${dueNow("metacritic")} due at the next fetch`,
     },
     { key: "backloggd", label: "Backloggd", updatedAt: null, detail: "Manual only, from this panel" },
     { key: "freeUpdates", label: "Free updates", updatedAt: input.freeUpdates?.fetchedAt ?? null, detail: "IGDB, Wikipedia, Nintendo Wiki · data:fetch-free-updates" },

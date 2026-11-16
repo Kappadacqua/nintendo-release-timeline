@@ -84,20 +84,23 @@ describe("isDue", () => {
     expect(isDue(entry("ok", 0), "hades-2", 10, now)).toBe(true);
   });
 
-  it("refreshes a found page daily for 60 days after release, then weekly", () => {
+  it("refreshes a found page less and less often as the game gets older", () => {
     expect(isDue(entry("ok", 0.5), "hades-ii", 10, now)).toBe(false);
     expect(isDue(entry("ok", 0.95), "hades-ii", 10, now)).toBe(true); // a run a little earlier than yesterday's
-    expect(isDue(entry("ok", 3), "hades-ii", 90, now)).toBe(false);
-    expect(isDue(entry("ok", 7), "hades-ii", 90, now)).toBe(true);
+    expect(isDue(entry("ok", 2), "hades-ii", 20, now)).toBe(false);
+    expect(isDue(entry("ok", 2.95), "hades-ii", 20, now)).toBe(true);
+    expect(isDue(entry("ok", 6), "hades-ii", 60, now)).toBe(false);
+    expect(isDue(entry("ok", 7), "hades-ii", 60, now)).toBe(true);
+    expect(isDue(entry("ok", 20), "hades-ii", 90, now)).toBe(false);
+    expect(isDue(entry("ok", 30), "hades-ii", 90, now)).toBe(true);
   });
 
-  it("retries a missing page (404) after 3 days, 30 once the game is a month old", () => {
-    expect(isDue(entry("not-found", 2), "hades-ii", 10, now)).toBe(false);
-    expect(isDue(entry("not-found", 3), "hades-ii", 10, now)).toBe(true);
-    expect(isDue(entry("not-found", 14), "hades-ii", 60, now)).toBe(false);
-    expect(isDue(entry("not-found", 30), "hades-ii", 60, now)).toBe(true);
-    expect(isDue(entry("mismatch", 10), "hades-ii", 60, now)).toBe(false);
-    expect(isDue(entry("mismatch", 14), "hades-ii", 60, now)).toBe(true);
+  it("searches a missing page or another game's page again on the same curve", () => {
+    expect(isDue(entry("not-found", 1), "hades-ii", 10, now)).toBe(true);
+    expect(isDue(entry("not-found", 6), "hades-ii", 60, now)).toBe(false);
+    expect(isDue(entry("not-found", 7), "hades-ii", 60, now)).toBe(true);
+    expect(isDue(entry("mismatch", 20), "hades-ii", 100, now)).toBe(false);
+    expect(isDue(entry("mismatch", 30), "hades-ii", 100, now)).toBe(true);
   });
 
   it("never retries a page Metacritic removed (410), unless the slug changes", () => {

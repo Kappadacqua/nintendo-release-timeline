@@ -32,6 +32,33 @@ describe("OpenCritic.resolveId", () => {
     expect(calls).toHaveLength(2);
   });
 
+  it("searches the base game's page again when due, and keeps the game's own page once found", async () => {
+    const calls = stubSearch({ "Xenoblade Chronicles: Definitive Edition": [{ id: 9261, name: "Xenoblade Chronicles: Definitive Edition", dist: 0 }] });
+    const oc = client();
+    const now = Date.parse("2026-11-01T10:00:00Z");
+    const later = (days: number) => now + days * 86_400_000;
+    expect(await oc.resolveId("igdb:405446", DE_S2, 20, undefined, now)).toBe(9261);
+    // 20 days after release: every 3 days. Not due after 2, due after 3 (base page kept meanwhile).
+    expect(await oc.resolveId("igdb:405446", DE_S2, 22, undefined, later(2))).toBe(9261);
+    expect(calls).toHaveLength(2);
+    expect(await oc.resolveId("igdb:405446", DE_S2, 23, undefined, later(3))).toBe(9261);
+    expect(calls).toHaveLength(4);
+    // The Switch 2 Edition gets its own page: found, and never searched again.
+    calls.length = 0;
+    stubSearch({ [DE_S2]: [{ id: 22000, name: DE_S2, dist: 0 }] });
+    expect(await oc.resolveId("igdb:405446", DE_S2, 30, undefined, later(10))).toBe(22000);
+    expect(await oc.resolveId("igdb:405446", DE_S2, 400, undefined, later(400))).toBe(22000);
+  });
+
+  it("keeps the base game's page when a new search finds nothing", async () => {
+    stubSearch({ "Xenoblade Chronicles: Definitive Edition": [{ id: 9261, name: "Xenoblade Chronicles: Definitive Edition", dist: 0 }] });
+    const oc = client();
+    const now = Date.parse("2026-11-01T10:00:00Z");
+    await oc.resolveId("igdb:405446", DE_S2, 5, undefined, now);
+    stubSearch({});
+    expect(await oc.resolveId("igdb:405446", DE_S2, 6, undefined, now + 86_400_000)).toBe(9261);
+  });
+
   it("does not search a miss again before the retry delay", async () => {
     const calls = stubSearch({});
     const oc = client();

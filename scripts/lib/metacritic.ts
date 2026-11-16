@@ -4,7 +4,7 @@ import { readJson, writeJson } from "./cache";
 import { intEnv } from "./env";
 import { fetchText, HttpError } from "./http";
 import { isAbsent, type OverridesFile } from "./overrides";
-import { metacriticMaxDays, type MetacriticStatus } from "./refresh-policy";
+import { isDueAfter, metacriticMaxDays, type MetacriticStatus } from "./refresh-policy";
 import { titleVariants } from "./title-variants";
 import { localToday } from "./today";
 
@@ -222,10 +222,7 @@ export function parseSearchResults(html: string) {
 export function isDue(entry: MetacriticEntry | undefined, slug: string, daysSinceRelease: number, now = Date.now()) {
   if (!entry || entry.slug !== slug) return true;
   const maxDays = metacriticMaxDays(entry.status, daysSinceRelease);
-  if (maxDays === null) return false;
-  const age = now - Date.parse(entry.checkedAt);
-  // A little slack so a daily run at a slightly earlier time still refreshes.
-  return age >= maxDays * DAY_MS - 2 * 3_600_000;
+  return maxDays !== null && isDueAfter(entry.checkedAt, maxDays, now);
 }
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
@@ -303,8 +300,9 @@ export async function fetchMetacritic(
       return { url, html: await get(url) };
     };
     try {
-      // A page found before (by search or a shorter title): straight there.
-      const known = previous?.slug === slug && previous.status === "ok" ? previous : undefined;
+      // The game's own page found before (by slug or search): straight there. The base game's page
+      // (found with a shorter title) is provisional: the full title is tried again first.
+      const known = previous?.slug === slug && previous.status === "ok" && !previous.inheritedFrom ? previous : undefined;
       let found: { url: string; html: string } | null = null;
       let title = known?.matchedTitle ?? game.title;
       if (known) found = await pageFor(known.url, known.matchedTitle ?? game.title);

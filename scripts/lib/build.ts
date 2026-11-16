@@ -189,7 +189,6 @@ export function buildGames(): BuildResult {
       unmatched: [],
       errors: status?.opencritic.errors ?? [],
       keptPrevious: [],
-      catalogSize: status?.opencritic.catalogSize ?? oc.catalog?.games.length ?? 0,
       stoppedBecause: status?.opencritic.stoppedBecause ?? null,
       queued: status?.opencritic.queued ?? 0,
     },
@@ -208,7 +207,6 @@ export function buildGames(): BuildResult {
     unverifiedReviewPage: [],
   };
 
-  const catalog = new Map((oc.catalog?.games ?? []).map((g) => [g.id, g]));
   const igdbBySlug = new Map([...candidates.values()].map((g) => [g.slug, g]));
   const pickDeveloper = developerPicker();
   // Labels of the failed lookups in data:fetch (fetchLinks): "Wikipedia (…): …", "Nintendo Wiki: …".
@@ -233,16 +231,16 @@ export function buildGames(): BuildResult {
     const checked = overrides[game.id]?.opencriticId !== undefined || cachedMatch !== undefined;
     let scoreKnown = checked && opencriticId === null;
     if (opencriticId && released) {
-      const listed = catalog.get(opencriticId);
+      // Score and review count from the same read of the game's page.
       const details = oc.games[opencriticId]?.data;
-      const value = listed?.topCriticScore ?? details?.topCriticScore;
+      const value = details?.topCriticScore;
       if (value !== undefined) {
         scoreKnown = true; // -1 = not enough reviews yet: a real "no score"
         // Found with a shorter title: the base game's page (SPEC §4.2).
         const inheritedFrom = !overrides[game.id]?.opencriticId && cachedMatch?.matchedTitle ? String(opencriticId) : undefined;
         if (value >= 0) game.scores.critic.opencritic = inherit(score(Math.round(value), 100, details?.numTopCriticReviews ?? null), inheritedFrom);
       }
-      game.links.opencritic = listed?.url ?? details?.url ?? `https://opencritic.com/game/${opencriticId}`;
+      game.links.opencritic = details?.url ?? `https://opencritic.com/game/${opencriticId}`;
     }
     if (!opencriticId && released && checked && !needsReviewPage && !isAbsent(overrides[game.id], "opencritic")) report.opencritic.unmatched.push({ id: game.id, title: game.title });
     // Never replace a score with null just because it could not be checked.

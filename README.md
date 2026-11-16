@@ -23,7 +23,6 @@ Variables in `.env` (see `.env.example` for comments):
 | `TWITCH_CLIENT_ID`, `TWITCH_CLIENT_SECRET` | IGDB (required by `data:fetch` and `data:fetch-free-updates`) |
 | `RAPIDAPI_KEY` | OpenCritic via RapidAPI (optional: without it scores are missing) |
 | `OPENCRITIC_MAX_SEARCHES`, `OPENCRITIC_MAX_REQUESTS` | Per-run caps to stay inside the daily quota |
-| `OPENCRITIC_CATALOG_DAYS` | Age after which the Switch 2 catalog is downloaded again |
 | `WIKI_CONTACT` | Contact added to the Wikipedia / Nintendo Wiki User-Agent |
 
 ## Commands

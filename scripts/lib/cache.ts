@@ -47,7 +47,6 @@ export interface FetchStatus {
     budgetExhausted: boolean;
     stoppedBecause: string | null;
     errors: string[];
-    catalogSize: number;
     /** Games never looked up because the budget ran out: first in line next run. */
     queued?: number;
   };
