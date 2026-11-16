@@ -38,7 +38,7 @@ Nessuno.
 4. **`data/free-updates-seen.json`** — va tenuto nel repo: se cancellato, la build tratta tutte le voci come già note (nessuna novità).
 5. **Altezze stimate** — le pile usano altezze stimate per tipo di card (`CARD_HEIGHT` in `src/cards/layout.ts`), non misurate: titoli su 3 righe o badge su più righe possono sporgere qualche px in più o in meno.
 6. **Due gruppi nello stesso giorno** — stessa x, separati dalle corsie; ordine da tastiera corretto (fixes-2 task 1), passaggio tra ventagli da verificare nel browser.
-7. **Studios: giochi senza studio** — 3 giochi first party senza sviluppatore IGDB, più "DK Challenge" e "Ocarina of Time" (sviluppatore "Nintendo", nascosto). Da correggere dal pannello admin (campo "Developer").
+7. **Studios: giochi senza studio** — 3 giochi first party senza sviluppatore IGDB, più "DK Challenge" (Ocarina of Time sistemato: EPD Production Group No. 3). Da correggere dal pannello admin (campo "Developer").
 8. **Studios: ordine** — ricalcolato sul gioco *mostrato*: studi senza gioco Switch 2 o con gioco senza data finiscono nel gruppo finale alfabetico.
 9. **Studios: gioco fissato alla build** — `studios.json` ha un solo gioco per studio (lo stato uscito / in uscita viene dalla data nella pagina, il campo `status` non c'è più), ma la *scelta* del gioco resta quella del build. Da valutare: scrivere tutti i giochi Switch 2 e scegliere nella pagina.
 10. **"Exclusives only" senza effetto sui dati attuali** — tutti gli 84 elementi sono esclusivi o solo Switch + telefoni; 3 giochi (Putty World, Bit Boy!! Arcade 2, Chit Chat Party!) non hanno `onOtherConsoles`, passano perché `exclusive`.

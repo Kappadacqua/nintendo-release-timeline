@@ -87,7 +87,10 @@
     },
     "igdb:405460": {
       "_title": "The Legend of Zelda: Ocarina of Time",
-      "developer": "Nintendo (unknown studio)"
+      "developer": "Nintendo EPD Production Group No. 3",
+      "links": {
+        "metacritic": "https://www.metacritic.com/game/the-legend-of-zelda-ocarina-of-time-2026/"
+      }
     },
     "igdb:405451": {
       "_title": "Nintendo Switch Sports Resort",

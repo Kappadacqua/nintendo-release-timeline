@@ -330,12 +330,29 @@ export async function fetchMetacritic(
         };
         continue;
       }
-      const { url, html } = found;
-      const issue = layoutIssue(html);
-      if (issue) throw new LayoutError(`Metacritic page layout not recognized at ${url} — ${issue}. Previous scores kept; update ${PARSER}.`);
-      const page = parseMetacriticPage(html);
+      let { url, html } = found;
+      const read = () => {
+        const issue = layoutIssue(html);
+        if (issue) throw new LayoutError(`Metacritic page layout not recognized at ${url} — ${issue}. Previous scores kept; update ${PARSER}.`);
+        return parseMetacriticPage(html);
+      };
+      let page = read();
       // A title-made slug can land on an older game of the same name: only a forced slug skips the check.
-      const mismatch = !forced && page.name !== null && !sameName(page.name, title);
+      let mismatch = !forced && page.name !== null && !sameName(page.name, title);
+      // A remake shares the old game's title: Metacritic puts the year on its slug ("…-ocarina-of-time-2026").
+      if (mismatch && title === game.title) {
+        const yearUrl = `${BASE}${slug}-${game.firstReleaseDate!.slice(0, 4)}/`;
+        const retry = await pageFor(yearUrl, title).catch((err) => (err instanceof OutOfBudget ? Promise.reject(err) : null));
+        if (retry) {
+          const before = { url, html };
+          ({ url, html } = retry);
+          const candidate = read();
+          if (candidate.name !== null && sameName(candidate.name, title)) {
+            page = candidate;
+            mismatch = false;
+          } else ({ url, html } = before);
+        }
+      }
       const inherited = title !== game.title ? { matchedTitle: title, inheritedFrom: slugFromUrl(url) ?? undefined } : {};
       cache.games[game.id] = { slug, url, checkedAt, status: mismatch ? "mismatch" : "ok", ...inherited, ...page };
     } catch (err) {
