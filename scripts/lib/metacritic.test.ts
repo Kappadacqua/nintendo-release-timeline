@@ -1,5 +1,9 @@
-import { describe, expect, it } from "vitest";
-import { isDue, layoutIssue, type MetacriticEntry, parseMetacriticPage, parseSearchResults, sameName, slugFromUrl, slugify } from "./metacritic";
+import { mkdtempSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { makeGame } from "../../src/test-utils";
+import { emptyMetacriticStatus, fetchMetacritic, isDue, layoutIssue, loadMetacriticCache, type MetacriticEntry, parseMetacriticPage, parseSearchResults, sameName, slugFromUrl, slugify } from "./metacritic";
 
 const DAY = 86_400_000;
 
@@ -139,5 +143,48 @@ describe("layoutIssue", () => {
     expect(layoutIssue(renamedCards)).toMatch(/Metascore cards/);
     const renamedLabel = page({ cards: card("nintendo-switch-2", "95", 56), users: '<a href="?platform=nintendo-switch-2"></a><div aria-label="Users: 8.5"></div>' });
     expect(layoutIssue(renamedLabel)).toMatch(/user score/);
+  });
+});
+
+describe("fetchMetacritic, base game's page", () => {
+  afterEach(() => {
+    vi.useRealTimers();
+    vi.unstubAllGlobals();
+  });
+  const S2 = "Pikmin 4 - Nintendo Switch 2 Edition";
+  const own = `https://www.metacritic.com/game/${slugify(S2)}/`;
+  const base = "https://www.metacritic.com/game/pikmin-4/";
+
+  /** One due run on a cached base-game page; `pages`: URL → HTML, any other page 404, searches find nothing. */
+  async function run(pages: Record<string, string>) {
+    const calls: string[] = [];
+    vi.stubGlobal("fetch", async (url: string) => {
+      calls.push(url);
+      if (url.includes("/search/")) return new Response("<html>no results</html>");
+      return pages[url] ? new Response(pages[url]) : new Response("", { status: 404 });
+    });
+    vi.useFakeTimers({ toFake: ["setTimeout"] });
+    const path = join(mkdtempSync(join(tmpdir(), "mc-")), "metacritic.json");
+    const game = makeGame({ id: "igdb:1", title: S2, firstReleaseDate: "2025-07-24" });
+    const checkedAt = new Date(Date.now() - 40 * DAY).toISOString();
+    writeFileSync(path, JSON.stringify({ games: { "igdb:1": { slug: slugify(S2), url: base, status: "ok", checkedAt, matchedTitle: "Pikmin 4", inheritedFrom: "pikmin-4", critic: 87 } } }));
+    const status = emptyMetacriticStatus();
+    const done = fetchMetacritic([game], { games: {}, wikipedia: {}, manualGames: [] }, path, status, () => {});
+    await vi.runAllTimersAsync();
+    await done;
+    return { calls, entry: loadMetacriticCache(path).games["igdb:1"] };
+  }
+  const pikmin = (name: string, score: string) => page({ name, cards: card("nintendo-switch-2", score, 40), users: users("nintendo-switch-2", "8.5", "100") });
+
+  it("tries the game's own page, then goes straight back to the base page", async () => {
+    const { calls, entry } = await run({ [base]: pikmin("Pikmin 4", "88") });
+    expect(calls).toEqual([own, `https://www.metacritic.com/search/${encodeURIComponent(S2)}/?category=13`, base]);
+    expect(entry).toMatchObject({ status: "ok", url: base, critic: 88, inheritedFrom: "pikmin-4" });
+  });
+
+  it("moves to the game's own page once it exists", async () => {
+    const { entry } = await run({ [own]: pikmin(S2, "90"), [base]: pikmin("Pikmin 4", "88") });
+    expect(entry).toMatchObject({ status: "ok", url: own, critic: 90 });
+    expect(entry.inheritedFrom).toBeUndefined();
   });
 });

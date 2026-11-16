@@ -300,13 +300,23 @@ export async function fetchMetacritic(
       return { url, html: await get(url) };
     };
     try {
-      // The game's own page found before (by slug or search): straight there. The base game's page
-      // (found with a shorter title) is provisional: the full title is tried again first.
-      const known = previous?.slug === slug && previous.status === "ok" && !previous.inheritedFrom ? previous : undefined;
+      const ok = previous?.slug === slug && previous.status === "ok" ? previous : undefined;
       let found: { url: string; html: string } | null = null;
-      let title = known?.matchedTitle ?? game.title;
-      if (known) found = await pageFor(known.url, known.matchedTitle ?? game.title);
-      else {
+      let title = game.title;
+      if (ok && !ok.matchedTitle) {
+        // The game's own page, found before (by slug or search): straight there.
+        found = await pageFor(ok.url, game.title);
+      } else if (ok?.matchedTitle) {
+        // The base game's page is provisional: the game's own page first, else straight back to
+        // the base page (the shorter titles in between are not tried again).
+        const own = await pageFor(`${BASE}${slug}/`, game.title);
+        const ownName = own && parseMetacriticPage(own.html).name;
+        if (own && (ownName === null || sameName(ownName, game.title))) found = own;
+        else {
+          title = ok.matchedTitle;
+          found = await pageFor(ok.url, title);
+        }
+      } else {
         // Full title first, then the base game's shorter titles (SPEC §4.3).
         for (const candidate of forced ? [game.title] : titleVariants(game.title)) {
           found = await pageFor(candidate === game.title ? `${BASE}${slug}/` : `${BASE}${slugify(candidate)}/`, candidate);
