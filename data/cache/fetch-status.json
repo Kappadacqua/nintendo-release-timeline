@@ -1,0 +1,22 @@
+{
+  "fetchedAt": "2026-11-17T11:48:08.510Z",
+  "opencritic": {
+    "enabled": true,
+    "searchesUsed": 12,
+    "requestsUsed": 2,
+    "budgetExhausted": false,
+    "stoppedBecause": null,
+    "errors": [],
+    "queued": 0
+  },
+  "metacritic": {
+    "enabled": true,
+    "due": 1,
+    "checked": 1,
+    "requestsUsed": 1,
+    "budgetExhausted": false,
+    "stoppedBecause": null,
+    "errors": []
+  },
+  "linkErrors": []
+}

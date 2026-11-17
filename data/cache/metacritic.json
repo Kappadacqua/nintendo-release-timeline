@@ -657,14 +657,14 @@
     "igdb:417169": {
       "slug": "pikmin-4-nintendo-switch-2-edition-dandori-academy",
       "url": "https://www.metacritic.com/game/pikmin-4-nintendo-switch-2-edition-plus-dandori/",
-      "checkedAt": "2026-11-16T11:13:06.694Z",
+      "checkedAt": "2026-11-17T11:48:53.163Z",
       "status": "ok",
       "name": "Pikmin 4: Nintendo Switch 2 Edition + Dandori Academy",
       "platform": "nintendo-switch-2",
       "critic": 83,
-      "criticCount": 25,
-      "user": 2,
-      "userCount": 255
+      "criticCount": 26,
+      "user": 2.3,
+      "userCount": 357
     }
   }
 }
