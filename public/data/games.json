@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-17T11:48:53.331Z",
+  "generatedAt": "2026-11-18T11:38:25.404Z",
   "games": [
     {
       "id": "free-update:arms",
@@ -3710,13 +3710,13 @@
             "value": 96,
             "scale": 100,
             "normalized": 96,
-            "count": 55
+            "count": 56
           },
           "metacritic": {
             "value": 96,
             "scale": 100,
             "normalized": 96,
-            "count": 129
+            "count": 132
           }
         },
         "user": {
@@ -3724,7 +3724,7 @@
             "value": 9.6,
             "scale": 10,
             "normalized": 96,
-            "count": 14957
+            "count": 16822
           },
           "backloggd": null
         }
@@ -3759,7 +3759,8 @@
       "backgroundUrl": "https://images.igdb.com/igdb/image/upload/t_1080p/sc154em.jpg",
       "developer": "Nintendo EPD Production Group No. 10",
       "genres": [
-        "Adventure"
+        "RTS",
+        "Strategy"
       ],
       "releaseDates": {
         "JP": "2026-11-12",
@@ -3774,24 +3775,24 @@
       "scores": {
         "critic": {
           "opencritic": {
-            "value": 84,
+            "value": 83,
             "scale": 100,
-            "normalized": 84,
-            "count": 13
+            "normalized": 83,
+            "count": 14
           },
           "metacritic": {
             "value": 83,
             "scale": 100,
             "normalized": 83,
-            "count": 26
+            "count": 29
           }
         },
         "user": {
           "metacritic": {
-            "value": 2.3,
+            "value": 6.5,
             "scale": 10,
-            "normalized": 23,
-            "count": 357
+            "normalized": 65,
+            "count": 143
           },
           "backloggd": null
         }
@@ -3827,6 +3828,10 @@
           {
             "date": "2026-11-17",
             "normalized": 84
+          },
+          {
+            "date": "2026-11-18",
+            "normalized": 83
           }
         ],
         "metacritic": [
@@ -3855,6 +3860,10 @@
           {
             "date": "2026-11-17",
             "normalized": 23
+          },
+          {
+            "date": "2026-11-18",
+            "normalized": 65
           }
         ]
       }

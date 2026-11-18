@@ -1,8 +1,8 @@
 {
-  "fetchedAt": "2026-11-17T11:48:08.510Z",
+  "fetchedAt": "2026-11-18T11:37:40.995Z",
   "opencritic": {
     "enabled": true,
-    "searchesUsed": 12,
+    "searchesUsed": 1,
     "requestsUsed": 2,
     "budgetExhausted": false,
     "stoppedBecause": null,
@@ -11,9 +11,9 @@
   },
   "metacritic": {
     "enabled": true,
-    "due": 1,
-    "checked": 1,
-    "requestsUsed": 1,
+    "due": 2,
+    "checked": 2,
+    "requestsUsed": 2,
     "budgetExhausted": false,
     "stoppedBecause": null,
     "errors": []

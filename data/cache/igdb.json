@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-11-17T11:48:08.510Z",
+  "fetchedAt": "2026-11-18T11:37:40.995Z",
   "firstPartyIds": [
     164,
     408,
@@ -2957,7 +2957,8 @@
     421954,
     2485,
     405460,
-    187969
+    187969,
+    51187
   ],
   "games": [
     {
@@ -52298,16 +52299,100 @@
       ],
       "screenshots": [
         {
-          "id": 1638016,
+          "id": 1896282,
           "height": 325,
-          "image_id": "scz3wg",
+          "image_id": "sc14n6i",
           "width": 578
         },
         {
-          "id": 1638017,
+          "id": 1896283,
           "height": 325,
-          "image_id": "scz3wh",
+          "image_id": "sc14n6j",
           "width": 578
+        },
+        {
+          "id": 1896284,
+          "height": 575,
+          "image_id": "sc14n6k",
+          "width": 1023
+        },
+        {
+          "id": 1896285,
+          "height": 575,
+          "image_id": "sc14n6l",
+          "width": 1023
+        },
+        {
+          "id": 1896286,
+          "height": 575,
+          "image_id": "sc14n6m",
+          "width": 1023
+        },
+        {
+          "id": 1896287,
+          "height": 575,
+          "image_id": "sc14n6n",
+          "width": 1023
+        },
+        {
+          "id": 1896288,
+          "height": 575,
+          "image_id": "sc14n6o",
+          "width": 1023
+        },
+        {
+          "id": 1896289,
+          "height": 575,
+          "image_id": "sc14n6p",
+          "width": 1023
+        },
+        {
+          "id": 1896290,
+          "height": 575,
+          "image_id": "sc14n6q",
+          "width": 1023
+        },
+        {
+          "id": 1896291,
+          "height": 575,
+          "image_id": "sc14n6r",
+          "width": 1023
+        },
+        {
+          "id": 1896292,
+          "height": 575,
+          "image_id": "sc14n6s",
+          "width": 1023
+        },
+        {
+          "id": 1896293,
+          "height": 575,
+          "image_id": "sc14n6t",
+          "width": 1023
+        },
+        {
+          "id": 1896294,
+          "height": 575,
+          "image_id": "sc14n6u",
+          "width": 1023
+        },
+        {
+          "id": 1896295,
+          "height": 575,
+          "image_id": "sc14n6v",
+          "width": 1023
+        },
+        {
+          "id": 1896296,
+          "height": 575,
+          "image_id": "sc14n6w",
+          "width": 1023
+        },
+        {
+          "id": 1896297,
+          "height": 575,
+          "image_id": "sc14n6x",
+          "width": 1023
         }
       ],
       "slug": "pokemon-pokopia",
@@ -62819,6 +62904,14 @@
       },
       "first_release_date": 1794441600,
       "genres": [
+        {
+          "id": 11,
+          "name": "Real Time Strategy (RTS)"
+        },
+        {
+          "id": 15,
+          "name": "Strategy"
+        },
         {
           "id": 31,
           "name": "Adventure"
