@@ -1,9 +1,9 @@
 {
-  "fetchedAt": "2026-11-19T11:35:40.308Z",
+  "fetchedAt": "2026-11-20T11:33:56.706Z",
   "opencritic": {
     "enabled": true,
-    "searchesUsed": 0,
-    "requestsUsed": 1,
+    "searchesUsed": 1,
+    "requestsUsed": 3,
     "budgetExhausted": false,
     "stoppedBecause": null,
     "errors": [],
