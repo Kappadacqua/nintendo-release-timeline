@@ -15,14 +15,14 @@
     "igdb:381237": {
       "slug": "orbitals",
       "url": "https://www.metacritic.com/game/orbitals/",
-      "checkedAt": "2026-11-14T10:23:40.461Z",
+      "checkedAt": "2026-11-21T10:59:03.455Z",
       "status": "ok",
       "name": "Orbitals",
       "platform": "nintendo-switch-2",
       "critic": 81,
       "criticCount": 88,
-      "user": 8.3,
-      "userCount": 171
+      "user": 8.4,
+      "userCount": 190
     },
     "igdb:405436": {
       "slug": "pokemon-pokopia-bubbly-basin",
@@ -645,26 +645,26 @@
     "igdb:405460": {
       "slug": "the-legend-of-zelda-ocarina-of-time-2026",
       "url": "https://www.metacritic.com/game/the-legend-of-zelda-ocarina-of-time-2026/",
-      "checkedAt": "2026-11-18T11:38:20.859Z",
+      "checkedAt": "2026-11-21T10:58:57.794Z",
       "status": "ok",
       "name": "The Legend of Zelda: Ocarina of Time",
       "platform": "nintendo-switch-2",
-      "critic": 96,
-      "criticCount": 132,
-      "user": 9.6,
-      "userCount": 16822
+      "critic": 95,
+      "criticCount": 135,
+      "user": 9.1,
+      "userCount": 28275
     },
     "igdb:417169": {
       "slug": "pikmin-4-nintendo-switch-2-edition-dandori-academy",
       "url": "https://www.metacritic.com/game/pikmin-4-nintendo-switch-2-edition-plus-dandori/",
-      "checkedAt": "2026-11-20T11:34:36.527Z",
+      "checkedAt": "2026-11-21T10:58:57.576Z",
       "status": "ok",
       "name": "Pikmin 4: Nintendo Switch 2 Edition + Dandori Academy",
       "platform": "nintendo-switch-2",
       "critic": 83,
-      "criticCount": 33,
-      "user": 6.4,
-      "userCount": 160
+      "criticCount": 34,
+      "user": 6.3,
+      "userCount": 194
     }
   }
 }

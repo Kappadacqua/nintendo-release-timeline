@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T11:34:36.735Z",
+  "generatedAt": "2026-11-21T10:59:07.778Z",
   "games": [
     {
       "id": "free-update:arms",
@@ -3222,10 +3222,10 @@
         },
         "user": {
           "metacritic": {
-            "value": 8.3,
+            "value": 8.4,
             "scale": 10,
-            "normalized": 83,
-            "count": 171
+            "normalized": 84,
+            "count": 190
           },
           "backloggd": null
         }
@@ -3247,6 +3247,10 @@
           {
             "date": "2026-10-04",
             "normalized": 83
+          },
+          {
+            "date": "2026-11-21",
+            "normalized": 84
           }
         ]
       }
@@ -3710,21 +3714,21 @@
             "value": 96,
             "scale": 100,
             "normalized": 96,
-            "count": 56
+            "count": 57
           },
           "metacritic": {
-            "value": 96,
+            "value": 95,
             "scale": 100,
-            "normalized": 96,
-            "count": 132
+            "normalized": 95,
+            "count": 135
           }
         },
         "user": {
           "metacritic": {
-            "value": 9.6,
+            "value": 9.1,
             "scale": 10,
-            "normalized": 96,
-            "count": 16822
+            "normalized": 91,
+            "count": 28275
           },
           "backloggd": null
         }
@@ -3746,6 +3750,26 @@
           {
             "date": "2026-11-17",
             "normalized": 96
+          }
+        ],
+        "metacritic": [
+          {
+            "date": "2026-11-16",
+            "normalized": 96
+          },
+          {
+            "date": "2026-11-21",
+            "normalized": 95
+          }
+        ],
+        "metacriticUser": [
+          {
+            "date": "2026-11-16",
+            "normalized": 96
+          },
+          {
+            "date": "2026-11-21",
+            "normalized": 91
           }
         ]
       }
@@ -3784,15 +3808,15 @@
             "value": 83,
             "scale": 100,
             "normalized": 83,
-            "count": 33
+            "count": 34
           }
         },
         "user": {
           "metacritic": {
-            "value": 6.4,
+            "value": 6.3,
             "scale": 10,
-            "normalized": 64,
-            "count": 160
+            "normalized": 63,
+            "count": 194
           },
           "backloggd": null
         }
@@ -3868,6 +3892,10 @@
           {
             "date": "2026-11-19",
             "normalized": 64
+          },
+          {
+            "date": "2026-11-21",
+            "normalized": 63
           }
         ]
       }
