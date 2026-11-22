@@ -3,14 +3,14 @@
     "igdb:366896": {
       "slug": "fire-emblem-fortunes-weave",
       "url": "https://www.metacritic.com/game/fire-emblem-fortunes-weave/",
-      "checkedAt": "2026-11-15T10:50:50.804Z",
+      "checkedAt": "2026-11-22T11:19:25.580Z",
       "status": "ok",
       "name": "Fire Emblem: Fortune's Weave",
       "platform": "nintendo-switch-2",
       "critic": 89,
       "criticCount": 113,
       "user": 8.5,
-      "userCount": 1031
+      "userCount": 1233
     },
     "igdb:381237": {
       "slug": "orbitals",
@@ -657,14 +657,14 @@
     "igdb:417169": {
       "slug": "pikmin-4-nintendo-switch-2-edition-dandori-academy",
       "url": "https://www.metacritic.com/game/pikmin-4-nintendo-switch-2-edition-plus-dandori/",
-      "checkedAt": "2026-11-21T10:58:57.576Z",
+      "checkedAt": "2026-11-22T11:19:25.366Z",
       "status": "ok",
       "name": "Pikmin 4: Nintendo Switch 2 Edition + Dandori Academy",
       "platform": "nintendo-switch-2",
       "critic": 83,
       "criticCount": 34,
-      "user": 6.3,
-      "userCount": 194
+      "user": 6.5,
+      "userCount": 221
     }
   }
 }
