@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-22T11:19:28.931Z",
+  "generatedAt": "2026-11-23T12:33:19.299Z",
   "games": [
     {
       "id": "free-update:arms",
@@ -3498,10 +3498,10 @@
         },
         "user": {
           "metacritic": {
-            "value": 6.8,
+            "value": 6.9,
             "scale": 10,
-            "normalized": 68,
-            "count": 30
+            "normalized": 69,
+            "count": 32
           },
           "backloggd": null
         }
@@ -3589,6 +3589,10 @@
           {
             "date": "2026-11-15",
             "normalized": 68
+          },
+          {
+            "date": "2026-11-23",
+            "normalized": 69
           }
         ]
       }
@@ -3620,21 +3624,21 @@
             "value": 80,
             "scale": 100,
             "normalized": 80,
-            "count": 41
+            "count": 42
           },
           "metacritic": {
             "value": 79,
             "scale": 100,
             "normalized": 79,
-            "count": 93
+            "count": 94
           }
         },
         "user": {
           "metacritic": {
-            "value": 8.6,
+            "value": 8.2,
             "scale": 10,
-            "normalized": 86,
-            "count": 204
+            "normalized": 82,
+            "count": 340
           },
           "backloggd": null
         }
@@ -3682,6 +3686,10 @@
           {
             "date": "2026-11-09",
             "normalized": 86
+          },
+          {
+            "date": "2026-11-23",
+            "normalized": 82
           }
         ]
       }
@@ -3813,10 +3821,10 @@
         },
         "user": {
           "metacritic": {
-            "value": 6.5,
+            "value": 6.4,
             "scale": 10,
-            "normalized": 65,
-            "count": 221
+            "normalized": 64,
+            "count": 236
           },
           "backloggd": null
         }
@@ -3900,6 +3908,10 @@
           {
             "date": "2026-11-22",
             "normalized": 65
+          },
+          {
+            "date": "2026-11-23",
+            "normalized": 64
           }
         ]
       }
