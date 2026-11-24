@@ -645,26 +645,26 @@
     "igdb:405460": {
       "slug": "the-legend-of-zelda-ocarina-of-time-2026",
       "url": "https://www.metacritic.com/game/the-legend-of-zelda-ocarina-of-time-2026/",
-      "checkedAt": "2026-11-21T10:58:57.794Z",
+      "checkedAt": "2026-11-24T13:40:06.519Z",
       "status": "ok",
       "name": "The Legend of Zelda: Ocarina of Time",
       "platform": "nintendo-switch-2",
       "critic": 95,
-      "criticCount": 135,
-      "user": 9.1,
-      "userCount": 28275
+      "criticCount": 139,
+      "user": 8.3,
+      "userCount": 49544
     },
     "igdb:417169": {
       "slug": "pikmin-4-nintendo-switch-2-edition-dandori-academy",
       "url": "https://www.metacritic.com/game/pikmin-4-nintendo-switch-2-edition-plus-dandori/",
-      "checkedAt": "2026-11-23T12:32:52.099Z",
+      "checkedAt": "2026-11-24T13:40:06.065Z",
       "status": "ok",
       "name": "Pikmin 4: Nintendo Switch 2 Edition + Dandori Academy",
       "platform": "nintendo-switch-2",
       "critic": 83,
       "criticCount": 34,
       "user": 6.4,
-      "userCount": 236
+      "userCount": 246
     }
   }
 }

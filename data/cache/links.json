@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-11-23T12:32:51.321Z",
+  "fetchedAt": "2026-11-24T13:40:03.539Z",
   "wikipediaBySlug": {
     "pokemon-champions": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Champions",
     "mario-kart-world": "https://en.wikipedia.org/wiki/Mario_Kart_World",
@@ -127,7 +127,8 @@
     "Super Mario Galaxy + Super Mario Galaxy 2": "https://nintendo.fandom.com/wiki/Super_Mario_Galaxy_%2B_Super_Mario_Galaxy_2",
     "Hello, Luigi!": "https://nintendo.fandom.com/wiki/Hello%2C_Luigi!",
     "Hello, Peach!": "https://nintendo.fandom.com/wiki/Hello%2C_Peach!",
-    "Mouse Work": "https://nintendo.fandom.com/wiki/Mouse_Work"
+    "Mouse Work": "https://nintendo.fandom.com/wiki/Mouse_Work",
+    "Shine Post: Be Your Idol!": "https://nintendo.fandom.com/wiki/Shine_Post%3A_Be_Your_Idol!"
   },
   "eshopEuBySlug": {
     "nintendo-switch-2-welcome-tour": "2789271",
