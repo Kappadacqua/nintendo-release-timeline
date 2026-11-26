@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-11-25T12:50:10.081Z",
+  "fetchedAt": "2026-11-26T12:27:25.150Z",
   "firstPartyIds": [
     164,
     408,
@@ -2921,6 +2921,7 @@
     317937,
     372873,
     345846,
+    418532,
     317931,
     317932,
     306608,
@@ -2935,12 +2936,30 @@
     306198,
     317934,
     245690,
+    419191,
     306607,
+    388803,
+    419199,
     388806,
+    388805,
+    388812,
     388810,
+    419209,
+    419211,
+    419213,
+    419214,
     325078,
+    419220,
+    419221,
+    419223,
+    419227,
     306450,
+    419236,
+    419238,
+    419362,
+    419363,
     306046,
+    419364,
     419417,
     419418,
     419419,
@@ -2958,6 +2977,7 @@
     2485,
     405460,
     187969,
+    430023,
     51187
   ],
   "games": [
@@ -39225,8 +39245,8 @@
         }
       ],
       "cover": {
-        "id": 526514,
-        "image_id": "coba9e"
+        "id": 612295,
+        "image_id": "cod4g7"
       },
       "first_release_date": 1719446400,
       "genres": [
@@ -40384,13 +40404,13 @@
           }
         },
         {
-          "id": 548281,
-          "date": 694137600,
+          "id": 981907,
+          "date": 688953600,
           "platform": 19,
           "y": 1991,
           "date_format": {
-            "id": 2,
-            "format": "YYYY"
+            "id": 1,
+            "format": "YYYYMM"
           },
           "release_region": {
             "id": 2,
@@ -60520,6 +60540,86 @@
       }
     },
     {
+      "id": 388803,
+      "cover": {
+        "id": 604417,
+        "image_id": "cocydd"
+      },
+      "first_release_date": 1593388800,
+      "genres": [
+        {
+          "id": 4,
+          "name": "Fighting"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 415598,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        }
+      ],
+      "name": "Super Smash Bros. Ultimate: Vault Boy Outfit and Mask",
+      "parent_game": {
+        "id": 90101,
+        "name": "Super Smash Bros. Ultimate"
+      },
+      "platforms": [
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 968078,
+          "date": 1593388800,
+          "platform": 130,
+          "y": 2020,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 1927470,
+          "height": 1080,
+          "image_id": "sc15b8u",
+          "width": 1920
+        }
+      ],
+      "slug": "super-smash-bros-ultimate-vault-boy-outfit-and-mask",
+      "websites": [
+        {
+          "id": 1120932,
+          "url": "https://www.nintendo.com/us/store/products/costumevault-boy-outfit-and-mask-70050000020821-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        },
+        {
+          "id": 1120933,
+          "url": "https://www.ssbwiki.com/Downloadable_content_(SSBU)",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 13,
+        "type": "Pack / Addon"
+      }
+    },
+    {
       "id": 388804,
       "cover": {
         "id": 603228,
@@ -60587,6 +60687,86 @@
         },
         {
           "id": 1119341,
+          "url": "https://www.ssbwiki.com/Downloadable_content_(SSBU)",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 13,
+        "type": "Pack / Addon"
+      }
+    },
+    {
+      "id": 388805,
+      "cover": {
+        "id": 604427,
+        "image_id": "cocydn"
+      },
+      "first_release_date": 1602547200,
+      "genres": [
+        {
+          "id": 4,
+          "name": "Fighting"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 415603,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        }
+      ],
+      "name": "Super Smash Bros. Ultimate: Diamond Armor and Helmet",
+      "parent_game": {
+        "id": 90101,
+        "name": "Super Smash Bros. Ultimate"
+      },
+      "platforms": [
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 968088,
+          "date": 1602547200,
+          "platform": 130,
+          "y": 2020,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 1927514,
+          "height": 540,
+          "image_id": "sc15ba2",
+          "width": 960
+        }
+      ],
+      "slug": "super-smash-bros-ultimate-diamond-armor-and-helmet",
+      "websites": [
+        {
+          "id": 1120947,
+          "url": "https://www.nintendo.com/us/store/products/costumediamond-armor-and-helmet-70050000023141-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        },
+        {
+          "id": 1120948,
           "url": "https://www.ssbwiki.com/Downloadable_content_(SSBU)",
           "type": {
             "id": 2,
@@ -60730,6 +60910,86 @@
         },
         {
           "id": 1120965,
+          "url": "https://www.ssbwiki.com/Downloadable_content_(SSBU)",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 13,
+        "type": "Pack / Addon"
+      }
+    },
+    {
+      "id": 388812,
+      "cover": {
+        "id": 604430,
+        "image_id": "cocydq"
+      },
+      "first_release_date": 1602547200,
+      "genres": [
+        {
+          "id": 4,
+          "name": "Fighting"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 415604,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        }
+      ],
+      "name": "Super Smash Bros. Ultimate: Bomberman Outfit and Mask",
+      "parent_game": {
+        "id": 90101,
+        "name": "Super Smash Bros. Ultimate"
+      },
+      "platforms": [
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 968092,
+          "date": 1602547200,
+          "platform": 130,
+          "y": 2020,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 1927530,
+          "height": 540,
+          "image_id": "sc15bai",
+          "width": 960
+        }
+      ],
+      "slug": "super-smash-bros-ultimate-bomberman-outfit-and-mask--1",
+      "websites": [
+        {
+          "id": 1120954,
+          "url": "https://www.nintendo.com/us/store/products/costumebomberman-outfit-and-mask-70050000023143-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        },
+        {
+          "id": 1120955,
           "url": "https://www.ssbwiki.com/Downloadable_content_(SSBU)",
           "type": {
             "id": 2,
@@ -63215,6 +63475,1387 @@
       }
     },
     {
+      "id": 418532,
+      "cover": {
+        "id": 603139,
+        "image_id": "cocxdv"
+      },
+      "first_release_date": 1544140800,
+      "genres": [
+        {
+          "id": 4,
+          "name": "Fighting"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 414567,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        }
+      ],
+      "name": "Super Smash Bros. Ultimate: Fighters Pass Bonus Mii Fighter Costume (Rex)",
+      "parent_game": {
+        "id": 90101,
+        "name": "Super Smash Bros. Ultimate"
+      },
+      "platforms": [
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 966272,
+          "date": 1544140800,
+          "platform": 130,
+          "y": 2018,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "slug": "super-smash-bros-ultimate-fighters-pass-bonus-mii-fighter-costume-rex--1",
+      "summary": "This is a special bonus for Super Smash Bros. Ultimate Fighters Pass owners. It contains the items as follows: Rex Wig, Rex Outfit.",
+      "websites": [
+        {
+          "id": 1119203,
+          "url": "https://www.nintendo.com/us/store/products/super-smash-bros-ultimate-fighters-pass-bonus-mii-fighter-costume-rex-70050000008427-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        },
+        {
+          "id": 1119204,
+          "url": "https://www.ssbwiki.com/Downloadable_content_(SSBU)",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 13,
+        "type": "Pack / Addon"
+      }
+    },
+    {
+      "id": 419191,
+      "cover": {
+        "id": 604413,
+        "image_id": "cocyd9"
+      },
+      "first_release_date": 1593388800,
+      "genres": [
+        {
+          "id": 4,
+          "name": "Fighting"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 415595,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        }
+      ],
+      "name": "Super Smash Bros. Ultimate: Callie Outfit and Wig",
+      "parent_game": {
+        "id": 90101,
+        "name": "Super Smash Bros. Ultimate"
+      },
+      "platforms": [
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 968074,
+          "date": 1593388800,
+          "platform": 130,
+          "y": 2020,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 1927451,
+          "height": 540,
+          "image_id": "sc15b8b",
+          "width": 960
+        }
+      ],
+      "slug": "super-smash-bros-ultimate-callie-outfit-and-wig--1",
+      "websites": [
+        {
+          "id": 1120925,
+          "url": "https://www.nintendo.com/us/store/products/costumecallie-outfit-and-wig-70050000020819-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        },
+        {
+          "id": 1120926,
+          "url": "https://www.ssbwiki.com/Downloadable_content_(SSBU)",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 13,
+        "type": "Pack / Addon"
+      }
+    },
+    {
+      "id": 419199,
+      "cover": {
+        "id": 604422,
+        "image_id": "cocydi"
+      },
+      "first_release_date": 1602547200,
+      "genres": [
+        {
+          "id": 4,
+          "name": "Fighting"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 415601,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        }
+      ],
+      "name": "Super Smash Bros. Ultimate: Creeper Outfit and Mask",
+      "parent_game": {
+        "id": 90101,
+        "name": "Super Smash Bros. Ultimate"
+      },
+      "platforms": [
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 968082,
+          "date": 1602547200,
+          "platform": 130,
+          "y": 2020,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 1927488,
+          "height": 540,
+          "image_id": "sc15b9c",
+          "width": 960
+        }
+      ],
+      "slug": "super-smash-bros-ultimate-creeper-outfit-and-mask",
+      "websites": [
+        {
+          "id": 1120940,
+          "url": "https://www.nintendo.com/us/store/products/costumecreeper-outfit-and-mask-70050000023139-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        },
+        {
+          "id": 1120941,
+          "url": "https://www.ssbwiki.com/Downloadable_content_(SSBU)",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 13,
+        "type": "Pack / Addon"
+      }
+    },
+    {
+      "id": 419209,
+      "cover": {
+        "id": 604442,
+        "image_id": "cocye2"
+      },
+      "first_release_date": 1608595200,
+      "genres": [
+        {
+          "id": 4,
+          "name": "Fighting"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 415606,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        }
+      ],
+      "name": "Super Smash Bros. Ultimate: Barret's Outfit",
+      "parent_game": {
+        "id": 90101,
+        "name": "Super Smash Bros. Ultimate"
+      },
+      "platforms": [
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 968100,
+          "date": 1608595200,
+          "platform": 130,
+          "y": 2020,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 1927540,
+          "height": 540,
+          "image_id": "sc15bas",
+          "width": 960
+        }
+      ],
+      "slug": "super-smash-bros-ultimate-barrets-outfit--1",
+      "websites": [
+        {
+          "id": 1120966,
+          "url": "https://www.nintendo.com/us/store/products/costumebarrets-outfit-70050000024362-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        },
+        {
+          "id": 1120967,
+          "url": "https://www.ssbwiki.com/Downloadable_content_(SSBU)",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 13,
+        "type": "Pack / Addon"
+      }
+    },
+    {
+      "id": 419211,
+      "cover": {
+        "id": 604448,
+        "image_id": "cocye8"
+      },
+      "first_release_date": 1608595200,
+      "genres": [
+        {
+          "id": 4,
+          "name": "Fighting"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 415607,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        }
+      ],
+      "name": "Super Smash Bros. Ultimate: Tifa's Outfit",
+      "parent_game": {
+        "id": 90101,
+        "name": "Super Smash Bros. Ultimate"
+      },
+      "platforms": [
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 968101,
+          "date": 1608595200,
+          "platform": 130,
+          "y": 2020,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 1927555,
+          "height": 540,
+          "image_id": "sc15bb7",
+          "width": 960
+        }
+      ],
+      "slug": "super-smash-bros-ultimate-tifas-outfit",
+      "websites": [
+        {
+          "id": 1120971,
+          "url": "https://www.nintendo.com/us/store/products/costumetifas-outfit-70050000024363-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        },
+        {
+          "id": 1120972,
+          "url": "https://www.ssbwiki.com/Downloadable_content_(SSBU)",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 13,
+        "type": "Pack / Addon"
+      }
+    },
+    {
+      "id": 419213,
+      "cover": {
+        "id": 604451,
+        "image_id": "cocyeb"
+      },
+      "first_release_date": 1608595200,
+      "genres": [
+        {
+          "id": 4,
+          "name": "Fighting"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 415609,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        }
+      ],
+      "name": "Super Smash Bros. Ultimate: Aerith's Outfit",
+      "parent_game": {
+        "id": 90101,
+        "name": "Super Smash Bros. Ultimate"
+      },
+      "platforms": [
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 968106,
+          "date": 1608595200,
+          "platform": 130,
+          "y": 2020,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 1927560,
+          "height": 540,
+          "image_id": "sc15bbc",
+          "width": 960
+        }
+      ],
+      "slug": "super-smash-bros-ultimate-aeriths-outfit",
+      "websites": [
+        {
+          "id": 1120977,
+          "url": "https://www.nintendo.com/us/store/products/costumeaeriths-outfit-70050000024364-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        },
+        {
+          "id": 1120978,
+          "url": "https://www.ssbwiki.com/Downloadable_content_(SSBU)",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 13,
+        "type": "Pack / Addon"
+      }
+    },
+    {
+      "id": 419214,
+      "cover": {
+        "id": 604453,
+        "image_id": "cocyed"
+      },
+      "first_release_date": 1608595200,
+      "genres": [
+        {
+          "id": 4,
+          "name": "Fighting"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 415610,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        }
+      ],
+      "name": "Super Smash Bros. Ultimate: Chocobo Hat",
+      "parent_game": {
+        "id": 90101,
+        "name": "Super Smash Bros. Ultimate"
+      },
+      "platforms": [
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 968107,
+          "date": 1608595200,
+          "platform": 130,
+          "y": 2020,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 1927564,
+          "height": 540,
+          "image_id": "sc15bbg",
+          "width": 960
+        }
+      ],
+      "slug": "super-smash-bros-ultimate-chocobo-hat--1",
+      "websites": [
+        {
+          "id": 1120981,
+          "url": "https://www.nintendo.com/us/store/products/costumechocobo-hat-70050000024365-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        },
+        {
+          "id": 1120982,
+          "url": "https://www.ssbwiki.com/Downloadable_content_(SSBU)",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 13,
+        "type": "Pack / Addon"
+      }
+    },
+    {
+      "id": 419220,
+      "cover": {
+        "id": 604462,
+        "image_id": "cocyem"
+      },
+      "first_release_date": 1614816000,
+      "genres": [
+        {
+          "id": 4,
+          "name": "Fighting"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 415617,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        }
+      ],
+      "name": "Super Smash Bros. Ultimate: Hunter's Mail and Helm",
+      "parent_game": {
+        "id": 90101,
+        "name": "Super Smash Bros. Ultimate"
+      },
+      "platforms": [
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 968113,
+          "date": 1614816000,
+          "platform": 130,
+          "y": 2021,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 1927578,
+          "height": 1350,
+          "image_id": "sc15bbu",
+          "width": 2400
+        },
+        {
+          "id": 1927579,
+          "height": 1350,
+          "image_id": "sc15bbv",
+          "width": 2400
+        },
+        {
+          "id": 1927580,
+          "height": 1350,
+          "image_id": "sc15bbw",
+          "width": 2400
+        }
+      ],
+      "slug": "super-smash-bros-ultimate-hunters-mail-and-helm",
+      "websites": [
+        {
+          "id": 1120992,
+          "url": "https://www.nintendo.com/us/store/products/costumehunters-mail-and-helm-70050000025927-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        },
+        {
+          "id": 1120993,
+          "url": "https://www.ssbwiki.com/Downloadable_content_(SSBU)",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 13,
+        "type": "Pack / Addon"
+      }
+    },
+    {
+      "id": 419221,
+      "cover": {
+        "id": 604464,
+        "image_id": "cocyeo"
+      },
+      "first_release_date": 1614816000,
+      "genres": [
+        {
+          "id": 4,
+          "name": "Fighting"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 415620,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        }
+      ],
+      "name": "Super Smash Bros. Ultimate: Rathalos Mail and Helm",
+      "parent_game": {
+        "id": 90101,
+        "name": "Super Smash Bros. Ultimate"
+      },
+      "platforms": [
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 968114,
+          "date": 1614816000,
+          "platform": 130,
+          "y": 2021,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 1927581,
+          "height": 1350,
+          "image_id": "sc15bbx",
+          "width": 2400
+        },
+        {
+          "id": 1927583,
+          "height": 1350,
+          "image_id": "sc15bbz",
+          "width": 2400
+        },
+        {
+          "id": 1927582,
+          "height": 1350,
+          "image_id": "sc15bby",
+          "width": 2400
+        }
+      ],
+      "slug": "super-smash-bros-ultimate-rathalos-mail-and-helm",
+      "websites": [
+        {
+          "id": 1120995,
+          "url": "https://www.ssbwiki.com/Downloadable_content_(SSBU)",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
+          }
+        },
+        {
+          "id": 1120994,
+          "url": "https://www.nintendo.com/us/store/products/costumerathalos-mail-and-helm-70050000025931-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 13,
+        "type": "Pack / Addon"
+      }
+    },
+    {
+      "id": 419223,
+      "cover": {
+        "id": 604466,
+        "image_id": "cocyeq"
+      },
+      "first_release_date": 1614816000,
+      "genres": [
+        {
+          "id": 4,
+          "name": "Fighting"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 415621,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        }
+      ],
+      "name": "Super Smash Bros. Ultimate: Felyne Hat",
+      "parent_game": {
+        "id": 90101,
+        "name": "Super Smash Bros. Ultimate"
+      },
+      "platforms": [
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 968116,
+          "date": 1614816000,
+          "platform": 130,
+          "y": 2021,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 1927585,
+          "height": 1350,
+          "image_id": "sc15bc1",
+          "width": 2400
+        },
+        {
+          "id": 1927587,
+          "height": 1350,
+          "image_id": "sc15bc3",
+          "width": 2400
+        },
+        {
+          "id": 1927586,
+          "height": 1350,
+          "image_id": "sc15bc2",
+          "width": 2400
+        }
+      ],
+      "slug": "super-smash-bros-ultimate-felyne-hat--1",
+      "websites": [
+        {
+          "id": 1120997,
+          "url": "https://www.nintendo.com/us/store/products/costumefelyne-hat-70050000025918-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        },
+        {
+          "id": 1120998,
+          "url": "https://www.ssbwiki.com/Downloadable_content_(SSBU)",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 13,
+        "type": "Pack / Addon"
+      }
+    },
+    {
+      "id": 419227,
+      "cover": {
+        "id": 604470,
+        "image_id": "cocyeu"
+      },
+      "first_release_date": 1614816000,
+      "genres": [
+        {
+          "id": 4,
+          "name": "Fighting"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 415624,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        }
+      ],
+      "name": "Super Smash Bros. Ultimate: Arthur's Armor and Helm",
+      "parent_game": {
+        "id": 90101,
+        "name": "Super Smash Bros. Ultimate"
+      },
+      "platforms": [
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 968119,
+          "date": 1614816000,
+          "platform": 130,
+          "y": 2021,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 1927594,
+          "height": 1350,
+          "image_id": "sc15bca",
+          "width": 2400
+        },
+        {
+          "id": 1927593,
+          "height": 1350,
+          "image_id": "sc15bc9",
+          "width": 2400
+        },
+        {
+          "id": 1927595,
+          "height": 1350,
+          "image_id": "sc15bcb",
+          "width": 2400
+        }
+      ],
+      "slug": "super-smash-bros-ultimate-arthurs-armor-and-helm",
+      "websites": [
+        {
+          "id": 1121007,
+          "url": "https://www.nintendo.com/us/store/products/costumearthurs-armor-and-helm-70050000025914-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        },
+        {
+          "id": 1121008,
+          "url": "https://www.ssbwiki.com/Downloadable_content_(SSBU)",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 13,
+        "type": "Pack / Addon"
+      }
+    },
+    {
+      "id": 419236,
+      "cover": {
+        "id": 604486,
+        "image_id": "cocyfa"
+      },
+      "first_release_date": 1624924800,
+      "genres": [
+        {
+          "id": 4,
+          "name": "Fighting"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 415630,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        }
+      ],
+      "name": "Super Smash Bros. Ultimate: Dragonborn Outfit and Helm",
+      "parent_game": {
+        "id": 90101,
+        "name": "Super Smash Bros. Ultimate"
+      },
+      "platforms": [
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 968128,
+          "date": 1624924800,
+          "platform": 130,
+          "y": 2021,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 1927652,
+          "height": 1350,
+          "image_id": "sc15bdw",
+          "width": 2400
+        },
+        {
+          "id": 1927653,
+          "height": 1350,
+          "image_id": "sc15bdx",
+          "width": 2400
+        },
+        {
+          "id": 1927654,
+          "height": 1350,
+          "image_id": "sc15bdy",
+          "width": 2400
+        }
+      ],
+      "slug": "super-smash-bros-ultimate-dragonborn-outfit-and-helm",
+      "websites": [
+        {
+          "id": 1121039,
+          "url": "https://www.nintendo.com/us/store/products/costumedragonborn-outfit-and-helm-70050000027887-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        },
+        {
+          "id": 1121040,
+          "url": "https://www.ssbwiki.com/Downloadable_content_(SSBU)",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 13,
+        "type": "Pack / Addon"
+      }
+    },
+    {
+      "id": 419238,
+      "cover": {
+        "id": 604489,
+        "image_id": "cocyfd"
+      },
+      "first_release_date": 1624924800,
+      "genres": [
+        {
+          "id": 4,
+          "name": "Fighting"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 415634,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        }
+      ],
+      "name": "Super Smash Bros. Ultimate: Dante Outfit and Wig",
+      "parent_game": {
+        "id": 90101,
+        "name": "Super Smash Bros. Ultimate"
+      },
+      "platforms": [
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 968135,
+          "date": 1624924800,
+          "platform": 130,
+          "y": 2021,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 1927658,
+          "height": 1350,
+          "image_id": "sc15be2",
+          "width": 2400
+        },
+        {
+          "id": 1927656,
+          "height": 1350,
+          "image_id": "sc15be0",
+          "width": 2400
+        },
+        {
+          "id": 1927657,
+          "height": 1350,
+          "image_id": "sc15be1",
+          "width": 2400
+        }
+      ],
+      "slug": "super-smash-bros-ultimate-dante-outfit-and-wig",
+      "websites": [
+        {
+          "id": 1121053,
+          "url": "https://www.nintendo.com/us/store/products/costumedante-outfit-and-wig-70050000027885-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        },
+        {
+          "id": 1121054,
+          "url": "https://www.ssbwiki.com/Downloadable_content_(SSBU)",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 13,
+        "type": "Pack / Addon"
+      }
+    },
+    {
+      "id": 419362,
+      "cover": {
+        "id": 604692,
+        "image_id": "cocyl0"
+      },
+      "first_release_date": 1624924800,
+      "genres": [
+        {
+          "id": 4,
+          "name": "Fighting"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 415779,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        }
+      ],
+      "name": "Super Smash Bros. Ultimate: Shantae Outfit, Wig, and Song",
+      "parent_game": {
+        "id": 90101,
+        "name": "Super Smash Bros. Ultimate"
+      },
+      "platforms": [
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 968472,
+          "date": 1624924800,
+          "platform": 130,
+          "y": 2021,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 1928197,
+          "height": 1350,
+          "image_id": "sc15bt1",
+          "width": 2400
+        },
+        {
+          "id": 1928198,
+          "height": 1350,
+          "image_id": "sc15bt2",
+          "width": 2400
+        },
+        {
+          "id": 1928199,
+          "height": 1350,
+          "image_id": "sc15bt3",
+          "width": 2400
+        }
+      ],
+      "slug": "super-smash-bros-ultimate-shantae-outfit-wig-and-song",
+      "websites": [
+        {
+          "id": 1121402,
+          "url": "https://www.nintendo.com/us/store/products/costumeshantae-outfit-wig-and-song-70050000027886-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        },
+        {
+          "id": 1121403,
+          "url": "https://www.ssbwiki.com/Downloadable_content_(SSBU)",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 13,
+        "type": "Pack / Addon"
+      }
+    },
+    {
+      "id": 419363,
+      "cover": {
+        "id": 604695,
+        "image_id": "cocyl3"
+      },
+      "first_release_date": 1634515200,
+      "genres": [
+        {
+          "id": 4,
+          "name": "Fighting"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 415782,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        }
+      ],
+      "name": "Super Smash Bros. Ultimate: Octoling Wig",
+      "parent_game": {
+        "id": 90101,
+        "name": "Super Smash Bros. Ultimate"
+      },
+      "platforms": [
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 968474,
+          "date": 1634515200,
+          "platform": 130,
+          "y": 2021,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 1928203,
+          "height": 1350,
+          "image_id": "sc15bt7",
+          "width": 2400
+        },
+        {
+          "id": 1928201,
+          "height": 1350,
+          "image_id": "sc15bt5",
+          "width": 2400
+        },
+        {
+          "id": 1928202,
+          "height": 1350,
+          "image_id": "sc15bt6",
+          "width": 2400
+        }
+      ],
+      "slug": "super-smash-bros-ultimate-octoling-wig--1",
+      "websites": [
+        {
+          "id": 1121408,
+          "url": "https://www.nintendo.com/us/store/products/costumeoctoling-wig-70050000030082-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        },
+        {
+          "id": 1121409,
+          "url": "https://www.ssbwiki.com/Downloadable_content_(SSBU)",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 13,
+        "type": "Pack / Addon"
+      }
+    },
+    {
+      "id": 419364,
+      "cover": {
+        "id": 604697,
+        "image_id": "cocyl5"
+      },
+      "first_release_date": 1634515200,
+      "genres": [
+        {
+          "id": 4,
+          "name": "Fighting"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 415784,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        }
+      ],
+      "name": "Super Smash Bros. Ultimate: Doom Slayer's Armor and Helmet",
+      "parent_game": {
+        "id": 90101,
+        "name": "Super Smash Bros. Ultimate"
+      },
+      "platforms": [
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 968478,
+          "date": 1634515200,
+          "platform": 130,
+          "y": 2021,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 1928212,
+          "height": 1350,
+          "image_id": "sc15btg",
+          "width": 2400
+        },
+        {
+          "id": 1928213,
+          "height": 1350,
+          "image_id": "sc15bth",
+          "width": 2400
+        },
+        {
+          "id": 1928214,
+          "height": 1350,
+          "image_id": "sc15bti",
+          "width": 2400
+        }
+      ],
+      "slug": "super-smash-bros-ultimate-doom-slayers-armor-and-helmet",
+      "websites": [
+        {
+          "id": 1121411,
+          "url": "https://www.nintendo.com/us/store/products/costumedoom-slayers-armor-and-helmet-70050000030083-switch/",
+          "type": {
+            "id": 24,
+            "type": "Nintendo"
+          }
+        },
+        {
+          "id": 1121412,
+          "url": "https://www.ssbwiki.com/Downloadable_content_(SSBU)",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
+          }
+        }
+      ],
+      "game_type": {
+        "id": 13,
+        "type": "Pack / Addon"
+      }
+    },
+    {
       "id": 419417,
       "cover": {
         "id": 604788,
@@ -63817,6 +65458,85 @@
       "game_type": {
         "id": 0,
         "type": "Main Game"
+      }
+    },
+    {
+      "id": 430023,
+      "cover": {
+        "id": 625058,
+        "image_id": "codeaq"
+      },
+      "first_release_date": 1793232000,
+      "genres": [
+        {
+          "id": 12,
+          "name": "Role-playing (RPG)"
+        },
+        {
+          "id": 31,
+          "name": "Adventure"
+        }
+      ],
+      "involved_companies": [
+        {
+          "id": 428136,
+          "company": {
+            "id": 70,
+            "name": "Nintendo"
+          },
+          "developer": false,
+          "publisher": true
+        },
+        {
+          "id": 428137,
+          "company": {
+            "id": 1617,
+            "name": "Game Freak"
+          },
+          "developer": true,
+          "publisher": false
+        }
+      ],
+      "name": "Pokémon Legends: Z-A - Nintendo Switch 2 Edition + Mega Dimension",
+      "platforms": [
+        508,
+        130
+      ],
+      "release_dates": [
+        {
+          "id": 992924,
+          "date": 1793232000,
+          "platform": 130,
+          "y": 2026,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        },
+        {
+          "id": 992925,
+          "date": 1793232000,
+          "platform": 508,
+          "y": 2026,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
+      ],
+      "slug": "pokemon-legends-z-a-nintendo-switch-2-edition-plus-mega-dimension",
+      "summary": "A bundle that includes both the Pokémon Legends: Z-A game and the Mega Dimension DLC\n\nA new adventure awaits within Lumiose City, where an urban redevelopment plan is underway to shape the city into a place that belongs to both people and Pokémon. Please look forward to seeing it for yourself.​\n\nMysterious distortions have appeared without warning in Lumiose City. They seem to connect to a space known as Hyperspace Lumiose...and the mythical Pokémon Hoopa might have some part to play.",
+      "game_type": {
+        "id": 3,
+        "type": "Bundle"
       }
     },
     {
