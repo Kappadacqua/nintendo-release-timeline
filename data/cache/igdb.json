@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-11-26T12:27:25.150Z",
+  "fetchedAt": "2026-11-27T12:12:59.783Z",
   "firstPartyIds": [
     164,
     408,
@@ -2886,7 +2886,6 @@
     410037,
     9151,
     103340,
-    2135,
     410642,
     49582,
     72994,
@@ -2975,6 +2974,7 @@
     424071,
     421954,
     2485,
+    2135,
     405460,
     187969,
     430023,
@@ -33044,19 +33044,27 @@
       "id": 229177,
       "artworks": [
         {
+          "id": 95978,
+          "alpha_channel": true,
+          "height": 1716,
+          "image_id": "ar2222",
+          "width": 1504,
+          "artwork_type": 1
+        },
+        {
+          "id": 95991,
+          "alpha_channel": true,
+          "height": 384,
+          "image_id": "ar222f",
+          "width": 494,
+          "artwork_type": 1
+        },
+        {
           "id": 95980,
           "alpha_channel": true,
           "height": 479,
           "image_id": "ar2224",
           "width": 433,
-          "artwork_type": 1
-        },
-        {
-          "id": 95979,
-          "alpha_channel": false,
-          "height": 1920,
-          "image_id": "ar2223",
-          "width": 1080,
           "artwork_type": 1
         },
         {
@@ -33068,11 +33076,11 @@
           "artwork_type": 1
         },
         {
-          "id": 95978,
-          "alpha_channel": true,
-          "height": 1716,
-          "image_id": "ar2222",
-          "width": 1504,
+          "id": 95979,
+          "alpha_channel": false,
+          "height": 1920,
+          "image_id": "ar2223",
+          "width": 1080,
           "artwork_type": 1
         },
         {
@@ -33081,14 +33089,6 @@
           "height": 1080,
           "image_id": "ar2221",
           "width": 1920,
-          "artwork_type": 1
-        },
-        {
-          "id": 95991,
-          "alpha_channel": true,
-          "height": 384,
-          "image_id": "ar222f",
-          "width": 494,
           "artwork_type": 1
         }
       ],
@@ -33188,6 +33188,24 @@
       ],
       "slug": "super-mario-sunshine--2",
       "summary": "A port of Super Mario Sunshine included in Super Mario 3D All-Stars, featuring updated textures and high-definition, widescreen visuals.\n\nTime to hit the beach! Mario travels to the beautiful Isle Delfino for a tropical vacation with his friends, but instead finds himself teaming up with trusty F.L.U.D.D. to uncover a shadowy plot and the master puppeteer behind it all. His newfound friend also allows Mario to traverse worlds in all sorts of unique ways thanks to its wonderful water pump!",
+      "websites": [
+        {
+          "id": 1165613,
+          "url": "https://www.mariowiki.com/Super_Mario_Sunshine",
+          "type": {
+            "id": 2,
+            "type": "Community Wiki"
+          }
+        },
+        {
+          "id": 1165614,
+          "url": "https://en.wikipedia.org/wiki/Super_Mario_Sunshine",
+          "type": {
+            "id": 3,
+            "type": "Wikipedia"
+          }
+        }
+      ],
       "game_type": {
         "id": 11,
         "type": "Port"
@@ -53838,270 +53856,6 @@
       }
     },
     {
-      "id": 2135,
-      "artworks": [
-        {
-          "id": 779,
-          "height": 890,
-          "image_id": "omtdwiafwepixc7ven9i",
-          "width": 1340,
-          "artwork_type": 1
-        },
-        {
-          "id": 782,
-          "height": 920,
-          "image_id": "wyrip6vhbmf0nyr25jjx",
-          "width": 1400,
-          "artwork_type": 1
-        },
-        {
-          "id": 781,
-          "height": 920,
-          "image_id": "myjnofx1ehenaq64hjd8",
-          "width": 1400,
-          "artwork_type": 1
-        },
-        {
-          "id": 783,
-          "height": 1400,
-          "image_id": "fygzgwnlbpjm1me0u3hu",
-          "width": 1000,
-          "artwork_type": 1
-        },
-        {
-          "id": 780,
-          "height": 1250,
-          "image_id": "dqoj9nrnre7sezp3br59",
-          "width": 1000,
-          "artwork_type": 1
-        }
-      ],
-      "cover": {
-        "id": 525393,
-        "image_id": "cob9e9"
-      },
-      "first_release_date": 1411171200,
-      "genres": [
-        {
-          "id": 5,
-          "name": "Shooter"
-        },
-        {
-          "id": 25,
-          "name": "Hack and slash/Beat 'em up"
-        },
-        {
-          "id": 31,
-          "name": "Adventure"
-        }
-      ],
-      "involved_companies": [
-        {
-          "id": 403088,
-          "company": {
-            "id": 70,
-            "name": "Nintendo"
-          },
-          "developer": false,
-          "publisher": true
-        },
-        {
-          "id": 403089,
-          "company": {
-            "id": 852,
-            "name": "PlatinumGames"
-          },
-          "developer": true,
-          "publisher": false
-        }
-      ],
-      "name": "Bayonetta 2",
-      "platforms": [
-        41,
-        130
-      ],
-      "release_dates": [
-        {
-          "id": 20227,
-          "date": 1414195200,
-          "platform": 41,
-          "y": 2014,
-          "date_format": {
-            "id": 0,
-            "format": "YYYYMMDD"
-          },
-          "release_region": {
-            "id": 3,
-            "region": "australia"
-          }
-        },
-        {
-          "id": 20226,
-          "date": 1414108800,
-          "platform": 41,
-          "y": 2014,
-          "date_format": {
-            "id": 0,
-            "format": "YYYYMMDD"
-          },
-          "release_region": {
-            "id": 1,
-            "region": "europe"
-          }
-        },
-        {
-          "id": 20224,
-          "date": 1411171200,
-          "platform": 41,
-          "y": 2014,
-          "date_format": {
-            "id": 0,
-            "format": "YYYYMMDD"
-          },
-          "release_region": {
-            "id": 5,
-            "region": "japan"
-          }
-        },
-        {
-          "id": 248101,
-          "date": 1455753600,
-          "platform": 41,
-          "y": 2016,
-          "date_format": {
-            "id": 0,
-            "format": "YYYYMMDD"
-          },
-          "release_region": {
-            "id": 2,
-            "region": "north_america"
-          }
-        }
-      ],
-      "screenshots": [
-        {
-          "id": 152789,
-          "height": 720,
-          "image_id": "sz8mna4pbyygl64qjncy",
-          "width": 1280
-        },
-        {
-          "id": 152790,
-          "height": 720,
-          "image_id": "dwuogu4bsn0jrucevjaj",
-          "width": 1280
-        },
-        {
-          "id": 152791,
-          "height": 720,
-          "image_id": "egaeoqdmwqgssdkbk7xl",
-          "width": 1280
-        },
-        {
-          "id": 152793,
-          "height": 720,
-          "image_id": "khkzmosrvkbfio6btb4f",
-          "width": 1280
-        },
-        {
-          "id": 152792,
-          "height": 720,
-          "image_id": "wda5k3mkcgtp4gdkwj9l",
-          "width": 1280
-        },
-        {
-          "id": 152794,
-          "height": 720,
-          "image_id": "f1o3qcujifgzpspkxp6f",
-          "width": 1280
-        },
-        {
-          "id": 152795,
-          "height": 720,
-          "image_id": "h2b6rkxddfarptqpzfld",
-          "width": 1280
-        },
-        {
-          "id": 2602,
-          "height": 1080,
-          "image_id": "wrtb0gqbh2ko7qrgbdha",
-          "width": 1920
-        },
-        {
-          "id": 2601,
-          "height": 1080,
-          "image_id": "rzlwq0ocxdnubr0mpuyk",
-          "width": 1920
-        },
-        {
-          "id": 2604,
-          "height": 1080,
-          "image_id": "zw8acobiw81iwvpstq0t",
-          "width": 1920
-        },
-        {
-          "id": 2603,
-          "height": 1080,
-          "image_id": "nn6gjnn6bmzpr3lewbuu",
-          "width": 1920
-        },
-        {
-          "id": 2600,
-          "height": 1080,
-          "image_id": "e0p4kgjqmhz5ifk0tnrk",
-          "width": 1920
-        }
-      ],
-      "slug": "bayonetta-2",
-      "summary": "The witching hour strikes again. Brimming with intricate battles that take place in, on and all over epic set pieces, Bayonetta 2 finds our sassy heroine battling angels and demons in unearthly beautiful HD. You’re bound to love how it feels to string together combos with unimaginable weapons and to summon demons using Bayonetta’s Umbran Weave in this frantic stylized action game.",
-      "websites": [
-        {
-          "id": 766817,
-          "url": "https://www.nintendo.com/games/detail/bayonetta-2-wii-u/",
-          "type": {
-            "id": 24,
-            "type": "Nintendo"
-          }
-        },
-        {
-          "id": 2146,
-          "url": "http://bayonetta2.nintendo.com/",
-          "type": {
-            "id": 1,
-            "type": "Official Website"
-          }
-        },
-        {
-          "id": 63905,
-          "url": "http://bayonetta.wikia.com/wiki/Bayonetta_2",
-          "type": {
-            "id": 2,
-            "type": "Community Wiki"
-          }
-        },
-        {
-          "id": 334260,
-          "url": "https://www.twitch.tv/directory/game/Bayonetta%202",
-          "type": {
-            "id": 6,
-            "type": "Twitch"
-          }
-        },
-        {
-          "id": 63906,
-          "url": "https://en.wikipedia.org/wiki/Bayonetta_2",
-          "type": {
-            "id": 3,
-            "type": "Wikipedia"
-          }
-        }
-      ],
-      "game_type": {
-        "id": 0,
-        "type": "Main Game"
-      }
-    },
-    {
       "id": 26761,
       "artworks": [
         {
@@ -55808,7 +55562,7 @@
       ],
       "release_dates": [
         {
-          "id": 449848,
+          "id": 926299,
           "date": 1659052800,
           "platform": 130,
           "y": 2022,
@@ -60785,6 +60539,7 @@
         "id": 604424,
         "image_id": "cocydk"
       },
+      "first_release_date": 1602547200,
       "genres": [
         {
           "id": 4,
@@ -60809,6 +60564,22 @@
       },
       "platforms": [
         130
+      ],
+      "release_dates": [
+        {
+          "id": 968085,
+          "date": 1602547200,
+          "platform": 130,
+          "y": 2020,
+          "date_format": {
+            "id": 0,
+            "format": "YYYYMMDD"
+          },
+          "release_region": {
+            "id": 8,
+            "region": "worldwide"
+          }
+        }
       ],
       "screenshots": [
         {
