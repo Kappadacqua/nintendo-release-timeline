@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-11-27T12:12:56.334Z",
+  "fetchedAt": "2026-11-28T11:41:17.744Z",
   "matches": {
     "ARMS": 26759,
     "Animal Crossing: New Horizons": 109462,
@@ -2856,6 +2856,24 @@
           "company": {
             "id": 16586,
             "name": "Bandai Namco Studios Singapore"
+          },
+          "developer": false,
+          "publisher": false
+        },
+        {
+          "id": 430224,
+          "company": {
+            "id": 1119,
+            "name": "Monolith Soft"
+          },
+          "developer": false,
+          "publisher": false
+        },
+        {
+          "id": 430225,
+          "company": {
+            "id": 4103,
+            "name": "SRD Co., Ltd."
           },
           "developer": false,
           "publisher": false

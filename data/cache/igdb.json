@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-11-27T12:12:59.783Z",
+  "fetchedAt": "2026-11-28T11:41:20.174Z",
   "firstPartyIds": [
     164,
     408,
@@ -32039,6 +32039,16 @@
     },
     {
       "id": 210428,
+      "artworks": [
+        {
+          "id": 331697,
+          "alpha_channel": false,
+          "height": 800,
+          "image_id": "ar73xt",
+          "width": 1600,
+          "artwork_type": 1
+        }
+      ],
       "cover": {
         "id": 307235,
         "image_id": "co6l2b"
@@ -32163,6 +32173,110 @@
             "id": 3,
             "region": "australia"
           }
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 2002326,
+          "height": 1080,
+          "image_id": "sc16x06",
+          "width": 1920
+        },
+        {
+          "id": 2002331,
+          "height": 720,
+          "image_id": "sc16x0b",
+          "width": 1280
+        },
+        {
+          "id": 2002335,
+          "height": 1080,
+          "image_id": "sc16x0f",
+          "width": 1920
+        },
+        {
+          "id": 2002336,
+          "height": 1080,
+          "image_id": "sc16x0g",
+          "width": 1920
+        },
+        {
+          "id": 2002340,
+          "height": 1080,
+          "image_id": "sc16x0k",
+          "width": 1920
+        },
+        {
+          "id": 2002327,
+          "height": 720,
+          "image_id": "sc16x07",
+          "width": 1280
+        },
+        {
+          "id": 2002342,
+          "height": 720,
+          "image_id": "sc16x0m",
+          "width": 1280
+        },
+        {
+          "id": 2002328,
+          "height": 720,
+          "image_id": "sc16x08",
+          "width": 1280
+        },
+        {
+          "id": 2002338,
+          "height": 1080,
+          "image_id": "sc16x0i",
+          "width": 1920
+        },
+        {
+          "id": 2002333,
+          "height": 720,
+          "image_id": "sc16x0d",
+          "width": 1280
+        },
+        {
+          "id": 2002339,
+          "height": 1080,
+          "image_id": "sc16x0j",
+          "width": 1920
+        },
+        {
+          "id": 2002334,
+          "height": 720,
+          "image_id": "sc16x0e",
+          "width": 1280
+        },
+        {
+          "id": 2002329,
+          "height": 720,
+          "image_id": "sc16x09",
+          "width": 1280
+        },
+        {
+          "id": 2002330,
+          "height": 720,
+          "image_id": "sc16x0a",
+          "width": 1280
+        },
+        {
+          "id": 2002332,
+          "height": 1080,
+          "image_id": "sc16x0c",
+          "width": 1920
+        },
+        {
+          "id": 2002337,
+          "height": 1080,
+          "image_id": "sc16x0h",
+          "width": 1920
+        },
+        {
+          "id": 2002341,
+          "height": 720,
+          "image_id": "sc16x0l",
+          "width": 1280
         }
       ],
       "slug": "go-vacation--1",
@@ -45826,6 +45940,24 @@
           },
           "developer": false,
           "publisher": false
+        },
+        {
+          "id": 430224,
+          "company": {
+            "id": 1119,
+            "name": "Monolith Soft"
+          },
+          "developer": false,
+          "publisher": false
+        },
+        {
+          "id": 430225,
+          "company": {
+            "id": 4103,
+            "name": "SRD Co., Ltd."
+          },
+          "developer": false,
+          "publisher": false
         }
       ],
       "name": "Splatoon 3",
@@ -54028,6 +54160,24 @@
           },
           "developer": false,
           "publisher": true
+        },
+        {
+          "id": 430227,
+          "company": {
+            "id": 321,
+            "name": "Tose"
+          },
+          "developer": false,
+          "publisher": false
+        },
+        {
+          "id": 430226,
+          "company": {
+            "id": 1119,
+            "name": "Monolith Soft"
+          },
+          "developer": false,
+          "publisher": false
         }
       ],
       "name": "Splatoon 2",

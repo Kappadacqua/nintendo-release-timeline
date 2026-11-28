@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-27T12:13:41.433Z",
+  "generatedAt": "2026-11-28T11:41:59.228Z",
   "games": [
     {
       "id": "free-update:arms",
@@ -3821,15 +3821,15 @@
             "value": 83,
             "scale": 100,
             "normalized": 83,
-            "count": 34
+            "count": 35
           }
         },
         "user": {
           "metacritic": {
-            "value": 6.4,
+            "value": 6.5,
             "scale": 10,
-            "normalized": 64,
-            "count": 241
+            "normalized": 65,
+            "count": 247
           },
           "backloggd": null
         }
@@ -3917,6 +3917,10 @@
           {
             "date": "2026-11-23",
             "normalized": 64
+          },
+          {
+            "date": "2026-11-28",
+            "normalized": 65
           }
         ]
       }
